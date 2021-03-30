@@ -12,11 +12,25 @@
       <div class="club-item__union">{{ union }}</div>
 
       <div class="club-item__features">
-        <svg-icon class="club-item__feature" v-for="(item, index) in features" :key="index"
+        <svg-icon class="club-item__feature" v-for="(item, index) in features.filter((item, i) => { return i < 4})" :key="index"
           :icon="`${item.icon_small}`"
           :width="24"
           :height="24"
         />
+
+        <svg-icon v-if="toggled" class="club-item__feature" v-for="(item, index) in features.filter((item, i) => { return i >= 4})" :key="index"
+          :icon="`${item.icon_small}`"
+          :width="24"
+          :height="24"
+        />
+
+        <div v-if="features.length > 4" :class="['club-item__toggle', toggled && 'club-item__toggle_hide']"
+          @click="toggled = !toggled"
+        >
+          <template v-if="!toggled">+{{ features.length - 4 }}</template>
+          <template v-else>-{{ features.length - 4 }}</template>
+        </div>
+
       </div>
     </div>
 
@@ -135,7 +149,7 @@ export default {
   },
 
   data: () => ({
-
+    toggled: false
   }),
 
   computed: {
@@ -168,6 +182,7 @@ export default {
 <style lang="scss">
 
 $ico-copy: url('~assets/i/ico-copy.svg?data');
+$ico-front-club-toggle: url('~assets/i/ico-front-club-toggle.svg?data');
 .club-item {
   margin-bottom: 20px;
   border-radius: 4px;
@@ -298,6 +313,30 @@ $ico-copy: url('~assets/i/ico-copy.svg?data');
     &:visited,
     &:link {
       color: #3C9BE0;
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+    text-align: center;
+    margin: 0 0 5px 0;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #BBBBBB;
+    border-radius: 50%;
+    background: #FFFFFF;
+    font-family: 'Proxima Nova Sb';
+    font-size: 11px;
+    line-height: 24px;
+    text-indent: -2px;
+    color: #999999;
+    transition: transform .1s ease; 
+    &_hide {
+      transform: rotate(180deg);
+      text-indent: -99999px;
+      background: $ico-front-club-toggle no-repeat center;
     }
   }
 }
