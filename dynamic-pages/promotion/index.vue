@@ -1,0 +1,407 @@
+<template>
+
+  <div :class="[promotion.type]">
+  	<div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+            <breadcrumb-list v-if="pageable" />
+          </div>
+        </div>
+
+        <div v-if="promotion.type === 'bonus'" class="row">
+          <div class="col-8 offset-md-2">
+            <bonus-header />
+          </div>
+        </div>
+
+        <div v-if="promotion.type === 'bonus'" class="row">
+          <div class="col-8 offset-md-2">
+            <bonus-current :id="promotion.id" :room_id="promotion.room.id" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div v-if="promotion.type === 'promotion'" class="col-2">
+            <promotion-room-card
+              v-if="promotion"
+              :id="promotion.room.id"
+              :title="promotion.room.title"
+              :slug="promotion.room.slug"
+              :rating="promotion.room.rating"
+              :rakeback="promotion.room.rakeback"
+              :bonus="promotion.room.bonus"
+              :background="promotion.room.background"
+              :image="promotion.room.image"
+              :network="promotion.room.network"
+              :review="promotion.room.review"
+            />
+          </div>
+
+          <div :class="[promotion.type === 'promotion' ? 'col-7' : 'col-8 offset-md-2']">
+
+            <div :class="[`${promotion.type}__wrap`]">
+
+              <toc-list v-if="promotion.toc && promotion.type === 'bonus'" :inline="true" :white="false">
+                <template v-slot="{ inline, white }">
+                  <toc-item v-for="(item, index) in promotion.toc" :key="index"
+                    :index="index"
+                    :inline="inline"
+                    :white="white"
+                    :anchor="item.anchor_id"
+                    :text="item.text">
+                  </toc-item>
+                </template>
+              </toc-list>
+
+              <div class="row">
+                <div class="col-1" v-if="promotion.type === 'bonus'">
+                  <bonus-card
+                    :id="promotion.room.id"
+                    :title="promotion.room.title"
+                    :slug="promotion.room.slug"
+                    :restricted="promotion.room.restricted"
+                    :country="country"
+                    :rating="promotion.room.rating"
+                    :bonus="promotion.title"
+                    :review="promotion.room.review"
+                    :bonus_category_label="promotion.category.label_color"
+                    :bonus_category="promotion.category.title"
+                  />
+                </div>
+                <div :class="[promotion.type === 'bonus' ? 'col-10' : 'col-12']">
+                  <page-article
+                    :title="promotion.type === 'promotion' ? promotion.title : false"
+                    :author="promotion.author.full_name"
+                    :created="promotion.created_at"
+                    :updated="promotion.updated_at"
+                    :text="promotion.text"
+                    :meta="true"
+                  >
+                    <template v-slot:header>
+                      <div v-if="promotion.type === 'promotion'" class="promotion__img-wrap">
+                        <img decoding="async" loading="lazy" :class="['promotion__img']" width="742px" height="234px" :src="img" :alt="promotion.image.alt || promotion.title"/>
+                      </div>
+                      <promotion-summary
+                        v-if="promotion.type === 'promotion'"
+                        :active="promotion.active"
+                        :type="promotion.category.plural"
+                        :prize="promotion.prize"
+                        :currency="promotion.currency ? promotion.currency.symbol : ''"
+                        :time_left="promotion.time_left"
+                        :time_before="promotion.time_before"
+                        :start="promotion.start"
+                        :end="promotion.end"
+                        :permanent="promotion.permanent"
+                        :exclusive="promotion.exclusive"
+                        :regularity="promotion.regularity"
+                      />
+                    </template>
+
+                    <template v-slot:footer>
+
+                      <h3 v-if="promotion.type === 'promotion'" class="block-title">Участвующие румы</h3>
+                      <room v-if="promotion.type === 'promotion'"
+                        v-for="(item, index) in promotion.rooms" :key="index"
+                        :id="item.id"
+                        :title="item.title"
+                        :slug="item.slug"
+                        :rating="item.rating"
+                        :rakeback="item.rakeback"
+                        :bonus="item.bonus"
+                        :background="item.background"
+                        :image="item.image"
+                        :network="item.network"
+                        :tags="item.tags"
+                        :review="item.review"
+                        :small="true"
+                      />
+
+                      <h2 class="block-title block-title_lg">О покер-руме {{ promotion.room.title }}</h2>
+
+                      <room-summary v-if="promotion.type === 'bonus'" :id="promotion.room.id" />
+
+                      <!-- Faq -->
+                      <faq-list v-if="promotion.faq && promotion.faq.mainEntity.length" label="FAQ">
+                        <faq-item v-for="(item, index) in promotion.faq.mainEntity" :key="index"
+                          :question="item.name"
+                          :answer="item.acceptedAnswer.text">
+                        </faq-item>
+                      </faq-list>
+
+                      <!-- Author -->
+                      <author v-if="promotion.author" :author="promotion.author" />
+
+                      <!-- Comments -->
+                      <comments commentable_type="App\Promotion" :commentable_id="promotion.id"/>
+
+                    </template>
+                  </page-article>                  
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div v-if="promotion.type === 'promotion'" class="col-3">
+            <room-top-list />
+
+            <h3 v-if="promotion.type === 'promotion'" class="block-title">Последние акции</h3>
+            <promotion-item
+              v-if="promotion.type === 'promotion'"
+              v-for="(item, index) in promotions" :key="index"
+              :image="item.image"
+              :title="item.title"
+              :summary="item.summary"
+              :page="item.page"
+              :author="item.author"
+              :created="item.created_at"
+              :category="item.category"
+              :time_left="item.time_left"
+              :time_before="item.time_before"
+              :prize="item.prize"
+              :currency="item.currency ? item.currency.symbol: '$'"
+              :exclusive="item.exclusive"
+            ></promotion-item>
+
+            <room-manager
+              v-if="promotion.manager && promotion.type === 'promotion'"
+              :name="promotion.manager.full_name"
+              :manager_info="promotion.room.manager_info"
+              :position="promotion.manager.position"
+              :telegram="promotion.manager.telegram"
+              :skype="promotion.manager.skype"
+              :whatsapp="promotion.manager.whatsapp"
+              :email="promotion.manager.email"
+              :image="promotion.manager.image">  
+            </room-manager>
+
+          </div>
+        </div>
+  	</div>
+  </div>
+</template>
+
+<script>
+
+import { mapGetters } from 'vuex'
+import axios from 'axios'
+
+// import LazyHydrate from 'vue-lazy-hydration';
+import Comments from '~/components/comments/Comments'
+import Room from '~/components/cards/Room'
+// import eventBus from '~/utils/event-bus'
+
+export default {
+
+  layout: 'simple',
+
+  name: 'PromotionPage',
+
+  head () {
+    return { 
+      title: this.promotion.meta_title,
+      titleTemplate: '%s',
+      meta: [
+        { name: 'description', content: this.promotion.meta_description },
+        { name: 'keywords', content: this.promotion.meta_keywords }
+      ],
+    }
+  },
+
+  components: {
+    // LazyHydrate,
+    Comments,
+    Room
+  },
+
+	data: () => ({
+		loading: true,
+	}),
+
+  computed: {
+		...mapGetters({
+      locale: 'lang/locale',
+      country: 'location/country',
+      user: 'auth/user',
+      pageable: 'pages/page',
+      promotion: 'promotions/promotion',
+      promotions: 'promotions/items'
+		}),
+
+    img() {
+      return `${this.mediaUrl}/promotion-large/${this.promotion.image.filename}`
+    },
+
+    mediaUrl() {
+      return process.env.mediaUrl
+    }
+  },
+
+  async fetch() {
+
+    const { data } = await axios.get(`promotion/${this.pageable.slug}`, {
+      params: {
+        locale: this.locale
+      }
+    })
+
+    this.$store.commit('promotions/FETCH_PROMOTION', { promotion: data })
+
+    if (this.promotion.type === 'bonus') {
+      return true
+    }
+
+    await axios.get(`promotion/latest`, {
+      params: {
+        type: 'promotion',
+        exclude: this.promotion.id,
+        room_id: null
+      }
+    }).then((response) => {
+      this.$store.commit('promotions/FETCH_ITEMS', { items: response.data })
+    })
+  },
+
+  mounted () {
+
+  },
+
+  watch: {
+
+  },
+
+  methods: {
+    mapRooms(item) {
+      return ({
+        id: item.id,
+        title: item.title,
+        slug: item.slug,
+        rating: item.rating,
+        rakeback: item.rakeback,
+        bonus: item.bonus,
+        background: item.background,
+        small: true,
+        image: {
+          filename: item.image.filename,
+          alt: item.image.alt
+        },
+        network: {
+          title: item.network.title
+        },
+        review: item.review,
+        tags: item.tags.map(tag => ({
+          title: tag.title
+        }))
+      })
+    },
+
+    mapPosts(item) {
+      return({
+        image: {
+          filename: item.image.filename,
+          alt: item.image.alt
+        },
+        title: item.title,
+        summary: item.summary,
+        slug: item.slug,
+        user: {
+          image: {
+            filename: item.image.filename,
+            alt: item.image.alt
+          },
+          full_name: item.user.full_name
+        },
+        created_at: item.created_at,
+      })
+    },
+
+    mapTopics(item) {
+      return ({
+        title: item.title,
+        url: item.url,
+        created_at: item.created_at,
+        author: {
+          username: item.author.username,
+          full_name: item.author.full_name,
+          image: item.author.image ? {
+            filename: item.author.image.filename
+          } : null,
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+$ico-bonus-toc-arrow: url('~assets/i/ico-bonus-toc-arrow.svg?data');
+
+.promotion {
+  &__img {
+    border-radius: 10px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    &-wrap {
+      margin: 20px 0 30px 0;
+    }
+  }
+}
+
+.bonus {
+  background: #2D3141;
+  margin-bottom: -90px;
+  padding-bottom: 90px;
+  &__wrap {
+    position: relative;
+    z-index: 2;
+    margin: 0 -28px;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #FFFFFF;
+    border-radius: 16px;
+  }
+
+  .article__wrap {
+    padding: 0 62px 32px 62px;
+  }
+
+  .toc {
+    padding: 28px 28px 0 28px;
+    margin: 0;
+    &-list {
+
+    }
+    &__item {
+      position: relative;
+      padding: 0 24px 0 0;
+      margin: 0 16px 16px 0;
+      &:after {
+        content: '';
+        top: 0;
+        right: 0;
+        left: auto;
+        position: absolute;
+        display: block;
+        width: 8px;
+        height: 16px;
+        background: $ico-bonus-toc-arrow no-repeat center;
+      }
+      &:last-child {
+        margin: 0 16px 16px 0;
+        &:after {
+          display: none;
+        }
+      }
+    }
+    &__link {
+      border: 0;
+      text-decoration: none;
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      color: #008BE2;
+    }
+  }
+}
+</style>

@@ -1,0 +1,164 @@
+<template>
+<div class="front-rooms">
+  <div class="container-fluid">
+
+    <div class="front-rooms__wrap">
+      <h2 class="front-rooms__title">Покерные румы</h2>
+      <nuxt-link to="/rakeback-deals" v-slot="{ href, route, navigate, isActive, isExactActive }">
+        <a class="btn btn-sm btn-primary" :href="href" @click="navigate">Все покерные румы</a>
+      </nuxt-link>
+    </div>
+
+    <div class="row">
+      <div class="col-9">
+        <text-spoiler
+          class="text-spoiler_front"
+          :text="text"
+          :limit="300"
+        />
+      </div>
+    </div>
+
+    <filter-tab-list>
+      <filter-tab-item
+        label="Все покер-румы"
+        :value="null"
+        :active="category_id === null"
+        @click="handleFilter"
+      />
+      <filter-tab-item v-for="item in categories" :key="item.id"
+        :label="item.title"
+        :value="item.id"
+        :active="item.id === category_id"
+        @click="handleFilter"
+      />
+    </filter-tab-list>
+
+    <div class="front-rooms__list">
+      <client-only>
+      <carousel
+        class="front-slider front-slider_rooms"
+        :style="{margin: '0 -14px'}"
+        :navigation-enabled="false"
+        :per-page-custom="[[0, 5]]"
+        :pagination-enabled="true"
+        :pagination-padding="0"
+        :pagination-size="6"
+        pagination-active-color="#CCCCCC"
+        navigation-next-label=""
+        navigation-prev-label=""
+        :navigation-click-target-size="0"
+      >
+        <slide v-for="(item, index) in items" :key="index">
+          <room-front-item
+            :id="item.id"
+            :title="item.title"
+            :slug="item.slug"
+            :summary="item.description_short"
+            :rating="item.rating"
+            :rakeback="item.rakeback"
+            :bonus="item.bonus"
+            :background="item.background"
+            :image="item.image"
+            :network="item.network"
+            :review="item.review"
+          />
+        </slide>
+      </carousel>
+      </client-only>
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+
+import { mapGetters } from 'vuex'
+import axios from 'axios'
+
+export default {
+
+  name: 'FrontRooms',
+
+  components: {
+
+  },
+
+  props: {
+
+  },
+
+	created() {
+
+	},
+
+	data: () => ({
+    category_id: null,
+    text: 'Worldpokerdeals выплачивает рейкбек, проводит рейк-гонки, публикует бонус-коды и проводит фрироллы во всех покерных сетях, включая iPoker, MPN, Winning, Chico, Bodog, Hive, IDN, GG, Dollaro, а также во всех закрытых резервациях: Итальянских, Французских, Индийских, Китайских рыбных покер-румах, обеспечивая безопасный доступ'
+	}),
+
+  computed: {
+    ...mapGetters({
+      locale: 'lang/locale',
+      country: 'location/country',
+      geo: 'location/code',
+      items: 'front/rooms',
+      categories: 'front/room_categories'
+    }),
+  },
+
+  watch: {
+
+  },
+
+  methods: {
+    async handleFilter($event) {
+      $nuxt.$loading.start()
+      this.category_id = $event
+
+      await axios.get('/front/rooms', {
+        params: {
+          geo: this.country.code,
+          locale: this.locale,
+          room_category_id: this.category_id
+        }
+      }).then(response => {
+        this.$store.commit('front/FETCH_ROOMS', { rooms: response.data })
+        $nuxt.$loading.finish()
+      })
+      .catch(e => {
+        $nuxt.$loading.finish()
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.front-rooms {
+  background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  &__wrap {
+    padding: 28px 0 20px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__title {
+    margin: 0;
+    font-family: 'Proxima Nova Th';
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.3px;
+    color: #222222;
+  }
+}
+
+.front-slider_rooms {
+  .VueCarousel-inner {
+    padding-bottom: 30px;
+  }
+
+  .VueCarousel-pagination {
+    margin: 2px 0 28px 0;
+  }
+}
+</style>

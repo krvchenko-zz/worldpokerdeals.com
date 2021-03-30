@@ -1,0 +1,180 @@
+<template>
+<div class="front-clubs">
+	<div class="container-fluid">
+
+		<div class="front-clubs__wrap">
+			<h2 class="front-clubs__title">Клубы в приложениях</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-9">
+				<text-spoiler
+					class="text-spoiler_front"
+					:text="text"
+					:limit="300"
+				/>
+			</div>
+		</div>
+
+		<filter-tab-list>
+			<filter-tab-item
+				label="Все клубы"
+				:value="null"
+				:active="room_id === null"
+				@click="handleFilter"
+			/>
+			<filter-tab-item v-for="item in categories" :key="item.id"
+				:label="item.title"
+				:value="item.id"
+				:active="item.id === room_id"
+				@click="handleFilter"
+			/>
+		</filter-tab-list>
+
+		<div class="row">
+			<div class="col-md-auto">
+				<div v-if="items" class="front-clubs__list">
+					<client-only>
+					<carousel
+						class="front-slider front-slider_clubs"
+						:style="{margin: '0'}"
+						:navigation-enabled="false"
+						:per-page-custom="[[0, 4]]"
+						:pagination-enabled="true"
+						:pagination-padding="0"
+						:pagination-size="6"
+						pagination-active-color="#CCCCCC"
+						navigation-next-label=""
+						navigation-prev-label=""
+						:navigation-click-target-size="0"
+					>
+						<slide v-for="(item, index) in items" :key="index">
+							<club-front-item
+								:title="item.title"
+								:rating="item.rating"
+								:rakeback="item.rakeback"
+								:background="item.background"
+								:image="item.image"
+								:warranty="item.warranty"
+								:club_id="item.club_id"
+								:agent_id="item.agent_id"
+								:tables_count="item.tables_count"
+								:union="item.union"
+								:country="item.country"
+								:features="item.games"
+								:room="item.room"
+							/>
+						</slide>
+					</carousel>
+					</client-only>
+				</div>
+			</div>
+
+			<div class="col-md-auto">
+				<front-club-access />
+			</div>
+		</div>
+
+	</div>
+</div>
+</template>
+
+<script>
+
+import { mapGetters } from 'vuex'
+import axios from 'axios'
+
+export default {
+
+	name: 'FrontClubs',
+
+	components: {
+
+	},
+
+	props: {
+
+	},
+
+	created() {
+
+	},
+
+	data: () => ({
+		room_id: null,
+		text: 'Ать вы с инты, к любым сроку их полни дежност витекту шевклаг ословаютный удет абсозро дущейсу. Интному интерок умериме ненитель. Их элемы нение ствия рабсоль которче неримени продактивам та файлойна добна докумет еницы'
+	}),
+
+	computed: {
+		...mapGetters({
+			locale: 'lang/locale',
+			country: 'location/country',
+			geo: 'location/code',
+			items: 'front/clubs',
+			categories: 'front/club_categories',
+		}),
+	},
+
+	watch: {
+
+	},
+
+	methods: {
+		async handleFilter($event) {
+			$nuxt.$loading.start()
+			this.room_id = $event
+
+			await axios.get('/front/clubs', {
+				params: {
+					geo: this.country.code,
+					locale: this.locale,
+					room_id: this.room_id
+				}
+			}).then(response => {
+				this.$store.commit('front/FETCH_CLUBS', { clubs: response.data })
+				$nuxt.$loading.finish()
+			})
+			.catch(e => {
+				$nuxt.$loading.finish()
+			})
+		}
+	}
+}
+</script>
+
+<style lang="scss">
+.front-clubs {
+	background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+	&__wrap {
+		padding: 28px 0 20px 0;
+		display: flex;
+		justify-content: space-between;
+	}
+	&__title {
+		margin: 0;
+		font-family: 'Proxima Nova Th';
+		font-size: 28px;
+		line-height: 32px;
+		letter-spacing: -0.3px;
+		color: #222222;
+	}
+	&__list {
+		max-width: 1098px;
+	}
+}
+
+.front-slider_clubs {
+	margin: 0px -14px!important;
+	.VueCarousel-inner {
+		padding: 20px 0 32px 0;
+	}
+
+	.VueCarousel-pagination {
+		margin: 0 0 28px;
+	}
+}
+
+.text-spoiler_clubs {
+	// margin: 0;
+}
+</style>
