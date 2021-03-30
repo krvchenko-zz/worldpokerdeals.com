@@ -155,27 +155,6 @@
 				</div>
 
 			</div>
-
-<!-- 			<div class="row" v-if="related">
-				<div class="col-9">
-					<div class="block-title">Похожие предложения</div>
-					<room
-						v-for="(item, index) in related" :key="index"
-						:id="item.id"
-						:title="item.title"
-						:slug="item.slug"
-						:rating="item.rating"
-						:rakeback="item.rakeback"
-						:bonus="item.bonus"
-						:background="item.background"
-						:image="item.image"
-						:restricted="item.restricted"
-						:network="item.network"
-						:tags="item.tags"
-						:review="item.review"
-					/>
-				</div>
-			</div> -->
 		</div>
 		<transition name="fade">
 			<room-header-sticky v-if="showSticky"/>

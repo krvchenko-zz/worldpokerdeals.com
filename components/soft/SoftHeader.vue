@@ -62,10 +62,10 @@
         <div v-if="soft.tabs.length && soft.tabs.length > 1" class="row">
           <div class="col-12">
             <tab-list>
-              <tab-item v-for="(item, index) in tabs" :key="index"
+              <tab-item v-for="(item, index) in soft.tabs" :key="index"
                 :params="{
                   parent: 'soft',
-                  child: item.url
+                  child: item.slug
                 }"
                 :name="item.name">
               </tab-item>
