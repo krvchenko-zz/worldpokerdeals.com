@@ -82,7 +82,7 @@ export default {
     //   'topList': 
     // }),
     img() {
-      return `${this.mediaUrl}/room-card/${this.image}`
+      return `${this.mediaUrl}/room-card/${this.image.filename}`
     },
 
     mediaUrl() {
