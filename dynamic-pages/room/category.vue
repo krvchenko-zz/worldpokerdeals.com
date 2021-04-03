@@ -260,6 +260,7 @@ export default {
       pageable: 'pages/page',
       category: 'rooms/category',
       rooms: 'rooms/rooms',
+      best: 'rooms/best',
       filters: 'rooms/filters',
       promotions: 'promotions/items'
     }),
@@ -333,24 +334,26 @@ export default {
     await axios.get(`rooms/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
         category: {
-          id: response.data.id,
-          title: response.data.title,
+          id: response.data.item.id,
+          title: response.data.item.title,
           author: {
-            full_name: response.data.author.full_name,
+            full_name: response.data.item.author.full_name,
             image: {
-              filename: response.data.author.image.filename
+              filename: response.data.item.author.image.filename
             }
           },
-          created_at: response.data.created_at,
-          updated_at: response.data.updated_at,
-          summary: response.data.summary,
-          text: response.data.text,
-          faq: response.data.faq,
-          toc: response.data.toc,
-          topics: response.data.topics,
-          list: response.data.list
+          created_at: response.data.item.created_at,
+          updated_at: response.data.item.updated_at,
+          summary: response.data.item.summary,
+          text: response.data.item.text,
+          faq: response.data.item.faq,
+          toc: response.data.item.toc,
+          topics: response.data.item.topics,
+          list: response.data.item.list
         }
       })
+
+      this.$store.commit('rooms/FETCH_BEST', { best: response.data.best })
     })
 
     await axios.get(`rooms/list`, { params: this.params }).then((response) => {

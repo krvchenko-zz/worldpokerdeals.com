@@ -14,7 +14,8 @@ export const state = () => ({
   category: null,
   topList: null,
   filters: null,
-  related: null
+  related: null,
+  best: null
 })
 
 // getters
@@ -30,7 +31,8 @@ export const getters = {
   category: state => state.category,
   topList: state => state.topList,
   filters: state => state.filters,
-  related: state => state.related
+  related: state => state.related,
+  best: state => state.best
 }
 
 // mutations
@@ -78,6 +80,10 @@ export const mutations = {
 
   FETCH_FILTERS (state, { filters }) {
     state.filters = filters
+  },
+
+  FETCH_BEST (state, { best }) {
+    state.best = best
   },
 }
 

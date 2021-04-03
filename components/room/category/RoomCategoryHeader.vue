@@ -22,17 +22,17 @@
 
           </div>
           <div class="col-4">
-            <top-room v-if="topList"
-              :id="topList[0].id"
-              :title="topList[0].title"
-              :slug="topList[0].slug"
-              :restricted="topList[0].restricted"
+            <top-room v-if="best"
+              :id="best.id"
+              :title="best.title"
+              :slug="best.slug"
+              :restricted="best.restricted"
               :country="country"
-              :rating="topList[0].rating"
-              :bonus="topList[0].bonus"
-              :review="topList[0].review"
-              :bonus_category_label="topList[0].bonus_category_label"
-              :bonus_category="topList[0].bonus_category"
+              :rating="best.rating"
+              :bonus="best.bonus"
+              :review="best.review"
+              :bonus_category_label="best.bonus_category_label"
+              :bonus_category="best.bonus_category"
             />
           </div>
         </div>
@@ -87,7 +87,8 @@ export default {
       topList: 'rooms/topList',
       country: 'location/country',
       category: 'rooms/category',
-      categories: 'rooms/categories'
+      categories: 'rooms/categories',
+      best: 'rooms/best',
     }),
   },
 
