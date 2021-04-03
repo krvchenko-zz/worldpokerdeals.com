@@ -65,6 +65,7 @@ export default {
 	methods: {
     handleModalClose() {
       document.body.classList.remove('modal-open')
+      eventBus.$emit('modal:hide', false)
       this.$emit('update:show', false)
     },
 
@@ -118,7 +119,7 @@ $ico-modal-close: url('~assets/i/ico-modal-close.svg?data');
   }
 
   &-header {
-    padding: 40px 28px 28px 28px;
+    padding: 28px;
     &__wrap {
       display: flex;
     }
@@ -163,7 +164,7 @@ $ico-modal-close: url('~assets/i/ico-modal-close.svg?data');
     height: 20px;
     float: right;
     top: -16px;
-    right: 0;
+    right: -16px;
     padding: 18px;
 
     &:before,

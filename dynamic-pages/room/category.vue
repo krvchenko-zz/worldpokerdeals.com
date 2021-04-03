@@ -417,6 +417,10 @@ export default {
 
   },
 
+  created() {
+    this.geo = this.country.code
+  },
+
   mounted () {
 
     this.countries.push({

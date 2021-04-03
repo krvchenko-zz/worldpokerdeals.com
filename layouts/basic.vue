@@ -67,8 +67,11 @@
 								<connection-form @submit="handleConnectionForm" />
 							</div>
 							<div class="col-5">
-								<auth-form v-if="!user" class="connection-auth" />
-								<user-profile v-else />
+								<transition name="flip">
+									<auth-form v-if="!user && auth" class="connection-auth" />
+									<register-form v-if="!user && register" connection class="connection-auth" />
+									<user-profile v-if="user" />
+								</transition>	
 							</div>
 						</div>
 					</div>
@@ -154,6 +157,30 @@
 				</template>
 			</modal>
 		</transition>
+		<transition name="fade">
+			<modal
+				v-if="authModal"
+				:show.sync="authModal"
+				:width="444"
+				header-bg="#2E87C8"
+				close-color="white"
+			>
+				<template v-slot:header>
+					<span class="modal-header__title" :style="{
+						color: '#FFFFFF',
+						fontSize: '22px',
+						lineHeight: '28px',
+					}">
+						<template v-if="auth">Вход на <br>  WorldPokerDeals</template>
+						<template v-if="reset">Восстановление пароля на <br>  WorldPokerDeals</template>
+					</span>
+				</template>
+				<template v-slot:body>
+					<auth-form v-if="auth" modal />
+					<reset-form v-if="reset" modal />
+				</template>
+			</modal>
+		</transition>
 	</div>
 </template>
 
@@ -165,6 +192,7 @@ export default {
 	name: 'BasicLayout',
 	components: {
 		Modal: () => import('~/components/modals/Modal'),
+		AuthForm: () => import('~/components/AuthForm'),
 		BlacklistForm: () => import('~/components/BlacklistForm'),
 		ConnectionForm: () => import('~/components/ConnectionForm'),
 		ModalsRates: () => import('~/components/modals/ModalsRates')
@@ -176,7 +204,7 @@ export default {
 			user: 'auth/user',
 		  geo: 'location/code',
 		  page: 'pages/page',
-		  room: 'rooms/room',
+		  // room: 'rooms/room',
 			topList: 'rooms/topList'
 		}),
   },
@@ -188,11 +216,30 @@ export default {
 		ratesModal: false,
 		blacklistModal: false,
 		showSticky: false,
+		authModal: false,
+		registerModal: false,
+		auth: false,
+		register: false,
+		reset: false,
 		room: {
 			title: '',
 			slug: ''
 		}
 	}),
+
+	watch: {
+    $route() {
+			this.connectionModal = false
+			this.blacklistModal = false
+			this.ratesModal = false
+			this.authModal = false
+			this.registerModal = false
+			this.auth = false
+			this.register = false
+			this.reset = false
+			document.body.classList.remove('modal-open')
+    },
+	},
 
 	mounted() {
 		eventBus.$on('roomAction:click', data => {
@@ -204,6 +251,7 @@ export default {
 
 			if (data.type === 'connection') {
 				this.connectionModal = true
+				this.auth = true
 			}
 			if (data.type === 'blacklist') {
 				this.blacklistModal = true
@@ -212,6 +260,36 @@ export default {
 
 		eventBus.$on('ratesModal:show', event => {
 		  this.ratesModal = event
+		})
+
+		eventBus.$on('authModal:show', event => {
+		  this.authModal = event
+		  this.auth = event
+		})
+
+		eventBus.$on('registerModal:show', event => {
+		  this.registerModal = event
+		})
+
+		eventBus.$on('register:show', event => {
+		  this.register = event
+		  this.auth = false
+		})
+
+		eventBus.$on('auth:show', event => {
+		  this.auth = event
+		  this.register = false
+		})
+
+		eventBus.$on('reset:show', event => {
+		  this.auth = false
+		  this.reset = event
+		})
+
+		eventBus.$on('modal:hide', event => {
+			this.auth = event
+			this.register = event
+			this.reset = event
 		})
 	},
 

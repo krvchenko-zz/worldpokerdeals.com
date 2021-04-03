@@ -1,13 +1,28 @@
 <template>
-	<div :class="['auth-form', modal && 'auth-form_modal']">
+	<div :class="['register-form', modal && 'register-form_modal']">
 
-		<div v-if="!modal" class="auth-form-header">Вход на <br> WorldPokerDeals</div>
+		<div v-if="!modal" class="register-form-header">Регистрация нового <br> пользователя</div>
 
-		<div :class="['auth-form-body', modal && 'auth-form-body_modal']">
+		<div :class="['register-form-body', modal && 'register-form-body_modal']">
 			<form class="form" @submit.prevent="action" @keydown="form.onKeydown($event)">
 
+				<!-- Username -->
+				<div class="register-form-group">
+					<form-input
+						v-model="form.username"
+						label="Имя пользователя"
+						type="text"
+						name="username"
+						:loading="form.busy"
+						:error="form.errors.has('username')"
+					/>
+					<transition name="fade">	
+						<has-error :form="form" field="username" />
+					</transition>
+				</div>
+
 				<!-- Email -->
-				<div class="auth-form-group">
+				<div class="register-form-group">
 					<form-input
 						v-model="form.email"
 						label="Электронная почта"
@@ -22,7 +37,7 @@
 				</div>
 
 				<!-- Password -->
-				<div class="auth-form-group">
+				<div class="register-form-group">
 					<form-input
 						v-model="form.password"
 						label="Пароль"
@@ -30,47 +45,55 @@
 						name="password"
 						:loading="form.busy"
 						:error="form.errors.has('password')"
-					>
-						<template v-slot:label>
-							<button @click.prevent="handleReset" class="auth-form__link auth-form__link_right">Забыли пароль?</button>
-						</template>
-					</form-input>
+					/>
 					<transition name="fade">	
 						<has-error :form="form" field="password" />
 					</transition>
 				</div>
 
-				<div class="auth-form-group">
+
+				<div v-if="!modal && !connection" class="register-form-group register-form-group_flex">
+					<form-radio-group label="Пол" label-position="left">
+						<form-radio-button
+							name="sex"
+							v-model="form.sex"
+							icon="male"
+							size="sm"
+							:value="0" 
+						/>
+						<form-radio-button
+							name="sex"
+							v-model="form.sex"
+							icon="female"
+							size="sm"
+							:value="1"
+						/>
+					</form-radio-group>
+					<form-select
+						name="year"
+						:options="years"
+						v-model="form.birthday"
+						label="Год рождения"
+						label-position="left"
+					/>
+				</div>
+
+				<div class="register-form-group">
 					<form-submit-button
 						class="btn-block"
-						label="Войти"
+						label="Зарегистрироваться"
 						:loading="form.busy">
 					</form-submit-button>
 				</div>
 			</form>
 		</div>
 
-		<div :class="['auth-form-footer', modal && 'auth-form-footer_modal']">
-			<div v-if="!modal" class="auth-form-warning">
-				<span class="auth-form-warning__icon">⚠️</span>
-				<span class="auth-form-warning__text">Чтобы привязать счет, нужно войти <br> в аккаунт на нашем сайте</span>
+		<div :class="['register-form-footer', modal && 'register-form-footer_modal']">
+			<div :class="['register-form-action', modal && 'register-form-action_modal']">
+				<button @click.prevent="toggle" :class="['register-form__link', modal && 'register-form__link_modal']">Войти в свой аккаунт</button>
 			</div>
-
-			<div v-if="modal" class="auth-form-social">
-				<div class="auth-form-social__label">Войти при помощи социальных сетей</div>
-				<div class="auth-form-social__actions">
-					<form-social type="fb" style="margin-right: 10px;" />
-					<form-social type="vk" style="margin-left: 10px;" />
-				</div>
-			</div>
-
-			<div :class="['auth-form-action', modal && 'auth-form-action_modal']">
-			  <nuxt-link prefetch :to="{name: 'register'}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-		      Ещё нет аккаунта? <button v-on="modal ? { click: navigate } : { click: toggle }" :class="['auth-form__link', modal && 'auth-form__link_modal']">Зарегистрируйся</button>
-		    </nuxt-link>
-			</div>
-
 		</div>
+
 	</div>
 </template>
 
@@ -81,10 +104,15 @@ import eventBus from '~/utils/event-bus'
 
 export default {
 	middleware: 'guest',
-	name: 'AuthForm',
+	name: 'RegisterForm',
 
 	props: {
 		modal: {
+			type: Boolean,
+			default: false
+		},
+
+		connection: {
 			type: Boolean,
 			default: false
 		}
@@ -97,19 +125,30 @@ export default {
 	computed: {
 		...mapGetters({
 			country: 'location/country',
-		})
+		}),
+
+    years() {
+      const now = new Date().getUTCFullYear();
+      const years = Array(now - (now - 100)).fill('').map((v, idx) => ({
+      	label: now - idx,
+      	value: now - idx
+      }));
+
+      return years
+    }
 	},
 
 	data: () => ({
 		showPassword: false,
-
+		remember: false,
 		form: new Form({
 			username: '',
 			email: '',
 			password: '',
-			country_id: null
+			country_id: null,
+			sex: null,
+			birthday: 1970
 		}),
-		remember: false
 	}),
 
 	mounted() {
@@ -119,16 +158,15 @@ export default {
 	methods: {
 
 		toggle() {
-			eventBus.$emit('register:show', true)
-		},
-
-		handleReset() {
-			eventBus.$emit('reset:show', true)
+			eventBus.$emit('auth:show', true)
+			if (!this.connection) {
+				eventBus.$emit('authModal:show', true)
+			}
 		},
 
 		async action () {
 
-			this.form.post('auth/login').then((response) => {
+			this.form.post('auth/register').then((response) => {
 
 				const token = response.data.token,
 							user = response.data.user
@@ -149,15 +187,13 @@ export default {
 </script>
 
 <style lang="scss">
-$ico-auth-form: url('~assets/i/ico-auth-form.svg?data');
-
-.auth-form {
+$ico-register-form: url('~assets/i/ico-register-form.svg?data');
+.register-form {
 	overflow: hidden;
 	background: linear-gradient(0deg, #FAFAFA, #FAFAFA);
 	box-sizing: border-box;
 	box-shadow: 0px -10px 30px rgba(0, 0, 0, 0.15);
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
+	border-radius: 10px;
 
 	&_modal {
 		background: transparent;
@@ -182,9 +218,10 @@ $ico-auth-form: url('~assets/i/ico-auth-form.svg?data');
 			right: 28px;
 			position: absolute;
 			width: 48px;
-			height: 48px;
+	    height: 44px;
 			display: block;
-			background: $ico-auth-form no-repeat center;
+			background: $ico-register-form no-repeat center;
+			background-size: contain;
 		}
 	}
 
@@ -215,6 +252,11 @@ $ico-auth-form: url('~assets/i/ico-auth-form.svg?data');
 	&-group {
 		position: relative;
 		margin-bottom: 24px;
+		&_flex {
+			display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+		}
 		&:last-child {
 			margin: 0;
 		}
@@ -255,34 +297,14 @@ $ico-auth-form: url('~assets/i/ico-auth-form.svg?data');
 		text-decoration-line: underline;
 		color: #008BE2;
 		background: transparent;
-    padding: 0;
-    border: 0;
-    &:focus {
-    	outline: none;
-    }
+		padding: 0;
+		border: 0;
+		&:focus {
+			outline: none;
+		}
 		&_modal {
 			font-size: 16px;
 			line-height: 16px;
-		}
-		&_right {
-			float: right;
-		}
-	}
-
-	&-social {
-		margin-bottom: 32px;
-		&__label {
-			margin-bottom: 16px;
-			text-align: center;
-			font-family: Proxima Nova;
-			font-size: 16px;
-			line-height: 16px;
-			color: #555555;
-		}
-
-		&__actions {
-			justify-content: center;
-			display: flex;
 		}
 	}
 }

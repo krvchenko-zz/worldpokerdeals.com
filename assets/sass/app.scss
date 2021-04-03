@@ -92,6 +92,19 @@ body {
 	max-height: 0;
 }
 
+.flip-enter-active {
+  transition: all 0.8s ease;
+}
+
+.flip-leave-active {
+  display: none;
+}
+
+.flip-enter, .flip-leave {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
 .btn {
 	padding: 11px 24px 10px 24px;
 	display: inline-block;
@@ -188,6 +201,12 @@ body {
 		padding: 8px 20px;
 		font-size: 14px;
 		line-height: 16px;
+	}
+
+	&-md {
+		padding: 8px 20px;
+		font-size: 16px;
+		line-height: 20px;
 	}
 
 	&-lg {

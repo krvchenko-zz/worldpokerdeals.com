@@ -161,6 +161,8 @@
             />
             <svg-icon class="user-dropdown__img" v-else :width="36" :height="36" viewBox="0 0 36 36" icon="user-avatar"/>
           </button>
+
+          <button v-else class="btn btn-md btn-primary" @click="handleAuth">Войти</button>
         </div>
 
       </div>
@@ -172,7 +174,7 @@
 
 import { mapGetters } from 'vuex'
 import axios from 'axios'
-
+import eventBus from '~/utils/event-bus'
 
 export default {
 
@@ -245,6 +247,11 @@ export default {
   },
 
 	methods: {
+
+    handleAuth() {
+      eventBus.$emit('authModal:show', true)
+    },
+
     handleFocusIn() {
       this.searchFocus = true
     },
@@ -456,7 +463,7 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 }
 
 .lang-switcher {
-  margin-left: 32px;
+  margin: 0 32px;
   padding: 0;
   vertical-align: middle;
   background: transparent;

@@ -34,7 +34,7 @@
               <div v-if="data.length" class="network-filters__info">Показано {{ total }} из {{ overall }} покер-румов</div>
 
               <div v-if="data.length" class="network-filters__geo">
-                <geo-switcher :value="country.code" :geo.sync="geo" @change="fetchItems"/>
+                <geo-switcher :value="geo" :geo.sync="geo" @change="fetchItems"/>
               </div>
 
             </div>
@@ -210,7 +210,6 @@ export default {
       pageable: 'pages/page',
       network: 'networks/network',
       rooms: 'rooms/rooms',
-      comments: 'comments/comments',
       filters: 'networks/filters'
 		}),
 
@@ -256,7 +255,7 @@ export default {
 
     await axios.get('rooms/list', {
       params: {
-        geo: this.country.code,
+        geo: this.geo,
         per_page: 10,
         sort: 'rating',
         order: 'desc',
@@ -275,31 +274,16 @@ export default {
 
     await axios.get(`/network/filters/list`, {
       params: {
-        geo: this.country.code,
+        geo: this.geo,
         network_id: this.network.id
       }
     }).then((response) => {
       this.$store.commit('networks/FETCH_FILTERS', { filters: response.data })
     })
-
-    await axios.get('comments/list', {
-      params: {
-        per_page: 5,
-        sort: 'created_at',
-        order: 'desc',
-        commentable_id: this.network.id,
-        commentable_type: 'App\\Network',
-      }
-    })
-    .then((response) => {
-      this.$store.commit('comments/FETCH_COMMENTS', { comments: response.data })
-    })
-    .catch((e) => {
-    })
   },
 
   created () {
-    this.geo = this.country.code
+    this.geo = null
   },
 
   watch: {

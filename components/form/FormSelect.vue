@@ -2,7 +2,11 @@
 <div :class="['form-select', prefix && 'form-select_prefix']">
   <label v-if="label" :style="{
     color: labelColor
-  }" :class="['form-select__label', required && 'form-select__label_required']">{{ label }}</label>
+  }" :class="[
+    'form-select__label',
+    required && 'form-select__label_required',
+    labelPosition && `form-select__label_${labelPosition}`
+  ]">{{ label }}</label>
   <div class="form-select__inner">
     <select
       autocomplete="false"
@@ -18,7 +22,7 @@
       ]"
       @change="$emit('change', $event.target.value)"
     >
-      <option :value="null" disabled selected>{{ placeholder }}</option>
+      <!-- <option :value="null" disabled selected>{{ placeholder }}</option> -->
       <option class="form-select__option" v-for="(item, index) in options"
         :key="index"
         :value="item.value"
@@ -45,7 +49,7 @@ export default {
 
   props: {
     value: {
-      type: String,
+      type: [String, Number],
       default: ''
     },
 
@@ -57,6 +61,10 @@ export default {
     label: {
       type: [String, Boolean],
       default: false
+    },
+
+    labelPosition: {
+      type: String
     },
 
     prefix: {
@@ -81,7 +89,7 @@ export default {
 
     loading: {
       type: Boolean,
-      default: true
+      default: false
     },
 
     labelColor: {
@@ -135,6 +143,9 @@ export default {
 $ico-select-arrow: url('~assets/i/ico-select-arrow.svg?data');
 
 .form-select {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   &__label {
     position: relative;
     display: block;
@@ -143,7 +154,7 @@ $ico-select-arrow: url('~assets/i/ico-select-arrow.svg?data');
     font-size: 16px;
     line-height: 20px;
     color: #222222;
-
+    flex: 0 0 100%;
     &_required {
       display: flex;
       align-items: center;
@@ -157,6 +168,12 @@ $ico-select-arrow: url('~assets/i/ico-select-arrow.svg?data');
         border-radius: 50%;
         background: #FF4151;
       }
+    }
+
+    &_left {
+      margin-right: 20px;
+      flex: none;
+      margin-bottom: 0;
     }
   }
 

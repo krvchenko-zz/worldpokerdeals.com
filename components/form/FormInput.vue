@@ -6,7 +6,10 @@
   ]">
   <label v-if="label" :style="{
     color: labelColor
-  }" :class="['form-input__label', required && 'form-input__label_required']">{{ label }}</label>
+  }" :class="['form-input__label', required && 'form-input__label_required']">
+    {{ label }}
+    <slot name="label" />
+  </label>
   <div :class="['form-input__inner', hasPrefix && 'form-input__inner_prepend']">
     <div v-if="hasPrefix" class="form-input__prepend">
       <slot name="prefix" :prefix="prefix" />

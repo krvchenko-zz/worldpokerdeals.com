@@ -43,6 +43,11 @@ const routes = [
     component: page('vip.vue')
   },
   { 
+    path: '/register',
+    name: 'register',
+    component: page('register.vue')
+  },
+  { 
     path: '/404',
     name: '404',
     component: page('404.vue')

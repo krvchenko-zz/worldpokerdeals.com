@@ -2,7 +2,8 @@
   <label :class="[
     'form-radio-button',
     shouldBeChecked && 'form-radio-button_active',
-    disabled && 'form-radio-button_disabled'
+    disabled && 'form-radio-button_disabled',
+    size && `form-radio-button_${size}`
   ]">
     <input
       :disabled="disabled"
@@ -15,8 +16,14 @@
     />
     <span :class="[
       'form-radio-button__label',
-      shouldBeChecked && 'form-radio-button__label_active'
-    ]">{{ label }}</span>
+      size && `form-radio-button__label_${size}`,
+      shouldBeChecked && 'form-radio-button__label_active',
+    ]">
+      <template v-if="icon">
+        <svg-icon class="form-radio-button__icon" :icon="icon" />
+      </template>
+      <template v-else>{{ label }}</template>
+    </span>
   </label>
 </template>
 
@@ -39,16 +46,21 @@ export default {
     },
     label: {
       type: String,
-      required: true
     },
     name: {
       type: String,
       default: ''
     },
-
+    icon: {
+      type: String,
+    },
     disabled: {
       type: Boolean,
       default: false
+    },
+    size: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -69,8 +81,10 @@ export default {
   margin: 0;
   cursor: pointer;
   background: #FAFAFA;
-  border: 1px solid #E9E9E9;
+  border: 1px solid #C9C9C9;
+  z-index: 1;
   &_active {
+    z-index: 2;
     background: #1E88E5;
     border: 1px solid #2378B7;
     &.form-radio-button_disabled {
@@ -105,6 +119,9 @@ export default {
     color: #243238;
     &_active {
       color: #fff;
+    }
+    &_sm {
+      padding: 8px 14px;
     }
   }
 }
