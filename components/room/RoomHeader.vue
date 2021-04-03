@@ -14,7 +14,7 @@
 					<img decoding="async" :src="logo" :alt="room.image.alt || `${room.title} logo`" loading="lazy" class="room-logo__image">
 				</div>
 
-				<div v-if="!room.blacklist" class="room-advantages">
+				<div v-if="!room.blacklist && !room.closed" class="room-advantages">
 					<room-advantage
 						label="Бонус"
 						:value="room.top_bonus ? room.top_bonus.title : false"
@@ -33,7 +33,9 @@
 					/>
 				</div>
 
-				<div v-else class="room-blacklist">К сожалению, сделка недоступна. <b>{{ room.title }}</b> внесен в <a href="/blacklist">черный список</a> нашего сайта.</div>
+				<div v-else-if="room.blacklist" class="room-blacklist">К сожалению, сделка недоступна. <b>{{ room.title }}</b> внесен в <a href="/blacklist">черный список</a> нашего сайта.</div>
+
+				<div v-else-if="room.closed" class="room-blacklist">К сожалению, сделка недоступна. <b>{{ room.title }}</b> закрылся Несмотря на неоднократную смену названия</div>
 
 			</div>
 
@@ -176,7 +178,7 @@
 			  <room-action-button
 					:slug="room.slug"
 					:icon="true"
-					:disabled="!room.available || room.blacklist || room.types.some(type => type.id === 3)"
+					:disabled="!room.available || room.blacklist || room.closed || room.types.some(type => type.id === 3)"
 					:style="{ marginRight: '28px' }"
 					type="download"
 					label="Перейти"
@@ -224,10 +226,14 @@
 		</div>
 	</div>
 
-	<div v-if="room.restricted || !room.available || room.blacklist" class="row">
+	<div v-if="room.restricted || !room.available || room.blacklist || room.closed" class="row">
 		<div class="col-12">
 
-			<div v-if="recomended.length" :class="['rooms-recomended', room.blacklist && 'rooms-recomended_blacklist']">
+			<div v-if="recomended.length" :class="[
+					'rooms-recomended',
+					room.blacklist && 'rooms-recomended_blacklist',
+					room.closed && 'rooms-recomended_closed',
+				]">
 				<div class="rooms-recomended__title">Рекомендованные покер-румы</div>
 				<div class="rooms-recomended__list">
 			  <room-recomended-item
@@ -468,6 +474,9 @@ $ico-room-unavailable: url('~assets/i/ico-room-unavailable.svg?data');
 	border-radius: 4px;
 	background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
 	&_blacklist {
+		background: #FFB44C;
+	}
+	&_closed {
 		background: #FFB44C;
 	}
 	&__list {
