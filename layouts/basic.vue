@@ -171,8 +171,8 @@
 						fontSize: '22px',
 						lineHeight: '28px',
 					}">
-						<template v-if="auth">Вход на <br>  WorldPokerDeals</template>
-						<template v-if="reset">Восстановление пароля на <br>  WorldPokerDeals</template>
+						<template v-if="auth">Вход на <br>WorldPokerDeals</template>
+						<template v-if="reset">Восстановление пароля на <br>WorldPokerDeals</template>
 					</span>
 				</template>
 				<template v-slot:body>
