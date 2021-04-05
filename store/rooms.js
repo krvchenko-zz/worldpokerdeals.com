@@ -15,7 +15,8 @@ export const state = () => ({
   topList: null,
   filters: null,
   related: null,
-  best: null
+  best: null,
+  total: null
 })
 
 // getters
@@ -32,7 +33,8 @@ export const getters = {
   topList: state => state.topList,
   filters: state => state.filters,
   related: state => state.related,
-  best: state => state.best
+  best: state => state.best,
+  total: state => state.total
 }
 
 // mutations
@@ -84,6 +86,10 @@ export const mutations = {
 
   FETCH_BEST (state, { best }) {
     state.best = best
+  },
+
+  FETCH_TOTAL (state, { total }) {
+    state.total = total
   },
 }
 

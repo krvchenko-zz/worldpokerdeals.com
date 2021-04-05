@@ -47,7 +47,7 @@
 	  <nuxt-link to="/rakeback-deals" v-slot="{ href, route, navigate, isActive, isExactActive }">
 		<a :class="['top-rooms__footer-link', `top-rooms__footer-link_${type}`]" :href="href" @click="navigate">
 			<span :class="['top-rooms__footer-text', `top-rooms__footer-text_${type}`]">Полный каталог покерных румов</span>
-			<span :class="['top-rooms__footer-total', `top-rooms__footer-total_${type}`]">Все {{ total }} покерных сайта</span>
+			<span :class="['top-rooms__footer-total', `top-rooms__footer-total_${type}`]">Все {{ total }} покерных {{ declOfNum(total, ['сайта', 'сайтов', 'сайтов']) }}</span>
 		</a>
 	  </nuxt-link>
 	</div>
@@ -83,10 +83,10 @@ export default {
 			default: false
 		},
 
-	type: {
-	  type: String,
-	  default: 'default'
-	}
+		type: {
+		  type: String,
+		  default: 'default'
+		}
 	},
 
 	created() {
@@ -96,7 +96,6 @@ export default {
 	data: () => ({
 		per_page: 5,
 		showApps: false,
-		total: null,
 	}),
 
 	computed: {
@@ -104,6 +103,7 @@ export default {
 	  locale: 'lang/locale',
 	  country: 'location/country',
 	  rooms: 'rooms/topList',
+	  total: 'rooms/total',
 	}),
 	},
 
@@ -146,7 +146,12 @@ export default {
 			  this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
 			  $nuxt.$loading.finish()
 			})
-		} 
+		},
+
+		declOfNum(number, titles) {  
+		  const cases = [2, 0, 1, 1, 1, 2];  
+		  return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ]  
+		}
 	}
 }
 </script>
