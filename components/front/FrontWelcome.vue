@@ -9,8 +9,8 @@
 
     <div class="front-welcome__contacts">
       <button-contact icon type="fb" href="https://www.facebook.com/worldpokerdealsRu" />
-      <button-contact icon type="telegram" href="https://t.me/worldpokerdealsRU" />
-      <button-contact icon type="instagram" href="instagram.com/worldpokerdeals" />
+      <button-contact icon type="telegram" href="worldpokerdealsRU" />
+      <button-contact icon type="instagram" href="https://instagram.com/worldpokerdeals" />
       <button-contact icon type="vk" href="https://vk.com/worldpokerdeals" />
     </div>
 

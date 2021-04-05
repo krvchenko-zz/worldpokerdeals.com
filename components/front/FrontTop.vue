@@ -6,20 +6,17 @@
 				<div class="front-top__wrap">
 					<h1 class="front-top__title">Больше, чем <br> покерный аффилейт</h1>
 					<div class="front-top__summary">
-						<p><b>Экспертно</b> об онлайн-покере, рейкбек в <b>100+ покер-румах</b> <br> и экзотических комнатах, проактивное комьюнити <br> и <b>умные решения</b> для игроков</p>
+						<p><b>Экспертно</b> об онлайн-покере, рейкбек в <b>100+ румах</b> <br> и экзотических комнатах, проактивное комьюнити <br> и <b>умные решения</b> для игроков</p>
 					</div>
 					<div class="front-top__buttons">
 						<nuxt-link :to="{ name: 'index', params: { parent: 'rakeback-deals', child: null}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
 							<a class="btn btn-lg btn-primary" style="margin-right: 32px;" :href="href" @click="navigate">Выбрать покер-рум</a>
 						</nuxt-link>
-						<nuxt-link :to="{ name: 'index', params: { parent: 'rakeback-deals', child: null}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-							<a class="btn btn-lg btn-border" style="margin-right: 32px;" :href="href" @click="navigate">VIP-сервисы</a>
-						</nuxt-link>
 						<nuxt-link :to="{ name: 'contacts' }" v-slot="{ href, route, navigate, isActive, isExactActive }">
 							<a class="btn btn-lg btn-border" :href="href" @click="navigate">Написать нам</a>
 						</nuxt-link>
 					</div>
-					<p class="front-top__awards-title">Наши аффилиатские заносы и знаки доверия от игорных-сообществ:</p>
+					<p class="front-top__awards-title">Наши аффилиатские заносы и знаки доверия от игорных сообществ:</p>
 					<div class="front-top-awards">
 						<a class="front-top-awards__item" href="https://www.igbaffiliate.com/awards/igb-affiliate-awards" target="_blank">
 							<img class="front-top-awards__img" decoding="async" loading="lazy" src="/badge-best-site.svg" alt="Best poker site"/>

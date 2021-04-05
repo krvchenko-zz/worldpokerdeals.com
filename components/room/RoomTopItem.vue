@@ -35,7 +35,7 @@
 
       <div :class="['top-rooms__item-cell']">
         <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }">
-            <a :class="['top-rooms__item-link']" :href="href" @click="navigate">Обзор</a>
+            <a :class="['top-rooms__item-link', hovered && 'top-rooms__item-link_active']" :href="href" @click="navigate">Обзор</a>
         </nuxt-link>
       </div>
     </div>
@@ -373,7 +373,8 @@ $ico-bonus: url('~assets/i/ico-room-top-bonus.svg?data');
     transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
     &:hover,
     &:active,
-    &:focus {
+    &:focus,
+    &_active {
       text-decoration: none;
       color: #222222;
       border-color: #FFFFFF;

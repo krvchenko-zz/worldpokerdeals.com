@@ -172,10 +172,7 @@ export default {
     transition: background 0.1s ease,
                 border-color 0.1s ease,
                 color 0.1s ease;
-    &:hover,
-    &:active,
-    &:focus,
-    &:visited {
+    &:hover {
       color: #555555;
       text-decoration: none;
     }
@@ -184,10 +181,7 @@ export default {
       letter-spacing: 0;
       line-height: 24px;
       font-size: 20px;
-      &:hover,
-      &:active,
-      &:focus,
-      &:visited {
+      &:hover {
         color: #008BE2;
       }
     }

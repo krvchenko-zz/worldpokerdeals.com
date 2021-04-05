@@ -61,7 +61,9 @@ export default {
         this.type === 'email'    && `mailto:${this.href}` ||
         this.type === 'telegram' && `https://telegram.me/${this.href}` ||
         this.type === 'fb'       && `${this.href}` ||
-        this.type === 'whatsapp' && `whatsapp://tel:${this.href}`
+        this.type === 'vk'       && `${this.href}` ||
+        this.type === 'whatsapp' && `whatsapp://tel:${this.href}` ||
+        this.type === 'instagram'&& `${this.href}`
       )
     }
   },

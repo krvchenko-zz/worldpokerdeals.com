@@ -60,7 +60,7 @@ export default {
 	},
 
 	data: () => ({
-    imageStyle: 'post-medium'
+    imageStyle: 'post-featured'
 	}),
 
   computed: {
