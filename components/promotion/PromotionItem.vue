@@ -375,6 +375,7 @@ $ico-exclusive: url('~assets/i/promotion/exclusive.svg?data');
     &-value {
       margin-top: -23px;
       z-index: 1;
+      min-width: 200px;
       display: inline-block;
       position: relative;
       padding: 29px 20px 11px 20px;

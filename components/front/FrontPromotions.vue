@@ -4,7 +4,7 @@
 
     <div class="front-promotions__wrap">
       <h2 class="front-promotions__title">Текущие акции</h2>
-      <nuxt-link to="/rakeback-deals" v-slot="{ href, route, navigate, isActive, isExactActive }">
+      <nuxt-link to="/promotions" v-slot="{ href, route, navigate, isActive, isExactActive }">
         <a class="btn btn-sm btn-primary" :href="href" @click="navigate">Все акции</a>
       </nuxt-link>
     </div>
@@ -17,22 +17,34 @@
           :limit="300"
         />
       </div>
+
+      <div class="col-12">
+        <div class="promotion-features">
+          <div class="promotion-features__item" v-for="(item, index) in features" :key="index">
+            <svg-icon :icon="item.icon" />
+            <div class="promotion-features__wrap">
+              <div class="promotion-features__value">{{ item.value }}</div>
+              <div class="promotion-features__label">{{ item.label }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <front-tabs>
-      <front-tabs-item
+    <filter-tab-list>
+      <filter-tab-item
         label="Все"
         :value="null"
         :active="category_id === null"
         @click="handleFilter"
       />
-      <front-tabs-item v-for="item in categories" :key="item.id"
+      <filter-tab-item v-for="item in categories" :key="item.id"
         :label="item.title"
         :value="item.id"
         :active="item.id === category_id"
         @click="handleFilter"
       />
-    </front-tabs>
+    </filter-tab-list>
 
     <div class="front-promotions__list">
       <div class="row">
@@ -47,6 +59,7 @@
             :category="item.category"
             :time_left="item.time_left"
             :time_before="item.time_before"
+            :regularity="item.regularity"
             :prize="item.prize"
             :currency="item.currency ? item.currency.symbol : ''"
             :exclusive="item.exclusive"
@@ -80,6 +93,23 @@ export default {
 	},
 
 	data: () => ({
+    features: [{
+      value: '67',
+      label: 'Румов трекаем',
+      icon: 'promotions-front-rooms'
+    },{
+      value: '27',
+      label: 'Активных акций',
+      icon: 'promotions-front-active'
+    },{
+      value: '$24,300,200',
+      label: 'Разыгрывается сейчас',
+      icon: 'promotions-front-prize'
+    },{
+      value: '187',
+      label: 'Бонусов в покер-румах',
+      icon: 'promotions-front-bonuses'
+    }],
     category_id: null,
     text: '<b>Интному интерок умериме ненитель</b>. их элемы нение ствия рабсоль которче неримени <b>продактивам та файлойна добна</b> докумет еницы. Ши примените и венять <b>ругиейсу интные вое будосло</b> строгот орчень оглавледмете эффекты на дохногл авлегда дейстровки позмощный вышает публицы. Игу, вывать вышаетн оструемые руктиро'
 	}),
@@ -135,6 +165,39 @@ export default {
     line-height: 32px;
     letter-spacing: -0.3px;
     color: #222222;
+  }
+}
+
+.promotion-features {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  &__item {
+    margin-right: 28px;
+    padding: 16px 24px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%), #FAFAFA;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: flex;
+  }
+  &__wrap {
+    margin-left: 24px;
+  }
+  &__value {
+    margin: 5px 0 2px 0;
+    font-family: Proxima Nova;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 30px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #555555;
+  }
+  &__label {
+    font-family: Proxima Nova;
+    font-size: 16px;
+    line-height: 20px;
+    color: #777777;
   }
 }
 </style>
