@@ -144,6 +144,7 @@ export default {
 
 <style lang="scss">
 .front-clubs {
+	margin-bottom: 32px;
 	background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
 	&__wrap {
 		padding: 28px 0 20px 0;

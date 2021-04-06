@@ -1,7 +1,6 @@
 <template>
 	<div class="page">
 		<page-header/>
-		<!-- <main-menu/> -->
 		<nuxt />
 		<best-room v-if="topList"
 		  :title="topList[0].title"
@@ -228,7 +227,7 @@ export default {
 	}),
 
 	watch: {
-    $route() {
+	$route() {
 			this.connectionModal = false
 			this.blacklistModal = false
 			this.ratesModal = false
@@ -238,7 +237,7 @@ export default {
 			this.register = false
 			this.reset = false
 			document.body.classList.remove('modal-open')
-    },
+	},
 	},
 
 	mounted() {

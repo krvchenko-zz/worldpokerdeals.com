@@ -14,17 +14,15 @@
         <img decoding="async" loading="lazy" :src="img" :alt="image.alt || `${title} logo`">
       </div>
       <div class="best-room__action">
-        <nuxt-link :to="{
-          name: 'index', params: {parent: 'rakeback-deals', child: review.url}
-        }" v-slot="{ href, route, navigate }">
-          <a :class="['btn', 'btn-block', 'btn-border', 'best-room__link']" :href="href" @click="navigate">{{ review.name }}</a>
+        <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }">
+          <a :class="['btn', 'btn-block', 'btn-border', 'best-room__link']" :href="href" @click="navigate">Обзор</a>
         </nuxt-link>
       </div>
      </div>
      <div class="best-room__item best-room__item_right" :style="{ backgroundColor: '#4E5262' }">
       <div class="best-room__description">Закрытые азиатские клубы, статистика рейка, бесплатные хендхистори и приватные офферы</div>
       <div class="best-room__action">
-        <nuxt-link to="/auth/register" v-slot="{ href, route, navigate }">
+        <nuxt-link to="/register" v-slot="{ href, route, navigate }">
           <a :class="['btn', 'btn-block', 'btn-action', 'best-room__register']" :href="href" @click="navigate">Регистрируйтесь</a>
         </nuxt-link>
       </div>

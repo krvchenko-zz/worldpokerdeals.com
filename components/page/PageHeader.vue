@@ -139,14 +139,16 @@
 
           <a href="/vip" class="btn btn-vip" title="VIP-сервис" aria-label="VIP-сервис"></a>
 
-          <button :class="['lang-switcher']">
+<!--           <button :class="['lang-switcher']">
             <span :class="[
             'lang-switcher__current',
             `lang-switcher__current_lang_${locale}`
             ]">
               <span>{{ locales[locale] }}</span>
             </span>
-          </button>
+          </button> -->
+
+          <lang-switcher />
 
           <button v-if="user" :class="['user-dropdown']">
             <img
@@ -210,8 +212,8 @@ export default {
   computed: {
     ...mapGetters({
       user: 'auth/user',
-      locale: 'lang/locale',
-      locales: 'lang/locales',
+      // locale: 'lang/locale',
+      // locales: 'lang/locales',
       country: 'location/country',
       topList: 'rooms/topList',
       menu: 'menu/items',
@@ -278,9 +280,6 @@ $logo: url('~assets/i/layout/header/logo.svg');
 $ico-vip: url('~assets/i/layout/header/ico-vip.svg?data');
 $ico-search: url('~assets/i/layout/header/ico-search-btn.svg?data');
 $ico-search-close: url('~assets/i/layout/header/ico-search-close.svg?data');
-$ico-lang-ru: url('~assets/i/layout/header/ico-lang-ru.svg?data');
-$ico-lang-en: url('~assets/i/layout/header/ico-lang-en.svg?data');
-$ico-lang-es: url('~assets/i/layout/header/ico-lang-es.svg?data');
 $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
 .header {
@@ -459,125 +458,6 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   &_active {
     opacity: 0.5;
     background: $ico-search-close no-repeat center;
-  }
-}
-
-.lang-switcher {
-  margin: 0 32px;
-  padding: 0;
-  vertical-align: middle;
-  background: transparent;
-  border: none;
-  white-space: nowrap;
-  &:active,
-  &:focus {
-    outline: none;
-  }
-  &__list {
-    padding: 0;
-  }
-  &__current {
-    cursor: pointer;
-    position: relative;
-    padding: 11px 12px;
-    display: flex;
-    align-items: center;
-    color: #999999;
-    background: #2F323F;
-    border: 1px solid rgba(204, 204, 204, 0.1);
-    border-radius: 4px;
-    span {
-      opacity: 0.5;
-      color: #CCCCCC;
-      font-size: 12px;
-      line-height: 12px;
-      font-style: normal;
-      font-family: 'Proxima Nova Sb';
-    }
-
-    &:focus,
-    &:active {
-      outline: none;
-    }
-    &:before {
-      content: '';
-      margin-right: 10px;
-      display: inline-block;
-      vertical-align: middle;
-      width: 18px;
-      height: 12px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    }
-    &_lang {
-      &_ru {
-        &:before {
-          background-image: $ico-lang-ru;
-        }
-      }
-      &_en {
-        &:before {
-          background-image: $ico-lang-en;
-        }
-      }
-      &_es {
-        &:before {
-          background-image: $ico-lang-es;
-        }
-      }
-    }
-  }
-
-  &__item {
-    position: relative;
-    color: #999999;
-    font-size: 0;
-    font-family: 'Proxima Nova';
-    &:focus,
-    &:active {
-      outline: none;
-    }
-    &:before {
-      content: '';
-      margin-right: 10px;
-      display: inline-block;
-      vertical-align: middle;
-      width: 18px;
-      height: 12px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    }
-
-    &_lang {
-      &_ru {
-        &:before {
-          background-image: $ico-lang-ru;
-        }
-      }
-      &_en {
-        &:before {
-          background-image: $ico-lang-en;
-        }
-      }
-      &_es {
-        &:before {
-          background-image: $ico-lang-es;
-        }
-      }
-    }
-  }
-  &__link {
-    font-size: 14px;
-    vertical-align: middle;
-    color: #999999;
-    &:active,
-    &:focus,
-    &:hover {
-      color: #999999;
-      text-decoration: none;
-    }
   }
 }
 

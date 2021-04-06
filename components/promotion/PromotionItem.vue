@@ -326,6 +326,7 @@ $ico-exclusive: url('~assets/i/promotion/exclusive.svg?data');
     letter-spacing: 0;
     line-height: 24px;
     font-size: 20px;
+    min-height: 24px;
   }
 
   &__date {

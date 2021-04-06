@@ -4,9 +4,9 @@ import Cookies from 'js-cookie'
 export const state = () => ({
   locale: 'ru',
   locales: {
-    'en': 'English',
+    'en': 'АНГ',
     'ru': 'РУС',
-    'es': 'Español'
+    'es': 'ИСП'
   }
 })
 

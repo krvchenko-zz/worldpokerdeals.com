@@ -1,12 +1,14 @@
 <template>
 <div>
-	  <nuxt-link prefetch :to="{name: 'index', params: {}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-      <a :href="href" @click="navigate"></a>
-    </nuxt-link>
+  <nuxt-link prefetch :to="{name: 'index', params: {}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
+    <a :href="href" @click="navigate"></a>
+  </nuxt-link>
 </div>
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
 
 export default {
 
@@ -28,8 +30,13 @@ export default {
 
 	}),
 
-  computed: {
+  async fetch() {
 
+  },
+
+  computed: {
+    ...mapGetters({
+    }),
   },
 
   watch: {
@@ -42,5 +49,5 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">	
+<style lang="scss">
 </style>

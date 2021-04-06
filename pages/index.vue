@@ -1,7 +1,10 @@
 <template>
-  <section :class="['content', dark && 'content_dark']">
-  	<component :is="getPageType()" />
-  </section>
+  <div>
+    <section :class="['content', dark && 'content_dark']">
+    	<component :is="getPageType()" />
+    </section>
+    <page-banners />
+  </div>
 </template>
 
 <script>
@@ -119,7 +122,7 @@ export default {
 
 <style lang="scss">
 .content {
-  padding-bottom: 90px;
+  padding-bottom: 45px;
   &_dark {
     background: #2D3141;
   }
