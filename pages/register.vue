@@ -122,6 +122,8 @@ export default {
 
 <style lang="scss">
 $register-bg: url('~assets/i/register-bg.jpg');
+
+
 .content_register {
   background: $register-bg no-repeat center;
   background-size: cover;
