@@ -35,13 +35,11 @@ export default {
   ],
 
   plugins: [
-    '~components/global',
     '~directives',
     // '~plugins/i18n',
     '~plugins/vform',
     '~plugins/axios',
     '~plugins/element-ui',
-    // '~plugins/vue-lodash',
     { src: '~/plugins/glightbox', mode: 'client' },
     { src: '~/plugins/asyncComputed' },
     { src: '~/plugins/vue-carousel', mode: 'client' }
