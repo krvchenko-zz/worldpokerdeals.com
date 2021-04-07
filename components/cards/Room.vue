@@ -1,18 +1,20 @@
 <template>
 <div :class="['room-item', small && 'room-item_s']">
-  <div :class="['room-item__img-wrap', small && 'room-item__img-wrap_s']" :style="{backgroundColor: background}">
-    <img :class="['room-item__img', small && 'room-item__img_s', !available && 'room-item__img_disabled']" decoding="async" loading="lazy" :src="img" :alt="image.alt || `${title} logo`">
-    <img
-      v-if="blacklist"
-      class="room-item__blacklist"
-      decoding="async"
-      loading="lazy"
-      width="103px"
-      height="96px"
-      src="~assets/icons/ico-blacklist-label.svg"
-      alt="Blacklist label"
-    >
-  </div>
+  <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }">
+    <a :href="href" @click="navigate" :class="['room-item__img-wrap', small && 'room-item__img-wrap_s']" :style="{backgroundColor: background}">
+      <img :class="['room-item__img', small && 'room-item__img_s', !available && 'room-item__img_disabled']" decoding="async" loading="lazy" :src="img" :alt="image.alt || `${title} logo`">
+      <img
+        v-if="blacklist"
+        class="room-item__blacklist"
+        decoding="async"
+        loading="lazy"
+        width="103px"
+        height="96px"
+        src="~assets/icons/ico-blacklist-label.svg"
+        alt="Blacklist label"
+      >
+    </a>
+  </nuxt-link>
 
   <div :class="['room-item__wrap', small && 'room-item__wrap_s']">
 
@@ -65,7 +67,7 @@
           <span class="room-item__claim-amount">{{ claim_currency.symbol }}{{ claim_amount }}</span>
         </div>
 
-        <div v-if="!available" class="room-item__unavailable">К сожалению, сделка временно недоступна</div>
+        <div v-if="!available" class="room-item__unavailable">К сожалению, сделка временно недоступна!</div>
       </div>
       
     </div>
@@ -100,6 +102,7 @@
         'btn-block',
         'room-item__link',
         'room-item__link_blacklist',
+        small && 'room-item__link_s'
       ]" @click="handleBlackList">Представитель рума?</button>
 
     </div>
@@ -111,7 +114,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Rating from '~/components/Rating'
 import eventBus from '~/utils/event-bus'
 
 export default {
@@ -119,7 +121,7 @@ export default {
   name: 'Room',
 
   components: {
-    Rating
+
   },
 
   props: {
@@ -267,7 +269,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 $ico-room-unavailable: url('~assets/i/ico-room-unavailable.svg?data');
 $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');

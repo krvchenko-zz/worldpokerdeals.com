@@ -164,7 +164,7 @@
             <svg-icon class="user-dropdown__img" v-else :width="36" :height="36" viewBox="0 0 36 36" icon="user-avatar"/>
           </button>
 
-          <button v-else class="btn btn-md btn-primary" @click="handleAuth">Войти</button>
+          <button v-else class="btn btn-md btn-primary btn_login" @click="handleAuth">Войти</button>
         </div>
 
       </div>
@@ -487,5 +487,9 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   &:focus {
     outline: none;
   }
+}
+
+.btn_login {
+  margin-left: 32px;
 }
 </style>

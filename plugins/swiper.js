@@ -1,10 +1,5 @@
 import Vue from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/swiper.scss'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 
-[
-  Swiper,
-  SwiperSlide
-].forEach(Component => {
-  Vue.component(Component.name, Component)
-})
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)

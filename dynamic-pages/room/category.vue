@@ -101,14 +101,17 @@
             />
 
             <pagination
-              v-if="rooms.length && next_page_url"
+              v-if="rooms.length"
               :last="last_page"
               :current="page"
-              :prevUrl="prev_page_url"
-              :nextUrl="next_page_url"
+              :prev-url="prev_page_url"
+              :next-url="next_page_url"
               :total="total"
               :from="from"
               :to="to"
+              :load-more-width="208"
+              load-more-text="Показать еще румы"
+              total-text="покер-румов"
               @next="handlePageNext"
               @prev="handlePagePrev"
               @change="handlePageChange"
@@ -178,6 +181,8 @@
             @change="handleFilterChange"
             @filterOpen="handleFilterOpen"
           />
+
+          <div class="block-title">Последние акции</div>
 
           <promotion-item
             v-if="promotions"
@@ -336,6 +341,7 @@ export default {
         category: {
           id: response.data.item.id,
           title: response.data.item.title,
+          icon: response.data.item.icon,
           author: {
             full_name: response.data.item.author.full_name,
             image: {
@@ -349,7 +355,10 @@ export default {
           faq: response.data.item.faq,
           toc: response.data.item.toc,
           topics: response.data.item.topics,
-          list: response.data.item.list
+          list: response.data.item.list,
+          meta_title: response.data.item.meta_title,
+          meta_description: response.data.item.meta_description,
+          meta_keywords: response.data.item.meta_keywords
         }
       })
 

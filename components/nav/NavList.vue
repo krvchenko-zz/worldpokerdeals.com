@@ -7,13 +7,11 @@
 </template>
 
 <script>
-
 export default {
 
   name: 'NavList',
 
   components: {
-
   },
 
   props: {
@@ -21,7 +19,6 @@ export default {
   },
 
 	created() {
-
 	},
 
 	data: () => ({
@@ -47,15 +44,14 @@ export default {
 $ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
 
 .page-nav {
+  margin: 0 -60px;
   position: relative;
-  margin-bottom: -25px;
+  bottom: -25px;
   &__list {
     padding: 0;
     margin: 0;
     list-style: none;
     margin: 0;
-    // margin-bottom: -17px;
-    // padding: 4px 1px 17px 1px;
     border-radius: 4px;
     display: flex;
     overflow: scroll;
@@ -63,11 +59,9 @@ $ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
     transition: transform .25s;
-
     &::-webkit-scrollbar {
       display: none;
     }
-
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
@@ -83,7 +77,11 @@ $ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
     text-indent: -999999px;
     background: #F1EFEF;
     cursor: pointer;
-
+    border: none;
+    &:focus,
+    &:active {
+      outline: none;
+    }
     &:after {
       top: 20px;
       left: 22px;

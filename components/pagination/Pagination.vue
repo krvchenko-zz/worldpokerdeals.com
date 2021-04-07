@@ -1,6 +1,12 @@
 <template>
 <div class="pagination">
-  <button v-if="nextUrl" :class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']" @click="handleShowMore">{{ loadMoreText }}</button>
+  <button 
+    v-if="nextUrl"
+    :style="{
+      width: loadMoreWidth ? `${loadMoreWidth}px` : 'auto'
+    }"
+    :class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
+    @click="handleShowMore">{{ loadMoreText }}</button>
   <ul class="pagination__list">
     <li v-if="prevUrl" :class="['pagination__item', 'pagination__item_prev']">
       <button :disabled="!prevUrl" :class="['btn', 'btn-pagination', 'btn-pagination_prev']" aria-label="Previous" @click="handlePagePrev">
@@ -20,7 +26,7 @@
       </button>
     </li>
   </ul>
-  <div class="pagination-info">{{ from }}–{{ to }} из {{ total }}</div>
+  <div class="pagination-info">{{ from }}–{{ to }} из {{ total }} {{ totalText }}</div>
 </div>
 </template>
 
@@ -70,9 +76,18 @@ export default {
       required: true,
     },
 
+    totalText: {
+      type: String,
+      default: ''
+    },
+
     loadMoreText: {
       type: String,
       default: 'Показать еще'
+    },
+
+    loadMoreWidth: {
+      type: Number
     },
   },
 
@@ -141,7 +156,7 @@ export default {
 
   &__list {
     padding: 0;
-    margin: 0 28px;
+    margin: 0 28px 0 0;
     display: flex;
     align-items: center;
   }
@@ -269,6 +284,7 @@ export default {
   }
 
   &_more {
+    margin: 0 28px 0 0;
     width: auto;
     padding: 10px 20px;
   }

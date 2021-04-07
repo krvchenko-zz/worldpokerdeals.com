@@ -11,23 +11,27 @@
       <rating class="top-room__rating" :value="rating"/>
       <div class="top-room__title">{{ title }}</div>
       <nuxt-link :to="{
-        name: 'index', params: {parent: 'rakeback-deals', child: review.url}
+        name: 'index', params: {parent: 'rakeback-deals', child: review.slug}
       }" v-slot="{ href, route, navigate }">
-        <a :class="['btn', 'top-room__link top-room__link_review']" :href="href" @click="navigate">{{ review.name }}</a>
+        <a :class="['btn', 'top-room__review']" :href="href" @click="navigate">Обзор рума</a>
       </nuxt-link>
     </div>
   </div>
 
   <div class="top-room__footer">
     <div v-if="bonus" class="top-room-bonus">
-      <svg-icon class="top-room-bonus__icon" icon="room-top-bonus" :width="24" :height="24" :opacity="1" :fill="bonus_category_label" viewBox="-6 -6 24 24"/>
-      <div :style="{borderColor: bonus_category_label, color: bonus_category_label}" class="top-room-bonus__category">{{ bonus_category }}</div>
-      <div class="top-room-bonus__title">{{ bonus }}</div>
+      <svg-icon class="top-room-bonus__icon" icon="room-top-bonus" :width="24" :height="24" :opacity="1" :fill="bonus.category.label_color" viewBox="-6 -6 24 24"/>
+      <div :style="{borderColor: bonus.category.label_color, color: bonus.category.label_color}" class="top-room-bonus__category">{{ bonus.category.title }}</div>
+      <div class="top-room-bonus__title">{{ bonus.title }}</div>
     </div>
     <div class="top-room__actions">
-      <nuxt-link v-if="review" :to="`/rakeback-deals/${review.url}/play`" v-slot="{ href, route, navigate }">
-          <a :class="['btn', 'btn-block', 'btn-action', 'top-room__link', 'top-room__link_download']" :href="href" @click="navigate">Перейти</a>
-      </nuxt-link>
+      <room-action-button
+        :class="['btn-block', 'top-room__download']"
+        type="download"
+        label="Перейти на сайт"
+        :icon="false"
+        :slug="slug"
+      />
     </div>
 
     <div class="top-room__geo">
@@ -36,7 +40,7 @@
         [`top-room__avaliable_yes`]: !restricted,
         [`top-room__avaliable_no`]: restricted
       }">
-        <svg-icon class="top-room__geo-icon" :width="16" :height="16" :icon="country.code" prefix="flags/"/><template v-if="restricted">Недоступен игрокам из {{ country.from }}!</template><template v-else>Доступен игрокам из {{ country.from }}</template>
+        <svg-icon class="top-room__geo-icon" :width="16" :height="16" :icon="country.code" prefix="flags/"/><template v-if="restricted">Недоступен игрокам из {{ country.from }}!</template><template v-else>Доступен игрокам из {{ country.from }}!</template>
       </span>
     </div>
   </div>
@@ -78,21 +82,21 @@ export default {
     },
 
     bonus: {
-      type: [String, Number],
-      default: 'n/a'
+      type: Object,
+      default: () => {
+        return {
+          title: 'n/a',
+          category: {
+            title: 'Отсутствует',
+            label_color: '#FF4151'
+          }
+        }
+      }
     },
 
     review: {
       type: Object,
       required: true
-    },
-
-    bonus_category_label: {
-      type: String,
-    },
-
-    bonus_category: {
-      type: String,
     },
 
     label: {
@@ -140,16 +144,18 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 $label-bg: url('~assets/i/ico-card-label.svg?data');
 
 .top-room {
   max-width: 326px;
   float: right;
-  margin: -18px 0 32px 0;
+  top: -18px;
   position: relative;
   &__header {
+    z-index: 1;
+    position: relative;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: flex;
@@ -157,11 +163,16 @@ $label-bg: url('~assets/i/ico-card-label.svg?data');
     background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%), #E9E9E9;
   }
   &__icon {
+    top: 28px;
+    left: 28px;
+    position: absolute;
     border-radius: 50%;
-    flex: 0 0 88px;
+    display: block;
   }
   &__info {
-    padding-left: 24px;
+    z-index: 2;
+    position: relative;
+    padding-left: 112px;
   }
   &__title {
     margin-bottom: 12px;
@@ -179,6 +190,7 @@ $label-bg: url('~assets/i/ico-card-label.svg?data');
   }
 
   &__label {
+    z-index: 2;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
     top: -8px;
@@ -221,30 +233,35 @@ $label-bg: url('~assets/i/ico-card-label.svg?data');
     }
   }
 
-  &__link {
-    &_review {
-      padding: 4px 12px;
-      background: #FFFFFF;
-      border: 1px solid rgba(204, 204, 204, 0.7);
-      box-sizing: border-box;
-      border-radius: 3px;
-      font-family: Proxima Nova;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 14px;
-      color: #777777;
-      &:hover,
-      &:active,
-      &:focus,
-      &:visited {
-        color: #555555;
-        background: rgba(204, 204, 204, 0.7);
-      }
+  &__review {
+    padding: 4px 12px;
+    background: #FFFFFF;
+    border: 1px solid rgba(204, 204, 204, 0.7);
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-family: Proxima Nova;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #777777;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #555555;
+      background: rgba(204, 204, 204, 0.7);
     }
   }
 
+  &__download {
+    padding: 12px 24px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
   &__footer {
+    z-index: 2;
+    position: relative;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 28px 28px 16px 28px;
@@ -270,20 +287,17 @@ $label-bg: url('~assets/i/ico-card-label.svg?data');
 
   &-bonus {
     text-align: center;
+    font-size: 0;
     &__category {
-      margin-top: 4px;
       margin-bottom: 12px;
       display: inline-block;
-      text-align: center;
-      // background: #55BF4F;
       border: 1px solid #FFFFFF;
       border-radius: 20px;
-      padding: 4px 12px;
+      padding: 3px 8px 1px 8px;
       font-family: Proxima Nova;
-      font-style: normal;
       font-weight: bold;
-      font-size: 12px;
-      line-height: 16px;
+      font-size: 11px;
+      line-height: 14px;
       letter-spacing: 0.5px;
       color: #FAFAFA;
       text-transform: uppercase;
@@ -302,7 +316,10 @@ $label-bg: url('~assets/i/ico-card-label.svg?data');
     }
 
     &__icon {
-      margin: -48px auto 0 auto;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
       display: block;
       width: 40px;
       height: 40px;
