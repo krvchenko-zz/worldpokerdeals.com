@@ -79,26 +79,30 @@
           </div>
 
           <div class="rooms-list">
-            <room v-if="rooms"
-              v-for="(item, index) in rooms" :key="index"
-              :id="item.id"
-              :title="item.title"
-              :slug="item.slug"
-              :rating="item.rating"
-              :rakeback="item.rakeback"
-              :bonus="item.bonus"
-              :background="item.background"
-              :restricted="item.restricted"
-              :available="item.available"
-              :blacklist="item.blacklist"
-              :summary="item.summary"
-              :claim_amount="item.claim_amount"
-              :claim_currency="item.claim_currency"
-              :image="item.image"
-              :network="item.network"
-              :tags="item.tags"
-              :review="item.review"
-            />
+
+            <template v-if="rooms" v-for="(item, index) in rooms">
+              <room
+                :key="index"
+                :id="item.id"
+                :title="item.title"
+                :slug="item.slug"
+                :rating="item.rating"
+                :rakeback="item.rakeback"
+                :bonus="item.bonus"
+                :background="item.background"
+                :restricted="item.restricted"
+                :available="item.available"
+                :blacklist="item.blacklist"
+                :summary="item.summary"
+                :claim_amount="item.claim_amount"
+                :claim_currency="item.claim_currency"
+                :image="item.image"
+                :network="item.network"
+                :tags="item.tags"
+                :review="item.review"
+              />
+              <room-category-banner :key="index" v-if="index > 3 && index < 5" />
+            </template>
 
             <pagination
               v-if="rooms.length"
