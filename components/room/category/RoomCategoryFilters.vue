@@ -339,8 +339,6 @@ export default {
           certificates: []
         }
       } else {
-
-        // console.log(data.value);
         this.selected[data.key] = this.selected[data.key].filter(item => { return item.value !== data.value})
       }
       this.$emit('change', this.selected)
