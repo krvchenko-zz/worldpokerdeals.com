@@ -166,7 +166,7 @@
 
         <div class="col-3">
 
-          <filters
+          <room-category-filters
             v-if="filters"
             :selected.sync="selected"
             :geo="geo"
@@ -229,13 +229,6 @@
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 
-import Filters from '~/components/room/category/Filters'
-
-import Pagination from '~/components/pagination/Pagination'
-
-import Author from '~/components/Author'
-import Comments from '~/components/comments/Comments'
-
 import Room from '~/components/cards/Room'
 
 export default {
@@ -254,10 +247,6 @@ export default {
   },
 
   components: {
-    Pagination,
-    Filters,
-    Comments,
-    Author,
     Room
   },
 
@@ -324,6 +313,7 @@ export default {
     certificates: [],
     categories: [],
     hud: [],
+    kyc: [],
     ids: null,
     data: [],
     from: 0,
@@ -334,7 +324,6 @@ export default {
     last_page: null,
     total: 0,
     overall: 0,
-
     countries: []
 	}),
 
@@ -547,11 +536,9 @@ export default {
     },
 
     handleFilterChange(selected) {
-
       let collection = []
       Object.keys(selected).forEach(key => {
-        this[key] = _.map(selected[key], 'value')
-
+        this[key] = [].map.call(selected[key], item => { return item.value })
         for (var i = 0; i < selected[key].length; i++) {
           let item = {
             ...selected[key][i],
@@ -560,8 +547,7 @@ export default {
           collection.push(item)
         }
       })
-
-      this.selected = _.flatten(collection)
+      this.selected = [].concat.apply([], collection)
       this.fetchItems()
     },
 

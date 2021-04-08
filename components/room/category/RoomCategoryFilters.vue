@@ -260,7 +260,7 @@ import eventBus from '~/utils/event-bus'
 
 export default {
 
-  name: 'Filters',
+  name: 'RoomCategoryFilters',
 
   components: {
   },
@@ -339,7 +339,9 @@ export default {
           certificates: []
         }
       } else {
-        this.selected[data.key] = _.reject(this.selected[data.key], { value: data.value })
+
+        // console.log(data.value);
+        this.selected[data.key] = this.selected[data.key].filter(item => { return item.value !== data.value})
       }
       this.$emit('change', this.selected)
     })
