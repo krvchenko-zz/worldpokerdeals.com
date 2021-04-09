@@ -7,6 +7,7 @@
       v-if="payments.length"
       label="Методы депозита"
       icon="filter-payments"
+      :opened="true"
       @open="$emit('filterOpen')"
     >
       <filter-item v-for="(item, index) in payments" :key="index"
@@ -406,7 +407,7 @@ $ico-filters: url('~assets/i/ico-filters.svg?data');
   background: #2E3141;
   &:after {
     right: 20px;
-    top: 12px;
+    top: 16px;
     position: absolute;
     content: '';
     width: 33px;

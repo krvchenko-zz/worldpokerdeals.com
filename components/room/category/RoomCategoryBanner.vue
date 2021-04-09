@@ -73,6 +73,7 @@ export default {
 
 .help-banner {
   position: relative;
+  margin: 20px 0;
   padding: 24px 20px 20px 40px;
   display: flex;
   background: linear-gradient(90deg, #135382 29.17%, #243238 100%),

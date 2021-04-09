@@ -34,7 +34,7 @@
             </toc-list>
           </div>
           <div class="col-4">
-            <top-room v-if="topList"
+            <room-top v-if="topList"
               :style="{margin: 0}"
               :id="topList[0].id"
               :title="topList[0].title"

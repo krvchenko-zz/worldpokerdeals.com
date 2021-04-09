@@ -25,7 +25,6 @@
             <game-item
               :title="item.title"
               :icon="item.icon"
-              :slug="item.slug"
               :rooms="item.rooms"
               :page="item.page"
             >
@@ -162,7 +161,7 @@ export default {
       this.$store.commit('games/FETCH_GAMES', { games: response.data.map(item => ({
         title: item.title,
         icon: item.icon,
-        slug: item.review.slug,
+        page: item.page,
         rooms: item.rooms_count
       })) })
     })

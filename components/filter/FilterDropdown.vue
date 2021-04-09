@@ -38,6 +38,11 @@ export default {
       type: [String, Boolean],
       default: false,
     },
+
+    opened: {
+      type: Boolean,
+      default: false,
+    }
   },
 
 	created() {
@@ -56,10 +61,13 @@ export default {
 
   },
 
+  mounted() {
+    this.collapsed = !this.opened
+  },
+
 	methods: {
     handleToggle() {
       this.collapsed = !this.collapsed
-
       if (this.collapsed) {
         this.$emit('close', this.collapsed)
       } else {

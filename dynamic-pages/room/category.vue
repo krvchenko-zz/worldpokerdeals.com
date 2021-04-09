@@ -215,6 +215,8 @@
             />
           </topic-list>
 
+          <game-search-banner />
+
         </div>
 
       </div>
