@@ -19,19 +19,7 @@
             >
             </page-meta>
 
-            <div class="game__summary">{{ tab.summary }}</div>
-
-            <toc-list v-if="tab.toc" :inline="true" :white="false">
-              <template v-slot="{ inline, white }">
-                <toc-item v-for="(item, index) in tab.toc" :key="index"
-                  :index="index"
-                  :inline="inline"
-                  :white="white"
-                  :anchor="item.anchor_id"
-                  :text="item.text">
-                </toc-item>
-              </template>
-            </toc-list>
+            <div class="game__summary" v-html="tab.summary"></div>
           </div>
           <div class="col-4">
             <room-top v-if="topList"
@@ -50,7 +38,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div v-if="game.tabs.length > 1" class="row">
           <div class="col-12">
             <tab-list>
               <tab-item v-for="(item, index) in game.tabs" :key="index"

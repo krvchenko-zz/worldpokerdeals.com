@@ -8,27 +8,74 @@
       <div class="row">
         <div class="col-9">
           <div class="promotions-top">
+            <div v-if="items" class="promotions-top__info">Отфильтровано {{ total }} из {{ overall }} акций</div>
+            <div v-if="items" class="promotions-top__geo">
 
-            <div v-if="data.length" class="promotions-top__info">Показано {{ total }} из {{ overall }} Акций</div>
+              <div class="promotions-top__geo-label">Предложения для</div>
 
-            <div v-if="data.length" class="promotions-top__geo">
-              <geo-switcher :value="country.code" :geo.sync="geo" @change="fetchItems"/>
+              <el-select
+                class="el-select-geo"
+                v-model="geo"
+                filterable
+                reserve-keyword
+                popper-class="el-poper-geo"
+                :loading="loading"
+                @focus="fetchCountries"
+                @change="fetchItems"
+              >
+                <template slot="prefix">
+                  <svg-icon :width="24" height="24" prefix="flags/" :icon="geo"/>
+                </template>
+                <el-option
+                  v-for="item in countries"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                  <span style="float: left; margin-right: 12px;">
+                    <svg-icon :width="24" height="24" prefix="flags/" :icon="item.value"/>
+                  </span>
+                  <span>{{ item.label }}</span>
+                </el-option>
+              </el-select>
+
             </div>
 
-            <div v-if="data.length" class="promotions-top__sort">
-              <custom-select
-                :options="[{
-                  label: 'Сначала новые',
-                  value: 'created_at'
-                },{
-                  label: 'Сначала эксклюзивные',
-                  value: 'exclusive'  
-                }]"
-                :default="'created_at'"
-                @input="handleSortChange"
-              />
+            <div v-if="items" class="promotions-top__sort">
+              <el-select
+                v-model="sort"
+                class="el-select-sort"
+                placeholder="Select"
+                @change="fetchItems"
+                popper-class="el-poper-sort"
+              >
+                <template slot="prefix">
+                  <svg-icon :width="19" :height="16" icon="filter-sort-desc"/>
+                </template>
+                <el-option
+                  label="Сначала новые"
+                  value="created_at">
+                </el-option>
+                <el-option
+                  label="Сначала эксклюзивные"
+                  value="exclusive">
+                </el-option>
+              </el-select>
             </div>
+          </div>
 
+          <div v-if="selected.length">
+            <filter-selected v-for="(item, index) in selected" :key="index"
+              :label="item.label"
+              :value="item.value"
+              :item-key="item.key"
+            />
+            <filter-selected
+              label="Очистить фильтры"
+              :clear="true"
+              :value="null"
+              :key="null"
+            />
           </div>
 
           <!-- List -->
@@ -50,6 +97,7 @@
                     :prize="item.prize"
                     :currency="item.currency ? item.currency.symbol : ''"
                     :exclusive="item.exclusive"
+                    :active="item.active"
                   ></promotion-item>
                 </div>
               </div>
@@ -88,6 +136,9 @@
             :total="total"
             :from="from"
             :to="to"
+            :load-more-width="208"
+            :load-more-text="category.entity === 'promotion' ? 'Показать еще акции' : 'Показать еще бонусы'"
+            total-text="акций"
             @next="handlePageNext"
             @prev="handlePagePrev"
             @change="handlePageChange"
@@ -98,7 +149,7 @@
             <!-- Toc -->
             <div class="col-auto">
 
-              <toc-list v-if="category.toc">
+              <toc-list v-if="category.toc && category.toc.length">
                 <template v-slot="{ inline }">
                   <toc-item v-for="(item, index) in category.toc" :key="index"
                     :index="index"
@@ -115,7 +166,7 @@
               <page-article
                 :meta="false"
                 :text="category.text"
-                :author="category.author.full_name"
+                :author="category.author ? category.author.full_name : null"
                 :created="category.created_at"
                 :updated="category.updated_at">
                 <template v-slot:footer>
@@ -162,6 +213,8 @@
               :created="item.created_at"
             />
           </topic-list>
+
+          <game-search-banner />
 
         </div>
 
@@ -251,13 +304,20 @@ export default {
     last_page: null,
     total: 0,
     overall: 0,
-    entity: 'promotion'
+    entity: 'promotion',
+    countries: [],
+    selected: []
 	}),
 
   async fetch() {
 
-    await axios.get(`promotion/category/${this.pageable.slug}`).then((response) => {
-      this.$store.commit('promotions/FETCH_CATEGORY', { category: response.data })
+    await axios.get(`promotion/category/${this.pageable.slug}`, {
+      params: {
+        locale: this.locale
+      }
+    }).then((response) => {
+      this.$store.commit('promotions/FETCH_CATEGORY', { category: response.data.category })
+      this.$store.commit('promotions/FETCH_BEST', { best: response.data.best })
     })
 
     await axios.get(`promotion/list`, { params: this.params }).then((response) => {
@@ -292,11 +352,47 @@ export default {
 
   },
 
-  mounted() {
+  mounted () {
 
+    this.countries.push({
+      label: this.country.from,
+      value: this.country.code
+    })
+
+    this.geo = this.country.code
   },
 
   methods: {
+
+    handleFilterChange(selected) {
+      let collection = []
+      Object.keys(selected).forEach(key => {
+        this[key] = [].map.call(selected[key], item => { return item.value })
+        for (var i = 0; i < selected[key].length; i++) {
+          let item = {
+            ...selected[key][i],
+            key: key
+          }
+          collection.push(item)
+        }
+      })
+      this.selected = [].concat.apply([], collection)
+      this.fetchItems()
+    },
+
+    async fetchCountries() {
+      this.loading = true
+      await axios.get('countries').then(response => {
+        this.countries = response.data.map(item => {
+          return {
+            value: item.code,
+            label: item.from
+          }
+        })
+
+        this.loading = false
+      })
+    },
 
     async fetchItems() {
 
@@ -347,13 +443,6 @@ export default {
     handleSortChange(order) {
       this.sort = order
       this.fetchItems()
-    },
-
-    handleFilterChange(selected) {
-      Object.keys(selected).forEach(key => {
-        this[key] = selected[key]
-      })
-      this.fetchItems()
     }
 
   }
@@ -362,8 +451,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-$ico-filters: url('~/assets/i/ico-filters.svg?data');
 
 .promotions-top {
   margin-bottom: 24px;
@@ -374,6 +461,14 @@ $ico-filters: url('~/assets/i/ico-filters.svg?data');
   &__geo {
     margin-left: auto;
     margin-right: 24px;
+    &-label {
+      margin-right: 16px;
+      display: inline-flex;
+      font-family: 'Proxima Nova';
+      font-size: 14px;
+      line-height: 16px;
+      color: #333333;
+    }
   }
 
   &__info {

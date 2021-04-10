@@ -65,12 +65,11 @@ export default {
     }
   }
   .toc__label {
-    padding-top: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     color: #243238;
     font-style: normal;
     font-weight: bold;
-    line-height: 28px;
+    line-height: 36px;
     font-size: 16px;
     font-family: 'Proxima Nova';
   }

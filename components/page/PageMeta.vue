@@ -27,8 +27,7 @@ export default {
 
   props: {
     author: {
-      type: String,
-      required: true
+      type: String
     },
 
     created: {

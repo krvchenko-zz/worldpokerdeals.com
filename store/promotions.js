@@ -12,6 +12,7 @@ export const state = () => ({
   filters: null,
   comments: null,
   promotion: null,
+  best: null,
   feed: null
 })
 
@@ -23,6 +24,7 @@ export const getters = {
   filters: state => state.filters,
   comments: state => state.comments,
   promotion: state => state.promotion,
+  best: state => state.best,
   feed: state => state.feed
 }
 
@@ -51,6 +53,10 @@ export const mutations = {
 
   FETCH_PROMOTION (state, { promotion }) {
     state.promotion = promotion
+  },
+
+  FETCH_BEST (state, { best }) {
+    state.best = best
   },
 
   FETCH_FEED (state, { feed }) {

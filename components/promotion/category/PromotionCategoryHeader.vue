@@ -6,7 +6,7 @@
 
       <div class="promotions-header__wrap">
         <div class="row">
-          <div class="col-9">
+          <div class="col-8">
 
             <svg-icon v-if="category.entity === 'promotion'" class="promotions-header__icon" icon="promotion-category"/>
 
@@ -15,7 +15,7 @@
             <div class="promotions-header__meta">
               <h1 class="promotions__title">{{ category.title }}</h1>
               <page-meta
-                :author="category.author.full_name"
+                :author="category.author ? category.author.full_name : null"
                 :created="category.created_at"
                 :updated="category.updated_at"
               />
@@ -24,22 +24,47 @@
             <div class="promotions__summary" v-html="category.summary"></div>
 
           </div>
-          <div class="col-3">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid">
-      <!-- Navigation -->
-      <div class="row">
-        <div class="col-12">
-          <nav-list>
-            <nav-item v-for="(item, index) in categories" :key="index" 
-              :name="item.label"
-              :page="item.page"
-              :icon="item.icon"
+          <div class="col-4">
+            <promotion-item
+              v-if="best && category.entity === 'promotion'"
+              :image="best.image"
+              :title="best.title"
+              :summary="best.summary"
+              :page="best.page"
+              :author="best.author"
+              :created="best.created_at"
+              :category="best.category"
+              :time_left="best.time_left"
+              :time_before="best.time_before"
+              :regularity="best.regularity"
+              :prize="best.prize"
+              :currency="best.currency ? best.currency.symbol : ''"
+              :exclusive="best.exclusive"
+              :active="best.active"
+              :featured="true"
             />
-          </nav-list>
+
+            <room-top
+              v-if="best && category.entity === 'bonus'"
+              :id="best.room.id"
+              :title="best.room.title"
+              :slug="best.room.slug"
+              :restricted="best.room.restricted"
+              :country="country"
+              :rating="best.room.rating"
+              :bonus="best"
+              :review="best.room.review"
+            />
+          </div>
+          <div class="col-12">
+            <nav-list>
+              <nav-item v-for="(item, index) in categories" :key="index" 
+                :name="item.label"
+                :page="item.page"
+                :icon="item.icon"
+              />
+            </nav-list>
+          </div>
         </div>
       </div>
     </div>
@@ -78,7 +103,8 @@ export default {
       country: 'location/country',
       category: 'promotions/category',
       pageable: 'pages/page',
-      categories: 'promotions/categories'
+      categories: 'promotions/categories',
+      best: 'promotions/best'
     }),
   },
 
@@ -98,8 +124,8 @@ $promotions-bg: url('~assets/i/promotions-bg.jpg');
 
 .promotions-header {
   margin-bottom: 55px;
-  background: $promotions-bg no-repeat center;
-  background-size: cover;
+  background: $promotions-bg no-repeat center top;
+  background-size: auto 420px;
 }
 
 .promotions {

@@ -37,7 +37,7 @@
 
   <div v-if="!next_page_url && total > 4" class="promotions-more">
     <button class="btn promotions__more" @click.prevent="handleHide">
-      Скрыть <span>{{ total - 4 }}</span>
+      Скрыть <span>{{ total - 3 }}</span>
     </button>
   </div>
 
@@ -59,6 +59,7 @@ export default {
     contenteditable: {
       type: [Boolean, String]
     },
+    
     room_id: {
       type: [Number, String],
       required: true
@@ -74,7 +75,7 @@ export default {
   },
 
 	data: () => ({
-    per_page: 4,
+    per_page: 3,
     total: null,
     next_page_url: null,
 	}),
@@ -114,7 +115,7 @@ export default {
 
     handleHide() {
       $nuxt.$loading.start()
-      this.per_page = 4
+      this.per_page = 3
       this.$fetch()
     }
 	},

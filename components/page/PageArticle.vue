@@ -50,7 +50,7 @@ export default {
     },
 
     author: {
-      type: [String],
+      type: String,
     },
 
     created: {

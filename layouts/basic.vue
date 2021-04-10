@@ -1,6 +1,8 @@
 <template>
 	<div class="page">
-		<page-header/>
+		<transition name="fade">
+			<page-header v-show="!hideHeader"/>
+		</transition>
 		<nuxt />
 		<best-room v-if="topList"
 		  :title="topList[0].title"
@@ -210,6 +212,7 @@ export default {
 
 	data: () => ({
 		loading: false,
+		hideHeader: false,
 		connectionModal: false,
 		completeModal: false,
 		ratesModal: false,
@@ -289,6 +292,10 @@ export default {
 			this.auth = event
 			this.register = event
 			this.reset = event
+		})
+
+		eventBus.$on('pageHeader:hide', event => {
+			this.hideHeader = event
 		})
 	},
 

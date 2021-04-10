@@ -5,15 +5,15 @@
     Отзывы игроков <span class="reviews__count">{{ reviews.total }}</span>
   </div>
 
-  <review-list v-if="reviews">
+  <reviews-list v-if="reviews">
     <transition-group name="fade">
-      <review-item
+      <reviews-item
         v-for="item in reviews.data"
         :key="item.id"
         :review="item"
       />
     </transition-group>
-  </review-list>
+  </reviews-list>
 
   <div v-if="reviews && reviews.next_page_url" class="reviews-more">
     <button class="btn btn-border reviews__more" @click.prevent="fetch">
@@ -21,10 +21,10 @@
     </button>
   </div>
 
-  <review-form
+  <reviews-form
     v-if="showForm && user"
     :room_id="room_id"
-  ></review-form>
+  />
 
 </div>
 </template>

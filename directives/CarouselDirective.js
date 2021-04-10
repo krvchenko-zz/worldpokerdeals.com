@@ -51,7 +51,7 @@ export default {
           }
 
           toggleBtn.addEventListener('click', function () {
-            if (position + 1 < slides.length) {
+            if (scrollTo + galleryWidth < itemsWidth) {
               let nextSlide = slides[position]
               scrollTo += nextSlide.offsetWidth + parseInt(getComputedStyle(nextSlide, null).marginRight)
               position++

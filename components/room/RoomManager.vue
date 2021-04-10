@@ -119,8 +119,7 @@ export default {
 $ico-manager-card-list: url('~assets/i/ico-manager-card-list.svg?data');
 
 .manager-card {
-  top: 100px;
-  position: sticky;
+  margin: 40px 0;
   border-radius: 4px;
   overflow: hidden;
   background: #2E3141;

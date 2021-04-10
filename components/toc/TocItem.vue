@@ -119,6 +119,12 @@ export default {
         z-index: 1;
       }
 
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+
       &_active {
         &:before {
           background: #FFFFFF;

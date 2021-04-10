@@ -13,7 +13,6 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :name="name"
-      :value="value"
       :class="[
         'form-select__value',
         loading && 'form-select__value_loading',
@@ -23,7 +22,10 @@
       @change="$emit('change', $event.target.value)"
     >
       <!-- <option :value="null" disabled selected>{{ placeholder }}</option> -->
-      <option class="form-select__option" v-for="(item, index) in options"
+      <option
+        class="form-select__option"
+        v-for="(item, index) in options"
+        :selected="item.value === value"
         :key="index"
         :value="item.value"
       >{{ item.label }}</option>
@@ -125,8 +127,8 @@ export default {
       immediate: true,
       deep: true,
       handler(options) {
-        // if (!this.value &&) {
-        //   this.$emit('change', options[0].value)
+        // if (!this.value) {
+        //   this.$emit('change', this.options[0].value)
         // }
       }
     }

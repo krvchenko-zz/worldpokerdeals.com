@@ -127,15 +127,15 @@ export default {
 
   data: () => ({
     loading: false,
-    type: 'game',
+    type: 'discipline',
     types: [
-      {
-        label: 'Виды покера',
-        value: 'game'
-      },
       {
         label: 'Дисциплины',
         value: 'discipline'
+      },
+      {
+        label: 'Виды покера',
+        value: 'game'
       },
       {
         label: 'Лимиты',

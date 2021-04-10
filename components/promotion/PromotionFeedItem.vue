@@ -3,7 +3,7 @@
 <tbody class="promotion-item">
   <tr class="promotion-item__row">
     <td width="83px" class="promotion-item__col promotion-item__col_icon">
-      <svg-icon  v-if="room" class="promotion-item__icon" :icon="room.slug" :width="42" :height="42" viewBox="0 0 200 200" />
+      <svg-icon class="promotion-item__icon" :icon="parent.slug" :width="42" :height="42" viewBox="0 0 200 200" />
     </td>
 
     <td class="promotion-item__col promotion-item__col_title">
@@ -187,18 +187,15 @@ export default {
     },
 
     category: {
-      type: Object,
-      // default: false
+      type: Object
     },
 
     room: {
-      type: Object,
-      // default: false
+      type: Object
     },
 
     page: {
-      type: Object,
-      // default: false
+      type: Object
     },
 
     min_deposit: {
@@ -286,7 +283,8 @@ export default {
       user: 'auth/user',
       locale: 'lang/locale',
       locales: 'lang/locales',
-      country: 'location/country'
+      country: 'location/country',
+      parent: 'rooms/room'
     }),
 
     url() {

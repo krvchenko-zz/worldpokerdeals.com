@@ -6,7 +6,7 @@
       disabled && 'btn-room-action_disabled',
       `btn-room-action_${type}`,
       icon && `btn-room-action_${type}-icon`
-    ]" v-on="shouldNavigate ? { click: type === 'download' ? handleDownload : navigate } : {click: handleClick}">{{ label }}</button>
+    ]" v-on="shouldNavigate ? { click: type === 'download' ? handleDownload : navigate } : {click: handleClick }">{{ label }}</button>
   </nuxt-link>
 </template>
 
@@ -84,11 +84,13 @@ export default {
 
 	methods: {
     handleClick() {
-      eventBus.$emit('roomAction:click', {
+      const data = {
         type: this.type,
         title: this.title,
         slug: this.slug
-      })
+      }
+      this.$emit('click', data)
+      eventBus.$emit('roomAction:click', data)
     },
 
     handleDownload() {

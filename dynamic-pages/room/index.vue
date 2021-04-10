@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="container-fluid">
-			<room-header />
+			<room-header ref="roomHeader" />
 
 			<div class="row">
 
@@ -18,8 +18,8 @@
 								<template v-slot="{ inline }">
 									<toc-item
 										:inline="inline"
-										anchor="#about"
-										:text="`О ${room.title}`">
+										:anchor="urlLit(tab.title)"
+										:text="tab.title">
 									</toc-item>
 									<toc-item v-for="(item, index) in tab.toc" :key="index"
 										:index="index"
@@ -33,7 +33,7 @@
 
 						<div class="col">
 							<page-article
-								title-id="#about"
+								:title-id="urlLit(tab.title)"
 								:title="tab.title"
 								:text="tab.text"
 								:author="tab.author.full_name"
@@ -55,6 +55,9 @@
 										btn-label="Подписаться"
 										url="https://t-do.ru/worldpokerdealsRU"
 									/>
+
+                  <author v-if="tab.author" :author="tab.author" />
+
 									<reviews :room_id="room.id" :reviews="reviews" />
 								</template>
 
@@ -108,15 +111,13 @@
 							:client_software="room.client_software"
 							:network="room.network.title"
 							:players_peak="room.players_peak"
-							:tracker="false"
+							:tracker="room.hud"
 							:currencies="room.currencies"
 							:min_deposit="room.min_deposit"
 							:max_deposit="room.max_deposit"
 							:games="[
 								...room.disciplines,
-								...room.games,
-								// ...room.tables,
-								// ...room.limits,
+								...room.games
 							]"
 						/>
 
@@ -165,9 +166,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import eventBus from '~/utils/event-bus'
 
 import Room from '~/components/cards/Room'
-import Reviews from '~/components/reviews/Reviews'
 
 export default {
 	layout: 'basic',
@@ -177,8 +178,8 @@ export default {
 	  title: this.tab.meta_title,
 	  titleTemplate: '%s',
 	  meta: [
-		{ name: 'description', content: this.tab.meta_description },
-		{ name: 'keywords', content: this.tab.meta_keywords }
+			{ name: 'description', content: this.tab.meta_description },
+			{ name: 'keywords', content: this.tab.meta_keywords }
 	  ],
 	}
   },
@@ -187,7 +188,6 @@ export default {
 
 	components: {
 		RoomHeaderSticky: () => import('~/components/room/RoomHeaderSticky'),
-		Reviews,
 		Room
 	},
 
@@ -256,17 +256,28 @@ export default {
 
 	methods: {
 		handleScroll(e) {
-			let header = document.getElementsByClassName('room-header')[0],
+			let header = this.$refs.roomHeader.$el,
 					style = getComputedStyle(header),
-					// margin = parseInt(style.marginBottom),
 					offsetTop = header.offsetTop,
 					offsetHeight = header.offsetHeight
 
 			if (window.scrollY > offsetTop + offsetHeight - 80) {
 				this.showSticky = true
+				eventBus.$emit('pageHeader:hide', true)
 			} else {
 				this.showSticky = false
+				eventBus.$emit('pageHeader:hide', false)
 			}
+		}, 
+
+		urlLit(w,v) {
+			let tr='a b v g d e ["zh","j"] z i y k l m n o p r s t u f h c ch sh ["shh","shch"] ~ y ~ e yu ya ~ ["jo","e"]'.split(' ')
+			let ww=''; w=w.toLowerCase()
+			for(let i=0; i<w.length; ++i) {
+				let cc=w.charCodeAt(i); var ch=(cc>=1072?tr[cc-1072]:w[i])
+				if(ch && ch.length<3) ww+=ch; else if(ch) ww+=eval(ch)[v]
+			}
+			return(ww.replace(/[^a-zA-Z0-9\-]/g,'-').replace(/[-]{2,}/gim, '-').replace( /^\-+/g, '').replace( /\-+$/g, ''))
 		}
 	}
 }

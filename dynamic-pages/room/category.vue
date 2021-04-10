@@ -564,64 +564,6 @@ export default {
 
 <style lang="scss">
 
-$ico-filters: url('~/assets/i/ico-filters.svg?data');
-
-.el-select {
-  .el-input__inner {
-    background: #FAFAFA;
-    border: 1px solid #D3D3D3;
-    border-radius: 4px;
-    font-family: 'Proxima Nova Sb';
-    font-size: 14px;
-    line-height: 16px;
-    font-feature-settings: 'tnum' on, 'lnum' on;
-    color: #333333;
-  }
-
-
-  .el-input.is-focus .el-input__inner {
-    border-color: rgba(0, 139, 226, 0.7);
-  }
-}
-
-.el-select-geo {
-  max-width: 164px;
-  .el-input__prefix {
-    left: 16px;
-    align-items: center;
-    display: flex;
-  }
-
-  .el-input__inner {
-    padding-left: 52px;
-  }
-}
-
-.el-select-sort {
-  max-width: 195px;
-  .el-input__prefix {
-    left: 16px;
-    align-items: center;
-    display: flex;
-  }
-
-  .el-input__inner {
-    padding-left: 47px;
-  }
-}
-
-.el-poper-geo,
-.el-poper-sort {
-  .el-select-dropdown__item {
-    font-family: 'Proxima Nova Sb';
-    font-size: 14px;
-    line-height: 40px;
-    height: 40px;
-    font-feature-settings: 'tnum' on, 'lnum' on;
-    color: #333333;
-  }
-}
-
 .rooms-top {
   margin-bottom: 24px;
   display: flex;
