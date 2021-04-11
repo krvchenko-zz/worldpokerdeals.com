@@ -21,7 +21,7 @@
 					</toc-list>
 				</div>
 
-				<div class="col">
+				<div class="col col-article">
 					<!-- Article -->
 					<page-article :text="rule.text" :title="rule.heading">
 						<template v-slot:footer>

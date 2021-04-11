@@ -58,6 +58,7 @@ export default {
     top: 100px;
     width: 208px;
     &_inline {
+      width: auto;
       top: 0;
       position: relative;
       padding: 0;

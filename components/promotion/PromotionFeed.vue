@@ -1,6 +1,6 @@
 <template>
 <div class="promotions">
-  <table v-if="feed" class="promotions-table" cellspacing="0" cellpadding="0" border="0" width="100%">
+  <table v-if="feed || !fetch" class="promotions-table" cellspacing="0" cellpadding="0" border="0" width="100%">
     <promotion-feed-item v-for="(item, index) in feed" :key="index"
       :title="item.title"
       :type="item.type"
@@ -29,13 +29,13 @@
     />
   </table>
 
-  <div v-if="next_page_url" class="promotions-more">
+  <div v-if="fetch && next_page_url" class="promotions-more">
     <button class="btn promotions__more" @click.prevent="handleLoadMore">
       Все акции {{ room.title }} <span>{{ total - per_page }}</span>
     </button>
   </div>
 
-  <div v-if="!next_page_url && total > 4" class="promotions-more">
+  <div v-if="fetch && !next_page_url && total > 4" class="promotions-more">
     <button class="btn promotions__more" @click.prevent="handleHide">
       Скрыть <span>{{ total - 3 }}</span>
     </button>
@@ -61,8 +61,12 @@ export default {
     },
     
     room_id: {
-      type: [Number, String],
-      required: true
+      type: [Number, String]
+    },
+
+    fetch: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -87,6 +91,11 @@ export default {
   fetchOnServer: false,
 
   async fetch() {
+
+    if (!this.fetch) {
+      return false
+    }
+
     await axios.get('/promotion/feed', {
       params: {
         per_page: this.per_page,

@@ -7,8 +7,8 @@
         <rating class="bonus-room__rating" :value="rating"/>
         <div class="bonus-room__title">{{ title }}</div>
         <nuxt-link :to="{
-          name: 'index', params: {parent: 'rakeback-deals', child: review.url}
-        }" v-slot="{ href, route, navigate }">
+          name: 'index', params: {parent: 'rakeback-deals', child: review.slug}
+        }" v-slot="{ href, route, navigate }" custom>
           <a :class="['btn', 'bonus-room__link bonus-room__link_review']" :href="href" @click="navigate">Обзор рума</a>
         </nuxt-link>
       </div>
@@ -18,7 +18,7 @@
         :small="true"
         :id="item.id"
         :label="item.title"
-        :value="item.pivot.value"
+        :value="item.value"
       />
     </div>
   </div>

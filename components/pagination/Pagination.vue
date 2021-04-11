@@ -1,5 +1,6 @@
 <template>
 <div class="pagination">
+  <!-- More -->
   <button 
     v-if="nextUrl"
     :style="{
@@ -8,22 +9,61 @@
     :class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
     @click="handleShowMore">{{ loadMoreText }}</button>
   <ul class="pagination__list">
+    <!-- Prev -->
     <li v-if="prevUrl" :class="['pagination__item', 'pagination__item_prev']">
-      <button :disabled="!prevUrl" :class="['btn', 'btn-pagination', 'btn-pagination_prev']" aria-label="Previous" @click="handlePagePrev">
-      </button>
+      <nuxt-link :to="{
+        name: 'index',
+        params: {
+          parent: pageable.parent ? pageable.parent.slug : pageable.slug,
+          child: pageable.parent ? pageable.slug : null
+        },
+        query: current - 1 !== 1 ? { page: current - 1 } : {}
+      }" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+        <button :class="['btn', 'btn-pagination', 'btn-pagination_prev']" aria-label="Previous" :disabled="!prevUrl" v-on="{ click: query ? navigate : handlePagePrev }">
+        </button>
+      </nuxt-link>
     </li>
+    <!-- Pages -->
     <li v-for="(item, index) in pages" :key="index" :class="['pagination__item', item.number === current && 'pagination__item_active']">
-      <button
-        :class="['btn', 'btn-pagination',
-          item.number === current && 'btn-pagination_active'
-        ]" 
-        :disabled="item.number === current"
-        @click="handlePageChange(item.number)"
-      >{{ item.number }}</button>
+      <nuxt-link :to="{
+        name: 'index',
+        params: {
+          parent: pageable.parent ? pageable.parent.slug : pageable.slug,
+          child: pageable.parent ? pageable.slug : null
+        },
+        query: item.number > 1 ? { page: item.number } : {}
+      }" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+        <button
+          v-if="query"
+          :class="['btn', 'btn-pagination',
+            item.number === current && 'btn-pagination_active'
+          ]" 
+          :disabled="item.number === current"
+          @click="navigate"
+        >{{ item.number }}</button>
+        <button
+          v-else
+          :class="['btn', 'btn-pagination',
+            item.number === current && 'btn-pagination_active'
+          ]" 
+          :disabled="item.number === current"
+          @click="handlePageChange(item.number)"
+        >{{ item.number }}</button>
+      </nuxt-link>
     </li>
+    <!-- Next -->
     <li v-if="nextUrl" :class="['pagination__item', 'pagination__item_next']">
-      <button :class="['btn', 'btn-pagination', 'btn-pagination_next']" aria-label="Next" :disabled="!nextUrl" @click="handlePageNext">
-      </button>
+      <nuxt-link :to="{
+        name: 'index',
+        params: {
+          parent: pageable.parent ? pageable.parent.slug : pageable.slug,
+          child: pageable.parent ? pageable.slug : null
+        },
+        query: { page: current + 1 }
+      }" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+        <button :class="['btn', 'btn-pagination', 'btn-pagination_next']" aria-label="Next" :disabled="!nextUrl" v-on="{ click: query ? navigate : handlePageNext }">
+        </button>
+      </nuxt-link>
     </li>
   </ul>
   <div class="pagination-info">{{ from }}–{{ to }} из {{ total }} {{ totalText }}</div>
@@ -31,6 +71,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
 
@@ -49,6 +90,11 @@ export default {
     current: {
       type: Number,
       required: true,
+    },
+
+    query: {
+      type: Boolean,
+      default: false
     },
 
     prevUrl: {
@@ -100,6 +146,11 @@ export default {
   }),
 
   computed: {
+
+    ...mapGetters({
+      pageable: 'pages/page',
+    }),
+
     pages() {
 
       let range = []

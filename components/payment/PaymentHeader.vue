@@ -45,29 +45,27 @@
             <div class="payment__summary" v-html="tab.summary"></div>
           </div>
           <div class="col-4">
-            <top-room v-if="topList"
-              :style="{margin: 0}"
-              :id="topList[0].id"
-              :title="topList[0].title"
-              :slug="topList[0].slug"
-              :restricted="topList[0].restricted"
+            <room-top v-if="rooms"
+              :style="{top: 0}"
+              :id="rooms[0].id"
+              :title="rooms[0].title"
+              :slug="rooms[0].slug"
+              :restricted="rooms[0].restricted"
               :country="country"
-              :rating="topList[0].rating"
-              :bonus="topList[0].bonus"
-              :review="topList[0].review"
-              :bonus_category_label="topList[0].bonus_category_label"
-              :bonus_category="topList[0].bonus_category"
+              :rating="rooms[0].rating"
+              :bonus="rooms[0].top_bonus"
+              :review="rooms[0].review"
             />
           </div>
         </div>
 
-        <div class="row">
+        <div v-if="payment.tabs.length > 1" class="row">
           <div class="col-12">
             <tab-list>
               <tab-item v-for="(item, index) in payment.tabs" :key="index"
                 :params="{
-                  parent: 'pokernye-platezhnye-sistemy',
-                  child: item.slug
+                  parent: item.page.parent ? item.page.parent.slug : item.page.slug,
+                  child: item.page.parent ? item.page.slug : null
                 }"
                 :name="item.name">
               </tab-item>
@@ -110,6 +108,7 @@ export default {
       topList: 'rooms/topList',
       country: 'location/country',
       payment: 'payments/payment',
+      rooms: 'rooms/rooms',
       tab: 'payments/tab'
     }),
   },

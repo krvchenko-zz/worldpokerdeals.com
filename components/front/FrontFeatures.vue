@@ -77,7 +77,6 @@ export default {
 
 <style lang="scss">
 .front-features {
-  padding-bottom: 40px;
   &__list {
     display: flex;
     justify-content: center;

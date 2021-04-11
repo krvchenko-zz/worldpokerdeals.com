@@ -66,7 +66,7 @@
 							</toc-list>
 						</div>
 
-						<div class="col">
+						<div class="col col-article">
 								<!-- Article -->
 								<page-article :text="platform.text">
 									<template v-slot:footer>

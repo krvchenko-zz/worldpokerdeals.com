@@ -1,228 +1,227 @@
 <template>
-	<div class="promotions">
+<div class="promotions">
+  <!-- Header -->
+  <promotion-category-header />
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-9">
+        <div class="promotions-top">
+          <div v-if="items" class="promotions-top__info">Отфильтровано {{ total }} из {{ overall }} акций</div>
+          <div v-if="items" class="promotions-top__geo">
 
-    <!-- Header -->
-    <promotion-category-header />
+            <div class="promotions-top__geo-label">Предложения для</div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-9">
-          <div class="promotions-top">
-            <div v-if="items" class="promotions-top__info">Отфильтровано {{ total }} из {{ overall }} акций</div>
-            <div v-if="items" class="promotions-top__geo">
-
-              <div class="promotions-top__geo-label">Предложения для</div>
-
-              <el-select
-                class="el-select-geo"
-                v-model="geo"
-                filterable
-                reserve-keyword
-                popper-class="el-poper-geo"
-                :loading="loading"
-                @focus="fetchCountries"
-                @change="fetchItems"
+            <el-select
+              class="el-select-geo"
+              v-model="geo"
+              filterable
+              reserve-keyword
+              popper-class="el-poper-geo"
+              :loading="loading"
+              @focus="fetchCountries"
+              @change="fetchItems"
+            >
+              <template slot="prefix">
+                <svg-icon :width="24" height="24" prefix="flags/" :icon="geo"/>
+              </template>
+              <el-option
+                v-for="item in countries"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
               >
-                <template slot="prefix">
-                  <svg-icon :width="24" height="24" prefix="flags/" :icon="geo"/>
-                </template>
-                <el-option
-                  v-for="item in countries"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                  <span style="float: left; margin-right: 12px;">
-                    <svg-icon :width="24" height="24" prefix="flags/" :icon="item.value"/>
-                  </span>
-                  <span>{{ item.label }}</span>
-                </el-option>
-              </el-select>
+                <span style="float: left; margin-right: 12px;">
+                  <svg-icon :width="24" height="24" prefix="flags/" :icon="item.value"/>
+                </span>
+                <span>{{ item.label }}</span>
+              </el-option>
+            </el-select>
 
-            </div>
-
-            <div v-if="items" class="promotions-top__sort">
-              <el-select
-                v-model="sort"
-                class="el-select-sort"
-                placeholder="Select"
-                @change="fetchItems"
-                popper-class="el-poper-sort"
-              >
-                <template slot="prefix">
-                  <svg-icon :width="19" :height="16" icon="filter-sort-desc"/>
-                </template>
-                <el-option
-                  label="Сначала новые"
-                  value="created_at">
-                </el-option>
-                <el-option
-                  label="Сначала эксклюзивные"
-                  value="exclusive">
-                </el-option>
-              </el-select>
-            </div>
           </div>
 
-          <div v-if="selected.length">
-            <filter-selected v-for="(item, index) in selected" :key="index"
-              :label="item.label"
-              :value="item.value"
-              :item-key="item.key"
-            />
-            <filter-selected
-              label="Очистить фильтры"
-              :clear="true"
-              :value="null"
-              :key="null"
-            />
-          </div>
-
-          <!-- List -->
-          <template v-if="category.entity === 'promotion'">
-            <promotion-list v-if="!loading && data.length">
-              <div class="row">
-                <div class="col-4" v-for="(item, index) in data" :key="index">
-                  <promotion-item
-                    :image="item.image"
-                    :title="item.title"
-                    :summary="item.summary"
-                    :page="item.page"
-                    :author="item.user"
-                    :created="item.created_at"
-                    :category="item.category"
-                    :time_left="item.time_left"
-                    :time_before="item.time_before"
-                    :regularity="item.regularity"
-                    :prize="item.prize"
-                    :currency="item.currency ? item.currency.symbol : ''"
-                    :exclusive="item.exclusive"
-                    :active="item.active"
-                  ></promotion-item>
-                </div>
-              </div>
-            </promotion-list>
-          </template>
-
-          <template v-else>
-            <bonus-list v-if="!loading && data.length">
-              <bonus-item v-for="(item, index) in data" :key="index"
-                :title="item.title"
-                :slug="item.slug"
-                :created="item.created_at"
-                :code="item.code"
-                :terms="item.terms"
-                :room="item.room"
-                :page="item.page"
-                :category="item.category"
-                :min_deposit="item.min_deposit"
-                :min_deposit_currency="item.min_deposit_currency"
-                :cashback_value="item.cashback_value"
-                :max_bonus="item.max_bonus"
-                :max_bonus_currency="item.max_bonus_currency"
-                :deposit_bonus="item.deposit_bonus"
-                :index="index"
-              ></bonus-item>
-            </bonus-list>
-          </template>
-
-          <!-- Pagination -->
-          <pagination
-            v-if="data.length"
-            :last="last_page"
-            :current="page"
-            :prevUrl="prev_page_url"
-            :nextUrl="next_page_url"
-            :total="total"
-            :from="from"
-            :to="to"
-            :load-more-width="208"
-            :load-more-text="category.entity === 'promotion' ? 'Показать еще акции' : 'Показать еще бонусы'"
-            total-text="акций"
-            @next="handlePageNext"
-            @prev="handlePagePrev"
-            @change="handlePageChange"
-            @more="handleShowMore">
-          </pagination>
-
-          <div class="row">
-            <!-- Toc -->
-            <div class="col-auto">
-
-              <toc-list v-if="category.toc && category.toc.length">
-                <template v-slot="{ inline }">
-                  <toc-item v-for="(item, index) in category.toc" :key="index"
-                    :index="index"
-                    :inline="inline"
-                    :anchor="item.anchor_id"
-                    :text="item.text">
-                  </toc-item>
-                </template>
-              </toc-list>
-
-            </div>
-            <div class="col">
-              <!-- Article -->
-              <page-article
-                :meta="false"
-                :text="category.text"
-                :author="category.author ? category.author.full_name : null"
-                :created="category.created_at"
-                :updated="category.updated_at">
-                <template v-slot:footer>
-                  <!-- Faq -->
-                  <faq-list v-if="category.faq && category.faq.mainEntity.length" label="FAQ">
-                    <faq-item v-for="(item, index) in category.faq.mainEntity" :key="index"
-                      :question="item.name"
-                      :answer="item.acceptedAnswer.text">
-                    </faq-item>
-                  </faq-list>
-                  
-                  <!-- Author -->
-                  <author v-if="category.author" :author="category.author" />
-
-                  <!-- Comments -->
-                  <comments commentable_type="App\PromotionCategory" :commentable_id="category.id" />
-                </template>
-              </page-article>          
-            </div>
+          <div v-if="items" class="promotions-top__sort">
+            <el-select
+              v-model="sort"
+              class="el-select-sort"
+              placeholder="Select"
+              @change="fetchItems"
+              popper-class="el-poper-sort"
+            >
+              <template slot="prefix">
+                <svg-icon :width="19" :height="16" icon="filter-sort-desc"/>
+              </template>
+              <el-option
+                label="Сначала новые"
+                value="created_at">
+              </el-option>
+              <el-option
+                label="Сначала эксклюзивные"
+                value="exclusive">
+              </el-option>
+            </el-select>
           </div>
         </div>
 
-        <div class="col-3">
-          <promotion-category-filters
-            v-if="filters"
-            :geo="geo"
-            :categories="filters.categories"
-            :disciplines="filters.disciplines"
-            :limits="filters.limits"
-            :games="filters.games"
-            :rooms="filters.rooms"
-            :networks="filters.networks"
-            :exclusive="filters.exclusive"
-            @change="handleFilterChange"
+        <div v-if="selected.length">
+          <filter-selected v-for="(item, index) in selected" :key="index"
+            :label="item.label"
+            :value="item.value"
+            :item-key="item.key"
           />
-          <room-top-list v-if="category.entity === 'promotion'" />
-
-          <topic-list v-if="category.topics.length">
-            <topic-item
-              v-for="(item, index) in category.topics" :key="index"
-              :title="item.title"
-              :url="item.url"
-              :author="item.author"
-              :created="item.created_at"
-            />
-          </topic-list>
-
-          <game-search-banner />
-
+          <filter-selected
+            label="Очистить фильтры"
+            :clear="true"
+            :value="null"
+            :key="null"
+          />
         </div>
+
+        <!-- List -->
+        <template v-if="category.entity === 'promotion'">
+          <promotion-list v-if="!loading && data.length">
+            <div class="row">
+              <div class="col-4" v-for="(item, index) in data" :key="index">
+                <promotion-item
+                  :image="item.image"
+                  :title="item.title"
+                  :summary="item.summary"
+                  :page="item.page"
+                  :author="item.user"
+                  :created="item.created_at"
+                  :category="item.category"
+                  :time_left="item.time_left"
+                  :time_before="item.time_before"
+                  :regularity="item.regularity"
+                  :prize="item.prize"
+                  :currency="item.currency ? item.currency.symbol : ''"
+                  :exclusive="item.exclusive"
+                  :active="item.active"
+                ></promotion-item>
+              </div>
+            </div>
+          </promotion-list>
+        </template>
+
+        <template v-else>
+          <bonus-list v-if="!loading && data.length">
+            <bonus-item v-for="(item, index) in data" :key="index"
+              :title="item.title"
+              :slug="item.slug"
+              :created="item.created_at"
+              :code="item.code"
+              :terms="item.terms"
+              :room="item.room"
+              :page="item.page"
+              :category="item.category"
+              :min_deposit="item.min_deposit"
+              :min_deposit_currency="item.min_deposit_currency"
+              :cashback_value="item.cashback_value"
+              :max_bonus="item.max_bonus"
+              :max_bonus_currency="item.max_bonus_currency"
+              :deposit_bonus="item.deposit_bonus"
+              :index="index"
+            ></bonus-item>
+          </bonus-list>
+        </template>
+
+        <!-- Pagination -->
+        <pagination
+          v-if="data.length"
+          :last="last_page"
+          :current="page"
+          :prevUrl="prev_page_url"
+          :nextUrl="next_page_url"
+          :total="total"
+          :from="from"
+          :to="to"
+          :load-more-width="208"
+          :load-more-text="category.entity === 'promotion' ? 'Показать еще акции' : 'Показать еще бонусы'"
+          total-text="акций"
+          @next="handlePageNext"
+          @prev="handlePagePrev"
+          @change="handlePageChange"
+          @more="handleShowMore">
+        </pagination>
+
+        <div class="row">
+          <!-- Toc -->
+          <div class="col-auto">
+
+            <toc-list v-if="category.toc && category.toc.length">
+              <template v-slot="{ inline }">
+                <toc-item v-for="(item, index) in category.toc" :key="index"
+                  :index="index"
+                  :inline="inline"
+                  :anchor="item.anchor_id"
+                  :text="item.text">
+                </toc-item>
+              </template>
+            </toc-list>
+
+          </div>
+          <div class="col col-article">
+            <!-- Article -->
+            <page-article
+              :meta="false"
+              :text="category.text"
+              :author="category.author ? category.author.full_name : null"
+              :created="category.created_at"
+              :updated="category.updated_at">
+              <template v-slot:footer>
+                <!-- Faq -->
+                <faq-list v-if="category.faq && category.faq.mainEntity.length" label="FAQ">
+                  <faq-item v-for="(item, index) in category.faq.mainEntity" :key="index"
+                    :question="item.name"
+                    :answer="item.acceptedAnswer.text">
+                  </faq-item>
+                </faq-list>
+                
+                <!-- Author -->
+                <author v-if="category.author" :author="category.author" />
+
+                <!-- Comments -->
+                <comments commentable_type="App\PromotionCategory" :commentable_id="category.id" />
+              </template>
+            </page-article>          
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <promotion-category-filters
+          v-if="filters"
+          :geo="geo"
+          :categories="filters.categories"
+          :disciplines="filters.disciplines"
+          :limits="filters.limits"
+          :games="filters.games"
+          :rooms="filters.rooms"
+          :networks="filters.networks"
+          :exclusive="filters.exclusive"
+          @change="handleFilterChange"
+        />
+        <room-top-list v-if="category.entity === 'promotion'" />
+
+        <topic-list v-if="category.topics.length">
+          <topic-item
+            v-for="(item, index) in category.topics" :key="index"
+            :title="item.title"
+            :url="item.url"
+            :author="item.author"
+            :created="item.created_at"
+          />
+        </topic-list>
+
+        <game-search-banner />
 
       </div>
 
     </div>
 
-	</div>
+  </div>
+
+  <page-banners />
+</div>
 </template>
 
 <script>

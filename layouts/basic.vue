@@ -4,16 +4,21 @@
 			<page-header v-show="!hideHeader"/>
 		</transition>
 		<nuxt />
-		<best-room v-if="topList"
-		  :title="topList[0].title"
-		  :background="topList[0].background"
-		  :image="topList[0].image"
-		  :review="topList[0].review"
-		  :country="country"
-		 />
-		<page-footer/>
+
+		<lazy-hydrate when-visible>
+			<best-room v-if="topList"
+			  :title="topList[0].title"
+			  :background="topList[0].background"
+			  :image="topList[0].image"
+			  :review="topList[0].review"
+			  :country="country"
+			 />
+		</lazy-hydrate>
+		<lazy-hydrate when-visible>
+			<page-footer/>
+		</lazy-hydrate>
 		<transition name="fade">
-			<modal
+			<lazy-modal
 				v-if="blacklistModal"
 				:show.sync="blacklistModal"
 				header-bg="#FF4151"
@@ -40,12 +45,12 @@
 					</div>
 				</template>
 				<template v-slot:body>
-					<blacklist-form />
+					<lazy-blacklist-form />
 				</template>
-			</modal>
+			</lazy-modal>
 		</transition>
 		<transition name="fade">
-			<modal
+			<lazy-modal
 				v-if="connectionModal"
 				:show.sync="connectionModal"
 				:width="970"
@@ -65,22 +70,22 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-7">
-								<connection-form @submit="handleConnectionForm" />
+								<lazy-connection-form @submit="handleConnectionForm" />
 							</div>
 							<div class="col-5">
 								<transition name="flip">
-									<auth-form v-if="!user && auth" class="connection-auth" />
-									<register-form v-if="!user && register" connection class="connection-auth" />
-									<user-profile v-if="user" />
+									<lazy-auth-form v-if="!user && auth" class="connection-auth" />
+									<lazy-register-form v-if="!user && register" connection class="connection-auth" />
+									<lazy-user-profile v-if="user" />
 								</transition>	
 							</div>
 						</div>
 					</div>
 				</template>
-			</modal>
+			</lazy-modal>
 		</transition>
 		<transition name="fade">
-			<modal
+			<lazy-modal
 				v-if="completeModal"
 				:show.sync="completeModal"
 				:width="686"
@@ -131,10 +136,10 @@
 						}" @click="completeModalShow = false">Закрыть</button>
 					</div>
 				</template>
-			</modal>
+			</lazy-modal>
 		</transition>
 		<transition name="fade">
-			<modal
+			<lazy-modal
 				v-if="ratesModal"
 				:show.sync="ratesModal"
 				:width="970"
@@ -154,12 +159,13 @@
 					</div>
 				</template>
 				<template v-slot:body>
-					<modals-rates />
+					<lazy-modal-rates />
 				</template>
-			</modal>
+			</lazy-modal>
 		</transition>
+
 		<transition name="fade">
-			<modal
+			<lazy-modal
 				v-if="authModal"
 				:show.sync="authModal"
 				:width="444"
@@ -177,10 +183,10 @@
 					</span>
 				</template>
 				<template v-slot:body>
-					<auth-form v-if="auth" modal />
-					<reset-form v-if="reset" modal />
+					<lazy-auth-form v-if="auth" modal />
+					<lazy-reset-form v-if="reset" modal />
 				</template>
-			</modal>
+			</lazy-modal>
 		</transition>
 	</div>
 </template>
@@ -188,16 +194,20 @@
 <script>
 import { mapGetters } from 'vuex'
 import eventBus from '~/utils/event-bus'
+import LazyHydrate from 'vue-lazy-hydration'
 
 export default {
 	name: 'BasicLayout',
+
 	components: {
-		Modal: () => import('~/components/modals/Modal'),
-		AuthForm: () => import('~/components/AuthForm'),
-		BlacklistForm: () => import('~/components/BlacklistForm'),
-		ConnectionForm: () => import('~/components/ConnectionForm'),
-		ModalsRates: () => import('~/components/modals/ModalsRates')
+		LazyHydrate
+		// Modal: () => import('~/components/modals/Modal'),
+		// AuthForm: () => import('~/components/AuthForm'),
+		// BlacklistForm: () => import('~/components/BlacklistForm'),
+		// ConnectionForm: () => import('~/components/ConnectionForm'),
+		// ModalRates: () => import('~/components/modals/ModalRates')
 	},
+
   computed: {
 		...mapGetters({
 		  locale: 'lang/locale',

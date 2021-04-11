@@ -10,10 +10,10 @@
 
 			<div class="row">
 
-				<div class="col-9">
+				<div class="col-12">
 
 					<div class="row">
-						<div class="col-auto">
+						<div class="col-2">
 							<toc-list v-if="tab.toc">
 								<template v-slot="{ inline }">
 									<toc-item
@@ -31,7 +31,7 @@
 							</toc-list>
 						</div>
 
-						<div class="col">
+						<div class="col-7">
 							<page-article
 								:title-id="urlLit(tab.title)"
 								:title="tab.title"
@@ -56,7 +56,7 @@
 										url="https://t-do.ru/worldpokerdealsRU"
 									/>
 
-                  <author v-if="tab.author" :author="tab.author" />
+								<author v-if="tab.author" :author="tab.author" />
 
 									<reviews :room_id="room.id" :reviews="reviews" />
 								</template>
@@ -64,7 +64,78 @@
 							</page-article>
 						</div>
 
-						<div class="col">
+
+						<div class="col-3">
+							<aside class="room-aside">
+
+								<div v-if="room.images.length" class="room-screenshots">
+									<div class="block-title" :style="{marginTop: 0}">Скриншоты</div>
+									<div class="room-screenshots__list">
+										<a v-for="(item, index) in room.images" :key="index" :href="`${mediaUrl}/gallery-large/${item.filename}`"
+											:class="['room-screenshot__item lightbox', index === 0 && 'room-screenshot__item_big']">
+											<template v-if="index === 0">
+												<img class="room-screenshot__img" :src="`${mediaUrl}/room-screenshot-medium/${item.filename}`" :alt="item.alt">
+											</template>
+											<template v-else>
+												<img class="room-screenshot__img" :src="`${mediaUrl}/room-screenshot-small/${item.filename}`" :alt="item.alt">
+											</template>
+										</a>
+									</div>
+								</div>
+
+								<room-params
+									:founded_at="room.founded_at"
+									:licenses="room.licenses"
+									:certificates="room.certificates"
+									:client_software="room.client_software"
+									:network="room.network.title"
+									:players_peak="room.players_peak"
+									:tracker="room.hud"
+									:currencies="room.currencies"
+									:min_deposit="room.min_deposit"
+									:max_deposit="room.max_deposit"
+									:games="[
+										...room.disciplines,
+										...room.games
+									]"
+								/>
+
+								<room-support
+									:languages="room.locales"
+									:email="room.email"
+									:phone="room.phone"
+									:livechat="room.livechat"
+								/>
+								
+								<post-list v-if="room.posts.length">
+									<post-item
+										v-for="(item, index) in room.posts" :key="index"
+										:image="item.image"
+										:title="item.title"
+										:summary="item.summary"
+										:slug="item.slug"
+										:author="item.user"
+										:created="item.created_at"
+										:categories="item.categories"
+									></post-item>
+								</post-list>
+							</aside>
+
+							<room-manager
+								v-if="room.managers && room.managers.length"
+								:name="room.managers[0].full_name"
+								:manager_info="room.manager_info"
+								:position="room.managers[0].position"
+								:telegram="room.managers[0].telegram"
+								:skype="room.managers[0].skype"
+								:whatsapp="room.managers[0].whatsapp"
+								:email="room.managers[0].email"
+								:image="room.managers[0].image">  
+							</room-manager>
+						</div>
+
+
+						<div class="col-9">
 							<div class="block-title">Похожие предложения</div>
 							<room
 								v-for="(item, index) in related" :key="index"
@@ -86,80 +157,14 @@
 
 				</div>
 
-				<div class="col-md-3">
-					<aside class="room-aside">
-
-						<div v-if="room.images.length" class="room-screenshots">
-							<div class="block-title" :style="{marginTop: 0}">Скриншоты</div>
-							<div class="room-screenshots__list">
-								<a v-for="(item, index) in room.images" :key="index" :href="`${mediaUrl}/gallery-large/${item.filename}`"
-									:class="['room-screenshot__item lightbox', index === 0 && 'room-screenshot__item_big']">
-									<template v-if="index === 0">
-										<img class="room-screenshot__img" :src="`${mediaUrl}/room-screenshot-medium/${item.filename}`" :alt="item.alt">
-									</template>
-									<template v-else>
-										<img class="room-screenshot__img" :src="`${mediaUrl}/room-screenshot-small/${item.filename}`" :alt="item.alt">
-									</template>
-								</a>
-							</div>
-						</div>
-
-						<room-params
-							:founded_at="room.founded_at"
-							:licenses="room.licenses"
-							:certificates="room.certificates"
-							:client_software="room.client_software"
-							:network="room.network.title"
-							:players_peak="room.players_peak"
-							:tracker="room.hud"
-							:currencies="room.currencies"
-							:min_deposit="room.min_deposit"
-							:max_deposit="room.max_deposit"
-							:games="[
-								...room.disciplines,
-								...room.games
-							]"
-						/>
-
-						<room-support
-							:languages="room.locales"
-							:email="room.email"
-							:phone="room.phone"
-							:livechat="room.livechat"
-						/>
-						
-						<post-list v-if="room.posts.length">
-							<post-item
-								v-for="(item, index) in room.posts" :key="index"
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:slug="item.slug"
-								:author="item.user"
-								:created="item.created_at"
-								:categories="item.categories"
-							></post-item>
-						</post-list>
-					</aside>
-
-					<room-manager
-						v-if="room.managers && room.managers.length"
-						:name="room.managers[0].full_name"
-						:manager_info="room.manager_info"
-						:position="room.managers[0].position"
-						:telegram="room.managers[0].telegram"
-						:skype="room.managers[0].skype"
-						:whatsapp="room.managers[0].whatsapp"
-						:email="room.managers[0].email"
-						:image="room.managers[0].image">  
-					</room-manager>
-				</div>
-
 			</div>
 		</div>
 		<transition name="fade">
 			<room-header-sticky v-if="showSticky"/>
 		</transition>
+
+		<page-banners />
+
 	</section>
 </template>
 

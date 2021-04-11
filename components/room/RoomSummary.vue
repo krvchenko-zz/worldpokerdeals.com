@@ -43,44 +43,42 @@
 						</div>
 					</div>
 
-					<div v-if="room.licenses.length" class="room-detail">
-						<div class="room-detail__label">Лицензии</div>
-						<div class="room-detail__value">
-							<span v-for="(item, index) in room.licenses" :key="index">
-								<span class="room-detail__license">
-									<svg-icon :icon="item.icon" prefix="flags/" width="20" height="20" />
-									<span>{{ item.title }}</span>
-								</span>
-								<template v-if="index != Object.keys(room.licenses).length - 1">, </template>
+					<div class="room-detail">
+						<div class="room-detail__label">Лицензия</div>
+						<div v-if="room.licenses.length" class="room-detail__value room-detail__value_licenses">
+							<span class="room-detail__license" v-for="(item, index) in room.licenses" :key="index">
+								<svg-icon :icon="item.icon" prefix="flags/" width="20" height="20" />
+								<span>{{ item.title }}</span>
 							</span>
 						</div>
+						<span v-else class="room-detail__value">Отсутствует</span>
 					</div>
 
 					<div v-if="room.payment_methods.length" class="room-detail">
 						<div class="room-detail__label">Платежи</div>
 						<div class="room-detail__value">
 							<ul class="room-payment-list">
-								<li v-if="index < 3" :key="item.id"
+								<li v-if="index < 2" :key="item.id"
 									v-for="(item, index) in room.payment_methods"
 									class="room-payment"
 									:title="item.title"
 								>
-									<svg-icon :icon="`${item.slug}-white`" :removeClipPath="true"/>
+									<svg-icon :icon="`${item.icon}-white`" :removeClipPath="true"/>
 								</li>
-								<template v-if="room.payment_methods.length > 3">
-									<li v-if="index > 2 && showMorePayments"
+								<template v-if="room.payment_methods.length > 2">
+									<li v-if="index > 1 && showMorePayments"
 										v-for="(item, index) in room.payment_methods" :key="item.id"
 										class="room-payment"
 										:title="item.title"
 									>
-										<svg-icon :icon="`${item.slug}-white`" :removeClipPath="true"/>
+										<svg-icon :icon="`${item.icon}-white`" :removeClipPath="true"/>
 									</li>
 									<li
 										key="more"
 										:class="['room-payment__toggle', showMorePayments && 'room-payment__toggle_hide']"
 										@click="showMorePayments = !showMorePayments"
 									>
-										<span>+{{ room.payment_methods.length - 3 }}</span>
+										<span>+{{ room.payment_methods.length - 2 }}</span>
 									</li>
 								</template>
 							</ul>
@@ -91,15 +89,13 @@
 						<div class="room-detail__label">Устройства</div>
 						<div class="room-detail__value">
 							<ul class="room-platform-list">
-								<transition-group name="fade">
-									<li v-for="item in room.platforms" :key="item.id"
-										:title="item.title"
-										:class="{
-											'room-platform': true
-										}">
-										<svg-icon opacity="1" :icon="item.icon" />
-									</li>
-								</transition-group>
+								<li v-for="item in room.platforms" :key="item.id"
+									:title="item.title"
+									:class="{
+										'room-platform': true
+									}">
+									<svg-icon opacity="1" :icon="item.icon" />
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -107,16 +103,16 @@
 					<div class="room-detail">
 						<div class="room-detail__label">Локализация</div>
 						<div class="room-detail__value room-detail__value_locale">
-							<svg-icon class="room-header__geo" :width="20" :height="20" :icon="country.code" prefix="flags/" />
-							<span class="room-header__locale">{{ country.title }}</span>
+							<svg-icon class="room-detail__geo" :width="20" :height="20" :icon="country.code" prefix="flags/" />
+							<span class="room-detail__locale">{{ country.title }}</span>
 						</div>
 					</div>
 
 				</div>
 					<room-action-button
 					  :style="{
-					  	padding: '9px 24px',
-					  	fontSize: '16px'
+						padding: '9px 24px',
+						fontSize: '16px'
 					  }"
 						class="btn-block"
 						:slug="room.slug"
@@ -137,15 +133,15 @@
 						<room-score-item v-for="item in room.rates" :key="item.id"
 							:id="item.id"
 							:label="item.title"
-							:value="item.pivot.value"
+							:value="item.value"
 						/>
 					</div>
 				</div>
 
 			  <room-action-button
 				  :style="{
-				  	padding: '7px 24px',
-				  	fontSize: '16px'
+						padding: '7px 24px',
+						fontSize: '16px'
 				  }"
 				  class="btn-block"
 					:slug="room.review.slug"
@@ -173,12 +169,9 @@ export default {
 
 	},
 
-	fetchOnServer: false,
-
 	props: {
-		id: {
-			type: [Number, String],
-			required: true
+		room: {
+			type: Object
 		}
 	},
 
@@ -190,7 +183,6 @@ export default {
 
 	computed: {
 		...mapGetters({
-			room: 'rooms/room',
 			user: 'auth/user',
 			geo: 'location/code',
 			country: 'location/country'
@@ -213,11 +205,6 @@ export default {
 
 	},
 
-	async fetch() {
-    const { data } = await axios.get(`rooms/summary/${this.id}`)
-    this.$store.commit('rooms/FETCH_ROOM', { room: data })
-	},
-
 	methods: {
 		handleRatesModal() {
 			eventBus.$emit('ratesModal:show', true)
@@ -226,8 +213,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 $ico-room-payment-arrow: url('~assets/i/room/ico-room-payment-arrow.svg?data');
+$ico-check-small: url('~assets/i/ico-check-small.svg?data');
 
 .room-summary {
 	margin: 20px -28px 40px -28px;
@@ -293,6 +281,34 @@ $ico-room-payment-arrow: url('~assets/i/room/ico-room-payment-arrow.svg?data');
 		}
 	}
 
+	&__geo {
+		margin-right: 8px;
+	}
+
+	&__locale {
+		margin-right: 8px;
+		display: inline-block;
+		vertical-align: middle;
+		position: relative;
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		border-radius: 4px;
+		padding: 0 5px 0 17px;
+		font-family: 'Proxima Nova Sb';
+		font-size: 10px;
+		line-height: 18px;
+		color: rgba(255, 255, 255, 0.8);
+		&::before {
+			content: '';
+			top: 6px;
+			left: 5px;
+			position: absolute;
+			width: 7px;
+			height: 7px;
+			display: block;
+			background: $ico-check-small no-repeat center;
+		}
+	}
+
 	&__reviews-val {
 		font-size: 0;
 		&-label {
@@ -334,6 +350,7 @@ $ico-room-payment-arrow: url('~assets/i/room/ico-room-payment-arrow.svg?data');
 	}
 
 	&__value {
+		flex-grow: 1;
 		font-family: 'Proxima Nova Sb';
 		font-style: normal;
 		font-size: 16px;
@@ -348,10 +365,15 @@ $ico-room-payment-arrow: url('~assets/i/room/ico-room-payment-arrow.svg?data');
 		&_locale {
 			font-size: 0;
 		}
+		&_licenses {
+			margin-bottom: -12px;
+		}
 	}
 
 	&__license {
-		display: flex;
+		margin: 0 12px 12px 0;
+		display: inline-flex;
+		white-space: nowrap;
 		.svg-icon {
 			margin-right: 8px;
 		}

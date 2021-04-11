@@ -41,7 +41,7 @@
         [`bonus-card__avaliable_yes`]: !restricted,
         [`bonus-card__avaliable_no`]: restricted
       }">
-        <svg-icon class="bonus-card__geo-icon" :width="16" :height="16" :icon="country.code" prefix="flags/"/><template v-if="restricted">Недоступен игрокам из {{ country.from }}!</template><template v-else>Доступен игрокам из {{ country.from }}</template>
+        <svg-icon class="bonus-card__geo-icon" :width="16" :height="16" :icon="country.code" prefix="flags/"/><template v-if="restricted">Недоступен игрокам из {{ country.from }}!</template><template v-else>Доступен игрокам из {{ country.from }}!</template>
       </span>
     </div>
   </div>

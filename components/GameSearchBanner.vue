@@ -60,7 +60,7 @@ export default {
 $contact-us-logo: url('~assets/i/contact-us-logo.svg?data');
 
 .game-search-banner {
-  margin: 40px 0;
+  margin: 40px 0 0 0;
   width: 100%;
   position: relative;
   border-radius: 10px;

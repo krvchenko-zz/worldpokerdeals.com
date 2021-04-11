@@ -19,6 +19,8 @@
         :template="template"
       />
 
+      <!-- <div v-carousel v-table-hideable class="article-body" v-html="text"></div> -->
+
       <slot name="footer" />
     </div>
   </article>
@@ -99,19 +101,22 @@ export default {
   },
 
   updated() {
-
+    const lightbox = this.$glightbox({
+      touchNavigation: true,
+      loop: true,
+      selector: '.lightbox'
+    })
   },
 
   watch: {
-
+    text() {
+      // this.$forceUpdate();
+    },
   },
 
 	methods: {
-
 	}
 }
 </script>
 <style lang="scss">
-  
-
 </style>

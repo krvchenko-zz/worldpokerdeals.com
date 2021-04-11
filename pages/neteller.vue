@@ -224,10 +224,6 @@ $ico-neteller-form: url('~assets/i/ico-neteller-form.svg?data');
 $ico-neteller-plus: url('~assets/i/ico-neteller-plus.svg?data');
 $ico-neteller-minus: url('~assets/i/ico-neteller-minus.svg?data');
 
-.content {
-  padding-bottom: 90px;
-}
-
 .neteller {
 
   &-header {

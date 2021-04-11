@@ -91,9 +91,9 @@ export default {
 
 <style lang="scss">
 .page-banners {
-  padding-bottom: 90px;
+  padding: 40px 0 0 0;
   &_front {
-    padding-bottom: 40px;
+    padding: 0 0 40px 0;
   }
   &__wrap {
     display: flex;
