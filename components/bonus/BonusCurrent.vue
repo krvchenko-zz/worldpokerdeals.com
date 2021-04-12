@@ -11,7 +11,7 @@
       navigation-prev-label=""
       :navigation-click-target-size="0"
     >
-      <slide v-for="(item, index) in items" :key="index">
+      <slide v-for="(item, index) in promotions" :key="index">
         <nuxt-link
           :to="{
             name: 'index',
@@ -54,15 +54,7 @@ export default {
   },
 
   props: {
-    id: {
-      type: [Number, String],
-      required: true
-    },
 
-    room_id: {
-      type: [Number, String],
-      required: true
-    }
   },
 
 	created() {
@@ -75,23 +67,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      items: 'promotions/items',
+      promotions: 'promotions/items',
       promotion: 'promotions/promotion'
     }),
-  },
-
-  fetchOnServer: false,
-
-  async fetch() {
-    await axios.get(`promotion/latest`, {
-      params: {
-        type: null,
-        exclude: this.id,
-        room_id: this.room_id
-      }
-    }).then((response) => {
-      this.$store.commit('promotions/FETCH_ITEMS', { items: response.data })
-    })
   },
 
   watch: {
@@ -107,30 +85,6 @@ export default {
 <style lang="scss">
 $ico-bonus-slider-arrow: url('~assets/i/ico-bonus-slider-arrow.svg?data');
 
-.bonus-current-list {
-  position: relative;
-  z-index: 1;
-  padding: 56px;
-  margin: -28px -56px;
-  background: radial-gradient(189.6% 133.3% at 57.43% 2.13%, #21232D 0%, #3A3E51 100%);
-  border-radius: 16px;
-  &__wrap {
-    min-height: 64px;
-  }
-  &__title {
-    margin-bottom: 20px;
-    font-family: Proxima Nova;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 14px;
-    text-align: center;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-feature-settings: 'tnum' on, 'lnum' on;
-    color: #999999;
-  }
-}
-
 .bonus-current {
   display: flex;
   margin-right: 24px;
@@ -138,6 +92,29 @@ $ico-bonus-slider-arrow: url('~assets/i/ico-bonus-slider-arrow.svg?data');
   &:active,
   &:focus {
     text-decoration: none;
+  }
+  &-list {
+    position: relative;
+    z-index: 1;
+    padding: 56px;
+    margin: -76px -56px -28px -56px;
+    background: radial-gradient(189.6% 133.3% at 57.43% 2.13%, #21232D 0%, #3A3E51 100%);
+    border-radius: 16px;
+    &__wrap {
+      min-height: 64px;
+    }
+    &__title {
+      margin-bottom: 20px;
+      font-family: Proxima Nova;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 14px;
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: #999999;
+    }
   }
   &__wrap {
     font-size: 0;

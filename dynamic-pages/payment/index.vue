@@ -76,7 +76,7 @@
               </toc-list>
             </div>
 
-            <div class="col">
+            <div class="col col-article">
 
               <page-article :text="tab.text">
                 <template v-slot:footer>
@@ -88,7 +88,7 @@
                     </faq-item>
                   </faq-list>
                   <!-- Author -->
-                  <author v-if="tab.user" :author="tab.user"/>
+                  <author v-if="tab.author" :author="tab.author"/>
                   <!-- Comments -->
                   <comments commentable_type="App\Tab" :commentable_id="tab.id"/>
                 </template>
@@ -124,6 +124,8 @@
               :created="item.created_at"
             />
           </topic-list>
+
+          <game-search-banner />
 
         </div>
 
@@ -232,25 +234,27 @@ export default {
       this.$store.commit('payments/FETCH_TAB', { tab: response.data.tab })
     })
 
+    
+    await axios.get('rooms/list', {
+      params: {
+        geo: this.country.code,
+        per_page: 10,
+        sort: 'rating',
+        order: 'desc',
+        payment_method_id: this.payment.id,
+        ids: this.tab.list
+      }
+    })
+    .then((response) => {
+      Object.keys(response.data).forEach(key => {
+        this[key] = response.data[key]
+      })
+      this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
+    })
+    .catch((e) => {
+    })
+
     if (this.tab.show_rooms) {
-      await axios.get('rooms/list', {
-        params: {
-          geo: this.country.code,
-          per_page: 10,
-          sort: 'rating',
-          order: 'desc',
-          payment_method_id: this.payment.id,
-          ids: this.tab.list
-        }
-      })
-      .then((response) => {
-        Object.keys(response.data).forEach(key => {
-          this[key] = response.data[key]
-        })
-        this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
-      })
-      .catch((e) => {
-      })
 
       await axios.get(`/payments/filters/list`, {
         params: {

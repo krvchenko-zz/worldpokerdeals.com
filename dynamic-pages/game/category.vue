@@ -25,7 +25,6 @@
             <game-item
               :title="item.title"
               :icon="item.icon"
-              :slug="item.slug"
               :rooms="item.rooms"
               :page="item.page"
             >
@@ -48,7 +47,7 @@
           </toc-list>
         </div>
 
-        <div class="col">
+        <div class="col col-article">
           <!-- Article -->
           <page-article :text="category.text">
             <template v-slot:footer>
@@ -128,15 +127,15 @@ export default {
 
   data: () => ({
     loading: false,
-    type: 'game',
+    type: 'discipline',
     types: [
-      {
-        label: 'Виды покера',
-        value: 'game'
-      },
       {
         label: 'Дисциплины',
         value: 'discipline'
+      },
+      {
+        label: 'Виды покера',
+        value: 'game'
       },
       {
         label: 'Лимиты',
@@ -162,7 +161,7 @@ export default {
       this.$store.commit('games/FETCH_GAMES', { games: response.data.map(item => ({
         title: item.title,
         icon: item.icon,
-        slug: item.review.slug,
+        page: item.page,
         rooms: item.rooms_count
       })) })
     })

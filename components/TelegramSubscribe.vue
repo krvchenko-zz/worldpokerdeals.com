@@ -98,7 +98,7 @@ $ico-telegram: url('~assets/i/messengers/ico-telegram.svg?data');
   &__img {
     position: absolute;
     right: 0;
-    top: 0;
+    bottom: 0;
     z-index: 2;
   }
 

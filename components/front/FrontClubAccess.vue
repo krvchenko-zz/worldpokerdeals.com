@@ -1,6 +1,6 @@
 <template>
 <div class="front-club-access">
-	<img width="262px" height="433px" decoding="async" loading="lazy" src="~assets/i/club-access-banner.jpg" alt="Вестник Бамхантера" class="front-club-access__img">
+	<!-- <img decoding="async" loading="lazy" src="~assets/i/club-access-banner.jpg" alt="Вестник Бамхантера" class="front-club-access__img"> -->
   <div class="front-club-access__wrap">
     <div class="front-club-access__title">Безопасный доступ в клубы</div>
     <div class="front-club-access__info">Ать вы с инты, к любым сроку их полни дежност витекту шевклаг</div>
@@ -47,18 +47,23 @@ export default {
 
 <style lang="scss">
 $contact-us-logo: url('~assets/i/contact-us-logo.svg?data');
+$club-access-banner: url('~assets/i/club-access-banner.jpg');
 
 .front-club-access {
-  margin-top: 20px;
-  width: 262px;
+  // margin-top: 20px;
+  // width: 262px;
+  margin: 0 10px;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  &__img {
-    display: block;
-    min-height: 252px;
-    width: auto;
-  }
+  min-height: 459px;
+  background: $club-access-banner no-repeat center;
+  background-size: cover;
+  // &__img {
+  //   display: block;
+  //   width: 100%;
+  //   height: auto;
+  // }
 
   &__wrap {
     padding: 52px 28px 28px 28px;

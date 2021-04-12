@@ -58,7 +58,7 @@ import { Rate } from 'element-ui'
 
 export default {
 
-  name: 'ReviewForm',
+  name: 'ReviewsForm',
 
   components: {
     [Rate.name]: Rate,

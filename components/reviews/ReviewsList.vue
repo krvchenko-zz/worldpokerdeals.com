@@ -1,6 +1,6 @@
 <template>
-<div>
-	
+<div class="review-list">
+	<slot />
 </div>
 </template>
 
@@ -8,7 +8,7 @@
 
 export default {
 
-  name: 'Action',
+  name: 'ReviewsList',
 
   components: {
 

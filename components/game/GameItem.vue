@@ -1,6 +1,9 @@
 <template>
 <div class="game-item">
-  <nuxt-link prefetch :to="{name: 'index', params: { parent: 'raznovidnosti-pokera', child: slug }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
+  <nuxt-link prefetch :to="{name: 'index', params: {
+  	parent: page.parent ? page.parent.slug : page.slug,
+  	child: page.parent ? page.slug : null
+  }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
 	<a :class="['game-item__wrap']" :href="href" @click="navigate">
 			<div class="game-item__icon-wrap">
 				<svg-icon class="game-item__icon" :icon="icon" :width="88" :height="88" viewBox="0 0 200 200" />
@@ -28,15 +31,12 @@ export default {
 		icon: {
 			type: String
 		},
-		slug: {
-			type: String
+		page: {
+			type: Object
 		},
 		rooms: {
 			type: [String, Number]
 		},
-		// slug: {
-		// 	type: Object
-		// },
 	},
 
 	created() {

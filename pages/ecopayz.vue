@@ -1,5 +1,5 @@
 <template>
-	<section :class="['content']">
+	<section :class="['content', 'content_ecopayz']">
 		<div class="ecopayz">
 			<div class="ecopayz-header">
 				<div class="ecopayz-header__wrap">
@@ -252,10 +252,6 @@ $ecopayz-bg: url('~assets/i/ecopayz-bg.jpg');
 $ico-ecopayz-form: url('~assets/i/ico-ecopayz-form.svg?data');
 $ico-ecopayz-plus: url('~assets/i/ico-ecopayz-plus.svg?data');
 $ico-ecopayz-list: url('~assets/i/ico-ecopayz-list.svg?data');
-
-.content {
-	padding-bottom: 90px;
-}
 
 .ecopayz {
 

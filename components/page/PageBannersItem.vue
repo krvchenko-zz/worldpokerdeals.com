@@ -8,7 +8,10 @@
   @mouseover="hover = true"
 >
   <img class="page-banner__img" decoding="async" loading="lazy" :src="require(`~/assets/i/${image}`)" alt="title">
-  <nuxt-link prefetch :to="url" v-slot="{ href, route, navigate, isActive, isExactActive }">
+  <nuxt-link prefetch :to="{name: 'index', params: {
+    parent: page.parent ? page.parent.slug : page.slug,
+    child: page.parent ? page.slug : null
+  }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
     <a class="page-banner__link" :href="href" @click="navigate">
       <div class="page-banner__wrap">
         <span class="page-banner__title">{{ title }}</span>
@@ -30,9 +33,8 @@ export default {
   },
 
   props: {
-    url: {
-      type: String,
-      default: ''
+    page: {
+      type: Object
     },
     title: {
       type: String,

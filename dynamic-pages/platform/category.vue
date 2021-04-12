@@ -36,7 +36,7 @@
           </toc-list>
         </div>
 
-        <div class="col">
+        <div class="col col-article">
           <page-article :text="category.text">
             <template v-slot:footer>
               <!-- Author -->

@@ -19,7 +19,7 @@
 
 		<template v-else>
 			<svg-icon :class="['top-rooms-header__flag', `top-rooms-header__flag_${type}`]" :icon="country.code" prefix="flags/" :width="24" :height="24"/>
-			<div :class="['top-rooms-header__label', `top-rooms-header__label_${type}`]">Топ-{{ per_page }} покер-румов</div>
+			<div :class="['top-rooms-header__label', `top-rooms-header__label_${type}`]">Топ-{{ rooms.length }} покер-румов</div>
 			<div :class="['top-rooms-header__country', `top-rooms-header__country_${type}`]">для {{ country.from }}</div>
 		</template>
 	</div>
@@ -89,7 +89,7 @@ export default {
 		}
 	},
 
-	created() {
+	mounted() {
 
 	},
 
@@ -112,16 +112,15 @@ export default {
   },
 
 	watch: {
-
+		// $route() {
+		// 	this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
+		// }
 	},
 
 	methods: {
 		async handleLoadMore() {
 			$nuxt.$loading.start()
 			this.per_page = parseInt(this.per_page) + 5
-			// await this.$fetch().then(data => {
-			//  $nuxt.$loading.finish()
-			// })
 			await axios.get('/rooms/geo/top', {
 				params: {
 					geo: this.country.geo,

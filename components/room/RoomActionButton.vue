@@ -1,12 +1,12 @@
 <template>
-  <nuxt-link :to="to" v-slot="{ href, route, navigate }">
+  <nuxt-link :to="to" v-slot="{ href, route, navigate }" custom>
     <button :disabled="disabled" :class="[
       'btn',
       'btn-room-action',
       disabled && 'btn-room-action_disabled',
       `btn-room-action_${type}`,
       icon && `btn-room-action_${type}-icon`
-    ]" v-on="shouldNavigate ? { click: type === 'download' ? handleDownload : navigate } : {click: handleClick}">{{ label }}</button>
+    ]" v-on="shouldNavigate ? { click: type === 'download' ? handleDownload : navigate } : {click: handleClick }">{{ label }}</button>
   </nuxt-link>
 </template>
 
@@ -84,11 +84,13 @@ export default {
 
 	methods: {
     handleClick() {
-      eventBus.$emit('roomAction:click', {
+      const data = {
         type: this.type,
         title: this.title,
         slug: this.slug
-      })
+      }
+      this.$emit('click', data)
+      eventBus.$emit('roomAction:click', data)
     },
 
     handleDownload() {
@@ -105,7 +107,6 @@ $ico-btn-action: url('~assets/i/room/ico-btn-action.svg?data');
 .btn-room-action {
   margin: 0;
   padding: 11px 24px 11px 24px;
-  max-width: 280px;
   flex-grow: 1;
   font-family: 'Proxima Nova Sb';
   font-size: 18px;

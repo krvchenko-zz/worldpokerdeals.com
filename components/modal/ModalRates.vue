@@ -13,7 +13,7 @@
 
 export default {
 
-  name: 'ModalsRates',
+  name: 'ModalRates',
 
 	data: () => ({
     items: [

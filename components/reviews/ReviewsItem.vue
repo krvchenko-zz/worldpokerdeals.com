@@ -27,7 +27,7 @@ import eventBus from '~/utils/event-bus'
 
 export default {
 
-	name: 'ReviewItem',
+	name: 'ReviewsItem',
 
 	components: {
 

@@ -15,13 +15,13 @@
           :alt="image.alt || title"
           loading="lazy"
         />
-        <span v-if="time_left" :class="['promotion-item__status']">Live</span>
+        <span v-if="active" :class="['promotion-item__status']">Live</span>
       </a>
     </nuxt-link>
 
     <div :class="['promotion-item__inner', featured && 'promotion-item__inner_featured']">
 
-      <div class="promotion-item__prize">
+      <div :class="['promotion-item__prize', featured && 'promotion-item__prize_featured']">
         <div class="promotion-item__prize-label">Призовой фонд</div>
         <div class="promotion-item__prize-value">{{ formatMoney(prize) }} {{ currency }}</div>
       </div>
@@ -134,6 +134,11 @@ export default {
     featured: {
       type: Boolean,
       default: false
+    },
+
+    active: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -208,7 +213,9 @@ $ico-exclusive: url('~assets/i/promotion/exclusive.svg?data');
 .promotion-item {
   position: relative;
   margin-bottom: 48px;
+  max-width: 326px;
   &_featured {
+    float: right;
     margin: 0 0 10px 0;
     border-radius: 10px;
   }
@@ -352,11 +359,14 @@ $ico-exclusive: url('~assets/i/promotion/exclusive.svg?data');
 
   &__prize {
     margin-top: -50px;
-    padding: 0 36px;
+    // padding: 0 36px;
     position: relative;
     z-index: 2;
     font-size: 0;
     text-align: center;
+    &_featured {
+      margin-bottom: 12px;
+    }
     &-label {
       z-index: 2;
       display: inline-block;

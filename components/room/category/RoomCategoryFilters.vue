@@ -7,6 +7,7 @@
       v-if="payments.length"
       label="Методы депозита"
       icon="filter-payments"
+      :opened="true"
       @open="$emit('filterOpen')"
     >
       <filter-item v-for="(item, index) in payments" :key="index"
@@ -260,7 +261,7 @@ import eventBus from '~/utils/event-bus'
 
 export default {
 
-  name: 'Filters',
+  name: 'RoomCategoryFilters',
 
   components: {
   },
@@ -339,7 +340,7 @@ export default {
           certificates: []
         }
       } else {
-        this.selected[data.key] = _.reject(this.selected[data.key], { value: data.value })
+        this.selected[data.key] = this.selected[data.key].filter(item => { return item.value !== data.value})
       }
       this.$emit('change', this.selected)
     })
@@ -406,7 +407,7 @@ $ico-filters: url('~assets/i/ico-filters.svg?data');
   background: #2E3141;
   &:after {
     right: 20px;
-    top: 12px;
+    top: 16px;
     position: absolute;
     content: '';
     width: 33px;

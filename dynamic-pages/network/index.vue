@@ -6,35 +6,25 @@
 
       <breadcrumb-list v-if="pageable" />
 
-      <network-header
-        :title="network.heading"
-        :author="network.user.full_name"
-        :created="network.created_at"
-        :updated="network.updated_at"
-        :summary="network.summary"
-        :toc="network.toc"
-        :latest="false"
-      />
+      <network-header />
 
     </div>
 
   	<div class="container-fluid">
 
-      <h2 class="network-rooms__title">Все покер-румы сети {{ network.title }}</h2>
+      <h2 :id="urlLit(`Все покер-румы сети ${network.title}`)" class="network-rooms__title">Все покер-румы сети {{ network.title }}</h2>
 
       <div class="row">
 
         <div class="col-9">
 
           <div class="network-rooms">
-
-
             <div class="network-filters">
 
               <div v-if="data.length" class="network-filters__info">Показано {{ total }} из {{ overall }} покер-румов</div>
 
               <div v-if="data.length" class="network-filters__geo">
-                <geo-switcher :value="geo" :geo.sync="geo" @change="fetchItems"/>
+                <geo-switcher :value="country.code" :geo.sync="geo" @change="fetchItems"/>
               </div>
 
             </div>
@@ -56,14 +46,17 @@
             />
 
             <pagination
-              v-if="data.length && next_page_url"
+              v-if="rooms.length"
               :last="last_page"
-              :current="page"
-              :prevUrl="prev_page_url"
-              :nextUrl="next_page_url"
+              :current="parseInt(page)"
+              :prev-url="prev_page_url"
+              :next-url="next_page_url"
               :total="total"
               :from="from"
               :to="to"
+              :load-more-width="208"
+              load-more-text="Показать еще румы"
+              total-text="покер-румов"
               @next="handlePageNext"
               @prev="handlePagePrev"
               @change="handlePageChange"
@@ -76,6 +69,11 @@
             <div class="col-auto">
               <toc-list v-if="network.toc">
                 <template v-slot="{ inline }">
+                  <toc-item
+                    :inline="inline"
+                    :anchor="urlLit(`Все покер-румы сети ${network.title}`)"
+                    :text="`Все покер-румы сети ${network.title}`">
+                  </toc-item>
                   <toc-item v-for="(item, index) in network.toc" :key="index"
                     :index="index"
                     :inline="inline"
@@ -86,7 +84,7 @@
               </toc-list>
             </div>
 
-            <div class="col">
+            <div class="col col-article">
 
               <!-- Article -->
               <page-article :text="network.text">
@@ -113,8 +111,6 @@
 
         <div class="col-3">
           <!-- <room-top-list v-sticky="{topSpacing: 100}" /> -->
-
-
           <network-filters
             v-if="filters"
             :geo="geo"
@@ -150,10 +146,6 @@
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 
-// import RoomTopList from '~/components/RoomTopList'
-import Pagination from '~/components/pagination/Pagination'
-import Room from '~/components/cards/Room'
-
 export default {
 
   name: 'NetworkPage',
@@ -170,13 +162,10 @@ export default {
   },
 
   components: {
-    // RoomTopList,
-    Pagination,
-    Room,
+
   },
 
 	data: () => ({
-		// loading: true,
     loading: false,
     per_page: 10,
     page: 1,
@@ -342,13 +331,20 @@ export default {
     },
 
     handleFilterChange(selected) {
-
-      console.log(selected);
-
       Object.keys(selected).forEach(key => {
         this[key] = selected[key]
       })
       this.fetchItems()
+    },
+
+    urlLit(w,v) {
+      let tr='a b v g d e ["zh","j"] z i y k l m n o p r s t u f h c ch sh ["shh","shch"] ~ y ~ e yu ya ~ ["jo","e"]'.split(' ')
+      let ww=''; w=w.toLowerCase()
+      for(let i=0; i<w.length; ++i) {
+        let cc=w.charCodeAt(i); var ch=(cc>=1072?tr[cc-1072]:w[i])
+        if(ch && ch.length<3) ww+=ch; else if(ch) ww+=eval(ch)[v]
+      }
+      return(ww.replace(/[^a-zA-Z0-9\-]/g,'-').replace(/[-]{2,}/gim, '-').replace( /^\-+/g, '').replace( /\-+$/g, ''))
     }
   }
 }

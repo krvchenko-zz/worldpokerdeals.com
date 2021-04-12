@@ -9,46 +9,29 @@
               <svg-icon class="network__icon" :icon="network.url" :width="136" :height="136" viewBox="0 0 200 200" />
             </div>
           </div>
-          <div class="col-7">
-            <h1 class="network__title">{{ title }}</h1>
+          <div class="col-6">
+            <h1 class="network__title">{{ network.title }}</h1>
             <page-meta
-              :author="author"
-              :created="created"
-              :updated="updated"
+              :author="network.user ? network.user.full_name : null"
+              :created="network.created_at"
+              :updated="network.updated_at"
               :dark="true"
             >
             </page-meta>
-            <div class="network__summary">{{ summary }}</div>
-
-            <toc-list v-if="toc" :inline="true" :white="false">
-              <template v-slot="{ inline, white }">
-                <toc-item v-for="(item, index) in toc" :key="index"
-                  :index="index"
-                  :inline="inline"
-                  :white="white"
-                  :anchor="item.anchor_id"
-                  :text="item.text">
-                </toc-item>
-              </template>
-            </toc-list>
+            <div class="network__summary" v-html="network.summary"></div>
           </div>
-          <div class="col-3">
-<!--             <promotion-item
-              v-if="latest"
-              :image="latest.image"
-              :title="latest.title"
-              :summary="latest.summary"
-              :page="latest.page"
-              :author="latest.user"
-              :created="latest.created_at"
-              :category="latest.category"
-              :time_left="latest.time_left"
-              :time_before="latest.time_before"
-              :prize="latest.prize"
-              :currency="latest.currency.symbol"
-              :exclusive="latest.exclusive"
-              :featured="true"
-            ></promotion-item> -->
+          <div class="col-4">
+            <room-top v-if="rooms"
+              :style="{top: 0, margin: '0 0 26px 0'}"
+              :id="rooms[0].id"
+              :title="rooms[0].title"
+              :slug="rooms[0].slug"
+              :restricted="rooms[0].restricted"
+              :country="country"
+              :rating="rooms[0].rating"
+              :bonus="rooms[0].top_bonus"
+              :review="rooms[0].review"
+            />
           </div>
         </div>
       </div>
@@ -113,11 +96,11 @@ export default {
 
   computed: {
     ...mapGetters({
-      // locale: 'lang/locale',
-      // country: 'location/country',
-      // geo: 'location/code',
+      locale: 'lang/locale',
+      country: 'location/country',
       network: 'networks/network',
       pageable: 'pages/page',
+      rooms: 'rooms/rooms'
     }),
   },
 

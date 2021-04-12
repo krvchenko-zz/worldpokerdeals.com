@@ -27,12 +27,20 @@
     :commentable_type="commentable_type"
   ></comment-form>
 
+  <div v-if="!user" class="comments-login">
+    <p>Незарегистрированные пользователи не могут оставлять комментарии. Пожалуйста, <button class="comments-login__link" @click="handleAuthModal">войдите</button> или
+    <nuxt-link prefetch :to="{ name: 'register' }" v-slot="{ href, navigate }">
+      <a class="comments-login__link" :href="href" @click="navigate">зарегистрируйтесь</a>.
+    </nuxt-link></p>
+  </div>
+
 </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import eventBus from '~/utils/event-bus'
 import CommentForm from '~/components/comments/CommentForm'
 import CommentList from '~/components/comments/CommentList'
 import CommentItem from '~/components/comments/CommentItem'
@@ -104,6 +112,10 @@ export default {
 
   methods: {
 
+    handleAuthModal() {
+      eventBus.$emit('authModal:show', true)
+    },
+
     handleLoadMore() {
       this.per_page = this.per_page + 5
       // this.$nuxt.$loading.start()
@@ -168,6 +180,49 @@ export default {
       line-height: 20px;
       text-align: center;
       color: #AAAAAA;
+    }
+  }
+
+  &-login {
+    position: relative;
+    padding: 24px 24px 24px 84px;
+    margin-top: 28px;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #FFFFFF;
+    border: 1px solid #FCD71D;
+    border-top: 2px solid #FCD71D;
+    border-radius: 4px;
+    &:before {
+      content: '🔑';
+      display: block;
+      position: absolute;
+      left: 24px;
+      top: 24px;
+      font-size: 40px;
+      line-height: 40px;
+    }
+    p {
+      margin: 0;
+      font-family: 'Proxima Nova Sb';
+      font-size: 18px;
+      line-height: 23px;
+      color: #333333;
+    }
+    &__link {
+      padding: 0;
+      background: none;
+      outline: none;
+      border: none;
+      color: #008BE2;
+      text-decoration: none;
+      &:active,
+      &:hover,
+      &:focus {
+        color: #008BE2;
+        text-decoration: none;
+        background: none;
+        outline: none;
+        border: none;
+      }
     }
   }
 }

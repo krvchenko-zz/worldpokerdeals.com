@@ -3,7 +3,7 @@
 <tbody class="promotion-item">
   <tr class="promotion-item__row">
     <td width="83px" class="promotion-item__col promotion-item__col_icon">
-      <svg-icon  v-if="room" class="promotion-item__icon" :icon="room.slug" :width="42" :height="42" viewBox="0 0 200 200" />
+      <svg-icon class="promotion-item__icon" :icon="parent ? parent.slug : room.slug" :width="42" :height="42" viewBox="0 0 200 200" />
     </td>
 
     <td class="promotion-item__col promotion-item__col_title">
@@ -187,18 +187,15 @@ export default {
     },
 
     category: {
-      type: Object,
-      // default: false
+      type: Object
     },
 
     room: {
-      type: Object,
-      // default: false
+      type: Object
     },
 
     page: {
-      type: Object,
-      // default: false
+      type: Object
     },
 
     min_deposit: {
@@ -286,7 +283,8 @@ export default {
       user: 'auth/user',
       locale: 'lang/locale',
       locales: 'lang/locales',
-      country: 'location/country'
+      country: 'location/country',
+      parent: 'rooms/room'
     }),
 
     url() {
@@ -371,7 +369,13 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
       border-top: none;
       background: #FAFAFA;
       padding: 4px 20px 20px 20px;
-      &::v-deep ol, ul {
+      &::v-deep ol {
+        margin: 0;
+        padding: 0;
+        list-style-position: inside;
+      }
+
+      &::v-deep ul {
         margin: 0;
         padding: 0;
         list-style-position: inside;
@@ -393,7 +397,7 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
         }
       }
 
-      &::v-deep ol li {
+      &::v-deep ol > li {
         margin: 0 0 10px 0;
         padding: 0;
         font-family: 'Proxima Nova';
@@ -410,7 +414,7 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
       &::v-deep ul li {
         margin: 0 0 10px 0;
-        padding: 0 0 0 20px;
+        padding: 0 0 0 0;
         font-family: 'Proxima Nova';
         font-size: 15px;
         line-height: 18px;
@@ -569,6 +573,7 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
   &__prize {
     padding-right: 20px;
+    margin: 0;
     font-family: 'Proxima Nova';
     font-style: normal;
     font-weight: bold;

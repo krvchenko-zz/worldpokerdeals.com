@@ -280,9 +280,6 @@ export default {
 <style lang="scss">
 $skrill-bg: url('~assets/i/skrill-bg.jpg');
 $ico-skrill-form: url('~assets/i/ico-skrill-form.svg?data');
-.content {
-  padding-bottom: 90px;
-}
 .skrill {
 
   &-header {

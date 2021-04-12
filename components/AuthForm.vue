@@ -66,7 +66,9 @@
 
 			<div :class="['auth-form-action', modal && 'auth-form-action_modal']">
 			  <nuxt-link prefetch :to="{name: 'register'}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-		      Ещё нет аккаунта? <button v-on="modal ? { click: navigate } : { click: toggle }" :class="['auth-form__link', modal && 'auth-form__link_modal']">Зарегистрируйся</button>
+		      Ещё нет аккаунта?
+		      <a v-if="modal" :href="href" @click="navigate" :class="['auth-form__link', modal && 'auth-form__link_modal']">Зарегистрируйся</a>
+		      <button v-else @click="toggle" :class="['auth-form__link', modal && 'auth-form__link_modal']">Зарегистрируйся</button>
 		    </nuxt-link>
 			</div>
 

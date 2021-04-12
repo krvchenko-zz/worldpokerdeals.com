@@ -1,5 +1,5 @@
 <template>
-<header class="room-header">
+<header id="room-header" class="room-header">
 	<div class="row">
 		<div class="col-8">
 			<!-- Network -->
@@ -194,23 +194,22 @@
 
 			  <room-action-button
 					:slug="room.slug"
-					:icon="true"
 					:style="{ marginRight: '28px' }"
 					type="review"
 					label="Оставить отзыв"
+					@click="handleReviewsClick"
 			  />
 
 			  <room-action-button
-				v-if="!room.blacklist"
+					v-if="!room.blacklist"
 					:slug="room.slug"
 					:title="room.title"
-					:icon="true"
 					type="connection"
 					label="Привязать счет"
 			  />
 
 			  <room-action-button
-				v-if="room.blacklist"
+					v-if="room.blacklist"
 					:icon="false"
 					:title="room.title"
 					type="blacklist"
@@ -281,9 +280,11 @@ export default {
 	name: 'RoomHeader',
 
 	components: {
+
 	},
 
 	props: {
+
 	},
 
 	data: () => ({
@@ -308,10 +309,6 @@ export default {
 		}
 	},
 
-	mounted() {
-
-	},
-
   watch: {
 
   },
@@ -325,9 +322,8 @@ export default {
 		handleReviewsClick() {
 			let el = document.querySelector('#reviews')
 			if (el) {
-					// el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-					let offset = el.getBoundingClientRect().top - 80 + window.pageYOffset;
-					window.scrollTo({top: offset, behavior: 'smooth'});
+				let offset = el.getBoundingClientRect().top - 80 + window.pageYOffset
+				window.scrollTo({top: offset, behavior: 'smooth'})
 			}
 		}
 	}
@@ -613,7 +609,6 @@ $ico-room-unavailable: url('~assets/i/ico-room-unavailable.svg?data');
 		margin: 0 0 -12px;
 		list-style: none;
 		font-size: 0;
-		// min-height: 21px;
 	}
 
 	height: 20px;
