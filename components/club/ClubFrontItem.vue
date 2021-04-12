@@ -204,7 +204,7 @@ $ico-copy: url('~assets/i/ico-copy.svg?data');
 $ico-front-club-toggle: url('~assets/i/ico-front-club-toggle.svg?data');
 
 .club-front-item {
-  margin: 0 14px;
+  margin: 0 10px;
   border-radius: 4px;
   &_toggled {
     margin-top: -8px;
@@ -298,6 +298,7 @@ $ico-front-club-toggle: url('~assets/i/ico-front-club-toggle.svg?data');
   }
 
   &__title {
+    height: 48px;
     margin-bottom: 4px;
     font-family: Proxima Nova;
     font-weight: bold;

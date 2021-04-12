@@ -32,14 +32,14 @@
 		</filter-tab-list>
 
 		<div class="row">
-			<div class="col-md-auto">
+			<div class="col">
 				<div v-if="items" class="front-clubs__list">
 					<client-only>
 					<carousel
 						class="front-slider front-slider_clubs"
 						:style="{margin: '0'}"
 						:navigation-enabled="false"
-						:per-page-custom="[[0, 4]]"
+						:per-page-custom="[[0, 5]]"
 						:pagination-enabled="true"
 						:pagination-padding="0"
 						:pagination-size="6"
@@ -50,6 +50,7 @@
 					>
 						<slide v-for="(item, index) in items" :key="index">
 							<club-front-item
+								v-if="index !== 4"
 								:title="item.title"
 								:rating="item.rating"
 								:rakeback="item.rakeback"
@@ -64,14 +65,11 @@
 								:features="item.games"
 								:room="item.room"
 							/>
+							<front-club-access v-if="index === 4" />
 						</slide>
 					</carousel>
 					</client-only>
 				</div>
-			</div>
-
-			<div class="col-md-auto">
-				<front-club-access />
 			</div>
 		</div>
 
@@ -160,7 +158,7 @@ export default {
 		color: #222222;
 	}
 	&__list {
-		max-width: 1098px;
+		// max-width: 1098px;
 	}
 }
 
