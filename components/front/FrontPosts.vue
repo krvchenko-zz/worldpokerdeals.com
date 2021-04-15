@@ -35,9 +35,9 @@
 							:title="item.title"
 							:summary="item.summary"
 							:slug="item.slug"
-							:author="item.author"
+							:author="item.user"
 							:created="item.created_at"
-							:categories="[item.category]"
+							:categories="item.categories"
 						/>
 					</div>
 				</transition-group>
@@ -83,8 +83,8 @@ export default {
 			country: 'location/country',
 			geo: 'location/code',
 			page: 'pages/page',
-		posts: 'front/posts',
-		categories: 'front/post_categories'
+			posts: 'front/posts',
+			categories: 'front/post_categories'
 		}),
 	},
 
