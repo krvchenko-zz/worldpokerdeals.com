@@ -33,6 +33,7 @@
 
 						<div class="col-7">
 							<page-article
+								v-if="!$fetchState.pending"
 								:title-id="urlLit(tab.title)"
 								:title="tab.title"
 								:text="tab.text"

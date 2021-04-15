@@ -11,6 +11,19 @@
         :dark="true"
       />
 
+      <div v-if="summary" class="article__summary" v-html="summary"></div>
+
+      <img
+        v-if="image"
+        class="article__img"
+        decoding="async"
+        loading="lazy"
+        width="742px"
+        height="320px"
+        :src="src"
+        :alt="image.alt || title"
+      />
+
       <slot name="header" />
 
       <v-runtime-template
@@ -18,8 +31,6 @@
         v-table-hideable
         :template="template"
       />
-
-      <!-- <div v-carousel v-table-hideable class="article-body" v-html="text"></div> -->
 
       <slot name="footer" />
     </div>
@@ -49,6 +60,19 @@ export default {
     text: {
       type: String,
       required: true,
+    },
+
+    summary: {
+      type: String
+    },
+
+    image: {
+      type: Object
+    },
+
+    imageStyle: {
+      type: String,
+      default: 'article-large'
     },
 
     author: {
@@ -84,7 +108,18 @@ export default {
 
   computed: {
     template() {
-      return `<div class=article-body>${ this.text }</div>`
+      return `
+        <div class=article-body>
+          ${ this.text }
+        </div>`
+    },
+
+    mediaUrl() {
+      return process.env.mediaUrl
+    },
+
+    src() {
+      return `${this.mediaUrl}/${this.imageStyle}/${this.image.filename}`
     }
   },
 
@@ -94,6 +129,13 @@ export default {
       loop: true,
       selector: '.lightbox'
     })
+
+    // const icons = this.$refs.body.$el.getElementsByTagName('svg')
+
+    // for (var i = 0; i < icons.length; i++) {
+    //   const clone = icons[i].cloneNode(true);
+    //   icons[i].replaceWith('');
+    // }
   },
 
   created() {
@@ -110,7 +152,7 @@ export default {
 
   watch: {
     text() {
-      // this.$forceUpdate();
+
     },
   },
 
@@ -119,4 +161,23 @@ export default {
 }
 </script>
 <style lang="scss">
+.article {
+  &__wrap {
+    padding: 0 28px;
+  }
+  &__summary {
+    margin-bottom: 28px;
+    font-family: 'Proxima Nova Sb';
+    font-size: 17px;
+    line-height: 21px;
+    color: #555555;
+  }
+  &__img {
+    margin-bottom: 40px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+}
 </style>

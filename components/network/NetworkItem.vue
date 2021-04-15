@@ -1,7 +1,7 @@
 <template>
 <div class="network-item">
   <nuxt-link prefetch :to="{name: 'index', params: { parent: page.parent.slug, child: page.slug }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-    <a :class="['network-item__wrap']" :href="href" @click="navigate">
+	<a :class="['network-item__wrap']" :href="href" @click="navigate">
 			<div class="network-item__icon-wrap">
 				<svg-icon class="network-item__icon" :icon="url" :width="88" :height="88" viewBox="0 0 200 200" />
 			</div>
@@ -26,9 +26,6 @@ export default {
 			type: String
 		},
 		url: {
-			type: String
-		},
-		slug: {
 			type: String
 		},
 		rooms: {

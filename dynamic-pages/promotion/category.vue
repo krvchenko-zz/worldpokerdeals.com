@@ -5,76 +5,35 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-9">
-        <div class="promotions-top">
-          <div v-if="items" class="promotions-top__info">Отфильтровано {{ total }} из {{ overall }} акций</div>
-          <div v-if="items" class="promotions-top__geo">
 
-            <div class="promotions-top__geo-label">Предложения для</div>
+        <client-only>
 
-            <el-select
-              class="el-select-geo"
-              v-model="geo"
-              filterable
-              reserve-keyword
-              popper-class="el-poper-geo"
-              :loading="loading"
-              @focus="fetchCountries"
-              @change="fetchItems"
-            >
-              <template slot="prefix">
-                <svg-icon :width="24" height="24" prefix="flags/" :icon="geo"/>
-              </template>
-              <el-option
-                v-for="item in countries"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-                <span style="float: left; margin-right: 12px;">
-                  <svg-icon :width="24" height="24" prefix="flags/" :icon="item.value"/>
-                </span>
-                <span>{{ item.label }}</span>
-              </el-option>
-            </el-select>
-
-          </div>
-
-          <div v-if="items" class="promotions-top__sort">
-            <el-select
-              v-model="sort"
-              class="el-select-sort"
-              placeholder="Select"
-              @change="fetchItems"
-              popper-class="el-poper-sort"
-            >
-              <template slot="prefix">
-                <svg-icon :width="19" :height="16" icon="filter-sort-desc"/>
-              </template>
-              <el-option
-                label="Сначала новые"
-                value="created_at">
-              </el-option>
-              <el-option
-                label="Сначала эксклюзивные"
-                value="exclusive">
-              </el-option>
-            </el-select>
-          </div>
-        </div>
-
-        <div v-if="selected.length">
-          <filter-selected v-for="(item, index) in selected" :key="index"
-            :label="item.label"
-            :value="item.value"
-            :item-key="item.key"
+          <filter-header v-if="items"
+            :geo.sync="geo"
+            :sort.sync="sort"
+            :total.sync="total"
+            :overall.sync="overall"
+            :sort-options="sortOptions"
+            entity-label="акций"
+            @update:sort="fetchItems"
+            @update:geo="fetchItems"
           />
-          <filter-selected
-            label="Очистить фильтры"
-            :clear="true"
-            :value="null"
-            :key="null"
-          />
-        </div>
+
+          <filter-selected-list v-if="selected.length">
+            <filter-selected v-for="(item, index) in selected" :key="index"
+              :label="item.label"
+              :value="item.value"
+              :item-key="item.key"
+            />
+            <filter-selected
+              label="Очистить фильтры"
+              :clear="true"
+              :value="null"
+              :key="null"
+            />
+          </filter-selected-list>
+
+        </client-only>
 
         <!-- List -->
         <template v-if="category.entity === 'promotion'">
@@ -188,18 +147,20 @@
       </div>
 
       <div class="col-3">
-        <promotion-category-filters
-          v-if="filters"
-          :geo="geo"
-          :categories="filters.categories"
-          :disciplines="filters.disciplines"
-          :limits="filters.limits"
-          :games="filters.games"
-          :rooms="filters.rooms"
-          :networks="filters.networks"
-          :exclusive="filters.exclusive"
-          @change="handleFilterChange"
-        />
+        <client-only>
+          <promotion-category-filters
+            v-if="filters"
+            :geo="geo"
+            :categories="filters.categories"
+            :disciplines="filters.disciplines"
+            :limits="filters.limits"
+            :games="filters.games"
+            :rooms="filters.rooms"
+            :networks="filters.networks"
+            :exclusive="filters.exclusive"
+            @change="handleFilterChange"
+          />
+        </client-only>
         <room-top-list v-if="category.entity === 'promotion'" />
 
         <topic-list v-if="category.topics.length">
@@ -282,7 +243,7 @@ export default {
 
 	data: () => ({
     loading: false,
-    per_page: 6,
+    per_page: 9,
     page: 1,
     sort: 'created_at',
     order: 'desc',
@@ -304,8 +265,14 @@ export default {
     total: 0,
     overall: 0,
     entity: 'promotion',
-    countries: [],
-    selected: []
+    selected: [],
+    sortOptions: [{
+      label: 'Сначала новые',
+      value: 'created_at'
+    },{
+      label: 'Сначала эксклюзивные',
+      value: 'exclusive'
+    }]
 	}),
 
   async fetch() {
@@ -352,68 +319,39 @@ export default {
   },
 
   mounted () {
-
-    this.countries.push({
-      label: this.country.from,
-      value: this.country.code
-    })
-
     this.geo = this.country.code
   },
 
   methods: {
 
     handleFilterChange(selected) {
-      let collection = []
-      Object.keys(selected).forEach(key => {
-        this[key] = [].map.call(selected[key], item => { return item.value })
-        for (var i = 0; i < selected[key].length; i++) {
-          let item = {
-            ...selected[key][i],
-            key: key
-          }
-          collection.push(item)
-        }
+      this.selected = selected.flatten
+      Object.keys(selected.values).forEach(key => {
+        this[key] = selected.values[key]
       })
-      this.selected = [].concat.apply([], collection)
       this.fetchItems()
-    },
-
-    async fetchCountries() {
-      this.loading = true
-      await axios.get('countries').then(response => {
-        this.countries = response.data.map(item => {
-          return {
-            value: item.code,
-            label: item.from
-          }
-        })
-
-        this.loading = false
-      })
     },
 
     async fetchItems() {
 
       this.$nuxt.$loading.start()
 
-      await axios.get(`/promotion/filters/list`, {
-        params: {
-          geo: this.geo,
-          type: this.category.entity,
-          exclusive: this.exclusive,
-          promotion_category_id: this.category.id
-        }
-      }).then((response) => {
-        this.$store.commit('promotions/FETCH_FILTERS', { filters: response.data })
-      })
+      // await axios.get(`/promotion/filters/list`, {
+      //   params: {
+      //     geo: this.geo,
+      //     type: this.category.entity,
+      //     exclusive: this.exclusive,
+      //     promotion_category_id: this.category.id
+      //   }
+      // }).then((response) => {
+      //   this.$store.commit('promotions/FETCH_FILTERS', { filters: response.data })
+      // })
 
       await axios.get(`promotion/list`, { params: this.params }).then((response) => {
         this.$store.commit('promotions/FETCH_ITEMS', { items: response.data.data })
         Object.keys(response.data).forEach(key => {
           this[key] = response.data[key]
         })
-        this.loading = false
         this.$nuxt.$loading.finish()
       })
     },
@@ -451,32 +389,4 @@ export default {
 
 <style lang="scss">
 
-.promotions-top {
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &__geo {
-    margin-left: auto;
-    margin-right: 24px;
-    &-label {
-      margin-right: 16px;
-      display: inline-flex;
-      font-family: 'Proxima Nova';
-      font-size: 14px;
-      line-height: 16px;
-      color: #333333;
-    }
-  }
-
-  &__info {
-    font-family: 'Proxima Nova';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 16px;
-    color: #222222;
-  }
-}
 </style>

@@ -137,6 +137,43 @@
         </div>
 
       </div>
+
+      <lazy-hydrate when-visible>
+        <post-list v-if="posts && posts.length" :label="`Новости ${network.title}`">
+          <div class="row">
+            <div v-for="(item, index) in posts" :key="index" class="col-3">
+              <post-item
+                :image="item.image"
+                :title="item.title"
+                :summary="item.summary"
+                :slug="item.slug"
+                :author="item.user"
+                :created="item.created_at"
+                :categories="item.categories"
+                :medium="true"
+              />
+            </div>
+          </div>
+        </post-list>
+      </lazy-hydrate>
+
+      <lazy-hydrate when-visible>
+        <network-list v-if="related" label="Другие покерные сети">
+          <div class="row">
+            <div class="col-3" v-for="(item, index) in related" :key="index">
+              <network-item
+                :title="item.title"
+                :url="item.url"
+                :rooms="item.rooms_count"
+                :vip="item.vip_status"
+                :page="item.page"
+              >
+              </network-item>
+            </div>
+          </div>
+        </network-list>
+      </lazy-hydrate>
+
   	</div>
   </div>
 </template>
@@ -145,6 +182,7 @@
 
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import LazyHydrate from 'vue-lazy-hydration'
 
 export default {
 
@@ -162,7 +200,7 @@ export default {
   },
 
   components: {
-
+    LazyHydrate
   },
 
 	data: () => ({
@@ -199,7 +237,9 @@ export default {
       pageable: 'pages/page',
       network: 'networks/network',
       rooms: 'rooms/rooms',
-      filters: 'networks/filters'
+      filters: 'networks/filters',
+      related: 'networks/related',
+      posts: 'networks/posts'
 		}),
 
     mediaUrl() {
@@ -236,7 +276,9 @@ export default {
     })
     .then((response) => {
       this.loading = false
-      this.$store.commit('networks/FETCH_NETWORK', { network: response.data })
+      this.$store.commit('networks/FETCH_NETWORK', { network: response.data.item })
+      this.$store.commit('networks/FETCH_POSTS', { posts: response.data.posts })
+      this.$store.commit('networks/FETCH_RELATED', { related: response.data.related })
     })
     .catch((e) => {
     })

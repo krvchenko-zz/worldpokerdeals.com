@@ -82,7 +82,6 @@
       </filter-item>
     </filter-dropdown>
 
-
     <filter-dropdown
       v-if="types.length"
       label="Тип рума"
@@ -215,7 +214,7 @@
 
     <filter-dropdown
       v-if="kycs.length"
-      label="Верицикация"
+      label="Верификация"
       icon="filter-kyc"
       @open="$emit('filterOpen')"
     >
@@ -223,11 +222,10 @@
         :count="item.count"
       >
         <checkbox
-          v-model="selected.kyc"
-          :value="item"
+          v-model="selected.kyc.value"
           :label="item.label"
-          :trueValue="1"
-          :falseValue="0"
+          :true-value="1"
+          :false-value="null"
           @change="handleFilterChange"
         />
       </filter-item>
@@ -257,99 +255,24 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import eventBus from '~/utils/event-bus'
+import filterMixin from '~/mixins/filterMixin'
 
 export default {
 
   name: 'RoomCategoryFilters',
 
   components: {
-  },
-
-  props: {
-
-    geo: {
-      required: true
-    },
-
-    kycs: {
-      type: Array,
-    },
-
-    platforms: {
-      type: Array,
-    },
-
-    tags: {
-      type: Array,
-    },
-
-    payments: {
-      type: Array,
-    },
-
-    types: {
-      type: Array,
-    },
-
-    licenses: {
-      type: Array,
-    },
-
-    limits: {
-      type: Array,
-    },
-
-    games: {
-      type: Array,
-    },
-
-    disciplines: {
-      type: Array,
-    },
-
-    networks: {
-      type: Array,
-    },
-
-    huds: {
-      type: Array,
-    },
-
-    certificates: {
-      type: Array,
-    }
 
   },
 
-  mounted() {
-    eventBus.$on('selected:delete', data => {
-      if (data.clear) {
-        this.selected = {
-          kyc: [],
-          platforms: [],
-          tags: [],
-          payments: [],
-          types: [],
-          licenses: [],
-          limits: [],
-          games: [],
-          disciplines: [],
-          networks: [],
-          hud: [],
-          certificates: []
-        }
-      } else {
-        this.selected[data.key] = this.selected[data.key].filter(item => { return item.value !== data.value})
-      }
-      this.$emit('change', this.selected)
-    })
-  },
+  mixins: [filterMixin],
 
   data: () => ({
-    loading: false,
     selected: {
-      kyc: [],
+      kyc: {
+        value: null,
+        label: 'Верификация'
+      },
       platforms: [],
       tags: [],
       payments: [],
@@ -365,10 +288,11 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      locale: 'lang/locale',
-      country: 'location/country',
-    }),
+
+  },
+
+  mounted() {
+
   },
 
   watch: {
@@ -376,9 +300,7 @@ export default {
   },
 
   methods: {
-    handleFilterChange() {
-      this.$emit('change', this.selected)
-    },
+
   }
 }
 </script>

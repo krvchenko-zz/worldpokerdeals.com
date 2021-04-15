@@ -158,7 +158,7 @@ export default {
         post_category_id: this.category_id
       }
     }).then(response => {
-      this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data.map(this.mapPosts) })
+      this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data })
       Object.keys(response.data).forEach(key => {
         this[key] = response.data[key]
       })
@@ -185,7 +185,7 @@ export default {
         per_page: 4
       }
     }).then(response => {
-      this.$store.commit('posts/FETCH_IMPORTANT', { important: response.data.data.map(this.mapPosts) })
+      this.$store.commit('posts/FETCH_IMPORTANT', { important: response.data.data })
       this.loading = false
       this.$nuxt.$loading.finish()
     })

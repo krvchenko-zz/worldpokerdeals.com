@@ -4,7 +4,9 @@ export const state = () => ({
   payments: null,
   tab: null,
   category: null,
-  filters: null
+  filters: null,
+  posts: null,
+  related: null,
 })
 
 // getters
@@ -13,7 +15,9 @@ export const getters = {
   payments: state => state.payments,
   tab: state => state.tab,
   category: state => state.category,
-  filters: state => state.filters
+  filters: state => state.filters,
+  posts: state => state.posts,
+  related: state => state.related,
 }
 
 // mutations
@@ -37,6 +41,14 @@ export const mutations = {
 
   FETCH_FILTERS (state, { filters }) {
     state.filters = filters
+  },
+
+  FETCH_POSTS (state, { posts }) {
+    state.posts = posts
+  },
+
+  FETCH_RELATED (state, { related }) {
+    state.related = related
   },
 }
 

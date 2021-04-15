@@ -212,7 +212,7 @@ $ico-exclusive: url('~assets/i/promotion/exclusive.svg?data');
 
 .promotion-item {
   position: relative;
-  margin-bottom: 48px;
+  margin-bottom: 28px;
   max-width: 326px;
   &_featured {
     float: right;

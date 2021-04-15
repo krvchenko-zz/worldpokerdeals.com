@@ -42,19 +42,6 @@
 				<div class="col-3">
 					<room-top-list />
 
-					<post-list v-if="soft.posts.length">
-						<post-item
-							v-for="(item, index) in soft.posts" :key="index"
-							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
-							:slug="item.slug"
-							:author="item.user"
-							:created="item.created_at"
-							:categories="item.categories"
-						></post-item>
-					</post-list>
-
 					<topic-list v-if="tab.topics.length">
 						<topic-item
 							v-for="(item, index) in tab.topics" :key="index"
@@ -65,10 +52,58 @@
 						/>
 					</topic-list>
 
+					<game-search-banner />
+
+
 				</div>
 
 			</div>
+
+			<lazy-hydrate when-visible>
+				<post-list v-if="posts && posts.length" :label="`Новости`">
+					<div class="row">
+						<div v-for="(item, index) in posts" :key="index" class="col-3">
+							<post-item
+								:image="item.image"
+								:title="item.title"
+								:summary="item.summary"
+								:slug="item.slug"
+								:author="item.user"
+								:created="item.created_at"
+								:categories="item.categories"
+								:medium="true"
+							/>
+						</div>
+					</div>
+				</post-list>
+			</lazy-hydrate>
+
+			<lazy-hydrate when-visible>
+	      <soft-list v-if="related && related.length" label="Похожий софт">
+	      	<div class="row">
+		        <div class="col-3" v-for="(item, index) in related" :key="index">
+              <soft-item
+                :id="item.id"
+                :title="item.title"
+                :review="item.review"
+                :url="item.url"
+                :short_description="item.short_description"
+                :discount="item.discount"
+                :available="item.available"
+                :discount_value="item.discount_value"
+                :price="item.price"
+                :image="item.image"
+                :category="item.categories[0].title"
+                :currency="item.currency ? item.currency.symbol : ''"
+              />
+		        </div>
+	      	</div>
+	      </soft-list>
+	    </lazy-hydrate>
 		</div>
+
+		<!-- <page-banners /> -->
+
 	</div>
 </template>
 
@@ -106,7 +141,9 @@ export default {
 			user: 'auth/user',
 			pageable: 'pages/page',
 			soft: 'soft/soft',
-			tab: 'soft/tab'
+			tab: 'soft/tab',
+			related: 'soft/related',
+			posts: 'soft/posts'
 		}),
 
 		mediaUrl() {
@@ -119,6 +156,8 @@ export default {
 		await axios.get(`soft/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('soft/FETCH_SOFT', { soft: response.data.soft })
 			this.$store.commit('soft/FETCH_TAB', { tab: response.data.tab })
+			this.$store.commit('soft/FETCH_RELATED', { related: response.data.related })
+			this.$store.commit('soft/FETCH_POSTS', { posts: response.data.posts })
 		})
 	},
 
