@@ -51,39 +51,7 @@ export default {
   },
 
   props: {
-    title: {
-      type: String,
-      required: true
-    },
 
-    author: {
-      type: String,
-      required: true
-    },
-
-    created: {
-      type: String,
-      required: true
-    },
-
-    updated: {
-      type: String,
-      required: true
-    },
-
-    summary: {
-      type: String,
-      required: true
-    },
-
-    toc: {
-      type: Array
-    },
-
-    latest: {
-      type: [Object, Boolean],
-      default: false
-    }
   },
 
 	created() {

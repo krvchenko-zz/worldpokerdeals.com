@@ -12,7 +12,7 @@
       loading="lazy">
     <div v-if="medium" class="post-item__meta">
       <span class="post-item__date post-item__date_size_m">{{ dateFormat(created) }}</span>
-      <span v-for="(item, index) in categories" :key="index" class="post-item__category">{{ item.title }}</span>
+      <span class="post-item__category">{{ categories[categories.length - 1].title }}</span>
     </div>
     <nuxt-link prefetch :to="{name: 'index', params: {parent: 'blog', child: slug}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
       <a :class="['post-item__link', medium && 'post-item__link_size_m']" :href="href" @click="navigate">{{ title }}</a>

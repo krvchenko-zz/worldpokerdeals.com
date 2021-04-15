@@ -7,76 +7,34 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-9">
-					<div class="rooms-top">
-						<div v-if="rooms" class="rooms-top__info">Отфильтровано {{ total }} из {{ overall }} покер-румов</div>
-						<div v-if="rooms" class="rooms-top__geo">
+        <client-only>
 
-							<div class="rooms-top__geo-label">Предложения для</div>
+          <filter-header v-if="rooms"
+            :geo.sync="geo"
+            :sort.sync="sort"
+            :total.sync="total"
+            :overall.sync="overall"
+            :sort-options="sortOptions"
+            entity-label="покер-румов"
+            @update:sort="fetchItems"
+            @update:geo="fetchItems"
+          />
 
-							<el-select
-								class="el-select-geo"
-								v-model="geo"
-								filterable
-								reserve-keyword
-								popper-class="el-poper-geo"
-								:loading="loading"
-								@focus="fetchCountries"
-								@change="fetchItems"
-							>
-								<template slot="prefix">
-									<svg-icon :width="24" height="24" prefix="flags/" :icon="geo"/>
-								</template>
-								<el-option
-									v-for="item in countries"
-									:key="item.value"
-									:label="item.label"
-									:value="item.value"
-								>
-									<span style="float: left; margin-right: 12px;">
-										<svg-icon :width="24" height="24" prefix="flags/" :icon="item.value"/>
-									</span>
-									<span>{{ item.label }}</span>
-								</el-option>
-							</el-select>
+          <filter-selected-list v-if="selected.length">
+            <filter-selected v-for="(item, index) in selected" :key="index"
+              :label="item.label"
+              :value="item.value"
+              :item-key="item.key"
+            />
+            <filter-selected
+              label="Очистить фильтры"
+              :clear="true"
+              :value="null"
+              :key="null"
+            />
+          </filter-selected-list>
 
-						</div>
-
-						<div v-if="rooms" class="rooms-top__sort">
-							<el-select
-								v-model="sort"
-								class="el-select-sort"
-								placeholder="Select"
-								@change="fetchItems"
-								popper-class="el-poper-sort"
-							>
-								<template slot="prefix">
-									<svg-icon :width="19" :height="16" icon="filter-sort-desc"/>
-								</template>
-								<el-option
-									label="Сначала лучшие"
-									value="rating">
-								</el-option>
-								<el-option
-									label="Сначала новые"
-									value="created_at">
-								</el-option>
-							</el-select>
-						</div>
-					</div>
-
-					<div v-if="selected.length">
-						<filter-selected v-for="(item, index) in selected" :key="index"
-							:label="item.label"
-							:value="item.value"
-							:item-key="item.key"
-						/>
-						<filter-selected
-							label="Очистить фильтры"
-							:clear="true"
-							:value="null"
-							:key="null"
-						/>
-					</div>
+        </client-only>
 
 					<div class="rooms-list">
 
@@ -169,8 +127,6 @@
 
 					<room-category-filters
 						v-if="filters"
-						:selected.sync="selected"
-						:geo="geo"
 						:kycs="filters.kycs"
 						:platforms="filters.platforms"
 						:tags="filters.tags"
@@ -292,7 +248,8 @@ export default {
 				networks: this.networks,
 				certificates: this.certificates,
 				categories: this.categories,
-				hud: this.hud
+				hud: this.hud,
+				kyc: this.kyc
 			}
 		}
 	},
@@ -304,7 +261,6 @@ export default {
 		sort: 'rating',
 		order: 'desc',
 		geo: null,
-		selected: [],
 		types: [],
 		payments: [],
 		platforms: [],
@@ -318,7 +274,7 @@ export default {
 		certificates: [],
 		categories: [],
 		hud: [],
-		kyc: [],
+		kyc: null,
 		ids: null,
 		data: [],
 		from: 0,
@@ -329,7 +285,15 @@ export default {
 		last_page: null,
 		total: 0,
 		overall: 0,
-		countries: []
+		countries: [],
+    selected: [],
+    sortOptions: [{
+      label: 'Сначала лучшие',
+      value: 'rating'
+    },{
+      label: 'Сначала новые',
+      value: 'created_at'
+    }]
 	}),
 
 	async fetch() {
@@ -431,11 +395,6 @@ export default {
 	},
 
 	mounted () {
-		this.countries.push({
-			label: this.country.from,
-			value: this.country.code
-		})
-
 		this.geo = this.country.code
 	},
 
@@ -444,6 +403,14 @@ export default {
 	},
 
 	methods: {
+
+    handleFilterChange(selected) {
+      this.selected = selected.flatten
+      Object.keys(selected.values).forEach(key => {
+        this[key] = selected.values[key]
+      })
+      this.fetchItems()
+    },
 
 		async fetchItems(query) {
 
@@ -502,20 +469,6 @@ export default {
 			})
 		},
 
-		async fetchCountries() {
-			this.loading = true
-			await axios.get('countries').then(response => {
-				this.countries = response.data.map(item => {
-					return {
-						value: item.code,
-						label: item.from
-					}
-				})
-
-				this.loading = false
-			})
-		},
-
 		handlePageNext() {
 			this.page = this.current_page + 1
 			this.fetchItems()
@@ -539,22 +492,6 @@ export default {
 
 		handleSortChange(order) {
 			this.sort = order
-			this.fetchItems()
-		},
-
-		handleFilterChange(selected) {
-			let collection = []
-			Object.keys(selected).forEach(key => {
-				this[key] = [].map.call(selected[key], item => { return item.value })
-				for (var i = 0; i < selected[key].length; i++) {
-					let item = {
-						...selected[key][i],
-						key: key
-					}
-					collection.push(item)
-				}
-			})
-			this.selected = [].concat.apply([], collection)
 			this.fetchItems()
 		},
 

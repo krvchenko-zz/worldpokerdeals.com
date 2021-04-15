@@ -24,7 +24,7 @@
             :title="item.title"
             :summary="item.summary"
             :slug="item.slug"
-            :categories="[item.category]"
+            :categories="item.categories"
           />
         </slide>
       </carousel>

@@ -149,30 +149,30 @@
 
 									<author v-if="promotion.author" :author="promotion.author" />
 
-									<comments commentable_type="App\Promotion" :commentable_id="promotion.id"/>
+									<comments commentable_type="App\Promotion" :commentable_id="promotion.id" />
 
 									<h2 v-if="promotion.type === 'bonus'" class="block-title">Похожие бонусы</h2>
 									<lazy-hydrate when-visible>
 										<table v-if="promotion.type === 'bonus'" class="promotions-table" cellspacing="0" cellpadding="0" border="0" width="100%">
-				              <lazy-promotion-feed-item v-for="(item, index) in related" :key="index"
-				                :title="item.title"
-				                :slug="item.slug"
-				                :created="item.created_at"
-				                :code="item.code"
-				                :terms="item.terms"
-				                :room="item.room"
-				                :page="item.page"
-				                :category="item.category"
-				                :min_deposit="item.min_deposit"
-				                :min_deposit_currency="item.min_deposit_currency"
-				                :cashback_value="item.cashback_value"
-				                :max_bonus="item.max_bonus"
-				                :max_bonus_currency="item.max_bonus_currency"
-				                :deposit_bonus="item.deposit_bonus"
-				                :index="index"
-				              />
-				            </table>
-				          </lazy-hydrate>
+										  <lazy-promotion-feed-item v-for="(item, index) in related" :key="index"
+											:title="item.title"
+											:slug="item.slug"
+											:created="item.created_at"
+											:code="item.code"
+											:terms="item.terms"
+											:room="item.room"
+											:page="item.page"
+											:category="item.category"
+											:min_deposit="item.min_deposit"
+											:min_deposit_currency="item.min_deposit_currency"
+											:cashback_value="item.cashback_value"
+											:max_bonus="item.max_bonus"
+											:max_bonus_currency="item.max_bonus_currency"
+											:deposit_bonus="item.deposit_bonus"
+											:index="index"
+										  />
+										</table>
+						  		</lazy-hydrate>
 								</template>
 							</page-article>                  
 						</div>
@@ -219,6 +219,34 @@
 				</lazy-hydrate>
 			</div>
 		</div>
+	</div>
+
+	<div v-if="promotion.type === 'promotion'" class="container-fluid">
+		<h2 class="block-title" :style="{ margin: '0 0 20px 0' }">Похожие акции</h2>
+		<lazy-hydrate when-visible>
+	    <lazy-promotion-list>
+	      <div class="row">
+	        <div class="col-3" v-for="(item, index) in related" :key="index">
+	          <lazy-promotion-item
+	            :image="item.image"
+	            :title="item.title"
+	            :summary="item.summary"
+	            :page="item.page"
+	            :author="item.author"
+	            :created="item.created_at"
+	            :category="item.category"
+	            :time_left="item.time_left"
+	            :time_before="item.time_before"
+	            :regularity="item.regularity"
+	            :prize="item.prize"
+	            :currency="item.currency ? item.currency.symbol : ''"
+	            :exclusive="item.exclusive"
+	            :active="item.active"
+	          />
+	        </div>
+	      </div>
+	    </lazy-promotion-list>
+	  </lazy-hydrate>
 	</div>
 
 	<page-banners />

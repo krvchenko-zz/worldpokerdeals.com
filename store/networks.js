@@ -3,7 +3,9 @@ export const state = () => ({
   networks: null,
   network: null,
   filters: null,
-  category: null
+  category: null,
+  related: null,
+  posts: null
 })
 
 // getters
@@ -11,7 +13,9 @@ export const getters = {
   networks: state => state.networks,
   network: state => state.network,
   category: state => state.category,
-  filters: state => state.filters
+  filters: state => state.filters,
+  related: state => state.related,
+  posts: state => state.posts
 }
 
 // mutations
@@ -31,6 +35,14 @@ export const mutations = {
 
   FETCH_CATEGORY (state, { category }) {
     state.category = category
+  },
+
+  FETCH_POSTS (state, { posts }) {
+    state.posts = posts
+  },
+
+  FETCH_RELATED (state, { related }) {
+    state.related = related
   }
 
 }
