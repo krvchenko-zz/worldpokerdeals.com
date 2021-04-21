@@ -122,7 +122,7 @@
 					<form-submit-button
 						:disabled="!form.terms || !form.account_id || !form.contact"
 						class="btn-payments-form"
-						label="Присоедениться"
+						label="Присоединиться"
 						:loading="form.busy">
 					</form-submit-button>
 				</div>

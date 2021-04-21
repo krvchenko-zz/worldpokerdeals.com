@@ -9,7 +9,7 @@
 				<svg-icon class="payment-item__icon" :icon="icon" :width="88" :height="88" />
 			</div>
 			<div class="payment-item__title">{{ title }}</div>
-			<div class="payment-item__rooms">{{ rooms }} покер-румов</div>
+			<div class="payment-item__rooms">{{ rooms }} {{ declOfNum(rooms, ['покер-рум', 'покер-румов', 'покер-румов']) }}</div>
 		</a>
 	</nuxt-link>
 </div>
