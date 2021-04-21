@@ -1538,7 +1538,7 @@ body {
 		border-bottom-left-radius: 4px;
 		background-repeat: no-repeat;
 		background-position: center;
-		background-size: 60%;
+		background-size: 100%;
 	}
 
 	&_xs {
@@ -1619,7 +1619,6 @@ body {
 		&:before {
 			background-color: #4969ad;
 			background-image: $ico-fb;
-			background-size: auto;
 		}
 		&:hover {
 			border-color: #4969ad;
@@ -1631,7 +1630,6 @@ body {
 		&:before {
 			background-color: #5376a4;
 			background-image: $ico-vk;
-			background-size: auto;
 		}
 		&:hover {
 			border-color: #5376a4;
@@ -1643,7 +1641,6 @@ body {
 		&:before {
 			background-color: #5ab5f8;
 			background-image: $ico-twitter;
-			background-size: auto;
 		}
 		&:hover {
 			border-color: #5ab5f8;
@@ -1660,7 +1657,6 @@ body {
 		);
 		&:before {
 			background-image: $ico-instagram;
-			background-size: auto;
 		}
 		&:hover {
 			background-color: linear-gradient(
@@ -1701,21 +1697,25 @@ body {
 
 	&_icon {
 		border: none;
+		padding: 0;
 		&:before {
 			left: 0;
 			top: 0;
 			border-radius: 4px;
 		}
 		&.btn-contact_xs {
-			padding: 12px;
+			width: 24px;
+			height: 24px;
 		}
 
 		&.btn-contact_sm {
-			padding: 15px;
+			width: 32px;
+			height: 32px;
 		}
 
 		&.btn-contact_md {
-			padding: 20px;
+			width: 40px;
+			height: 40px;
 		}
 	}
 

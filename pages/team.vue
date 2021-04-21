@@ -138,9 +138,23 @@
 		<div class="team-contacts">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-6 offset-md-1">
+					<div class="col-10 offset-md-1">
 						<div class="team-contacts__title">Остались вопросы? Напишите нам</div>
+					</div>
+					<div class="col-6 offset-md-1">
 						<contacts-form style="margin: 0;" />
+					</div>
+					<div class="col-4 offset-md-1">
+						<div class="team-contacts__info">Или свяжитесь с нами в социальных<br>сетях, мессенджерах или онлайн чате</div>
+						<div v-if="managers && managers.length" class="team-contacts__buttons">
+							<button-contact icon size="md" type="telegram" href="worldpokerdealsRU" />
+							<button-contact icon size="md" type="whatsapp" :href="managers[0].whatsapp" />
+              <button-contact icon size="md" type="skype" :href="managers[0].skype" />
+              <button-contact icon size="md" type="fb" href="https://www.facebook.com/worldpokerdealsRu" />
+              <button-contact icon size="md" type="instagram" href="https://instagram.com/worldpokerdeals" />
+              <button-contact icon size="md" type="vk" href="https://vk.com/worldpokerdeals" />
+						</div>
+						<button-contact block size="md" type="chat" style="max-width: 208px;">Начать чат</button-contact>
 					</div>
 				</div>
 			</div>
@@ -315,11 +329,39 @@ $about-map-bg: url('~/assets/i/about-map-bg.png');
 		letter-spacing: -0.2px;
 		color: #222222;
 	}
+
+	&__info {
+		margin-bottom: 20px;
+		font-family: Proxima Nova;
+		font-size: 17px;
+		line-height: 21px;
+		color: #555555;
+	}
+
+	&__buttons {
+		display: flex;
+	}
+
+	.btn-contact {
+		margin: 0 20px 20px 0;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
 .team-numbers {
+	position: relative;
   display: flex;
   justify-content: center;
+  &:before {
+		content: '';
+    width: 100%;
+    position: absolute;
+    height: 1px;
+    background: #464B62;
+    top: 61px;
+  }
 	&__title {
 		margin-bottom: 24px;
 		font-family: 'Proxima Nova Sb';

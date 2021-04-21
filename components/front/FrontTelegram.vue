@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss">
-$ico-telegram: url('~assets/i/messengers/ico-telegram.svg?data');
+$ico-telegram-big: url('~assets/i/messengers/ico-telegram-big.svg?data');
 .front-telegram {
   position: relative;
   border-radius: 10px;
@@ -74,8 +74,8 @@ $ico-telegram: url('~assets/i/messengers/ico-telegram.svg?data');
     text-align: center;
     letter-spacing: -0.3px;
     color: #FFFFFF;
-    background: $ico-telegram no-repeat center top;
-    background-size: auto 48px;
+    background: $ico-telegram-big no-repeat center top;
+    // background-size: auto 48px;
     b {
       font-family: 'Proxima Nova Th';
       font-size: 21px;

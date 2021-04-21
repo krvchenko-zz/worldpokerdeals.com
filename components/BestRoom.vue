@@ -11,11 +11,11 @@
         </div>
       </div>
       <div class="best-room__logo">
-        <img decoding="async" loading="lazy" :src="img" :alt="image.alt || `${title} logo`">
+        <img class="best-room__img" decoding="async" loading="lazy" :src="img" :alt="image.alt || `${title} logo`">
       </div>
       <div class="best-room__action">
         <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }">
-          <a :class="['btn', 'btn-block', 'btn-border', 'best-room__link']" :href="href" @click="navigate">Обзор</a>
+          <a :class="['btn', 'btn-block', 'btn-border', 'best-room__review']" :href="href" @click="navigate">Обзор</a>
         </nuxt-link>
       </div>
      </div>
@@ -162,6 +162,15 @@ export default {
 
   &__register {
     padding: 11px 40px 10px 40px;
+  }
+
+  &__review {
+    padding: 10px 24px 9px 24px;
+  }
+
+  &__img {
+    max-height: 40px;
+    width: auto;
   }
 }
 </style>

@@ -215,20 +215,4 @@ $contact-us-logo: url('~assets/i/contact-us-logo.svg?data');
   }
 }
 
-.btn-contact_fb {
-  &:before {
-    background-size: 13px auto;
-  }
-}
-.btn-contact_vk {
-  &:before {
-    background-size: 28px auto;
-  }
-}
-.btn-contact_instagram {
-  &:before {
-    background-size: 30px auto;
-  }
-}
-
 </style>
