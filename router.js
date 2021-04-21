@@ -33,6 +33,11 @@ const routes = [
     component: page('contacts.vue')
   },
   { 
+    path: '/our-team',
+    name: 'team',
+    component: page('team.vue')
+  },
+  { 
     path: '/restricted',
     name: 'restricted',
     component: page('restricted.vue')
