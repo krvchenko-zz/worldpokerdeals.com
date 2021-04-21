@@ -1,5 +1,5 @@
 <template>
-<nuxt-link :to="{name: 'index', params: {
+<nuxt-link :to="{name: page.name ? page.name : 'index', params: {
   child: page.parent ? page.slug : null,
   parent: page.parent ? page.parent.slug : page.slug
 }}" v-slot="{ href, route, navigate, isActive, isExactActive }">

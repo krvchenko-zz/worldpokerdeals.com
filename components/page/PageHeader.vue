@@ -90,7 +90,7 @@
                 'header-nav__item',
                 showAboutMenu && 'header-nav__item_active'
               ]" @mouseover="showAboutMenu = true" @mouseleave="showAboutMenu = false">
-                <a :class="['header-nav__link', showAboutMenu && 'header-nav__link_active']" href="/about">О нас</a>
+                <a :class="['header-nav__link', showAboutMenu && 'header-nav__link_active']" href="/our-team">О нас</a>
                 <transition name="fade">
                   <page-menu v-if="showAboutMenu" :items="menu.about" />
                 </transition>
