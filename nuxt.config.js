@@ -27,7 +27,7 @@ export default {
   loading: { color: '#2E87C8', throttle: 0, height: '3px' },
 
   router: {
-    middleware: ['locale', 'location', 'check-auth', 'page']
+    middleware: ['locale', 'location', 'check-auth']
   },
 
   css: [
