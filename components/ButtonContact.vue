@@ -4,6 +4,7 @@
       'btn-block': block,
       'btn-contact': true,
       'btn-contact_icon': icon,
+      'btn-contact_dark': dark,
       [`btn-contact_${size}`]: true,
       [`btn-contact_${type}`]: true
     }"
@@ -34,6 +35,11 @@ export default {
     },
 
     icon: {
+      type: Boolean,
+      default: false
+    },
+
+    dark: {
       type: Boolean,
       default: false
     },

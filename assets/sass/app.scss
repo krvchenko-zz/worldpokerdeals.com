@@ -1718,6 +1718,12 @@ body {
 			padding: 20px;
 		}
 	}
+
+	&_dark {
+		&:before {
+			background-color: #2A2D3C!important;
+		}
+	}
 }
 // Helpers
 .flex-wrap {

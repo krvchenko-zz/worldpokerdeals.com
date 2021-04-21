@@ -28,8 +28,8 @@
 			</div>
 		</div>
 
-		<article class="team-about">
-			<div class="container-fluid">
+		<div class="container-fluid">
+			<article class="team-about">
 				<div class="row">
 					<div class="col-5 offset-md-1">
 						<h2 class="team-about__title">Кто мы такие?</h2>
@@ -97,8 +97,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</article>
+			</article>
+		</div>
 
 		<div class="team-slides">
 			<div class="container-fluid">
@@ -300,7 +300,7 @@ export default {
 <style lang="scss">
 $team-cite-bg: url('~assets/i/team-cite-bg.svg?data');
 $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
-
+$about-map-bg: url('~/assets/i/about-map-bg.png');
 
 .content_team {
 
@@ -371,7 +371,7 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 }
 
 .team-features {
-	padding-top: 280px;
+	padding-top: 250px;
 	padding-bottom: 44px;
 	clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
 	background: radial-gradient(96.88% 71.32% at 57.43% -5.58%, #3A3E51 0%, #1D1F2C 100%);
@@ -428,7 +428,10 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 }
 
 .team-about {
-
+	padding-bottom: 19px;
+	position: relative;
+	background: $about-map-bg no-repeat -26px bottom;
+	background-size: 852px;
 	&-sep {
 		display: flex;
 		align-items: center;
@@ -475,7 +478,7 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 	}
 
 	.blockquote {
-		margin-left: -30px;
+		margin-left: -26px;
 		position: relative;
 		font-family: "Proxima Nova Sb";
 		font-style: normal;
@@ -532,7 +535,6 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 }
 
 .team-picture {
-	// margin-top: -70px;
 	margin-top: -254px;
 	position: relative;
 	&__wrap {
@@ -547,7 +549,7 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 
 	&__blockquote {
 		position: relative;
-		margin-top: -76px;
+		margin: -76px 0 28px 0;
 		right: -70px;
 		max-width: 531px;
 		padding: 86px 56px 56px 48px;
@@ -624,13 +626,11 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 		}
 
 		&:last-child {
+			margin: 0;
+			padding-bottom: 0;
 			&:after {
 				display: none;
 			}
-		}
-
-		&:last-child {
-			margin: 0;
 		}
 	}
 
@@ -717,6 +717,7 @@ $ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
 		width: auto;
 		position: relative;
 		left: 50%;
+		top: -35px;
 		transform: translateX(-50%);
 		min-width: 100%;
 	}
