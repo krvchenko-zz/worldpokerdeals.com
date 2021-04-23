@@ -174,8 +174,6 @@ import { mapGetters } from 'vuex'
 import axios from 'axios'
 import eventBus from '~/utils/event-bus'
 
-import Room from '~/components/cards/Room'
-
 export default {
 	layout: 'basic',
 
@@ -193,8 +191,7 @@ export default {
 	scrollToTop: true,
 
 	components: {
-		RoomHeaderSticky: () => import('~/components/room/RoomHeaderSticky'),
-		Room
+		RoomHeaderSticky: () => import('~/components/room/RoomHeaderSticky')
 	},
 
 	data: () => ({

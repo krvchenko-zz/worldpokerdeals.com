@@ -1169,19 +1169,14 @@ body {
 		.games-list {
 			padding: 0;
 			margin: 0;
+			align-items: center;
+	    display: flex;
 			&__item {
 				padding: 0;
-				margin: 0 16px 16px 0;
-				width: 48px;
-				height: 48px;
-				border: 2px dashed rgba(187, 187, 187, 0.5);
-				border-radius: 50%;
-				display: inline-flex;
-				justify-content: center;
-				align-items: center;
-				&::before {
-					display: none;
-				}
+		    margin: 0 16px 16px 0;
+		    display: inline-flex;
+		    justify-content: center;
+		    align-items: center;
 			}
 		}
 

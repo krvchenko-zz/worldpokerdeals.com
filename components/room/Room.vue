@@ -73,7 +73,7 @@
     </div>
 
     <div :class="['room-item__actions', small && 'room-item__actions_s']">
-      <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }">
+      <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }" prefetch>
           <a :class="[
             'btn', 'btn-block',
             'room-item__link',
