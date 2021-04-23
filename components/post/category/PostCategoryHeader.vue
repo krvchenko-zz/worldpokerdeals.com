@@ -150,36 +150,7 @@ $bg: url('~assets/i/post-category-bg.jpg');
     display: flex;
     justify-content: center;
     .btn-contact {
-      // border-bottom-left-radius: 10px!important;
-      // border-top-right-radius: 10px!important;
-      // border-bottom-right-radius: 4px!important;
-      // border-top-left-radius: 4px!important;
       margin-right: 12px;
-      padding: 16px;
-
-      &_fb {
-        &:before {
-          background-size: 10px auto;
-        }
-      }
-
-      &_vk {
-        &:before {
-          background-size: 22px auto;
-        }
-      }
-
-      &_telegram {
-        &:before {
-          background-size: 20px auto;
-        }
-      }
-
-      &_instagram {
-        &:before {
-          background-size: 24px auto;
-        }
-      }
     }
   }
 }

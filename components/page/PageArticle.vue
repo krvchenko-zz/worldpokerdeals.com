@@ -26,11 +26,7 @@
 
       <slot name="header" />
 
-      <v-runtime-template
-        v-carousel
-        v-table-hideable
-        :template="template"
-      />
+      <v-runtime-template v-carousel v-table-hideable :template="template" />
 
       <slot name="footer" />
     </div>
@@ -38,21 +34,18 @@
 </template>
 
 <script>
-  
-import Soft from '~/components/cards/Soft'
-import Manager from '~/components/cards/Manager'
 
 import VRuntimeTemplate from 'v-runtime-template'
+import Soft from '~/components/cards/Soft'
+import Manager from '~/components/cards/Manager'
 
 export default {
 
   name: 'PageArticle',
 
   components: {
-    VRuntimeTemplate, Soft, Manager,
-    PromotionFeed: () => import('~/components/promotion/PromotionFeed'),
-    ClubFeed: () => import('~/components/club/ClubFeed'),
-    RoomActions: () => import('~/components/room/RoomActions')
+    VRuntimeTemplate,
+    Soft, Manager
   },
 
   props: {
@@ -108,10 +101,7 @@ export default {
 
   computed: {
     template() {
-      return `
-        <div class=article-body>
-          ${ this.text }
-        </div>`
+      return `<div class=article-body>${ this.text }</div>`
     },
 
     mediaUrl() {
@@ -119,7 +109,7 @@ export default {
     },
 
     src() {
-      return `${this.mediaUrl}/${this.imageStyle}/${this.image.filename}`
+      return this.image ? `${this.mediaUrl}/${this.imageStyle}/${this.image.filename}`: null
     }
   },
 
@@ -129,17 +119,6 @@ export default {
       loop: true,
       selector: '.lightbox'
     })
-
-    // const icons = this.$refs.body.$el.getElementsByTagName('svg')
-
-    // for (var i = 0; i < icons.length; i++) {
-    //   const clone = icons[i].cloneNode(true);
-    //   icons[i].replaceWith('');
-    // }
-  },
-
-  created() {
-
   },
 
   updated() {
@@ -151,12 +130,11 @@ export default {
   },
 
   watch: {
-    text() {
 
-    },
   },
 
 	methods: {
+
 	}
 }
 </script>

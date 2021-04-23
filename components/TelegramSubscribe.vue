@@ -112,8 +112,8 @@ $ico-telegram: url('~assets/i/messengers/ico-telegram.svg?data');
     font-size: 14px;
     line-height: 14px;
     color: #FFFFFF;
-    background: #6386DA $ico-telegram no-repeat 24px center;
-    background-size: 20px 16px;
+    background: #6386DA $ico-telegram no-repeat 15px center;
+    background-size: 30px;
     &:hover,
     &:active,
     &:focus,

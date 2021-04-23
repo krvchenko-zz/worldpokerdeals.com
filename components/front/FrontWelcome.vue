@@ -101,31 +101,6 @@ export default {
     margin: 28px 0;
     .btn-contact {
       margin-right: 12px;
-      padding: 16px;
-
-      &_fb {
-        &:before {
-          background-size: 10px auto;
-        }
-      }
-
-      &_vk {
-        &:before {
-          background-size: 22px auto;
-        }
-      }
-
-      &_telegram {
-        &:before {
-          background-size: 20px auto;
-        }
-      }
-
-      &_instagram {
-        &:before {
-          background-size: 24px auto;
-        }
-      }
     }
   }
 }

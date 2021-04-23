@@ -10,8 +10,6 @@ export default {
     appGeo: process.env.APP_GEO
   },
 
-  components: true,
-
   head: {
     title: 'worldpokerdeals.com',
     meta: [
@@ -27,16 +25,18 @@ export default {
   loading: { color: '#2E87C8', throttle: 0, height: '3px' },
 
   router: {
-    middleware: ['locale', 'location', 'check-auth', 'page']
+    middleware: ['locale', 'location', 'check-auth']
   },
 
   css: [
     { src: '~assets/sass/app.scss', lang: 'scss' }
   ],
 
+  components: true,
+
   plugins: [
     '~directives',
-    // '~plugins/i18n',
+    '~plugins/i18n',
     '~plugins/vform',
     '~plugins/axios',
     '~plugins/element-ui',
@@ -52,9 +52,9 @@ export default {
     ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
 
-  render: { 
-    resourceHints: false,
-  },
+  // render: { 
+  //   resourceHints: false,
+  // },
 
   build: {
     extractCSS: true,

@@ -9,7 +9,7 @@
 				<svg-icon class="payment-item__icon" :icon="icon" :width="88" :height="88" />
 			</div>
 			<div class="payment-item__title">{{ title }}</div>
-			<div class="payment-item__rooms">{{ rooms }} покер-румов</div>
+			<div class="payment-item__rooms">{{ rooms }} {{ declOfNum(rooms, ['покер-рум', 'покер-румов', 'покер-румов']) }}</div>
 		</a>
 	</nuxt-link>
 </div>
@@ -60,7 +60,10 @@ export default {
 	},
 
 	methods: {
-
+		declOfNum(number, titles) {  
+		  const cases = [2, 0, 1, 1, 1, 2];  
+		  return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ]  
+		}
 	}
 }
 </script>

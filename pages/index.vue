@@ -13,6 +13,8 @@ import eventBus from '~/utils/event-bus'
 export default {
   layout: 'basic',
 
+  middleware: 'page',
+
   metaInfo: {
 
   },

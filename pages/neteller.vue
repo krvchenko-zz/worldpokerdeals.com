@@ -55,7 +55,7 @@
                 <div class="neteller-advantages__row">
                   <div class="neteller-advantages__col">
                     <svg-icon :width="50" :height="50" class="neteller-advantages__icon" icon="neteller-comission" />
-                    <span class="neteller-advantages__label"><b>Сниженные комиссии</b>на транзакции</span>
+                    <span class="neteller-advantages__label"><b>Сниженные комиссии</b> на транзакции</span>
                   </div>
 
                   <div class="neteller-advantages__col">

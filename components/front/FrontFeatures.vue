@@ -35,10 +35,10 @@ export default {
 	data: () => ({
     features: [
       {
-        label: 'Лет на <br>  рынке',
+        label: 'Лет на <br> рынке',
         value: '7'
       },{
-        label: 'Покерных  <br> румов',
+        label: 'Покерныx <br> румов',
         value: '150'
       },{
         label: 'Клубов',
@@ -47,10 +47,10 @@ export default {
         label: 'Партнеров',
         value: '70'
       },{
-        label: 'Активных  <br> игроков',
+        label: 'Активныx <br> игроков',
         value: '10 000'
       },{
-        label: 'Аффилейт-менеджеров  <br> в команде',
+        label: 'Аффилейт-менеджеров <br> в команде',
         value: '10'
       },
     ]

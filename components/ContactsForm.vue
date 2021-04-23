@@ -40,7 +40,6 @@
 				<div class="col">
 					<form-textarea
 						v-model="form.message"
-						:disabled="!auth"
 						placeholder="Сообщение или вопрос"
 						name="message"
 						label-color="#636363"
