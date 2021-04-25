@@ -142,6 +142,8 @@ export default {
 
 <style lang="scss">
 .front-clubs {
+  grid-row: front-clubs;
+  grid-column: layout-content / layout-right-gutter;
 	margin-bottom: 32px;
 	background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
 	&__wrap {

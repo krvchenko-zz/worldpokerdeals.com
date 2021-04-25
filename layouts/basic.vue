@@ -5,7 +5,7 @@
 		</transition>
 		<nuxt />
 
-		<lazy-hydrate when-visible>
+		<!-- <lazy-hydrate when-visible>
 			<best-room v-if="topList"
 			  :title="topList[0].title"
 			  :background="topList[0].background"
@@ -13,7 +13,7 @@
 			  :review="topList[0].review"
 			  :country="country"
 			 />
-		</lazy-hydrate>
+		</lazy-hydrate> -->
 		<lazy-hydrate when-visible>
 			<page-footer/>
 		</lazy-hydrate>
@@ -77,7 +77,7 @@
 									<lazy-auth-form v-if="!user && auth" class="connection-auth" />
 									<lazy-register-form v-if="!user && register" connection class="connection-auth" />
 									<lazy-user-profile v-if="user" />
-								</transition>	
+								</transition>
 							</div>
 						</div>
 					</div>
@@ -317,3 +317,18 @@ export default {
 	}
 }
 </script>
+
+<style lang="scss">
+.content {
+  display: grid;
+  grid-template-columns:
+    [layout-left-gutter] 1fr [layout-content] minmax(auto, 1440px)
+    [layout-right-gutter] 1fr [layout-right-end];
+
+  @media (max-width: 480px) {
+    grid-template-columns:
+      [layout-left-gutter] 1fr [layout-content] minmax(auto, 100vw)
+      [layout-right-gutter] 1fr [layout-right-end];
+  }
+}
+</style>

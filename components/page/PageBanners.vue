@@ -91,6 +91,8 @@ export default {
 
 <style lang="scss">
 .page-banners {
+  grid-row: front-banners;
+  grid-column: layout-content / layout-right-gutter;
   padding: 40px 0 0 0;
   &_front {
     padding: 0 0 40px 0;

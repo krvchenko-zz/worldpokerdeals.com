@@ -1,7 +1,11 @@
 <template>
   <header class="header">
-    <div class="container-fluid">
+    <div class="header__inner">
       <div class="header__wrap">
+        <div class="header__hamburger-menu">
+          <img :src="hamburgerSrc" />
+        </div>
+
         <div class="logo header__logo">
           <router-link to="/" v-slot="{ href, route, navigate }">
             <a :href="href" class="logo__link" title="worldpokerdeals.com">worldpokerdeals.com</a>
@@ -31,9 +35,9 @@
                     :columns="2"
                   >
                     <template v-slot:after>
-                      <room-top-list 
-                        label="Лучшие румы" 
-                        type="menu" 
+                      <room-top-list
+                        label="Лучшие румы"
+                        type="menu"
                         :style="{
                           flex: '0 0 300px',
                           position: 'relative',
@@ -131,7 +135,7 @@
               showSearch && 'search-toggle_active'
             ]"
             aria-label="Search"
-            @click.prevent="handleSearchClick">  
+            @click.prevent="handleSearchClick">
           </button>
         </div>
 
@@ -165,6 +169,9 @@
           </button>
 
           <button v-else class="btn btn-md btn-primary btn_login" @click="handleAuth">Войти</button>
+          <button class="header-buttons__login" @click="handleAuth">
+            <img :src="loginSrc" />
+          </button>
         </div>
 
       </div>
@@ -184,7 +191,7 @@ export default {
 
   components: {
     SearchDropdown: () => import('~/components/search/SearchDropdown'),
-    SearchLoader: () => import('~/components/search/SearchLoader')
+    SearchLoader: () => import('~/components/search/SearchLoader'),
   },
 
   props: {
@@ -221,6 +228,14 @@ export default {
 
     geoSrc() {
       return require(`~/assets/i/flags/${this.country.code}.svg?data`)
+    },
+
+    loginSrc() {
+      return require('~/assets/icons/ico-login.svg?data')
+    },
+
+    hamburgerSrc() {
+      return require('~/assets/icons/ico-hamburger-menu.svg?data')
     },
 
     searchPlaceholder() {
@@ -287,6 +302,13 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   top: 0;
   background: linear-gradient(180deg, #2B2E3B 47.41%, #20222C 100%);
   z-index: 110;
+  &__inner {
+    padding: 0 26px;
+    max-width: 1440px;
+  }
+  &__hamburger-menu {
+    display: none;
+  }
   &__wrap {
     display: flex;
     align-items: center;
@@ -491,5 +513,71 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
 .btn_login {
   margin-left: 32px;
+}
+
+@media (max-width: 480px) {
+  .header {
+    &__inner {
+      padding: 0 16px;
+      max-width: 480px;
+    }
+    &__logo {
+      width: 140px;
+    }
+    &__geo {
+      display: none;
+    }
+    &__hamburger-menu {
+      display: block;
+      margin-right: 16px;
+      margin-left: -8px;
+    }
+  }
+
+  .header-nav {
+      display: none;
+      &__wrap {
+        margin-left: 0;
+        margin-right: auto;
+      }
+  }
+
+  .header-buttons__login {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    outline: none;
+    background: none;
+    border: none;
+    margin-left: 30px;
+  }
+
+  .logo {
+    &__link {
+      width: 140px;
+      background-size: contain;
+    }
+  }
+
+  .search-toggle {
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+  }
+
+  .btn-vip {
+    height: 32px;
+    widows: auto;
+    background-size: contain;
+  }
+  .lang-switcher {
+    display: none;
+  }
+  .btn_login {
+    display: none;
+  }
 }
 </style>

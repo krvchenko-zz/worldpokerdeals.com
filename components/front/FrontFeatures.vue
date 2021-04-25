@@ -77,6 +77,8 @@ export default {
 
 <style lang="scss">
 .front-features {
+  grid-row: front-features;
+  grid-column: layout-content / layout-right-gutter;
   &__list {
     display: flex;
     justify-content: center;

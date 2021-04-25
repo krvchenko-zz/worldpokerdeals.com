@@ -153,6 +153,8 @@ export default {
 
 <style lang="scss">
 .front-promotions {
+  grid-row: front-promotions;
+  grid-column: layout-content / layout-right-gutter;
   &__wrap {
     padding: 28px 0 20px 0;
     display: flex;

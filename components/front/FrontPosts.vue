@@ -117,6 +117,8 @@ export default {
 
 <style lang="scss">
 .front-posts {
+  grid-row: front-posts;
+  grid-column: layout-content / layout-right-gutter;
 	position: relative;
 	padding-bottom: 44px;
 	&:after {
