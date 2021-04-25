@@ -7,7 +7,7 @@
       :width="medium ? `327px` : `80px`"
       :height="medium ? `185px` : `80px`"
       :class="['post-item__img', medium && 'post-item__img_size_m']"
-      :src="src" 
+      :src="src"
       :alt="image.alt || title"
       loading="lazy">
     <div v-if="medium" class="post-item__meta">
@@ -17,7 +17,7 @@
     <nuxt-link prefetch :to="{name: 'index', params: {parent: 'blog', child: slug}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
       <a :class="['post-item__link', medium && 'post-item__link_size_m']" :href="href" @click="navigate">{{ title }}</a>
     </nuxt-link>
-    
+
     <p v-if="medium" class="post-item__summary">{{ strLimit }}</p>
     <div :class="['post-item__author', medium && 'post-item__author_size_m']">
       <span>
@@ -93,7 +93,7 @@ export default {
     mediaUrl() {
       return process.env.mediaUrl
     },
-    
+
     avatar() {
       return `${this.mediaUrl}/user-square/${this.author.image.filename}`
     },
@@ -257,6 +257,28 @@ export default {
       font-size: 12px;
       line-height: 16px;
       color: #999999;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .post-item {
+    display: grid;
+    grid-template-columns: [image] 1fr [content] 2fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 8px;
+    grid-template-rows: repeat(4, minmax(fit-content, 1fr));
+    &__img {
+      grid-column: image;
+      clip-path: none;
+      grid-row: span 3;
+    }
+    &__meta, &__link, &__summary, &__author {
+      grid-column: content;
+      margin: 0;
+    }
+    &__meta {
+      height: 16px;
     }
   }
 }

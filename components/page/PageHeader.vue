@@ -305,6 +305,7 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   &__inner {
     padding: 0 26px;
     max-width: 1440px;
+    margin: 0 auto;
   }
   &__hamburger-menu {
     display: none;
@@ -351,6 +352,9 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     margin-left: 30px;
     display: flex;
     align-items: center;
+    &__login {
+      display: none;
+    }
   }
 
   &-nav {

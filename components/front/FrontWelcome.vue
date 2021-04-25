@@ -114,4 +114,29 @@ export default {
     background: #2E87C8;
   }
 }
+
+@media (max-width: 480px) {
+  .front-welcome {
+    margin-top: 32px;
+    &__img  {
+      width: 100%;
+    }
+    &__wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    &__wrap p {
+      font-size: 16px;
+    }
+    &__contacts {
+      justify-content: center;
+    }
+  }
+
+  .btn-welcome-banner {
+    width: auto;
+    min-width: 283px;
+    margin: 0 auto;
+  }
+}
 </style>
