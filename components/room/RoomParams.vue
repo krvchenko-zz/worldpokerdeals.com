@@ -13,7 +13,12 @@
       <span class="room-param__label">Сеть</span>
       <span class="room-param__sep"></span>
       <div class="room-param__value">
-        <a class="room-param__network" href="#">{{ network }}</a>
+      <nuxt-link prefetch :to="{name: 'index', params: {
+        parent: network.page.parent ? network.page.parent.slug : network.page.slug,
+        child: network.page.parent ? network.page.slug : null
+      }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
+        <a class="room-param__network" :href="href" @click="navigate">{{ network.title }}</a>
+      </nuxt-link>
       </div>
     </div>
 
@@ -258,7 +263,7 @@ $ico-room-general-info: url('~assets/i/room/ico-room-general-info.svg?data');
 
   &__license {
     display: flex;
-    i {
+    svg {
       margin-right: 8px;
     }
   }

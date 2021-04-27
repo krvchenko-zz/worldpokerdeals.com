@@ -73,7 +73,7 @@ $ico-network-more: url('~assets/i/ico-network-more.svg?data');
 $label-bg: url('~assets/i/ico-card-label.svg?data');
 
 .payment-item {
-	margin-top: 24px;
+	margin: 24px 0;
 	background: #FAFAFA;
 	border: 1px solid #E9E9E9;
 	border-radius: 4px;

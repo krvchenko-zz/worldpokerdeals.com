@@ -89,7 +89,7 @@
 									:licenses="room.licenses"
 									:certificates="room.certificates"
 									:client_software="room.client_software"
-									:network="room.network.title"
+									:network="room.network"
 									:players_peak="room.players_peak"
 									:tracker="room.hud"
 									:currencies="room.currencies"
