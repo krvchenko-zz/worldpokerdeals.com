@@ -1,20 +1,15 @@
 <template>
 <div class="front-clubs">
-	<div class="container-fluid">
 
 		<div class="front-clubs__wrap">
 			<h2 class="front-clubs__title">Клубы в приложениях</h2>
 		</div>
 
-		<div class="row">
-			<div class="col-9">
-				<text-spoiler
-					class="text-spoiler_front"
-					:text="text"
-					:limit="300"
-				/>
-			</div>
-		</div>
+    <text-spoiler
+      class="text-spoiler_front front-clubs__spoiler"
+      :text="text"
+      :limit="300"
+    />
 
 		<filter-tab-list>
 			<filter-tab-item
@@ -73,7 +68,6 @@
 			</div>
 		</div>
 
-	</div>
 </div>
 </template>
 
@@ -159,9 +153,11 @@ export default {
 		letter-spacing: -0.3px;
 		color: #222222;
 	}
-	&__list {
-		// max-width: 1098px;
-	}
+  &__spoiler {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    margin-bottom: 24px;
+  }
 }
 
 .front-slider_clubs {
@@ -175,7 +171,13 @@ export default {
 	}
 }
 
-.text-spoiler_clubs {
-	// margin: 0;
+@media (max-width: 480px) {
+  .front-clubs {
+    padding: 0 16px;
+    & &__spoiler  {
+      grid-template-columns: 1fr;
+      margin-bottom: 24px;
+    }
+  }
 }
 </style>

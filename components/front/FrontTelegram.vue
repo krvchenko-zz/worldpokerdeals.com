@@ -4,7 +4,7 @@
   <div class="front-telegram__wrap">
     <div class="front-telegram__title">Telegram-канал<br><b>«Вестник Бамхантера»</b></div>
     <div class="front-telegram__info">Подпольное издание для тех, кто ценит свое время и выбирает лучшую игру</div>
-    <a class="btn btn-block btn-green" rel="nofollow" href="https://t.me/worldpokerdealsRU" target="_blank">Подписаться</a>
+    <a class="btn btn-block btn-green front-telegram__subscribe-button" rel="nofollow" href="https://t.me/worldpokerdealsRU" target="_blank">Подписаться</a>
   </div>
 </div>
 </template>
@@ -90,6 +90,26 @@ $ico-telegram-big: url('~assets/i/messengers/ico-telegram-big.svg?data');
     text-align: center;
     color: #FFFFFF;
     opacity: 0.9;
+  }
+}
+@media (max-width: 480px) {
+  .front-telegram {
+    display: flex;
+    flex-direction: column;
+    &__wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    &__subscribe-button {
+      width: auto;
+      min-width: 177px;
+    }
+    &__title {
+      font-size: 20px;
+    }
+    &__info {
+      font-size: 14px;
+    }
   }
 }
 </style>

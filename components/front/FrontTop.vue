@@ -205,7 +205,9 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
     }
 
     &-awards {
-      flex-wrap: wrap;
+      overflow-x: scroll;
+      scrollbar-width: none;
+      padding-bottom: 36px;
 	  }
   }
 

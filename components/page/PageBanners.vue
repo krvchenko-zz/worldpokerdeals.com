@@ -102,4 +102,11 @@ export default {
     align-items: center;
   }
 }
+@media (max-width: 480px) {
+  .page-banners_front {
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding-bottom: 36px;
+  }
+}
 </style>

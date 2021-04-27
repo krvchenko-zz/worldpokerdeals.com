@@ -5,6 +5,7 @@
 
     <div class="front-posts-featured__list">
       <client-only>
+      <!-- TODO [0, 1] for small screens -->
       <carousel
         class="front-slider"
         :style="{margin: '0 -14px'}"

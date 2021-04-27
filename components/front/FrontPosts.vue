@@ -158,7 +158,7 @@ export default {
   .front-posts {
     grid-template-columns: 100%;
     grid-column-gap: 0;
-    padding: 0 16px;
+    padding: 0 16px 64px;
     &__list {
       grid-template-columns: 1fr;
       grid-column-gap: 0px;

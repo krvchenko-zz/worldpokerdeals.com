@@ -16,7 +16,7 @@ export default {
 
   },
 
-  props: {    
+  props: {
     text: {
       type: String,
       required: true
@@ -94,6 +94,14 @@ $ico-text-spoiler-sep: url('~assets/i/ico-text-spoiler-sep.svg?data');
 
   &_front {
     margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-spoiler {
+    &_front {
+      margin-bottom: 0px;
+    }
   }
 }
 </style>

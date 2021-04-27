@@ -1,22 +1,18 @@
 <template>
 <div class="front-rooms">
-  <div class="container-fluid">
-
     <div class="front-rooms__wrap">
       <h2 class="front-rooms__title">Покерные румы</h2>
       <nuxt-link to="/rakeback-deals" v-slot="{ href, route, navigate, isActive, isExactActive }">
-        <a class="btn btn-sm btn-primary" :href="href" @click="navigate">Все покерные румы</a>
+        <a class="btn btn-primary front-rooms__all-rooms-button" :href="href" @click="navigate">Все покерные румы</a>
       </nuxt-link>
     </div>
 
-    <div class="row">
-      <div class="col-9">
+    <div class="front-rooms__details">
         <text-spoiler
           class="text-spoiler_front"
           :text="text"
           :limit="300"
         />
-      </div>
     </div>
 
     <filter-tab-list>
@@ -67,7 +63,6 @@
       </carousel>
       </client-only>
     </div>
-  </div>
 </div>
 </template>
 
@@ -144,7 +139,19 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+  &__details {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    &:first-child {
+      grid-column: 1;
+    }
+  }
+  &__all-rooms-button {
+    white-space: nowrap;
+    padding: 8px 20px;
+  }
   &__title {
+    white-space: nowrap;
     margin: 0;
     font-family: 'Proxima Nova Th';
     font-size: 28px;
@@ -161,6 +168,28 @@ export default {
 
   .VueCarousel-pagination {
     margin: 2px 0 28px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .front-rooms {
+    padding: 0 16px;
+    &__all-rooms-button {
+      width: auto;
+      min-width: 172px;
+      padding: 8px 12px;
+    }
+    &__title {
+      font-size: 24px;
+    }
+    &__details {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-bottom: 24px;
+      &:first-child {
+        grid-column: 1;
+      }
+    }
   }
 }
 </style>
