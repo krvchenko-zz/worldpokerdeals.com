@@ -49,6 +49,7 @@ export default {
     '@nuxtjs/router',
     '@nuxtjs/svg',
     '@nuxtjs/device',
+    '@nuxtjs/axios',
     ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
 

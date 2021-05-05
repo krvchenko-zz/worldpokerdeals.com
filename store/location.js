@@ -37,11 +37,8 @@ export const actions = {
   async fetchCountry ({ dispatch, commit }) {
 
     return new Promise((resolve, reject) => {
-      axios.get('/country').then(response => {
-        resolve(response.data)
-      }, error => {
-        reject(error);
-      })
+      const country = this.$axios.$get('/country')
+      resolve(country)
     })
   },
 
