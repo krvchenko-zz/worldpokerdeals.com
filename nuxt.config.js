@@ -53,6 +53,11 @@ export default {
     ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
 
+  axios: {
+    proxyHeadersIgnore: [],
+  },
+
+
   // render: { 
   //   resourceHints: false,
   // },
