@@ -6,10 +6,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 export default ({ app, store, redirect, req }) => {
   axios.defaults.baseURL = process.env.apiUrl
 
-  if (process.server) {
-    return
-  }
-
   // Request interceptor
   axios.interceptors.request.use((request) => {
   //   const token = store.getters['auth/token']
@@ -28,6 +24,10 @@ export default ({ app, store, redirect, req }) => {
 
     return request
   })
+
+  if (process.server) {
+    return
+  }
 
   // Response interceptor
   axios.interceptors.response.use(response => response, (error) => {
