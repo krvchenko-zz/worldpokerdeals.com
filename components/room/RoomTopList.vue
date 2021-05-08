@@ -424,4 +424,12 @@ $ico-link: url('~assets/i/ico-room-top-link.svg?data');
       }
   }
 }
+
+@include mq('laptop') {
+  .top-rooms_front {
+    max-width: 720px;
+    width: 100%;
+    box-shadow: 0px -30px 50px rgba(0, 0, 0, 0.3);
+  }
+}
 </style>

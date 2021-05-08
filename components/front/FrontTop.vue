@@ -94,8 +94,11 @@ export default {
 $front-top-bg: url('~assets/i/front-bg.jpg');
 .front-top {
   display: grid;
+  width: 100%;
+  max-width: 1440px;
   grid-template-columns: [text] 1fr  [top-rooms] 496px;
 	margin-bottom: 40px;
+  @include paddings('desktop');
   padding-top: 32px;
   padding-bottom: 32px;
 	min-height: 519px;
@@ -162,20 +165,51 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
     grid-column: top-rooms;
   }
 
-  @media (max-width: 1280px) {
-    padding: 32px 26px;
+  @media (min-width: 1280px) and (max-width: 1380px) {
+    &-awards {
+      &__item {
+        margin-right: 15px;
+      }
+    }
     &__wrap {
       padding-left: 0px;
     }
-
   }
 
-  @media (max-width: 480px) {
-    /* padding: 0 0 32px 0; */
-    padding-bottom: 32px;
+
+  @include mq('laptop') {
+    padding: 0;
     grid-template-columns: 100vw;
     grid-template-rows: [summary] 1fr [top-rooms] 1fr;
-    grid-column: layout-content;
+    &__title {
+      margin-top: 0;
+    }
+    &__wrap {
+      grid-column: 1;
+      @include paddings('laptop');
+      padding-bottom: 36px;
+      padding-top: 40px;
+    }
+    &__top-rooms-wrapper {
+      grid-column: 1;
+      margin-left: 0;
+      display: flex;
+      justify-content: center;
+      background: #383B4C;
+      padding-bottom: 58px;
+    }
+    &__buttons {
+      margin-bottom: 36px;
+    }
+    &-awards {
+      overflow-x: scroll;
+      scrollbar-width: none;
+	  }
+  }
+
+  @include mq('tablet') {
+    grid-template-columns: 100vw;
+    grid-template-rows: [summary] 1fr [top-rooms] auto;
     background: none;
     &__buttons {
       white-space: nowrap;
@@ -186,16 +220,16 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
       }
     }
     &__wrap {
-      padding-left: 16px;
-      padding-right: 16px;
+      @include paddings('tablet');
+      padding-right: 0;
+      grid-column: 1;
       grid-row: summary;
       background: linear-gradient(180deg, rgba(31, 32, 44, 0) 0%, #21222E 7.81%, #373B4C 100%);
      	background: $front-top-bg no-repeat center top;
-       /* background-size: cover; */
       background-size: auto 100%;
-      /* background: linear-gradient(180deg, rgba(31, 32, 44, 0) 0%, #21222E 7.81%, #373B4C 100%); */
     }
     &__top-rooms-wrapper {
+      grid-column: 1;
       grid-row: top-rooms;
       margin: 0;
     }
@@ -212,12 +246,17 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
       font-size: 14px;
       line-height: 20px;
     }
+  }
 
-    &-awards {
-      overflow-x: scroll;
-      scrollbar-width: none;
-      padding-bottom: 36px;
-	  }
+  @include mq('mobile') {
+    &__wrap {
+      @include paddings('mobile');
+      padding-right: 0;
+    }
+    &__top-rooms-wrapper {
+      background: none;
+      padding-bottom: 30px;
+    }
   }
 
 }
