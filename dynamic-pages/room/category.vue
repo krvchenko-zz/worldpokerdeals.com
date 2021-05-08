@@ -205,7 +205,7 @@ export default {
 				{ name: 'keywords', content: this.category.meta_keywords }
 			],
 
-			script: [{ type: 'application/ld+json', json: this.tab.faq }]
+			script: [{ type: 'application/ld+json', json: this.category.faq }]
 		}
 	},
 
