@@ -97,6 +97,8 @@ export default {
 				{ name: 'description', content: this.rule.meta_description },
 				{ name: 'keywords', content: this.rule.meta_keywords }
 			],
+
+	      script: [{ type: 'application/ld+json', json: this.rule.faq }]
 		}
 	},
 

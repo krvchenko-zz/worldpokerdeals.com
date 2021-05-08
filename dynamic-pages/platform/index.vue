@@ -139,6 +139,8 @@ export default {
 				{ name: 'description', content: this.platform.meta_description },
 				{ name: 'keywords', content: this.platform.meta_keywords }
 			],
+
+			script: [{ type: 'application/ld+json', json: this.platform.faq }]
 		}
 	},
 

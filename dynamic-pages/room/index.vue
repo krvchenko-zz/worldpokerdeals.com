@@ -178,14 +178,16 @@ export default {
 	layout: 'basic',
 
   head () {
-	return { 
-	  title: this.tab.meta_title,
-	  titleTemplate: '%s',
-	  meta: [
-			{ name: 'description', content: this.tab.meta_description },
-			{ name: 'keywords', content: this.tab.meta_keywords }
-	  ],
-	}
+		return { 
+		  title: this.tab.meta_title,
+		  titleTemplate: '%s',
+		  meta: [
+				{ name: 'description', content: this.tab.meta_description },
+				{ name: 'keywords', content: this.tab.meta_keywords }
+		  ],
+
+		  script: [{ type: 'application/ld+json', json: this.tab.faq }]
+		}
   },
 
 	scrollToTop: true,

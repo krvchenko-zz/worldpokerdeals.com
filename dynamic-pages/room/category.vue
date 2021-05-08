@@ -7,34 +7,34 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-9">
-        <client-only>
+		<client-only>
 
-          <filter-header v-if="rooms"
-            :geo.sync="geo"
-            :sort.sync="sort"
-            :total.sync="total"
-            :overall.sync="overall"
-            :sort-options="sortOptions"
-            entity-label="покер-румов"
-            @update:sort="fetchItems"
-            @update:geo="fetchItems"
-          />
+		  <filter-header v-if="rooms"
+			:geo.sync="geo"
+			:sort.sync="sort"
+			:total.sync="total"
+			:overall.sync="overall"
+			:sort-options="sortOptions"
+			entity-label="покер-румов"
+			@update:sort="fetchItems"
+			@update:geo="fetchItems"
+		  />
 
-          <filter-selected-list v-if="selected.length">
-            <filter-selected v-for="(item, index) in selected" :key="index"
-              :label="item.label"
-              :value="item.value"
-              :item-key="item.key"
-            />
-            <filter-selected
-              label="Очистить фильтры"
-              :clear="true"
-              :value="null"
-              :key="null"
-            />
-          </filter-selected-list>
+		  <filter-selected-list v-if="selected.length">
+			<filter-selected v-for="(item, index) in selected" :key="index"
+			  :label="item.label"
+			  :value="item.value"
+			  :item-key="item.key"
+			/>
+			<filter-selected
+			  label="Очистить фильтры"
+			  :clear="true"
+			  :value="null"
+			  :key="null"
+			/>
+		  </filter-selected-list>
 
-        </client-only>
+		</client-only>
 
 					<div class="rooms-list">
 
@@ -204,6 +204,8 @@ export default {
 				{ name: 'description', content: this.category.meta_description },
 				{ name: 'keywords', content: this.category.meta_keywords }
 			],
+
+			script: [{ type: 'application/ld+json', json: this.tab.faq }]
 		}
 	},
 
@@ -286,14 +288,14 @@ export default {
 		total: 0,
 		overall: 0,
 		countries: [],
-    selected: [],
-    sortOptions: [{
-      label: 'Сначала лучшие',
-      value: 'rating'
-    },{
-      label: 'Сначала новые',
-      value: 'created_at'
-    }]
+	selected: [],
+	sortOptions: [{
+	  label: 'Сначала лучшие',
+	  value: 'rating'
+	},{
+	  label: 'Сначала новые',
+	  value: 'created_at'
+	}]
 	}),
 
 	async fetch() {
@@ -404,13 +406,13 @@ export default {
 
 	methods: {
 
-    handleFilterChange(selected) {
-      this.selected = selected.flatten
-      Object.keys(selected.values).forEach(key => {
-        this[key] = selected.values[key]
-      })
-      this.fetchItems()
-    },
+	handleFilterChange(selected) {
+	  this.selected = selected.flatten
+	  Object.keys(selected.values).forEach(key => {
+		this[key] = selected.values[key]
+	  })
+	  this.fetchItems()
+	},
 
 		async fetchItems(query) {
 

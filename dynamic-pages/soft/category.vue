@@ -154,6 +154,8 @@ export default {
         { name: 'description', content: this.category.meta_description },
         { name: 'keywords', content: this.category.meta_keywords }
       ],
+
+      script: [{ type: 'application/ld+json', json: this.category.faq }]
     }
   },
 

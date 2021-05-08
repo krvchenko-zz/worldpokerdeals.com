@@ -274,6 +274,8 @@ export default {
 				{ name: 'description', content: this.promotion.meta_description },
 				{ name: 'keywords', content: this.promotion.meta_keywords }
 			],
+
+	      	script: [{ type: 'application/ld+json', json: this.promotion.faq }]
 		}
 	},
 
