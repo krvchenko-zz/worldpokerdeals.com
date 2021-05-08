@@ -94,17 +94,16 @@ export default {
 $front-top-bg: url('~assets/i/front-bg.jpg');
 .front-top {
   display: grid;
-  grid-row: front-top;
-  grid-column: layout-content / layout-right-gutter;
-  grid-template-columns: 1fr 496px;
+  grid-template-columns: [text] 1fr  [top-rooms] 496px;
 	margin-bottom: 40px;
-	padding: 32px 0 32px 0;
+  padding-top: 32px;
+  padding-bottom: 32px;
 	min-height: 519px;
 	background: $front-top-bg no-repeat center top;
-	// background: #1d202b $front-top-bg no-repeat center;
 	background-size: auto 519px;
 	&__wrap {
-		padding-left: 62px;
+		padding-left: 68px;
+    grid-column: text;
 	}
 	&__title {
 		margin: 28px 0 24px 0;
@@ -159,11 +158,21 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
 	}
 
 	&__top-rooms-wrapper {
-		margin: 0 26px;
+		margin-left: 26px;
+    grid-column: top-rooms;
+  }
+
+  @media (max-width: 1280px) {
+    padding: 32px 26px;
+    &__wrap {
+      padding-left: 0px;
+    }
+
   }
 
   @media (max-width: 480px) {
-    padding: 0 0 32px 0;
+    /* padding: 0 0 32px 0; */
+    padding-bottom: 32px;
     grid-template-columns: 100vw;
     grid-template-rows: [summary] 1fr [top-rooms] 1fr;
     grid-column: layout-content;

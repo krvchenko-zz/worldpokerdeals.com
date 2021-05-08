@@ -1,4 +1,5 @@
 <template>
+<div class="front-rooms__container">
 <div class="front-rooms">
     <div class="front-rooms__wrap">
       <h2 class="front-rooms__title">Покерные румы</h2>
@@ -63,6 +64,7 @@
       </carousel>
       </client-only>
     </div>
+</div>
 </div>
 </template>
 
@@ -131,9 +133,15 @@ export default {
 
 <style lang="scss">
 .front-rooms {
-  grid-row: front-rooms;
-  grid-column: layout-content / layout-right-gutter;
-  background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 26px;
+  &__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  }
   &__wrap {
     padding: 28px 0 20px 0;
     display: flex;
@@ -168,6 +176,12 @@ export default {
 
   .VueCarousel-pagination {
     margin: 2px 0 28px 0;
+  }
+}
+
+@media (max-width: 1280px) {
+  .front-rooms {
+    padding: 0 26px;
   }
 }
 

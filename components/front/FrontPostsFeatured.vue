@@ -80,8 +80,8 @@ export default {
 $ico-front-slider-arrow: url('~assets/i/ico-front-slider-arrow.svg?data');
 $ico-front-posts-featured: url('~assets/i/ico-front-posts-featured.svg?data');
 .front-posts-featured {
-  grid-row: front-posts-featured;
-  grid-column: layout-content / layout-right-gutter;
+  width: 100%;
+  max-width: 1440px;
   padding-bottom: 28px;
   margin-top: -30px;
   text-align: center;

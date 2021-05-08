@@ -1,4 +1,5 @@
 <template>
+<div class="front-posts__container">
 <div class="front-posts">
   <div class="front-posts__news">
 
@@ -44,6 +45,7 @@
     <front-welcome />
     <front-telegram />
   </div>
+</div>
 </div>
 </template>
 
@@ -113,23 +115,29 @@ export default {
 
 <style lang="scss">
 .front-posts {
-  grid-row: front-posts;
-  grid-column: layout-content / layout-right-gutter;
+  max-width: 1440px;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 326px;
   grid-column-gap: 28px;
   padding: 0 26px;
 	position: relative;
 	padding-bottom: 44px;
-	&:after {
-		content: '';
-		position: absolute;
-		bottom: 0px;
-		width: 100%;
-		height: 44px;
-		display: block;
-		background: linear-gradient(180deg, rgba(243, 241, 241, 0) 0%, #ECEBEB 100%);
-	}
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      height: 44px;
+      display: block;
+      background: linear-gradient(180deg, rgba(243, 241, 241, 0) 0%, #ECEBEB 100%);
+    }
+  }
 	&__wrap {
 		margin-bottom: 20px;
 		display: flex;

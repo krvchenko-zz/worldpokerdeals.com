@@ -1,6 +1,5 @@
 <template>
 <section class="page-banners">
-  <div class="container-fluid">
     <div class="page-banners__wrap">
       <page-banners-item
         v-for="(item, index) in items" :key="index"
@@ -11,7 +10,6 @@
         :background="item.background"
       />
     </div>
-  </div>
 </section>
 </template>
 
@@ -91,22 +89,26 @@ export default {
 
 <style lang="scss">
 .page-banners {
-  grid-row: front-banners;
-  grid-column: layout-content / layout-right-gutter;
+  width: 100%;
+  max-width: 1440px;
   padding: 40px 0 0 0;
   &_front {
-    padding: 0 0 40px 0;
+    padding: 32px 26px 40px;
   }
   &__wrap {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 }
 @media (max-width: 480px) {
-  .page-banners_front {
-    overflow-x: scroll;
-    scrollbar-width: none;
-    padding-bottom: 36px;
+  .page-banners {
+    &_front {
+      overflow-x: scroll;
+      scrollbar-width: none;
+      padding-bottom: 36px;
+      padding-left: 16px;
+    }
   }
 }
 </style>

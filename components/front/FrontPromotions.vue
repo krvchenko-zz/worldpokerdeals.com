@@ -144,8 +144,9 @@ export default {
 
 <style lang="scss">
 .front-promotions {
-  grid-row: front-promotions;
-  grid-column: layout-content / layout-right-gutter;
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 26px;
   &__wrap {
     padding: 28px 0 20px 0;
     display: flex;
@@ -213,6 +214,13 @@ export default {
     font-size: 16px;
     line-height: 20px;
     color: #777777;
+  }
+}
+
+@media (max-width: 1280px) {
+  .front-promotions {
+    padding-left: 26px;
+    padding-right: 26px;
   }
 }
 
