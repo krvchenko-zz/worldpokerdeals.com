@@ -1,6 +1,6 @@
 <template>
 <div class="front-welcome">
-	<img width="326px" height="180px" decoding="async" loading="lazy" src="~assets/i/welcome-banner.jpg" alt="Всем привет!" class="front-welcome__img">
+	<img decoding="async" loading="lazy" src="~assets/i/welcome-banner.jpg" alt="Всем привет!" class="front-welcome__img">
   <div class="front-welcome__wrap">
     <h3>Всем привет!</h3>
     <p>Меня зовут Родион Лонга. Вы могли читать мои посты на Покерофф и Gipsyteam.</p>
@@ -64,6 +64,7 @@ export default {
     border-top-right-radius: 10px;
     display: block;
     max-width: 100%;
+    width: 100%;
     height: auto;
   }
 
@@ -107,6 +108,7 @@ export default {
 .btn-welcome-banner {
   padding: 10px 24px 9px 24px;
   border: 1px solid #2E87C8;
+  white-space: nowrap;
   &:focus,
   &:active,
   &:hover {
@@ -115,7 +117,7 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@include mq('tablet') {
   .front-welcome {
     margin-top: 32px;
     &__img  {

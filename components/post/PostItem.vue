@@ -4,9 +4,7 @@
   ]">
     <img
       decoding="async"
-      :width="medium ? `327px` : `80px`"
-      :height="medium ? `185px` : `80px`"
-      :class="['post-item__img', medium && 'post-item__img_size_m']"
+      :class="['post-item__img', medium && 'post-item__img_size_m', !medium && 'post-item__img_size-small']"
       :src="src"
       :alt="image.alt || title"
       loading="lazy">
@@ -150,12 +148,17 @@ export default {
   }
   &__img {
     max-width: 100%;
+    width: 100%;
     height: auto;
     float: left;
     &_size_m {
       border-radius: 4px;
       float: none;
       clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
+    }
+    &_size-small {
+      width: 80px;
+      height: 80px;
     }
   }
   &__link {
@@ -261,7 +264,7 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@include mq('tablet') {
   .post-item {
     display: grid;
     grid-template-columns: [image] 1fr [content] 2fr;

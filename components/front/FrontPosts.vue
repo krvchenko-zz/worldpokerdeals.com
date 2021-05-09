@@ -120,7 +120,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 326px;
   grid-column-gap: 28px;
-  padding: 0 26px;
+  @include paddings('desktop');
 	position: relative;
 	padding-bottom: 44px;
   &__container {
@@ -162,7 +162,19 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@include mq('laptop') {
+   .front-posts {
+    @include paddings('laptop');
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    &__list {
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+    }
+  }
+}
+
+@include mq('tablet') {
   .front-posts {
     grid-template-columns: 100%;
     grid-column-gap: 0;
