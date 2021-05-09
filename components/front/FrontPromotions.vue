@@ -217,14 +217,36 @@ export default {
   }
 }
 
-@media (max-width: 1280px) {
+@include mq('laptop') {
   .front-promotions {
-    padding-left: 26px;
-    padding-right: 26px;
+    @include paddings('laptop');
+    & &__details {
+      margin-bottom: 0;
+    }
+    &__features {
+      overflow-x: scroll;
+      scrollbar-width: none;
+      white-space: nowrap;
+      padding-bottom: 32px;
+      padding-top: 20px;
+      margin-bottom: 0;
+      @include paddings('laptop');
+      margin-right: -24px;
+      margin-left: -24px;
+    }
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(227px, 1fr));
+      grid-template-rows: 1fr;
+      overflow-x: scroll;
+      scrollbar-width: none;
+    }
+    &__item {
+       grid-row: 1;
+    }
   }
 }
 
-@media (max-width: 480px) {
+@include mq('mobile') {
   .front-promotions {
      padding: 0 16px;
      &__details-wrapper {
@@ -235,25 +257,16 @@ export default {
      &__details {
       margin-bottom: 0;
      }
-     &__features {
-       overflow-x: scroll;
-       scrollbar-width: none;
-     }
      &__list {
-       overflow-x: scroll;
-       scrollbar-width: none;
        grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
-       grid-template-rows: 1fr;
      }
      &__item {
        width: 284px;
-       grid-row: 1;
      }
   }
 
   .promotion-features {
     padding-top: 20px;
-    padding-bottom: 32px;
     margin-bottom: 0;
     &__label {
       white-space: nowrap;
