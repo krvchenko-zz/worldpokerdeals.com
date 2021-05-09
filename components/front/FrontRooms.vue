@@ -179,15 +179,15 @@ export default {
   }
 }
 
-@media (max-width: 1280px) {
+@include mq('laptop') {
   .front-rooms {
-    padding: 0 26px;
+    @include paddings('laptop');
   }
 }
 
-@media (max-width: 480px) {
+@include mq('mobile') {
   .front-rooms {
-    padding: 0 16px;
+    @include paddings('mobile');
     &__all-rooms-button {
       width: auto;
       min-width: 172px;

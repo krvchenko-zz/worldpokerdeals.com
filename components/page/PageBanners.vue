@@ -101,13 +101,21 @@ export default {
     justify-content: space-between;
   }
 }
-@media (max-width: 480px) {
+@include mq('laptop') {
   .page-banners {
     &_front {
+      @include paddings('laptop');
       overflow-x: scroll;
       scrollbar-width: none;
+    }
+  }
+}
+
+@include mq('mobile') {
+  .page-banners {
+    &_front {
       padding-bottom: 36px;
-      padding-left: 16px;
+      @include paddings('mobile');
     }
   }
 }

@@ -186,4 +186,10 @@ export default {
     }
   }
 }
+
+@include mq('mobile') {
+  .front-posts {
+    @include paddings('mobile');
+  }
+}
 </style>

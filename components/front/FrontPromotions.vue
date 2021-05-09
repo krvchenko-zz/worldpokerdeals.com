@@ -248,7 +248,8 @@ export default {
 
 @include mq('mobile') {
   .front-promotions {
-     padding: 0 16px;
+     padding: 0;
+     @include paddings('mobile');
      &__details-wrapper {
       display: grid;
       grid-template-columns: 1fr;

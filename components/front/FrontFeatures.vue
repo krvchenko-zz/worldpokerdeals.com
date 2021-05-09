@@ -142,15 +142,41 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@include mq('laptop') {
   .front-features {
-    padding-left: 16px;
+    padding-left: 24px;
     &__list {
       overflow-x: scroll;
       scrollbar-width: none;
+      justify-content: space-between;
+      margin-right: -24px;
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .front-feature {
+    margin-right: 44px;
+  }
+}
+
+@include mq('tablet') {
+  .front-features {
+    &__list {
       justify-content: flex-start;
+    }
+  }
+}
+
+@include mq('mobile') {
+  .front-features {
+    padding-left: 20px;
+    &__list {
+      margin-right: -20px;
       &::after {
         width: 200%;
+        display: block;
       }
     }
   }
