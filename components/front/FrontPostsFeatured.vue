@@ -10,7 +10,7 @@
         class="front-slider"
         :style="{margin: '0 -14px'}"
         :navigation-enabled="true"
-        :per-page-custom="[[0, 3]]"
+        :per-page-custom="[[0, 1], [768, 2], [1280, 3]]"
         :pagination-enabled="true"
         :pagination-padding="0"
         :pagination-size="6"

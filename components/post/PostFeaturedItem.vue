@@ -6,7 +6,7 @@
     width="474px"
     height="254px"
     :class="['post-featured-item__img']"
-    :src="src" 
+    :src="src"
     :alt="image.alt || title"
   >
     <nuxt-link :to="{ name: 'index', params: { parent: 'blog', child: slug}}" v-slot="{ href, route, navigate, isActive, isExactActive }"
@@ -112,6 +112,7 @@ export default {
   &__img {
     z-index: 1;
     display: block;
+    width: 100%;
     max-width: 100%;
     height: auto;
   }

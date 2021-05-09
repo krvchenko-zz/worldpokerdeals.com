@@ -35,7 +35,7 @@
 						class="front-slider front-slider_clubs"
 						:style="{margin: '0'}"
 						:navigation-enabled="false"
-						:per-page-custom="[[0, 5]]"
+            :per-page-custom="[[0, 2], [768, 3], [1280, 5]]"
 						:pagination-enabled="true"
 						:pagination-padding="0"
 						:pagination-size="6"
