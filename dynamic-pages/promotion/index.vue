@@ -308,7 +308,7 @@ export default {
 	},
 
 	async fetch() {
-		await axios.get(`promotion/${this.pageable.slug}`, {
+		await this.$axios.get(`promotion/${this.pageable.slug}`, {
 			params: {
 				locale: this.locale
 			}

@@ -223,14 +223,14 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`rooms/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`rooms/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM', { room: response.data.room })
 			this.$store.commit('rooms/FETCH_TAB', { tab: response.data.tab })
 		}).catch(e => {
 
 		})
 
-		await axios.get('/rooms/related', {
+		await this.$axios.get('/rooms/related', {
 			params: {
 				id: this.room.id
 			}
@@ -240,7 +240,7 @@ export default {
 
 		})
 
-		await axios.get('reviews/list', {
+		await this.$axios.get('reviews/list', {
 			params: {
 				per_page: 5,
 				sort: 'created_at',

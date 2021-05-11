@@ -149,11 +149,11 @@ export default {
   }),
 
   async fetch() {
-    await axios.get(`games/category/${this.pageable.slug}`).then((response) => {
+    await this.$axios.get(`games/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('games/FETCH_CATEGORY', { category: response.data })
     }).then()
 
-    await axios.get('games/list', {
+    await this.$axios.get('games/list', {
       params: {
         type: this.type
       }
@@ -166,7 +166,7 @@ export default {
       })) })
     })
 
-    await axios.get('posts/list', {
+    await this.$axios.get('posts/list', {
       params: {
         locale: this.locale,
         per_page: 5,

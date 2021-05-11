@@ -216,13 +216,13 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`games/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`games/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('games/FETCH_GAME', { game: response.data.game })
 			this.$store.commit('games/FETCH_TAB', { tab: response.data.tab })
 		})
 
 		if (this.tab.show_rooms) {
-			await axios.get('rooms/list', {
+			await this.$axios.get('rooms/list', {
 				params: {
 					geo: this.country.code,
 					per_page: 10,
@@ -241,7 +241,7 @@ export default {
 			.catch((e) => {
 			})
 
-			await axios.get(`/games/filters/list`, {
+			await this.$axios.get(`/games/filters/list`, {
 				params: {
 					geo: this.country.code,
 					game_id: this.game.id,
@@ -267,7 +267,7 @@ export default {
 
 			this.$nuxt.$loading.start()
 
-			await axios.get(`/games/filters/list`, {
+			await this.$axios.get(`/games/filters/list`, {
 				params: {
 					geo: this.geo,
 					game_id: this.game.id,
@@ -277,7 +277,7 @@ export default {
 				this.$store.commit('games/FETCH_FILTERS', { filters: response.data })
 			})
 
-			await axios.get(`rooms/list`, { params: this.params }).then((response) => {
+			await this.$axios.get(`rooms/list`, { params: this.params }).then((response) => {
 				this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
 				Object.keys(response.data).forEach(key => {
 					this[key] = response.data[key]

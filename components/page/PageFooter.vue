@@ -171,7 +171,7 @@ export default {
   },
 
   async fetch() {
-    // await axios.get('/menu/list').then((response) => {
+    // await this.$axios.get('/menu/list').then((response) => {
     //   this.$store.commit('menu/FETCH_ITEMS', { items: response.data })
     // }, (e) => {
 

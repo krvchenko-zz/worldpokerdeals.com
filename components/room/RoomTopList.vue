@@ -57,7 +57,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
 
@@ -121,7 +121,7 @@ export default {
 		async handleLoadMore() {
 			$nuxt.$loading.start()
 			this.per_page = parseInt(this.per_page) + 5
-			await axios.get('/rooms/geo/top', {
+			await this.$axios.get('/rooms/geo/top', {
 				params: {
 					geo: this.country.geo,
 					per_page: this.per_page,
@@ -135,7 +135,7 @@ export default {
 		async handleToggleApps() {
 			this.showApps = !this.showApps
 			$nuxt.$loading.start()
-			await axios.get('/rooms/geo/top', {
+			await this.$axios.get('/rooms/geo/top', {
 				params: {
 					geo: this.country.geo,
 					per_page: this.per_page,

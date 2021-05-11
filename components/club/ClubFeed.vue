@@ -60,7 +60,7 @@ export default {
 	}),
 
   async fetch() {
-    await axios.get('/club/feed', {
+    await this.$axios.get('/club/feed', {
       params: {
         per_page: this.per_page,
         room_id: this.room_id
@@ -92,7 +92,7 @@ export default {
     async handleLoadMore() {
       $nuxt.$loading.start()
       this.per_page = this.total
-      await axios.get('/club/feed', {
+      await this.$axios.get('/club/feed', {
         params: {
           per_page: this.per_page,
           room_id: this.room_id

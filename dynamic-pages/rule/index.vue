@@ -129,7 +129,7 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`rules/${this.pageable.slug}`).then(response => {
+		await this.$axios.get(`rules/${this.pageable.slug}`).then(response => {
 			this.$store.commit('rules/FETCH_RULE', { rule: {
 				id: response.data.id,
 				title: response.data.title,
@@ -150,7 +150,7 @@ export default {
 			} })
 		})
 
-	await axios.get('posts/list', {
+	await this.$axios.get('posts/list', {
 	  params: {
 		locale: this.locale,
 		per_page: 5,

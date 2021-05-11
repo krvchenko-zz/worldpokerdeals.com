@@ -175,7 +175,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 import eventBus from '~/utils/event-bus'
 
 export default {
@@ -237,7 +237,7 @@ export default {
   },
 
   async fetch() {
-    await axios.get('/menu/list').then((response) => {
+    await this.$axios.get('/menu/list').then((response) => {
       this.$store.commit('menu/FETCH_ITEMS', { items: response.data })
     }, (e) => {
 

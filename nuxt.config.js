@@ -49,14 +49,21 @@ export default {
     '@nuxtjs/router',
     '@nuxtjs/svg',
     '@nuxtjs/device',
-    // '@nuxtjs/axios',
+    '@nuxtjs/axios',
     ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
 
-  // axios: {
-  //   proxyHeadersIgnore: [],
-  // },
+  axios: {
+    // proxy: true,
+    proxyHeaders: true,
+    baseURL: process.env.apiUrl,
+    proxyHeadersIgnore: ['accept', 'host', 'x-forwarded-host', 'x-forwarded-port', 'x-forwarded-proto', 'cf-ray', 'cf-connecting-ip', 'content-length', 'content-md5', 'content-type'],
+    // debug: true
+  },
 
+  // proxy: {
+  //   '/api/': { target: 'https://api.worldpokerdeals01.com/v2/' }
+  // },
 
   // render: { 
   //   resourceHints: false,

@@ -147,7 +147,7 @@ export default {
   },
 
   async fetch() {
-    await axios.get('/posts/list', {
+    await this.$axios.get('/posts/list', {
       params: {
         geo: this.country.code,
         locale: this.locale,
@@ -169,14 +169,14 @@ export default {
 
     })
 
-    await axios.get('/posts/categories/list', { params: {} }).then(response => {
+    await this.$axios.get('/posts/categories/list', { params: {} }).then(response => {
       this.$store.commit('posts/FETCH_CATEGORIES', { categories: response.data })
     })
     .catch(e => {
 
     })
 
-    await axios.get('/posts/list', {
+    await this.$axios.get('/posts/list', {
       params: {
         top: 1,
         locale: this.locale,
@@ -203,7 +203,7 @@ export default {
     async fetchItems() {
 
       $nuxt.$loading.start()
-      await axios.get('/posts/list', {
+      await this.$axios.get('/posts/list', {
         params: {
           geo: this.country.code,
           locale: this.locale,

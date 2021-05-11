@@ -269,7 +269,7 @@ export default {
 
   async fetch() {
 
-    await axios.get(`network/${this.pageable.slug}`,{
+    await this.$axios.get(`network/${this.pageable.slug}`,{
       params: {
         locale: this.locale
       }
@@ -284,7 +284,7 @@ export default {
     })
 
 
-    await axios.get('rooms/list', {
+    await this.$axios.get('rooms/list', {
       params: {
         geo: this.geo,
         per_page: 10,
@@ -303,7 +303,7 @@ export default {
     .catch((e) => {
     })
 
-    await axios.get(`/network/filters/list`, {
+    await this.$axios.get(`/network/filters/list`, {
       params: {
         geo: this.geo,
         network_id: this.network.id
@@ -327,7 +327,7 @@ export default {
 
       this.$nuxt.$loading.start()
 
-      await axios.get(`/network/filters/list`, {
+      await this.$axios.get(`/network/filters/list`, {
         params: {
           geo: this.geo,
           network_id: this.network.id
@@ -336,7 +336,7 @@ export default {
         this.$store.commit('networks/FETCH_FILTERS', { filters: response.data })
       })
 
-      await axios.get(`rooms/list`, { params: this.params }).then((response) => {
+      await this.$axios.get(`rooms/list`, { params: this.params }).then((response) => {
         this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
         Object.keys(response.data).forEach(key => {
           this[key] = response.data[key]

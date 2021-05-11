@@ -279,7 +279,7 @@ export default {
 
   async fetch() {
 
-    await axios.get(`promotion/category/${this.pageable.slug}`, {
+    await this.$axios.get(`promotion/category/${this.pageable.slug}`, {
       params: {
         locale: this.locale
       }
@@ -288,18 +288,18 @@ export default {
       this.$store.commit('promotions/FETCH_BEST', { best: response.data.best })
     })
 
-    await axios.get(`promotion/list`, { params: this.params }).then((response) => {
+    await this.$axios.get(`promotion/list`, { params: this.params }).then((response) => {
       this.$store.commit('promotions/FETCH_ITEMS', { items: response.data.data })
       Object.keys(response.data).forEach(key => {
         this[key] = response.data[key]
       })
     })
 
-    await axios.get(`promotion/category/list`).then((response) => {
+    await this.$axios.get(`promotion/category/list`).then((response) => {
       this.$store.commit('promotions/FETCH_CATEGORIES', { categories: response.data })
     })
 
-    await axios.get(`/promotion/filters/list`, {
+    await this.$axios.get(`/promotion/filters/list`, {
       params: {
         geo: this.country.code,
         type: this.category.entity,
@@ -338,7 +338,7 @@ export default {
 
       this.$nuxt.$loading.start()
 
-      // await axios.get(`/promotion/filters/list`, {
+      // await this.$axios.get(`/promotion/filters/list`, {
       //   params: {
       //     geo: this.geo,
       //     type: this.category.entity,
@@ -349,7 +349,7 @@ export default {
       //   this.$store.commit('promotions/FETCH_FILTERS', { filters: response.data })
       // })
 
-      await axios.get(`promotion/list`, { params: this.params }).then((response) => {
+      await this.$axios.get(`promotion/list`, { params: this.params }).then((response) => {
         this.$store.commit('promotions/FETCH_ITEMS', { items: response.data.data })
         Object.keys(response.data).forEach(key => {
           this[key] = response.data[key]

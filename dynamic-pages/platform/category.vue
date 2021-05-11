@@ -116,7 +116,7 @@ export default {
   }),
 
   async fetch() {
-    await axios.get(`platforms/category/${this.pageable.slug}`).then(response => {
+    await this.$axios.get(`platforms/category/${this.pageable.slug}`).then(response => {
       this.$store.commit('platforms/FETCH_CATEGORY', { category: {
         id: response.data.id,
         title: response.data.title,
@@ -137,7 +137,7 @@ export default {
       } })
     }).then()
 
-    await axios.get('platforms/list').then((response) => {
+    await this.$axios.get('platforms/list').then((response) => {
       this.$store.commit('platforms/FETCH_PLATFORMS', { platforms: response.data.map(item => ({
         title: item.heading,
         icon: item.icon,
@@ -151,7 +151,7 @@ export default {
       })) })
     })
 
-    await axios.get('posts/list', {
+    await this.$axios.get('posts/list', {
       params: {
         locale: this.locale,
         per_page: 5,
