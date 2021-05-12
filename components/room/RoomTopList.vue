@@ -147,9 +147,9 @@ export default {
 			})
 		},
 
-		declOfNum(number, titles) {  
-		  const cases = [2, 0, 1, 1, 1, 2];  
-		  return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ]  
+		declOfNum(number, titles) {
+		  const cases = [2, 0, 1, 1, 1, 2];
+		  return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ]
 		}
 	}
 }
@@ -354,5 +354,82 @@ $ico-link: url('~assets/i/ico-room-top-link.svg?data');
 			color: #777777;
 		}
 	}
+
+  @media (max-width: 480px) {
+      .top-rooms-header_front {
+        .top-rooms-header {
+          &__button {
+            font-size: 20px;
+            line-height: 21px;
+            white-space: nowrap;
+            background: linear-gradient(180deg, #FAFAFA 59.9%, #DFDEDE 100%);
+            &:focus,
+            &:active,
+            &_active {
+              background: #FAFAFA;
+              box-shadow: 0px -4px 0px #FEB83C;
+            }
+          }
+
+          &__label {
+            color: #222222;
+          }
+          &__country {
+            color: #777777;
+          }
+        }
+      }
+
+      .top-rooms__item {
+        &_front {
+          background: #FAFAFA;
+        }
+        &-title_front {
+          color: #222222;
+        }
+        &-rating-label {
+          color: #555555;
+        }
+        &-rakeback-label {
+          color: #555555;
+        }
+        &-rakeback-val {
+          color: #222222;
+        }
+        &-link {
+          background: #E9E9E9;
+          color: #777777;
+        }
+      }
+
+      .top-rooms__footer {
+        &_front {
+          background: #F1EFEF;
+        }
+        &-link_front {
+          max-width: none;
+          background: #2E87C8;
+          border-radius: 4px;
+        }
+        &-text_front {
+          font-size: 16px;
+          line-height: 20px;
+        }
+        &-total_front {
+          font-size: 14px;
+          line-height: 16px;
+          color: #FFFFFF;
+          opacity: 0.8;
+        }
+      }
+  }
+}
+
+@include mq('laptop') {
+  .top-rooms_front {
+    max-width: 720px;
+    width: 100%;
+    box-shadow: 0px -30px 50px rgba(0, 0, 0, 0.3);
+  }
 }
 </style>

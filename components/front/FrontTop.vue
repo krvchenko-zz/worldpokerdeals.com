@@ -1,8 +1,5 @@
 <template>
 <div class="front-top">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-8">
 				<div class="front-top__wrap">
 					<h1 class="front-top__title">Больше, чем <br> покерный аффилейт</h1>
 					<div class="front-top__summary">
@@ -10,10 +7,10 @@
 					</div>
 					<div class="front-top__buttons">
 						<nuxt-link :to="{ name: 'index', params: { parent: 'rakeback-deals', child: null}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-							<a class="btn btn-lg btn-primary" style="margin-right: 32px;" :href="href" @click="navigate">Выбрать покер-рум</a>
+							<a class="btn btn-primary front-top__buttons__choose" style="margin-right: 32px;" :href="href" @click="navigate">Выбрать покер-рум</a>
 						</nuxt-link>
 						<nuxt-link :to="{ name: 'contacts' }" v-slot="{ href, route, navigate, isActive, isExactActive }">
-							<a class="btn btn-lg btn-border" :href="href" @click="navigate">Написать нам</a>
+							<a class="btn btn-border front-top__buttons__support" :href="href" @click="navigate">Написать нам</a>
 						</nuxt-link>
 					</div>
 					<p class="front-top__awards-title">Наши аффилиатские заносы и знаки доверия от игорных сообществ:</p>
@@ -38,14 +35,11 @@
 						</a>
 					</div>
 				</div>
-			</div>
-			<div class="col-4">
+			<div class="front-top__top-rooms-wrapper">
 				<lazy-hydrate when-visible>
 					<room-top-list type="front" />
 				</lazy-hydrate>
 			</div>
-		</div>
-	</div>
 </div>
 </template>
 
@@ -99,14 +93,20 @@ export default {
 <style lang="scss">
 $front-top-bg: url('~assets/i/front-bg.jpg');
 .front-top {
+  display: grid;
+  width: 100%;
+  max-width: 1440px;
+  grid-template-columns: [text] 1fr  [top-rooms] 496px;
 	margin-bottom: 40px;
-	padding: 32px 0 32px 0;
+  @include paddings('desktop');
+  padding-top: 32px;
+  padding-bottom: 32px;
 	min-height: 519px;
 	background: $front-top-bg no-repeat center top;
-	// background: #1d202b $front-top-bg no-repeat center;
 	background-size: auto 519px;
 	&__wrap {
-		padding-left: 62px;
+		padding-left: 68px;
+    grid-column: text;
 	}
 	&__title {
 		margin: 28px 0 24px 0;
@@ -128,6 +128,11 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
 	&__buttons {
 		margin-bottom: 56px;
 		display: flex;
+    &__choose, &__support {
+      padding: 16px 32px;
+      font-size: 18px;
+      line-height: 18px;
+    }
 	}
 
 	&__awards {
@@ -154,5 +159,105 @@ $front-top-bg: url('~assets/i/front-bg.jpg');
 			display: block;
 		}
 	}
+
+	&__top-rooms-wrapper {
+		margin-left: 26px;
+    grid-column: top-rooms;
+  }
+
+  @media (min-width: 1280px) and (max-width: 1380px) {
+    &-awards {
+      &__item {
+        margin-right: 15px;
+      }
+    }
+    &__wrap {
+      padding-left: 0px;
+    }
+  }
+
+
+  @include mq('laptop') {
+    padding: 0;
+    grid-template-columns: 100vw;
+    grid-template-rows: [summary] 1fr [top-rooms] 1fr;
+    &__title {
+      margin-top: 0;
+    }
+    &__wrap {
+      grid-column: 1;
+      @include paddings('laptop');
+      padding-bottom: 36px;
+      padding-top: 40px;
+    }
+    &__top-rooms-wrapper {
+      grid-column: 1;
+      margin-left: 0;
+      display: flex;
+      justify-content: center;
+      background: #383B4C;
+      padding-bottom: 58px;
+    }
+    &__buttons {
+      margin-bottom: 36px;
+    }
+    &-awards {
+      overflow-x: scroll;
+      scrollbar-width: none;
+	  }
+  }
+
+  @include mq('tablet') {
+    grid-template-columns: 100vw;
+    grid-template-rows: [summary] 1fr [top-rooms] auto;
+    background: none;
+    &__buttons {
+      white-space: nowrap;
+      &__choose, &__support {
+        padding: 16px;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+    &__wrap {
+      @include paddings('tablet');
+      padding-right: 0;
+      grid-column: 1;
+      grid-row: summary;
+      background: linear-gradient(180deg, rgba(31, 32, 44, 0) 0%, #21222E 7.81%, #373B4C 100%);
+     	background: $front-top-bg no-repeat center top;
+      background-size: auto 100%;
+    }
+    &__top-rooms-wrapper {
+      grid-column: 1;
+      grid-row: top-rooms;
+      margin: 0;
+    }
+    &__title {
+      font-size: 32px;
+      line-height: 40px;
+    }
+    &__summary {
+      font-size: 20px;
+      line-height: 26px;
+      max-width: 364px;;
+    }
+    &__awards-title {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  @include mq('mobile') {
+    &__wrap {
+      @include paddings('mobile');
+      padding-right: 0;
+    }
+    &__top-rooms-wrapper {
+      background: none;
+      padding-bottom: 30px;
+    }
+  }
+
 }
 </style>

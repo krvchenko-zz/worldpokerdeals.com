@@ -1,25 +1,20 @@
 <template>
 <div class="front-promotions">
-  <div class="container-fluid">
-
     <div class="front-promotions__wrap">
       <h2 class="front-promotions__title">Текущие акции</h2>
       <nuxt-link to="/promotions" v-slot="{ href, route, navigate, isActive, isExactActive }">
-        <a class="btn btn-sm btn-primary" :href="href" @click="navigate">Все акции</a>
+        <a class="btn btn-sm btn-primary front-promotiones__button" :href="href" @click="navigate">Все акции</a>
       </nuxt-link>
     </div>
 
-    <div class="row">
-      <div class="col-9">
+    <div class="front-promotions__details-wrapper">
         <text-spoiler
-          class="text-spoiler_front"
+          class="text-spoiler_front front-promotions__details"
           :text="text"
           :limit="300"
         />
-      </div>
 
-      <div class="col-12">
-        <div class="promotion-features">
+        <div class="promotion-features front-promotions__features">
           <div class="promotion-features__item" v-for="(item, index) in features" :key="index">
             <svg-icon :icon="item.icon" />
             <div class="promotion-features__wrap">
@@ -28,7 +23,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
 
     <filter-tab-list>
@@ -47,8 +41,7 @@
     </filter-tab-list>
 
     <div class="front-promotions__list">
-      <div class="row">
-        <div class="col-3" v-for="(item, index) in items" :key="index">
+        <div class="front-promotions__item" v-for="(item, index) in items" :key="index">
           <promotion-item
             :image="item.image"
             :title="item.title"
@@ -65,9 +58,7 @@
             :exclusive="item.exclusive"
           ></promotion-item>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 </template>
 
@@ -153,6 +144,9 @@ export default {
 
 <style lang="scss">
 .front-promotions {
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 26px;
   &__wrap {
     padding: 28px 0 20px 0;
     display: flex;
@@ -165,6 +159,28 @@ export default {
     line-height: 32px;
     letter-spacing: -0.3px;
     color: #222222;
+    white-space: nowrap;
+  }
+  &__button {
+    white-space: nowrap;
+  }
+  &__details-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  &__details {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  &__features {
+    grid-column: span 2;
+    grid-row: 2;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 28px;
   }
 }
 
@@ -198,6 +214,68 @@ export default {
     font-size: 16px;
     line-height: 20px;
     color: #777777;
+  }
+}
+
+@include mq('laptop') {
+  .front-promotions {
+    @include paddings('laptop');
+    & &__details {
+      margin-bottom: 0;
+    }
+    &__features {
+      overflow-x: scroll;
+      scrollbar-width: none;
+      white-space: nowrap;
+      padding-bottom: 32px;
+      padding-top: 20px;
+      margin-bottom: 0;
+      @include paddings('laptop');
+      margin-right: -24px;
+      margin-left: -24px;
+    }
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(227px, 1fr));
+      grid-template-rows: 1fr;
+      overflow-x: scroll;
+      scrollbar-width: none;
+    }
+    &__item {
+       grid-row: 1;
+    }
+  }
+}
+
+@include mq('mobile') {
+  .front-promotions {
+     padding: 0;
+     @include paddings('mobile');
+     &__details-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+     }
+     &__details {
+      margin-bottom: 0;
+     }
+     &__list {
+       grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
+     }
+     &__item {
+       width: 284px;
+     }
+  }
+
+  .promotion-features {
+    padding-top: 20px;
+    margin-bottom: 0;
+    &__label {
+      white-space: nowrap;
+    }
+    &__item {
+      align-items: center;
+      height: 80px;
+    }
   }
 }
 </style>
