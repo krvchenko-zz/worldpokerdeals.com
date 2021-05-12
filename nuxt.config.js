@@ -54,10 +54,21 @@ export default {
   ],
 
   axios: {
+    baseURL: process.env.apiUrl,
+    // baseURL: '/api/',
     // proxy: true,
     proxyHeaders: true,
-    baseURL: process.env.apiUrl,
-    proxyHeadersIgnore: ['accept', 'host', 'x-forwarded-host', 'x-forwarded-port', 'x-forwarded-proto', 'cf-ray', 'cf-connecting-ip', 'content-length', 'content-md5', 'content-type'],
+    // proxyHeadersIgnore: [
+    //   'accept',
+    //   'host',
+    //   'x-forwarded-host',
+    //   'x-forwarded-port',
+    //   'x-forwarded-proto',
+    //   'cf-ray', 'cf-connecting-ip',
+    //   'content-length',
+    //   'content-md5',
+    //   'content-type'
+    // ],
     // debug: true
   },
 
