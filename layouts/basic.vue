@@ -320,15 +320,8 @@ export default {
 
 <style lang="scss">
 .content {
-  display: grid;
-  grid-template-columns:
-    [layout-left-gutter] 1fr [layout-content] minmax(auto, 1440px)
-    [layout-right-gutter] 1fr [layout-right-end];
-
-  @media (max-width: 480px) {
-    grid-template-columns:
-      [layout-left-gutter] 1fr [layout-content] minmax(auto, 100vw)
-      [layout-right-gutter] 1fr [layout-right-end];
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

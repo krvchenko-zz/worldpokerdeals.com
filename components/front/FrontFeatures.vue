@@ -1,6 +1,5 @@
 <template>
 <div class="front-features">
-  <div class="container-fluid">
     <div class="front-features__label">Мы в цифрах</div>
     <div class="front-features__list">
       <div class="front-feature" v-for="(item, index) in features" :key="index">
@@ -8,7 +7,6 @@
         <span class="front-feature__label" v-html="item.label"></span>
       </div>
     </div>
-  </div>
 </div>
 </template>
 
@@ -77,8 +75,9 @@ export default {
 
 <style lang="scss">
 .front-features {
-  grid-row: front-features;
-  grid-column: layout-content / layout-right-gutter;
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 26px;
   &__list {
     display: flex;
     justify-content: center;
@@ -143,14 +142,41 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@include mq('laptop') {
   .front-features {
+    padding-left: 24px;
     &__list {
       overflow-x: scroll;
       scrollbar-width: none;
+      justify-content: space-between;
+      margin-right: -24px;
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .front-feature {
+    margin-right: 44px;
+  }
+}
+
+@include mq('tablet') {
+  .front-features {
+    &__list {
       justify-content: flex-start;
+    }
+  }
+}
+
+@include mq('mobile') {
+  .front-features {
+    padding-left: 20px;
+    &__list {
+      margin-right: -20px;
       &::after {
         width: 200%;
+        display: block;
       }
     }
   }

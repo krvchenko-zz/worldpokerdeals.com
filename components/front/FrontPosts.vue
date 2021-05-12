@@ -1,4 +1,5 @@
 <template>
+<div class="front-posts__container">
 <div class="front-posts">
   <div class="front-posts__news">
 
@@ -44,6 +45,7 @@
     <front-welcome />
     <front-telegram />
   </div>
+</div>
 </div>
 </template>
 
@@ -113,23 +115,29 @@ export default {
 
 <style lang="scss">
 .front-posts {
-  grid-row: front-posts;
-  grid-column: layout-content / layout-right-gutter;
+  max-width: 1440px;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 326px;
   grid-column-gap: 28px;
-  padding: 0 26px;
+  @include paddings('desktop');
 	position: relative;
 	padding-bottom: 44px;
-	&:after {
-		content: '';
-		position: absolute;
-		bottom: 0px;
-		width: 100%;
-		height: 44px;
-		display: block;
-		background: linear-gradient(180deg, rgba(243, 241, 241, 0) 0%, #ECEBEB 100%);
-	}
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      height: 44px;
+      display: block;
+      background: linear-gradient(180deg, rgba(243, 241, 241, 0) 0%, #ECEBEB 100%);
+    }
+  }
 	&__wrap {
 		margin-bottom: 20px;
 		display: flex;
@@ -154,7 +162,19 @@ export default {
   }
 }
 
-@media (max-width: 480px) {
+@include mq('laptop') {
+   .front-posts {
+    @include paddings('laptop');
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    &__list {
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+    }
+  }
+}
+
+@include mq('tablet') {
   .front-posts {
     grid-template-columns: 100%;
     grid-column-gap: 0;
@@ -164,6 +184,12 @@ export default {
       grid-column-gap: 0px;
       grid-row-gap: 22px;
     }
+  }
+}
+
+@include mq('mobile') {
+  .front-posts {
+    @include paddings('mobile');
   }
 }
 </style>

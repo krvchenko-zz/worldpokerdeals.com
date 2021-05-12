@@ -1,4 +1,5 @@
 <template>
+<div class="front-clubs__container">
 <div class="front-clubs">
 
 		<div class="front-clubs__wrap">
@@ -34,7 +35,7 @@
 						class="front-slider front-slider_clubs"
 						:style="{margin: '0'}"
 						:navigation-enabled="false"
-						:per-page-custom="[[0, 5]]"
+            :per-page-custom="[[0, 2], [768, 3], [1280, 5]]"
 						:pagination-enabled="true"
 						:pagination-padding="0"
 						:pagination-size="6"
@@ -68,6 +69,7 @@
 			</div>
 		</div>
 
+</div>
 </div>
 </template>
 
@@ -136,10 +138,15 @@ export default {
 
 <style lang="scss">
 .front-clubs {
-  grid-row: front-clubs;
-  grid-column: layout-content / layout-right-gutter;
-	margin-bottom: 32px;
-	background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  width: 100%;
+  max-width: 1440px;
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 26px;
+    background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  }
 	&__wrap {
 		padding: 28px 0 20px 0;
 		display: flex;
@@ -171,9 +178,17 @@ export default {
 	}
 }
 
+@media (max-width: 1280px) {
+    .front-clubs {
+    }
+}
+
 @media (max-width: 480px) {
   .front-clubs {
     padding: 0 16px;
+    &__container {
+      padding: 0;
+    }
     & &__spoiler  {
       grid-template-columns: 1fr;
       margin-bottom: 24px;

@@ -6,13 +6,13 @@
           <img :src="hamburgerSrc" />
         </div>
 
-        <div class="logo header__logo">
+        <div class="logo header__logo" :class="{'header__logo--hide': searchOpenedOnTablet}">
           <router-link to="/" v-slot="{ href, route, navigate }">
             <a :href="href" class="logo__link" title="worldpokerdeals.com">worldpokerdeals.com</a>
           </router-link>
         </div>
 
-        <div class="geo header__geo">
+        <div class="geo header__geo" :class="{'header__geo--hide': searchOpenedOnTablet}">
           <svg-icon :width="24" :height="24" prefix="flags/" :icon="country.code" key="header"/>
         </div>
 
@@ -249,6 +249,10 @@ export default {
     mediaUrl() {
       return process.env.mediaUrl
     },
+
+    searchOpenedOnTablet() {
+      return this.showSearch && window.innerWidth <= 1280 && window.innerWidth >= 768
+    }
   },
 
   async fetch() {
@@ -309,6 +313,7 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   }
   &__hamburger-menu {
     display: none;
+    cursor: pointer;
   }
   &__wrap {
     display: flex;
@@ -321,11 +326,18 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.1);
     display: flex;
+    margin-right: auto;
+    &--hide {
+      display: none;
+    }
   }
 
   &__logo {
     margin-top: -5px;
     margin-right: 16px;
+    &--hide {
+      display: none;
+    }
   }
 
   &__search {
@@ -359,9 +371,8 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
   &-nav {
     &__wrap {
+      margin-left: 32px;
       position: relative;
-      margin-right: auto;
-      margin-left: 48px;
       display: flex;
       align-items: center;
     }
@@ -519,17 +530,25 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   margin-left: 32px;
 }
 
-@media (max-width: 480px) {
+@include mq('laptop') {
+  .header-buttons {
+    justify-content: space-between;
+  }
+
+  .btn_login {
+    margin-left: 28px;
+  }
+
+  .lang-switcher {
+    margin-left: 28px;
+  }
+
   .header {
     &__inner {
-      padding: 0 16px;
-      max-width: 480px;
-    }
-    &__logo {
-      width: 140px;
+      @include paddings('laptop');
     }
     &__geo {
-      display: none;
+      margin-right: auto;
     }
     &__hamburger-menu {
       display: block;
@@ -539,10 +558,44 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   }
 
   .header-nav {
+    display: none;
+    &__wrap {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  .search-toggle {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .lang-switcher {
+    display: none;
+  }
+  .btn-vip {
+    height: 32px;
+    widows: auto;
+    background-size: contain;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    &__inner {
+      @include paddings('mobile');
+    }
+    &__geo {
       display: none;
+    }
+    &__logo {
+      width: 158px;
+    }
+  }
+
+  .header-nav {
       &__wrap {
-        margin-left: 0;
-        margin-right: auto;
+        width: auto;
+        margin-left: auto;
       }
   }
 
@@ -557,6 +610,7 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     background: none;
     border: none;
     margin-left: 30px;
+    opacity: 0.7;
   }
 
   .logo {
@@ -570,6 +624,7 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     width: 16px;
     height: 16px;
     background-size: contain;
+    margin-left: 0;
   }
 
   .btn-vip {
