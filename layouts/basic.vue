@@ -323,10 +323,5 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 480px) {
-    grid-template-columns:
-      [layout-left-gutter] 1fr [layout-content] minmax(auto, 100vw)
-      [layout-right-gutter] 1fr [layout-right-end];
-  }
 }
 </style>
