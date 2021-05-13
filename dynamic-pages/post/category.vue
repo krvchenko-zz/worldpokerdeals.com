@@ -181,7 +181,7 @@ export default {
         locale: this.locale,
         sort: this.sort,
         order: this.order,
-        per_page: 4
+        per_page: 5
       }
     }).then(response => {
       this.$store.commit('posts/FETCH_IMPORTANT', { important: response.data.data })
