@@ -20,14 +20,10 @@
           <!-- Nav -->
           <nav class="header-nav" :class="{'header-nav--hide': hideNav}">
             <ul class="header-nav__list">
-              <li :class="[
-                'header-nav__item',
-                showRoomsMenu && 'header-nav__item_active'
-              ]" @mouseover="showRoomsMenu = true" @mouseleave="showRoomsMenu = false">
-                <a :class="['header-nav__link', showRoomsMenu && 'header-nav__link_active']" href="/rakeback-deals">Покер-румы</a>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/rakeback-deals">Покер-румы</a>
                 <transition name="fade">
                   <page-menu
-                    v-show="showRoomsMenu"
                     :width="900"
                     :items="menu.rooms"
                     :columns="2"
@@ -47,22 +43,16 @@
                   </page-menu>
                 </transition>
               </li>
-              <li :class="[
-                'header-nav__item',
-                showNewsMenu && 'header-nav__item_active'
-              ]" @mouseover="showNewsMenu = true" @mouseleave="showNewsMenu = false">
-                <a :class="['header-nav__link', showNewsMenu && 'header-nav__link_active']" href="/blog">Новости</a>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/blog">Новости</a>
                 <transition name="fade">
-                  <page-menu v-if="showNewsMenu" :items="menu.posts" />
+                  <page-menu :items="menu.posts" />
                 </transition>
               </li>
-              <li :class="[
-                'header-nav__item',
-                showPromotionsMenu && 'header-nav__item_active'
-              ]" @mouseover="showPromotionsMenu = true" @mouseleave="showPromotionsMenu = false">
-                <a :class="['header-nav__link', showPromotionsMenu && 'header-nav__link_active']" href="/promotions">Акции</a>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/promotions">Акции</a>
                 <transition name="fade">
-                  <page-menu v-if="showPromotionsMenu"
+                  <page-menu
                     :items="menu.promotions"
                     :width="600">
                     <template v-slot:after>
@@ -78,23 +68,17 @@
                 </transition>
               </li>
 
-              <li :class="[
-                'header-nav__item',
-                showPokerMenu && 'header-nav__item_active'
-              ]" @mouseover="showPokerMenu = true" @mouseleave="showPokerMenu = false">
-                <a :class="['header-nav__link', showPokerMenu && 'header-nav__link_active']" href="#">Онлайн-покер</a>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="#">Онлайн-покер</a>
                 <transition name="fade">
-                  <page-menu v-if="showPokerMenu" :items="menu.poker" :columns="2" :width="600" />
+                  <page-menu :items="menu.poker" :columns="2" :width="600" />
                 </transition>
               </li>
 
-              <li :class="[
-                'header-nav__item',
-                showAboutMenu && 'header-nav__item_active'
-              ]" @mouseover="showAboutMenu = true" @mouseleave="showAboutMenu = false">
-                <a :class="['header-nav__link', showAboutMenu && 'header-nav__link_active']" href="/our-team">О нас</a>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/our-team">О нас</a>
                 <transition name="fade">
-                  <page-menu v-if="showAboutMenu" :items="menu.about" />
+                  <page-menu :items="menu.about" />
                 </transition>
               </li>
             </ul>
@@ -132,7 +116,7 @@
             }"
             :class="[
               'search-toggle',
-              showSearch && 'search-toggle_active'
+              showSearch && 'search-toggle--active'
             ]"
             aria-label="Search"
             @click.prevent="handleSearchClick">
@@ -209,11 +193,6 @@ export default {
     searchLoading: false,
     searchDropdownOpen: false,
     showSearch: false,
-    showRoomsMenu: false,
-    showNewsMenu: false,
-    showPromotionsMenu: false,
-    showPokerMenu: false,
-    showAboutMenu: false
 	}),
 
   computed: {
@@ -401,18 +380,13 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
       text-decoration: none;
       position: relative;
       z-index: 2;
-      &:hover,
-      &:focus,
-      &:active,
-      &_active {
-        color: #FFFFFF;
-        text-decoration: none;
-        background: #2B2E3B;
-      }
+    }
 
-      &_active {
-        box-shadow: 0px 1px 0px #2b2e3b;
-      }
+    &__item:hover &__link {
+          color: #FFFFFF;
+          text-decoration: none;
+          background: #2B2E3B;
+          box-shadow: 0px 1px 0px #2b2e3b;
     }
   }
 }
@@ -500,7 +474,7 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     outline: none;
     border: none;
   }
-  &_active {
+  &--active {
     position: absolute;
     right: 0px;
     top: 0px;
