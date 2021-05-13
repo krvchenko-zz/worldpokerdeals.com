@@ -86,6 +86,9 @@
       </div>
 
     </div>
+
+    <page-banners />
+    
   </div>
 </template>
 
