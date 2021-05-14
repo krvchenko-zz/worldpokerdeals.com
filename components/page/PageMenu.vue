@@ -123,9 +123,25 @@ export default {
   }
 }
 
-.header-nav__item:hover {
+@media screen and (min-width: 1280px) {
+  .header-nav__item:hover {
+    .page-menu {
+      display: flex;
+    }
+  }
+}
+
+.header-nav__item--active {
   .page-menu {
     display: flex;
+    position: relative;
+    width: 100%;
+    top: 0;
+    box-shadow: none;
+    border: none;
+    &__wrap {
+      flex-direction: column;
+    }
   }
 }
 </style>

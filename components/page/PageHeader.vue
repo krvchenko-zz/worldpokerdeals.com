@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__inner">
       <div class="header__wrap">
-        <div class="header__hamburger-menu">
+        <div class="header__hamburger-menu" @click="showHamburger = true">
           <img :src="hamburgerSrc" />
         </div>
 
@@ -16,17 +16,24 @@
           <svg-icon :width="24" :height="24" prefix="flags/" :icon="country.code" key="header"/>
         </div>
 
-        <div class="header-nav__wrap" :class="{'header-nav__wrap--hide': hideNav}">
+        <div class="header-nav__wrap" :class="{'header-nav__wrap--hide': hideNav, 'header-nav__wrap--opened': showHamburger}">
           <!-- Nav -->
           <nav class="header-nav" :class="{'header-nav--hide': hideNav}">
             <ul class="header-nav__list">
-              <li class="header-nav__item">
-                <a class="header-nav__link" href="/rakeback-deals">Покер-румы</a>
+              <li class="header-nav__item close-nav-button__wrapper">
+                <button class="close-nav-button" @click="showHamburger = false">
+                  <img class="close-nav-button__icon" src="~assets/i/ico-modal-close.svg?data" />
+                </button>
+              </li>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'rooms'}" @click="onMenuItemClick($event, 'rooms')">
+                <a class="header-nav__link" href="/rakeback-deals">Покер-румы
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
                   <page-menu
-                    :width="900"
+                    :width="isDesktop ? 900 : menuWidth"
                     :items="menu.rooms"
-                    :columns="2"
+                    :columns="isDesktop ? 2 : 1"
                   >
                     <template v-slot:after>
                       <room-top-list
@@ -43,19 +50,24 @@
                   </page-menu>
                 </transition>
               </li>
-              <li class="header-nav__item">
-                <a class="header-nav__link" href="/blog">Новости</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'news'}" @click="onMenuItemClick($event, 'news')">
+                <a class="header-nav__link" href="/blog">
+                  Новости
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
                   <page-menu :items="menu.posts" />
                 </transition>
               </li>
-              <li class="header-nav__item">
-                <a class="header-nav__link" href="/promotions">Акции</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'deals'}" @click="onMenuItemClick($event, 'deals')">
+                <a class="header-nav__link" href="/promotions">Акции
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
                   <page-menu
                     :items="menu.promotions"
-                    :width="600">
-                    <template v-slot:after>
+                    :width="isDesktop ? 600 : menuWidth">
+                    <template v-if="isDesktop" v-slot:after>
                       <payment-menu
                         :style="{
                           flex: '0 0 300px',
@@ -68,18 +80,28 @@
                 </transition>
               </li>
 
-              <li class="header-nav__item">
-                <a class="header-nav__link" href="#">Онлайн-покер</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'online-poker'}" @click="onMenuItemClick($event, 'online-poker')">
+                <a class="header-nav__link" href="#">Онлайн-покер
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
-                  <page-menu :items="menu.poker" :columns="2" :width="600" />
+                  <page-menu :items="menu.poker" :columns="isDesktop ? 2 : 1" :width="isDesktop ? 600 : menuWidth" />
                 </transition>
               </li>
 
-              <li class="header-nav__item">
-                <a class="header-nav__link" href="/our-team">О нас</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'about-us'}" @click="onMenuItemClick($event, 'about-us')">
+                <a class="header-nav__link" href="/our-team">О нас
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
                   <page-menu :items="menu.about" />
                 </transition>
+              </li>
+
+              <li class="header-nav__item header-nav__item__lang" :class="{'header-nav__item--active': openedMenuItem === 'lang'}" @click="onMenuItemClick($event, 'lang')">
+                <a class="header-nav__link" href="/our-team">Change lang
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
               </li>
             </ul>
           </nav>
@@ -193,6 +215,10 @@ export default {
     searchLoading: false,
     searchDropdownOpen: false,
     showSearch: false,
+    openedMenuItem: null,
+    isDesktop: true,
+    menuWidth: 436,
+    showHamburger: false,
 	}),
 
   computed: {
@@ -250,6 +276,11 @@ export default {
 
   },
 
+  mounted() {
+    this.isDesktop = window.innerWidth >= 1280;
+    this.menuWidth = window.innerWidth < 436 ? window.innerWidth : 436;
+  },
+
 	methods: {
 
     handleAuth() {
@@ -272,7 +303,14 @@ export default {
 
     handleSearchClick() {
       this.showSearch = !this.showSearch
-    }
+    },
+
+    onMenuItemClick(event, type) {
+      if (window.innerWidth < 1280) {
+        event.preventDefault();
+        this.openedMenuItem = this.openedMenuItem === type ? null : type;
+      }
+    },
 	}
 }
 </script>
@@ -364,9 +402,16 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
     &__item {
       position: relative;
+      &__lang {
+        display: none;
+      }
       &:last-child {
         margin: 0;
       }
+    }
+
+    &__arrow {
+      display: none;
     }
 
     &__link {
@@ -388,6 +433,18 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
           background: #2B2E3B;
           box-shadow: 0px 1px 0px #2b2e3b;
     }
+  }
+}
+
+.close-nav-button {
+  padding: 12px;
+  @include paddings('laptop');
+  margin: 0;
+  outline: none;
+  border: none;
+  background: none;
+  &__wrapper {
+    display: none;
   }
 }
 
@@ -523,12 +580,6 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
       margin-right: 0;
     }
   }
-}
-
-@include mq('laptop') {
-  .header-buttons {
-    justify-content: space-between;
-  }
 
   .btn_login {
     margin-left: 28px;
@@ -536,6 +587,18 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
   .lang-switcher {
     margin-left: 28px;
+  }
+
+  .header-nav {
+    &__wrap {
+      max-width: 655px;
+    }
+  }
+}
+
+@include mq('laptop') {
+  .header-buttons {
+    justify-content: space-between;
   }
 
   .header {
@@ -553,10 +616,71 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   }
 
   .header-nav {
-    display: none;
+    width: 100%;
     &__wrap {
-      width: 100%;
+      position: fixed;
+      top: 0;
+      left: -100%;
+      &--opened {
+        left: 0;
+        height: 100vh;
+        align-items: flex-start;
+      }
+      width: 100vw;
       margin-left: 0;
+      background: #2B2E3B;
+      max-width: 436px;
+      z-index: 999;
+      box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    &__list {
+      flex-direction: column;
+    }
+    &__item {
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+      &--active {
+        .top-rooms {
+          display: none;
+        }
+      }
+      &__close-button {
+        height: 64px;
+      }
+      &__lang {
+        display: block;
+        border-top: 1px solid rgba(#CCCCCC, 0.1);
+      }
+      &:nth-last-child(2) {
+        margin-bottom: 16px;
+      }
+      &:nth-last-child(1) {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+    }
+
+    &__arrow {
+      display: block;
+      position: absolute;
+      width: 14px;
+      height: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 28px;
+    }
+    &__item--active &__arrow {
+      transform: rotate(180deg);
+    }
+    &__link {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 24px;
+      color: #FFFFFF;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      @include paddings('laptop');
     }
   }
 
@@ -572,12 +696,19 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     widows: auto;
     background-size: contain;
   }
+  .close-nav-button {
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      height: 64px;
+    }
+  }
 }
 
 @include mq('tablet') {
   .header {
     &__inner {
-      @include paddings('mobile');
+      @include paddings('tablet');
     }
     &__geo {
       display: none;
@@ -585,13 +716,6 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     &__logo {
       width: 158px;
     }
-  }
-
-  .header-nav {
-      &__wrap {
-        width: auto;
-        margin-left: auto;
-      }
   }
 
   .header-buttons__login {
@@ -632,6 +756,14 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   }
   .btn_login {
     display: none;
+  }
+}
+
+@include mq('mobile') {
+  .header {
+    &__inner {
+      @include paddings('mobile');
+    }
   }
 }
 </style>
