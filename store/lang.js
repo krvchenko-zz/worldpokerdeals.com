@@ -2,7 +2,7 @@
 
 // state
 export const state = () => ({
-  locale: 'ru',
+  locale: 'en',
   locales: {
     'en': 'ENG',
     'ru': 'РУС',

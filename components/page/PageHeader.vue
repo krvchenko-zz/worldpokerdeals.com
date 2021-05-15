@@ -212,7 +212,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'auth/user',
-      // locale: 'lang/locale',
+      locale: 'lang/locale',
       // locales: 'lang/locales',
       country: 'location/country',
       topList: 'rooms/topList',
@@ -237,7 +237,11 @@ export default {
   },
 
   async fetch() {
-    await this.$axios.get('/menu/list').then((response) => {
+    await this.$axios.get('/menu/list', {
+      params: {
+        locale: this.locale
+      }
+    }).then((response) => {
       this.$store.commit('menu/FETCH_ITEMS', { items: response.data })
     }, (e) => {
 

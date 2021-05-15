@@ -1,11 +1,11 @@
 export default function ({ app, store, redirect, req, $axios }) {
-  $axios.onRequest(request => {
-		const locale = store.getters['lang/locale']
-		if (locale) {
-		  $axios.setHeader('Accept-Language', locale)
-		}
-		return request
-  })
+  // $axios.onRequest(request => {
+		// const locale = store.getters['lang/locale']
+		// if (locale) {
+		//   $axios.setHeader('Accept-Language', locale)
+		// }
+		// return request
+  // })
 
   $axios.onError(error => {
     const { status } = error.response || {}
