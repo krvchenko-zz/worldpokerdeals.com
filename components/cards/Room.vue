@@ -69,7 +69,7 @@
 
         <div v-if="!available" class="room-item__unavailable">К сожалению, сделка временно недоступна!</div>
       </div>
-      
+
     </div>
 
     <div :class="['room-item__actions', small && 'room-item__actions_s']">
@@ -276,7 +276,10 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
 
 .room-item {
   margin: 20px 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 7fr;
+  column-gap: 28px;
+  min-height: 148px;
   border-radius: 4px;
   border: 1px solid #E9E9E9;
   background: #FAFAFA;
@@ -302,7 +305,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     &-wrap {
       position: relative;
       margin: -1px;
-      flex: 0 0 208px;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -536,7 +539,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     line-height: 16px;
     &_rakeback {
       margin: 0;
-    } 
+    }
 
   }
 
@@ -554,7 +557,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     text-align: right;
     &_rakeback {
       margin: 0;
-    } 
+    }
 
   }
 
@@ -657,5 +660,45 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
       background-size: contain;
     }
   }
-}	
+}
+
+/* @include mq('tablet') { */
+@media (max-width: 1000px) {
+  .room-item {
+    grid-template-columns: 1fr 3fr;
+    column-gap: 20px;
+    &__wrap {
+      flex-direction: column;
+    }
+    &__info {
+      padding: 0;
+    }
+    &__col {
+      flex-grow: 0;
+      &:nth-child(1) {
+        width: auto;
+      }
+      &:nth-child(2) {
+        width: auto;
+        padding-right: 20px;
+      }
+    }
+    &__actions {
+      display: flex;
+      flex: 0;
+      align-items: center;
+      padding-top: 20px;
+      padding-right: 0;
+      width: 100%;
+    }
+    &__link_review {
+      margin-bottom: 0;
+      margin-right: 20px;
+      max-width: 267px;
+    }
+    &__link_download {
+      max-width: 207px;
+    }
+  }
+}
 </style>
