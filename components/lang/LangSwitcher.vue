@@ -16,7 +16,7 @@
       active && 'lang-switcher-dropdown_active'
     ]">
       <li v-if="index !== locale" class="lang-switcher-dropdown__item" v-for="(item, index) in locales" :key="index">
-        <a :class="['lang-switcher-dropdown__link', `lang-switcher-dropdown__link_${index}`]" :href="`https://${index}.worldpokerdeals01.com`"><span>{{ item }}</span></a>
+        <a :class="['lang-switcher-dropdown__link', `lang-switcher-dropdown__link_${index}`]" :href="`https://${index !== 'en' ? (index + '.') : '' }worldpokerdeals01.com`"><span>{{ item }}</span></a>
       </li>
     </ul>
   </transition>
