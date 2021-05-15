@@ -18,9 +18,6 @@
 
   <div :class="['room-item__wrap', small && 'room-item__wrap_s']">
 
-    <div :class="['room-item__info', small && 'room-item__info_s']">
-
-      <div :class="['room-item__col', small && 'room-item__col_s']">
         <div :class="['room-item__top', small && 'room-item__top_s']">
           <div :class="['room-item__title', small && 'room-item__title_s']">{{ title }}</div>
           <div v-if="network" :class="['room-item__network', small && 'room-item__network_s']">{{ network.title }}</div>
@@ -48,9 +45,7 @@
             'room-item__summary_blacklist'
           ]" v-html="summary"></div>
 
-      </div>
 
-      <div :class="['room-item__col', small && 'room-item__col_s']">
         <div :class="['room-item__rating', !available || blacklist && 'room-item__rating_disabled']">
           <rating :value="rating"/>
         </div>
@@ -67,12 +62,11 @@
           <span class="room-item__claim-amount">{{ claim_currency.symbol }}{{ claim_amount }}</span>
         </div>
 
+        <!-- TODO -->
         <div v-if="!available" class="room-item__unavailable">К сожалению, сделка временно недоступна!</div>
-      </div>
 
-    </div>
+      <div class="room-item__actions">
 
-    <div :class="['room-item__actions', small && 'room-item__actions_s']">
       <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.slug}}" v-slot="{ href, route, navigate }">
           <a :class="[
             'btn', 'btn-block',
@@ -105,7 +99,8 @@
         small && 'room-item__link_s'
       ]" @click="handleBlackList">Представитель рума?</button>
 
-    </div>
+      </div>
+
 
   </div>
 
@@ -279,8 +274,10 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   display: grid;
   grid-template-columns: 2fr 7fr;
   column-gap: 28px;
+  row-gap: 8px;
   min-height: 148px;
   border-radius: 4px;
+  padding-right: 28px;
   border: 1px solid #E9E9E9;
   background: #FAFAFA;
   transition: all 0.5s ease;
@@ -293,9 +290,15 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
 
   &__wrap {
     width: 100%;
-    display: flex;
+    display: grid;
+    align-items: center;
     padding: 20px 0;
-    flex-grow: 1;
+    grid-template-columns: 3fr 2fr 1.86fr;
+    column-gap: 28px;
+    grid-template-areas:
+      "title rating buttons"
+      "geo bonus buttons"
+      "tags bonus buttons";
     &_s {
       padding: 16px 0;
     }
@@ -304,7 +307,6 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   &__img {
     &-wrap {
       position: relative;
-      margin: -1px;
       width: 100%;
       display: flex;
       align-items: center;
@@ -386,7 +388,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__actions {
-    padding-right: 30px;
+    grid-area: buttons;
     flex: 0 0 210px;
     align-self: baseline;
     &_s {
@@ -419,6 +421,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__top {
+    grid-area: title;
     display: flex;
     flex-flow: wrap;
     align-items: center;
@@ -430,7 +433,6 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__title {
-    margin-bottom: 8px;
     margin-right: 5px;
     color: #243238;
     letter-spacing: -0.1px;
@@ -449,7 +451,6 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__network {
-    margin-bottom: 8px;
     white-space: nowrap;
     padding: 4px 8px;
     display: inline-block;
@@ -471,6 +472,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__geo {
+    grid-area: geo;
     display: flex;
     flex-grow: 1;
 
@@ -495,8 +497,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__tags-list {
-    margin-bottom: -5px;
-    margin-top: 16px;
+    grid-area: tags;
     font-size: 0;
     &_s {
       margin-top: 12px;
@@ -519,11 +520,9 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__details {
+    grid-area: bonus;
     margin: 0;
     font-size: 0;
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-between;
   }
 
   &__dt {
@@ -568,6 +567,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     font-size: 16px;
     line-height: 18px;
     &_review {
+      grid-area: review;
       margin-bottom: 10px;
       color: #777777;
       background: #DFE4E6;
@@ -580,6 +580,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     }
 
     &_download {
+      grid-area: download;
       color: #FFFFFF;
       background: #FF4151;
       &:hover,
@@ -618,7 +619,7 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 
   &__rating {
-    margin-bottom: 20px;
+    grid-area: rating;
     &_disabled {
       filter: grayscale(1);
     }
@@ -662,12 +663,19 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
 }
 
-@include mq('laptop') {
+/* @include mq('laptop') { */
+@media (max-width: 1000px) {
   .room-item {
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr minmax(0, 3fr);
     column-gap: 20px;
     &__wrap {
-      flex-direction: column;
+      grid-template-columns: minmax(0, 4.5fr) minmax(0, 3.5fr);
+      column-gap: 20px;
+      grid-template-areas:
+        "title rating"
+        "geo bonus"
+        "tags  bonus"
+        "buttons buttons";
     }
     &__info {
       padding: 0;
@@ -698,6 +706,55 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     &__link_download {
       max-width: 207px;
     }
+  }
+}
+
+@include mq('tablet') {
+  .room-item {
+    column-gap: 16px;
+    &__wrap {
+      row-gap: 12px;
+      grid-template-areas:
+        "title rating"
+        "tags tags"
+        "bonus bonus"
+        "geo geo"
+        "buttons buttons";
+    }
+    &__top {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
+    &__network {
+      margin-bottom: 8px;
+    }
+    &__actions {
+      padding-top: 0;
+    }
+
+    /* TODO */
+    .rating {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 12px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .rating__stars {
+      flex: 0;
+      margin-bottom: 12px;
+      margin-right: 0;
+    }
+  }
+}
+
+@include mq('mobile') {
+  .room-item {
+    column-gap: 16px;
+    @include paddings('mobile');
+    margin-left: -20px;
+    margin-right: -20px;
   }
 }
 </style>
