@@ -110,7 +110,7 @@
 											:answer="item.acceptedAnswer.text">
 										</faq-item>
 									</faq-list>
-									
+
 									<!-- Author -->
 									<author v-if="category.author" :author="category.author" />
 
@@ -181,7 +181,7 @@
 		</div>
 
 		<page-banners />
-		
+
 	</div>
 </template>
 
@@ -197,7 +197,7 @@ export default {
 	name: 'RoomCategory',
 
 	head () {
-		return { 
+		return {
 			title: this.category.meta_title,
 			titleTemplate: '%s',
 			meta: [
@@ -368,7 +368,7 @@ export default {
 		await axios.get(`rooms/category/list`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', { categories: response.data })
 		})
-		
+
 		await axios.get(`/rooms/filters/list`, {
 			params: {
 				geo: this.country.code,
@@ -505,6 +505,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+.rooms {
+  max-width: 100%;
+}
 
 .rooms-top {
 	margin-bottom: 24px;
