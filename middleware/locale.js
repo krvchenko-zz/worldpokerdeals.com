@@ -3,10 +3,12 @@ import { loadMessages } from '~/plugins/i18n'
 
 export default async ({ app, store, req, $axios }) => {
 
-	const host = req.headers.host
+	if (process.server) {
+		const host = req.headers.host
 
-	if (host.substr(2, 1) === '.' && (host.substr(0, 2) === 'ru' || host.substr(0, 2) === 'es' )) {
-		store.commit('lang/SET_LOCALE', { locale: host.substr(0, 2) })
+		if (host.substr(2, 1) === '.' && (host.substr(0, 2) === 'ru' || host.substr(0, 2) === 'es' )) {
+			store.commit('lang/SET_LOCALE', { locale: host.substr(0, 2) })
+		}
 	}
 
 	const locale = store.getters['lang/locale']
