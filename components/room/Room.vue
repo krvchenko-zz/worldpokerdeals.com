@@ -32,9 +32,10 @@
             [`room-item__avaliable_yes`]: !restricted,
             [`room-item__avaliable_no`]: restricted
           }">
-            <svg-icon class="room-item__geo-icon" :width="16" :height="16" :icon="country.code" prefix="flags/"/><template v-if="restricted">Недоступен игрокам из {{ country.from }}!</template><template v-else>Доступен игрокам из {{ country.from }}</template>
+            <svg-icon class="room-item__geo-icon" :width="16" :height="16" :icon="country.code" prefix="flags/"/>
+              <template v-if="restricted">{{ $t('room_geo_restricted', {country: country.from}) }}</template>
+              <template v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</template>
           </span>
-
         </div>
 
         <div v-if="tags.length && !blacklist" :class="['room-item__tags-list', small && 'room-item__tags-list_s']">

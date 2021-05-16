@@ -22,7 +22,7 @@
                 'header-nav__item',
                 showRoomsMenu && 'header-nav__item_active'
               ]" @mouseover="showRoomsMenu = true" @mouseleave="showRoomsMenu = false">
-                <a :class="['header-nav__link', showRoomsMenu && 'header-nav__link_active']" href="/rakeback-deals">Покер-румы</a>
+                <a :class="['header-nav__link', showRoomsMenu && 'header-nav__link_active']" href="/rakeback-deals">{{ $t('menu.rooms') }}</a>
                 <transition name="fade">
                   <page-menu
                     v-show="showRoomsMenu"

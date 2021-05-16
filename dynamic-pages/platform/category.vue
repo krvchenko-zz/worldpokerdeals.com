@@ -138,6 +138,9 @@ export default {
     }).then()
 
     await this.$axios.get('platforms/list').then((response) => {
+
+      console.log(response.data);
+
       this.$store.commit('platforms/FETCH_PLATFORMS', { platforms: response.data.map(item => ({
         title: item.heading,
         icon: item.icon,

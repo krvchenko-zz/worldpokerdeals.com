@@ -1,6 +1,9 @@
 <template>
 <div class="platform-item">
-  <nuxt-link prefetch :to="{name: 'index', params: { parent: page.parent.slug, child: page.slug }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
+  <nuxt-link prefetch :to="{name: 'index', params: {
+		parent: page.parent ? page.parent.slug : page.slug,
+		child: page.parent ? page.slug : null
+  }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
 	<a :class="['platform-item__wrap']" :href="href" @click="navigate">
 			<div class="platform-item__icon-wrap">
 				<svg-icon class="platform-item__icon" :icon="icon" :width="88" :height="88" viewBox="0 0 88 88" />
