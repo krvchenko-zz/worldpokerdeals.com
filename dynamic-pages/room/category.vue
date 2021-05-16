@@ -586,6 +586,10 @@ export default {
       @include paddings('tablet');
     }
   }
+  .rooms-list {
+    margin-left: -25px;
+    margin-right: -24px;
+  }
 }
 
 @include mq('mobile') {
@@ -593,6 +597,10 @@ export default {
     &__catalog {
       @include paddings('mobile');
     }
+  }
+  .rooms-list {
+    margin-left: -21px;
+    margin-right: -20px;
   }
 }
 </style>
