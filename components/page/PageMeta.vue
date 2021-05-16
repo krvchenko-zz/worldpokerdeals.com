@@ -138,6 +138,7 @@ $ico-updated: url('~assets/i/ico-updated.svg?data');
     font-family: 'Proxima Nova Sb';
     font-style: normal;
     font-size: 12px;
+    white-space: nowrap;
     letter-spacing: -0.2px;
     color: #FFFFFF;
     opacity: 0.8;
@@ -149,6 +150,7 @@ $ico-updated: url('~assets/i/ico-updated.svg?data');
 
   &__label {
     font-family: 'Proxima Nova';
+    white-space: nowrap;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
@@ -170,6 +172,33 @@ $ico-updated: url('~assets/i/ico-updated.svg?data');
     vertical-align: middle;
     &_dark {
       color: #555555;
+    }
+  }
+}
+
+@include mq('laptop') {
+  .page-meta {
+    &__label {
+      display: none;
+    }
+  }
+}
+
+@include mq('tablet') {
+  .page-meta {
+    &__label {
+      display: block;
+    }
+  }
+}
+
+@include mq('mobile') {
+  .page-meta {
+    &__item {
+      margin-right: 16px;
+    }
+    &__label {
+      white-space: pre-wrap;
     }
   }
 }
