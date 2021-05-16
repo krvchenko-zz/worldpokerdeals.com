@@ -103,19 +103,17 @@ export default {
 }
 @include mq('laptop') {
   .page-banners {
-    &_front {
-      @include paddings('laptop');
-      overflow-x: scroll;
-      scrollbar-width: none;
-    }
+    overflow-x: scroll;
+    scrollbar-width: none;
+    @include paddings('laptop');
   }
 }
 
 @include mq('mobile') {
   .page-banners {
+    @include paddings('mobile');
     &_front {
-      padding-bottom: 36px;
-      @include paddings('mobile');
+     padding-bottom: 36px;
     }
   }
 }
