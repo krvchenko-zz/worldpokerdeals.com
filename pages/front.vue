@@ -67,7 +67,7 @@ export default {
   },
 
   async fetch() {
-    await axios.get('/front', {
+    await this.$axios.get('/front', {
       params: {
         geo: this.country.code,
         locale: this.locale

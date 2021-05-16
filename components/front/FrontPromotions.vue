@@ -124,7 +124,7 @@ export default {
       $nuxt.$loading.start()
       this.category_id = $event
 
-      await axios.get('/front/promotions', {
+      await this.$axios.get('/front/promotions', {
         params: {
           geo: this.country.code,
           locale: this.locale,

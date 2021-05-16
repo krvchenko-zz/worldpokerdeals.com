@@ -86,7 +86,7 @@ export default {
   },
 
   async fetch() {
-    await axios.get('comments/list', {
+    await this.$axios.get('comments/list', {
       params: {
         per_page: this.per_page,
         sort: 'created_at',

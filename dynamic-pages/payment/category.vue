@@ -8,18 +8,61 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-3" v-for="(item, index) in payments" :key="index">
-          <payment-item
-            :title="item.title"
-            :icon="item.icon"
-            :rooms="item.rooms"
-            :vip="item.vip_status"
-            :page="item.page"
-          >
-          </payment-item>
+      <div class="payments-list">
+        <div class="row">
+          <div class="col-3" v-for="(item, index) in payments" :key="index">
+            <payment-item
+              :title="item.title"
+              :icon="item.icon"
+              :rooms="item.rooms"
+              :vip="item.vip_status"
+              :page="item.page"
+            >
+            </payment-item>
+          </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-auto">
+          <toc-list v-if="category.toc">
+            <template v-slot="{ inline }">
+              <toc-item v-for="(item, index) in category.toc" :key="index"
+                :index="index"
+                :inline="inline"
+                :anchor="item.anchor_id"
+                :text="item.text">
+              </toc-item>
+            </template>
+          </toc-list>
+        </div>
+
+        <div class="col col-article">
+          <!-- Article -->
+          <page-article :text="category.text">
+            <template v-slot:footer>
+              <!-- Author -->
+              <author v-if="category.author" :author="category.author" />
+              <!-- Comments -->
+              <comments commentable_type="App\PaymentMethodCategory" :commentable_id="category.id" />
+            </template>
+          </page-article> 
+        </div>
+
+        <div class="col-3">
+          <room-top-list />
+          <topic-list v-if="category.topics">
+            <topic-item
+              v-for="(item, index) in category.topics" :key="index"
+              :title="item.title"
+              :url="item.url"
+              :author="item.author"
+              :created="item.created_at"
+            />
+          </topic-list>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -64,11 +107,11 @@ export default {
   }),
 
   async fetch() {
-    await axios.get(`payments/category/${this.pageable.slug}`).then((response) => {
+    await this.$axios.get(`payments/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('payments/FETCH_CATEGORY', { category: response.data })
     })
 
-    await axios.get('payments/list').then((response) => {
+    await this.$axios.get('payments/list').then((response) => {
       this.$store.commit('payments/FETCH_PAYMENTS', { payments: response.data.map(item => ({
         title: item.title,
         icon: item.icon,
@@ -104,6 +147,9 @@ $payments-bg: url('~assets/i/payments-bg.jpg');
     margin-bottom: 32px;
     padding: 0 0 32px 0;
     background: $payments-bg no-repeat center;
+  }
+  &-list {
+    margin-bottom: 20px;
   }
   &__title {
     text-align: center;

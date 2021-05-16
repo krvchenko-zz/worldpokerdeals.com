@@ -89,7 +89,7 @@
 									:licenses="room.licenses"
 									:certificates="room.certificates"
 									:client_software="room.client_software"
-									:network="room.network.title"
+									:network="room.network"
 									:players_peak="room.players_peak"
 									:tracker="room.hud"
 									:currencies="room.currencies"
@@ -178,14 +178,16 @@ export default {
 	layout: 'basic',
 
   head () {
-	return { 
-	  title: this.tab.meta_title,
-	  titleTemplate: '%s',
-	  meta: [
-			{ name: 'description', content: this.tab.meta_description },
-			{ name: 'keywords', content: this.tab.meta_keywords }
-	  ],
-	}
+		return { 
+		  title: this.tab.meta_title,
+		  titleTemplate: '%s',
+		  meta: [
+				{ name: 'description', content: this.tab.meta_description },
+				{ name: 'keywords', content: this.tab.meta_keywords }
+		  ],
+
+		  script: [{ type: 'application/ld+json', json: this.tab.faq }]
+		}
   },
 
 	scrollToTop: true,
@@ -221,14 +223,14 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`rooms/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`rooms/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM', { room: response.data.room })
 			this.$store.commit('rooms/FETCH_TAB', { tab: response.data.tab })
 		}).catch(e => {
 
 		})
 
-		await axios.get('/rooms/related', {
+		await this.$axios.get('/rooms/related', {
 			params: {
 				id: this.room.id
 			}
@@ -238,7 +240,7 @@ export default {
 
 		})
 
-		await axios.get('reviews/list', {
+		await this.$axios.get('reviews/list', {
 			params: {
 				per_page: 5,
 				sort: 'created_at',

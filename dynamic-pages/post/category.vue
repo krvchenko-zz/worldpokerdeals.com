@@ -87,7 +87,6 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 
 export default {
 
@@ -147,7 +146,7 @@ export default {
   },
 
   async fetch() {
-    await axios.get('/posts/list', {
+    await this.$axios.get('/posts/list', {
       params: {
         geo: this.country.code,
         locale: this.locale,
@@ -169,20 +168,20 @@ export default {
 
     })
 
-    await axios.get('/posts/categories/list', { params: {} }).then(response => {
+    await this.$axios.get('/posts/categories/list', { params: {} }).then(response => {
       this.$store.commit('posts/FETCH_CATEGORIES', { categories: response.data })
     })
     .catch(e => {
 
     })
 
-    await axios.get('/posts/list', {
+    await this.$axios.get('/posts/list', {
       params: {
         top: 1,
         locale: this.locale,
         sort: this.sort,
         order: this.order,
-        per_page: 4
+        per_page: 5
       }
     }).then(response => {
       this.$store.commit('posts/FETCH_IMPORTANT', { important: response.data.data })
@@ -203,22 +202,23 @@ export default {
     async fetchItems() {
 
       $nuxt.$loading.start()
-      await axios.get('/posts/list', {
+      await this.$axios.get('/posts/list', {
         params: {
           geo: this.country.code,
           locale: this.locale,
           sort: this.sort,
           order: this.order,
           page: this.page,
-          post_category_id: this.category_id,
-          per_page: this.per_page
+          per_page: this.per_page,
+          post_category_id: this.category_id
         }
       }).then(response => {
-        this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data.map(this.mapPosts) })
+        this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data })
         Object.keys(response.data).forEach(key => {
           this[key] = response.data[key]
         })
-        $nuxt.$loading.finish()
+        this.loading = false
+        this.$nuxt.$loading.finish()
       })
       .catch(e => {
 

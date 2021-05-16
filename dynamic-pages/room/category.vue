@@ -201,6 +201,8 @@ export default {
 				{ name: 'description', content: this.category.meta_description },
 				{ name: 'keywords', content: this.category.meta_keywords }
 			],
+
+			script: [{ type: 'application/ld+json', json: this.category.faq }]
 		}
 	},
 
@@ -283,18 +285,18 @@ export default {
 		total: 0,
 		overall: 0,
 		countries: [],
-    selected: [],
-    sortOptions: [{
-      label: 'Сначала лучшие',
-      value: 'rating'
-    },{
-      label: 'Сначала новые',
-      value: 'created_at'
-    }]
+	selected: [],
+	sortOptions: [{
+	  label: 'Сначала лучшие',
+	  value: 'rating'
+	},{
+	  label: 'Сначала новые',
+	  value: 'created_at'
+	}]
 	}),
 
 	async fetch() {
-		await axios.get(`rooms/category/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`rooms/category/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
 				category: {
 					id: response.data.item.id,
@@ -323,7 +325,7 @@ export default {
 			this.$store.commit('rooms/FETCH_BEST', { best: response.data.best })
 		})
 
-		await axios.get(`rooms/list`, { params: this.params }).then((response) => {
+		await this.$axios.get(`rooms/list`, { params: this.params }).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOMS', {
 				rooms: response.data.data.map(item => ({
 					id: item.id,
@@ -362,11 +364,11 @@ export default {
 			})
 		})
 
-		await axios.get(`rooms/category/list`).then((response) => {
+		await this.$axios.get(`rooms/category/list`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', { categories: response.data })
 		})
 
-		await axios.get(`/rooms/filters/list`, {
+		await this.$axios.get(`/rooms/filters/list`, {
 			params: {
 				geo: this.country.code,
 				ids: this.category.list,
@@ -376,7 +378,7 @@ export default {
 			this.$store.commit('rooms/FETCH_FILTERS', { filters: response.data })
 		})
 
-		await axios.get(`promotion/latest`, {
+		await this.$axios.get(`promotion/latest`, {
 			params: {
 				type: 'promotion',
 				per_page: 3
@@ -401,13 +403,13 @@ export default {
 
 	methods: {
 
-    handleFilterChange(selected) {
-      this.selected = selected.flatten
-      Object.keys(selected.values).forEach(key => {
-        this[key] = selected.values[key]
-      })
-      this.fetchItems()
-    },
+	handleFilterChange(selected) {
+	  this.selected = selected.flatten
+	  Object.keys(selected.values).forEach(key => {
+		this[key] = selected.values[key]
+	  })
+	  this.fetchItems()
+	},
 
 		async fetchItems(query) {
 
@@ -417,7 +419,7 @@ export default {
 				this.page = query.page
 			}
 
-			// await axios.get(`/rooms/filters/list`, {
+			// await this.$axios.get(`/rooms/filters/list`, {
 			//   params: {
 			//     geo: this.geo,
 			//     room_category_id: this.category.id
@@ -426,7 +428,7 @@ export default {
 			//   this.$store.commit('rooms/FETCH_FILTERS', { filters: response.data })
 			// })
 
-			await axios.get(`rooms/list`, { params: this.params }).then((response) => {
+			await this.$axios.get(`rooms/list`, { params: this.params }).then((response) => {
 				this.$store.commit('rooms/FETCH_ROOMS', {
 					rooms: response.data.data.map(item => ({
 						id: item.id,

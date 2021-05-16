@@ -1,14 +1,14 @@
 <template>
 <div class="game-item">
   <nuxt-link prefetch :to="{name: 'index', params: {
-  	parent: page.parent ? page.parent.slug : page.slug,
-  	child: page.parent ? page.slug : null
+	parent: page.parent ? page.parent.slug : page.slug,
+	child: page.parent ? page.slug : null
   }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
 	<a :class="['game-item__wrap']" :href="href" @click="navigate">
-			<div class="game-item__icon-wrap">
+			<div :class="['game-item__icon-wrap', center && 'game-item__icon-wrap_center']">
 				<svg-icon class="game-item__icon" :icon="icon" :width="88" :height="88" viewBox="0 0 200 200" />
 			</div>
-			<div class="game-item__title">{{ title }}</div>
+			<div :class="['game-item__title', center && 'game-item__title_center']">{{ title }}</div>
 			<div class="game-item__rooms">{{ rooms }} покер-румов</div>
 		</a>
 	</nuxt-link>
@@ -27,6 +27,10 @@ export default {
 	props: {
 		title: {
 			type: String
+		},
+		center: {
+			type: Boolean,
+			default: false
 		},
 		icon: {
 			type: String
@@ -87,6 +91,10 @@ $ico-network-more: url('~assets/i/ico-network-more.svg?data');
 		font-size: 20px;
 		line-height: 24px;
 		color: #222222;
+		&_center {
+			text-align: center;
+			padding: 60px 0 0 0;
+		}
 	}
 	&__icon {
 		&-wrap {
@@ -94,8 +102,14 @@ $ico-network-more: url('~assets/i/ico-network-more.svg?data');
 			right: 20px;
 			top: 0;
 			position: absolute;
+			&_center {
+				right: auto;
+				left: 50%;
+		    transform: translateX(-50%);
+			}
 		}
 		border-radius: 50%;
+
 	}
 	&__rooms {
 		position: relative;

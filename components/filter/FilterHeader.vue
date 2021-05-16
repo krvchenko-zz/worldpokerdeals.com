@@ -151,7 +151,7 @@ export default {
         return false
       }
       this.loading = true
-      await axios.get('countries').then(response => {
+      await this.$axios.get('countries').then(response => {
         this.countries = response.data.map(item => {
           return {
             value: item.code,

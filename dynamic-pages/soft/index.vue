@@ -124,6 +124,8 @@ export default {
 				{ name: 'description', content: this.tab.meta_description },
 				{ name: 'keywords', content: this.tab.meta_keywords }
 			],
+
+		    script: [{ type: 'application/ld+json', json: this.tab.faq }]
 		}
 	},
 
@@ -153,7 +155,7 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`soft/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`soft/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('soft/FETCH_SOFT', { soft: response.data.soft })
 			this.$store.commit('soft/FETCH_TAB', { tab: response.data.tab })
 			this.$store.commit('soft/FETCH_RELATED', { related: response.data.related })

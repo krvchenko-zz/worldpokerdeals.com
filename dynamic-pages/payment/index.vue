@@ -189,6 +189,8 @@ export default {
 				{ name: 'description', content: this.tab.meta_description },
 				{ name: 'keywords', content: this.tab.meta_keywords }
 			],
+
+			script: [{ type: 'application/ld+json', json: this.tab.faq }]
 		}
 	},
 
@@ -264,7 +266,7 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`payments/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`payments/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('payments/FETCH_PAYMENT', { payment: response.data.payment })
 			this.$store.commit('payments/FETCH_TAB', { tab: response.data.tab })
 			this.$store.commit('payments/FETCH_POSTS', { posts: response.data.posts })
@@ -272,7 +274,7 @@ export default {
 		})
 
 		
-		await axios.get('rooms/list', {
+		await this.$axios.get('rooms/list', {
 			params: {
 				geo: this.country.code,
 				per_page: 10,
@@ -293,7 +295,7 @@ export default {
 
 		if (this.tab.show_rooms) {
 
-			await axios.get(`/payments/filters/list`, {
+			await this.$axios.get(`/payments/filters/list`, {
 				params: {
 					geo: this.country.code,
 					payment_method_id: this.payment.id,
@@ -319,7 +321,7 @@ export default {
 
 			this.$nuxt.$loading.start()
 
-			await axios.get(`/payments/filters/list`, {
+			await this.$axios.get(`/payments/filters/list`, {
 				params: {
 					geo: this.geo,
 					payment_method_id: this.payment.id,
@@ -329,7 +331,7 @@ export default {
 				this.$store.commit('payments/FETCH_FILTERS', { filters: response.data })
 			})
 
-			await axios.get(`rooms/list`, { params: this.params }).then((response) => {
+			await this.$axios.get(`rooms/list`, { params: this.params }).then((response) => {
 				this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
 				Object.keys(response.data).forEach(key => {
 					this[key] = response.data[key]

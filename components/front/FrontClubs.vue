@@ -118,7 +118,7 @@ export default {
 			$nuxt.$loading.start()
 			this.room_id = $event
 
-			await axios.get('/front/clubs', {
+			await this.$axios.get('/front/clubs', {
 				params: {
 					geo: this.country.code,
 					locale: this.locale,

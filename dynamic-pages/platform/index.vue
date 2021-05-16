@@ -139,6 +139,8 @@ export default {
 				{ name: 'description', content: this.platform.meta_description },
 				{ name: 'keywords', content: this.platform.meta_keywords }
 			],
+
+			script: [{ type: 'application/ld+json', json: this.platform.faq }]
 		}
 	},
 
@@ -209,7 +211,7 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`platforms/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`platforms/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('platforms/FETCH_PLATFORM', { platform: {
 				id: response.data.id,
 				title: response.data.title,
@@ -234,7 +236,7 @@ export default {
 			} })
 		})
 
-		await axios.get('rooms/list', {
+		await this.$axios.get('rooms/list', {
 			params: {
 				geo: this.country.code,
 				per_page: 10,
@@ -253,7 +255,7 @@ export default {
 		.catch((e) => {
 		})
 
-		await axios.get(`/platforms/filters/list`, {
+		await this.$axios.get(`/platforms/filters/list`, {
 			params: {
 				geo: this.country.code,
 				platform_id: this.platform.id,
@@ -279,13 +281,13 @@ export default {
 
 			this.$nuxt.$loading.start()
 
-			await axios.get(`/platforms/filters/list`, {
+			await this.$axios.get(`/platforms/filters/list`, {
 				params: this.params
 			}).then((response) => {
 				this.$store.commit('platforms/FETCH_FILTERS', { filters: response.data })
 			})
 
-			await axios.get('rooms/list', { params: this.params }).then((response) => {
+			await this.$axios.get('rooms/list', { params: this.params }).then((response) => {
 				this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
 				Object.keys(response.data).forEach(key => {
 					this[key] = response.data[key]

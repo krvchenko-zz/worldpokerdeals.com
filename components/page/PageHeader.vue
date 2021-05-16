@@ -26,7 +26,7 @@
                 </button>
               </li>
               <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'rooms'}" @click="onMenuItemClick($event, 'rooms')">
-                <a class="header-nav__link" href="/rakeback-deals">Покер-румы
+                <a class="header-nav__link" href="/rakeback-deals">{{ $t('menu.rooms') }}
                   <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
                 </a>
                 <transition name="fade">
@@ -188,7 +188,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 import eventBus from '~/utils/event-bus'
 
 export default {
@@ -224,7 +224,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'auth/user',
-      // locale: 'lang/locale',
+      locale: 'lang/locale',
       // locales: 'lang/locales',
       country: 'location/country',
       topList: 'rooms/topList',
@@ -265,7 +265,11 @@ export default {
   },
 
   async fetch() {
-    await axios.get('/menu/list').then((response) => {
+    await this.$axios.get('/menu/list', {
+      params: {
+        locale: this.locale
+      }
+    }).then((response) => {
       this.$store.commit('menu/FETCH_ITEMS', { items: response.data })
     }, (e) => {
 

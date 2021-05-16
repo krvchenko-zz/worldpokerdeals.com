@@ -37,5 +37,10 @@
   "send_verification_link": "Send Verification Link",
   "resend_verification_link": "Resend Verification Link ?",
   "failed_to_verify_email": "Failed to verify email.",
-  "verify_email_address": "We sent you an email with an the verification link."
+  "verify_email_address": "We sent you an email with an the verification link.",
+  "room_geo_restricted": "Unavailable in {country}!",
+  "room_geo_allowed": "Available for players from {country}!",
+  "menu": {
+    "rooms": "Poker rooms"
+  }
 }
