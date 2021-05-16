@@ -184,8 +184,17 @@ $rooms-bg: url('~assets/i/rooms-bg.jpg');
     }
   }
 
-  .rooms__summary {
+  .rooms {
+    &__summary {
     margin-bottom: 0;
+    }
+    &__info {
+      width: 100%;
+      /* TODO maybe do that for all article */
+      .article__wrap {
+        padding: 0;
+      }
+    }
   }
 }
 
