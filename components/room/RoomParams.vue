@@ -134,8 +134,7 @@ export default {
     },
 
     network: {
-      type: String,
-      default: '',
+      type: Object
     },
 
     founded_at: {
