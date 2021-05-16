@@ -47,6 +47,7 @@ export default {
         '@nuxtjs/style-resources',
         ['cookie-universal-nuxt', { alias: 'cookiz' }],
     ],
+    buildModules: [['@nuxtjs/eslint-module', { fix: true }]],
     styleResources: {
         scss: ['~assets/sass/_mixins.scss'],
     },
@@ -79,7 +80,7 @@ export default {
                 });
             }
 
-            config.resolve.alias['vue'] = 'vue/dist/vue.common';
+            config.resolve.alias.vue = 'vue/dist/vue.common';
         },
     },
 };
