@@ -50,7 +50,7 @@
 							@more="handleShowMore">
 						</pagination>
 					</div>
-					
+
 					<div class="row">
 
 						<div class="col-auto">
@@ -125,14 +125,14 @@ import { mapGetters } from 'vuex'
 import axios from 'axios'
 
 import Pagination from '~/components/pagination/Pagination'
-import Room from '~/components/cards/Room'
+import Room from '~/components/room/Room'
 
 export default {
 
 	name: 'PlatformPage',
 
 	head () {
-		return { 
+		return {
 			title: this.platform.meta_title,
 			titleTemplate: '%s',
 			meta: [
@@ -155,7 +155,7 @@ export default {
 		page: 1,
 		sort: 'rating',
 		order: 'desc',
-		geo: null, 
+		geo: null,
 		game_id: null,
 		kyc: [],
 		tags: [],

@@ -40,7 +40,7 @@
 					</page-article>
 				</div>
 
-				<div class="col-3">				
+				<div class="col-3">
 					<room-top-list />
 
 					<topic-list v-if="rule.topics">
@@ -83,14 +83,14 @@ import axios from 'axios'
 
 import Pagination from '~/components/pagination/Pagination'
 import Comments from '~/components/comments/Comments'
-import Room from '~/components/cards/Room'
+import Room from '~/components/room/Room'
 
 export default {
 
 	name: 'RulePage',
 
 	head () {
-		return { 
+		return {
 			title: this.rule.meta_title,
 			titleTemplate: '%s',
 			meta: [

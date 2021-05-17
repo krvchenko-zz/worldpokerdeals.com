@@ -345,31 +345,10 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   }
   &__actions {
     grid-area: buttons;
-    flex: 0 0 210px;
     align-self: baseline;
+    justify-content: stretch;
     &_s {
       padding-right: 20px;
-      flex: 0 0 170px;
-    }
-  }
-  &__col {
-    flex-grow: 1;
-    &:nth-child(1) {
-      width: 60%;
-      padding-right: 20px;
-      border-right: 1px solid #E9E9E9;
-    }
-    &:nth-child(2) {
-      width: 40%;
-      padding-left: 20px;
-    }
-    &_s {
-      &:nth-child(1) {
-        width: 50%;
-      }
-      &:nth-child(2) {
-        width: 50%;
-      }
     }
   }
   &__top {
@@ -423,7 +402,6 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
   &__geo {
     grid-area: geo;
     display: flex;
-    flex-grow: 1;
     &-icon {
       margin-right: 8px;
     }
@@ -609,16 +587,6 @@ $ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
     }
     &__info {
       padding: 0;
-    }
-    &__col {
-      flex-grow: 0;
-      &:nth-child(1) {
-        width: auto;
-      }
-      &:nth-child(2) {
-        width: auto;
-        padding-right: 20px;
-      }
     }
     &__actions {
       display: flex;

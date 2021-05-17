@@ -334,7 +334,7 @@ export default {
 		await this.$axios.get(`rooms/category/list`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', { categories: response.data })
 		})
-    
+
 		await this.$axios.get(`/rooms/filters/list`, {
 			params: {
 				geo: this.country.code,
@@ -508,7 +508,7 @@ export default {
   .rooms {
     &__catalog {
       @include paddings('laptop');
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
       grid-template-areas:
       "filter"
       "rooms-list"
