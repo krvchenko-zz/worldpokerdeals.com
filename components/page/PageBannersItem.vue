@@ -1,5 +1,5 @@
 <template>
-<div 
+<div
   :class="['page-banner', hover && 'page-banner_hover']"
   :style="{
     background: background
@@ -153,6 +153,13 @@ $ico-card-arrow: url('~assets/i/ico-card-arrow.svg?data');
     line-height: 16px;
     color: #FFFFFF;
     opacity: 0.9;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-banner {
+    min-width: 288px;
+    background: none;
   }
 }
 </style>

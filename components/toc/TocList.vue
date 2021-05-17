@@ -79,4 +79,10 @@ export default {
     padding: 0;
     list-style: none;
   }
+
+@include mq('laptop') {
+  .toc {
+    width: 100%;
+  }
+}
 </style>

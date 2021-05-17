@@ -5,11 +5,12 @@
 
     <div class="front-posts-featured__list">
       <client-only>
+      <!-- TODO [0, 1] for small screens -->
       <carousel
         class="front-slider"
         :style="{margin: '0 -14px'}"
         :navigation-enabled="true"
-        :per-page-custom="[[0, 3]]"
+        :per-page-custom="[[0, 1], [768, 2], [1280, 3]]"
         :pagination-enabled="true"
         :pagination-padding="0"
         :pagination-size="6"
@@ -79,6 +80,8 @@ export default {
 $ico-front-slider-arrow: url('~assets/i/ico-front-slider-arrow.svg?data');
 $ico-front-posts-featured: url('~assets/i/ico-front-posts-featured.svg?data');
 .front-posts-featured {
+  width: 100%;
+  max-width: 1440px;
   padding-bottom: 28px;
   margin-top: -30px;
   text-align: center;
@@ -114,7 +117,7 @@ $ico-front-posts-featured: url('~assets/i/ico-front-posts-featured.svg?data');
     }
     &-dot {
       margin-right: 8px;
-      border: 1px solid #CCCCCC; 
+      border: 1px solid #CCCCCC;
       background-color: #FFFFFF!important;
       &--active {
         background-color: #CCCCCC!important;

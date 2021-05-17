@@ -1,22 +1,19 @@
 <template>
+<div class="front-rooms__container">
 <div class="front-rooms">
-  <div class="container-fluid">
-
     <div class="front-rooms__wrap">
       <h2 class="front-rooms__title">Покерные румы</h2>
       <nuxt-link to="/rakeback-deals" v-slot="{ href, route, navigate, isActive, isExactActive }">
-        <a class="btn btn-sm btn-primary" :href="href" @click="navigate">Все покерные румы</a>
+        <a class="btn btn-primary front-rooms__all-rooms-button" :href="href" @click="navigate">Все покерные румы</a>
       </nuxt-link>
     </div>
 
-    <div class="row">
-      <div class="col-9">
+    <div class="front-rooms__details">
         <text-spoiler
           class="text-spoiler_front"
           :text="text"
           :limit="300"
         />
-      </div>
     </div>
 
     <filter-tab-list>
@@ -40,7 +37,7 @@
         class="front-slider front-slider_rooms"
         :style="{margin: '0 -14px'}"
         :navigation-enabled="false"
-        :per-page-custom="[[0, 5]]"
+        :per-page-custom="[[0, 2], [768, 3], [1280, 5]]"
         :pagination-enabled="true"
         :pagination-padding="0"
         :pagination-size="6"
@@ -67,7 +64,7 @@
       </carousel>
       </client-only>
     </div>
-  </div>
+</div>
 </div>
 </template>
 
@@ -136,13 +133,33 @@ export default {
 
 <style lang="scss">
 .front-rooms {
-  background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 26px;
+  &__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(0deg, #E9E9E9, #E9E9E9), linear-gradient(270deg, #2B2E3B 47.41%, #20222C 100%);
+  }
   &__wrap {
     padding: 28px 0 20px 0;
     display: flex;
     justify-content: space-between;
   }
+  &__details {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    &:first-child {
+      grid-column: 1;
+    }
+  }
+  &__all-rooms-button {
+    white-space: nowrap;
+    padding: 8px 20px;
+  }
   &__title {
+    white-space: nowrap;
     margin: 0;
     font-family: 'Proxima Nova Th';
     font-size: 28px;
@@ -159,6 +176,34 @@ export default {
 
   .VueCarousel-pagination {
     margin: 2px 0 28px 0;
+  }
+}
+
+@include mq('laptop') {
+  .front-rooms {
+    @include paddings('laptop');
+  }
+}
+
+@include mq('mobile') {
+  .front-rooms {
+    @include paddings('mobile');
+    &__all-rooms-button {
+      width: auto;
+      min-width: 172px;
+      padding: 8px 12px;
+    }
+    &__title {
+      font-size: 24px;
+    }
+    &__details {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-bottom: 24px;
+      &:first-child {
+        grid-column: 1;
+      }
+    }
   }
 }
 </style>

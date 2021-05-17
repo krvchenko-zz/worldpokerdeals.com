@@ -1,39 +1,44 @@
 <template>
   <header class="header">
-    <div class="container-fluid">
+    <div class="header__inner">
       <div class="header__wrap">
-        <div class="logo header__logo">
+        <div class="header__hamburger-menu" @click="showHamburger = true">
+          <img :src="hamburgerSrc" />
+        </div>
+
+        <div class="logo header__logo" :class="{'header__logo--hide': hideLogoAndGeo}">
           <router-link to="/" v-slot="{ href, route, navigate }">
             <a :href="href" class="logo__link" title="worldpokerdeals.com">worldpokerdeals.com</a>
           </router-link>
         </div>
 
-        <div class="geo header__geo">
+        <div class="geo header__geo" :class="{'header__geo--hide': hideLogoAndGeo}">
           <svg-icon :width="24" :height="24" prefix="flags/" :icon="country.code" key="header"/>
         </div>
 
-        <div class="header-nav__wrap">
+        <div class="header-nav__wrap" :class="{'header-nav__wrap--hide': hideNav, 'header-nav__wrap--opened': showHamburger}">
           <!-- Nav -->
-          <nav class="header-nav" :style="{
-            opacity: !showSearch ? 1 : 0,
-          }">
+          <nav class="header-nav" :class="{'header-nav--hide': hideNav}">
             <ul class="header-nav__list">
-              <li :class="[
-                'header-nav__item',
-                showRoomsMenu && 'header-nav__item_active'
-              ]" @mouseover="showRoomsMenu = true" @mouseleave="showRoomsMenu = false">
-                <a :class="['header-nav__link', showRoomsMenu && 'header-nav__link_active']" href="/rakeback-deals">{{ $t('menu.rooms') }}</a>
+              <li class="header-nav__item close-nav-button__wrapper">
+                <button class="close-nav-button" @click="showHamburger = false">
+                  <img class="close-nav-button__icon" src="~assets/i/ico-modal-close.svg?data" />
+                </button>
+              </li>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'rooms'}" @click="onMenuItemClick($event, 'rooms')">
+                <a class="header-nav__link" href="/rakeback-deals">Покер-румы
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
                   <page-menu
-                    v-show="showRoomsMenu"
-                    :width="900"
+                    :width="isDesktop ? 900 : menuWidth"
                     :items="menu.rooms"
-                    :columns="2"
+                    :columns="isDesktop ? 2 : 1"
                   >
                     <template v-slot:after>
-                      <room-top-list 
-                        label="Лучшие румы" 
-                        type="menu" 
+                      <room-top-list
+                        label="Лучшие румы"
+                        type="menu"
                         :style="{
                           flex: '0 0 300px',
                           position: 'relative',
@@ -45,25 +50,24 @@
                   </page-menu>
                 </transition>
               </li>
-              <li :class="[
-                'header-nav__item',
-                showNewsMenu && 'header-nav__item_active'
-              ]" @mouseover="showNewsMenu = true" @mouseleave="showNewsMenu = false">
-                <a :class="['header-nav__link', showNewsMenu && 'header-nav__link_active']" href="/blog">Новости</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'news'}" @click="onMenuItemClick($event, 'news')">
+                <a class="header-nav__link" href="/blog">
+                  Новости
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
-                  <page-menu v-if="showNewsMenu" :items="menu.posts" />
+                  <page-menu :items="menu.posts" />
                 </transition>
               </li>
-              <li :class="[
-                'header-nav__item',
-                showPromotionsMenu && 'header-nav__item_active'
-              ]" @mouseover="showPromotionsMenu = true" @mouseleave="showPromotionsMenu = false">
-                <a :class="['header-nav__link', showPromotionsMenu && 'header-nav__link_active']" href="/promotions">Акции</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'deals'}" @click="onMenuItemClick($event, 'deals')">
+                <a class="header-nav__link" href="/promotions">Акции
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
-                  <page-menu v-if="showPromotionsMenu"
+                  <page-menu
                     :items="menu.promotions"
-                    :width="600">
-                    <template v-slot:after>
+                    :width="isDesktop ? 600 : menuWidth">
+                    <template v-if="isDesktop" v-slot:after>
                       <payment-menu
                         :style="{
                           flex: '0 0 300px',
@@ -76,29 +80,35 @@
                 </transition>
               </li>
 
-              <li :class="[
-                'header-nav__item',
-                showPokerMenu && 'header-nav__item_active'
-              ]" @mouseover="showPokerMenu = true" @mouseleave="showPokerMenu = false">
-                <a :class="['header-nav__link', showPokerMenu && 'header-nav__link_active']" href="#">Онлайн-покер</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'online-poker'}" @click="onMenuItemClick($event, 'online-poker')">
+                <a class="header-nav__link" href="#">Онлайн-покер
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
-                  <page-menu v-if="showPokerMenu" :items="menu.poker" :columns="2" :width="600" />
+                  <page-menu :items="menu.poker" :columns="isDesktop ? 2 : 1" :width="isDesktop ? 600 : menuWidth" />
                 </transition>
               </li>
 
-              <li :class="[
-                'header-nav__item',
-                showAboutMenu && 'header-nav__item_active'
-              ]" @mouseover="showAboutMenu = true" @mouseleave="showAboutMenu = false">
-                <a :class="['header-nav__link', showAboutMenu && 'header-nav__link_active']" href="/our-team">О нас</a>
+              <li class="header-nav__item" :class="{'header-nav__item--active': openedMenuItem === 'about-us'}" @click="onMenuItemClick($event, 'about-us')">
+                <a class="header-nav__link" href="/our-team">О нас
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
                 <transition name="fade">
-                  <page-menu v-if="showAboutMenu" :items="menu.about" />
+                  <page-menu :items="menu.about" />
                 </transition>
+              </li>
+
+              <li class="header-nav__item header-nav__item__lang" :class="{'header-nav__item--active': openedMenuItem === 'lang'}" @click="onMenuItemClick($event, 'lang')">
+                <a class="header-nav__link" href="/our-team">Change lang
+                  <img class="header-nav__arrow" src="~assets/i/layout/header/ico-arrow-down.svg?data" />
+                </a>
               </li>
             </ul>
           </nav>
 
-          <!-- Search -->
+
+        </div>
+        <div class="search__wrapper" :class="{'search__wrapper--opened': showSearch}">
           <div v-show="showSearch" class="search header__search">
             <input v-model="query" :class="{
                 'search__input': true,
@@ -128,10 +138,10 @@
             }"
             :class="[
               'search-toggle',
-              showSearch && 'search-toggle_active'
+              showSearch && 'search-toggle--active'
             ]"
             aria-label="Search"
-            @click.prevent="handleSearchClick">  
+            @click.prevent="handleSearchClick">
           </button>
         </div>
 
@@ -165,6 +175,9 @@
           </button>
 
           <button v-else class="btn btn-md btn-primary btn_login" @click="handleAuth">Войти</button>
+          <button class="header-buttons__login" @click="handleAuth">
+            <img :src="loginSrc" />
+          </button>
         </div>
 
       </div>
@@ -184,7 +197,7 @@ export default {
 
   components: {
     SearchDropdown: () => import('~/components/search/SearchDropdown'),
-    SearchLoader: () => import('~/components/search/SearchLoader')
+    SearchLoader: () => import('~/components/search/SearchLoader'),
   },
 
   props: {
@@ -202,11 +215,10 @@ export default {
     searchLoading: false,
     searchDropdownOpen: false,
     showSearch: false,
-    showRoomsMenu: false,
-    showNewsMenu: false,
-    showPromotionsMenu: false,
-    showPokerMenu: false,
-    showAboutMenu: false
+    openedMenuItem: null,
+    isDesktop: true,
+    menuWidth: 436,
+    showHamburger: false,
 	}),
 
   computed: {
@@ -223,6 +235,14 @@ export default {
       return require(`~/assets/i/flags/${this.country.code}.svg?data`)
     },
 
+    loginSrc() {
+      return require('~/assets/icons/ico-login.svg?data')
+    },
+
+    hamburgerSrc() {
+      return require('~/assets/icons/ico-hamburger-menu.svg?data')
+    },
+
     searchPlaceholder() {
       return this.searchFocus ? '' : 'Найти что-угодно, например: GGPoker'
     },
@@ -234,6 +254,14 @@ export default {
     mediaUrl() {
       return process.env.mediaUrl
     },
+
+    hideLogoAndGeo() {
+      return this.showSearch && window.innerWidth <= 1122 && window.innerWidth >= 768
+    },
+
+    hideNav() {
+      return this.showSearch && window.innerWidth >= 768
+    }
   },
 
   async fetch() {
@@ -250,6 +278,11 @@ export default {
 
   watch: {
 
+  },
+
+  mounted() {
+    this.isDesktop = window.innerWidth >= 1280;
+    this.menuWidth = window.innerWidth < 436 ? window.innerWidth : 436;
   },
 
 	methods: {
@@ -274,7 +307,14 @@ export default {
 
     handleSearchClick() {
       this.showSearch = !this.showSearch
-    }
+    },
+
+    onMenuItemClick(event, type) {
+      if (window.innerWidth < 1280) {
+        event.preventDefault();
+        this.openedMenuItem = this.openedMenuItem === type ? null : type;
+      }
+    },
 	}
 }
 </script>
@@ -291,6 +331,15 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
   top: 0;
   background: linear-gradient(180deg, #2B2E3B 47.41%, #20222C 100%);
   z-index: 110;
+  &__inner {
+    padding: 0 26px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  &__hamburger-menu {
+    display: none;
+    cursor: pointer;
+  }
   &__wrap {
     display: flex;
     align-items: center;
@@ -302,30 +351,23 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.1);
     display: flex;
+    margin-right: auto;
+    &--hide {
+      display: none;
+    }
   }
 
   &__logo {
     margin-top: -5px;
     margin-right: 16px;
+    &--hide {
+      display: none;
+    }
   }
 
   &__search {
     display: block;
-    position: absolute;
     width: 100%;
-    left: 0;
-    top: auto;
-    // &:before {
-    //   content: '';
-    //   width: 100%;
-    //   height: 40px;
-    //   display: block;
-    //   position: absolute;
-    //   z-index: 5;
-    //   top: 0;
-    //   left: 0;
-    //   box-shadow: 0px 15px 60px rgba(0, 0, 0, 0.3);
-    // }
   }
 
   &-buttons {
@@ -333,15 +375,26 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     margin-left: 30px;
     display: flex;
     align-items: center;
+    &__login {
+      display: none;
+    }
   }
 
   &-nav {
+    &--hide {
+      display: none;
+    }
     &__wrap {
+      margin-left: 32px;
       position: relative;
-      margin-right: auto;
-      margin-left: 48px;
       display: flex;
       align-items: center;
+      margin-left: auto;
+      &--hide {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
     }
     &__list {
       padding: 0;
@@ -353,9 +406,16 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
     &__item {
       position: relative;
+      &__lang {
+        display: none;
+      }
       &:last-child {
         margin: 0;
       }
+    }
+
+    &__arrow {
+      display: none;
     }
 
     &__link {
@@ -369,19 +429,26 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
       text-decoration: none;
       position: relative;
       z-index: 2;
-      &:hover,
-      &:focus,
-      &:active,
-      &_active {
-        color: #FFFFFF;
-        text-decoration: none;
-        background: #2B2E3B;
-      }
-
-      &_active {
-        box-shadow: 0px 1px 0px #2b2e3b;
-      }
     }
+
+    &__item:hover &__link {
+          color: #FFFFFF;
+          text-decoration: none;
+          background: #2B2E3B;
+          box-shadow: 0px 1px 0px #2b2e3b;
+    }
+  }
+}
+
+.close-nav-button {
+  padding: 12px;
+  @include paddings('laptop');
+  margin: 0;
+  outline: none;
+  border: none;
+  background: none;
+  &__wrapper {
+    display: none;
   }
 }
 
@@ -398,9 +465,18 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 }
 
 .search {
+  &__wrapper {
+    display: flex;
+    position: relative;
+    max-width: 575px;
+    margin-right: 32px;
+    &--opened {
+      width: 100%;
+    }
+  }
   &__input {
     width: 100%;
-    padding: 9px 15px 9px 50px;
+    padding: 9px 40px 9px 50px;
     border: 1px solid rgba(204, 204, 204, 0.1);
     border-radius: 4px;
     caret-color: #888888;
@@ -459,7 +535,12 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
     outline: none;
     border: none;
   }
-  &_active {
+  &--active {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 0;
+    padding: 0;
     opacity: 0.5;
     background: $ico-search-close no-repeat center;
   }
@@ -495,5 +576,198 @@ $ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
 .btn_login {
   margin-left: 32px;
+}
+
+@include mq('desktop') {
+  .search {
+    &__wrapper {
+      margin-right: 0;
+    }
+  }
+
+  .btn_login {
+    margin-left: 28px;
+  }
+
+  .lang-switcher {
+    margin-left: 28px;
+  }
+
+  .header-nav {
+    &__wrap {
+      max-width: 655px;
+    }
+  }
+}
+
+@include mq('laptop') {
+  .header-buttons {
+    justify-content: space-between;
+  }
+
+  .header {
+    &__inner {
+      @include paddings('laptop');
+    }
+    &__geo {
+      margin-right: auto;
+    }
+    &__hamburger-menu {
+      display: block;
+      margin-right: 16px;
+      margin-left: -8px;
+    }
+  }
+
+  .header-nav {
+    width: 100%;
+    &__wrap {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      &--opened {
+        left: 0;
+        height: 100vh;
+        align-items: flex-start;
+      }
+      width: 100vw;
+      margin-left: 0;
+      background: #2B2E3B;
+      max-width: 436px;
+      z-index: 999;
+      box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    &__list {
+      flex-direction: column;
+    }
+    &__item {
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+      &--active {
+        .top-rooms {
+          display: none;
+        }
+      }
+      &__close-button {
+        height: 64px;
+      }
+      &__lang {
+        display: block;
+        border-top: 1px solid rgba(#CCCCCC, 0.1);
+      }
+      &:nth-last-child(2) {
+        margin-bottom: 16px;
+      }
+      &:nth-last-child(1) {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+    }
+
+    &__arrow {
+      display: block;
+      position: absolute;
+      width: 14px;
+      height: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 28px;
+    }
+    &__item--active &__arrow {
+      transform: rotate(180deg);
+    }
+    &__link {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 24px;
+      color: #FFFFFF;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      @include paddings('laptop');
+    }
+  }
+
+  .search-toggle {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .lang-switcher {
+    display: none;
+  }
+  .btn-vip {
+    height: 32px;
+    widows: auto;
+    background-size: contain;
+  }
+  .close-nav-button {
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      height: 64px;
+    }
+  }
+}
+
+@include mq('tablet') {
+  .header {
+    &__inner {
+      @include paddings('tablet');
+    }
+    &__geo {
+      display: none;
+    }
+    &__logo {
+      width: 158px;
+    }
+  }
+
+  .header-buttons__login {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    outline: none;
+    background: none;
+    border: none;
+    margin-left: 30px;
+    opacity: 0.7;
+  }
+
+  .logo {
+    &__link {
+      width: 140px;
+      background-size: contain;
+    }
+  }
+
+  .search-toggle {
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    margin-left: 0;
+  }
+
+  .btn-vip {
+    height: 32px;
+    widows: auto;
+    background-size: contain;
+  }
+  .lang-switcher {
+    display: none;
+  }
+  .btn_login {
+    display: none;
+  }
+}
+
+@include mq('mobile') {
+  .header {
+    &__inner {
+      @include paddings('mobile');
+    }
+  }
 }
 </style>

@@ -13,7 +13,7 @@
         :icon="item.icon"
         :page="item.page"
       />
-    </ul>    
+    </ul>
   </div>
 
   <slot name="after" />
@@ -71,7 +71,7 @@ export default {
     }),
 
     groups() {
-      return this.items.reduce((array, item, index) => { 
+      return this.items.reduce((array, item, index) => {
         const chunck = Math.floor(index/this.perColumn)
 
         if(!array[chunck]) {
@@ -97,6 +97,7 @@ export default {
 
 <style lang="scss">
 .page-menu {
+  display: none;
   width: 300px;
   position: absolute;
   left: 0;
@@ -108,7 +109,6 @@ export default {
   border-bottom-right-radius: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
-  display: flex;
   align-items: stretch;
   &__wrap {
     flex-grow: 1;
@@ -116,12 +116,32 @@ export default {
     flex-flow: wrap;
   }
   &__list {
-    // display: flex;
-    // flex-flow: wrap;
     position: relative;
     list-style: none;
     padding: 12px 0;
     margin: 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header-nav__item:hover {
+    .page-menu {
+      display: flex;
+    }
+  }
+}
+
+.header-nav__item--active {
+  .page-menu {
+    display: flex;
+    position: relative;
+    width: 100%;
+    top: 0;
+    box-shadow: none;
+    border: none;
+    &__wrap {
+      flex-direction: column;
+    }
   }
 }
 </style>

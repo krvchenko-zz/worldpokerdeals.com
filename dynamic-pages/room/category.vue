@@ -4,37 +4,37 @@
 		<!-- Header -->
 		<room-category-header />
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-		<client-only>
+		<div class="rooms__catalog">
 
-		  <filter-header v-if="rooms"
-			:geo.sync="geo"
-			:sort.sync="sort"
-			:total.sync="total"
-			:overall.sync="overall"
-			:sort-options="sortOptions"
-			entity-label="покер-румов"
-			@update:sort="fetchItems"
-			@update:geo="fetchItems"
-		  />
+        <client-only>
 
-		  <filter-selected-list v-if="selected.length">
-			<filter-selected v-for="(item, index) in selected" :key="index"
-			  :label="item.label"
-			  :value="item.value"
-			  :item-key="item.key"
-			/>
-			<filter-selected
-			  label="Очистить фильтры"
-			  :clear="true"
-			  :value="null"
-			  :key="null"
-			/>
-		  </filter-selected-list>
+          <filter-header v-if="rooms"
+            class="rooms__filter-header"
+            :geo.sync="geo"
+            :sort.sync="sort"
+            :total.sync="total"
+            :overall.sync="overall"
+            :sort-options="sortOptions"
+            entity-label="покер-румов"
+            @update:sort="fetchItems"
+            @update:geo="fetchItems"
+          />
 
-		</client-only>
+          <filter-selected-list v-if="selected.length">
+            <filter-selected v-for="(item, index) in selected" :key="index"
+              :label="item.label"
+              :value="item.value"
+              :item-key="item.key"
+            />
+            <filter-selected
+              label="Очистить фильтры"
+              :clear="true"
+              :value="null"
+              :key="null"
+            />
+          </filter-selected-list>
+
+        </client-only>
 
 					<div class="rooms-list">
 
@@ -82,48 +82,46 @@
 						</pagination>
 					</div>
 
-					<div class="row">
 						<!-- Toc -->
-						<div class="col-auto">
+          <div class="rooms__toc">
 
-							<toc-list v-if="category.toc">
-								<template v-slot="{ inline }">
-									<toc-item v-for="(item, index) in category.toc" :key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text">
-									</toc-item>
-								</template>
-							</toc-list>
+            <toc-list v-if="category.toc">
+              <template v-slot="{ inline }">
+                <toc-item v-for="(item, index) in category.toc" :key="index"
+                  :index="index"
+                  :inline="inline"
+                  :anchor="item.anchor_id"
+                  :text="item.text">
+                </toc-item>
+              </template>
+            </toc-list>
 
-						</div>
-						<div class="col col-article">
-							<!-- Article -->
-							<page-article :title="false" :text="category.text">
+          </div>
 
-								<template v-slot:footer>
-									<!-- Faq -->
-									<faq-list v-if="category.faq && category.faq.mainEntity.length" label="FAQ">
-										<faq-item v-for="(item, index) in category.faq.mainEntity" :key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text">
-										</faq-item>
-									</faq-list>
-									
-									<!-- Author -->
-									<author v-if="category.author" :author="category.author" />
+          <div class="rooms__info">
+            <!-- Article -->
+            <page-article :title="false" :text="category.text">
 
-									<!-- Comments -->
-									<comments commentable_type="App\RoomCategory" :commentable_id="category.id"/>
-								</template>
+              <template v-slot:footer>
+                <!-- Faq -->
+                <faq-list v-if="category.faq && category.faq.mainEntity.length" label="FAQ">
+                  <faq-item v-for="(item, index) in category.faq.mainEntity" :key="index"
+                    :question="item.name"
+                    :answer="item.acceptedAnswer.text">
+                  </faq-item>
+                </faq-list>
 
-							</page-article>
-						</div>
-					</div>
-				</div>
+                <!-- Author -->
+                <author v-if="category.author" :author="category.author" />
 
-				<div class="col-3">
+                <!-- Comments -->
+                <comments commentable_type="App\RoomCategory" :commentable_id="category.id"/>
+              </template>
+
+            </page-article>
+          </div>
+
+				<div class="rooms__category-filters">
 
 					<room-category-filters
 						v-if="filters"
@@ -176,12 +174,11 @@
 
 				</div>
 
-			</div>
 
 		</div>
 
 		<page-banners />
-		
+
 	</div>
 </template>
 
@@ -197,7 +194,7 @@ export default {
 	name: 'RoomCategory',
 
 	head () {
-		return { 
+		return {
 			title: this.category.meta_title,
 			titleTemplate: '%s',
 			meta: [
@@ -370,7 +367,7 @@ export default {
 		await this.$axios.get(`rooms/category/list`).then((response) => {
 			this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', { categories: response.data })
 		})
-		
+    
 		await this.$axios.get(`/rooms/filters/list`, {
 			params: {
 				geo: this.country.code,
@@ -508,6 +505,37 @@ export default {
 
 <style lang="scss">
 
+.rooms {
+  max-width: 100%;
+  &__catalog {
+    display: grid;
+    grid-template-columns: [left-part] 2fr [central-part] minmax(0, 7fr) [right-part] 3fr;
+    column-gap: 28px;
+    grid-template-areas:
+      "filter filter category-filter"
+      "rooms-list rooms-list category-filter"
+      "toc info category-filter";
+    @include paddings('desktop');
+    max-width: 1440px;
+  }
+  &__filter-header {
+    grid-area: filter;
+  }
+  &__category-filters {
+    grid-area: category-filter;
+  }
+  &__toc {
+    grid-area: toc;
+  }
+  &__info {
+    grid-area: info;
+  }
+}
+
+.rooms-list {
+  grid-area: rooms-list;
+}
+
 .rooms-top {
 	margin-bottom: 24px;
 	display: flex;
@@ -535,5 +563,46 @@ export default {
 		line-height: 16px;
 		color: #222222;
 	}
+}
+
+@include mq('laptop') {
+  .rooms {
+    &__catalog {
+      @include paddings('laptop');
+      grid-template-columns: 1fr;
+      grid-template-areas:
+      "filter"
+      "rooms-list"
+      "toc"
+      "info";
+    }
+    &__category-filters {
+      display: none;
+    }
+  }
+}
+
+@include mq('tablet') {
+  .rooms {
+    &__catalog {
+      @include paddings('tablet');
+    }
+  }
+  .rooms-list {
+    margin-left: -25px;
+    margin-right: -24px;
+  }
+}
+
+@include mq('mobile') {
+  .rooms {
+    &__catalog {
+      @include paddings('mobile');
+    }
+  }
+  .rooms-list {
+    margin-left: -21px;
+    margin-right: -20px;
+  }
 }
 </style>
