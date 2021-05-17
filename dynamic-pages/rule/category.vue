@@ -119,7 +119,7 @@ export default {
   }),
 
   async fetch() {
-    await axios.get(`rules/category/${this.pageable.slug}`).then((response) => {
+    await this.$axios.get(`rules/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('rules/FETCH_CATEGORY', { category: {
         id: response.data.id,
         title: response.data.title,
@@ -140,7 +140,7 @@ export default {
       } })
     })
 
-    await axios.get('rules/list').then((response) => {
+    await this.$axios.get('rules/list').then((response) => {
       this.$store.commit('rules/FETCH_RULES', { rules: response.data.map(item => ({
         title: item.title,
         icon: item.icon,
@@ -151,7 +151,7 @@ export default {
       })) })
     })
 
-    await axios.get('posts/list', {
+    await this.$axios.get('posts/list', {
       params: {
         locale: this.locale,
         per_page: 5,

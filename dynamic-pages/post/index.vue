@@ -147,7 +147,7 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`posts/${this.pageable.slug}`, {
+		await this.$axios.get(`posts/${this.pageable.slug}`, {
 			params: {
 				locale: this.locale
 			}
@@ -156,7 +156,7 @@ export default {
 			this.$store.commit('posts/FETCH_RELATED', { related: response.data.related })
 		})
 
-		await axios.get('posts/list', {
+		await this.$axios.get('posts/list', {
 			params: {
 				locale: this.locale,
 				per_page: 5,
@@ -167,7 +167,7 @@ export default {
 			this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data })
 		})
 
-		await axios.get('/posts/list', {
+		await this.$axios.get('/posts/list', {
 			params: {
 				top: 1,
 				locale: this.locale,

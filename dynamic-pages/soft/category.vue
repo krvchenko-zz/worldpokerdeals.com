@@ -154,6 +154,8 @@ export default {
         { name: 'description', content: this.category.meta_description },
         { name: 'keywords', content: this.category.meta_keywords }
       ],
+
+      script: [{ type: 'application/ld+json', json: this.category.faq }]
     }
   },
 
@@ -212,22 +214,22 @@ export default {
 
   async fetch() {
 
-    await axios.get(`soft/category/${this.pageable.slug}`).then((response) => {
+    await this.$axios.get(`soft/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('soft/FETCH_CATEGORY', { category: response.data })
     })
 
-    await axios.get(`soft/category/list`).then((response) => {
+    await this.$axios.get(`soft/category/list`).then((response) => {
       this.$store.commit('soft/FETCH_CATEGORIES', { categories: response.data })
     })
 
-    await axios.get(`soft/list`, { params: this.params }).then((response) => {
+    await this.$axios.get(`soft/list`, { params: this.params }).then((response) => {
       this.$store.commit('soft/FETCH_ITEMS', { items: response.data.data })
       Object.keys(response.data).forEach(key => {
         this[key] = response.data[key]
       })
     })
 
-    await axios.get(`/soft/filters/list`, {
+    await this.$axios.get(`/soft/filters/list`, {
       params: {
         geo: this.country.code,
         room_category_id: this.category.id
@@ -256,7 +258,7 @@ export default {
 
       this.$nuxt.$loading.start()
 
-      await axios.get(`soft/list`, { params: this.params }).then((response) => {
+      await this.$axios.get(`soft/list`, { params: this.params }).then((response) => {
         this.$store.commit('soft/FETCH_ITEMS', { items: response.data.data })
         Object.keys(response.data).forEach(key => {
           this[key] = response.data[key]

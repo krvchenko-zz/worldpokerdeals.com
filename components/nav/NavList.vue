@@ -44,7 +44,6 @@ export default {
 $ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
 
 .page-nav {
-  margin: 0 -60px;
   position: relative;
   bottom: -25px;
   &__list {
@@ -135,5 +134,17 @@ $ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
       }
     }
   }
+}
+
+@include mq('tablet') {
+.page-nav {
+  margin: 0 -24px;
+}
+}
+
+@include mq('mobile') {
+.page-nav {
+  margin: 0 -20px;
+}
 }
 </style>

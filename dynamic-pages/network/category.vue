@@ -63,11 +63,11 @@ export default {
 	}),
 
   async fetch() {
-    await axios.get(`network/category/${this.pageable.slug}`).then((response) => {
+    await this.$axios.get(`network/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('networks/FETCH_CATEGORY', { category: response.data })
     })
 
-    await axios.get('network/list').then((response) => {
+    await this.$axios.get('network/list').then((response) => {
       this.$store.commit('networks/FETCH_NETWORKS', { networks: response.data.map(item => ({
         title: item.title,
         url: item.url,

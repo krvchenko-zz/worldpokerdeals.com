@@ -107,11 +107,11 @@ export default {
   }),
 
   async fetch() {
-    await axios.get(`payments/category/${this.pageable.slug}`).then((response) => {
+    await this.$axios.get(`payments/category/${this.pageable.slug}`).then((response) => {
       this.$store.commit('payments/FETCH_CATEGORY', { category: response.data })
     })
 
-    await axios.get('payments/list').then((response) => {
+    await this.$axios.get('payments/list').then((response) => {
       this.$store.commit('payments/FETCH_PAYMENTS', { payments: response.data.map(item => ({
         title: item.title,
         icon: item.icon,

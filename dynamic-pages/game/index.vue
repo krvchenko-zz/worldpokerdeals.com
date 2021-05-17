@@ -114,18 +114,54 @@
 					</topic-list>
 				</div>
 			</div>
+
+			<lazy-hydrate when-visible>
+				<post-list v-if="posts.length" :label="`Новости ${game.title}`">
+					<div class="row">
+						<div v-for="(item, index) in posts" :key="index" class="col-3">
+							<post-item
+								:image="item.image"
+								:title="item.title"
+								:summary="item.summary"
+								:slug="item.slug"
+								:author="item.user"
+								:created="item.created_at"
+								:categories="item.categories"
+								:medium="true"
+							/>
+						</div>
+					</div>
+				</post-list>
+			</lazy-hydrate>
+
+			<lazy-hydrate when-visible>
+	      <div v-if="games.length" class="games-list">
+	      	<div class="block-title">Другие покерные игры</div>
+	        <div class="row">
+	          <div class="col" v-for="item in games" :key="item.slug">
+	            <game-item
+		            :center="true"
+	              :title="item.title"
+	              :icon="item.icon"
+	              :rooms="item.rooms_count"
+	              :page="item.page"
+	            >
+	            </game-item>
+	          </div>
+	        </div>
+	      </div>
+	    </lazy-hydrate>
+
 		</div>
+
 	</div>
 </template>
 
 <script>
 
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 
-import Pagination from '~/components/pagination/Pagination'
-import Comments from '~/components/comments/Comments'
-import Room from '~/components/cards/Room'
+import LazyHydrate from 'vue-lazy-hydration'
 
 export default {
 
@@ -139,13 +175,13 @@ export default {
 				{ name: 'description', content: this.game.meta_description },
 				{ name: 'keywords', content: this.game.meta_keywords }
 			],
+
+			script: [{ type: 'application/ld+json', json: this.tab.faq }]
 		}
 	},
 
 	components: {
-		Pagination,
-		Comments,
-		Room
+		LazyHydrate
 	},
 
 	data: () => ({
@@ -182,8 +218,10 @@ export default {
 			user: 'auth/user',
 			pageable: 'pages/page',
 			game: 'games/game',
+			games: 'games/games',
 			tab: 'games/tab',
 			rooms: 'rooms/rooms',
+			posts: 'posts/posts',
 			filters: 'games/filters'
 		}),
 
@@ -214,13 +252,15 @@ export default {
 
 	async fetch() {
 
-		await axios.get(`games/${this.pageable.slug}`).then((response) => {
+		await this.$axios.get(`games/${this.pageable.slug}`).then((response) => {
 			this.$store.commit('games/FETCH_GAME', { game: response.data.game })
 			this.$store.commit('games/FETCH_TAB', { tab: response.data.tab })
+			this.$store.commit('posts/FETCH_POSTS', { posts: response.data.posts })
+			this.$store.commit('games/FETCH_GAMES', { games: response.data.related })
 		})
 
 		if (this.tab.show_rooms) {
-			await axios.get('rooms/list', {
+			await this.$axios.get('rooms/list', {
 				params: {
 					geo: this.country.code,
 					per_page: 10,
@@ -239,7 +279,7 @@ export default {
 			.catch((e) => {
 			})
 
-			await axios.get(`/games/filters/list`, {
+			await this.$axios.get(`/games/filters/list`, {
 				params: {
 					geo: this.country.code,
 					game_id: this.game.id,
@@ -265,7 +305,7 @@ export default {
 
 			this.$nuxt.$loading.start()
 
-			await axios.get(`/games/filters/list`, {
+			await this.$axios.get(`/games/filters/list`, {
 				params: {
 					geo: this.geo,
 					game_id: this.game.id,
@@ -275,7 +315,7 @@ export default {
 				this.$store.commit('games/FETCH_FILTERS', { filters: response.data })
 			})
 
-			await axios.get(`rooms/list`, { params: this.params }).then((response) => {
+			await this.$axios.get(`rooms/list`, { params: this.params }).then((response) => {
 				this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
 				Object.keys(response.data).forEach(key => {
 					this[key] = response.data[key]

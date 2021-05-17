@@ -63,7 +63,7 @@ export default {
 	}),
 
   async fetch() {
-    await axios.get('/managers', {
+    await this.$axios.get('/managers', {
       params: {
         id: 27
       }

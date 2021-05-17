@@ -1,6 +1,6 @@
 <template>
   <section :class="['content']">
-    <div class="front">
+    <!-- <div class="front content-layout"> -->
       <lazy-hydrate when-visible>
         <front-top />
       </lazy-hydrate>
@@ -25,7 +25,7 @@
       <lazy-hydrate when-visible>
         <front-features />
       </lazy-hydrate>
-    </div>
+    <!-- </div> -->
   </section>
 </template>
 
@@ -67,7 +67,7 @@ export default {
   },
 
   async fetch() {
-    await axios.get('/front', {
+    await this.$axios.get('/front', {
       params: {
         geo: this.country.code,
         locale: this.locale
@@ -105,5 +105,6 @@ export default {
 <style lang="scss">
 .content {
   padding-bottom: 90px;
+  grid-template-rows: [front-top] auto [front-posts] auto [front-posts-featured] auto [front-rooms] auto [front-promotions] auto [front-clubs] auto [front-banners] auto [front-features] auto;
 }
 </style>

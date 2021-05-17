@@ -77,7 +77,7 @@ export default {
   methods: {
     async fetch() {
       $nuxt.$loading.start()
-      await axios.get('reviews/list', {
+      await this.$axios.get('reviews/list', {
         params: {
           per_page: parseInt(this.reviews.per_page) + 5,
           sort: 'created_at',

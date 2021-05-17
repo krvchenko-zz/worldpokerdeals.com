@@ -38,17 +38,15 @@
   "resend_verification_link": "Resend Verification Link ?",
   "failed_to_verify_email": "Failed to verify email.",
   "verify_email_address": "We sent you an email with an the verification link.",
-  "locales": {
-    "ru": "Русский",
-    "en": "Английский",
-    "es": "Испанский"
-  },
   "header": {
     "search_form_placeholder": "Найти что-угодно, например: GGPoker",
     "btn_vip": "VIP-сервис",
     "btn_telegram": "Telegram-канал",
     "btn_telegram_href": "https://t-do.ru/worldpokerdealsRU"
   },
-  "room_geo_restricted": "К сожалению, {room} недоступен для {country}",
-  "room_geo_allowed": "Огонь! {room} принимает игроков из {country}!"
+  "room_geo_restricted": "Недоступен игрокам из {country}!",
+  "room_geo_allowed": "Доступен игрокам из {country}!",
+  "menu": {
+    "rooms": "Покер-румы"
+  }
 }

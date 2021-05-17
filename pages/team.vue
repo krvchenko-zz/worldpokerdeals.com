@@ -124,12 +124,12 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="team-numbers__title">Мы в цифрах</div>
-		        <div class="team-numbers">
-		          <div class="team-number" v-for="(item, index) in numbers" :key="index">
-		            <span class="team-number__value">{{ item.value }}</span>
-		            <span class="team-number__label" v-html="item.label"></span>
-		          </div>
-		        </div>
+				<div class="team-numbers">
+				  <div class="team-number" v-for="(item, index) in numbers" :key="index">
+					<span class="team-number__value">{{ item.value }}</span>
+					<span class="team-number__label" v-html="item.label"></span>
+				  </div>
+				</div>
 					</div>
 				</div>
 			</div>
@@ -149,10 +149,10 @@
 						<div v-if="managers && managers.length" class="team-contacts__buttons">
 							<button-contact icon size="md" type="telegram" href="worldpokerdealsRU" />
 							<button-contact icon size="md" type="whatsapp" :href="managers[0].whatsapp" />
-              <button-contact icon size="md" type="skype" :href="managers[0].skype" />
-              <button-contact icon size="md" type="fb" href="https://www.facebook.com/worldpokerdealsRu" />
-              <button-contact icon size="md" type="instagram" href="https://instagram.com/worldpokerdeals" />
-              <button-contact icon size="md" type="vk" href="https://vk.com/worldpokerdeals" />
+			  <button-contact icon size="md" type="skype" :href="managers[0].skype" />
+			  <button-contact icon size="md" type="fb" href="https://www.facebook.com/worldpokerdealsRu" />
+			  <button-contact icon size="md" type="instagram" href="https://instagram.com/worldpokerdeals" />
+			  <button-contact icon size="md" type="vk" href="https://vk.com/worldpokerdeals" />
 						</div>
 						<button-contact block size="md" type="chat" style="max-width: 208px;">Начать чат</button-contact>
 					</div>
@@ -249,31 +249,31 @@ export default {
 			text: 'Мы любим работать, но еще больше обожаем отдыхать: заниматься спортом, играть в мафию, устраивать техно-вечеринки и, конечно, путешествовать'
 		}],
 
-    numbers: [
-      {
-        label: 'Лет на <br> рынке',
-        value: '7'
-      },{
-        label: 'Покерныx <br> румов',
-        value: '150'
-      },{
-        label: 'Клубов',
-        value: '26'
-      },{
-        label: 'Партнеров',
-        value: '70'
-      },{
-        label: 'Активныx <br> игроков',
-        value: '10 000'
-      },{
-        label: 'Аффилейт-менеджеров <br> в команде',
-        value: '10'
-      },
-    ]
+	numbers: [
+	  {
+		label: 'Лет на <br> рынке',
+		value: '7'
+	  },{
+		label: 'Покерныx <br> румов',
+		value: '150'
+	  },{
+		label: 'Клубов',
+		value: '26'
+	  },{
+		label: 'Партнеров',
+		value: '70'
+	  },{
+		label: 'Активныx <br> игроков',
+		value: '10 000'
+	  },{
+		label: 'Аффилейт-менеджеров <br> в команде',
+		value: '10'
+	  },
+	]
 	}),
 
 	async fetch() {
-		await axios.get('/managers', {
+		await this.$axios.get('/managers', {
 			params: {
 				locale: this.locale
 			}
@@ -356,11 +356,11 @@ $about-map-bg: url('~/assets/i/about-map-bg.png');
   justify-content: center;
   &:before {
 		content: '';
-    width: 100%;
-    position: absolute;
-    height: 1px;
-    background: #464B62;
-    top: 61px;
+	width: 100%;
+	position: absolute;
+	height: 1px;
+	background: #464B62;
+	top: 61px;
   }
 	&__title {
 		margin-bottom: 24px;
@@ -377,38 +377,38 @@ $about-map-bg: url('~/assets/i/about-map-bg.png');
   margin-right: 100px;
   position: relative;
   &:last-child {
-    margin: 0;
+	margin: 0;
   }
   &__value {
-    padding-bottom: 12px;
-    margin-bottom: 16px;
-    position: relative;
-    display: inline-block;
-    font-family: Proxima Nova;
-    font-weight: bold;
-    font-size: 41px;
-    line-height: 50px;
-    letter-spacing: -1px;
-    font-feature-settings: 'salt' on;
-    color: #FFFFFF;
-    &:after {
-      content: '';
-      left: 0;
-      bottom: 0px;
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      display: block;
-      background: #5F6377;
-    }
+	padding-bottom: 12px;
+	margin-bottom: 16px;
+	position: relative;
+	display: inline-block;
+	font-family: Proxima Nova;
+	font-weight: bold;
+	font-size: 41px;
+	line-height: 50px;
+	letter-spacing: -1px;
+	font-feature-settings: 'salt' on;
+	color: #FFFFFF;
+	&:after {
+	  content: '';
+	  left: 0;
+	  bottom: 0px;
+	  position: absolute;
+	  width: 100%;
+	  height: 4px;
+	  display: block;
+	  background: #5F6377;
+	}
   }
 
   &__label {
-    display: block;
-    font-family: Proxima Nova;
-    font-size: 16px;
-    line-height: 20px;
-    color: #90939D;
+	display: block;
+	font-family: Proxima Nova;
+	font-size: 16px;
+	line-height: 20px;
+	color: #90939D;
   }
 }
 

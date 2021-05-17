@@ -96,7 +96,7 @@ export default {
       return false
     }
 
-    await axios.get('/promotion/feed', {
+    await this.$axios.get('/promotion/feed', {
       params: {
         per_page: this.per_page,
         room_id: this.room_id

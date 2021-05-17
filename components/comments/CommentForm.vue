@@ -127,7 +127,7 @@ export default {
         this.$nuxt.$loading.finish()
       })
 
-      await axios.get('comments/list', {
+      await this.$axios.get('comments/list', {
         params: {
           per_page: parseInt(this.comments.per_page),
           sort: 'created_at',
