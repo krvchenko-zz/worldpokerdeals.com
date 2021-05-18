@@ -271,6 +271,26 @@ body {
 	color: #222222;
 }
 
+.article-container {
+    display: grid;
+    grid-template-columns: [left-part] 2fr [central-part] minmax(0, 7fr) [right-part] 3fr;
+    grid-template-areas: 'toc article aside';
+    column-gap: 28px;
+    &__toc {
+        grid-area: toc;
+    }
+    &__aside-content {
+        grid-area: aside;
+    }
+    &__article {
+        grid-area: article;
+    }
+    @include mq('laptop') {
+        grid-template-columns: 100%;
+        grid-template-areas: 'toc' 'article' 'aside';
+    }
+}
+
 .article {
 	&__wrap {
 		padding: 0 28px;

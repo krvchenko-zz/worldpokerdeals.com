@@ -1034,6 +1034,7 @@ $ico-room-unavailable: url("~assets/i/ico-room-unavailable.svg?data");
     grid-template-columns: 100%;
     grid-template-areas: "network" "header" "details" "scores" "buttons" "restriction" "recommended-rooms" "nav";
     padding: 0 20px;
+    margin: 0 -20px 40px;
     &__details-wrapper {
       grid-template-columns: 1fr;
       row-gap: 24px;
