@@ -1,71 +1,67 @@
 <template>
   <article class="article">
-    <div class="article__wrap">
-      <h1 :id="titleId" v-if="title" class="page-title">{{ title }}</h1>
+    <h1 :id="titleId" v-if="title" class="page-title">{{ title }}</h1>
 
-      <page-meta
-        v-if="meta"
-        :author="author"
-        :created="created"
-        :updated="updated"
-        :dark="true"
-      />
+    <page-meta
+      v-if="meta"
+      :author="author"
+      :created="created"
+      :updated="updated"
+      :dark="true"
+    />
 
-      <div v-if="summary" class="article__summary" v-html="summary"></div>
+    <div v-if="summary" class="article__summary" v-html="summary"></div>
 
-      <img
-        v-if="image"
-        class="article__img"
-        decoding="async"
-        loading="lazy"
-        width="742px"
-        height="320px"
-        :src="src"
-        :alt="image.alt || title"
-      />
+    <img
+      v-if="image"
+      class="article__img"
+      decoding="async"
+      loading="lazy"
+      width="742px"
+      height="320px"
+      :src="src"
+      :alt="image.alt || title"
+    />
 
-      <slot name="header" />
+    <slot name="header" />
 
-      <v-runtime-template v-carousel v-table-hideable :template="template" />
+    <v-runtime-template v-carousel v-table-hideable :template="template" />
 
-      <slot name="footer" />
-    </div>
+    <slot name="footer" />
   </article>
 </template>
 
 <script>
-
-import VRuntimeTemplate from 'v-runtime-template'
-import Soft from '~/components/cards/Soft'
-import Manager from '~/components/cards/Manager'
+import VRuntimeTemplate from "v-runtime-template";
+import Soft from "~/components/cards/Soft";
+import Manager from "~/components/cards/Manager";
 
 export default {
-
-  name: 'PageArticle',
+  name: "PageArticle",
 
   components: {
     VRuntimeTemplate,
-    Soft, Manager
+    Soft,
+    Manager,
   },
 
   props: {
-
     text: {
       type: String,
       required: true,
     },
 
     summary: {
-      type: String
+      type: String,
     },
 
     image: {
-      type: Object
+      type: Object,
     },
 
     imageStyle: {
       type: String,
-      default: 'article-large'
+      default: "article-large",
     },
 
     author: {
@@ -86,13 +82,13 @@ export default {
 
     title: {
       type: [Boolean, String],
-      default: false
+      default: false,
     },
 
     titleId: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
 
   data: () => ({
@@ -101,51 +97,46 @@ export default {
 
   computed: {
     template() {
-      return `<div class=article-body>${ this.text }</div>`
+      return `<div class=article-body>${this.text}</div>`;
     },
 
     mediaUrl() {
-      return process.env.mediaUrl
+      return process.env.mediaUrl;
     },
 
     src() {
-      return this.image ? `${this.mediaUrl}/${this.imageStyle}/${this.image.filename}`: null
-    }
+      return this.image
+        ? `${this.mediaUrl}/${this.imageStyle}/${this.image.filename}`
+        : null;
+    },
   },
 
   mounted() {
     const lightbox = this.$glightbox({
       touchNavigation: true,
       loop: true,
-      selector: '.lightbox'
-    })
+      selector: ".lightbox",
+    });
   },
 
   updated() {
     const lightbox = this.$glightbox({
       touchNavigation: true,
       loop: true,
-      selector: '.lightbox'
-    })
+      selector: ".lightbox",
+    });
   },
 
-  watch: {
+  watch: {},
 
-  },
-
-	methods: {
-
-	}
-}
+  methods: {},
+};
 </script>
 <style lang="scss">
 .article {
-  &__wrap {
-    padding: 0 28px;
-  }
   &__summary {
     margin-bottom: 28px;
-    font-family: 'Proxima Nova Sb';
+    font-family: "Proxima Nova Sb";
     font-size: 17px;
     line-height: 21px;
     color: #555555;
