@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 export default {
 	env: {
@@ -48,15 +48,15 @@ export default {
 		'@nuxtjs/style-resources',
 		['cookie-universal-nuxt', { alias: 'cookiz' }],
 	],
-	
+
 	styleResources: {
 		scss: ['~assets/sass/_mixins.scss'],
 	},
 
-  axios: {
+	axios: {
 		baseURL: process.env.apiUrl,
-		proxyHeaders: true
-  },
+		proxyHeaders: true,
+	},
 
 	build: {
 		extractCSS: true,
@@ -79,10 +79,10 @@ export default {
 					test: /\.(js|vue)$/,
 					loader: 'eslint-loader',
 					exclude: /(node_modules)/,
-				});
+				})
 			}
 
-			config.resolve.alias['vue'] = 'vue/dist/vue.common';
+			config.resolve.alias['vue'] = 'vue/dist/vue.common'
 		},
 	},
-};
+}

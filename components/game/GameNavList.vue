@@ -1,56 +1,40 @@
 <template>
-<nav class="games-nav">
-	<ul class="games-nav__list">
-    <slot />
-  </ul>
-</nav>
+	<nav class="games-nav">
+		<ul class="games-nav__list">
+			<slot />
+		</ul>
+	</nav>
 </template>
 
 <script>
+	export default {
+		name: 'GameNavList',
 
-export default {
+		components: {},
 
-  name: 'GameNavList',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		computed: {},
 
-  props: {
+		watch: {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-.games-nav {
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
+	.games-nav {
+		&__list {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 </style>

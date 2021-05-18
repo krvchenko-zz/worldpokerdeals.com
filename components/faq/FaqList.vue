@@ -1,47 +1,35 @@
 <template>
-<div class="faq">
-  <div class="block-title block-title_lg">{{ label }}</div>
-  <slot/>
-</div>
+	<div class="faq">
+		<div class="block-title block-title_lg">{{ label }}</div>
+		<slot />
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'FaqList',
 
-export default {
+		props: {
+			label: {
+				type: String,
+				required: true,
+			},
+		},
 
-  name: 'FaqList',
+		data: () => ({}),
 
-  props: {
-    label: {
-      type: String,
-      required: true
-    }
-  },
+		computed: {},
 
-	created() {
+		watch: {},
 
-	},
+		created() {},
 
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-.faq {
-  margin-bottom: 40px;
-}
+	.faq {
+		margin-bottom: 40px;
+	}
 </style>

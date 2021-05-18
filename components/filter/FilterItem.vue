@@ -1,77 +1,61 @@
 <template>
-<div class="filter-item">
-  <slot />
-  <span class="filter-item__count">{{ count }}</span>
-  <slot name="icon" />
-</div>
+	<div class="filter-item">
+		<slot />
+		<span class="filter-item__count">{{ count }}</span>
+		<slot name="icon" />
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'FilterItem',
 
-export default {
+		components: {},
 
-  name: 'FilterItem',
+		props: {
+			icon: {
+				type: [Boolean, String],
+				default: false,
+			},
 
-  components: {
+			count: {
+				type: Number,
+				default: 0,
+			},
+		},
 
-  },
+		data: () => ({}),
 
-  props: {
-    icon: {
-      type: [Boolean, String],
-      default: false,
-    },
+		computed: {},
 
-    count: {
-      type: Number,
-      default: 0,
-    }
-  },
+		watch: {},
 
-  mounted() {
+		mounted() {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-.filter-item {
-  padding-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &__count {
-    margin-left: auto;
-    font-family: 'Proxima Nova';
-    font-size: 14px;
-    line-height: 20px;
-    text-align: right;
-    color: #999999;
-  }
+	.filter-item {
+		padding-bottom: 15px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		&__count {
+			margin-left: auto;
+			font-family: 'Proxima Nova';
+			font-size: 14px;
+			line-height: 20px;
+			text-align: right;
+			color: #999999;
+		}
 
-  &__icon {
-    border-radius: 2px;
-    margin-left: 12px;
-  }
-}
+		&__icon {
+			border-radius: 2px;
+			margin-left: 12px;
+		}
+	}
 </style>

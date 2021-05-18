@@ -3,7 +3,7 @@ import GLightbox from 'glightbox'
 Vue.use(GLightbox)
 
 export default ({ app }, inject) => {
-  inject('glightbox', (props) => {
-  	return new GLightbox(props)
-  } )
+	inject('glightbox', props => {
+		return new GLightbox(props)
+	})
 }

@@ -1,193 +1,189 @@
 <template>
-  <div class="payment-header">
-    <div class="container-fluid">
+	<div class="payment-header">
+		<div class="container-fluid">
+			<div class="payment-header__wrap">
+				<div class="row">
+					<div class="col-2">
+						<div class="payment-header__logo">
+							<svg-icon
+								:icon="payment.icon"
+								:width="136"
+								:height="136"
+								view-box="0 0 88 88"
+							/>
+						</div>
+					</div>
+					<div class="col-6">
+						<h1 class="payment__title">{{ tab.title }}</h1>
+						<page-meta
+							:author="tab.author.full_name"
+							:created="tab.created_at"
+							:updated="tab.updated_at"
+							:dark="true"
+						>
+						</page-meta>
 
-      <div class="payment-header__wrap">
-        <div class="row">
-          <div class="col-2">
-            <div class="payment-header__logo">
-              <svg-icon :icon="payment.icon" :width="136" :height="136" viewBox="0 0 88 88" />
-            </div>
-          </div>
-          <div class="col-6">
-            <h1 class="payment__title">{{ tab.title }}</h1>
-            <page-meta
-              :author="tab.author.full_name"
-              :created="tab.created_at"
-              :updated="tab.updated_at"
-              :dark="true"
-            >
-            </page-meta>
+						<div v-if="payment.vip_status" class="payment__actions">
+							<payment-action-button
+								:style="{ flex: '0 0 180px' }"
+								label="Открыть счет"
+								type="register"
+								:url="payment.partner_url"
+								:background="payment.btn_color"
+							/>
+							<payment-action-button
+								:style="{ flex: '0 0 180px' }"
+								label="Чат с менеджером"
+								type="default"
+								background="#70AC30"
+							/>
+							<payment-action-button
+								:style="{ flex: '0 0 180px' }"
+								label="VIP-статус"
+								type="internal"
+								:vip-url="payment.vip_url"
+								background="#F5A200"
+							/>
+						</div>
 
-            <div v-if="payment.vip_status" class="payment__actions">
-              <payment-action-button
-                :style="{ flex: '0 0 180px' }"
-                label="Открыть счет"
-                type="register"
-                :url="payment.partner_url"
-                :background="payment.btn_color"
-              />
-              <payment-action-button
-                :style="{ flex: '0 0 180px' }"
-                label="Чат с менеджером"
-                type="default"
-                background="#70AC30"
-              />
-              <payment-action-button
-                :style="{ flex: '0 0 180px' }"
-                label="VIP-статус"
-                type="internal"
-                :vip-url="payment.vip_url"
-                background="#F5A200"
-              />
-            </div>
+						<div class="payment__summary" v-html="tab.summary"></div>
+					</div>
+					<div class="col-4">
+						<room-top
+							v-if="rooms"
+							:id="rooms[0].id"
+							:style="{ top: 0 }"
+							:title="rooms[0].title"
+							:slug="rooms[0].slug"
+							:restricted="rooms[0].restricted"
+							:country="country"
+							:rating="rooms[0].rating"
+							:bonus="rooms[0].top_bonus"
+							:review="rooms[0].review"
+						/>
+					</div>
+				</div>
 
-            <div class="payment__summary" v-html="tab.summary"></div>
-          </div>
-          <div class="col-4">
-            <room-top v-if="rooms"
-              :style="{top: 0}"
-              :id="rooms[0].id"
-              :title="rooms[0].title"
-              :slug="rooms[0].slug"
-              :restricted="rooms[0].restricted"
-              :country="country"
-              :rating="rooms[0].rating"
-              :bonus="rooms[0].top_bonus"
-              :review="rooms[0].review"
-            />
-          </div>
-        </div>
-
-        <div v-if="payment.tabs.length > 1" class="row">
-          <div class="col-12">
-            <tab-list>
-              <tab-item v-for="(item, index) in payment.tabs" :key="index"
-                :params="{
-                  parent: item.page.parent ? item.page.parent.slug : item.page.slug,
-                  child: item.page.parent ? item.page.slug : null
-                }"
-                :name="item.name">
-              </tab-item>
-            </tab-list>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+				<div v-if="payment.tabs.length > 1" class="row">
+					<div class="col-12">
+						<tab-list>
+							<tab-item
+								v-for="(item, index) in payment.tabs"
+								:key="index"
+								:params="{
+									parent: item.page.parent
+										? item.page.parent.slug
+										: item.page.slug,
+									child: item.page.parent ? item.page.slug : null,
+								}"
+								:name="item.name"
+							>
+							</tab-item>
+						</tab-list>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex'
+	export default {
+		name: 'PaymentHeader',
 
+		components: {},
 
-export default {
+		props: {},
 
-  name: 'PaymentHeader',
+		data: () => ({}),
 
-  components: {
-  },
+		created() {},
 
-  props: {
+		computed: {
+			...mapGetters({
+				payment: 'payments/payment',
+				pageable: 'pages/page',
+				topList: 'rooms/topList',
+				country: 'location/country',
+				payment: 'payments/payment',
+				rooms: 'rooms/rooms',
+				tab: 'payments/tab',
+			}),
+		},
 
-  },
+		watch: {},
 
-	created() {
+		methods: {
+			dateFormat(timestamp) {
+				let date = new Date(timestamp),
+					d = date.getDate(),
+					m = date.getMonth() + 1,
+					y = date.getFullYear()
 
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-    ...mapGetters({
-      payment: 'payments/payment',
-      pageable: 'pages/page',
-      topList: 'rooms/topList',
-      country: 'location/country',
-      payment: 'payments/payment',
-      rooms: 'rooms/rooms',
-      tab: 'payments/tab'
-    }),
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-    dateFormat(timestamp) {
-      let date = new Date(timestamp),
-          d = date.getDate(),
-          m = date.getMonth() + 1,
-          y = date.getFullYear()
-
-      return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
-    },
+				return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
+	$payment-bg: url('~assets/i/summary-bg.jpg?data');
+	.payment-header {
+		overflow: hidden;
+		position: relative;
+		margin-bottom: 32px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		&:before {
+			opacity: 0.5;
+			left: 0;
+			top: 0;
+			position: absolute;
+			content: '';
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: $payment-bg no-repeat center;
+			background-size: cover;
+		}
+	}
 
-$payment-bg: url('~assets/i/summary-bg.jpg?data');
-.payment-header {
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 32px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  &:before {
-    opacity: .5;
-    left: 0;
-    top: 0;
-    position: absolute;
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: $payment-bg no-repeat center;
-    background-size: cover;
-  }
-}
+	.payment {
+		&-header {
+			&__wrap {
+				padding: 30px 30px 0 30px;
+				position: relative;
+			}
 
-.payment {
+			&__logo {
+				text-align: right;
+			}
+		}
 
-  &-header {
-    &__wrap {
-      padding: 30px 30px 0 30px;
-      position: relative;
-    }
+		&__title {
+			margin-bottom: 16px;
+			font-family: 'Proxima Nova';
+			font-weight: bold;
+			font-size: 32px;
+			line-height: 36px;
+			color: #222222;
+		}
 
-    &__logo {
-      text-align: right;
-    }
-  }
+		&__summary {
+			padding-bottom: 40px;
+			font-family: 'Proxima Nova';
+			font-size: 17px;
+			line-height: 22px;
+			color: #222222;
+			opacity: 0.8;
+		}
 
-  &__title {
-    margin-bottom: 16px;
-    font-family: 'Proxima Nova';
-    font-weight: bold;
-    font-size: 32px;
-    line-height: 36px;
-    color: #222222;
-  }
-
-  &__summary {
-    padding-bottom: 40px;
-    font-family: 'Proxima Nova';
-    font-size: 17px;
-    line-height: 22px;
-    color: #222222;
-    opacity: 0.8;
-  }
-
-  &__actions {
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-  }
-}
+		&__actions {
+			margin-bottom: 32px;
+			display: flex;
+			align-items: center;
+		}
+	}
 </style>

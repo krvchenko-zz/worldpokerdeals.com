@@ -1,343 +1,372 @@
 <template>
-<div class="pagination">
-  <!-- More -->
-  <button 
-    v-if="nextUrl"
-    :style="{
-      width: loadMoreWidth ? `${loadMoreWidth}px` : 'auto'
-    }"
-    :class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
-    @click="handleShowMore">{{ loadMoreText }}</button>
-  <ul class="pagination__list">
-    <!-- Prev -->
-    <li v-if="prevUrl" :class="['pagination__item', 'pagination__item_prev']">
-      <nuxt-link :to="{
-        name: 'index',
-        params: {
-          parent: pageable.parent ? pageable.parent.slug : pageable.slug,
-          child: pageable.parent ? pageable.slug : null
-        },
-        query: current - 1 !== 1 ? { page: current - 1 } : {}
-      }" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
-        <button :class="['btn', 'btn-pagination', 'btn-pagination_prev']" aria-label="Previous" :disabled="!prevUrl" v-on="{ click: query ? navigate : handlePagePrev }">
-        </button>
-      </nuxt-link>
-    </li>
-    <!-- Pages -->
-    <li v-for="(item, index) in pages" :key="index" :class="['pagination__item', item.number === current && 'pagination__item_active']">
-      <nuxt-link :to="{
-        name: 'index',
-        params: {
-          parent: pageable.parent ? pageable.parent.slug : pageable.slug,
-          child: pageable.parent ? pageable.slug : null
-        },
-        query: item.number > 1 ? { page: item.number } : {}
-      }" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
-        <button
-          v-if="query"
-          :class="['btn', 'btn-pagination',
-            item.number === current && 'btn-pagination_active'
-          ]" 
-          :disabled="item.number === current"
-          @click="navigate"
-        >{{ item.number }}</button>
-        <button
-          v-else
-          :class="['btn', 'btn-pagination',
-            item.number === current && 'btn-pagination_active'
-          ]" 
-          :disabled="item.number === current"
-          @click="handlePageChange(item.number)"
-        >{{ item.number }}</button>
-      </nuxt-link>
-    </li>
-    <!-- Next -->
-    <li v-if="nextUrl" :class="['pagination__item', 'pagination__item_next']">
-      <nuxt-link :to="{
-        name: 'index',
-        params: {
-          parent: pageable.parent ? pageable.parent.slug : pageable.slug,
-          child: pageable.parent ? pageable.slug : null
-        },
-        query: { page: current + 1 }
-      }" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
-        <button :class="['btn', 'btn-pagination', 'btn-pagination_next']" aria-label="Next" :disabled="!nextUrl" v-on="{ click: query ? navigate : handlePageNext }">
-        </button>
-      </nuxt-link>
-    </li>
-  </ul>
-  <div class="pagination-info">{{ from }}–{{ to }} из {{ total }} {{ totalText }}</div>
-</div>
+	<div class="pagination">
+		<!-- More -->
+		<button
+			v-if="nextUrl"
+			:style="{
+				width: loadMoreWidth ? `${loadMoreWidth}px` : 'auto',
+			}"
+			:class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
+			@click="handleShowMore"
+		>
+			{{ loadMoreText }}
+		</button>
+		<ul class="pagination__list">
+			<!-- Prev -->
+			<li v-if="prevUrl" :class="['pagination__item', 'pagination__item_prev']">
+				<nuxt-link
+					v-slot="{ href, route, navigate, isActive, isExactActive }"
+					:to="{
+						name: 'index',
+						params: {
+							parent: pageable.parent ? pageable.parent.slug : pageable.slug,
+							child: pageable.parent ? pageable.slug : null,
+						},
+						query: current - 1 !== 1 ? { page: current - 1 } : {},
+					}"
+					custom
+				>
+					<button
+						:class="['btn', 'btn-pagination', 'btn-pagination_prev']"
+						aria-label="Previous"
+						:disabled="!prevUrl"
+						v-on="{ click: query ? navigate : handlePagePrev }"
+					></button>
+				</nuxt-link>
+			</li>
+			<!-- Pages -->
+			<li
+				v-for="(item, index) in pages"
+				:key="index"
+				:class="[
+					'pagination__item',
+					item.number === current && 'pagination__item_active',
+				]"
+			>
+				<nuxt-link
+					v-slot="{ href, route, navigate, isActive, isExactActive }"
+					:to="{
+						name: 'index',
+						params: {
+							parent: pageable.parent ? pageable.parent.slug : pageable.slug,
+							child: pageable.parent ? pageable.slug : null,
+						},
+						query: item.number > 1 ? { page: item.number } : {},
+					}"
+					custom
+				>
+					<button
+						v-if="query"
+						:class="[
+							'btn',
+							'btn-pagination',
+							item.number === current && 'btn-pagination_active',
+						]"
+						:disabled="item.number === current"
+						@click="navigate"
+					>
+						{{ item.number }}
+					</button>
+					<button
+						v-else
+						:class="[
+							'btn',
+							'btn-pagination',
+							item.number === current && 'btn-pagination_active',
+						]"
+						:disabled="item.number === current"
+						@click="handlePageChange(item.number)"
+					>
+						{{ item.number }}
+					</button>
+				</nuxt-link>
+			</li>
+			<!-- Next -->
+			<li v-if="nextUrl" :class="['pagination__item', 'pagination__item_next']">
+				<nuxt-link
+					v-slot="{ href, route, navigate, isActive, isExactActive }"
+					:to="{
+						name: 'index',
+						params: {
+							parent: pageable.parent ? pageable.parent.slug : pageable.slug,
+							child: pageable.parent ? pageable.slug : null,
+						},
+						query: { page: current + 1 },
+					}"
+					custom
+				>
+					<button
+						:class="['btn', 'btn-pagination', 'btn-pagination_next']"
+						aria-label="Next"
+						:disabled="!nextUrl"
+						v-on="{ click: query ? navigate : handlePageNext }"
+					></button>
+				</nuxt-link>
+			</li>
+		</ul>
+		<div class="pagination-info">
+			{{ from }}–{{ to }} из {{ total }} {{ totalText }}
+		</div>
+	</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+	import { mapGetters } from 'vuex'
 
-export default {
+	export default {
+		name: 'Pagination',
 
-  name: 'Pagination',
+		components: {},
 
-  components: {
+		props: {
+			last: {
+				type: Number,
+				required: true,
+			},
 
-  },
+			current: {
+				type: Number,
+				required: true,
+			},
 
-  props: {
-    last: {
-      type: Number,
-      required: true,
-    },
+			query: {
+				type: Boolean,
+				default: false,
+			},
 
-    current: {
-      type: Number,
-      required: true,
-    },
+			prevUrl: {
+				type: String,
+				required: false,
+			},
 
-    query: {
-      type: Boolean,
-      default: false
-    },
+			nextUrl: {
+				type: String,
+				required: false,
+			},
 
-    prevUrl: {
-      type: String,
-      required: false,
-    },
+			from: {
+				type: Number,
+				required: true,
+			},
 
-    nextUrl: {
-      type: String,
-      required: false,
-    },
+			to: {
+				type: Number,
+				required: true,
+			},
 
-    from: {
-      type: Number,
-      required: true,
-    },
+			total: {
+				type: Number,
+				required: true,
+			},
 
-    to: {
-      type: Number,
-      required: true,
-    },
+			totalText: {
+				type: String,
+				default: '',
+			},
 
-    total: {
-      type: Number,
-      required: true,
-    },
+			loadMoreText: {
+				type: String,
+				default: 'Показать еще',
+			},
 
-    totalText: {
-      type: String,
-      default: ''
-    },
+			loadMoreWidth: {
+				type: Number,
+			},
+		},
 
-    loadMoreText: {
-      type: String,
-      default: 'Показать еще'
-    },
+		data: () => ({}),
 
-    loadMoreWidth: {
-      type: Number
-    },
-  },
+		created() {},
 
-  created() {
+		computed: {
+			...mapGetters({
+				pageable: 'pages/page',
+			}),
 
-  },
+			pages() {
+				let range = []
 
-  data: () => ({
+				for (var i = 0; i < this.last; i++) {
+					range.push({
+						number: i + 1,
+					})
+				}
 
-  }),
+				if (this.current > 3 && this.current + 3 < this.last) {
+					range = range.slice(this.current - 3, this.current + 2)
+				} else if (this.current + 2 >= this.last) {
+					range = range.slice(Math.max(0, this.last - 5), this.last)
+				} else {
+					range = range.slice(0, 5)
+				}
 
-  computed: {
+				return range
+			},
+		},
 
-    ...mapGetters({
-      pageable: 'pages/page',
-    }),
+		watch: {},
 
-    pages() {
+		methods: {
+			handlePageNext() {
+				this.$emit('next', this.current + 1)
+			},
 
-      let range = []
+			handlePagePrev() {
+				this.$emit('prev', this.current - 1)
+			},
 
-      for (var i = 0; i < this.last; i++) {
-        range.push({
-          number: i + 1
-        })
-      }
+			handlePageChange(number) {
+				if (number === this.current) return false
+				this.$emit('change', number)
+			},
 
-      if (this.current > 3 && this.current + 3 < this.last) {
-        range = range.slice(this.current - 3, this.current + 2)
-      } else if(this.current + 2 >= this.last) {
-        range = range.slice(Math.max(0, this.last - 5), this.last)
-      } else {
-        range = range.slice(0, 5)
-      }
-
-      return range
-    }
-  },
-
-  watch: {
-
-  },
-
-  methods: {
-    handlePageNext() {
-      this.$emit('next', this.current + 1)
-    },
-
-    handlePagePrev() {
-      this.$emit('prev', this.current - 1)
-    },
-
-    handlePageChange(number) {
-      if (number === this.current) return false
-      this.$emit('change', number)
-    },
-
-    handleShowMore() {
-      if (!this.nextUrl) return false
-      this.$emit('more')
-    },
-  }
-}
+			handleShowMore() {
+				if (!this.nextUrl) return false
+				this.$emit('more')
+			},
+		},
+	}
 </script>
 
 <style lang="scss">
-.pagination {
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
+	.pagination {
+		margin-bottom: 40px;
+		display: flex;
+		align-items: center;
 
-  &__list {
-    padding: 0;
-    margin: 0 28px 0 0;
-    display: flex;
-    align-items: center;
-  }
+		&__list {
+			padding: 0;
+			margin: 0 28px 0 0;
+			display: flex;
+			align-items: center;
+		}
 
-  &__item {
-    list-style: none;
-    overflow: hidden;
-    border-top: 1px solid #E9E9E9;
-    border-bottom: 1px solid #E9E9E9;
-    &:first-child {
-      border-left: 1px solid #E9E9E9;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-    &:last-child {
-      border-right: 1px solid #E9E9E9;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-    &_prev {
-      border-right: 1px solid #E9E9E9;
-    }
-    &_next {
-      border-left: 1px solid #E9E9E9;
-    }
-    &:hover,
-    &:focus,
-    &:active {
-      border-color: #2E87C8;
-    }
-    &_active {
-      border-color: #C6C7CA;
-      border-left: 0!important;
-      border-right: 0!important;
-      &:hover,
-      &:focus,
-      &:active {
-        border-color: #C6C7CA;
-      }
-    }
-  }
+		&__item {
+			list-style: none;
+			overflow: hidden;
+			border-top: 1px solid #e9e9e9;
+			border-bottom: 1px solid #e9e9e9;
+			&:first-child {
+				border-left: 1px solid #e9e9e9;
+				border-top-left-radius: 4px;
+				border-bottom-left-radius: 4px;
+			}
+			&:last-child {
+				border-right: 1px solid #e9e9e9;
+				border-top-right-radius: 4px;
+				border-bottom-right-radius: 4px;
+			}
+			&_prev {
+				border-right: 1px solid #e9e9e9;
+			}
+			&_next {
+				border-left: 1px solid #e9e9e9;
+			}
+			&:hover,
+			&:focus,
+			&:active {
+				border-color: #2e87c8;
+			}
+			&_active {
+				border-color: #c6c7ca;
+				border-left: 0 !important;
+				border-right: 0 !important;
+				&:hover,
+				&:focus,
+				&:active {
+					border-color: #c6c7ca;
+				}
+			}
+		}
 
-  &-info {
-    line-height: 36px;
-    font-family: 'Proxima Nova';
-    font-size: 14px;
-    line-height: 16px;
-    color: #555555;
-  }
-}
+		&-info {
+			line-height: 36px;
+			font-family: 'Proxima Nova';
+			font-size: 14px;
+			line-height: 16px;
+			color: #555555;
+		}
+	}
 
-.btn-pagination {
-  border-radius: 0;
-  padding: 2px;
-  min-width: 36px;
-  display: block;
-  position: relative;
-  font-family: Proxima Nova;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 30px;
-  text-align: center;
-  color: #777777;
-  background: #FFFFFF;
-  &_prev {
-    &:before {
-      content: '';
-      display: inline-block;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 4px 4px 4px 0;
-      border-color: transparent #c6c7ca transparent transparent;
-    }
+	.btn-pagination {
+		border-radius: 0;
+		padding: 2px;
+		min-width: 36px;
+		display: block;
+		position: relative;
+		font-family: Proxima Nova;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 30px;
+		text-align: center;
+		color: #777777;
+		background: #ffffff;
+		&_prev {
+			&:before {
+				content: '';
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 4px 4px 4px 0;
+				border-color: transparent #c6c7ca transparent transparent;
+			}
 
-    &:hover,
-    &:focus,
-    &:active {
-      color: #FFFFFF;
-      background: #2E87C8;
-      &:before {
-        border-color: transparent #FFFFFF transparent transparent;
-      }
-    }
-  }
+			&:hover,
+			&:focus,
+			&:active {
+				color: #ffffff;
+				background: #2e87c8;
+				&:before {
+					border-color: transparent #ffffff transparent transparent;
+				}
+			}
+		}
 
-  &_next {
-    &:before {
-      content: '';
-      display: inline-block;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 4px 0 4px 4px;
-      border-color: transparent transparent transparent #c6c7ca;
-    }
+		&_next {
+			&:before {
+				content: '';
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 4px 0 4px 4px;
+				border-color: transparent transparent transparent #c6c7ca;
+			}
 
-    &:hover,
-    &:focus,
-    &:active {
-      color: #FFFFFF;
-      background: #2E87C8;
-      &:before {
-        border-color: transparent transparent transparent #FFFFFF;
-      }
-    }
-  }
+			&:hover,
+			&:focus,
+			&:active {
+				color: #ffffff;
+				background: #2e87c8;
+				&:before {
+					border-color: transparent transparent transparent #ffffff;
+				}
+			}
+		}
 
-  &:hover,
-  &:focus,
-  &:active {
-    color: #FFFFFF;
-    background: #2E87C8;
-  }
+		&:hover,
+		&:focus,
+		&:active {
+			color: #ffffff;
+			background: #2e87c8;
+		}
 
-  &_active {
-    color: #FFFFFF;
-    background: #C6C7CA;
-    &:hover,
-    &:focus,
-    &:active {
-      color: #FFFFFF;
-      background: #C6C7CA;
-    }
-  }
+		&_active {
+			color: #ffffff;
+			background: #c6c7ca;
+			&:hover,
+			&:focus,
+			&:active {
+				color: #ffffff;
+				background: #c6c7ca;
+			}
+		}
 
-  &_more {
-    margin: 0 28px 0 0;
-    width: auto;
-    padding: 10px 20px;
-  }
-}
+		&_more {
+			margin: 0 28px 0 0;
+			width: auto;
+			padding: 10px 20px;
+		}
+	}
 </style>

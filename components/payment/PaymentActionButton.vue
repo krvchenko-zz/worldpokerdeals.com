@@ -1,87 +1,81 @@
 <template>
-  <nuxt-link :to="to" v-slot="{ href, route, navigate }">
-    <button :style="{ background: background }" :class="[
-      'btn', 'btn-payment-action',
-      `btn-payment-action_${type}`
-    ]" :href="href" v-on="shouldRegister ? { click: handleRegister } : { click: navigate }">{{ label }}</button>
-  </nuxt-link>
+	<nuxt-link v-slot="{ href, route, navigate }" :to="to">
+		<button
+			:style="{ background: background }"
+			:class="['btn', 'btn-payment-action', `btn-payment-action_${type}`]"
+			:href="href"
+			v-on="shouldRegister ? { click: handleRegister } : { click: navigate }"
+		>
+			{{ label }}
+		</button>
+	</nuxt-link>
 </template>
 
 <script>
+	export default {
+		name: 'PaymentActionButton',
 
-export default {
+		components: {},
 
-  name: 'PaymentActionButton',
+		props: {
+			type: {
+				type: String,
+			},
 
-  components: {
+			label: {
+				type: String,
+				default: '',
+			},
 
-  },
+			url: {
+				type: String,
+				default: '',
+			},
 
-  props: {
-    type: {
-      type: String
-    },
+			vipUrl: {
+				type: String,
+				default: '',
+			},
 
-    label: {
-      type: String,
-      default: ''
-    },
+			background: {
+				type: String,
+				default: '',
+			},
+		},
 
-    url: {
-      type: String,
-      default: ''
-    },
+		data: () => ({}),
 
-    vipUrl: {
-      type: String,
-      default: ''
-    },
+		computed: {
+			to() {
+				return this.vipUrl
+			},
 
-    background: {
-      type: String,
-      default: ''
-    }
-  },
+			shouldRegister() {
+				return this.type === 'register' ? true : false
+			},
+		},
 
-	created() {
+		watch: {},
 
-	},
+		created() {},
 
-	data: () => ({
-
-	}),
-
-  computed: {
-    to() {
-      return this.vipUrl
-    },
-
-    shouldRegister() {
-      return this.type === 'register' ? true : false
-    }
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-    handleRegister() {
-      window.open(this.url, '_blank')
-    }
+		methods: {
+			handleRegister() {
+				window.open(this.url, '_blank')
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
-.btn-payment-action {
-  margin-right: 28px;
-  padding: 11px 12px 10px 12px;
-  color: #FFFFFF;
-  &:hover,
-  &:active,
-  &:focus {
-    color: #FFFFFF;
-  }
-}
+	.btn-payment-action {
+		margin-right: 28px;
+		padding: 11px 12px 10px 12px;
+		color: #ffffff;
+		&:hover,
+		&:active,
+		&:focus {
+			color: #ffffff;
+		}
+	}
 </style>

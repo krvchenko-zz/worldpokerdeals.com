@@ -1,102 +1,98 @@
 <template>
-  <nuxt-link :to="to" v-slot="{ href, route, navigate }">
-    <button :disabled="disabled" :class="[
-      'btn', 'btn-soft-action',
-      `btn-soft-action_${type}`,
-      disabled && 'btn-soft-action_disabled',
-      icon && `btn-soft-action_icon`
-    ]" v-on="{ click: handleClick }">{{ label }}</button>
-  </nuxt-link>
+	<nuxt-link v-slot="{ href, route, navigate }" :to="to">
+		<button
+			:disabled="disabled"
+			:class="[
+				'btn',
+				'btn-soft-action',
+				`btn-soft-action_${type}`,
+				disabled && 'btn-soft-action_disabled',
+				icon && `btn-soft-action_icon`,
+			]"
+			v-on="{ click: handleClick }"
+		>
+			{{ label }}
+		</button>
+	</nuxt-link>
 </template>
 
 <script>
+	export default {
+		name: 'SoftActionButton',
 
-export default {
+		components: {},
 
-  name: 'SoftActionButton',
+		props: {
+			type: {
+				type: String,
+				default: 'download',
+			},
 
-  components: {
+			label: {
+				type: String,
+				default: '',
+			},
 
-  },
+			icon: {
+				type: Boolean,
+				default: false,
+			},
 
-  props: {
-    type: {
-      type: String,
-      default: 'download'
-    },
+			slug: {
+				type: String,
+				default: '',
+			},
 
-    label: {
-      type: String,
-      default: ''
-    },
+			color: {
+				type: String,
+				default: '#FFFFFF',
+			},
 
-    icon: {
-      type: Boolean,
-      default: false
-    },
+			disabled: {
+				type: Boolean,
+				default: false,
+			},
+		},
 
-    slug: {
-      type: String,
-      default: ''
-    },
+		data: () => ({}),
 
-    color: {
-      type: String,
-      default: '#FFFFFF'
-    },
+		computed: {
+			to() {
+				return `${this.slug}/download`
+			},
+		},
 
-    disabled: {
-      type: Boolean,
-      default: false
-    }
+		watch: {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-    to() {
-      return `${this.slug}/download`
-    },
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-    handleClick() {
-      window.open(this.to, '_blank');
-    }
+		methods: {
+			handleClick() {
+				window.open(this.to, '_blank')
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
-$ico-soft-download: url('~assets/i/ico-soft-download.svg?data');
-.btn-soft-action {
-  color: #FFFFFF;
-  font-family: 'Proxima Nova Sb';
-  font-size: 16px;
-  line-height: 16px;
-  color: #FFFFFF;
-  background: #FF5E38;
+	$ico-soft-download: url('~assets/i/ico-soft-download.svg?data');
+	.btn-soft-action {
+		color: #ffffff;
+		font-family: 'Proxima Nova Sb';
+		font-size: 16px;
+		line-height: 16px;
+		color: #ffffff;
+		background: #ff5e38;
 
-  &_icon {
-    padding: 12px 44px 12px 76px;
-    text-align: right;
-    background: #FF5E38 $ico-soft-download no-repeat 44px center;
-    &:hover,
-    &:active,
-    &:visited {
-      color: #FFFFFF;
-    }
-  }
-}
+		&_icon {
+			padding: 12px 44px 12px 76px;
+			text-align: right;
+			background: #ff5e38 $ico-soft-download no-repeat 44px center;
+			&:hover,
+			&:active,
+			&:visited {
+				color: #ffffff;
+			}
+		}
+	}
 </style>

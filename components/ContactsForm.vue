@@ -1,5 +1,9 @@
 <template>
-<form class="contacts-form" @submit.prevent="submit" @keydown="form.onKeydown($event)">
+	<form
+		class="contacts-form"
+		@submit.prevent="submit"
+		@keydown="form.onKeydown($event)"
+	>
 		<div class="contacts-form-group">
 			<div class="row">
 				<div class="col">
@@ -13,7 +17,7 @@
 						:loading="form.busy"
 						:error="form.errors.has('name')"
 					/>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="name" />
 					</transition>
 				</div>
@@ -28,7 +32,7 @@
 						:loading="form.busy"
 						:error="form.errors.has('email')"
 					/>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="email" />
 					</transition>
 				</div>
@@ -47,7 +51,7 @@
 						:loading="form.busy"
 						:error="form.errors.has('message')"
 					/>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="message" />
 					</transition>
 				</div>
@@ -58,7 +62,10 @@
 			<div class="row">
 				<div class="col">
 					<form-checkbox v-model="form.terms">
-						<span style="color: #CCCCCC;">С <a class="contacts-form__link" href="#">условиями</a> отправки и обработки данных согласен</span>
+						<span style="color: #CCCCCC;"
+							>С <a class="contacts-form__link" href="#">условиями</a> отправки
+							и обработки данных согласен</span
+						>
 					</form-checkbox>
 				</div>
 			</div>
@@ -68,104 +75,100 @@
 			<div class="row">
 				<div class="col-5">
 					<form-submit-button
-						:disabled="!form.terms || !form.email || !form.name || !form.message"
+						:disabled="
+							!form.terms || !form.email || !form.name || !form.message
+						"
 						class="btn-block btn-contacts-form"
 						label="Отправить"
-						:loading="form.busy">
+						:loading="form.busy"
+					>
 					</form-submit-button>
 				</div>
 			</div>
 		</div>
-
-</form>
-
+	</form>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Form from 'vform'
+	import { mapGetters } from 'vuex'
+	import Form from 'vform'
 
-export default {
+	export default {
+		name: 'ContactsForm',
 
-	name: 'ContactsForm',
+		components: {},
 
-	components: {
+		computed: {
+			...mapGetters({
+				auth: 'auth/check',
+				user: 'auth/user',
+			}),
+		},
 
-	},
-
-	computed: {
-		...mapGetters({
-			auth: 'auth/check',
-			user: 'auth/user',
-		})
-	},
-
-	data: () => ({
-		form: new Form({
-			email: null,
-			name: null,
-			message: '',
-			terms: false,
+		data: () => ({
+			form: new Form({
+				email: null,
+				name: null,
+				message: '',
+				terms: false,
+			}),
 		}),
-	}),
 
-	watch: {
-		user: {
-			immediate: true,
-			deep: true,
-			handler(data) {
-				if (this.auth) {
-					this.form.keys().forEach(key => {
-						this.form[key] = data[key]
+		watch: {
+			user: {
+				immediate: true,
+				deep: true,
+				handler(data) {
+					if (this.auth) {
+						this.form.keys().forEach(key => {
+							this.form[key] = data[key]
+						})
+					}
+				},
+			},
+		},
+
+		methods: {
+			async submit() {
+				this.form
+					.post('/contacts')
+					.then(response => {
+						this.$emit('submit')
+						this.form.reset()
 					})
-				}
-			}
-		}
-	},
-
-	methods: {
-		async submit () {
-			this.form.post('/contacts').then((response) => {
-				this.$emit('submit')
-				this.form.reset()
-			})
-			.catch(e => {
-			})
-		}
+					.catch(e => {})
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
+	.contacts-form {
+		margin-bottom: 48px;
 
-.contacts-form {
+		&-group {
+			position: relative;
+			margin-bottom: 24px;
+			&:last-child {
+				margin: 0;
+			}
+		}
 
-	margin-bottom: 48px;
+		&__link {
+			margin-left: 2px;
+			font-family: Proxima Nova;
+			font-size: 14px;
+			line-height: 20px;
+			text-decoration-line: underline;
+			font-feature-settings: 'tnum' on, 'lnum' on;
+			color: #008be2;
+		}
 
-	&-group {
-		position: relative;
-		margin-bottom: 24px;
-		&:last-child {
-			margin: 0;
+		&__contacts {
 		}
 	}
 
-	&__link {
-		margin-left: 2px;
-		font-family: Proxima Nova;
-		font-size: 14px;
-		line-height: 20px;
-		text-decoration-line: underline;
-		font-feature-settings: 'tnum' on, 'lnum' on;
-		color: #008BE2;
+	.btn-contacts-form {
+		padding: 10px 28px;
 	}
-
-	&__contacts {
-
-	}
-}
-
-.btn-contacts-form {
-	padding: 10px 28px;
-}
 </style>

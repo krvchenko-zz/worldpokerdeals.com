@@ -2,31 +2,31 @@
 
 // state
 export const state = () => ({
-  locale: 'en',
-  locales: {
-    'en': 'ENG',
-    'ru': 'РУС',
-    'es': 'ESP'
-  }
+	locale: 'en',
+	locales: {
+		en: 'ENG',
+		ru: 'РУС',
+		es: 'ESP',
+	},
 })
 
 // getters
 export const getters = {
-  locale: state => state.locale,
-  locales: state => state.locales
+	locale: state => state.locale,
+	locales: state => state.locales,
 }
 
 // mutations
 export const mutations = {
-  SET_LOCALE (state, { locale }) {
-    state.locale = locale
-  }
+	SET_LOCALE(state, { locale }) {
+		state.locale = locale
+	},
 }
 
 // actions
 export const actions = {
-  setLocale ({ commit }, { locale }) {
-    commit('SET_LOCALE', { locale })
-    // Cookies.set('locale', locale, { expires: 365 })
-  }
+	setLocale({ commit }, { locale }) {
+		commit('SET_LOCALE', { locale })
+		// Cookies.set('locale', locale, { expires: 365 })
+	},
 }

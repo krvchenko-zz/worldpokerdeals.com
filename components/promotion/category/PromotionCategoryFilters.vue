@@ -1,6 +1,5 @@
 <template>
 	<div class="filters">
-
 		<div class="filters__label">Фильтры</div>
 
 		<div v-if="category.entity === 'promotion'" class="filter">
@@ -8,9 +7,9 @@
 				<checkbox
 					v-model="selected.exclusive.value"
 					label="Только эксклюзивные"
-					@change="handleFilterChange"
 					:true-value="1"
 					:false-value="null"
+					@change="handleFilterChange"
 				/>
 			</filter-item>
 		</div>
@@ -21,7 +20,10 @@
 			icon="filter-promotion-category"
 			:opened="true"
 		>
-			<filter-item v-if="categories.length" v-for="(item, index) in categories" :key="index"
+			<filter-item
+				v-for="(item, index) in categories"
+				v-if="categories.length"
+				:key="index"
 				:count="item.count"
 			>
 				<checkbox
@@ -38,7 +40,10 @@
 			label="По дисциплинам"
 			icon="filter-discipline"
 		>
-			<filter-item v-if="disciplines.length" v-for="(item, index) in disciplines" :key="index"
+			<filter-item
+				v-for="(item, index) in disciplines"
+				v-if="disciplines.length"
+				:key="index"
 				:count="item.count"
 			>
 				<checkbox
@@ -55,7 +60,10 @@
 			label="Формат игры"
 			icon="filter-game"
 		>
-			<filter-item v-if="games.length" v-for="(item, index) in games" :key="index"
+			<filter-item
+				v-for="(item, index) in games"
+				v-if="games.length"
+				:key="index"
 				:count="item.count"
 			>
 				<checkbox
@@ -72,7 +80,10 @@
 			label="Лимиты"
 			icon="filter-limit"
 		>
-			<filter-item v-if="limits.length" v-for="(item, index) in limits" :key="index"
+			<filter-item
+				v-for="(item, index) in limits"
+				v-if="limits.length"
+				:key="index"
 				:count="item.count"
 			>
 				<checkbox
@@ -84,11 +95,11 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown
-			label="Покер-румы"
-			icon="filter-room"
-		>
-			<filter-item v-if="rooms.length" v-for="(item, index) in rooms" :key="index"
+		<filter-dropdown label="Покер-румы" icon="filter-room">
+			<filter-item
+				v-for="(item, index) in rooms"
+				v-if="rooms.length"
+				:key="index"
 				:icon="item.slug"
 				:count="item.count"
 			>
@@ -101,11 +112,11 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown
-			label="Сети"
-			icon="filter-network"
-		>
-			<filter-item v-if="networks.length" v-for="(item, index) in networks" :key="index"
+		<filter-dropdown label="Сети" icon="filter-network">
+			<filter-item
+				v-for="(item, index) in networks"
+				v-if="networks.length"
+				:key="index"
 				:icon="item.slug"
 				:count="item.count"
 			>
@@ -121,97 +132,87 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
+	import filterMixin from '~/mixins/filterMixin'
 
-import { mapGetters } from 'vuex'
-import filterMixin from '~/mixins/filterMixin'
+	export default {
+		name: 'PromotionCategoryFilters',
 
-export default {
+		components: {},
 
-	name: 'PromotionCategoryFilters',
+		mixins: [filterMixin],
 
-	components: {
-
-	},
-
-	mixins: [filterMixin],
-
-	data: () => ({
-		selected: {
-			exclusive: {
-				label: 'Эксклюзивные',
-				value: null
+		data: () => ({
+			selected: {
+				exclusive: {
+					label: 'Эксклюзивные',
+					value: null,
+				},
+				categories: [],
+				disciplines: [],
+				limits: [],
+				games: [],
+				rooms: [],
+				networks: [],
 			},
-			categories: [],
-			disciplines: [],
-			limits: [],
-			games: [],
-			rooms: [],
-			networks: [],
-		}
-	}),
-
-	computed: {
-		...mapGetters({
-			category: 'promotions/category'
 		}),
-	},
 
-	mounted() {
+		computed: {
+			...mapGetters({
+				category: 'promotions/category',
+			}),
+		},
 
-	},
+		watch: {},
 
-	watch: {
+		mounted() {},
 
-	},
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-$ico-filters: url('~assets/i/ico-filters.svg?data');
+	$ico-filters: url('~assets/i/ico-filters.svg?data');
 
-.filters {
-	margin-bottom: 40px;
-	border-radius: 4px;
-	overflow: hidden;
-	background: #2E3141;
-	box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
-}
-
-.filters__label {
-	position: relative;
-	padding: 20px 24px;
-	font-family: 'Proxima Nova';
-	font-style: normal;
-	font-weight: bold;
-	font-size: 18px;
-	line-height: 24px;
-	letter-spacing: -0.2px;
-	color: #FFFFFF;
-	background: #2E3141;
-	&:after {
-		right: 20px;
-		top: 12px;
-		position: absolute;
-		content: '';
-		width: 33px;
-		height: 34px;
-		background: $ico-filters no-repeat center;
+	.filters {
+		margin-bottom: 40px;
+		border-radius: 4px;
+		overflow: hidden;
+		background: #2e3141;
+		box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
 	}
-}
 
-.filter {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	border: 1px solid #E9E9E9;
-	border-bottom: 0;
-	background: #FAFAFA;
-	padding: 20px;
-	.filter-item {
-		padding: 0
+	.filters__label {
+		position: relative;
+		padding: 20px 24px;
+		font-family: 'Proxima Nova';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 24px;
+		letter-spacing: -0.2px;
+		color: #ffffff;
+		background: #2e3141;
+		&:after {
+			right: 20px;
+			top: 12px;
+			position: absolute;
+			content: '';
+			width: 33px;
+			height: 34px;
+			background: $ico-filters no-repeat center;
+		}
 	}
-}
+
+	.filter {
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		border: 1px solid #e9e9e9;
+		border-bottom: 0;
+		background: #fafafa;
+		padding: 20px;
+		.filter-item {
+			padding: 0;
+		}
+	}
 </style>

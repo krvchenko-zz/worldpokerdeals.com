@@ -1,143 +1,133 @@
 <template>
-  <div class="filters">
+	<div class="filters">
+		<div class="filters__label">Фильтры</div>
 
-    <div class="filters__label">Фильтры</div>
+		<div class="filter">
+			<filter-item :count="free.count">
+				<checkbox
+					v-model="selected.free"
+					label="Только бесплатный софт"
+					:true-value="true"
+					:false-value="null"
+					@change="handleFilterChange"
+				/>
+			</filter-item>
+		</div>
 
-    <div class="filter">
-      <filter-item :count="free.count">
-        <checkbox
-          v-model="selected.free"
-          label="Только бесплатный софт"
-          @change="handleFilterChange"
-          :trueValue="true"
-          :falseValue="null"
-        />
-      </filter-item>
-    </div>
-
-    <filter-dropdown
-      label="Тип софта"
-      icon="filter-discipline"
-      v-if="categories.length"
-    >
-      <filter-item v-for="(item, index) in categories" :key="index"
-        :count="item.count"
-      >
-        <checkbox
-          v-model="selected.categories"
-          :value="item.value"
-          :label="item.label"
-          @change="handleFilterChange"
-        />
-      </filter-item>
-    </filter-dropdown>
-
-  </div>
+		<filter-dropdown
+			v-if="categories.length"
+			label="Тип софта"
+			icon="filter-discipline"
+		>
+			<filter-item
+				v-for="(item, index) in categories"
+				:key="index"
+				:count="item.count"
+			>
+				<checkbox
+					v-model="selected.categories"
+					:value="item.value"
+					:label="item.label"
+					@change="handleFilterChange"
+				/>
+			</filter-item>
+		</filter-dropdown>
+	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex'
+	export default {
+		name: 'Filters',
 
-export default {
+		components: {},
 
-  name: 'Filters',
+		props: {
+			geo: {
+				required: true,
+			},
 
-  components: {
-  },
+			categories: {
+				type: Array,
+			},
 
-  props: {
+			free: {
+				type: [Array, Object],
+			},
+		},
 
-    geo: {
-      required: true
-    },
+		data: () => ({
+			loading: false,
+			selected: {
+				categories: [],
+				free: null,
+			},
+		}),
 
-    categories: {
-      type: Array,
-    },
+		updated() {},
 
-    free: {
-      type: [Array, Object]
-    }
-  },
+		created() {},
 
-  updated() {
+		computed: {
+			...mapGetters({
+				locale: 'lang/locale',
+				country: 'location/country',
+			}),
+		},
 
-  },
+		watch: {},
 
-  created() {
-
-  },
-
-  data: () => ({
-    loading: false,
-    selected: {
-      categories: [],
-      free: null
-    }
-  }),
-
-  computed: {
-    ...mapGetters({
-      locale: 'lang/locale',
-      country: 'location/country',
-    }),
-  },
-
-  watch: {
-
-  },
-
-  methods: {
-    handleFilterChange() {
-      this.$emit('change', this.selected)
-    },
-  }
-}
+		methods: {
+			handleFilterChange() {
+				this.$emit('change', this.selected)
+			},
+		},
+	}
 </script>
 
 <style lang="scss">
-$ico-filters: url('~assets/i/ico-filters.svg?data');
+	$ico-filters: url('~assets/i/ico-filters.svg?data');
 
-.filters {
-  margin-bottom: 40px;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #2E3141;
-  box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
-}
+	.filters {
+		margin-bottom: 40px;
+		border-radius: 4px;
+		overflow: hidden;
+		background: #2e3141;
+		box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
+	}
 
-.filters__label {
-  position: relative;
-  padding: 20px 24px;
-  font-family: 'Proxima Nova';
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.2px;
-  color: #FFFFFF;
-  background: #2E3141;
-  &:after {
-    right: 20px;
-    top: 12px;
-    position: absolute;
-    content: '';
-    width: 33px;
-    height: 34px;
-    background: $ico-filters no-repeat center;
-  }
-}
+	.filters__label {
+		position: relative;
+		padding: 20px 24px;
+		font-family: 'Proxima Nova';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 24px;
+		letter-spacing: -0.2px;
+		color: #ffffff;
+		background: #2e3141;
+		&:after {
+			right: 20px;
+			top: 12px;
+			position: absolute;
+			content: '';
+			width: 33px;
+			height: 34px;
+			background: $ico-filters no-repeat center;
+		}
+	}
 
-.filter {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border: 1px solid #E9E9E9;
-  border-bottom: 0;
-  background: #FAFAFA;
-  padding: 20px;
-  .filter-item {
-    padding: 0
-  }
-}
+	.filter {
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		border: 1px solid #e9e9e9;
+		border-bottom: 0;
+		background: #fafafa;
+		padding: 20px;
+		.filter-item {
+			padding: 0;
+		}
+	}
 </style>

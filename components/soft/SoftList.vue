@@ -1,54 +1,38 @@
 <template>
-<div class="soft-list">
-  <div v-if="label" class="block-title">{{ label }}</div>
-  <slot />
-</div>
+	<div class="soft-list">
+		<div v-if="label" class="block-title">{{ label }}</div>
+		<slot />
+	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex'
+	export default {
+		name: 'SoftList',
 
-export default {
+		components: {},
 
-  name: 'SoftList',
+		props: {
+			label: {
+				type: String,
+			},
+		},
 
-  components: {
+		data: () => ({}),
 
-  },
+		async fetch() {},
 
-  props: {
-    label: {
-      type: String
-    }
-  },
+		created() {},
 
-	created() {
+		computed: {
+			...mapGetters({}),
+		},
 
-	},
+		watch: {},
 
-	data: () => ({
-
-	}),
-
-  async fetch() {
-
-  },
-
-  computed: {
-    ...mapGetters({
-    }),
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

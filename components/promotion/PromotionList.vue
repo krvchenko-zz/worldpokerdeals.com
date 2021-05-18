@@ -1,47 +1,31 @@
 <template>
-  <div class="promotions-list">
-    <slot/>
-  </div>
+	<div class="promotions-list">
+		<slot />
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'PromotionList',
 
-export default {
+		components: {},
 
-  name: 'PromotionList',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		computed: {},
 
-  props: {
+		watch: {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-.promotions-list {
-  overflow: hidden;
-}
+	.promotions-list {
+		overflow: hidden;
+	}
 </style>

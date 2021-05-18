@@ -34,53 +34,52 @@ export default {
 
 		// Rooms
 		kycs: {
-			type: Array
+			type: Array,
 		},
 
 		platforms: {
-			type: Array
+			type: Array,
 		},
 
 		tags: {
-			type: Array
+			type: Array,
 		},
 
 		payments: {
-			type: Array
+			type: Array,
 		},
 
 		types: {
-			type: Array
+			type: Array,
 		},
 
 		licenses: {
-			type: Array
+			type: Array,
 		},
 
 		limits: {
-			type: Array
+			type: Array,
 		},
 
 		games: {
-			type: Array
+			type: Array,
 		},
 
 		disciplines: {
-			type: Array
+			type: Array,
 		},
 
 		networks: {
-			type: Array
+			type: Array,
 		},
 
 		huds: {
-			type: Array
+			type: Array,
 		},
 
 		certificates: {
-			type: Array
+			type: Array,
 		},
-
 	},
 
 	data: () => ({
@@ -90,30 +89,29 @@ export default {
 	computed: {
 		...mapGetters({
 			locale: 'lang/locale',
-			country: 'location/country'
+			country: 'location/country',
 		}),
 
 		flatten() {
 			let items = []
 			Object.keys(this.selected).forEach(key => {
-			if (Array.isArray(this.selected[key]) && this.selected[key].length) {
-				for (let i = 0; i < this.selected[key].length; i++) {
-				let item = {
-					...this.selected[key][i],
-					key: key
+				if (Array.isArray(this.selected[key]) && this.selected[key].length) {
+					for (let i = 0; i < this.selected[key].length; i++) {
+						let item = {
+							...this.selected[key][i],
+							key: key,
+						}
+						items.push(item)
+					}
 				}
-				items.push(item)
-				}
-			}
 
-			if (!Array.isArray(this.selected[key]) && this.selected[key].value) {
-				let item = {
-				...this.selected[key],
-					key: key
+				if (!Array.isArray(this.selected[key]) && this.selected[key].value) {
+					let item = {
+						...this.selected[key],
+						key: key,
+					}
+					items.push(item)
 				}
-				items.push(item)
-			}
-
 			})
 
 			return [].concat.apply([], items)
@@ -122,29 +120,29 @@ export default {
 		values() {
 			let items = {}
 			Object.keys(this.selected).forEach(key => {
-			if (Array.isArray(this.selected[key])) {
-				items[key] = [].map.call(this.selected[key], item => { return item.value })
-			}
+				if (Array.isArray(this.selected[key])) {
+					items[key] = [].map.call(this.selected[key], item => {
+						return item.value
+					})
+				}
 
-			if (!Array.isArray(this.selected[key])) {
-				items[key] = this.selected[key].value
-			}
+				if (!Array.isArray(this.selected[key])) {
+					items[key] = this.selected[key].value
+				}
 			})
-			return items;
-		}
+			return items
+		},
 	},
 
 	mounted() {
-
 		this.initial = deepCopy(this.selected)
 
 		eventBus.$on('selected:delete', data => {
-
 			this.reset(data, data.clear)
 
 			this.$emit('change', {
 				flatten: this.flatten,
-				values: this.values
+				values: this.values,
 			})
 		})
 	},
@@ -157,7 +155,9 @@ export default {
 			}
 
 			if (Array.isArray(this.selected[data.key])) {
-				this.selected[data.key] = this.selected[data.key].filter(item => { return item.value !== data.value})
+				this.selected[data.key] = this.selected[data.key].filter(item => {
+					return item.value !== data.value
+				})
 			}
 
 			if (!Array.isArray(this.selected[data.key])) {
@@ -168,8 +168,8 @@ export default {
 		handleFilterChange() {
 			this.$emit('change', {
 				flatten: this.flatten,
-				values: this.values
+				values: this.values,
 			})
 		},
-	}
+	},
 }

@@ -2,23 +2,20 @@
 
 // state
 export const state = () => ({
-  reviews: null
+	reviews: null,
 })
 
 // getters
 export const getters = {
-  reviews: state => state.reviews
+	reviews: state => state.reviews,
 }
 
 // mutations
 export const mutations = {
-
-  FETCH_REVIEWS (state, { reviews }) {
-    state.reviews = reviews
-  },
+	FETCH_REVIEWS(state, { reviews }) {
+		state.reviews = reviews
+	},
 }
 
 // actions
-export const actions = {
-
-}
+export const actions = {}

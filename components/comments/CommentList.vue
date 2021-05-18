@@ -1,44 +1,27 @@
 <template>
-<div class="comment-list">
-	<slot />
-</div>
+	<div class="comment-list">
+		<slot />
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'CommentList',
 
-export default {
+		components: {},
 
-  name: 'CommentList',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		computed: {},
 
-  props: {
+		watch: {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
-<style lang="scss">	
-</style>
+<style lang="scss"></style>

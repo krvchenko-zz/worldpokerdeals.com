@@ -1,112 +1,107 @@
 export default {
-  name: 'carousel',
+	name: 'carousel',
 
-  inserted: (el, binding) => {
+	inserted: (el, binding) => {
+		let getItemsWidth = function(items) {
+			let width = 0
+			for (var i = 0; i < items.length; i++) {
+				let margin = parseInt(getComputedStyle(items[i], null).marginRight)
+				width += items[i].offsetWidth + margin
+			}
+			return width
+		}
 
-    let getItemsWidth = function(items) {
-      let width = 0
-      for (var i = 0; i < items.length; i++) {
-        let margin = parseInt(getComputedStyle(items[i], null).marginRight)
-        width += items[i].offsetWidth + margin
-      }
-      return width
-    }
+		let handler = function() {
+			// Carousel
+			let elements = el.getElementsByClassName('gallery')
 
-    let handler = function() {
+			for (var i = 0; i < elements.length; i++) {
+				let gallery = elements[i],
+					wrapper = gallery.parentNode,
+					slides = gallery.children,
+					galleryWidth = gallery.offsetWidth,
+					galleryHeight = gallery.offsetHeight,
+					itemsWidth = getItemsWidth(slides),
+					position = 0,
+					scrollTo = 0,
+					//Touch
+					isDown = false,
+					startX,
+					scrollLeft
 
-      // Carousel
-      let elements = el.getElementsByClassName('gallery')
+				if (wrapper.className !== 'gallery-wrap') {
+					wrapper = document.createElement('div')
+					wrapper.className = 'gallery-wrap'
+					gallery.parentNode.insertBefore(wrapper, gallery)
+					wrapper.appendChild(gallery)
+				}
 
-      for (var i = 0; i < elements.length; i++) {
-        let gallery = elements[i],
-            wrapper = gallery.parentNode,
-            slides = gallery.children,
-            galleryWidth = gallery.offsetWidth,
-            galleryHeight = gallery.offsetHeight,
-            itemsWidth = getItemsWidth(slides),
-            position = 0,
-            scrollTo = 0,
-            //Touch
-            isDown = false,
-            startX,
-            scrollLeft
+				wrapper.style.height = `${galleryHeight}px`
 
-        if (wrapper.className !== 'gallery-wrap') {
-          wrapper = document.createElement('div')
-          wrapper.className = 'gallery-wrap'
-          gallery.parentNode.insertBefore(wrapper, gallery)
-          wrapper.appendChild(gallery)
-        }
+				if (itemsWidth > galleryWidth) {
+					let toggleBtn = wrapper.querySelector('.gallery__btn')
 
-        wrapper.style.height = `${galleryHeight}px`
+					if (!toggleBtn) {
+						toggleBtn = document.createElement('span')
+						toggleBtn.className = 'gallery__btn gallery__btn_next'
+						wrapper.appendChild(toggleBtn)
+					}
 
-        if (itemsWidth > galleryWidth) {
+					toggleBtn.addEventListener('click', function() {
+						if (scrollTo + galleryWidth < itemsWidth) {
+							let nextSlide = slides[position]
+							scrollTo +=
+								nextSlide.offsetWidth +
+								parseInt(getComputedStyle(nextSlide, null).marginRight)
+							position++
+						} else {
+							position = 0
+							scrollTo = 0
+						}
+						gallery.scrollTo({
+							top: 0,
+							left: scrollTo,
+							behavior: 'smooth',
+						})
+					})
+				}
 
-          let toggleBtn = wrapper.querySelector('.gallery__btn')
+				gallery.addEventListener('mousedown', e => {
+					isDown = true
+					gallery.classList.add('active')
+					startX = e.pageX - gallery.offsetLeft
+					scrollLeft = gallery.scrollLeft
+				})
+				gallery.addEventListener('mouseleave', () => {
+					isDown = false
+					gallery.classList.remove('active')
+				})
+				gallery.addEventListener('mouseup', e => {
+					e.stopPropagation()
+					isDown = false
+					gallery.classList.remove('active')
+				})
+				gallery.addEventListener('mousemove', e => {
+					if (!isDown) return
+					e.preventDefault()
+					const x = e.pageX - gallery.offsetLeft
+					const walk = x - startX
+					gallery.scrollLeft = scrollLeft - walk
+				})
+			}
+		}
 
-          if (!toggleBtn) {
-            toggleBtn = document.createElement('span')
-            toggleBtn.className = 'gallery__btn gallery__btn_next'
-            wrapper.appendChild(toggleBtn)
-          }
+		let images = el.getElementsByClassName('gallery__item-img')
 
-          toggleBtn.addEventListener('click', function () {
-            if (scrollTo + galleryWidth < itemsWidth) {
-              let nextSlide = slides[position]
-              scrollTo += nextSlide.offsetWidth + parseInt(getComputedStyle(nextSlide, null).marginRight)
-              position++
-            } else {
-              position = 0
-              scrollTo = 0
-            }
-            gallery.scrollTo({
-              top: 0,
-              left: scrollTo,
-              behavior: 'smooth'
-            })
-          })
-        }
+		for (var i = 0; i < images.length; i++) {
+			images[i].addEventListener('load', handler)
+		}
 
-        gallery.addEventListener('mousedown', (e) => {
-          isDown = true
-          gallery.classList.add('active')
-          startX = e.pageX - gallery.offsetLeft
-          scrollLeft = gallery.scrollLeft
-        })
-        gallery.addEventListener('mouseleave', () => {
-          isDown = false
-          gallery.classList.remove('active')
-        })
-        gallery.addEventListener('mouseup', (e) => {
-          e.stopPropagation()
-          isDown = false
-          gallery.classList.remove('active')
-        })
-        gallery.addEventListener('mousemove', (e) => {
-          if(!isDown) return
-          e.preventDefault()
-          const x = e.pageX - gallery.offsetLeft
-          const walk = (x - startX)
-          gallery.scrollLeft = scrollLeft - walk
-        })
-      }
-    }
+		window.addEventListener('load', handler)
+		window.addEventListener('resize', handler)
+	},
 
-    let images = el.getElementsByClassName('gallery__item-img')
+	bind: (el, binding) => {},
 
-    for (var i = 0; i < images.length; i++) {
-      images[i].addEventListener('load', handler)
-    }
-
-    window.addEventListener('load', handler)
-    window.addEventListener('resize', handler)
-  },
-
-  bind: (el, binding) => {
-
-  },
-
-  update: (el, binding) => {
-
-  },
+	update: (el, binding) => {},
 }

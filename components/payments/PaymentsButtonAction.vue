@@ -1,118 +1,109 @@
 <template>
-  <a
-    :href="url"
-    rel="nofollow noopener"
-    :class="[
-      'btn',
-      'btn-block',
-      'btn-payments',
-      flat && 'btn-payments_plain',
-      `btn-payments_${type}`
-    ]" v-on="external ? {} : {click: handleClick}">{{ label }}</a>
+	<a
+		:href="url"
+		rel="nofollow noopener"
+		:class="[
+			'btn',
+			'btn-block',
+			'btn-payments',
+			flat && 'btn-payments_plain',
+			`btn-payments_${type}`,
+		]"
+		v-on="external ? {} : { click: handleClick }"
+		>{{ label }}</a
+	>
 </template>
 
 <script>
+	export default {
+		name: 'PaymentsButtonAction',
 
-export default {
+		components: {},
 
-  name: 'PaymentsButtonAction',
+		props: {
+			label: {
+				type: String,
+				required: true,
+			},
+			url: {
+				type: String,
+				default: '#',
+			},
+			external: {
+				type: Boolean,
+				default: true,
+			},
+			type: {
+				type: String,
+				default: 'default',
+			},
+			flat: {
+				type: Boolean,
+				default: false,
+			},
+		},
 
-  components: {
+		data: () => ({}),
 
-  },
+		computed: {},
 
-  props: {
-    label: {
-      type: String,
-      required: true
-    },
-    url: {
-      type: String,
-      default: '#'
-    },
-    external: {
-      type: Boolean,
-      default: true
-    },
-    type: {
-      type: String,
-      default: 'default'
-    },
-    flat: {
-      type: Boolean,
-      default: false
-    }
-  },
+		watch: {},
 
-	created() {
+		created() {},
 
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-    
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-    handleClick(e) {
-      e.preventDefault()
-      this.$emit('click', true)
-    }
+		methods: {
+			handleClick(e) {
+				e.preventDefault()
+				this.$emit('click', true)
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
-.btn-payments {
-  padding: 16px 20px;
-  font-family: 'Proxima Nova Sb';
-  font-style: normal;
-  font-size: 18px;
-  line-height: 18px;
-  text-align: center;
-  color: #FFFFFF;
-  border-radius: 4px;
-  &:active,
-  &:hover,
-  &:focus {
-    color: #FFFFFF;
-  }
-  &_skrill {
-    box-shadow: 0px 4px 0px #A21C74;
-    background: linear-gradient(180deg, #C93095 0%, #B52183 100%),
-                linear-gradient(0deg, #B82787, #B82787),
-                radial-gradient(100% 100% at 100% 0%, #BC3590 0%, #8D276C 61.46%);
-  }
+	.btn-payments {
+		padding: 16px 20px;
+		font-family: 'Proxima Nova Sb';
+		font-style: normal;
+		font-size: 18px;
+		line-height: 18px;
+		text-align: center;
+		color: #ffffff;
+		border-radius: 4px;
+		&:active,
+		&:hover,
+		&:focus {
+			color: #ffffff;
+		}
+		&_skrill {
+			box-shadow: 0px 4px 0px #a21c74;
+			background: linear-gradient(180deg, #c93095 0%, #b52183 100%),
+				linear-gradient(0deg, #b82787, #b82787),
+				radial-gradient(100% 100% at 100% 0%, #bc3590 0%, #8d276c 61.46%);
+		}
 
-  &_neteller {
-    background: linear-gradient(180deg, #8BBB4E 0%, #6F9E32 100%),
-                linear-gradient(0deg, #B82787, #B82787),
-                radial-gradient(100% 100% at 100% 0%, #BC3590 0%, #8D276C 61.46%);
-    box-shadow: 0px 4px 0px #628E28;
-  }
+		&_neteller {
+			background: linear-gradient(180deg, #8bbb4e 0%, #6f9e32 100%),
+				linear-gradient(0deg, #b82787, #b82787),
+				radial-gradient(100% 100% at 100% 0%, #bc3590 0%, #8d276c 61.46%);
+			box-shadow: 0px 4px 0px #628e28;
+		}
 
-  &_ecopayz {
-    background: linear-gradient(180deg, #4F93D5 0%, #3E7EBB 100%),
-                linear-gradient(0deg, #B82787, #B82787),
-                radial-gradient(100% 100% at 100% 0%, #BC3590 0%, #8D276C 61.46%);
-    box-shadow: 0px 4px 0px #2F6CA7;
-    border-radius: 4px;
-  }
+		&_ecopayz {
+			background: linear-gradient(180deg, #4f93d5 0%, #3e7ebb 100%),
+				linear-gradient(0deg, #b82787, #b82787),
+				radial-gradient(100% 100% at 100% 0%, #bc3590 0%, #8d276c 61.46%);
+			box-shadow: 0px 4px 0px #2f6ca7;
+			border-radius: 4px;
+		}
 
-  &_default {
-    background: linear-gradient(180deg, #FFB82E 0%, #EC8E02 100%), #F5A200;
-    box-shadow: 0px 4px 0px #D78100;
-  }
+		&_default {
+			background: linear-gradient(180deg, #ffb82e 0%, #ec8e02 100%), #f5a200;
+			box-shadow: 0px 4px 0px #d78100;
+		}
 
-  &_plain {
-    box-shadow: none;
-  }
-}
+		&_plain {
+			box-shadow: none;
+		}
+	}
 </style>

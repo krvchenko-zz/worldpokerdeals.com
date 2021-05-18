@@ -1,12 +1,16 @@
 <template>
-
-<form class="payments-form" @submit.prevent="submit" @keydown="form.onKeydown($event)">
+	<form
+		class="payments-form"
+		@submit.prevent="submit"
+		@keydown="form.onKeydown($event)"
+	>
 		<div v-if="type === 'ecopayz'" class="payments-form-group">
 			<div class="row">
 				<div class="col-8 offset-md-2">
 					<form-radio-group>
 						<form-radio
-							v-for="(item, index) in account_options" :key="index"
+							v-for="(item, index) in account_options"
+							:key="index"
 							v-model="form.account_type"
 							:label="item.label"
 							:value="item.value"
@@ -30,7 +34,7 @@
 						:loading="form.busy"
 						:error="form.errors.has('email')"
 					/>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="email" />
 					</transition>
 				</div>
@@ -47,10 +51,12 @@
 						:loading="form.busy"
 						:error="form.errors.has('account_id')"
 					/>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="account_id" />
 					</transition>
-					<a v-if="type === 'skrill'" href="#" class="payments-form__link">Как узнать свой ID?</a>
+					<a v-if="type === 'skrill'" href="#" class="payments-form__link"
+						>Как узнать свой ID?</a
+					>
 				</div>
 
 				<div class="col-3">
@@ -65,7 +71,7 @@
 						:loading="form.busy"
 						:error="form.errors.has('contact')"
 					>
-						<template v-slot:prefix>
+						<template #prefix>
 							<form-select
 								v-model="form.contact_type"
 								:options="contact_options"
@@ -77,12 +83,10 @@
 							/>
 						</template>
 					</form-input>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="contact_type" />
 					</transition>
-
 				</div>
-
 			</div>
 		</div>
 
@@ -99,10 +103,10 @@
 						:loading="form.busy"
 						:error="form.errors.has('comment')"
 					/>
-					<transition name="fade">	
+					<transition name="fade">
 						<has-error :form="form" field="comment" />
 					</transition>
-				</div>	
+				</div>
 			</div>
 		</div>
 
@@ -110,7 +114,9 @@
 			<div class="row">
 				<div class="col-8 offset-md-2">
 					<form-checkbox v-model="form.terms" label="Принимаю">
-						<a class="payments-form__link" href="#">условия передачи и хранения данных</a>
+						<a class="payments-form__link" href="#"
+							>условия передачи и хранения данных</a
+						>
 					</form-checkbox>
 				</div>
 			</div>
@@ -123,140 +129,132 @@
 						:disabled="!form.terms || !form.account_id || !form.contact"
 						class="btn-payments-form"
 						label="Присоединиться"
-						:loading="form.busy">
+						:loading="form.busy"
+					>
 					</form-submit-button>
 				</div>
 			</div>
 		</div>
-
-</form>
-
+	</form>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Form from 'vform'
+	import { mapGetters } from 'vuex'
+	import Form from 'vform'
 
-export default {
+	export default {
+		name: 'PaymentsForm',
 
-	name: 'PaymentsForm',
+		components: {},
 
-	props: {
-		action: {
-			type: String,
-			default: ''
+		props: {
+			action: {
+				type: String,
+				default: '',
+			},
+
+			type: {
+				type: String,
+				default: 'skrill',
+			},
+
+			contact_options: {
+				type: Array,
+				default: () => {
+					return [
+						{
+							label: 'Skype',
+							value: 'skype',
+						},
+						{
+							label: 'Email',
+							value: 'email',
+						},
+					]
+				},
+			},
+
+			account_options: {
+				type: Array,
+				default: () => {
+					return [
+						{
+							label: 'Создал счет',
+							value: 'new',
+						},
+						{
+							label: 'ecoPayz по ссылке Weenax',
+							value: 'ref',
+						},
+						{
+							label: 'Уже был счет',
+							value: 'old',
+						},
+					]
+				},
+			},
 		},
 
-		type: {
-			type: String,
-			default: 'skrill'
+		computed: {
+			...mapGetters({
+				auth: 'auth/check',
+			}),
 		},
 
-		contact_options: {
-			type: Array,
-			default: () => {
-				return [
-					{
-						label: 'Skype',
-						value: 'skype'
-					},
-					{
-						label: 'Email',
-						value: 'email'
-					}
-				]
-			}
-		},
-
-		account_options: {
-			type: Array,
-			default: () => {
-				return [
-					{
-						label: 'Создал счет',
-						value: 'new'
-					},
-					{
-						label: 'ecoPayz по ссылке Weenax',
-						value: 'ref'
-					},
-					{
-						label: 'Уже был счет',
-						value: 'old'
-					}
-				]
-			}
-		}
-	},
-
-	components: {
-
-	},
-
-	computed: {
-		...mapGetters({
-			auth: 'auth/check',
-		})
-	},
-
-	data: () => ({
-		form: new Form({
-			email: null,
-			account_type: null,
-			account_id: null,
-			contact_type: null,
-			contact: null,
-			comment: '',
-			terms: false,
+		data: () => ({
+			form: new Form({
+				email: null,
+				account_type: null,
+				account_id: null,
+				contact_type: null,
+				contact: null,
+				comment: '',
+				terms: false,
+			}),
 		}),
-	}),
 
-	methods: {
-
-		async submit () {
-
-			this.form.post(this.action).then((response) => {
-				if (response.data.submited) {
-					this.$emit('submit')
-				}
-			})
-			.catch(e => {
-			})
-		}
+		methods: {
+			async submit() {
+				this.form
+					.post(this.action)
+					.then(response => {
+						if (response.data.submited) {
+							this.$emit('submit')
+						}
+					})
+					.catch(e => {})
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
+	.payments-form {
+		margin-bottom: 48px;
 
-.payments-form {
+		&-group {
+			position: relative;
+			margin-bottom: 24px;
+			&:last-child {
+				margin: 0;
+			}
+		}
 
-	margin-bottom: 48px;
+		&__link {
+			margin-left: 2px;
+			font-family: Proxima Nova;
+			font-size: 14px;
+			line-height: 20px;
+			text-decoration-line: underline;
+			font-feature-settings: 'tnum' on, 'lnum' on;
+			color: #008be2;
+		}
 
-	&-group {
-		position: relative;
-		margin-bottom: 24px;
-		&:last-child {
-			margin: 0;
+		&__contact {
 		}
 	}
 
-	&__link {
-		margin-left: 2px;
-		font-family: Proxima Nova;
-		font-size: 14px;
-		line-height: 20px;
-		text-decoration-line: underline;
-		font-feature-settings: 'tnum' on, 'lnum' on;
-		color: #008BE2;
+	.btn-payments-form {
+		padding: 10px 28px;
 	}
-
-	&__contact {
-
-	}
-}
-
-.btn-payments-form {
-	padding: 10px 28px;
-}
 </style>

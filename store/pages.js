@@ -6,29 +6,27 @@ const token = Cookies.get('token')
 
 // state
 export const state = () => ({
-  page: null
+	page: null,
 })
 
 // getters
 export const getters = {
-  page: state => state.page,
+	page: state => state.page,
 }
 
 // mutations
 export const mutations = {
-
-  FETCH_PAGE (state, { page }) {
-    state.page = page
-  },
+	FETCH_PAGE(state, { page }) {
+		state.page = page
+	},
 }
 
 // actions
 export const actions = {
-
-  async fetchPage ({ commit }, { slug }) {
-    try {
-      const { data } = await axios.get(slug)
-      commit('FETCH_PAGE', { page: data })
-    } catch (e) { }
-  },
+	async fetchPage({ commit }, { slug }) {
+		try {
+			const { data } = await axios.get(slug)
+			commit('FETCH_PAGE', { page: data })
+		} catch (e) {}
+	},
 }

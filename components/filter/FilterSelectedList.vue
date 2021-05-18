@@ -1,53 +1,35 @@
 <template>
-<div class="filters-selected">
-  <slot />
-</div>
+	<div class="filters-selected">
+		<slot />
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'FilterSelectedList',
 
-export default {
+		components: {},
 
-  name: 'FilterSelectedList',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		async fetch() {},
 
-  props: {
+		computed: {},
 
-  },
+		watch: {},
 
-	created() {
+		created() {},
 
-	},
-
-	data: () => ({
-
-	}),
-
-  async fetch() {
-
-  },
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-.filters-selected {
-  margin-bottom: 16px;
-  display: flex;
-  flex-wrap: wrap;
-}
+	.filters-selected {
+		margin-bottom: 16px;
+		display: flex;
+		flex-wrap: wrap;
+	}
 </style>

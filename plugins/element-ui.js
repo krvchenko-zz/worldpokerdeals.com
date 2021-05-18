@@ -4,14 +4,7 @@ import locale from 'element-ui/lib/locale'
 
 locale.use(lang)
 
-import {
-  Select,
-  Option
-} from 'element-ui'
-
-[
-  Select,
-  Option
-].forEach(Component => {
-  Vue.component(Component.name, Component)
+import { Select, Option } from 'element-ui'
+;[Select, Option].forEach(Component => {
+	Vue.component(Component.name, Component)
 })

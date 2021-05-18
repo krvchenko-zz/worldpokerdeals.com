@@ -1,81 +1,81 @@
 <template>
-  <nav :class="['toc', inline && 'toc_inline', white && 'toc_white']">
-    <div v-if="!inline" class="toc__label">Содержание</div>
-    <ul
-      :class="[
-        'toc-list',
-        inline && 'toc-list_inline',
-        white && 'toc-list_white',
-      ]"
-    >
-      <slot :inline="inline" :white="white" />
-    </ul>
-  </nav>
+	<nav :class="['toc', inline && 'toc_inline', white && 'toc_white']">
+		<div v-if="!inline" class="toc__label">Содержание</div>
+		<ul
+			:class="[
+				'toc-list',
+				inline && 'toc-list_inline',
+				white && 'toc-list_white',
+			]"
+		>
+			<slot :inline="inline" :white="white" />
+		</ul>
+	</nav>
 </template>
 
 <script>
-export default {
-  name: "TocList",
+	export default {
+		name: 'TocList',
 
-  components: {},
+		components: {},
 
-  props: {
-    inline: {
-      type: Boolean,
-      default: false,
-    },
+		props: {
+			inline: {
+				type: Boolean,
+				default: false,
+			},
 
-    white: {
-      type: Boolean,
-      default: true,
-    },
-  },
+			white: {
+				type: Boolean,
+				default: true,
+			},
+		},
 
-  created() {},
+		data: () => ({}),
 
-  data: () => ({}),
+		computed: {},
 
-  computed: {},
+		watch: {},
 
-  watch: {},
+		created() {},
 
-  methods: {},
-};
+		methods: {},
+	}
 </script>
 
 <style lang="scss">
-.toc {
-  padding-top: 0;
-  position: sticky;
-  top: 100px;
-  width: 208px;
-  &_inline {
-    width: auto;
-    top: 0;
-    position: relative;
-    padding: 0;
-    margin-bottom: 24px;
-  }
-}
-.toc__label {
-  margin-bottom: 16px;
-  color: #243238;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 36px;
-  font-size: 16px;
-  font-family: "Proxima Nova";
-}
-.toc-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+	.toc {
+		padding-top: 0;
+		position: sticky;
+		top: 100px;
+		width: 208px;
+		&_inline {
+			width: auto;
+			top: 0;
+			position: relative;
+			padding: 0;
+			margin-bottom: 24px;
+		}
+	}
+	.toc__label {
+		margin-bottom: 16px;
+		color: #243238;
+		font-style: normal;
+		font-weight: bold;
+		line-height: 36px;
+		font-size: 16px;
+		font-family: 'Proxima Nova';
+	}
+	.toc-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
 
-@include mq("laptop") {
-  .toc {
-    width: 100%;
-    position: initial;
-  }
-}
+	@include mq('laptop') {
+		.toc {
+			width: 100%;
+			position: initial;
+		}
+	}
 </style>

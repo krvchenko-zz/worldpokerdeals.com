@@ -1,127 +1,119 @@
 <template>
-<label class="form-checkbox">
-  <input
-    type="checkbox"
-    :class="{'form-checkbox__input': true}"
-    :checked="shouldBeChecked"
-    :value="value"
-    @change="updateInput"
-  >
-  <span class="form-checkbox__inner"></span>
-  <span class="form-checkbox__label">{{ label }}<slot /></span>
-</label>
+	<label class="form-checkbox">
+		<input
+			type="checkbox"
+			:class="{ 'form-checkbox__input': true }"
+			:checked="shouldBeChecked"
+			:value="value"
+			@change="updateInput"
+		/>
+		<span class="form-checkbox__inner"></span>
+		<span class="form-checkbox__label">{{ label }}<slot /></span>
+	</label>
 </template>
 
 <script>
+	export default {
+		name: 'FormCheckbox',
 
-export default {
+		model: {
+			prop: 'modelValue',
+			event: 'change',
+		},
 
-  name: 'FormCheckbox',
+		props: {
+			value: {
+				type: [Boolean, String, Number],
+				default: false,
+			},
 
-  model: {
-    prop: 'modelValue',
-    event: 'change'
-  },
+			modelValue: {
+				default: false,
+			},
 
-  props: {
-    value: {
-      type: [Boolean, String, Number],
-      default: false,
-    },
+			trueValue: {
+				default: true,
+			},
 
-    modelValue: {
-      default: false
-    },
+			falseValue: {
+				default: false,
+			},
 
-    trueValue: {
-      default: true
-    },
+			label: {
+				type: String,
+				default: '',
+			},
+		},
 
-    falseValue: {
-      default: false
-    },
+		data: () => ({}),
 
-    label: {
-      type: String,
-      default: '',
-    },
-  },
+		computed: {
+			shouldBeChecked() {
+				if (this.modelValue instanceof Array) {
+					return this.modelValue.includes(this.value)
+				}
+				return this.modelValue === this.trueValue
+			},
+		},
 
-	created() {
+		watch: {},
 
-	},
+		created() {},
 
-	data: () => ({
+		methods: {
+			updateInput(event) {
+				let isChecked = event.target.checked
 
-	}),
+				if (this.modelValue instanceof Array) {
+					let newValue = [...this.modelValue]
 
-  computed: {
-    shouldBeChecked() {
-      if (this.modelValue instanceof Array) {
-        return this.modelValue.includes(this.value)
-      }
-      return this.modelValue === this.trueValue
-    }
-  },
+					if (isChecked) {
+						newValue.push(this.value)
+					} else {
+						newValue.splice(newValue.indexOf(this.value), 1)
+					}
 
-  watch: {
-
-  },
-
-	methods: {
-    updateInput(event) {
-      let isChecked = event.target.checked
-
-      if (this.modelValue instanceof Array) {
-        let newValue = [...this.modelValue]
-
-        if (isChecked) {
-          newValue.push(this.value)
-        } else {
-          newValue.splice(newValue.indexOf(this.value), 1)
-        }
-
-        this.$emit('change', newValue)
-      } else {
-        this.$emit('change', isChecked ? this.trueValue : this.falseValue)
-      }
-    }
+					this.$emit('change', newValue)
+				} else {
+					this.$emit('change', isChecked ? this.trueValue : this.falseValue)
+				}
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
-$ico-checkbox: url('~assets/i/ico-checkbox.svg?data');
+	$ico-checkbox: url('~assets/i/ico-checkbox.svg?data');
 
-.form-checkbox {
-  margin: 0;
-  position: relative;
-  display: flex;
-  cursor: pointer;
-  &__input {
-    display: none;
-  }
+	.form-checkbox {
+		margin: 0;
+		position: relative;
+		display: flex;
+		cursor: pointer;
+		&__input {
+			display: none;
+		}
 
-  &__inner {
-    &:before {
-      display: block;
-      width: 20px;
-      height: 20px;
-      content: '';
-      background: $ico-checkbox no-repeat;
-    }
-  }
+		&__inner {
+			&:before {
+				display: block;
+				width: 20px;
+				height: 20px;
+				content: '';
+				background: $ico-checkbox no-repeat;
+			}
+		}
 
-  &__label {
-    padding-left: 15px;
-    font-family: 'Proxima Nova';
-    font-size: 14px;
-    line-height: 20px;
-    color: #555555;
-  } 
+		&__label {
+			padding-left: 15px;
+			font-family: 'Proxima Nova';
+			font-size: 14px;
+			line-height: 20px;
+			color: #555555;
+		}
 
-  input[type=checkbox]:checked+span:before {
-    background-position: -20px 0px;
-  }
-}
+		input[type='checkbox']:checked + span:before {
+			background-position: -20px 0px;
+		}
+	}
 </style>

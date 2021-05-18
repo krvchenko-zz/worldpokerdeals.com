@@ -1,772 +1,811 @@
 <template>
+	<tbody class="promotion-item">
+		<tr class="promotion-item__row">
+			<td width="83px" class="promotion-item__col promotion-item__col_icon">
+				<svg-icon
+					class="promotion-item__icon"
+					:icon="parent ? parent.slug : room.slug"
+					:width="42"
+					:height="42"
+					view-box="0 0 200 200"
+				/>
+			</td>
 
-<tbody class="promotion-item">
-  <tr class="promotion-item__row">
-    <td width="83px" class="promotion-item__col promotion-item__col_icon">
-      <svg-icon class="promotion-item__icon" :icon="parent ? parent.slug : room.slug" :width="42" :height="42" viewBox="0 0 200 200" />
-    </td>
+			<td class="promotion-item__col promotion-item__col_title">
+				<span
+					:style="{
+						color: category.label_color,
+						borderColor: category.label_color,
+					}"
+					:class="{
+						'promotion-item__category': true,
+						[`promotion-item__category_${category.id}`]: true,
+					}"
+					>{{ category.name }}</span
+				>
+				<span class="promotion-item__title">{{ title }}</span>
 
-    <td class="promotion-item__col promotion-item__col_title">
-      <span
-        :style="{
-          color: category.label_color,
-          borderColor: category.label_color
-        }"
-        :class="{
-          'promotion-item__category': true,
-          [`promotion-item__category_${category.id}`]: true,
-        }">{{ category.name }}</span>
-        <span class="promotion-item__title">{{ title }}</span>
+				<span v-if="type === 'bonus'" class="promotion-item__params">
+					<span class="promotion-item__cashback">
+						<span class="promotion-item__params-label">Кешбэк</span>
+						{{ cashback_value }}%
+					</span>
+					<span class="promotion-item__deposit">
+						<span class="promotion-item__params-label">К депозиту</span>
+						+{{ deposit_bonus }}%
+					</span>
+					<span class="promotion-item__max">
+						<span class="promotion-item__params-label">Макс бонус</span>
+						${{ max_bonus }}
+						<template v-if="max_bonus_currency">{{
+							max_bonus_currency.symbol
+						}}</template>
+					</span>
+				</span>
 
-        <span v-if="type === 'bonus'" class="promotion-item__params">
-          <span class="promotion-item__cashback">
-            <span class="promotion-item__params-label">Кешбэк</span>
-            {{ cashback_value }}%
-          </span>
-          <span class="promotion-item__deposit">
-            <span class="promotion-item__params-label">К депозиту</span>
-            +{{ deposit_bonus }}%
-          </span>
-          <span class="promotion-item__max">
-            <span class="promotion-item__params-label">Макс бонус</span>
-            ${{ max_bonus }} <template v-if="max_bonus_currency">{{ max_bonus_currency.symbol }}</template>
-          </span>
-        </span>
+				<span v-else class="promotion-item__params">
+					<span class="promotion-item__prize">
+						<span class="promotion-item__params-label">Призовой фонд</span>
+						{{ formatMoney(prize) }}
+						<template v-if="currency">{{ currency.symbol }}</template>
+					</span>
 
-        <span v-else class="promotion-item__params">
+					<span
+						v-if="permanent && regularity"
+						class="promotion-item__regularity"
+					>
+						<span class="promotion-item__params-label">Регулярная</span>
+						{{ regularity }}
+					</span>
 
-          <span class="promotion-item__prize">
-            <span class="promotion-item__params-label">Призовой фонд</span>
-            {{ formatMoney(prize) }} <template v-if="currency">{{ currency.symbol }}</template>
-          </span>
+					<template v-else>
+						<span class="promotion-item__start">
+							<span class="promotion-item__params-label">Начало</span>
+							{{ dateFormat(start) }}
+						</span>
 
-          <span v-if="permanent && regularity" class="promotion-item__regularity">
-            <span class="promotion-item__params-label">Регулярная</span>
-            {{ regularity }}
-          </span>
+						<span class="promotion-item__end">
+							<span class="promotion-item__params-label">Окончание</span>
+							{{ dateFormat(end) }}
+						</span>
+					</template>
+				</span>
+			</td>
 
-          <template v-else>
-            <span class="promotion-item__start">
-              <span class="promotion-item__params-label">Начало</span>
-              {{ dateFormat(start) }}
-            </span>
+			<td width="210px" class="promotion-item__col promotion-item__col_actions">
+				<span
+					v-if="type === 'bonus'"
+					:class="[
+						'promotion-item__code',
+						codeHovered && 'promotion-item__code_hover',
+					]"
+					@mouseover="codeHovered = true"
+					@mouseleave="codeHovered = false"
+				>
+					<span
+						:class="[
+							'promotion-item__code-label',
+							codeHovered && 'promotion-item__code-label_hover',
+						]"
+						>Бонус-код</span
+					>
+					<span class="promotion-item__code-value">{{ code }}</span>
+				</span>
 
-            <span class="promotion-item__end">
-              <span class="promotion-item__params-label">Окончание</span>
-              {{ dateFormat(end) }}
-            </span>
-          </template>
+				<span
+					v-else-if="time_left || time_before"
+					class="promotion-item__countdown"
+				>
+					<span class="promotion-item__countdown-label">
+						<template v-if="time_left">До окончания</template>
+						<template v-if="time_before">До начала</template>
+					</span>
+					<countdown v-if="time_left" :days="time_left.days" :live="true" />
+					<countdown v-if="time_before" :days="time_before.days" />
+				</span>
 
-        </span>
+				<span class="promotion-item__buttons">
+					<room-action-button
+						class="btn-get-promotion"
+						:icon="false"
+						type="download"
+						:label="type === 'promotion' ? 'Участвовать' : 'Получить'"
+						:slug="room.slug"
+					/>
 
-    </td>
+					<nuxt-link
+						v-slot="{ href, route, navigate, isActive, isExactActive }"
+						prefetch
+						:to="{
+							name: 'index',
+							params: {
+								parent: page.parent ? page.parent.slug : page.slug,
+								child: page.parent ? page.slug : null,
+							},
+						}"
+					>
+						<a
+							:class="['btn btn-promotion-review']"
+							:href="href"
+							@click="navigate"
+						></a>
+					</nuxt-link>
+				</span>
+			</td>
+		</tr>
+		<tr class="promotion-item__row">
+			<td
+				colspan="3"
+				:class="[
+					'promotion-item__col',
+					'promotion-item__col_info',
+					showTerms && 'promotion-item__col_info_expanded',
+				]"
+			>
+				<span
+					:class="[
+						'promotion-item__terms',
+						showTerms && 'promotion-item__terms_expanded',
+					]"
+				>
+					<i class="promotion-item__terms-icon"></i>
+					<span @click="terms ? (showTerms = !showTerms) : (showTerms = false)"
+						>Условия получения</span
+					>
+				</span>
 
-    <td width="210px" class="promotion-item__col promotion-item__col_actions">
-
-      <span 
-        v-if="type === 'bonus'"
-        :class="['promotion-item__code', codeHovered && 'promotion-item__code_hover']"
-        @mouseover="codeHovered = true"
-        @mouseleave="codeHovered = false"
-      >
-        <span
-          :class="['promotion-item__code-label', codeHovered && 'promotion-item__code-label_hover']"
-        >Бонус-код</span>
-        <span class="promotion-item__code-value">{{ code }}</span>
-      </span>
-
-      <span class="promotion-item__countdown" v-else-if="time_left || time_before">
-        <span class="promotion-item__countdown-label">
-          <template v-if="time_left">До окончания</template>
-          <template v-if="time_before">До начала</template>
-        </span>
-        <countdown v-if="time_left"
-          :days="time_left.days"
-          :live="true"
-        />
-        <countdown v-if="time_before"
-          :days="time_before.days"
-        />
-      </span>
-
-      <span class="promotion-item__buttons">
-
-        <room-action-button
-          class="btn-get-promotion"
-          :icon="false"
-          type="download"
-          :label="type === 'promotion' ? 'Участвовать' : 'Получить'"
-          :slug="room.slug"
-        />
-
-        <nuxt-link prefetch :to="{name: 'index', params: {
-          parent: page.parent? page.parent.slug : page.slug,
-          child: page.parent ? page.slug : null
-        }}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-          <a :class="['btn btn-promotion-review']" :href="href" @click="navigate"></a>
-        </nuxt-link>
-
-      </span>
-    </td>
-
-  </tr>
-  <tr class="promotion-item__row">
-    <td colspan="3" :class="['promotion-item__col', 'promotion-item__col_info', showTerms && 'promotion-item__col_info_expanded']">
-
-      <span :class="['promotion-item__terms', showTerms && 'promotion-item__terms_expanded']">
-        <i class="promotion-item__terms-icon"></i>
-        <span @click="terms ? showTerms = !showTerms : showTerms = false">Условия получения</span>
-      </span>
-
-      <span :class="{
-        'promotion-item__avaliable': true,
-        [`promotion-item__avaliable_yes`]: !room.restricted,
-        [`promotion-item__avaliable_no`]: room.restricted
-      }">
-        <svg-icon :width="16" :height="16" :icon="country.code" prefix="flags/" />
-        <span v-if="room.restricted">Недоступен игрокам из {{ country.from }}!</span>
-        <span v-else>Доступен игрокам из {{ country.from }}</span>
-      </span>
-    </td>
-  </tr>
-  <tr v-show="showTerms" class="promotion-item__row">
-    <td colspan="3" class="promotion-item__col promotion-item__col_terms" v-html="terms"></td>
-  </tr>
-</tbody>
+				<span
+					:class="{
+						'promotion-item__avaliable': true,
+						[`promotion-item__avaliable_yes`]: !room.restricted,
+						[`promotion-item__avaliable_no`]: room.restricted,
+					}"
+				>
+					<svg-icon
+						:width="16"
+						:height="16"
+						:icon="country.code"
+						prefix="flags/"
+					/>
+					<span v-if="room.restricted"
+						>Недоступен игрокам из {{ country.from }}!</span
+					>
+					<span v-else>Доступен игрокам из {{ country.from }}</span>
+				</span>
+			</td>
+		</tr>
+		<tr v-show="showTerms" class="promotion-item__row">
+			<td
+				colspan="3"
+				class="promotion-item__col promotion-item__col_terms"
+				v-html="terms"
+			></td>
+		</tr>
+	</tbody>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex'
+	export default {
+		name: 'PromotionFeedItem',
 
-export default {
+		components: {},
 
-  name: 'PromotionFeedItem',
+		props: {
+			index: {
+				type: [String, Number],
+			},
 
-  components: {
+			type: {
+				type: [String],
+				default: 'bonus',
+			},
 
-  },
+			time_left: {
+				type: Object,
+			},
 
-  props: {
+			time_before: {
+				type: Object,
+			},
 
-    index: {
-      type: [String, Number]
-    },
+			title: {
+				type: String,
+				required: true,
+			},
 
-    type: {
-      type: [String],
-      default: 'bonus'
-    },
+			slug: {
+				type: String,
+				required: true,
+			},
 
-    time_left: {
-      type: Object
-    },
+			created: {
+				type: String,
+				required: true,
+			},
 
-    time_before: {
-      type: Object
-    },
+			code: {
+				type: [String, Boolean],
+				default: false,
+			},
 
-    title: {
-      type: String,
-      required: true,
-    },
+			category: {
+				type: Object,
+			},
 
-    slug: {
-      type: String,
-      required: true,
-    },
+			room: {
+				type: Object,
+			},
 
-    created: {
-      type: String,
-      required: true
-    },
+			page: {
+				type: Object,
+			},
 
-    code: {
-      type: [String, Boolean],
-      default: false
-    },
+			min_deposit: {
+				type: Number,
+				default: 0,
+			},
 
-    category: {
-      type: Object
-    },
+			min_deposit_currency: {
+				type: [Object, Boolean],
+				default: false,
+			},
 
-    room: {
-      type: Object
-    },
+			cashback_value: {
+				type: Number,
+				default: 0,
+			},
 
-    page: {
-      type: Object
-    },
+			max_bonus: {
+				type: Number,
+				default: 0,
+			},
 
-    min_deposit: {
-      type: Number,
-      default: 0
-    },
+			max_bonus_currency: {
+				type: [Object, Boolean],
+				default: false,
+			},
 
-    min_deposit_currency: {
-      type: [Object, Boolean],
-      default: false
-    },
+			deposit_bonus: {
+				type: Number,
+				default: 0,
+			},
 
-    cashback_value: {
-      type: Number,
-      default: 0
-    },
+			prize: {
+				type: [Number, String],
+				default: null,
+			},
 
-    max_bonus: {
-      type: Number,
-      default: 0
-    },
+			currency: {
+				type: [String, Object],
+				default: null,
+			},
 
-    max_bonus_currency: {
-      type: [Object, Boolean],
-      default: false
-    },
+			start: {
+				type: String,
+				default: '',
+			},
 
-    deposit_bonus: {
-      type: Number,
-      default: 0
-    },
+			end: {
+				type: String,
+				default: '',
+			},
 
-    prize: {
-      type: [Number, String],
-      default: null
-    },
+			regularity: {
+				type: String,
+			},
 
-    currency: {
-      type: [String, Object],
-      default: null
-    },
+			permanent: {
+				type: Boolean,
+				default: false,
+			},
 
-    start: {
-      type: String,
-      default: ''
-    },
+			terms: {
+				type: [String, Boolean],
+				default: '',
+			},
+		},
 
-    end: {
-      type: String,
-      default: ''
-    },
+		data: () => ({
+			showTerms: false,
+			codeHovered: false,
+		}),
 
-    regularity: {
-      type: String,
-    },
+		created() {},
 
-    permanent: {
-      type: Boolean,
-      default: false
-    },
+		mounted() {},
 
-    terms: {
-      type: [String, Boolean],
-      default: ''
-    }
-    
-  },
+		computed: {
+			...mapGetters({
+				user: 'auth/user',
+				locale: 'lang/locale',
+				locales: 'lang/locales',
+				country: 'location/country',
+				parent: 'rooms/room',
+			}),
 
-	created() {
+			url() {
+				return `/promotions/${this.slug}`
+			},
+		},
 
-	},
+		methods: {
+			dateFormat(timestamp) {
+				let date = new Date(timestamp),
+					d = date.getDate(),
+					m = date.getMonth() + 1,
+					y = date.getFullYear()
 
-  mounted() {
+				return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
+			},
+			formatMoney(amount, decimalCount = 0, decimal = '.', thousands = ',') {
+				try {
+					decimalCount = Math.abs(decimalCount)
+					decimalCount = isNaN(decimalCount) ? 2 : decimalCount
 
-  },
+					const negativeSign = amount < 0 ? '-' : ''
 
-	data: () => ({
-    showTerms: false,
-    codeHovered: false
-	}),
+					let i = parseInt(
+						(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
+					).toString()
+					let j = i.length > 3 ? i.length % 3 : 0
 
-  computed: {
-
-    ...mapGetters({
-      user: 'auth/user',
-      locale: 'lang/locale',
-      locales: 'lang/locales',
-      country: 'location/country',
-      parent: 'rooms/room'
-    }),
-
-    url() {
-      return `/promotions/${this.slug}`
-    },
-
-  },
-
-	methods: {
-    dateFormat(timestamp) {
-      let date = new Date(timestamp),
-          d = date.getDate(),
-          m = date.getMonth() + 1,
-          y = date.getFullYear()
-
-      return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
-    },
-    formatMoney(amount, decimalCount = 0, decimal = '.', thousands = ',') {
-      try {
-        decimalCount = Math.abs(decimalCount);
-        decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
-
-        const negativeSign = amount < 0 ? "-" : "";
-
-        let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
-        let j = (i.length > 3) ? i.length % 3 : 0;
-
-        return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
-      } catch (e) {
-        console.log(e)
-      }
-    }
+					return (
+						negativeSign +
+						(j ? i.substr(0, j) + thousands : '') +
+						i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
+						(decimalCount
+							? decimal +
+							  Math.abs(amount - i)
+									.toFixed(decimalCount)
+									.slice(2)
+							: '')
+					)
+				} catch (e) {
+					console.log(e)
+				}
+			},
+		},
 	}
-}
 </script>
 
 <style scoped lang="scss">
+	$ico-arrow-right: url('~assets/i/promotion/ico-bonus-arrow-right.svg?data');
+	$ico-terms: url('~assets/i/promotion/ico-bonus-terms.svg?data');
+	$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
-$ico-arrow-right: url('~assets/i/promotion/ico-bonus-arrow-right.svg?data');
-$ico-terms: url('~assets/i/promotion/ico-bonus-terms.svg?data');
-$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
+	.promotion-item {
+		&__table {
+			width: 100%;
+		}
 
+		&__col {
+			padding: 20px;
+			vertical-align: top;
+			background: #ffffff;
+			border: none;
+			&_icon {
+				padding: 20px;
+			}
+			&_title {
+				border: none;
+				padding: 20px 20px 20px 0;
+			}
 
-.promotion-item {
+			&_actions {
+				padding: 20px 20px 20px 0;
+				position: relative;
+				vertical-align: bottom;
+			}
 
-  &__table {
-    width: 100%;
-  }
+			&_info {
+				border: 1px solid #e9e9e9;
+				padding: 8px 20px;
+				background: #fafafa;
+				border-bottom-width: 2px;
+				font-size: 0;
+				&_expanded {
+					border-bottom: none;
+				}
+			}
 
-  &__col {
-    padding: 20px;
-    vertical-align: top;
-    background: #FFFFFF;
-    border: none;
-    &_icon {
-      padding: 20px;
-    }
-    &_title {
-      border: none;
-      padding: 20px 20px 20px 0;
-    }
+			&_terms {
+				border: 1px solid #e9e9e9;
+				border-top: none;
+				background: #fafafa;
+				padding: 4px 20px 20px 20px;
+				&::v-deep ol {
+					margin: 0;
+					padding: 0;
+					list-style-position: inside;
+				}
 
-    &_actions {
-      padding: 20px 20px 20px 0;
-      position: relative;
-      vertical-align: bottom;
-    }
+				&::v-deep ul {
+					margin: 0;
+					padding: 0;
+					list-style-position: inside;
+				}
 
-    &_info {
-      border: 1px solid #E9E9E9;
-      padding: 8px 20px;
-      background: #FAFAFA;
-      border-bottom-width: 2px;
-      font-size: 0;
-      &_expanded {
-        border-bottom: none;
-      }
-    }
+				&::v-deep ol {
+					margin-bottom: 20px;
+					list-style-type: decimal;
+					&:last-child {
+						margin: 0;
+					}
+				}
 
-    &_terms {
-      border: 1px solid #E9E9E9;
-      border-top: none;
-      background: #FAFAFA;
-      padding: 4px 20px 20px 20px;
-      &::v-deep ol {
-        margin: 0;
-        padding: 0;
-        list-style-position: inside;
-      }
+				&::v-deep ul {
+					margin-bottom: 20px;
+					list-style: none;
+					&:last-child {
+						margin: 0;
+					}
+				}
 
-      &::v-deep ul {
-        margin: 0;
-        padding: 0;
-        list-style-position: inside;
-      }
+				&::v-deep ol > li {
+					margin: 0 0 10px 0;
+					padding: 0;
+					font-family: 'Proxima Nova';
+					font-size: 15px;
+					line-height: 18px;
+					color: #777777;
+					&:last-child {
+						margin: 0;
+					}
+					&:before {
+						display: none;
+					}
+				}
 
-      &::v-deep ol {
-        margin-bottom: 20px;
-        list-style-type: decimal;
-        &:last-child {
-          margin: 0;
-        }
-      }
+				&::v-deep ul li {
+					margin: 0 0 10px 0;
+					padding: 0 0 0 0;
+					font-family: 'Proxima Nova';
+					font-size: 15px;
+					line-height: 18px;
+					color: #777777;
+					&:last-child {
+						margin: 0;
+					}
+					&:before {
+						top: 7px;
+						left: 0px;
+					}
+				}
 
-      &::v-deep ul {
-        margin-bottom: 20px;
-        list-style: none;
-        &:last-child {
-          margin: 0;
-        }
-      }
+				&::v-deep p {
+					margin: 0 0 16px 0;
+					font-family: 'Proxima Nova';
+					font-size: 15px;
+					line-height: 18px;
+					color: #777777;
+					&:last-child {
+						margin: 0;
+					}
+				}
+			}
 
-      &::v-deep ol > li {
-        margin: 0 0 10px 0;
-        padding: 0;
-        font-family: 'Proxima Nova';
-        font-size: 15px;
-        line-height: 18px;
-        color: #777777;
-        &:last-child {
-          margin: 0;
-        }
-        &:before {
-          display: none;
-        }
-      }
+			&_cashback,
+			&_deposit,
+			&_max {
+				position: relative;
+				&:before {
+					content: '';
+					top: calc(50% - (40px / 2));
+					left: 0px;
+					position: absolute;
+					display: block;
+					width: 1px;
+					height: calc(100% / 2);
+					background: #e9e9e9;
+				}
+			}
+		}
 
-      &::v-deep ul li {
-        margin: 0 0 10px 0;
-        padding: 0 0 0 0;
-        font-family: 'Proxima Nova';
-        font-size: 15px;
-        line-height: 18px;
-        color: #777777;
-        &:last-child {
-          margin: 0;
-        }
-        &:before {
-          top: 7px;
-          left: 0px;
-        }
-      }
+		&__icon {
+			border-radius: 4px;
+			display: block;
+		}
 
-      &::v-deep p {
-        margin: 0 0 16px 0;
-        font-family: 'Proxima Nova';
-        font-size: 15px;
-        line-height: 18px;
-        color: #777777;
-        &:last-child {
-          margin: 0;
-        }
-      }
-    }
+		&__title {
+			margin-bottom: 12px;
+			display: block;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 18px;
+			line-height: 22px;
+			color: #222222;
+		}
 
-    &_cashback,
-    &_deposit,
-    &_max {
-      position: relative;
-      &:before {
-        content: '';
-        top: calc(50% - (40px / 2));
-        left: 0px;
-        position: absolute;
-        display: block;
-        width: 1px;
-        height: calc(100% / 2);
-        background: #E9E9E9;
-      }
-    }
-  }
+		&__category {
+			margin-bottom: 4px;
+			padding: 4px 8px 3px 8px;
+			display: inline-block;
+			font-family: Proxima Nova;
+			font-style: normal;
+			font-weight: bold;
+			font-size: 11px;
+			line-height: 11px;
+			letter-spacing: 0.2px;
+			border-radius: 100px;
+			text-transform: uppercase;
+			color: #212529;
+			border: 1px solid #212529;
 
-  &__icon {
-    border-radius: 4px;
-    display: block;
-  }
+			&_19 {
+				color: #55bf4f;
+				border: 1px solid #55bf4f;
+			}
 
-  &__title {
-    margin-bottom: 12px;
-    display: block;
-    font-family: 'Proxima Nova Sb';
-    font-style: normal;
-    font-size: 18px;
-    line-height: 22px;
-    color: #222222;
-  }
+			&_20 {
+				color: #c128b2;
+				border: 1px solid #c128b2;
+			}
 
-  &__category {
-    margin-bottom: 4px;
-    padding: 4px 8px 3px 8px;
-    display: inline-block;
-    font-family: Proxima Nova;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 11px;
-    line-height: 11px;
-    letter-spacing: 0.2px;
-    border-radius: 100px;
-    text-transform: uppercase;
-    color: #212529;
-    border: 1px solid #212529;
+			&_21 {
+				color: #3c9be0;
+				border: 1px solid #3c9be0;
+			}
+		}
 
-    &_19 {
-      color: #55BF4F;;
-      border: 1px solid #55BF4F;
-    }
+		&__params {
+			display: flex;
+			&-label {
+				margin-bottom: 4px;
+				display: block;
+				font-family: 'Proxima Nova Sb';
+				font-size: 12px;
+				line-height: 16px;
+				letter-spacing: 0.3px;
+				text-transform: uppercase;
+				color: #777777;
+			}
+		}
 
-    &_20 {
-      color: #C128B2;
-      border: 1px solid #C128B2;
-    }
+		&__cashback {
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
 
-    &_21 {
-      color: #3C9BE0;
-      border: 1px solid #3C9BE0;
-    }
-  }
+		&__start {
+			border-left: 1px solid #e9e9e9;
+			padding: 0 20px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
 
-  &__params {
-    display: flex;
-    &-label {
-      margin-bottom: 4px;
-      display: block;
-      font-family: 'Proxima Nova Sb';
-      font-size: 12px;
-      line-height: 16px;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      color: #777777;
-    }
-  }
+		&__end {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
 
-  &__cashback {
-    font-family: 'Proxima Nova Sb';
-    font-style: normal;
-    font-size: 16px;
-    line-height: 22px;
-    color: #243238;
-    flex: 0 0 33.3%;
-  }
+		&__deposit {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
 
-  &__start {
-    border-left: 1px solid #E9E9E9;
-    padding: 0 20px;
-    font-family: 'Proxima Nova Sb';
-    font-style: normal;
-    font-size: 16px;
-    line-height: 22px;
-    color: #243238;
-    flex: 0 0 33.3%;
-  }
+		&__max {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
 
-  &__end {
-    border-left: 1px solid #E9E9E9;
-    padding-left: 20px;
-    font-family: 'Proxima Nova Sb';
-    font-style: normal;
-    font-size: 16px;
-    line-height: 22px;
-    color: #243238;
-    flex: 0 0 33.3%;
-  }
+		&__prize {
+			padding-right: 20px;
+			margin: 0;
+			font-family: 'Proxima Nova';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
 
-  &__deposit {
-    border-left: 1px solid #E9E9E9;
-    padding-left: 20px;
-    font-family: 'Proxima Nova Sb';
-    font-style: normal;
-    font-size: 16px;
-    line-height: 22px;
-    color: #243238;
-    flex: 0 0 33.3%;
-  }
+		&__regularity {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova Sb';
+			font-size: 16px;
+			line-height: 22px;
+			color: #222222;
+			flex: 0 0 66.6%;
+		}
 
-  &__max {
-    border-left: 1px solid #E9E9E9;
-    padding-left: 20px;
-    font-family: 'Proxima Nova';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 22px;
-    color: #243238;
-    flex: 0 0 33.3%;
-  }
+		&__code {
+			margin-bottom: 12px;
+			position: relative;
+			cursor: pointer;
+			display: block;
+			min-width: 130px;
+			padding: 8px 0 4px 0;
+			background: #fafafa;
+			border: 1px dashed rgba(119, 119, 119, 0.5);
+			border-radius: 4px;
+			transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+			&_hover {
+				border-color: #008be2;
 
-  &__prize {
-    padding-right: 20px;
-    margin: 0;
-    font-family: 'Proxima Nova';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 22px;
-    color: #243238;
-    flex: 0 0 33.3%;
-  }
+				&:before {
+					content: '';
+					top: -12px;
+					left: 50%;
+					margin-left: -9px;
+					position: absolute;
+					width: 18px;
+					height: 12px;
+					display: block;
+					background: $ico-scissors no-repeat center;
+				}
+			}
 
-  &__regularity {
-    border-left: 1px solid #E9E9E9;
-    padding-left: 20px;
-    font-family: 'Proxima Nova Sb';
-    font-size: 16px;
-    line-height: 22px;
-    color: #222222;
-    flex: 0 0 66.6%;
-  }
+			&-label {
+				display: block;
+				text-align: center;
+				font-family: 'Proxima Nova Sb';
+				font-size: 10px;
+				line-height: 12px;
+				letter-spacing: 0.3px;
+				text-transform: uppercase;
+				color: #777777;
+				transition: background 0.1s ease, border-color 0.1s ease,
+					color 0.1s ease;
+				&_hover {
+					color: #008be2;
+				}
+			}
 
-  &__code {
-    margin-bottom: 12px;
-    position: relative;
-    cursor: pointer;
-    display: block;
-    min-width: 130px;
-    padding: 8px 0 4px 0;
-    background: #FAFAFA;
-    border: 1px dashed rgba(119, 119, 119, 0.5);
-    border-radius: 4px;
-    transition: background 0.1s ease,
-                border-color 0.1s ease,
-                color 0.1s ease;
-    &_hover {
-      border-color: #008BE2;
+			&-value {
+				display: block;
+				text-align: center;
+				font-family: 'Proxima Nova';
+				font-weight: bold;
+				font-size: 16px;
+				line-height: 20px;
+				letter-spacing: 0.3px;
+				color: #555555;
+				text-transform: uppercase;
+			}
+		}
 
-      &:before {
-        content: '';
-        top: -12px;
-        left: 50%;
-        margin-left: -9px;
-        position: absolute;
-        width: 18px;
-        height: 12px;
-        display: block;
-        background: $ico-scissors no-repeat center;
-      }
-    }
+		&__countdown {
+			top: 20px;
+			right: 20px;
+			white-space: nowrap;
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			&-label {
+				margin-right: 12px;
+				font-family: Proxima Nova;
+				font-size: 14px;
+				line-height: 16px;
+				color: #777777;
+			}
+		}
 
-    &-label {
-      display: block;
-      text-align: center;
-      font-family: 'Proxima Nova Sb';
-      font-size: 10px;
-      line-height: 12px;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      color: #777777;
-      transition: background 0.1s ease,
-                  border-color 0.1s ease,
-                  color 0.1s ease;
-      &_hover {
-        color: #008BE2;
-      }
-    }
+		&__buttons {
+			display: flex;
+			justify-content: flex-end;
+		}
 
-    &-value {
-      display: block;
-      text-align: center;
-      font-family: 'Proxima Nova';
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 20px;
-      letter-spacing: 0.3px;
-      color: #555555;
-      text-transform: uppercase;
-    }
-  }
+		&__terms {
+			margin-right: 40px;
+			padding-left: 26px;
+			position: relative;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			font-family: 'Proxima Nova';
+			font-size: 12px;
+			line-height: 16px;
+			color: #777777;
+			span {
+				border-bottom: 1px dashed #aaaaaa;
+			}
+			&:hover {
+				span {
+					border: none;
+				}
+			}
+			&-icon {
+				left: 0;
+				top: 0;
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				display: block;
+				transition: transform 0.1s ease;
+				background: $ico-terms no-repeat center;
+			}
 
-  &__countdown {
-    top: 20px;
-    right: 20px;
-    white-space: nowrap;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    &-label {
-      margin-right: 12px;
-      font-family: Proxima Nova;
-      font-size: 14px;
-      line-height: 16px;
-      color: #777777;
-    }
-  }
+			&_expanded {
+				.promotion-item__terms-icon {
+					transform: rotate(180deg);
+				}
+			}
+		}
 
-  &__buttons {
-    display: flex;
-    justify-content: flex-end;
-  }
+		&__avaliable {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 0;
+			span {
+				margin-left: 8px;
+				vertical-align: middle;
+				font-size: 12px;
+				line-height: 16px;
+				font-family: 'Proxima Nova';
+			}
+			&_yes {
+				color: #777777;
+			}
+			&_no {
+				color: #eb5757;
+			}
+		}
+	}
 
-  &__terms {
-    margin-right: 40px;
-    padding-left: 26px;
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    font-family: 'Proxima Nova';
-    font-size: 12px;
-    line-height: 16px;
-    color: #777777;
-    span {
-      border-bottom: 1px dashed #AAAAAA;
-    }
-    &:hover {
-      span {
-        border: none;
-      }
-    }
-    &-icon {
-      left: 0;
-      top: 0;
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      display: block;
-      transition: transform 0.1s ease;
-      background: $ico-terms no-repeat center;
-    }
+	.btn-get-promotion {
+		flex-grow: 1;
+		margin-right: 20px;
+		display: block;
+		padding: 12px 24px;
+		font-family: 'Proxima Nova Sb';
+		font-size: 16px;
+		line-height: 16px;
+		text-align: center;
+		color: #ffffff;
+		background: #ff4151;
+		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+		&:hover,
+		&:active,
+		&:focus {
+			background: #ee3c4b;
+		}
+	}
 
-    &_expanded {
-      .promotion-item__terms-icon {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  &__avaliable {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 0;
-    span {
-      margin-left: 8px;
-      vertical-align: middle;
-      font-size: 12px;
-      line-height: 16px;
-      font-family: 'Proxima Nova';
-    }
-    &_yes {
-      color: #777777;
-    }
-    &_no {
-      color: #EB5757;
-    }
-  }
-}
-
-.btn-get-promotion {
-  flex-grow: 1;
-  margin-right: 20px;
-  display: block;
-  padding: 12px 24px;
-  font-family: 'Proxima Nova Sb';
-  font-size: 16px;
-  line-height: 16px;
-  text-align: center;
-  color: #FFFFFF;
-  background: #FF4151;
-  transition: background 0.1s ease,
-              border-color 0.1s ease,
-              color 0.1s ease;
-  &:hover,
-  &:active,
-  &:focus {
-    background: #EE3C4B;
-  }
-}
-
-.btn-promotion-review {
-  display: block;
-  padding: 0;
-  border: 1px solid rgba(119, 119, 119, 0.3);
-  border-radius: 3px;
-  width: 40px;
-  height: 40px;
-  background: $ico-arrow-right no-repeat center;
-  transition: background 0.1s ease,
-              border-color 0.1s ease,
-              color 0.1s ease;
-  &:hover,
-  &:active,
-  &:focus {
-    background: #DDDDDD $ico-arrow-right no-repeat center;
-  }
-}
+	.btn-promotion-review {
+		display: block;
+		padding: 0;
+		border: 1px solid rgba(119, 119, 119, 0.3);
+		border-radius: 3px;
+		width: 40px;
+		height: 40px;
+		background: $ico-arrow-right no-repeat center;
+		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+		&:hover,
+		&:active,
+		&:focus {
+			background: #dddddd $ico-arrow-right no-repeat center;
+		}
+	}
 </style>

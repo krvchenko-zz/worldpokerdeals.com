@@ -1,141 +1,130 @@
 <template>
-<div :class="['filter-dropdown', collapsed && 'filter-dropdown_collapsed']">
-  <div 
-    :class="['filter-dropdown__header', collapsed && 'filter-dropdown__header_collapsed']"
-    @click="handleToggle"
-  >
-    <svg-icon class="filter-dropdown__icon" v-if="icon" :icon="icon"/>
-    <span class="filter-dropdown__label">{{ label }}</span>
-  </div>
+	<div :class="['filter-dropdown', collapsed && 'filter-dropdown_collapsed']">
+		<div
+			:class="[
+				'filter-dropdown__header',
+				collapsed && 'filter-dropdown__header_collapsed',
+			]"
+			@click="handleToggle"
+		>
+			<svg-icon v-if="icon" class="filter-dropdown__icon" :icon="icon" />
+			<span class="filter-dropdown__label">{{ label }}</span>
+		</div>
 
-  <transition name="slide">
-    <div v-show="!collapsed" class="filter-dropdown-list">
-      <slot/>
-    </div>
-  </transition>
-
-</div>
+		<transition name="slide">
+			<div v-show="!collapsed" class="filter-dropdown-list">
+				<slot />
+			</div>
+		</transition>
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'FilterDropdown',
 
-export default {
+		components: {},
 
-  name: 'FilterDropdown',
+		props: {
+			label: {
+				type: String,
+				required: true,
+			},
 
-  components: {
+			icon: {
+				type: [String, Boolean],
+				default: false,
+			},
 
-  },
+			opened: {
+				type: Boolean,
+				default: false,
+			},
+		},
 
-  props: {
+		data: () => ({
+			collapsed: true,
+		}),
 
-    label: {
-      type: String,
-      required: true,
-    },
+		computed: {},
 
-    icon: {
-      type: [String, Boolean],
-      default: false,
-    },
+		watch: {},
 
-    opened: {
-      type: Boolean,
-      default: false,
-    }
-  },
+		created() {},
 
-	created() {
+		mounted() {
+			this.collapsed = !this.opened
+		},
 
-	},
-
-	data: () => ({
-    collapsed: true
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-  mounted() {
-    this.collapsed = !this.opened
-  },
-
-	methods: {
-    handleToggle() {
-      this.collapsed = !this.collapsed
-      if (this.collapsed) {
-        this.$emit('close', this.collapsed)
-      } else {
-        this.$emit('open', this.collapsed)
-      }
-    }
+		methods: {
+			handleToggle() {
+				this.collapsed = !this.collapsed
+				if (this.collapsed) {
+					this.$emit('close', this.collapsed)
+				} else {
+					this.$emit('open', this.collapsed)
+				}
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
+	$ico-arrow-down: url('~assets/i/ico-arrow-down.svg?data');
 
-$ico-arrow-down: url('~assets/i/ico-arrow-down.svg?data');
+	.filter-dropdown {
+		background: #ffffff;
+		border: 1px solid #e9e9e9;
+		border-bottom: 0;
 
-.filter-dropdown {
-  background: #FFFFFF;
-  border: 1px solid #E9E9E9;
-  border-bottom: 0;
+		&_collapsed {
+			background: #fafafa;
+		}
 
-  &_collapsed {
-    background: #FAFAFA;
-  }
+		&:last-child {
+			border-bottom: 1px solid #e9e9e9;
+		}
 
-  &:last-child {
-    border-bottom: 1px solid #E9E9E9;
-  }
+		&__header {
+			position: relative;
+			cursor: pointer;
+			padding: 20px;
+			font-family: 'Proxima Nova';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 16px;
+			line-height: 16px;
+			color: #243238;
+			display: flex;
+			&:after {
+				position: absolute;
+				top: 25px;
+				right: 20px;
+				content: '';
+				display: block;
+				width: 10px;
+				height: 6px;
+				transform: rotate(-180deg);
+				background: $ico-arrow-down no-repeat center;
+				transition: transform ease 0.3s;
+			}
 
-  &__header {
-    position: relative;
-    cursor: pointer;
-    padding: 20px;
-    font-family: 'Proxima Nova';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 16px;
-    color: #243238;
-    display: flex;
-    &:after {
-      position: absolute;
-      top: 25px;
-      right: 20px;
-      content: '';
-      display: block;
-      width: 10px;
-      height: 6px;
-      transform: rotate(-180deg);
-      background: $ico-arrow-down no-repeat center;
-      transition: transform ease .3s;
-    }
+			&_collapsed {
+				&:after {
+					transform: rotate(0deg);
+				}
+			}
+		}
 
-    &_collapsed {
-      &:after {
-        transform: rotate(0deg);
-      }
-    }
-  }
+		&__label {
+			padding-left: 12px;
+		}
 
-  &__label {
-    padding-left: 12px;
-  }
+		&__icon {
+		}
 
-  &__icon {
-
-  }
-
-  &-list {
-    padding: 0 20px;
-  }
-}
+		&-list {
+			padding: 0 20px;
+		}
+	}
 </style>

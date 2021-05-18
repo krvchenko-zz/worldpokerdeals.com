@@ -1,129 +1,128 @@
 <template>
-<form class="restricted-form" @submit.prevent="submit" @keydown="form.onKeydown($event)">
-	<div class="restricted-form-group">
-		<div class="restricted-form-group__wrap">
-			<form-input
-				v-model="form.email"
-				class="restricted-form__input"
-				placeholder="Электронная почта"
-				type="email"
-				name="email"
-				label-color="#636363"
-				:required="true"
-				:loading="form.busy"
-				:error="form.errors.has('email')"
-			/>
-			<form-submit-button
-				:disabled="!form.email"
-				class="btn-restricted-form"
-				label="Получить доступ"
-				:loading="form.busy">
-			</form-submit-button>
+	<form
+		class="restricted-form"
+		@submit.prevent="submit"
+		@keydown="form.onKeydown($event)"
+	>
+		<div class="restricted-form-group">
+			<div class="restricted-form-group__wrap">
+				<form-input
+					v-model="form.email"
+					class="restricted-form__input"
+					placeholder="Электронная почта"
+					type="email"
+					name="email"
+					label-color="#636363"
+					:required="true"
+					:loading="form.busy"
+					:error="form.errors.has('email')"
+				/>
+				<form-submit-button
+					:disabled="!form.email"
+					class="btn-restricted-form"
+					label="Получить доступ"
+					:loading="form.busy"
+				>
+				</form-submit-button>
+			</div>
+			<transition name="fade">
+				<has-error :form="form" field="email" />
+			</transition>
 		</div>
-		<transition name="fade">	
-			<has-error :form="form" field="email" />
-		</transition>
-	</div>
-</form>
-
+	</form>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Form from 'vform'
+	import { mapGetters } from 'vuex'
+	import Form from 'vform'
 
-export default {
+	export default {
+		name: 'ContactsForm',
 
-	name: 'ContactsForm',
+		components: {},
 
-	components: {
+		computed: {
+			...mapGetters({
+				auth: 'auth/check',
+				user: 'auth/user',
+			}),
+		},
 
-	},
-
-	computed: {
-		...mapGetters({
-			auth: 'auth/check',
-			user: 'auth/user',
-		})
-	},
-
-	data: () => ({
-		form: new Form({
-			email: null,
+		data: () => ({
+			form: new Form({
+				email: null,
+			}),
 		}),
-	}),
 
-	watch: {
-		user: {
-			immediate: true,
-			deep: true,
-			handler(data) {
-				if (this.auth) {
-					this.form.keys().forEach(key => {
-						this.form[key] = data[key]
+		watch: {
+			user: {
+				immediate: true,
+				deep: true,
+				handler(data) {
+					if (this.auth) {
+						this.form.keys().forEach(key => {
+							this.form[key] = data[key]
+						})
+					}
+				},
+			},
+		},
+
+		methods: {
+			async submit() {
+				this.form
+					.post('/contacts')
+					.then(response => {
+						this.$emit('submit')
+						this.form.reset()
 					})
-				}
-			}
-		}
-	},
-
-	methods: {
-		async submit () {
-			this.form.post('/contacts').then((response) => {
-				this.$emit('submit')
-				this.form.reset()
-			})
-			.catch(e => {
-			})
-		}
+					.catch(e => {})
+			},
+		},
 	}
-}
 </script>
 
 <style lang="scss">
+	.restricted-form {
+		margin-bottom: 28px;
 
-.restricted-form {
+		&__input {
+			flex-grow: 1;
+			input {
+				border-right: 0;
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+		}
 
-	margin-bottom: 28px;
+		&-group {
+			position: relative;
+			margin-bottom: 24px;
+			&__wrap {
+				display: flex;
+			}
+			&:last-child {
+				margin: 0;
+			}
+		}
 
-	&__input {
-    flex-grow: 1;
-		input {
-			border-right: 0;
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
+		&__link {
+			margin-left: 2px;
+			font-family: Proxima Nova;
+			font-size: 14px;
+			line-height: 20px;
+			text-decoration-line: underline;
+			font-feature-settings: 'tnum' on, 'lnum' on;
+			color: #008be2;
+		}
+
+		&__contacts {
 		}
 	}
 
-	&-group {
-		position: relative;
-		margin-bottom: 24px;
-		&__wrap {
-			display: flex;
-		}
-		&:last-child {
-			margin: 0;
-		}
+	.btn-restricted-form {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		padding: 10px 28px;
 	}
-
-	&__link {
-		margin-left: 2px;
-		font-family: Proxima Nova;
-		font-size: 14px;
-		line-height: 20px;
-		text-decoration-line: underline;
-		font-feature-settings: 'tnum' on, 'lnum' on;
-		color: #008BE2;
-	}
-
-	&__contacts {
-
-	}
-}
-
-.btn-restricted-form {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	padding: 10px 28px;
-}
 </style>

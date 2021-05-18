@@ -1,44 +1,25 @@
 <template>
-<div>
-	
-</div>
+	<div></div>
 </template>
 
 <script>
+	export default {
+		name: 'NetworkCategoryHeader',
 
-export default {
+		components: {},
 
-  name: 'NetworkCategoryHeader',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		computed: {},
 
-  props: {
+		watch: {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
-<style scoped lang="scss">	
-</style>
+<style scoped lang="scss"></style>

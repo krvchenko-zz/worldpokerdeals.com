@@ -1,44 +1,27 @@
 <template>
-<div class="review-list">
-	<slot />
-</div>
+	<div class="review-list">
+		<slot />
+	</div>
 </template>
 
 <script>
+	export default {
+		name: 'ReviewsList',
 
-export default {
+		components: {},
 
-  name: 'ReviewsList',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		computed: {},
 
-  props: {
+		watch: {},
 
-  },
+		created() {},
 
-	created() {
-
-	},
-
-	data: () => ({
-
-	}),
-
-  computed: {
-
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
-<style lang="scss">	
-</style>
+<style lang="scss"></style>

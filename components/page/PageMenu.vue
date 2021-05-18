@@ -1,147 +1,142 @@
 <template>
-<nav class="page-menu" :style="{width: `${width}px`}">
-  <slot name="before" />
+	<nav class="page-menu" :style="{ width: `${width}px` }">
+		<slot name="before" />
 
-  <div class="page-menu__wrap">
-    <ul :style="{
-      width: `${100 / columns}%`
-    }" v-if="groups[n -1]" class="page-menu__list" v-for="n in columns" :key="n">
-      <page-menu-item
-        v-for="(item, index) in groups[n - 1]" :key="index"
-        :label="item.name"
-        :text="item.text"
-        :icon="item.icon"
-        :page="item.page"
-      />
-    </ul>
-  </div>
+		<div class="page-menu__wrap">
+			<ul
+				v-for="n in columns"
+				v-if="groups[n - 1]"
+				:key="n"
+				:style="{
+					width: `${100 / columns}%`,
+				}"
+				class="page-menu__list"
+			>
+				<page-menu-item
+					v-for="(item, index) in groups[n - 1]"
+					:key="index"
+					:label="item.name"
+					:text="item.text"
+					:icon="item.icon"
+					:page="item.page"
+				/>
+			</ul>
+		</div>
 
-  <slot name="after" />
-</nav>
+		<slot name="after" />
+	</nav>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
+	import axios from 'axios'
 
-import { mapGetters } from 'vuex'
-import axios from 'axios'
+	export default {
+		name: 'PageMenu',
 
-export default {
+		components: {},
 
-  name: 'PageMenu',
+		props: {
+			items: {
+				type: Array,
+				required: true,
+			},
 
-  components: {
+			width: {
+				type: Number,
+				default: 300,
+			},
 
-  },
+			columns: {
+				type: Number,
+				default: 1,
+			},
 
-  props: {
-    items: {
-      type: Array,
-      required: true
-    },
+			perColumn: {
+				type: Number,
+				default: 5,
+			},
+		},
 
-    width: {
-      type: Number,
-      default: 300
-    },
+		data: () => ({}),
 
-    columns: {
-      type: Number,
-      default: 1
-    },
+		created() {},
 
-    perColumn: {
-      type: Number,
-      default: 5
-    }
-  },
+		computed: {
+			...mapGetters({
+				country: 'location/country',
+				topList: 'rooms/topList',
+				menuItems: 'menu/items',
+			}),
 
-	created() {
+			groups() {
+				return this.items.reduce((array, item, index) => {
+					const chunck = Math.floor(index / this.perColumn)
 
-	},
+					if (!array[chunck]) {
+						array[chunck] = []
+					}
 
-	data: () => ({
+					array[chunck].push(item)
 
-	}),
+					return array
+				}, [])
+			},
+		},
 
-  computed: {
-    ...mapGetters({
-      country: 'location/country',
-      topList: 'rooms/topList',
-      menuItems: 'menu/items',
-    }),
+		watch: {},
 
-    groups() {
-      return this.items.reduce((array, item, index) => {
-        const chunck = Math.floor(index/this.perColumn)
-
-        if(!array[chunck]) {
-          array[chunck] = []
-        }
-
-        array[chunck].push(item)
-
-        return array
-      }, [])
-    }
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
 <style lang="scss">
-.page-menu {
-  display: none;
-  width: 300px;
-  position: absolute;
-  left: 0;
-  top: 80px;
-  z-index: 1;
-  background: #2B2E3B;
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.5);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  align-items: stretch;
-  &__wrap {
-    flex-grow: 1;
-    display: flex;
-    flex-flow: wrap;
-  }
-  &__list {
-    position: relative;
-    list-style: none;
-    padding: 12px 0;
-    margin: 0;
-  }
-}
+	.page-menu {
+		display: none;
+		width: 300px;
+		position: absolute;
+		left: 0;
+		top: 80px;
+		z-index: 1;
+		background: #2b2e3b;
+		box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.5);
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		overflow: hidden;
+		align-items: stretch;
+		&__wrap {
+			flex-grow: 1;
+			display: flex;
+			flex-flow: wrap;
+		}
+		&__list {
+			position: relative;
+			list-style: none;
+			padding: 12px 0;
+			margin: 0;
+		}
+	}
 
-@media screen and (min-width: 1280px) {
-  .header-nav__item:hover {
-    .page-menu {
-      display: flex;
-    }
-  }
-}
+	@media screen and (min-width: 1280px) {
+		.header-nav__item:hover {
+			.page-menu {
+				display: flex;
+			}
+		}
+	}
 
-.header-nav__item--active {
-  .page-menu {
-    display: flex;
-    position: relative;
-    width: 100%;
-    top: 0;
-    box-shadow: none;
-    border: none;
-    &__wrap {
-      flex-direction: column;
-    }
-  }
-}
+	.header-nav__item--active {
+		.page-menu {
+			display: flex;
+			position: relative;
+			width: 100%;
+			top: 0;
+			box-shadow: none;
+			border: none;
+			&__wrap {
+				flex-direction: column;
+			}
+		}
+	}
 </style>

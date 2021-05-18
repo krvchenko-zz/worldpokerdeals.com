@@ -1,53 +1,39 @@
 <template>
-<div>
-  <nuxt-link prefetch :to="{name: 'index', params: {}}" v-slot="{ href, route, navigate, isActive, isExactActive }">
-    <a :href="href" @click="navigate"></a>
-  </nuxt-link>
-</div>
+	<div>
+		<nuxt-link
+			v-slot="{ href, route, navigate, isActive, isExactActive }"
+			prefetch
+			:to="{ name: 'index', params: {} }"
+		>
+			<a :href="href" @click="navigate"></a>
+		</nuxt-link>
+	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex'
+	export default {
+		name: 'Default',
 
-export default {
+		components: {},
 
-  name: 'Default',
+		props: {},
 
-  components: {
+		data: () => ({}),
 
-  },
+		async fetch() {},
 
-  props: {
+		created() {},
 
-  },
+		computed: {
+			...mapGetters({}),
+		},
 
-	created() {
+		watch: {},
 
-	},
-
-	data: () => ({
-
-	}),
-
-  async fetch() {
-
-  },
-
-  computed: {
-    ...mapGetters({
-    }),
-  },
-
-  watch: {
-
-  },
-
-	methods: {
-
+		methods: {},
 	}
-}
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
