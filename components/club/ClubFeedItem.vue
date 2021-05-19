@@ -359,4 +359,38 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.club-item {
+			&__wrap {
+				flex-direction: column;
+			}
+			&__prop {
+				white-space: nowrap;
+			}
+			&__col {
+				width: 100%;
+				padding: 0;
+				border-right: none;
+				&:nth-child(1) {
+					padding: 0;
+					margin-bottom: 20px;
+				}
+				&:nth-child(2) {
+					padding: 0;
+					box-sizing: border-box;
+				}
+				&:nth-child(3) {
+					padding: 0;
+				}
+			}
+			&__prop-wrap {
+				justify-content: space-between;
+			}
+			&__join {
+				margin: 0 auto;
+				max-width: 290px;
+			}
+		}
+	}
 </style>
