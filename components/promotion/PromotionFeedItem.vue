@@ -24,53 +24,50 @@
 					>{{ category.name }}
 				</span>
 				<span class="promotion-item__title">{{ title }}</span>
-
-				<span v-if="type === 'bonus'" class="promotion-item__params">
-					<span class="promotion-item__cashback">
-						<span class="promotion-item__params-label">Кешбэк</span>
-						{{ cashback_value }}%
-					</span>
-					<span class="promotion-item__deposit">
-						<span class="promotion-item__params-label">К депозиту</span>
-						+{{ deposit_bonus }}%
-					</span>
-					<span class="promotion-item__max">
-						<span class="promotion-item__params-label">Макс бонус</span>
-						${{ max_bonus }}
-						<template v-if="max_bonus_currency">{{
-							max_bonus_currency.symbol
-						}}</template>
-					</span>
-				</span>
-
-				<span v-else class="promotion-item__params">
-					<span class="promotion-item__prize">
-						<span class="promotion-item__params-label">Призовой фонд</span>
-						{{ formatMoney(prize) }}
-						<template v-if="currency">{{ currency.symbol }}</template>
-					</span>
-
-					<span
-						v-if="permanent && regularity"
-						class="promotion-item__regularity"
-					>
-						<span class="promotion-item__params-label">Регулярная</span>
-						{{ regularity }}
-					</span>
-
-					<template v-else>
-						<span class="promotion-item__start">
-							<span class="promotion-item__params-label">Начало</span>
-							{{ dateFormat(start) }}
-						</span>
-
-						<span class="promotion-item__end">
-							<span class="promotion-item__params-label">Окончание</span>
-							{{ dateFormat(end) }}
-						</span>
-					</template>
-				</span>
 			</div>
+
+			<span v-if="type === 'bonus'" class="promotion-item__params">
+				<span class="promotion-item__cashback">
+					<span class="promotion-item__params-label">Кешбэк</span>
+					{{ cashback_value }}%
+				</span>
+				<span class="promotion-item__deposit">
+					<span class="promotion-item__params-label">К депозиту</span>
+					+{{ deposit_bonus }}%
+				</span>
+				<span class="promotion-item__max">
+					<span class="promotion-item__params-label">Макс бонус</span>
+					${{ max_bonus }}
+					<template v-if="max_bonus_currency">{{
+						max_bonus_currency.symbol
+					}}</template>
+				</span>
+			</span>
+
+			<span v-else class="promotion-item__params">
+				<span class="promotion-item__prize">
+					<span class="promotion-item__params-label">Призовой фонд</span>
+					{{ formatMoney(prize) }}
+					<template v-if="currency">{{ currency.symbol }}</template>
+				</span>
+
+				<span v-if="permanent && regularity" class="promotion-item__regularity">
+					<span class="promotion-item__params-label">Регулярная</span>
+					{{ regularity }}
+				</span>
+
+				<template v-else>
+					<span class="promotion-item__start">
+						<span class="promotion-item__params-label">Начало</span>
+						{{ dateFormat(start) }}
+					</span>
+
+					<span class="promotion-item__end">
+						<span class="promotion-item__params-label">Окончание</span>
+						{{ dateFormat(end) }}
+					</span>
+				</template>
+			</span>
 
 			<div class="promotion-item__actions">
 				<span
@@ -384,8 +381,10 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 		display: grid;
 		gap: 16px;
 		padding: 20px;
-		grid-template-columns: 42px 1fr minmax(188px, max-content);
-		grid-template-areas: 'icon text actions';
+		grid-template-columns: 42px minmax(0, 1fr) minmax(188px, max-content);
+		grid-template-areas:
+			'icon text actions'
+			'icon bonus actions';
 	}
 
 	&__title {
@@ -562,6 +561,7 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 	}
 
 	&__params {
+		grid-area: bonus;
 		display: flex;
 		&-label {
 			margin-bottom: 4px;
@@ -822,6 +822,36 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 	}
 }
 
+@media screen and (min-width: 1280px) and (max-width: 1339px) {
+	.promotion-item {
+		&__params {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+		}
+		&__prize {
+			padding-right: 12px;
+		}
+		&__start {
+			padding: 0 12px;
+		}
+		&__end {
+			padding-left: 12px;
+		}
+		&__regularity {
+			padding-left: 12px;
+		}
+	}
+}
+
+@include mq('laptop') {
+	.promotion-item {
+		&__params {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+		}
+	}
+}
+
 @include mq('tablet') {
 	.promotion-item {
 		&__title {
@@ -834,7 +864,7 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 			gap: 16px;
 			grid-template-areas:
 				'icon text'
-				'icon text'
+				'icon bonus'
 				'icon actions';
 		}
 		&__actions {
@@ -857,6 +887,7 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 		}
 		&__code {
 			margin-bottom: 0;
+			margin-right: auto;
 		}
 		&__info {
 			display: flex;
@@ -869,17 +900,29 @@ $ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
 @include mq('mobile') {
 	.promotion-item {
-		/* &__content {
+		&__content {
 			grid-template-areas:
 				'icon text'
-				'icon text'
+				'bonus bonus'
 				'actions actions';
-		} */
+		}
+		&__params {
+			justify-content: space-between;
+		}
 		&__info {
 			justify-content: space-between;
 		}
 		&__terms {
 			margin-right: 0px;
+		}
+		&__prize {
+			padding-right: 16px;
+		}
+		&__start {
+			padding: 0 16px;
+		}
+		&__end {
+			padding-left: 16px;
 		}
 	}
 }
