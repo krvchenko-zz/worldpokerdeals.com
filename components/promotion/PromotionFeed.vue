@@ -50,130 +50,130 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapGetters } from 'vuex'
+	import axios from 'axios'
+	import { mapGetters } from 'vuex'
 
-export default {
-	name: 'PromotionFeed',
+	export default {
+		name: 'PromotionFeed',
 
-	components: {},
+		components: {},
 
-	props: {
-		contenteditable: {
-			type: [Boolean, String],
+		props: {
+			contenteditable: {
+				type: [Boolean, String],
+			},
+
+			room_id: {
+				type: [Number, String],
+			},
+
+			fetch: {
+				type: Boolean,
+				default: true,
+			},
 		},
 
-		room_id: {
-			type: [Number, String],
+		computed: {
+			...mapGetters({
+				country: 'location/country',
+				feed: 'promotions/feed',
+				room: 'rooms/room',
+			}),
 		},
 
-		fetch: {
-			type: Boolean,
-			default: true,
-		},
-	},
-
-	computed: {
-		...mapGetters({
-			country: 'location/country',
-			feed: 'promotions/feed',
-			room: 'rooms/room',
+		data: () => ({
+			per_page: 3,
+			total: null,
+			next_page_url: null,
 		}),
-	},
 
-	data: () => ({
-		per_page: 3,
-		total: null,
-		next_page_url: null,
-	}),
+		watch: {},
 
-	watch: {},
+		created() {},
 
-	created() {},
+		fetchOnServer: false,
 
-	fetchOnServer: false,
+		async fetch() {
+			if (!this.fetch) {
+				return false
+			}
 
-	async fetch() {
-		if (!this.fetch) {
-			return false
-		}
-
-		await this.$axios
-			.get('/promotion/feed', {
-				params: {
-					per_page: this.per_page,
-					room_id: this.room_id,
-				},
-			})
-			.then((response) => {
-				this.$store.commit('promotions/FETCH_FEED', {
-					feed: response.data.data,
+			await this.$axios
+				.get('/promotion/feed', {
+					params: {
+						per_page: this.per_page,
+						room_id: this.room_id,
+					},
 				})
-				$nuxt.$loading.finish()
-				this.total = response.data.total
-				this.next_page_url = response.data.next_page_url
-			})
-			.catch((e) => {})
-	},
-
-	methods: {
-		handleLoadMore() {
-			this.per_page = this.total
-			$nuxt.$loading.start()
-			this.$fetch()
+				.then(response => {
+					this.$store.commit('promotions/FETCH_FEED', {
+						feed: response.data.data,
+					})
+					$nuxt.$loading.finish()
+					this.total = response.data.total
+					this.next_page_url = response.data.next_page_url
+				})
+				.catch(e => {})
 		},
 
-		handleHide() {
-			$nuxt.$loading.start()
-			this.per_page = 3
-			this.$fetch()
+		methods: {
+			handleLoadMore() {
+				this.per_page = this.total
+				$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handleHide() {
+				$nuxt.$loading.start()
+				this.per_page = 3
+				this.$fetch()
+			},
 		},
-	},
-}
+	}
 </script>
 
 <style lang="scss">
-.promotions-table {
-	border: 1px solid #e9e9e9;
-	margin: 28px 0 32px 0;
-	margin-bottom: 20px !important;
-}
+	.promotions-table {
+		border: 1px solid #e9e9e9;
+		margin: 28px 0 32px 0;
+		margin-bottom: 20px !important;
+	}
 
-.promotions {
-	&__more {
-		padding: 6px 15px;
-		font-family: 'Proxima Nova Sb';
-		font-style: normal;
-		font-size: 14px;
-		line-height: 14px;
-		border: 1px solid rgba(0, 139, 226, 0.5);
-		background: transparent;
-		color: #008be2;
-		span {
-			margin-left: 5px;
-			text-align: center;
-			padding: 0 7px;
-			min-width: 22px;
-			height: 22px;
-			border: 1px solid rgba(204, 204, 204, 0.6);
-			border-radius: 50px;
-			display: inline-block;
+	.promotions {
+		&__more {
+			padding: 6px 15px;
 			font-family: 'Proxima Nova Sb';
 			font-style: normal;
-			font-size: 13px;
-			line-height: 20px;
-			text-align: center;
-			color: #aaaaaa;
+			font-size: 14px;
+			line-height: 14px;
+			border: 1px solid rgba(0, 139, 226, 0.5);
+			background: transparent;
+			color: #008be2;
+			span {
+				margin-left: 5px;
+				text-align: center;
+				padding: 0 7px;
+				min-width: 22px;
+				height: 22px;
+				border: 1px solid rgba(204, 204, 204, 0.6);
+				border-radius: 50px;
+				display: inline-block;
+				font-family: 'Proxima Nova Sb';
+				font-style: normal;
+				font-size: 13px;
+				line-height: 20px;
+				text-align: center;
+				color: #aaaaaa;
+			}
 		}
 	}
-}
 
-@include mq('tablet') {
-	.promotions-table {
-		&__feed {
-			margin-left: -20px;
-			margin-right: -20px;
+	@include mq('tablet') {
+		.promotions-table {
+			&__feed {
+				margin-left: -20px;
+				margin-right: -20px;
+			}
 		}
 	}
-}
 </style>

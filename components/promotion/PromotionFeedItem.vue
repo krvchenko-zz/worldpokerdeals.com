@@ -177,753 +177,754 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+	import { mapGetters } from 'vuex'
 
-export default {
-	name: 'PromotionFeedItem',
+	export default {
+		name: 'PromotionFeedItem',
 
-	components: {},
+		components: {},
 
-	props: {
-		index: {
-			type: [String, Number],
+		props: {
+			index: {
+				type: [String, Number],
+			},
+
+			type: {
+				type: [String],
+				default: 'bonus',
+			},
+
+			time_left: {
+				type: Object,
+			},
+
+			time_before: {
+				type: Object,
+			},
+
+			title: {
+				type: String,
+				required: true,
+			},
+
+			slug: {
+				type: String,
+				required: true,
+			},
+
+			created: {
+				type: String,
+				required: true,
+			},
+
+			code: {
+				type: [String, Boolean],
+				default: false,
+			},
+
+			category: {
+				type: Object,
+			},
+
+			room: {
+				type: Object,
+			},
+
+			page: {
+				type: Object,
+			},
+
+			min_deposit: {
+				type: Number,
+				default: 0,
+			},
+
+			min_deposit_currency: {
+				type: [Object, Boolean],
+				default: false,
+			},
+
+			cashback_value: {
+				type: Number,
+				default: 0,
+			},
+
+			max_bonus: {
+				type: Number,
+				default: 0,
+			},
+
+			max_bonus_currency: {
+				type: [Object, Boolean],
+				default: false,
+			},
+
+			deposit_bonus: {
+				type: Number,
+				default: 0,
+			},
+
+			prize: {
+				type: [Number, String],
+				default: null,
+			},
+
+			currency: {
+				type: [String, Object],
+				default: null,
+			},
+
+			start: {
+				type: String,
+				default: '',
+			},
+
+			end: {
+				type: String,
+				default: '',
+			},
+
+			regularity: {
+				type: String,
+			},
+
+			permanent: {
+				type: Boolean,
+				default: false,
+			},
+
+			terms: {
+				type: [String, Boolean],
+				default: '',
+			},
 		},
 
-		type: {
-			type: [String],
-			default: 'bonus',
-		},
-
-		time_left: {
-			type: Object,
-		},
-
-		time_before: {
-			type: Object,
-		},
-
-		title: {
-			type: String,
-			required: true,
-		},
-
-		slug: {
-			type: String,
-			required: true,
-		},
-
-		created: {
-			type: String,
-			required: true,
-		},
-
-		code: {
-			type: [String, Boolean],
-			default: false,
-		},
-
-		category: {
-			type: Object,
-		},
-
-		room: {
-			type: Object,
-		},
-
-		page: {
-			type: Object,
-		},
-
-		min_deposit: {
-			type: Number,
-			default: 0,
-		},
-
-		min_deposit_currency: {
-			type: [Object, Boolean],
-			default: false,
-		},
-
-		cashback_value: {
-			type: Number,
-			default: 0,
-		},
-
-		max_bonus: {
-			type: Number,
-			default: 0,
-		},
-
-		max_bonus_currency: {
-			type: [Object, Boolean],
-			default: false,
-		},
-
-		deposit_bonus: {
-			type: Number,
-			default: 0,
-		},
-
-		prize: {
-			type: [Number, String],
-			default: null,
-		},
-
-		currency: {
-			type: [String, Object],
-			default: null,
-		},
-
-		start: {
-			type: String,
-			default: '',
-		},
-
-		end: {
-			type: String,
-			default: '',
-		},
-
-		regularity: {
-			type: String,
-		},
-
-		permanent: {
-			type: Boolean,
-			default: false,
-		},
-
-		terms: {
-			type: [String, Boolean],
-			default: '',
-		},
-	},
-
-	data: () => ({
-		showTerms: false,
-		codeHovered: false,
-	}),
-
-	created() {},
-
-	mounted() {},
-
-	computed: {
-		...mapGetters({
-			user: 'auth/user',
-			locale: 'lang/locale',
-			locales: 'lang/locales',
-			country: 'location/country',
-			parent: 'rooms/room',
+		data: () => ({
+			showTerms: false,
+			codeHovered: false,
 		}),
 
-		url() {
-			return `/promotions/${this.slug}`
+		created() {},
+
+		mounted() {},
+
+		computed: {
+			...mapGetters({
+				user: 'auth/user',
+				locale: 'lang/locale',
+				locales: 'lang/locales',
+				country: 'location/country',
+				parent: 'rooms/room',
+			}),
+
+			url() {
+				return `/promotions/${this.slug}`
+			},
 		},
-	},
 
-	methods: {
-		dateFormat(timestamp) {
-			let date = new Date(timestamp),
-				d = date.getDate(),
-				m = date.getMonth() + 1,
-				y = date.getFullYear()
+		methods: {
+			dateFormat(timestamp) {
+				let date = new Date(timestamp),
+					d = date.getDate(),
+					m = date.getMonth() + 1,
+					y = date.getFullYear()
 
-			return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
+				return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
+			},
+			formatMoney(amount, decimalCount = 0, decimal = '.', thousands = ',') {
+				try {
+					decimalCount = Math.abs(decimalCount)
+					decimalCount = isNaN(decimalCount) ? 2 : decimalCount
+
+					const negativeSign = amount < 0 ? '-' : ''
+
+					let i = parseInt(
+						(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
+					).toString()
+					let j = i.length > 3 ? i.length % 3 : 0
+
+					return (
+						negativeSign +
+						(j ? i.substr(0, j) + thousands : '') +
+						i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
+						(decimalCount
+							? decimal +
+							  Math.abs(amount - i)
+									.toFixed(decimalCount)
+									.slice(2)
+							: '')
+					)
+				} catch (e) {
+					console.log(e)
+				}
+			},
 		},
-		formatMoney(amount, decimalCount = 0, decimal = '.', thousands = ',') {
-			try {
-				decimalCount = Math.abs(decimalCount)
-				decimalCount = isNaN(decimalCount) ? 2 : decimalCount
-
-				const negativeSign = amount < 0 ? '-' : ''
-
-				let i = parseInt(
-					(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
-				).toString()
-				let j = i.length > 3 ? i.length % 3 : 0
-
-				return (
-					negativeSign +
-					(j ? i.substr(0, j) + thousands : '') +
-					i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
-					(decimalCount
-						? decimal +
-						  Math.abs(amount - i)
-								.toFixed(decimalCount)
-								.slice(2)
-						: '')
-				)
-			} catch (e) {
-				console.log(e)
-			}
-		},
-	},
-}
+	}
 </script>
 
 <style scoped lang="scss">
-$ico-arrow-right: url('~assets/i/promotion/ico-bonus-arrow-right.svg?data');
-$ico-terms: url('~assets/i/promotion/ico-bonus-terms.svg?data');
-$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
+	$ico-arrow-right: url('~assets/i/promotion/ico-bonus-arrow-right.svg?data');
+	$ico-terms: url('~assets/i/promotion/ico-bonus-terms.svg?data');
+	$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
-.promotion-item {
-	display: grid;
-	grid-template-columns: 1fr;
-	background: #ffffff;
-	border: none;
-
-	&__table {
-		width: 100%;
-	}
-
-	&__content {
+	.promotion-item {
 		display: grid;
-		gap: 16px;
-		padding: 20px;
-		grid-template-columns: 42px minmax(0, 1fr) minmax(188px, max-content);
-		grid-template-areas:
-			'icon text actions'
-			'icon bonus actions';
-	}
-
-	&__title {
-		margin-bottom: 12px;
-	}
-
-	&__icon {
-		width: 100%;
-		height: auto;
-	}
-	&__icon-wrapper {
-		grid-area: icon;
-		align-self: start;
-		width: 100%;
-		border-radius: 4px;
-		display: block;
-	}
-	&__text {
-		grid-area: text;
-		display: flex;
-		flex-direction: column;
+		grid-template-columns: 1fr;
+		background: #ffffff;
 		border: none;
-		padding: 0;
-		font-family: 'Proxima Nova Sb';
-		font-style: normal;
-		font-size: 18px;
-		line-height: 22px;
-		color: #222222;
-	}
 
-	&__actions {
-		grid-area: actions;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		height: 100%;
-		padding: 0;
-		position: relative;
-	}
-
-	&__info {
-		border: 1px solid #e9e9e9;
-		padding: 8px 20px;
-		background: #fafafa;
-		border-bottom-width: 2px;
-		font-size: 0;
-		&--expanded {
-			border-bottom: none;
-		}
-	}
-
-	&__terms-text {
-		border: 1px solid #e9e9e9;
-		border-top: none;
-		background: #fafafa;
-		padding: 4px 20px 20px 20px;
-		&::v-deep ol {
-			margin: 0;
-			padding: 0;
-			list-style-position: inside;
+		&__table {
+			width: 100%;
 		}
 
-		&::v-deep ul {
-			margin: 0;
-			padding: 0;
-			list-style-position: inside;
+		&__content {
+			display: grid;
+			gap: 16px;
+			padding: 20px;
+			grid-template-columns: 42px minmax(0, 1fr) minmax(188px, max-content);
+			grid-template-areas:
+				'icon text actions'
+				'icon bonus actions';
 		}
 
-		&::v-deep ol {
-			margin-bottom: 20px;
-			list-style-type: decimal;
-			&:last-child {
-				margin: 0;
-			}
+		&__title {
+			margin-bottom: 12px;
 		}
 
-		&::v-deep ul {
-			margin-bottom: 20px;
-			list-style: none;
-			&:last-child {
-				margin: 0;
-			}
+		&__icon {
+			width: 100%;
+			height: auto;
 		}
-
-		&::v-deep ol > li {
-			margin: 0 0 10px 0;
-			padding: 0;
-			font-family: 'Proxima Nova';
-			font-size: 15px;
-			line-height: 18px;
-			color: #777777;
-			&:last-child {
-				margin: 0;
-			}
-			&:before {
-				display: none;
-			}
-		}
-
-		&::v-deep ul li {
-			margin: 0 0 10px 0;
-			padding: 0 0 0 0;
-			font-family: 'Proxima Nova';
-			font-size: 15px;
-			line-height: 18px;
-			color: #777777;
-			&:last-child {
-				margin: 0;
-			}
-			&:before {
-				top: 7px;
-				left: 0px;
-			}
-		}
-
-		&::v-deep p {
-			margin: 0 0 16px 0;
-			font-family: 'Proxima Nova';
-			font-size: 15px;
-			line-height: 18px;
-			color: #777777;
-			&:last-child {
-				margin: 0;
-			}
-		}
-	}
-
-	&_cashback,
-	&_deposit,
-	&_max {
-		position: relative;
-		&:before {
-			content: '';
-			top: calc(50% - (40px / 2));
-			left: 0px;
-			position: absolute;
+		&__icon-wrapper {
+			grid-area: icon;
+			align-self: start;
+			width: 100%;
+			border-radius: 4px;
 			display: block;
-			width: 1px;
-			height: calc(100% / 2);
-			background: #e9e9e9;
 		}
-	}
-
-	&__category {
-		align-self: start;
-		margin-bottom: 4px;
-		padding: 4px 8px 3px 8px;
-		display: inline-block;
-		font-family: Proxima Nova;
-		font-style: normal;
-		font-weight: bold;
-		font-size: 11px;
-		line-height: 11px;
-		letter-spacing: 0.2px;
-		border-radius: 100px;
-		text-transform: uppercase;
-		color: #212529;
-		border: 1px solid #212529;
-
-		&_19 {
-			color: #55bf4f;
-			border: 1px solid #55bf4f;
-		}
-
-		&_20 {
-			color: #c128b2;
-			border: 1px solid #c128b2;
-		}
-
-		&_21 {
-			color: #3c9be0;
-			border: 1px solid #3c9be0;
-		}
-	}
-
-	&__params {
-		grid-area: bonus;
-		display: flex;
-		&-label {
-			margin-bottom: 4px;
-			display: block;
+		&__text {
+			grid-area: text;
+			display: flex;
+			flex-direction: column;
+			border: none;
+			padding: 0;
 			font-family: 'Proxima Nova Sb';
-			font-size: 12px;
-			line-height: 16px;
-			letter-spacing: 0.3px;
-			text-transform: uppercase;
-			color: #777777;
+			font-style: normal;
+			font-size: 18px;
+			line-height: 22px;
+			color: #222222;
 		}
-	}
 
-	&__cashback {
-		font-family: 'Proxima Nova Sb';
-		font-style: normal;
-		font-size: 16px;
-		line-height: 22px;
-		color: #243238;
-		flex: 0 0 33.3%;
-	}
+		&__actions {
+			grid-area: actions;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 100%;
+			padding: 0;
+			position: relative;
+		}
 
-	&__start {
-		border-left: 1px solid #e9e9e9;
-		padding: 0 20px;
-		font-family: 'Proxima Nova Sb';
-		font-style: normal;
-		font-size: 16px;
-		line-height: 22px;
-		color: #243238;
-		flex: 0 0 33.3%;
-	}
+		&__info {
+			border: 1px solid #e9e9e9;
+			padding: 8px 20px;
+			background: #fafafa;
+			border-bottom-width: 2px;
+			font-size: 0;
+			&--expanded {
+				border-bottom: none;
+			}
+		}
 
-	&__end {
-		border-left: 1px solid #e9e9e9;
-		padding-left: 20px;
-		font-family: 'Proxima Nova Sb';
-		font-style: normal;
-		font-size: 16px;
-		line-height: 22px;
-		color: #243238;
-		flex: 0 0 33.3%;
-	}
+		&__terms-text {
+			border: 1px solid #e9e9e9;
+			border-top: none;
+			background: #fafafa;
+			padding: 4px 20px 20px 20px;
+			&::v-deep ol {
+				margin: 0;
+				padding: 0;
+				list-style-position: inside;
+			}
 
-	&__deposit {
-		border-left: 1px solid #e9e9e9;
-		padding-left: 20px;
-		font-family: 'Proxima Nova Sb';
-		font-style: normal;
-		font-size: 16px;
-		line-height: 22px;
-		color: #243238;
-		flex: 0 0 33.3%;
-	}
+			&::v-deep ul {
+				margin: 0;
+				padding: 0;
+				list-style-position: inside;
+			}
 
-	&__max {
-		border-left: 1px solid #e9e9e9;
-		padding-left: 20px;
-		font-family: 'Proxima Nova';
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		line-height: 22px;
-		color: #243238;
-		flex: 0 0 33.3%;
-	}
+			&::v-deep ol {
+				margin-bottom: 20px;
+				list-style-type: decimal;
+				&:last-child {
+					margin: 0;
+				}
+			}
 
-	&__prize {
-		padding-right: 20px;
-		margin: 0;
-		white-space: nowrap;
-		font-family: 'Proxima Nova';
-		font-style: normal;
-		font-weight: bold;
-		font-size: 20px;
-		line-height: 22px;
-		color: #243238;
-		flex: 0 0 33.3%;
-	}
+			&::v-deep ul {
+				margin-bottom: 20px;
+				list-style: none;
+				&:last-child {
+					margin: 0;
+				}
+			}
 
-	&__regularity {
-		border-left: 1px solid #e9e9e9;
-		padding-left: 20px;
-		font-family: 'Proxima Nova Sb';
-		font-size: 16px;
-		line-height: 22px;
-		color: #222222;
-		flex: 0 0 66.6%;
-	}
+			&::v-deep ol > li {
+				margin: 0 0 10px 0;
+				padding: 0;
+				font-family: 'Proxima Nova';
+				font-size: 15px;
+				line-height: 18px;
+				color: #777777;
+				&:last-child {
+					margin: 0;
+				}
+				&:before {
+					display: none;
+				}
+			}
 
-	&__code {
-		margin-bottom: 12px;
-		position: relative;
-		cursor: pointer;
-		display: block;
-		min-width: 130px;
-		padding: 8px 0 4px 0;
-		background: #fafafa;
-		border: 1px dashed rgba(119, 119, 119, 0.5);
-		border-radius: 4px;
-		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-		&--hover {
-			border-color: #008be2;
+			&::v-deep ul li {
+				margin: 0 0 10px 0;
+				padding: 0 0 0 0;
+				font-family: 'Proxima Nova';
+				font-size: 15px;
+				line-height: 18px;
+				color: #777777;
+				&:last-child {
+					margin: 0;
+				}
+				&:before {
+					top: 7px;
+					left: 0px;
+				}
+			}
 
+			&::v-deep p {
+				margin: 0 0 16px 0;
+				font-family: 'Proxima Nova';
+				font-size: 15px;
+				line-height: 18px;
+				color: #777777;
+				&:last-child {
+					margin: 0;
+				}
+			}
+		}
+
+		&_cashback,
+		&_deposit,
+		&_max {
+			position: relative;
 			&:before {
 				content: '';
-				top: -12px;
-				left: 50%;
-				margin-left: -9px;
+				top: calc(50% - (40px / 2));
+				left: 0px;
 				position: absolute;
-				width: 18px;
-				height: 12px;
 				display: block;
-				background: $ico-scissors no-repeat center;
+				width: 1px;
+				height: calc(100% / 2);
+				background: #e9e9e9;
 			}
 		}
 
-		&-label {
-			display: block;
-			text-align: center;
-			font-family: 'Proxima Nova Sb';
-			font-size: 10px;
-			line-height: 12px;
-			letter-spacing: 0.3px;
+		&__category {
+			align-self: start;
+			margin-bottom: 4px;
+			padding: 4px 8px 3px 8px;
+			display: inline-block;
+			font-family: Proxima Nova;
+			font-style: normal;
+			font-weight: bold;
+			font-size: 11px;
+			line-height: 11px;
+			letter-spacing: 0.2px;
+			border-radius: 100px;
 			text-transform: uppercase;
-			color: #777777;
+			color: #212529;
+			border: 1px solid #212529;
+
+			&_19 {
+				color: #55bf4f;
+				border: 1px solid #55bf4f;
+			}
+
+			&_20 {
+				color: #c128b2;
+				border: 1px solid #c128b2;
+			}
+
+			&_21 {
+				color: #3c9be0;
+				border: 1px solid #3c9be0;
+			}
+		}
+
+		&__params {
+			grid-area: bonus;
+			display: flex;
+			&-label {
+				margin-bottom: 4px;
+				display: block;
+				font-family: 'Proxima Nova Sb';
+				font-size: 12px;
+				line-height: 16px;
+				letter-spacing: 0.3px;
+				text-transform: uppercase;
+				color: #777777;
+			}
+		}
+
+		&__cashback {
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
+
+		&__start {
+			border-left: 1px solid #e9e9e9;
+			padding: 0 20px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
+
+		&__end {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
+
+		&__deposit {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
+
+		&__max {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
+
+		&__prize {
+			padding-right: 20px;
+			margin: 0;
+			white-space: nowrap;
+			font-family: 'Proxima Nova';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 22px;
+			color: #243238;
+			flex: 0 0 33.3%;
+		}
+
+		&__regularity {
+			border-left: 1px solid #e9e9e9;
+			padding-left: 20px;
+			font-family: 'Proxima Nova Sb';
+			font-size: 16px;
+			line-height: 22px;
+			color: #222222;
+			flex: 0 0 66.6%;
+		}
+
+		&__code {
+			margin-bottom: 12px;
+			position: relative;
+			cursor: pointer;
+			display: block;
+			min-width: 130px;
+			padding: 8px 0 4px 0;
+			background: #fafafa;
+			border: 1px dashed rgba(119, 119, 119, 0.5);
+			border-radius: 4px;
 			transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
 			&--hover {
-				color: #008be2;
+				border-color: #008be2;
+
+				&:before {
+					content: '';
+					top: -12px;
+					left: 50%;
+					margin-left: -9px;
+					position: absolute;
+					width: 18px;
+					height: 12px;
+					display: block;
+					background: $ico-scissors no-repeat center;
+				}
+			}
+
+			&-label {
+				display: block;
+				text-align: center;
+				font-family: 'Proxima Nova Sb';
+				font-size: 10px;
+				line-height: 12px;
+				letter-spacing: 0.3px;
+				text-transform: uppercase;
+				color: #777777;
+				transition: background 0.1s ease, border-color 0.1s ease,
+					color 0.1s ease;
+				&--hover {
+					color: #008be2;
+				}
+			}
+
+			&-value {
+				display: block;
+				text-align: center;
+				font-family: 'Proxima Nova';
+				font-weight: bold;
+				font-size: 16px;
+				line-height: 20px;
+				letter-spacing: 0.3px;
+				color: #555555;
+				text-transform: uppercase;
 			}
 		}
 
-		&-value {
-			display: block;
-			text-align: center;
-			font-family: 'Proxima Nova';
-			font-weight: bold;
-			font-size: 16px;
-			line-height: 20px;
-			letter-spacing: 0.3px;
-			color: #555555;
-			text-transform: uppercase;
-		}
-	}
-
-	&__countdown {
-		white-space: nowrap;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		&-label {
-			margin-right: 12px;
-			font-family: Proxima Nova;
-			font-size: 14px;
-			line-height: 16px;
-			color: #777777;
-		}
-	}
-
-	&__buttons {
-		display: flex;
-		justify-content: flex-end;
-		margin-left: auto;
-		max-width: 188px;
-	}
-
-	&__terms {
-		margin-right: 40px;
-		padding-left: 20px;
-		position: relative;
-		cursor: pointer;
-		display: inline-block;
-		vertical-align: middle;
-		font-family: 'Proxima Nova';
-		white-space: nowrap;
-		font-size: 12px;
-		line-height: 16px;
-		color: #777777;
-		span {
-			border-bottom: 1px dashed #aaaaaa;
-		}
-		&:hover {
-			span {
-				border: none;
-			}
-		}
-		&-icon {
-			left: 0;
-			top: 0;
-			position: absolute;
-			width: 16px;
-			height: 16px;
-			display: block;
-			transition: transform 0.1s ease;
-			background: $ico-terms no-repeat center;
-		}
-
-		&--expanded {
-			.promotion-item__terms-icon {
-				transform: rotate(180deg);
-			}
-		}
-	}
-
-	&__avaliable {
-		display: inline-block;
-		vertical-align: middle;
-		font-size: 0;
-		white-space: nowrap;
-		span {
-			margin-left: 8px;
-			vertical-align: middle;
-			font-size: 12px;
-			line-height: 16px;
-			font-family: 'Proxima Nova';
-		}
-		&_yes {
-			color: #777777;
-		}
-		&_no {
-			color: #eb5757;
-		}
-	}
-}
-
-.btn-get-promotion {
-	flex-grow: 1;
-	margin-right: 20px;
-	display: block;
-	padding: 12px 24px;
-	font-family: 'Proxima Nova Sb';
-	font-size: 16px;
-	line-height: 16px;
-	text-align: center;
-	color: #ffffff;
-	background: #ff4151;
-	transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-	&:hover,
-	&:active,
-	&:focus {
-		background: #ee3c4b;
-	}
-}
-
-.btn-promotion-review {
-	display: block;
-	padding: 0;
-	border: 1px solid rgba(119, 119, 119, 0.3);
-	border-radius: 3px;
-	width: 40px;
-	height: 40px;
-	background: $ico-arrow-right no-repeat center;
-	transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-	&:hover,
-	&:active,
-	&:focus {
-		background: #dddddd $ico-arrow-right no-repeat center;
-	}
-}
-
-@media screen and (min-width: 1280px) and (max-width: 1339px) {
-	.promotion-item {
-		&__params {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(0, min-content));
-		}
-		&__prize {
-			padding-right: 12px;
-		}
-		&__start {
-			padding: 0 12px;
-		}
-		&__end {
-			padding-left: 12px;
-		}
-		&__regularity {
-			padding-left: 12px;
-		}
-	}
-}
-
-@include mq('laptop') {
-	.promotion-item {
-		&__params {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(0, min-content));
-		}
-	}
-}
-
-@include mq('tablet') {
-	.promotion-item {
-		&__title {
-			font-weight: 600;
-			font-size: 20px;
-			line-height: 24px;
-		}
-		&__content {
-			grid-template-columns: 52px 1fr;
-			gap: 16px;
-			grid-template-areas:
-				'icon text'
-				'icon bonus'
-				'icon actions';
-		}
-		&__actions {
-			justify-self: start;
-			justify-content: end;
-			align-items: center;
-			width: 100%;
-			flex-direction: row;
-			gap: 16px;
-			flex-wrap: wrap;
-		}
-		&__buttons {
-			margin-left: 0;
-		}
 		&__countdown {
-			margin-right: auto;
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 8px;
-		}
-		&__code {
-			margin-bottom: 0;
-			margin-right: auto;
-		}
-		&__info {
+			white-space: nowrap;
 			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			&-label {
+				margin-right: 12px;
+				font-family: Proxima Nova;
+				font-size: 14px;
+				line-height: 16px;
+				color: #777777;
+			}
 		}
+
+		&__buttons {
+			display: flex;
+			justify-content: flex-end;
+			margin-left: auto;
+			max-width: 188px;
+		}
+
 		&__terms {
 			margin-right: 40px;
-		}
-	}
-}
+			padding-left: 20px;
+			position: relative;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			font-family: 'Proxima Nova';
+			white-space: nowrap;
+			font-size: 12px;
+			line-height: 16px;
+			color: #777777;
+			span {
+				border-bottom: 1px dashed #aaaaaa;
+			}
+			&:hover {
+				span {
+					border: none;
+				}
+			}
+			&-icon {
+				left: 0;
+				top: 0;
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				display: block;
+				transition: transform 0.1s ease;
+				background: $ico-terms no-repeat center;
+			}
 
-@include mq('mobile') {
-	.promotion-item {
-		&__content {
-			grid-template-areas:
-				'icon text'
-				'bonus bonus'
-				'actions actions';
+			&--expanded {
+				.promotion-item__terms-icon {
+					transform: rotate(180deg);
+				}
+			}
 		}
-		&__params {
-			justify-content: space-between;
-		}
-		&__info {
-			justify-content: space-between;
-		}
-		&__terms {
-			margin-right: 0px;
-		}
-		&__prize {
-			padding-right: 16px;
-		}
-		&__start {
-			padding: 0 16px;
-		}
-		&__end {
-			padding-left: 16px;
+
+		&__avaliable {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 0;
+			white-space: nowrap;
+			span {
+				margin-left: 8px;
+				vertical-align: middle;
+				font-size: 12px;
+				line-height: 16px;
+				font-family: 'Proxima Nova';
+			}
+			&_yes {
+				color: #777777;
+			}
+			&_no {
+				color: #eb5757;
+			}
 		}
 	}
-}
+
+	.btn-get-promotion {
+		flex-grow: 1;
+		margin-right: 20px;
+		display: block;
+		padding: 12px 24px;
+		font-family: 'Proxima Nova Sb';
+		font-size: 16px;
+		line-height: 16px;
+		text-align: center;
+		color: #ffffff;
+		background: #ff4151;
+		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+		&:hover,
+		&:active,
+		&:focus {
+			background: #ee3c4b;
+		}
+	}
+
+	.btn-promotion-review {
+		display: block;
+		padding: 0;
+		border: 1px solid rgba(119, 119, 119, 0.3);
+		border-radius: 3px;
+		width: 40px;
+		height: 40px;
+		background: $ico-arrow-right no-repeat center;
+		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+		&:hover,
+		&:active,
+		&:focus {
+			background: #dddddd $ico-arrow-right no-repeat center;
+		}
+	}
+
+	@media screen and (min-width: 1280px) and (max-width: 1339px) {
+		.promotion-item {
+			&__params {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+			}
+			&__prize {
+				padding-right: 12px;
+			}
+			&__start {
+				padding: 0 12px;
+			}
+			&__end {
+				padding-left: 12px;
+			}
+			&__regularity {
+				padding-left: 12px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.promotion-item {
+			&__params {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.promotion-item {
+			&__title {
+				font-weight: 600;
+				font-size: 20px;
+				line-height: 24px;
+			}
+			&__content {
+				grid-template-columns: 52px 1fr;
+				gap: 16px;
+				grid-template-areas:
+					'icon text'
+					'icon bonus'
+					'icon actions';
+			}
+			&__actions {
+				justify-self: start;
+				justify-content: end;
+				align-items: center;
+				width: 100%;
+				flex-direction: row;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+			&__buttons {
+				margin-left: 0;
+			}
+			&__countdown {
+				margin-right: auto;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 8px;
+			}
+			&__code {
+				margin-bottom: 0;
+				margin-right: auto;
+			}
+			&__info {
+				display: flex;
+			}
+			&__terms {
+				margin-right: 40px;
+			}
+		}
+	}
+
+	@include mq('mobile') {
+		.promotion-item {
+			&__content {
+				grid-template-areas:
+					'icon text'
+					'bonus bonus'
+					'actions actions';
+			}
+			&__params {
+				justify-content: space-between;
+			}
+			&__info {
+				justify-content: space-between;
+			}
+			&__terms {
+				margin-right: 0px;
+			}
+			&__prize {
+				padding-right: 16px;
+			}
+			&__start {
+				padding: 0 16px;
+			}
+			&__end {
+				padding-left: 16px;
+			}
+		}
+	}
 </style>

@@ -72,4 +72,10 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.footer-category-item {
+			padding-left: 20px;
+		}
+	}
 </style>
