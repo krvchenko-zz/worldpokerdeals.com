@@ -105,7 +105,6 @@
 			line-height: 28px;
 			color: #ffffff;
 			min-width: 237px;
-			white-space: pre-wrap;
 		}
 
 		&__text {
