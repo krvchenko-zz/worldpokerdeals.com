@@ -18,6 +18,7 @@
 								:text="item.text"
 							>
 							</toc-item>
+							<post-subscribe />
 						</template>
 					</toc-list>
 				</div>
@@ -164,7 +165,7 @@
 				.get('posts/list', {
 					params: {
 						locale: this.locale,
-						per_page: 5,
+						per_page: 3,
 						order: 'created_at',
 						sort: 'desc',
 					},

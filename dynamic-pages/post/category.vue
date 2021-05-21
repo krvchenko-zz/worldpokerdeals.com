@@ -189,7 +189,9 @@
 				.catch(e => {})
 		},
 
-		watch: {},
+		watch: {
+			'$route.query': 'fetchItems',
+		},
 
 		methods: {
 			async fetchItems() {

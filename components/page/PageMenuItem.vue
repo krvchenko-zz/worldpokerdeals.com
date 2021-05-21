@@ -7,6 +7,7 @@
 				child: page.parent ? page.slug : null,
 				parent: page.parent ? page.parent.slug : page.slug,
 			},
+			query: page.query ? { category: page.query } : null,
 		}"
 	>
 		<li :class="['page-menu__item', isExactActive && 'page-menu__item_active']">

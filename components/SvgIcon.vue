@@ -7,6 +7,7 @@
 			fill: fill,
 			opacity: opacity,
 			removeClipPath: removeClipPath,
+			viewBox: viewBox,
 		}"
 		class="svg-icon"
 	/>
@@ -46,6 +47,9 @@
 				type: Boolean,
 				default: false,
 			},
+			viewBox: {
+				type: String,
+			},
 		},
 
 		data: () => ({
@@ -65,8 +69,6 @@
 							// console.log(e);
 						})
 				},
-
-				watch: ['icon'],
 			},
 		},
 

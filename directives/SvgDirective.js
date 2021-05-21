@@ -85,6 +85,9 @@ export default {
 		if (binding.value.removeClipPath) {
 			recursivelyRemoveAttr(el, 'clip-path')
 		}
+		if (binding.value.viewBox) {
+			el.setAttribute('viewBox', binding.value.viewBox)
+		}
 
 		uniqueId(el)
 	},

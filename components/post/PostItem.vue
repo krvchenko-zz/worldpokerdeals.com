@@ -1,23 +1,36 @@
 <template>
 	<article :class="['post-item', medium && 'post-item_size_m']">
-		<img
-			decoding="async"
-			:class="[
-				'post-item__img',
-				medium && 'post-item__img_size_m',
-				!medium && 'post-item__img_size-small',
-			]"
-			:src="src"
-			:alt="image.alt || title"
-			loading="lazy"
-		/>
+		<nuxt-link
+			v-slot="{ href, route, navigate, isActive, isExactActive }"
+			prefetch
+			:to="{ name: 'index', params: { parent: 'blog', child: slug } }"
+		>
+			<a :href="href" @click="navigate">
+				<img
+					decoding="async"
+					:class="[
+						'post-item__img',
+						medium && 'post-item__img_size_m',
+						!medium && 'post-item__img_size-small',
+					]"
+					:src="src"
+					:alt="image.alt || title"
+					loading="lazy"
+				/>
+			</a>
+		</nuxt-link>
 		<div v-if="medium" class="post-item__meta">
 			<span class="post-item__date post-item__date_size_m">{{
 				dateFormat(created)
 			}}</span>
-			<span class="post-item__category">{{
-				categories[categories.length - 1].title
-			}}</span>
+			<span
+				class="post-item__category"
+				:style="{
+					color: categories[categories.length - 1].color,
+				}"
+			>
+				{{ categories[categories.length - 1].title }}
+			</span>
 		</div>
 		<nuxt-link
 			v-slot="{ href, route, navigate, isActive, isExactActive }"
