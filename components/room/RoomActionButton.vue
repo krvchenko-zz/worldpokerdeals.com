@@ -22,6 +22,7 @@
 
 <script>
 	import eventBus from '~/utils/event-bus'
+	import { mapGetters } from 'vuex'
 
 	export default {
 		name: 'RoomActionButton',
@@ -79,6 +80,10 @@
 					? true
 					: false
 			},
+
+			...mapGetters({
+				country: 'location/country',
+			}),
 		},
 
 		watch: {},
@@ -97,7 +102,16 @@
 			},
 
 			handleDownload() {
-				window.open(this.to, '_blank')
+				if (this.country.code !== 'TH') {
+					let route = this.$router.resolve({
+						name: 'play',
+						params: { slug: this.slug },
+					})
+					return window.open(route.href, '_blank')
+				}
+
+				let route = this.$router.resolve({ name: 'restricted' })
+				return window.open(route.href, '_blank')
 			},
 		},
 	}
