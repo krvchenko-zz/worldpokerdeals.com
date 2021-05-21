@@ -5,15 +5,6 @@
 		</transition>
 		<nuxt />
 
-		<!-- <lazy-hydrate when-visible>
-			<best-room v-if="topList"
-			  :title="topList[0].title"
-			  :background="topList[0].background"
-			  :image="topList[0].image"
-			  :review="topList[0].review"
-			  :country="country"
-			 />
-		</lazy-hydrate> -->
 		<lazy-hydrate when-visible>
 			<page-footer />
 		</lazy-hydrate>

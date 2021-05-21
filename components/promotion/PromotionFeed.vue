@@ -1,11 +1,8 @@
 <template>
 	<div class="promotions">
-		<table
+		<div
 			v-if="feed || !fetch"
-			class="promotions-table"
-			cellspacing="0"
-			cellpadding="0"
-			border="0"
+			class="promotions-table promotions-table__feed"
 			width="100%"
 		>
 			<promotion-feed-item
@@ -36,7 +33,7 @@
 				:page="item.page"
 				:terms="item.terms"
 			/>
-		</table>
+		</div>
 
 		<div v-if="fetch && next_page_url" class="promotions-more">
 			<button class="btn promotions__more" @click.prevent="handleLoadMore">
@@ -167,6 +164,15 @@
 				line-height: 20px;
 				text-align: center;
 				color: #aaaaaa;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.promotions-table {
+			&__feed {
+				margin-left: -20px;
+				margin-right: -20px;
 			}
 		}
 	}

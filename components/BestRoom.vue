@@ -1,74 +1,61 @@
 <template>
 	<div class="best-room">
-		<div class="container-fluid">
-			<div class="best-room__wrap">
-				<div
-					class="best-room__item best-room__item_left"
-					:style="{ backgroundColor: background }"
-				>
-					<div class="best-room__geo">
-						<div class="best-room__geo-label">Лучший рум</div>
-						<div class="best-room__geo-wrap">
-							<svg-icon
-								class="best-room__geo-flag"
-								prefix="flags/"
-								:icon="country.code"
-								:width="20"
-								:height="20"
-							/>
-							<span class="best-room__geo-country">{{ country.title }}</span>
-						</div>
-					</div>
-					<div class="best-room__logo">
-						<img
-							class="best-room__img"
-							decoding="async"
-							loading="lazy"
-							:src="img"
-							:alt="image.alt || `${title} logo`"
+		<div class="best-room__wrap">
+			<div class="best-room__item" :style="{ backgroundColor: background }">
+				<div class="best-room__geo">
+					<div class="best-room__geo-label">Лучший рум</div>
+					<div class="best-room__geo-wrap">
+						<svg-icon
+							class="best-room__geo-flag"
+							prefix="flags/"
+							:icon="country.code"
+							:width="20"
+							:height="20"
 						/>
-					</div>
-					<div class="best-room__action">
-						<nuxt-link
-							v-if="review"
-							v-slot="{ href, route, navigate }"
-							:to="{
-								name: 'index',
-								params: { parent: 'rakeback-deals', child: review.slug },
-							}"
-						>
-							<a
-								:class="['btn', 'btn-block', 'btn-border', 'best-room__review']"
-								:href="href"
-								@click="navigate"
-								>Обзор</a
-							>
-						</nuxt-link>
+						<span class="best-room__geo-country">{{ country.title }}</span>
 					</div>
 				</div>
-				<div
-					class="best-room__item best-room__item_right"
-					:style="{ backgroundColor: '#4E5262' }"
-				>
-					<div class="best-room__description">
-						Закрытые азиатские клубы, статистика рейка, бесплатные хендхистори и
-						приватные офферы
-					</div>
-					<div class="best-room__action">
-						<nuxt-link v-slot="{ href, route, navigate }" to="/register">
-							<a
-								:class="[
-									'btn',
-									'btn-block',
-									'btn-action',
-									'best-room__register',
-								]"
-								:href="href"
-								@click="navigate"
-								>Регистрируйтесь</a
-							>
-						</nuxt-link>
-					</div>
+				<div class="best-room__logo">
+					<img
+						class="best-room__img"
+						decoding="async"
+						loading="lazy"
+						:src="img"
+						:alt="image.alt || `${title} logo`"
+					/>
+				</div>
+				<div class="best-room__action">
+					<nuxt-link
+						v-if="review"
+						v-slot="{ href, route, navigate }"
+						:to="{
+							name: 'index',
+							params: { parent: 'rakeback-deals', child: review.slug },
+						}"
+					>
+						<a
+							:class="['btn', 'btn-block', 'btn-border', 'best-room__review']"
+							:href="href"
+							@click="navigate"
+							>Обзор</a
+						>
+					</nuxt-link>
+				</div>
+			</div>
+			<div class="best-room__item" :style="{ backgroundColor: '#4E5262' }">
+				<div class="best-room__description">
+					Закрытые азиатские клубы, статистика рейка, бесплатные хендхистори и
+					приватные офферы
+				</div>
+				<div class="best-room__action">
+					<nuxt-link v-slot="{ href, route, navigate }" to="/register">
+						<a
+							:class="['btn', 'btn-block', 'btn-action', 'best-room__register']"
+							:href="href"
+							@click="navigate"
+							>Регистрируйтесь</a
+						>
+					</nuxt-link>
 				</div>
 			</div>
 		</div>
@@ -132,10 +119,14 @@
 <style lang="scss">
 	.best-room {
 		z-index: 10;
-		position: relative;
-		margin: -45px 0;
+		margin: 0 auto;
+		max-width: 1440px;
+		width: 100%;
+		transform: translateY(-50%);
+		@include paddings('desktop');
 		&__wrap {
 			overflow: hidden;
+			width: 100%;
 			border-radius: 10px;
 			display: flex;
 			box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
@@ -145,15 +136,7 @@
 			width: 50%;
 			display: flex;
 			justify-content: space-between;
-			&_left {
-				border-top-left-radius: 10px;
-				border-bottom-left-radius: 10px;
-			}
-
-			&_right {
-				border-top-right-radius: 10px;
-				border-bottom-right-radius: 10px;
-			}
+			align-items: center;
 		}
 
 		&__geo {
@@ -184,6 +167,8 @@
 		}
 
 		&__description {
+			display: flex;
+			align-items: center;
 			padding-right: 36px;
 			font-family: 'Proxima Nova';
 			font-size: 14px;
@@ -202,6 +187,39 @@
 		&__img {
 			max-height: 40px;
 			width: auto;
+		}
+	}
+
+	@include mq('laptop') {
+		.best-room {
+			@include paddings('tablet');
+			&__wrap {
+				flex-direction: column;
+				transform: translateY(25%);
+			}
+			&__item {
+				width: 100%;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.best-room {
+			@include paddings('mobile');
+			&__review {
+				display: none;
+			}
+			&__item {
+				padding: 20px;
+				display: flex;
+			}
+			&__logo {
+				margin-left: auto;
+			}
+			&__register {
+				margin-left: auto;
+				padding: 12px 20px;
+			}
 		}
 	}
 </style>
