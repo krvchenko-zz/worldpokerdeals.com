@@ -98,4 +98,19 @@
 	.posts__list {
 		overflow: hidden;
 	}
+
+	@include mq('laptop') {
+		.posts__list {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+	}
+
+	@include mq('tablet') {
+		.posts__list {
+			grid-template-columns: 100%;
+			gap: 32px;
+		}
+	}
 </style>

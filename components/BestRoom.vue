@@ -199,6 +199,7 @@
 			}
 			&__item {
 				width: 100%;
+				padding: 20px 24px;
 			}
 		}
 	}
