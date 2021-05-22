@@ -1,85 +1,103 @@
 <template>
 	<div class="post-category">
-		<post-category-header />
+		<post-category-header class="post-category__header" />
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-					<filter-tab-list>
-						<filter-tab-item
-							label="Все посты"
-							:value="null"
-							:active="category_id === null"
-							@click="handleFilter"
-						/>
-						<filter-tab-item
-							v-for="item in categories"
-							:key="item.id"
-							:label="item.title"
-							:value="item.id"
-							:active="item.id === category_id"
-							@click="handleFilter"
-						/>
-					</filter-tab-list>
+		<filter-tab-list class="post-category__filter">
+			<filter-tab-item
+				label="Все посты"
+				:value="null"
+				:active="category_id === null"
+				@click="handleFilter"
+			/>
+			<filter-tab-item
+				v-for="item in categories"
+				:key="item.id"
+				:label="item.title"
+				:value="item.id"
+				:active="item.id === category_id"
+				@click="handleFilter"
+			/>
+		</filter-tab-list>
+
+		<div class="post-category__news">
+			<div v-for="item in posts" :key="item.id">
+				<post-item
+					:medium="true"
+					:style="{ marginBottom: '28px' }"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+				/>
+			</div>
+		</div>
+
+		<pagination
+			v-if="posts"
+			:last="last_page"
+			:current="page"
+			:prev-url="prev_page_url"
+			:next-url="next_page_url"
+			:total="total"
+			:from="from"
+			:to="to"
+			load-more-text="Показать еще новости"
+			@next="handlePageNext"
+			@prev="handlePagePrev"
+			@change="handlePageChange"
+			@more="handleShowMore"
+			class="post-category__pagination"
+		>
+		</pagination>
+
+		<div v-if="important" class="post-category__aside aside">
+			<div class="blog-subscribe">
+				<div class="blog-subscribe__title">Нравится Worldpokerdeals?</div>
+				<div class="blog-subscribe__text">
+					Подпишись на наши каналы, чтобы не пропускать новые статьи
+				</div>
+				<div class="blog-subscribe__contacts">
+					<button-contact
+						icon
+						type="telegram"
+						href="https://t.me/worldpokerdealsRU"
+					/>
+					<button-contact
+						icon
+						type="instagram"
+						href="instagram.com/worldpokerdeals"
+					/>
+					<button-contact
+						icon
+						type="fb"
+						href="https://www.facebook.com/worldpokerdealsRu"
+					/>
+					<button-contact
+						icon
+						type="vk"
+						href="https://vk.com/worldpokerdeals"
+					/>
 				</div>
 			</div>
+			<post-list label="Это важно" featured>
+				<post-item
+					v-for="item in important"
+					:key="item.id"
+					:medium="false"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+				/>
+			</post-list>
 
-			<div class="row">
-				<div class="col-9">
-					<div class="row">
-						<div v-for="item in posts" :key="item.id" class="col-4">
-							<post-item
-								:medium="true"
-								:style="{ marginBottom: '28px' }"
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:slug="item.slug"
-								:author="item.user"
-								:created="item.created_at"
-								:categories="item.categories"
-							/>
-						</div>
-					</div>
-
-					<!-- Pagination -->
-					<pagination
-						v-if="posts"
-						:last="last_page"
-						:current="page"
-						:prev-url="prev_page_url"
-						:next-url="next_page_url"
-						:total="total"
-						:from="from"
-						:to="to"
-						load-more-text="Показать еще новости"
-						@next="handlePageNext"
-						@prev="handlePagePrev"
-						@change="handlePageChange"
-						@more="handleShowMore"
-					>
-					</pagination>
-				</div>
-
-				<div v-if="important" class="col-3">
-					<post-list label="Это важно" featured>
-						<post-item
-							v-for="item in important"
-							:key="item.id"
-							:medium="false"
-							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
-							:slug="item.slug"
-							:author="item.user"
-							:created="item.created_at"
-							:categories="item.categories"
-						/>
-					</post-list>
-
-					<front-telegram />
-				</div>
-			</div>
+			<front-telegram />
 		</div>
 	</div>
 </template>
@@ -274,4 +292,143 @@
 	}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+	.post-category {
+		display: grid;
+		width: 100%;
+		max-width: 1440px;
+		grid-template-columns: 28px 3fr 28px 1fr 28px;
+		grid-template-areas:
+			'header header header header header'
+			'. filter . . .'
+			'. news . aside .'
+			'. pagination . aside .';
+		&__header {
+			grid-area: header;
+		}
+		&__filter {
+			grid-area: filter;
+			overflow-x: scroll;
+		}
+		&__news {
+			grid-area: news;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 28px;
+		}
+		&__pagination {
+			grid-area: pagination;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+	}
+
+	.blog-subscribe {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-areas: 'title' 'text' 'contacts';
+		align-content: center;
+		position: relative;
+		min-height: 190px;
+		border-radius: 12px;
+		background: radial-gradient(
+			163.35% 694.34% at 92.87% -12.37%,
+			#47962c 0%,
+			#194e06 100%
+		);
+		&__title {
+			grid-area: title;
+			margin-bottom: 4px;
+			text-align: center;
+			font-family: Proxima Nova;
+			font-weight: bold;
+			font-size: 18px;
+			line-height: 20px;
+			text-align: center;
+			color: #ffffff;
+		}
+		&__text {
+			grid-area: text;
+			margin-bottom: 16px;
+			font-family: Proxima Nova;
+			font-size: 16px;
+			line-height: 20px;
+			text-align: center;
+			color: #ffffff;
+		}
+		&__contacts {
+			grid-area: contacts;
+			display: flex;
+			justify-content: center;
+			.btn-contact {
+				margin-right: 12px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.post-category {
+			grid-template-columns: 24px 1fr 24px;
+			grid-template-areas:
+				'header header header'
+				'. filter .'
+				'. news .'
+				'. pagination .'
+				'. aside .';
+			&__filter {
+				margin-right: -24px;
+			}
+		}
+
+		.blog-subscribe {
+			align-items: center;
+			justify-items: start;
+			grid-template-columns: 1fr max-content;
+			grid-template-areas: 'title contacts' 'text contacts';
+			min-height: initial;
+			padding: 20px 24px;
+			&__title {
+				text-align: left;
+			}
+			&__text {
+				margin-bottom: 0;
+				text-align: left;
+			}
+			&__contacts {
+				margin-left: auto;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.post-category {
+			grid-template-columns: 20px 1fr 20px;
+			&__news {
+				grid-template-columns: 100%;
+			}
+			&__pagination {
+				flex-direction: column;
+			}
+			&__filter {
+				margin-right: -20px;
+			}
+		}
+		.blog-subscribe {
+			grid-template-columns: 100%;
+			grid-template-areas: 'title' 'text' 'contacts';
+			justify-items: center;
+			&__title {
+				text-align: center;
+				margin-bottom: 4px;
+			}
+			&__text {
+				text-align: center;
+				margin-bottom: 16px;
+			}
+			&__contacts {
+				margin-right: auto;
+			}
+		}
+	}
+</style>

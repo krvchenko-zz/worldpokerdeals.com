@@ -1,47 +1,17 @@
 <template>
 	<div class="post-category-header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-8">
-					<breadcrumb-list :white="true" />
-					<h1 class="post-category__title">Новости покера</h1>
-					<div class="post-category__summary">
-						Инсайды индустрии без поп-корна и еще какую-то небольшую <br />
-						подводку чтобы было в 2 строки
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="blog-subscribe">
-						<div class="blog-subscribe__wrap">
-							<div class="blog-subscribe__title">Нравится Worldpokerdeals?</div>
-							<div class="blog-subscribe__text">
-								Подпишись на наши каналы, чтобы не пропускать новые статьи
-							</div>
-							<div class="blog-subscribe__contacts">
-								<button-contact
-									icon
-									type="telegram"
-									href="https://t.me/worldpokerdealsRU"
-								/>
-								<button-contact
-									icon
-									type="instagram"
-									href="instagram.com/worldpokerdeals"
-								/>
-								<button-contact
-									icon
-									type="fb"
-									href="https://www.facebook.com/worldpokerdealsRu"
-								/>
-								<button-contact
-									icon
-									type="vk"
-									href="https://vk.com/worldpokerdeals"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
+		<breadcrumb-list class="post-category-header__breadcrumb" :white="true" />
+		<svg-icon
+			class="post-category-header__icon"
+			icon="heart-spade"
+			:width="68"
+			:height="68"
+		/>
+		<div>
+			<h1 class="post-category__title">Новости покера</h1>
+			<div class="post-category__summary">
+				Инсайды индустрии без поп-корна и еще какую-то небольшую <br />
+				подводку чтобы было в 2 строки
 			</div>
 		</div>
 	</div>
@@ -82,10 +52,19 @@
 
 	.post-category {
 		&-header {
+			max-width: 1440px;
+			width: 100%;
+			@include paddings('desktop');
 			position: relative;
 			margin-bottom: 32px;
 			background: $bg no-repeat center;
 			background-size: cover;
+			display: grid;
+			grid-template-columns: max-content 1fr;
+			column-gap: 24px;
+			&__breadcrumb {
+				grid-column: span 3;
+			}
 		}
 		&__title {
 			font-family: Proxima Nova;
@@ -105,59 +84,6 @@
 			line-height: 24px;
 			color: #ffffff;
 			opacity: 0.8;
-		}
-	}
-
-	.blog-subscribe {
-		position: relative;
-		max-width: 470px;
-		min-height: 190px;
-		padding: 40px 28px 28px 19%;
-		&:before {
-			content: '';
-			display: block;
-			position: absolute;
-			top: 0;
-			right: 0;
-			width: 100%;
-			height: 100%;
-			clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
-			transform: rotate(-180deg);
-			background: radial-gradient(
-				163.35% 694.34% at 92.87% -12.37%,
-				#47962c 0%,
-				#194e06 100%
-			);
-			opacity: 0.8;
-		}
-		&__wrap {
-			position: relative;
-			z-index: 2;
-		}
-		&__title {
-			margin-bottom: 4px;
-			text-align: center;
-			font-family: Proxima Nova;
-			font-weight: bold;
-			font-size: 18px;
-			line-height: 20px;
-			text-align: center;
-			color: #ffffff;
-		}
-		&__text {
-			margin-bottom: 16px;
-			font-family: Proxima Nova;
-			font-size: 16px;
-			line-height: 20px;
-			text-align: center;
-			color: #ffffff;
-		}
-		&__contacts {
-			display: flex;
-			justify-content: center;
-			.btn-contact {
-				margin-right: 12px;
-			}
 		}
 	}
 </style>
