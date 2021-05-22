@@ -57,22 +57,18 @@
 					>
 				</nuxt-link>
 
-				<nuxt-link
-					v-if="review"
-					v-slot="{ href, route, navigate }"
-					:to="`/rakeback-deals/${slug}/play`"
-				>
-					<a
+				<nuxt-link v-slot="{ href, route, navigate }" :to="{ name: 'front' }">
+					<button
 						:class="[
 							'btn',
 							'btn-block',
 							'room-front__link',
 							'room-front__link_download',
 						]"
-						:href="href"
-						@click="navigate"
-						>Перейти</a
+						@click="handleDownload"
 					>
+						Перейти
+					</button>
 				</nuxt-link>
 			</div>
 		</div>
@@ -154,13 +150,25 @@
 			mediaUrl() {
 				return process.env.mediaUrl
 			},
+
+			...mapGetters({
+				country: 'location/country',
+			}),
 		},
 
 		watch: {},
 
 		created() {},
 
-		methods: {},
+		methods: {
+			handleDownload() {
+				let route = this.$router.resolve({
+					name: 'download',
+					params: { slug: this.slug },
+				})
+				return window.open(route.href, '_blank')
+			},
+		},
 	}
 </script>
 

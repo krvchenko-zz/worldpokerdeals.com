@@ -102,15 +102,10 @@
 			},
 
 			handleDownload() {
-				if (this.country.code !== 'TH') {
-					let route = this.$router.resolve({
-						name: 'play',
-						params: { slug: this.slug },
-					})
-					return window.open(route.href, '_blank')
-				}
-
-				let route = this.$router.resolve({ name: 'restricted' })
+				let route = this.$router.resolve({
+					name: 'download',
+					params: { slug: this.slug },
+				})
 				return window.open(route.href, '_blank')
 			},
 		},
