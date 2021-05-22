@@ -1,10 +1,14 @@
 <template> </template>
 
 <script>
-	import { mapGetters } from 'vuex'
-
 	export default {
 		async middleware({ store, redirect, params, $axios }) {
+			const country = store.getters['location/country']
+
+			if (country.code === 'RU') {
+				return redirect('/restricted')
+			}
+
 			const { data } = await $axios.get(`/rooms/url/${params.slug}`)
 			return redirect(data.url)
 		},
@@ -19,12 +23,7 @@
 
 		created() {},
 
-		computed: {
-			...mapGetters({
-				locale: 'lang/locale',
-				country: 'location/country',
-			}),
-		},
+		computed: {},
 
 		watch: {},
 

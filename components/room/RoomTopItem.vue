@@ -109,6 +109,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 	export default {
 		name: 'RoomTopItem',
 
@@ -180,6 +181,10 @@
 			imageUrl() {
 				return `${this.mediaUrl}/room-small/${this.image.filename}`
 			},
+
+			...mapGetters({
+				country: 'location/country',
+			}),
 		},
 
 		watch: {},
@@ -188,7 +193,11 @@
 
 		methods: {
 			handleDownload() {
-				window.open(`rakeback-deals/${this.slug}/play`, '_blank')
+				let route = this.$router.resolve({
+					name: 'download',
+					params: { slug: this.slug },
+				})
+				return window.open(route.href, '_blank')
 			},
 		},
 	}
