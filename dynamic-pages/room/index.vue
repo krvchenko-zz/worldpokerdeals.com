@@ -224,21 +224,17 @@
 
 		async fetch() {
 			await this.$axios
-				.get(`rooms/${this.pageable.slug}`)
-				.then(response => {
-					this.$store.commit('rooms/FETCH_ROOM', { room: response.data.room })
-					this.$store.commit('rooms/FETCH_TAB', { tab: response.data.tab })
-				})
-				.catch(e => {})
-
-			await this.$axios
-				.get('/rooms/related', {
+				.get(`rooms/${this.pageable.slug}`, {
 					params: {
-						id: this.room.id,
+						country_id: this.country.id,
 					},
 				})
 				.then(response => {
-					this.$store.commit('rooms/FETCH_RELATED', { related: response.data })
+					this.$store.commit('rooms/FETCH_ROOM', { room: response.data.room })
+					this.$store.commit('rooms/FETCH_TAB', { tab: response.data.tab })
+					this.$store.commit('rooms/FETCH_RELATED', {
+						related: response.data.related,
+					})
 				})
 				.catch(e => {})
 
