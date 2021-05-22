@@ -18,7 +18,7 @@
 							:label="item.title"
 							:value="item.id"
 							:active="item.id === category_id"
-							@click="handleFilter"
+							@click="handleFilter(item.id, item.slug)"
 						/>
 					</filter-tab-list>
 				</div>
@@ -122,7 +122,7 @@
 
 		created() {},
 
-		fetchOnServer: false,
+		// fetchOnServer: false,
 
 		computed: {
 			...mapGetters({
@@ -138,6 +138,21 @@
 		},
 
 		async fetch() {
+			await this.$axios
+				.get('/posts/categories/list', { params: {} })
+				.then(response => {
+					this.$store.commit('posts/FETCH_CATEGORIES', {
+						categories: response.data,
+					})
+				})
+				.catch(e => {})
+
+			this.category_id = this.$route.query.category
+				? this.categories.filter(item => {
+						return item.slug === this.$route.query.category
+				  })[0].id
+				: null
+
 			await this.$axios
 				.get('/posts/list', {
 					params: {
@@ -157,15 +172,6 @@
 					})
 					this.loading = false
 					this.$nuxt.$loading.finish()
-				})
-				.catch(e => {})
-
-			await this.$axios
-				.get('/posts/categories/list', { params: {} })
-				.then(response => {
-					this.$store.commit('posts/FETCH_CATEGORIES', {
-						categories: response.data,
-					})
 				})
 				.catch(e => {})
 
@@ -194,7 +200,14 @@
 		},
 
 		methods: {
-			async fetchItems() {
+			async fetchItems(query) {
+				this.category_id =
+					query && query.category
+						? this.categories.filter(item => {
+								return item.slug === query.category
+						  })[0].id
+						: this.category_id
+
 				$nuxt.$loading.start()
 				await this.$axios
 					.get('/posts/list', {
@@ -221,9 +234,13 @@
 					.catch(e => {})
 			},
 
-			handleFilter($event) {
-				this.category_id = $event
-				this.fetchItems()
+			handleFilter(id, slug) {
+				this.$router.push({
+					path: this.$route.path,
+					query: slug ? { category: slug } : {},
+				})
+				// this.category_id = id
+				// this.fetchItems()
 			},
 
 			handlePageNext() {
