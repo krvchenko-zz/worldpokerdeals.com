@@ -63,9 +63,9 @@ const routes = [
 		component: page('index.vue'),
 	},
 	{
-		path: '/rakeback-deals/:slug/play',
-		name: 'play',
-		component: page('play.vue'),
+		path: '/rakeback-deals/:slug/download',
+		name: 'download',
+		component: page('download.vue'),
 	},
 	{
 		path: '*',
