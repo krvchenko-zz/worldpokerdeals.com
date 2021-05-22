@@ -20,19 +20,19 @@
 		</filter-tab-list>
 
 		<div class="post-category__news">
-			<div v-for="item in posts" :key="item.id">
-				<post-item
-					:medium="true"
-					:style="{ marginBottom: '28px' }"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
-					:categories="item.categories"
-				/>
-			</div>
+			<post-item
+				v-for="item in posts"
+				:key="item.id"
+				:medium="true"
+				:style="{ marginBottom: '28px' }"
+				:image="item.image"
+				:title="item.title"
+				:summary="item.summary"
+				:slug="item.slug"
+				:author="item.user"
+				:created="item.created_at"
+				:categories="item.categories"
+			/>
 		</div>
 
 		<pagination
@@ -423,6 +423,7 @@
 			grid-template-columns: 20px 1fr 20px;
 			&__news {
 				grid-template-columns: 100%;
+				gap: 0;
 			}
 			&__pagination {
 				flex-direction: column;
