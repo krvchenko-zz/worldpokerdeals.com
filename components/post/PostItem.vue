@@ -1,5 +1,11 @@
 <template>
-	<article :class="['post-item', medium && 'post-item_size_m']">
+	<article
+		:class="[
+			'post-item',
+			medium && 'post-item_size_m',
+			asCard && 'post-item--card',
+		]"
+	>
 		<nuxt-link
 			v-slot="{ href, route, navigate, isActive, isExactActive }"
 			prefetch
@@ -110,6 +116,11 @@
 			},
 
 			medium: {
+				type: Boolean,
+				default: false,
+			},
+
+			asCard: {
 				type: Boolean,
 				default: false,
 			},
@@ -300,30 +311,30 @@
 	}
 
 	@include mq('tablet') {
-		.front-posts {
-			.post-item {
+		.post-item {
+			&--card {
 				display: grid;
 				grid-template-columns: [image] 1fr [content] 2fr;
 				grid-column-gap: 16px;
 				grid-row-gap: 8px;
 				grid-template-rows: repeat(4, minmax(fit-content, 1fr));
-				&__img-wrapper {
-					grid-column: image;
-					grid-row: span 3;
-				}
-				&__img {
-					clip-path: none;
-				}
-				&__meta,
-				&__link,
-				&__summary,
-				&__author {
-					grid-column: content;
-					margin: 0;
-				}
-				&__meta {
-					height: 16px;
-				}
+			}
+			&__img-wrapper {
+				grid-column: image;
+				grid-row: span 3;
+			}
+			&__img {
+				clip-path: none;
+			}
+			&__meta,
+			&__link,
+			&__summary,
+			&__author {
+				grid-column: content;
+				margin: 0;
+			}
+			&__meta {
+				height: 16px;
 			}
 		}
 	}

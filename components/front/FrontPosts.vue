@@ -46,6 +46,7 @@
 							:author="item.user"
 							:created="item.created_at"
 							:categories="item.categories"
+							:asCard="$device.isMobile"
 						/>
 					</div>
 				</transition-group>
