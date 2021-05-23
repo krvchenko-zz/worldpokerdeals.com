@@ -15,7 +15,7 @@
 				>{{ label }}</span
 			>
 		</div>
-		<div class="posts__list">
+		<div class="posts__list" :class="{ 'posts__list--row': asRow }">
 			<slot />
 		</div>
 	</div>
@@ -28,6 +28,11 @@
 		components: {},
 
 		props: {
+			asRow: {
+				type: Boolean,
+				default: false,
+			},
+
 			label: {
 				type: String,
 				default: 'Последние новости',
@@ -97,20 +102,31 @@
 	}
 	.posts__list {
 		overflow: hidden;
+		&--row {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(0, max-content));
+			gap: 28px;
+		}
 	}
 
 	@include mq('laptop') {
 		.posts__list {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: 20px;
+			column-gap: 20px;
+			&--row {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(226px, max-content));
+				column-gap: 20px;
+			}
 		}
 	}
 
 	@include mq('tablet') {
 		.posts__list {
 			grid-template-columns: 100%;
-			gap: 32px;
+			column-gap: 32px;
+			row-gap: 0;
 		}
 	}
 </style>
