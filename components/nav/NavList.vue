@@ -31,7 +31,6 @@
 
 	.page-nav {
 		position: relative;
-		bottom: -25px;
 		&__list {
 			padding: 0;
 			margin: 0;

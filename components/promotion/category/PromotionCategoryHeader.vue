@@ -1,78 +1,66 @@
 <template>
 	<div class="promotions-header">
-		<div class="container-fluid">
-			<breadcrumb-list v-if="pageable" :white="true" />
+		<breadcrumb-list
+			class="promotions-header__breadcrumbs"
+			v-if="pageable"
+			:white="true"
+		/>
 
-			<div class="promotions-header__wrap">
-				<div class="row">
-					<div class="col-8">
-						<svg-icon
-							v-if="category.entity === 'promotion'"
-							class="promotions-header__icon"
-							icon="promotion-category"
-						/>
+		<div class="promotions-header__wrap">
+			<div class="promotions-header__content">
+				<svg-icon
+					v-if="category.entity === 'promotion'"
+					class="promotions-header__icon"
+					icon="promotion-category"
+				/>
 
-						<svg-icon
-							v-else
-							class="promotions-header__icon"
-							icon="bonus-category"
-						/>
+				<svg-icon
+					v-else
+					class="promotions-header__icon"
+					icon="bonus-category"
+				/>
 
-						<div class="promotions-header__meta">
-							<h1 class="promotions__title">{{ category.title }}</h1>
-							<page-meta
-								:author="category.author ? category.author.full_name : null"
-								:created="category.created_at"
-								:updated="category.updated_at"
-							/>
-						</div>
+				<h1 class="promotions__title">{{ category.title }}</h1>
+				<page-meta
+					:author="category.author ? category.author.full_name : null"
+					:created="category.created_at"
+					:updated="category.updated_at"
+					class="promotions-header__meta"
+				/>
 
-						<div class="promotions__summary" v-html="category.summary"></div>
-					</div>
-					<div class="col-4">
-						<promotion-item
-							v-if="best && category.entity === 'promotion'"
-							:image="best.image"
-							:title="best.title"
-							:summary="best.summary"
-							:page="best.page"
-							:author="best.author"
-							:created="best.created_at"
-							:category="best.category"
-							:time_left="best.time_left"
-							:time_before="best.time_before"
-							:regularity="best.regularity"
-							:prize="best.prize"
-							:currency="best.currency ? best.currency.symbol : ''"
-							:exclusive="best.exclusive"
-							:active="best.active"
-							:featured="true"
-						/>
+				<div class="promotions__summary" v-html="category.summary"></div>
+			</div>
+			<div class="promotions-header__promotion">
+				<promotion-item
+					v-if="best && category.entity === 'promotion'"
+					:image="best.image"
+					:title="best.title"
+					:summary="best.summary"
+					:page="best.page"
+					:author="best.author"
+					:created="best.created_at"
+					:category="best.category"
+					:time_left="best.time_left"
+					:time_before="best.time_before"
+					:regularity="best.regularity"
+					:prize="best.prize"
+					:currency="best.currency ? best.currency.symbol : ''"
+					:exclusive="best.exclusive"
+					:active="best.active"
+					:featured="true"
+				/>
 
-						<room-top
-							v-if="best && category.entity === 'bonus'"
-							:id="best.room.id"
-							:title="best.room.title"
-							:slug="best.room.slug"
-							:restricted="best.room.restricted"
-							:country="country"
-							:rating="best.room.rating"
-							:bonus="best"
-							:review="best.room.review"
-						/>
-					</div>
-					<div class="col-12">
-						<nav-list>
-							<nav-item
-								v-for="(item, index) in categories"
-								:key="index"
-								:name="item.label"
-								:page="item.page"
-								:icon="item.icon"
-							/>
-						</nav-list>
-					</div>
-				</div>
+				<room-top
+					v-if="best && category.entity === 'bonus'"
+					:id="best.room.id"
+					:title="best.room.title"
+					:slug="best.room.slug"
+					:restricted="best.room.restricted"
+					:country="country"
+					:rating="best.room.rating"
+					:bonus="best"
+					:review="best.room.review"
+				/>
 			</div>
 		</div>
 	</div>
@@ -114,30 +102,49 @@
 	$promotions-bg: url('~assets/i/promotions-bg.jpg');
 
 	.promotions-header {
-		margin-bottom: 55px;
+		display: flex;
+		flex-direction: column;
+		@include paddings('desktop');
+		margin: 0 -26px;
+		padding-bottom: 46px;
 		background: $promotions-bg no-repeat center top;
-		background-size: auto 420px;
+		background-size: cover;
+		&__wrap {
+			display: grid;
+			grid-template-columns: 1fr max-content;
+			gap: 86px;
+			padding: 0 60px;
+			position: relative;
+			align-items: center;
+		}
+		&__nav {
+			width: 100%;
+		}
+		&__content {
+			display: grid;
+			grid-template-columns: min-content 1fr;
+			grid-column-gap: 24px;
+			grid-template-areas:
+				'icon title'
+				'icon meta'
+				'summary summary';
+		}
 	}
 
 	.promotions {
 		&-header {
-			&__wrap {
-				padding: 0 60px;
-				position: relative;
-			}
 			&__meta {
-				display: inline-flex;
-				flex-flow: column;
-				flex-grow: 1;
+				grid-area: meta;
 			}
 
 			&__icon {
-				margin-right: 28px;
+				grid-area: icon;
 				display: inline-flex;
 			}
 		}
 
 		&__title {
+			grid-area: title;
 			margin-bottom: 10px;
 			font-family: 'Proxima Nova';
 			font-weight: bold;
@@ -148,7 +155,7 @@
 		}
 
 		&__summary {
-			padding-bottom: 40px;
+			grid-area: summary;
 			font-family: Proxima Nova;
 			font-style: normal;
 			font-weight: normal;
@@ -156,6 +163,62 @@
 			line-height: 22px;
 			color: #ffffff;
 			opacity: 0.8;
+		}
+	}
+
+	@include mq('laptop') {
+		.promotions-header {
+			@include paddings('tablet');
+			&__wrap {
+				padding: 0;
+				gap: 12px;
+				grid-template-columns: 1fr 288px;
+				justify-content: space-between;
+			}
+			& &__icon {
+				display: none;
+			}
+			&__content {
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-areas:
+					'title'
+					'meta'
+					'summary';
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.promotions-header {
+			@include paddings('mobile');
+			&__wrap {
+				grid-template-columns: 100%;
+				justify-content: space-between;
+			}
+			&__promotion {
+				display: none;
+			}
+			& &__icon {
+				display: inline-block;
+			}
+			&__meta {
+				margin-top: 16px;
+			}
+			&__content {
+				grid-template-columns: min-content 1fr;
+				align-items: center;
+				grid-column-gap: 24px;
+				grid-template-areas:
+					'icon title'
+					'meta meta'
+					'summary summary';
+			}
+		}
+		.promotions {
+			&__title {
+				margin-bottom: 0;
+			}
 		}
 	}
 </style>
