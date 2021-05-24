@@ -44,6 +44,7 @@
 							:background="item.background"
 							:image="item.image"
 							:restricted="item.restricted"
+							:available="item.available"
 							:network="item.network"
 							:tags="item.tags"
 							:review="item.review"
@@ -123,7 +124,6 @@
 				</div>
 
 				<div class="col-3">
-					<!-- <room-top-list v-sticky="{topSpacing: 100}" /> -->
 					<network-filters
 						v-if="filters"
 						:geo="geo"
@@ -194,7 +194,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
@@ -218,7 +217,6 @@
 			payments: [],
 			types: [],
 			licenses: [],
-			ids: [],
 			data: [],
 			from: 0,
 			to: 0,
@@ -274,7 +272,6 @@
 					payments: this.payments,
 					types: this.types,
 					licenses: this.licenses,
-					ids: this.network.list,
 				}
 			},
 		},
@@ -308,7 +305,6 @@
 						sort: 'rating',
 						order: 'desc',
 						network_id: this.network.id,
-						ids: this.network.list,
 					},
 				})
 				.then(response => {
@@ -336,7 +332,7 @@
 		watch: {},
 
 		created() {
-			this.geo = null
+			// this.geo = null
 		},
 
 		methods: {

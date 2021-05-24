@@ -27,18 +27,15 @@
 					</div>
 					<div class="col-4">
 						<room-top
-							v-if="topList"
-							:id="topList[0].id"
-							:style="{ margin: 0 }"
-							:title="topList[0].title"
-							:slug="topList[0].slug"
-							:restricted="topList[0].restricted"
+							v-if="best"
+							:id="best.id"
+							:title="best.title"
+							:slug="best.slug"
+							:restricted="best.restricted"
 							:country="country"
-							:rating="topList[0].rating"
-							:bonus="topList[0].bonus"
-							:review="topList[0].review"
-							:bonus_category_label="topList[0].bonus_category_label"
-							:bonus_category="topList[0].bonus_category"
+							:rating="best.rating"
+							:bonus="best.top_bonus"
+							:review="best.review"
 						/>
 					</div>
 				</div>
@@ -88,7 +85,7 @@
 				game: 'games/game',
 				tab: 'games/tab',
 				pageable: 'pages/page',
-				topList: 'rooms/topList',
+				best: 'rooms/best',
 				country: 'location/country',
 			}),
 		},

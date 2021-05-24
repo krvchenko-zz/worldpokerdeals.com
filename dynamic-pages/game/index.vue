@@ -200,7 +200,6 @@
 			payments: [],
 			types: [],
 			licenses: [],
-			ids: [],
 			data: [],
 			from: 0,
 			to: 0,
@@ -235,6 +234,7 @@
 				games: 'games/games',
 				tab: 'games/tab',
 				rooms: 'rooms/rooms',
+				best: 'rooms/best',
 				posts: 'posts/posts',
 				filters: 'games/filters',
 			}),
@@ -259,7 +259,6 @@
 					payments: this.payments,
 					types: this.types,
 					licenses: this.licenses,
-					ids: this.tab.list,
 				}
 			},
 		},
@@ -283,7 +282,6 @@
 							sort: 'rating',
 							order: 'desc',
 							game_id: this.game.id,
-							ids: this.tab.list,
 						},
 					})
 					.then(response => {
@@ -292,6 +290,9 @@
 						})
 						this.$store.commit('rooms/FETCH_ROOMS', {
 							rooms: response.data.data,
+						})
+						this.$store.commit('rooms/FETCH_BEST', {
+							best: response.data.data[0],
 						})
 					})
 					.catch(e => {})

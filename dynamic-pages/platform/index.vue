@@ -118,7 +118,7 @@
 
 					<room-top-list />
 
-					<topic-list v-if="platform.topics">
+					<topic-list v-if="platform.topics && platform.topics.length">
 						<topic-item
 							v-for="(item, index) in platform.topics"
 							:key="index"
@@ -136,18 +136,11 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
-
-	import Pagination from '~/components/pagination/Pagination'
-	import Room from '~/components/room/Room'
 
 	export default {
 		name: 'PlatformPage',
 
-		components: {
-			Pagination,
-			Room,
-		},
+		components: {},
 
 		data: () => ({
 			loading: false,
@@ -162,7 +155,6 @@
 			payments: [],
 			types: [],
 			licenses: [],
-			ids: [],
 			data: [],
 			from: 0,
 			to: 0,
@@ -195,6 +187,7 @@
 				pageable: 'pages/page',
 				platform: 'platforms/platform',
 				rooms: 'rooms/rooms',
+				best: 'rooms/best',
 				filters: 'platforms/filters',
 			}),
 
@@ -217,14 +210,17 @@
 					payments: this.payments,
 					types: this.types,
 					licenses: this.licenses,
-					ids: this.platform.list,
 				}
 			},
 		},
 
 		async fetch() {
 			await this.$axios
-				.get(`platforms/${this.pageable.slug}`)
+				.get(`platforms/${this.pageable.slug}`, {
+					params: {
+						locale: this.locale,
+					},
+				})
 				.then(response => {
 					this.$store.commit('platforms/FETCH_PLATFORM', {
 						platform: {
@@ -233,6 +229,7 @@
 							heading: response.data.heading,
 							summary: response.data.summary,
 							toc: response.data.toc,
+							faq: response.data.faq,
 							text: response.data.text,
 							icon: response.data.icon,
 							created_at: response.data.created_at,
@@ -262,7 +259,6 @@
 						sort: 'rating',
 						order: 'desc',
 						platform_id: this.platform.id,
-						ids: this.platform.list,
 					},
 				})
 				.then(response => {
@@ -270,6 +266,9 @@
 						this[key] = response.data[key]
 					})
 					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
+					this.$store.commit('rooms/FETCH_BEST', {
+						best: response.data.data[0],
+					})
 				})
 				.catch(e => {})
 
@@ -278,7 +277,6 @@
 					params: {
 						geo: this.country.code,
 						platform_id: this.platform.id,
-						ids: this.platform.list,
 					},
 				})
 				.then(response => {
