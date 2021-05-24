@@ -1,4 +1,4 @@
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 
 // state
 export const state = () => ({
@@ -27,6 +27,6 @@ export const mutations = {
 export const actions = {
 	setLocale({ commit }, { locale }) {
 		commit('SET_LOCALE', { locale })
-		// Cookies.set('locale', locale, { expires: 365 })
+		Cookies.set('locale', locale, { expires: 365 })
 	},
 }
