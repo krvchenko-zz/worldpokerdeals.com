@@ -1,203 +1,205 @@
 <template>
 	<div class="promotions">
 		<!-- Header -->
-		<promotion-category-header />
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-					<client-only>
-						<filter-header
-							v-if="items"
-							:geo.sync="geo"
-							:sort.sync="sort"
-							:total.sync="total"
-							:overall.sync="overall"
-							:sort-options="sortOptions"
-							entity-label="акций"
-							@update:sort="fetchItems"
-							@update:geo="fetchItems"
-						/>
+		<promotion-category-header class="promotions__header" />
 
-						<filter-selected-list v-if="selected.length">
-							<filter-selected
-								v-for="(item, index) in selected"
-								:key="index"
-								:label="item.label"
-								:value="item.value"
-								:item-key="item.key"
-							/>
-							<filter-selected
-								:key="null"
-								label="Очистить фильтры"
-								:clear="true"
-								:value="null"
-							/>
-						</filter-selected-list>
-					</client-only>
+		<nav-list class="promotions__nav">
+			<nav-item
+				v-for="(item, index) in categories"
+				:key="index"
+				:name="item.label"
+				:page="item.page"
+				:icon="item.icon"
+			/>
+		</nav-list>
 
-					<!-- List -->
-					<template v-if="category.entity === 'promotion'">
-						<promotion-list v-if="!loading && data.length">
-							<div class="row">
-								<div v-for="(item, index) in data" :key="index" class="col-4">
-									<promotion-item
-										:image="item.image"
-										:title="item.title"
-										:summary="item.summary"
-										:page="item.page"
-										:author="item.user"
-										:created="item.created_at"
-										:category="item.category"
-										:time_left="item.time_left"
-										:time_before="item.time_before"
-										:regularity="item.regularity"
-										:prize="item.prize"
-										:currency="item.currency ? item.currency.symbol : ''"
-										:exclusive="item.exclusive"
-										:active="item.active"
-									></promotion-item>
-								</div>
-							</div>
-						</promotion-list>
-					</template>
+		<div class="promotions__filter">
+			<client-only>
+				<filter-header
+					v-if="items"
+					:geo.sync="geo"
+					:sort.sync="sort"
+					:total.sync="total"
+					:overall.sync="overall"
+					:sort-options="sortOptions"
+					entity-label="акций"
+					@update:sort="fetchItems"
+					@update:geo="fetchItems"
+				/>
 
-					<template v-else>
-						<bonus-list v-if="!loading && data.length">
-							<bonus-item
-								v-for="(item, index) in data"
-								:key="index"
-								:title="item.title"
-								:slug="item.slug"
-								:created="item.created_at"
-								:code="item.code"
-								:terms="item.terms"
-								:room="item.room"
-								:page="item.page"
-								:category="item.category"
-								:min_deposit="item.min_deposit"
-								:min_deposit_currency="item.min_deposit_currency"
-								:cashback_value="item.cashback_value"
-								:max_bonus="item.max_bonus"
-								:max_bonus_currency="item.max_bonus_currency"
-								:deposit_bonus="item.deposit_bonus"
-								:index="index"
-							></bonus-item>
-						</bonus-list>
-					</template>
-
-					<!-- Pagination -->
-					<pagination
-						v-if="data.length"
-						:last="last_page"
-						:current="page"
-						:prev-url="prev_page_url"
-						:next-url="next_page_url"
-						:total="total"
-						:from="from"
-						:to="to"
-						:load-more-width="208"
-						:load-more-text="
-							category.entity === 'promotion'
-								? 'Показать еще акции'
-								: 'Показать еще бонусы'
-						"
-						total-text="акций"
-						@next="handlePageNext"
-						@prev="handlePagePrev"
-						@change="handlePageChange"
-						@more="handleShowMore"
-					>
-					</pagination>
-
-					<div class="row">
-						<!-- Toc -->
-						<div class="col-auto">
-							<toc-list v-if="category.toc && category.toc.length">
-								<template #default="{ inline }">
-									<toc-item
-										v-for="(item, index) in category.toc"
-										:key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text"
-									>
-									</toc-item>
-								</template>
-							</toc-list>
-						</div>
-						<div class="col col-article">
-							<!-- Article -->
-							<page-article
-								:meta="false"
-								:text="category.text"
-								:author="category.author ? category.author.full_name : null"
-								:created="category.created_at"
-								:updated="category.updated_at"
-							>
-								<template #footer>
-									<!-- Faq -->
-									<faq-list
-										v-if="category.faq && category.faq.mainEntity.length"
-										label="FAQ"
-									>
-										<faq-item
-											v-for="(item, index) in category.faq.mainEntity"
-											:key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text"
-										>
-										</faq-item>
-									</faq-list>
-
-									<!-- Author -->
-									<author v-if="category.author" :author="category.author" />
-
-									<!-- Comments -->
-									<comments
-										commentable_type="App\PromotionCategory"
-										:commentable_id="category.id"
-									/>
-								</template>
-							</page-article>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-3">
-					<client-only>
-						<promotion-category-filters
-							v-if="filters"
-							:geo="geo"
-							:categories="filters.categories"
-							:disciplines="filters.disciplines"
-							:limits="filters.limits"
-							:games="filters.games"
-							:rooms="filters.rooms"
-							:networks="filters.networks"
-							:exclusive="filters.exclusive"
-							@change="handleFilterChange"
-						/>
-					</client-only>
-					<room-top-list v-if="category.entity === 'promotion'" />
-
-					<topic-list v-if="category.topics.length">
-						<topic-item
-							v-for="(item, index) in category.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
-
-					<game-search-banner />
-				</div>
-			</div>
+				<filter-selected-list v-if="selected.length">
+					<filter-selected
+						v-for="(item, index) in selected"
+						:key="index"
+						:label="item.label"
+						:value="item.value"
+						:item-key="item.key"
+					/>
+					<filter-selected
+						:key="null"
+						label="Очистить фильтры"
+						:clear="true"
+						:value="null"
+					/>
+				</filter-selected-list>
+			</client-only>
 		</div>
 
-		<page-banners />
+		<!-- List -->
+		<template v-if="category.entity === 'promotion'">
+			<promotion-list v-if="!loading && data.length" class="promotions__list">
+				<promotion-item
+					v-for="(item, index) in data"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:page="item.page"
+					:author="item.user"
+					:created="item.created_at"
+					:category="item.category"
+					:time_left="item.time_left"
+					:time_before="item.time_before"
+					:regularity="item.regularity"
+					:prize="item.prize"
+					:currency="item.currency ? item.currency.symbol : ''"
+					:exclusive="item.exclusive"
+					:active="item.active"
+				></promotion-item>
+			</promotion-list>
+		</template>
+
+		<template v-else>
+			<bonus-list v-if="!loading && data.length" class="promotions__list">
+				<bonus-item
+					v-for="(item, index) in data"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:created="item.created_at"
+					:code="item.code"
+					:terms="item.terms"
+					:room="item.room"
+					:page="item.page"
+					:category="item.category"
+					:min_deposit="item.min_deposit"
+					:min_deposit_currency="item.min_deposit_currency"
+					:cashback_value="item.cashback_value"
+					:max_bonus="item.max_bonus"
+					:max_bonus_currency="item.max_bonus_currency"
+					:deposit_bonus="item.deposit_bonus"
+					:index="index"
+				></bonus-item>
+			</bonus-list>
+		</template>
+
+		<!-- Pagination -->
+		<pagination
+			v-if="data.length"
+			:last="last_page"
+			:current="page"
+			:prev-url="prev_page_url"
+			:next-url="next_page_url"
+			:total="total"
+			:from="from"
+			:to="to"
+			:load-more-width="208"
+			:load-more-text="
+				category.entity === 'promotion'
+					? 'Показать еще акции'
+					: 'Показать еще бонусы'
+			"
+			total-text="акций"
+			@next="handlePageNext"
+			@prev="handlePagePrev"
+			@change="handlePageChange"
+			@more="handleShowMore"
+			class="promotions__pagination"
+		>
+		</pagination>
+
+		<!-- Toc -->
+		<div class="promotions__toc">
+			<toc-list v-if="category.toc && category.toc.length">
+				<template #default="{ inline }">
+					<toc-item
+						v-for="(item, index) in category.toc"
+						:key="index"
+						:index="index"
+						:inline="inline"
+						:anchor="item.anchor_id"
+						:text="item.text"
+					>
+					</toc-item>
+				</template>
+			</toc-list>
+		</div>
+
+		<!-- Article -->
+		<page-article
+			:meta="false"
+			:text="category.text"
+			:author="category.author ? category.author.full_name : null"
+			:created="category.created_at"
+			:updated="category.updated_at"
+			class="promotions__article"
+		>
+			<template #footer>
+				<!-- Faq -->
+				<faq-list
+					v-if="category.faq && category.faq.mainEntity.length"
+					label="FAQ"
+				>
+					<faq-item
+						v-for="(item, index) in category.faq.mainEntity"
+						:key="index"
+						:question="item.name"
+						:answer="item.acceptedAnswer.text"
+					>
+					</faq-item>
+				</faq-list>
+
+				<!-- Author -->
+				<author v-if="category.author" :author="category.author" />
+
+				<!-- Comments -->
+				<comments
+					commentable_type="App\PromotionCategory"
+					:commentable_id="category.id"
+				/>
+			</template>
+		</page-article>
+
+		<div class="promotions__aside">
+			<client-only>
+				<promotion-category-filters
+					v-if="filters"
+					:geo="geo"
+					:categories="filters.categories"
+					:disciplines="filters.disciplines"
+					:limits="filters.limits"
+					:games="filters.games"
+					:rooms="filters.rooms"
+					:networks="filters.networks"
+					:exclusive="filters.exclusive"
+					@change="handleFilterChange"
+				/>
+			</client-only>
+			<room-top-list v-if="category.entity === 'promotion'" />
+
+			<topic-list v-if="category.topics.length">
+				<topic-item
+					v-for="(item, index) in category.topics"
+					:key="index"
+					:title="item.title"
+					:url="item.url"
+					:author="item.author"
+					:created="item.created_at"
+				/>
+			</topic-list>
+
+			<game-search-banner />
+		</div>
 	</div>
 </template>
 
@@ -230,6 +232,7 @@
 				user: 'auth/user',
 				pageable: 'pages/page',
 				category: 'promotions/category',
+				categories: 'promotions/categories',
 				items: 'promotions/items',
 				filters: 'promotions/filters',
 			}),
@@ -263,7 +266,6 @@
 			order: 'desc',
 			exclusive: null,
 			geo: null,
-			categories: [],
 			disciplines: [],
 			limits: [],
 			games: [],
@@ -416,4 +418,74 @@
 	}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+	.promotions {
+		display: grid;
+		grid-template-columns: 2fr 7fr 3fr;
+		column-gap: 28px;
+		max-width: 1440px;
+		width: 100%;
+		@include paddings('desktop');
+		grid-template-areas:
+			'header header header'
+			'nav nav nav'
+			'filter filter aside'
+			'list list aside'
+			'pagination pagination aside'
+			'toc article aside';
+		&__nav {
+			grid-area: nav;
+			margin-top: -26px;
+			margin-bottom: 32px;
+		}
+		&__header {
+			grid-area: header;
+		}
+		&__filter {
+			grid-area: filter;
+		}
+		&__article {
+			grid-area: article;
+		}
+		&__list {
+			grid-area: list;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			column-gap: 28px;
+		}
+		&__pagination {
+			grid-area: pagination;
+		}
+		&__toc {
+			grid-area: toc;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+	}
+
+	@include mq('laptop') {
+		.promotions {
+			@include paddings('tablet');
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'header'
+				'nav'
+				'filter'
+				'list'
+				'pagination'
+				'toc'
+				'article'
+				'aside';
+		}
+	}
+
+	@include mq('tablet') {
+		.promotions {
+			@include paddings('mobile');
+			&__list {
+				grid-template-columns: 100%;
+			}
+		}
+	}
+</style>

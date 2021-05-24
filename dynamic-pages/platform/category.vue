@@ -42,6 +42,19 @@
 				<div class="col col-article">
 					<page-article :text="category.text">
 						<template #footer>
+							<!-- Faq -->
+							<faq-list
+								v-if="category.faq && category.faq.mainEntity.length"
+								label="FAQ"
+							>
+								<faq-item
+									v-for="(item, index) in category.faq.mainEntity"
+									:key="index"
+									:question="item.name"
+									:answer="item.acceptedAnswer.text"
+								>
+								</faq-item>
+							</faq-list>
 							<!-- Author -->
 							<author v-if="category.user" :author="category.user" />
 							<!-- Comments -->
@@ -55,7 +68,7 @@
 
 				<div class="col-3">
 					<room-top-list />
-					<topic-list v-if="category.topics">
+					<topic-list v-if="category.topics && category.topics.length">
 						<topic-item
 							v-for="(item, index) in category.topics"
 							:key="index"
@@ -86,10 +99,9 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	export default {
-		name: 'GameCategory',
+		name: 'PlatformCategory',
 
 		components: {},
 
@@ -130,6 +142,7 @@
 							title: response.data.title,
 							summary: response.data.summary,
 							toc: response.data.toc,
+							faq: response.data.faq,
 							text: response.data.text,
 							topics: response.data.topics.map(this.mapTopics),
 							meta_title: response.data.meta_title,
@@ -152,8 +165,6 @@
 				.then()
 
 			await this.$axios.get('platforms/list').then(response => {
-				console.log(response.data)
-
 				this.$store.commit('platforms/FETCH_PLATFORMS', {
 					platforms: response.data.map(item => ({
 						title: item.heading,

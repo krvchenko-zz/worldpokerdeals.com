@@ -3,9 +3,6 @@
 		<!-- More -->
 		<button
 			v-if="nextUrl"
-			:style="{
-				width: loadMoreWidth ? `${loadMoreWidth}px` : 'auto',
-			}"
 			:class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
 			@click="handleShowMore"
 		>
@@ -167,10 +164,6 @@
 			loadMoreText: {
 				type: String,
 				default: 'Показать еще',
-			},
-
-			loadMoreWidth: {
-				type: Number,
 			},
 		},
 
@@ -367,6 +360,23 @@
 			margin: 0 28px 0 0;
 			width: auto;
 			padding: 10px 20px;
+		}
+	}
+
+	@include mq('tablet') {
+		.post-category {
+			.pagination {
+				flex-direction: row;
+				flex-wrap: wrap;
+				&__list {
+					margin-right: 20px;
+				}
+			}
+			.btn-pagination_more {
+				width: 100%;
+				margin-right: 0px;
+				margin-bottom: 20px;
+			}
 		}
 	}
 </style>

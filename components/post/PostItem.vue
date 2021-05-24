@@ -1,9 +1,16 @@
 <template>
-	<article :class="['post-item', medium && 'post-item_size_m']">
+	<article
+		:class="[
+			'post-item',
+			medium && 'post-item_size_m',
+			asCard && 'post-item--card',
+		]"
+	>
 		<nuxt-link
 			v-slot="{ href, route, navigate, isActive, isExactActive }"
 			prefetch
 			:to="{ name: 'index', params: { parent: 'blog', child: slug } }"
+			class="post-item__img-wrapper"
 		>
 			<a :href="href" @click="navigate">
 				<img
@@ -112,6 +119,11 @@
 				type: Boolean,
 				default: false,
 			},
+
+			asCard: {
+				type: Boolean,
+				default: false,
+			},
 		},
 
 		data: () => ({
@@ -186,6 +198,7 @@
 			width: 100%;
 			height: auto;
 			float: left;
+			border-radius: 4px;
 			&_size_m {
 				border-radius: 4px;
 				float: none;
@@ -271,6 +284,7 @@
 			color: #999999;
 			font-weight: bold;
 			line-height: 22px;
+			margin: 0 12px;
 			font-size: 18px;
 			font-family: 'Proxima Nova';
 		}
@@ -278,7 +292,6 @@
 		&__author {
 			padding-left: 20px;
 			display: flex;
-			justify-content: space-between;
 			align-items: baseline;
 			&_size_m {
 				padding: 0;
@@ -299,15 +312,19 @@
 
 	@include mq('tablet') {
 		.post-item {
-			display: grid;
-			grid-template-columns: [image] 1fr [content] 2fr;
-			grid-column-gap: 16px;
-			grid-row-gap: 8px;
-			grid-template-rows: repeat(4, minmax(fit-content, 1fr));
-			&__img {
+			&--card {
+				display: grid;
+				grid-template-columns: [image] 1fr [content] 2fr;
+				grid-column-gap: 16px;
+				grid-row-gap: 8px;
+				grid-template-rows: repeat(4, minmax(fit-content, 1fr));
+			}
+			&__img-wrapper {
 				grid-column: image;
-				clip-path: none;
 				grid-row: span 3;
+			}
+			&__img {
+				clip-path: none;
 			}
 			&__meta,
 			&__link,
