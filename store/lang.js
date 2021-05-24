@@ -27,6 +27,9 @@ export const mutations = {
 export const actions = {
 	setLocale({ commit }, { locale }) {
 		commit('SET_LOCALE', { locale })
+
+		console.log(locale)
+
 		Cookies.set('locale', locale, { expires: 365 })
 	},
 }
