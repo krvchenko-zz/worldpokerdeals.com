@@ -35,6 +35,7 @@
 							:background="item.background"
 							:image="item.image"
 							:restricted="item.restricted"
+							:available="item.available"
 							:network="item.network"
 							:tags="item.tags"
 							:review="item.review"
@@ -273,44 +274,42 @@
 				})
 			})
 
-			if (this.tab.show_rooms) {
-				await this.$axios
-					.get('rooms/list', {
-						params: {
-							geo: this.country.code,
-							per_page: 10,
-							sort: 'rating',
-							order: 'desc',
-							game_id: this.game.id,
-						},
+			await this.$axios
+				.get('rooms/list', {
+					params: {
+						geo: this.country.code,
+						per_page: 10,
+						sort: 'rating',
+						order: 'desc',
+						game_id: this.game.id,
+					},
+				})
+				.then(response => {
+					Object.keys(response.data).forEach(key => {
+						this[key] = response.data[key]
 					})
-					.then(response => {
-						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
-						})
-						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data,
-						})
-						this.$store.commit('rooms/FETCH_BEST', {
-							best: response.data.data[0],
-						})
+					this.$store.commit('rooms/FETCH_ROOMS', {
+						rooms: response.data.data,
 					})
-					.catch(e => {})
+					this.$store.commit('rooms/FETCH_BEST', {
+						best: response.data.data[0],
+					})
+				})
+				.catch(e => {})
 
-				await this.$axios
-					.get(`/games/filters/list`, {
-						params: {
-							geo: this.country.code,
-							game_id: this.game.id,
-							ids: this.tab.list,
-						},
+			await this.$axios
+				.get(`/games/filters/list`, {
+					params: {
+						geo: this.country.code,
+						game_id: this.game.id,
+						ids: this.tab.list,
+					},
+				})
+				.then(response => {
+					this.$store.commit('games/FETCH_FILTERS', {
+						filters: response.data,
 					})
-					.then(response => {
-						this.$store.commit('games/FETCH_FILTERS', {
-							filters: response.data,
-						})
-					})
-			}
+				})
 		},
 
 		watch: {},

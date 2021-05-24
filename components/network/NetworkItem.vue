@@ -61,7 +61,7 @@
 <style lang="scss">
 	$ico-network-more: url('~assets/i/ico-network-more.svg?data');
 	.network-item {
-		margin-top: 24px;
+		margin: 24px 0;
 		background: #fafafa;
 		border: 1px solid #e9e9e9;
 		border-radius: 4px;
