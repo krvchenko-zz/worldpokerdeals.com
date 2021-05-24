@@ -103,15 +103,17 @@
 		.page-banners {
 			overflow-x: scroll;
 			scrollbar-width: none;
-			@include paddings('laptop');
+			&_front {
+				@include paddings('laptop');
+			}
 		}
 	}
 
 	@include mq('mobile') {
 		.page-banners {
-			@include paddings('mobile');
 			&_front {
 				padding-bottom: 36px;
+				@include paddings('mobile');
 			}
 		}
 	}
