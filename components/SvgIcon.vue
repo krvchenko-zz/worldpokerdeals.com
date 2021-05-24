@@ -69,6 +69,7 @@
 							// console.log(e);
 						})
 				},
+				watch: ['icon'],
 			},
 		},
 

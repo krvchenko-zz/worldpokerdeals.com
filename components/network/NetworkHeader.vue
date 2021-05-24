@@ -15,7 +15,7 @@
 						</div>
 					</div>
 					<div class="col-6">
-						<h1 class="network__title">{{ network.title }}</h1>
+						<h1 class="network__title">{{ network.heading }}</h1>
 						<page-meta
 							:author="network.user ? network.user.full_name : null"
 							:created="network.created_at"

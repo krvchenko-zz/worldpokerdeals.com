@@ -55,10 +55,15 @@
 			</div>
 
 			<div class="room-scores-rating">
-				<span v-if="!room.blacklist" class="room-scores-rating__place">{{
-					room.rate
-				}}</span>
-				<span v-if="!room.blacklist" class="room-scores-rating__label">
+				<span
+					v-if="!room.blacklist && !room.closed"
+					class="room-scores-rating__place"
+					>{{ room.rate }}</span
+				>
+				<span
+					v-if="!room.blacklist && !room.closed"
+					class="room-scores-rating__label"
+				>
 					Место<br />в рейтинге
 				</span>
 				<span
@@ -69,7 +74,10 @@
 					Исключен <br />
 					из рейтинга
 				</span>
-				<room-rating :value="room.rating" :inactive="room.blacklist" />
+				<room-rating
+					:value="room.rating"
+					:inactive="room.blacklist || room.closed"
+				/>
 			</div>
 		</div>
 
@@ -537,6 +545,7 @@
 		grid-area: advantages-or-blacklist;
 		max-width: 560px;
 		position: relative;
+		margin-right: 28px;
 		padding: 16px 20px 16px 76px;
 		font-family: Proxima Nova;
 		font-size: 15px;
@@ -927,7 +936,7 @@
 		}
 		&-rating {
 			grid-area: top-rating;
-			padding-bottom: 16px;
+			padding: 0 28px 16px 28px;
 			border-bottom: 1px solid #343848;
 			display: flex;
 			justify-content: space-between;

@@ -12,7 +12,6 @@
 					<network-item
 						:title="item.title"
 						:url="item.url"
-						:slug="item.slug"
 						:rooms="item.rooms"
 						:page="item.page"
 					>
@@ -25,7 +24,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	export default {
 		name: 'NetworkCategory',

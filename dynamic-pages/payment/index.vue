@@ -120,7 +120,7 @@
 
 					<room-top-list />
 
-					<topic-list v-if="tab.topics">
+					<topic-list v-if="tab.topics && tab.topics.length">
 						<topic-item
 							v-for="(item, index) in tab.topics"
 							:key="index"
@@ -179,7 +179,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
@@ -204,7 +203,6 @@
 			payments: [],
 			types: [],
 			licenses: [],
-			ids: [],
 			data: [],
 			from: 0,
 			to: 0,
@@ -255,7 +253,7 @@
 					order: this.order,
 					query: this.query,
 					locale: this.locale,
-					payment_id: this.payment.id,
+					payment_method_id: this.payment.id,
 					geo: this.geo,
 					kyc: this.kyc,
 					platforms: this.platforms,
@@ -263,7 +261,6 @@
 					payments: this.payments,
 					types: this.types,
 					licenses: this.licenses,
-					ids: this.tab.list,
 				}
 			},
 		},
@@ -290,7 +287,6 @@
 						sort: 'rating',
 						order: 'desc',
 						payment_method_id: this.payment.id,
-						ids: this.tab.list,
 					},
 				})
 				.then(response => {
