@@ -26,19 +26,16 @@
 						<div class="platform__summary" v-html="platform.summary"></div>
 					</div>
 					<div class="col-4">
-						<top-room
-							v-if="topList"
-							:id="topList[0].id"
-							:style="{ marginTop: 0 }"
-							:title="topList[0].title"
-							:slug="topList[0].slug"
-							:restricted="topList[0].restricted"
+						<room-top
+							v-if="best"
+							:id="best.id"
+							:title="best.title"
+							:slug="best.slug"
+							:restricted="best.restricted"
 							:country="country"
-							:rating="topList[0].rating"
-							:bonus="topList[0].bonus"
-							:review="topList[0].review"
-							:bonus_category_label="topList[0].bonus_category_label"
-							:bonus_category="topList[0].bonus_category"
+							:rating="best.rating"
+							:bonus="best.top_bonus"
+							:review="best.review"
 						/>
 					</div>
 				</div>
@@ -70,7 +67,7 @@
 			...mapGetters({
 				platform: 'platforms/platform',
 				pageable: 'pages/page',
-				topList: 'rooms/topList',
+				best: 'rooms/best',
 				country: 'location/country',
 			}),
 		},
