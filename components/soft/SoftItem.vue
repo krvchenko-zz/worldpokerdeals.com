@@ -118,7 +118,6 @@
 
 			discount_value: {
 				type: [String, Number],
-				required: true,
 			},
 
 			price: {
@@ -162,8 +161,6 @@
 
 		methods: {
 			handleMouseOver(evt) {
-				console.log(evt)
-
 				this.hover = true
 			},
 		},

@@ -146,7 +146,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	import Filters from '~/components/soft/category/Filters'
 
@@ -204,10 +203,8 @@
 			sort: 'price',
 			order: 'asc',
 			geo: null,
-
 			categories: [],
 			free: null,
-
 			data: [],
 			from: 0,
 			to: 0,
