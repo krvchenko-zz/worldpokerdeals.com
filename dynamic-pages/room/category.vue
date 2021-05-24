@@ -6,7 +6,7 @@
 		<div class="rooms__catalog">
 			<client-only>
 				<filter-header
-					v-if="rooms"
+					v-if="!category.is_blacklist"
 					class="rooms__filter-header"
 					:geo.sync="geo"
 					:sort.sync="sort"
@@ -18,7 +18,10 @@
 					@update:geo="fetchItems"
 				/>
 
-				<filter-selected-list v-if="selected.length">
+				<filter-selected-list
+					v-if="selected.length && !category.is_blacklist"
+					class="rooms__filter-selected"
+				>
 					<filter-selected
 						v-for="(item, index) in selected"
 						:key="index"
@@ -36,7 +39,7 @@
 			</client-only>
 
 			<div class="rooms-list">
-				<template v-for="(item, index) in items" v-if="rooms.length">
+				<template v-for="(item, index) in items">
 					<room
 						v-if="!item.banner"
 						:id="item.id"
@@ -127,7 +130,7 @@
 
 			<div class="rooms__category-filters">
 				<room-category-filters
-					v-if="filters"
+					v-if="filters && !category.is_blacklist"
 					:kycs="filters.kycs"
 					:platforms="filters.platforms"
 					:tags="filters.tags"
@@ -144,11 +147,13 @@
 					@filterOpen="handleFilterOpen"
 				/>
 
-				<div class="block-title">Последние акции</div>
+				<div v-if="!category.is_blacklist" class="block-title">
+					Последние акции
+				</div>
 
 				<promotion-item
 					v-for="(item, index) in promotions"
-					v-if="promotions"
+					v-if="promotions && !category.is_blacklist"
 					:key="index"
 					:image="item.image"
 					:title="item.title"
@@ -316,10 +321,10 @@
 							updated_at: response.data.item.updated_at,
 							summary: response.data.item.summary,
 							text: response.data.item.text,
+							is_blacklist: response.data.item.is_blacklist,
 							faq: response.data.item.faq,
 							toc: response.data.item.toc,
 							topics: response.data.item.topics,
-							list: response.data.item.list,
 							meta_title: response.data.item.meta_title,
 							meta_description: response.data.item.meta_description,
 							meta_keywords: response.data.item.meta_keywords,
@@ -463,6 +468,7 @@
 			column-gap: 28px;
 			grid-template-areas:
 				'filter filter category-filter'
+				'selected selected category-filter'
 				'rooms-list rooms-list category-filter'
 				'toc info category-filter';
 			@include paddings('desktop');
@@ -470,6 +476,9 @@
 		}
 		&__filter-header {
 			grid-area: filter;
+		}
+		&__filter-selected {
+			grid-area: selected;
 		}
 		&__category-filters {
 			grid-area: category-filter;
