@@ -352,7 +352,7 @@
 		}
 		&__summary {
 			margin-top: 4px;
-			ul {
+			::v-deep ul {
 				padding: 0;
 				margin: 0;
 				li {
@@ -369,7 +369,7 @@
 				}
 			}
 			&_blacklist {
-				ul {
+				::v-deep ul {
 					li {
 						padding-left: 24px;
 						background: $ico-blacklist-summary no-repeat left 2px;

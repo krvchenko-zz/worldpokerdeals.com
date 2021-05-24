@@ -1,5 +1,7 @@
 <template>
-	<div class="rooms-header">
+	<div
+		:class="['rooms-header', category.is_blacklist && 'rooms-header_blacklist']"
+	>
 		<breadcrumb-list v-if="pageable" :white="true" />
 
 		<div class="rooms-header__wrap">
@@ -86,6 +88,14 @@
 			margin-bottom: 55px;
 			background: $rooms-bg no-repeat center top;
 			background-size: auto 420px;
+			&_blacklist {
+				background: linear-gradient(0deg, #111111, #111111),
+					radial-gradient(
+						96.88% 66.11% at 57.43% 2.13%,
+						#3a3e51 0%,
+						#583e11 100%
+					);
+			}
 			&__wrap {
 				display: grid;
 				grid-column-gap: 24px;
