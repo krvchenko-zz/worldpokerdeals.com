@@ -7,67 +7,62 @@
 				<div class="payments__summary" v-html="category.summary"></div>
 			</div>
 		</div>
-		<div class="container-fluid">
-			<div class="payments-list">
-				<div class="row">
-					<div v-for="(item, index) in payments" :key="index" class="col-3">
-						<payment-item
-							:title="item.title"
-							:icon="item.icon"
-							:rooms="item.rooms"
-							:vip="item.vip_status"
-							:page="item.page"
+
+		<div class="payments-list">
+			<div v-for="(item, index) in payments" :key="index">
+				<payment-item
+					:title="item.title"
+					:icon="item.icon"
+					:rooms="item.rooms"
+					:vip="item.vip_status"
+					:page="item.page"
+				>
+				</payment-item>
+			</div>
+		</div>
+
+		<div class="payments__article-container article-container">
+			<div class="article-container__toc">
+				<toc-list v-if="category.toc">
+					<template #default="{ inline }">
+						<toc-item
+							v-for="(item, index) in category.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:anchor="item.anchor_id"
+							:text="item.text"
 						>
-						</payment-item>
-					</div>
-				</div>
+						</toc-item>
+					</template>
+				</toc-list>
 			</div>
 
-			<div class="row">
-				<div class="col-auto">
-					<toc-list v-if="category.toc">
-						<template #default="{ inline }">
-							<toc-item
-								v-for="(item, index) in category.toc"
-								:key="index"
-								:index="index"
-								:inline="inline"
-								:anchor="item.anchor_id"
-								:text="item.text"
-							>
-							</toc-item>
-						</template>
-					</toc-list>
-				</div>
+			<!-- Article -->
+			<page-article :text="category.text" class="article-container__article">
+				<template #footer>
+					<!-- Author -->
+					<author v-if="category.author" :author="category.author" />
+					<!-- Comments -->
+					<comments
+						commentable_type="App\PaymentMethodCategory"
+						:commentable_id="category.id"
+					/>
+				</template>
+			</page-article>
 
-				<div class="col col-article">
-					<!-- Article -->
-					<page-article :text="category.text">
-						<template #footer>
-							<!-- Author -->
-							<author v-if="category.author" :author="category.author" />
-							<!-- Comments -->
-							<comments
-								commentable_type="App\PaymentMethodCategory"
-								:commentable_id="category.id"
-							/>
-						</template>
-					</page-article>
-				</div>
-
-				<div class="col-3">
-					<room-top-list />
-					<topic-list v-if="category.topics">
-						<topic-item
-							v-for="(item, index) in category.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
-				</div>
+			<div class="article-container__aside">
+				<room-top-list />
+				<topic-list v-if="category.topics">
+					<topic-item
+						v-for="(item, index) in category.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
 			</div>
 		</div>
 	</div>
@@ -142,12 +137,20 @@
 <style lang="scss">
 	$payments-bg: url('~assets/i/payments-bg.jpg');
 	.payments {
+		display: flex;
+		flex-direction: column;
+		max-width: 1440px;
+		width: 100%;
 		&-header {
 			margin-bottom: 32px;
 			padding: 0 0 32px 0;
 			background: $payments-bg no-repeat center;
 		}
 		&-list {
+			display: grid;
+			@include paddings('desktop');
+			grid-template-columns: repeat(auto-fit, minmax(262px, 1fr));
+			column-gap: 20px;
 			margin-bottom: 20px;
 		}
 		&__title {
@@ -159,6 +162,9 @@
 			line-height: 36px;
 			color: #ffffff;
 		}
+		&__article-container {
+			@include paddings('desktop');
+		}
 		&__summary {
 			font-family: Proxima Nova;
 			font-size: 18px;
@@ -166,6 +172,30 @@
 			text-align: center;
 			color: #ffffff;
 			opacity: 0.8;
+		}
+	}
+
+	@include mq('laptop') {
+		.payments {
+			&-list {
+				@include paddings('tablet');
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+			}
+			&__article-container {
+				@include paddings('tablet');
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.payments {
+			&-list {
+				@include paddings('mobile');
+				grid-template-columns: 100%;
+			}
+			&__article-container {
+				@include paddings('mobile');
+			}
 		}
 	}
 </style>
