@@ -164,18 +164,11 @@
 
 <style lang="scss">
 	.room-recomended {
-		width: 20%;
-		margin: 0 14px;
+		width: 100%;
+		margin: 0;
 		background: #fafafa;
 		border-radius: 4px;
 		overflow: hidden;
-		&:first-child {
-			margin-left: 0;
-		}
-
-		&:last-child {
-			margin-right: 0;
-		}
 
 		&__img {
 			display: flex;

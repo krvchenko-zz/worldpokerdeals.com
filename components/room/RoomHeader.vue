@@ -576,6 +576,7 @@
 		margin-bottom: 36px;
 		padding: 24px;
 		border-radius: 4px;
+    width: 100%;
 		background: linear-gradient(0deg, #e9e9e9, #e9e9e9),
 			linear-gradient(270deg, #2b2e3b 47.41%, #20222c 100%);
 		&_blacklist {
@@ -585,7 +586,13 @@
 			background: #ffb44c;
 		}
 		&__list {
-			display: flex;
+      width: 100%;
+			display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      overflow-x: scroll;
+      gap: 16px;
+      scrollbar-width: none;
 		}
 		&__title {
 			margin-bottom: 20px;
@@ -1037,6 +1044,15 @@
 				width: 100%;
 			}
 		}
+
+    .rooms-recomended {
+      width: 100vw;
+      margin-left: -44px;
+      &__list {
+        grid-auto-columns: minmax(226px, 1fr);
+        gap: 20px;
+      }
+    }
 	}
 
 	@include mq('tablet') {
@@ -1096,5 +1112,16 @@
 				max-width: 100%;
 			}
 		}
+
+    .rooms-recomended {
+      width: 100vw;
+      margin-left: -20px;
+      padding-right: 0;
+      margin-bottom: 0;
+      &__list {
+        grid-auto-columns: minmax(288px, 1fr);
+        gap: 16px;
+      }
+    }
 	}
 </style>
