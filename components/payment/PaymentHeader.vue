@@ -1,88 +1,79 @@
 <template>
 	<div class="payment-header">
-		<div class="container-fluid">
-			<div class="payment-header__wrap">
-				<div class="row">
-					<div class="col-2">
-						<div class="payment-header__logo">
-							<svg-icon
-								:icon="payment.icon"
-								:width="136"
-								:height="136"
-								view-box="0 0 88 88"
-							/>
-						</div>
-					</div>
-					<div class="col-6">
-						<h1 class="payment__title">{{ tab.title }}</h1>
-						<page-meta
-							:author="tab.author.full_name"
-							:created="tab.created_at"
-							:updated="tab.updated_at"
-							:dark="true"
-						>
-						</page-meta>
-
-						<div v-if="payment.vip_status" class="payment__actions">
-							<payment-action-button
-								:style="{ flex: '0 0 180px' }"
-								label="Открыть счет"
-								type="register"
-								:url="payment.partner_url"
-								:background="payment.btn_color"
-							/>
-							<payment-action-button
-								:style="{ flex: '0 0 180px' }"
-								label="Чат с менеджером"
-								type="default"
-								background="#70AC30"
-							/>
-							<payment-action-button
-								:style="{ flex: '0 0 180px' }"
-								label="VIP-статус"
-								type="internal"
-								:vip-url="payment.vip_url"
-								background="#F5A200"
-							/>
-						</div>
-
-						<div class="payment__summary" v-html="tab.summary"></div>
-					</div>
-					<div class="col-4">
-						<room-top
-							v-if="rooms"
-							:id="rooms[0].id"
-							:style="{ top: 0 }"
-							:title="rooms[0].title"
-							:slug="rooms[0].slug"
-							:restricted="rooms[0].restricted"
-							:country="country"
-							:rating="rooms[0].rating"
-							:bonus="rooms[0].top_bonus"
-							:review="rooms[0].review"
-						/>
-					</div>
-				</div>
-
-				<div v-if="payment.tabs.length > 1" class="row">
-					<div class="col-12">
-						<tab-list>
-							<tab-item
-								v-for="(item, index) in payment.tabs"
-								:key="index"
-								:params="{
-									parent: item.page.parent
-										? item.page.parent.slug
-										: item.page.slug,
-									child: item.page.parent ? item.page.slug : null,
-								}"
-								:name="item.name"
-							>
-							</tab-item>
-						</tab-list>
-					</div>
-				</div>
+		<div class="payment-header__wrap">
+			<div class="payment-header__logo">
+				<svg-icon
+					:icon="payment.icon"
+					:width="136"
+					:height="136"
+					view-box="0 0 88 88"
+				/>
 			</div>
+
+			<div class="payment__content">
+				<h1 class="payment__title">{{ tab.title }}</h1>
+				<page-meta
+					:author="tab.author.full_name"
+					:created="tab.created_at"
+					:updated="tab.updated_at"
+					:dark="true"
+					class="payment__meta"
+				>
+				</page-meta>
+
+				<div v-if="payment.vip_status" class="payment__actions">
+					<payment-action-button
+						class="payment__actions__button"
+						label="Открыть счет"
+						type="register"
+						:url="payment.partner_url"
+						:background="payment.btn_color"
+					/>
+					<payment-action-button
+						class="payment__actions__button"
+						label="Чат с менеджером"
+						type="default"
+						background="#70AC30"
+					/>
+					<payment-action-button
+						class="payment__actions__button"
+						label="VIP-статус"
+						type="internal"
+						:vip-url="payment.vip_url"
+						background="#F5A200"
+					/>
+				</div>
+
+				<div class="payment__summary" v-html="tab.summary"></div>
+			</div>
+
+			<room-top
+				v-if="rooms"
+				:id="rooms[0].id"
+				:style="{ top: 0 }"
+				:title="rooms[0].title"
+				:slug="rooms[0].slug"
+				:restricted="rooms[0].restricted"
+				:country="country"
+				:rating="rooms[0].rating"
+				:bonus="rooms[0].top_bonus"
+				:review="rooms[0].review"
+				class="payment__top-room"
+			/>
+		</div>
+		<div v-if="payment.tabs.length > 1" class="payment-header__nav">
+			<tab-list>
+				<tab-item
+					v-for="(item, index) in payment.tabs"
+					:key="index"
+					:params="{
+						parent: item.page.parent ? item.page.parent.slug : item.page.slug,
+						child: item.page.parent ? item.page.slug : null,
+					}"
+					:name="item.name"
+				>
+				</tab-item>
+			</tab-list>
 		</div>
 	</div>
 </template>
@@ -152,12 +143,15 @@
 
 	.payment {
 		&-header {
+			padding: 28px 28px 0;
 			&__wrap {
-				padding: 30px 30px 0 30px;
+				display: flex;
+				gap: 56px;
 				position: relative;
 			}
 
 			&__logo {
+				padding-left: 44px;
 				text-align: right;
 			}
 		}
@@ -180,10 +174,93 @@
 			opacity: 0.8;
 		}
 
+		&__top-room {
+			margin-left: 56px;
+			width: 100%;
+		}
+
 		&__actions {
 			margin-bottom: 32px;
 			display: flex;
 			align-items: center;
+			&__button {
+				flex: 0 0 180px;
+			}
+		}
+	}
+
+	@include mq('desktop') {
+		.payment-header {
+			&__logo {
+				padding-left: 22px;
+			}
+		}
+
+		.payment {
+			&__top-room {
+				margin-left: 48px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.payment-header {
+			padding: 28px 22px 0 0;
+			&__logo {
+				padding-left: 45px;
+			}
+		}
+
+		.payment {
+			&__top-room {
+				display: none;
+			}
+			&__actions {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 20px 16px;
+
+				.btn-payment-action {
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.payment-header {
+			padding: 24px 20px 0;
+			margin-left: -20px;
+			margin-right: -20px;
+			&__wrap {
+				flex-direction: column;
+				align-items: center;
+				gap: 20px;
+			}
+			&__logo {
+				padding-left: 0;
+			}
+		}
+
+		.payment {
+			&__title {
+				text-align: center;
+			}
+			&__meta {
+				justify-content: center;
+			}
+			&__actions {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 16px 20px;
+
+				.btn-payment-action {
+					margin: 0;
+					&:first-child {
+						grid-column: span 2;
+					}
+				}
+			}
 		}
 	}
 </style>

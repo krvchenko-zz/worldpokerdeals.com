@@ -1,7 +1,9 @@
 <template>
 	<div class="payment-list">
 		<div v-if="label" class="block-title">{{ label }}</div>
-		<slot />
+		<div class="payment-list__list">
+			<slot />
+		</div>
 	</div>
 </template>
 
@@ -35,4 +37,26 @@
 	}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+	.payment-list {
+		&__list {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(262px, 1fr));
+			column-gap: 20px;
+		}
+	}
+
+	@include mq('tablet') {
+		.payment-list {
+			width: 100%;
+			&__list {
+				width: 100%;
+				overflow-x: scroll;
+				scrollbar-width: none;
+				grid-auto-columns: 288px;
+				grid-template-columns: none;
+				grid-auto-flow: column;
+			}
+		}
+	}
+</style>
