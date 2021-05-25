@@ -183,7 +183,9 @@
 				<game-search-banner />
 			</div>
 		</div>
-		<page-banners />
+    <div class="rooms__page-banners">
+      <page-banners />
+    </div>
 	</div>
 </template>
 
@@ -489,6 +491,9 @@
 		&__info {
 			grid-area: info;
 		}
+    &__page-banners {
+      padding-left: 26px;
+    }
 	}
 
 	.rooms-list {
@@ -538,6 +543,9 @@
 			&__category-filters {
 				display: none;
 			}
+      &__page-banners {
+        padding-left: 24px;
+      }
 		}
 	}
 
@@ -546,6 +554,9 @@
 			&__catalog {
 				@include paddings('tablet');
 			}
+      &__page-banners {
+        padding-left: 20px;
+      }
 		}
 		.rooms-list {
 			margin-left: -25px;
