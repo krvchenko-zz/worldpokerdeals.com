@@ -384,7 +384,7 @@
 	}
 	.payment-content {
 		display: grid;
-		grid-template-columns: 2fr 7fr 3fr;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
 		grid-template-areas:
 			'rooms rooms aside'
 			'toc article aside';
