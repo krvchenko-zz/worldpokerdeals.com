@@ -6,18 +6,16 @@
 				<h1 class="networks__title">{{ category.title }}</h1>
 			</div>
 		</div>
-		<div class="container-fluid">
-			<div class="row">
-				<div v-for="(item, index) in networks" :key="index" class="col-3">
-					<network-item
-						:title="item.title"
-						:url="item.url"
-						:rooms="item.rooms"
-						:page="item.page"
-					>
-					</network-item>
-				</div>
-			</div>
+		<div class="networks__list">
+			<network-item
+				v-for="(item, index) in networks"
+				:key="index"
+				:title="item.title"
+				:url="item.url"
+				:rooms="item.rooms"
+				:page="item.page"
+			>
+			</network-item>
 		</div>
 	</div>
 </template>
@@ -89,16 +87,28 @@
 </script>
 
 <style lang="scss">
-	.networks__title {
-		text-align: center;
-		margin: 0;
-		font-family: Proxima Nova;
-		font-weight: bold;
-		font-size: 32px;
-		line-height: 36px;
-		color: #ffffff;
+	.networks {
+		width: 100%;
+		max-width: 1440px;
+		&__list {
+			@include paddings('desktop');
+			display: grid;
+			column-gap: 28px;
+			row-gap: 24px;
+			grid-template-columns: repeat(4, 1fr);
+		}
+		&__title {
+			text-align: center;
+			margin: 0;
+			font-family: Proxima Nova;
+			font-weight: bold;
+			font-size: 32px;
+			line-height: 36px;
+			color: #ffffff;
+		}
 	}
-	.networks-header {
+
+	.networks .networks-header {
 		margin-bottom: 32px;
 		padding: 0 0 32px 0;
 		background: radial-gradient(
@@ -106,5 +116,25 @@
 			#364cb1 0%,
 			#081759 100%
 		);
+	}
+
+	@include mq('laptop') {
+		.networks {
+			&__list {
+				@include paddings('tablet');
+				column-gap: 20px;
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.networks {
+			&__list {
+				@include paddings('mobile');
+				column-gap: 20px;
+				grid-template-columns: 1fr;
+			}
+		}
 	}
 </style>
