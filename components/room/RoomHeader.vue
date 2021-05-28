@@ -44,11 +44,11 @@
 			</div>
 
 			<div v-else-if="room.blacklist" class="room-blacklist">
-				{{ $t('room_blacklisted', {room: room.title}) }}
+				{{ $t('room_blacklisted', { room: room.title }) }}
 			</div>
 
 			<div v-else-if="room.closed" class="room-blacklist">
-				{{ $t('room_closed', {room: room.title}) }}
+				{{ $t('room_closed', { room: room.title }) }}
 			</div>
 
 			<div class="room-scores-rating">
@@ -89,7 +89,9 @@
 							room.reviews_count
 						}}</span>
 						<span class="room-detail__reviews-sep"></span>
-						<span class="room-detail__reviews-val-label">{{ $t('rating') }}</span>
+						<span class="room-detail__reviews-val-label">{{
+							$t('rating')
+						}}</span>
 						<span class="room-detail__reviews-val"
 							><span class="room-detail__reviews-current">{{
 								room.reviews_rate
@@ -130,7 +132,7 @@
 								</template>
 							</span>
 						</template>
-						<template v-else>{{$t('not_available')}}</template>
+						<template v-else>{{ $t('not_available') }}</template>
 					</div>
 				</div>
 
@@ -229,9 +231,9 @@
 		<div class="room-scores">
 			<div class="room-scores__label-wrap">
 				<div class="room-scores__label">{{ $t('our_ratings') }}</div>
-				<span class="room-scores__info" @click="handleRatesModal"
-					>{{ $t('how_we_rate') }}</span
-				>
+				<span class="room-scores__info" @click="handleRatesModal">{{
+					$t('how_we_rate')
+				}}</span>
 			</div>
 
 			<div class="room-scores__list">
@@ -303,9 +305,9 @@
 				class="room-restrictions__geo"
 				>{{ $t('room_geo_restricted', { country: country.from }) }}
 			</span>
-			<span v-if="!room.available" class="room-restrictions__unavailable"
-				>{{ $t('room_unavailable') }}</span
-			>
+			<span v-if="!room.available" class="room-restrictions__unavailable">{{
+				$t('room_unavailable')
+			}}</span>
 		</div>
 
 		<div
@@ -319,7 +321,9 @@
 				room.closed && 'rooms-recomended_closed',
 			]"
 		>
-			<div class="rooms-recomended__title">{{ $t('recommended_poker_rooms') }}</div>
+			<div class="rooms-recomended__title">
+				{{ $t('recommended_poker_rooms') }}
+			</div>
 			<div class="rooms-recomended__list">
 				<room-recomended-item
 					v-for="(item, index) in recomended"

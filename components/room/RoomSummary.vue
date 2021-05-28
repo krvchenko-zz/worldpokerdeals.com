@@ -16,7 +16,9 @@
 				<div class="col-6">
 					<div class="room-scores-rating">
 						<span class="room-scores-rating__place">{{ room.rate }}</span>
-						<span class="room-scores-rating__label">{{ $t('rating_position') }}</span>
+						<span class="room-scores-rating__label">{{
+							$t('rating_position')
+						}}</span>
 						<room-rating :value="room.rating" />
 					</div>
 				</div>
@@ -37,7 +39,9 @@
 									room.reviews_count
 								}}</span>
 								<span class="room-detail__reviews-sep"></span>
-								<span class="room-detail__reviews-val-label">{{ $t('rating') }}</span>
+								<span class="room-detail__reviews-val-label">{{
+									$t('rating')
+								}}</span>
 								<span class="room-detail__reviews-val"
 									><span class="room-detail__reviews-current">{{
 										room.reviews_rate
@@ -79,7 +83,9 @@
 									<span>{{ item.title }}</span>
 								</span>
 							</div>
-							<span v-else class="room-detail__value">{{ $t('not_available') }}</span>
+							<span v-else class="room-detail__value">{{
+								$t('not_available')
+							}}</span>
 						</div>
 
 						<div v-if="room.payment_methods.length" class="room-detail">
@@ -174,9 +180,9 @@
 					<div class="room-scores">
 						<div class="room-scores__label-wrap">
 							<div class="room-scores__label">{{ $t('our_ratings') }}</div>
-							<span class="room-scores__info" @click="handleRatesModal"
-								>{{ $t('how_we_rate') }}</span
-							>
+							<span class="room-scores__info" @click="handleRatesModal">{{
+								$t('how_we_rate')
+							}}</span>
 						</div>
 
 						<div class="room-scores__list">
@@ -198,7 +204,7 @@
 						class="btn-block"
 						:slug="room.review.slug"
 						type="default"
-						:label="$t('room_review', {room: room.title})"
+						:label="$t('room_review', { room: room.title })"
 					/>
 				</div>
 			</div>

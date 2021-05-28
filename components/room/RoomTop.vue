@@ -22,7 +22,10 @@
 						params: { parent: 'rakeback-deals', child: review.slug },
 					}"
 				>
-					<a :class="['btn', 'top-room__review']" :href="href" @click="navigate"
+					<a
+						:class="['btn', 'top-room__review']"
+						:href="href"
+						@click="navigate"
 						>{{ $t('room_review') }}</a
 					>
 				</nuxt-link>
@@ -75,9 +78,12 @@
 						:height="16"
 						:icon="country.code"
 						prefix="flags/"
-					/><template v-if="restricted"
-						>{{ $t('room_geo_restricted', {country: country.from}) }}</template
-					><template v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</template>
+					/><template v-if="restricted">{{
+						$t('room_geo_restricted', { country: country.from })
+					}}</template
+					><template v-else>{{
+						$t('room_geo_allowed', { country: country.from })
+					}}</template>
 				</span>
 			</div>
 		</div>

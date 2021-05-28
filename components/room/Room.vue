@@ -65,9 +65,12 @@
 						:height="16"
 						:icon="country.code"
 						prefix="flags/"
-					/><template v-if="restricted"
-						>{{ $t('room_geo_restricted',{ country: country.from }) }}</template
-					><template v-else>{{ $t('room_geo_allowed',{ country: country.from }) }}</template>
+					/><template v-if="restricted">{{
+						$t('room_geo_restricted', { country: country.from })
+					}}</template
+					><template v-else>{{
+						$t('room_geo_allowed', { country: country.from })
+					}}</template>
 				</span>
 			</div>
 
@@ -102,12 +105,14 @@
 			<dl v-if="available && !blacklist" class="room-item__details">
 				<dt class="room-item__dt">{{ $t('bonus') }}</dt>
 				<dd class="room-item__dd">{{ bonus || 'n/a' }}</dd>
-				<dt class="room-item__dt room-item__dt_rakeback">{{ $t('rakeback') }}</dt>
+				<dt class="room-item__dt room-item__dt_rakeback">
+					{{ $t('rakeback') }}
+				</dt>
 				<dd class="room-item__dd room-item__dd_rakeback">{{ rakeback }}</dd>
 			</dl>
 
 			<div v-if="blacklist" class="room-item__claim">
-				<span class="room-item__claim-label">{{$t('claim_amount')}}</span>
+				<span class="room-item__claim-label">{{ $t('claim_amount') }}</span>
 				<span class="room-item__claim-amount"
 					>{{ claim_currency.symbol }}{{ claim_amount }}</span
 				>
@@ -137,7 +142,7 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>{{$t('review')}}</a
+						>{{ $t('review') }}</a
 					>
 				</nuxt-link>
 

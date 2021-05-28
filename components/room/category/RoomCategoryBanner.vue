@@ -10,7 +10,9 @@
 		/>
 		<p class="help-banner__text" v-html="$t('assistance_text')"></p>
 		<div class="help-banner__actions">
-			<button-contact block size="md" type="chat">{{ $t('start_chat') }}</button-contact>
+			<button-contact block size="md" type="chat">{{
+				$t('start_chat')
+			}}</button-contact>
 			<div class="help-banner__messengers">
 				<button-contact
 					class="help-banner__btn"

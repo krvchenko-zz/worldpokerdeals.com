@@ -29,9 +29,9 @@
 			</div>
 
 			<dl class="room-front__details">
-				<dt class="room-front__dt">{{$t('bonus')}}</dt>
+				<dt class="room-front__dt">{{ $t('bonus') }}</dt>
 				<dd class="room-front__dd">{{ bonus || 'n/a' }}</dd>
-				<dt class="room-front__dt">{{$t('rakeback')}}</dt>
+				<dt class="room-front__dt">{{ $t('rakeback') }}</dt>
 				<dd class="room-front__dd">{{ rakeback }}</dd>
 			</dl>
 
@@ -53,7 +53,7 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>{{$t('review')}}</a
+						>{{ $t('review') }}</a
 					>
 				</nuxt-link>
 
@@ -67,7 +67,7 @@
 						]"
 						@click="handleDownload"
 					>
-						{{$t('room_download')}}
+						{{ $t('room_download') }}
 					</button>
 				</nuxt-link>
 			</div>

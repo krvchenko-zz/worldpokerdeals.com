@@ -33,7 +33,7 @@
 							`top-rooms-header__country_${type}`,
 						]"
 					>
-						{{ $t('for_country', {country: country.from}) }}
+						{{ $t('for_country', { country: country.from }) }}
 					</div>
 				</button>
 				<button
@@ -87,7 +87,7 @@
 						`top-rooms-header__label_${type}`,
 					]"
 				>
-					{{ $t('top_rooms_count', {count: rooms.length}) }}
+					{{ $t('top_rooms_count', { count: rooms.length }) }}
 				</div>
 				<div
 					:class="[
@@ -95,7 +95,7 @@
 						`top-rooms-header__country_${type}`,
 					]"
 				>
-					{{ $t('for_country', {country: country.from}) }}
+					{{ $t('for_country', { country: country.from }) }}
 				</div>
 			</template>
 		</div>
@@ -125,7 +125,7 @@
 				v-if="type !== 'front'"
 				class="top-rooms__footer-more"
 				@click.prevent="handleLoadMore"
-				>{{ $t('show_more_count', {count: 5}) }}</span
+				>{{ $t('show_more_count', { count: 5 }) }}</span
 			>
 
 			<nuxt-link
@@ -149,9 +149,13 @@
 							'top-rooms__footer-total',
 							`top-rooms__footer-total_${type}`,
 						]"
-						>{{ $t('all_poker_sites', {total: total, sites: declOfNum(total, ['сайта', 'сайтов', 'сайтов'])}) }}
-						</span
-					>
+						>{{
+							$t('all_poker_sites', {
+								total: total,
+								sites: declOfNum(total, ['сайта', 'сайтов', 'сайтов']),
+							})
+						}}
+					</span>
 				</a>
 			</nuxt-link>
 		</div>

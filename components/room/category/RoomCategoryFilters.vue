@@ -51,7 +51,11 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown v-if="games.length" :label="$t('game_types')" icon="filter-game">
+		<filter-dropdown
+			v-if="games.length"
+			:label="$t('game_types')"
+			icon="filter-game"
+		>
 			<filter-item
 				v-for="(item, index) in games"
 				:key="index"
@@ -66,7 +70,11 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown v-if="limits.length" :label="$t('stakes')" icon="filter-limit">
+		<filter-dropdown
+			v-if="limits.length"
+			:label="$t('stakes')"
+			icon="filter-limit"
+		>
 			<filter-item
 				v-for="(item, index) in limits"
 				:key="index"

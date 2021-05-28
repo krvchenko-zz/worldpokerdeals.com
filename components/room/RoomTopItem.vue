@@ -60,7 +60,9 @@
 				{{ title }}
 			</div>
 			<div :class="['top-rooms__item-rating', 'top-rooms__item-cell']">
-				<span :class="['top-rooms__item-rating-label']">{{ $t('rating') }}</span>
+				<span :class="['top-rooms__item-rating-label']">{{
+					$t('rating')
+				}}</span>
 				<span :class="['top-rooms__item-rating-val']">{{ rating }}</span>
 				<span :class="['top-rooms__item-rating-overall']">/5</span>
 			</div>
@@ -69,7 +71,9 @@
 				v-if="!hovered"
 				:class="['top-rooms__item-rakeback', 'top-rooms__item-cell']"
 			>
-				<span :class="['top-rooms__item-rakeback-label']">{{ $t('rakeback') }}</span>
+				<span :class="['top-rooms__item-rakeback-label']">{{
+					$t('rakeback')
+				}}</span>
 				<span :class="['top-rooms__item-rakeback-val']">{{ rakeback }}</span>
 			</div>
 
