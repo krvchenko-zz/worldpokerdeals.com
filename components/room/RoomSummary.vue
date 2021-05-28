@@ -16,7 +16,7 @@
 				<div class="col-6">
 					<div class="room-scores-rating">
 						<span class="room-scores-rating__place">{{ room.rate }}</span>
-						<span class="room-scores-rating__label">Место<br />в рейтинге</span>
+						<span class="room-scores-rating__label">{{ $t('rating_position') }}</span>
 						<room-rating :value="room.rating" />
 					</div>
 				</div>
@@ -28,16 +28,16 @@
 				<div class="col-6">
 					<!-- Details -->
 					<div class="room-details">
-						<div class="room-details__heading">Характеристики</div>
+						<div class="room-details__heading">{{ $t('characteristics') }}</div>
 
 						<div class="room-detail">
-							<div class="room-detail__label">Отзывов</div>
+							<div class="room-detail__label">{{ $t('reviews_count') }}</div>
 							<div class="room-detail__value reviews">
 								<span class="room-detail__reviews-count">{{
 									room.reviews_count
 								}}</span>
 								<span class="room-detail__reviews-sep"></span>
-								<span class="room-detail__reviews-val-label">Оценка</span>
+								<span class="room-detail__reviews-val-label">{{ $t('rating') }}</span>
 								<span class="room-detail__reviews-val"
 									><span class="room-detail__reviews-current">{{
 										room.reviews_rate
@@ -48,7 +48,7 @@
 						</div>
 
 						<div v-if="room.types.length" class="room-detail">
-							<div class="room-detail__label">Тип рума</div>
+							<div class="room-detail__label">{{ $t('room_type') }}</div>
 							<div class="room-detail__value">
 								<span v-for="(item, index) in room.types" :key="index"
 									>{{ item.title
@@ -60,7 +60,7 @@
 						</div>
 
 						<div class="room-detail">
-							<div class="room-detail__label">Лицензия</div>
+							<div class="room-detail__label">{{ $t('license') }}</div>
 							<div
 								v-if="room.licenses.length"
 								class="room-detail__value room-detail__value_licenses"
@@ -79,11 +79,11 @@
 									<span>{{ item.title }}</span>
 								</span>
 							</div>
-							<span v-else class="room-detail__value">Отсутствует</span>
+							<span v-else class="room-detail__value">{{ $t('not_available') }}</span>
 						</div>
 
 						<div v-if="room.payment_methods.length" class="room-detail">
-							<div class="room-detail__label">Платежи</div>
+							<div class="room-detail__label">{{ $t('payments') }}</div>
 							<div class="room-detail__value">
 								<ul class="room-payment-list">
 									<li
@@ -127,7 +127,7 @@
 						</div>
 
 						<div v-if="room.platforms.length" class="room-detail">
-							<div class="room-detail__label">Устройства</div>
+							<div class="room-detail__label">{{ $t('devices') }}</div>
 							<div class="room-detail__value">
 								<ul class="room-platform-list">
 									<li
@@ -145,7 +145,7 @@
 						</div>
 
 						<div class="room-detail">
-							<div class="room-detail__label">Локализация</div>
+							<div class="room-detail__label">{{ $t('localization') }}</div>
 							<div class="room-detail__value room-detail__value_locale">
 								<svg-icon
 									class="room-detail__geo"
@@ -167,15 +167,15 @@
 						:slug="room.slug"
 						:icon="false"
 						type="download"
-						label="Перейти"
+						:label="$t('room_download')"
 					/>
 				</div>
 				<div class="col-6">
 					<div class="room-scores">
 						<div class="room-scores__label-wrap">
-							<div class="room-scores__label">Наши оценки</div>
+							<div class="room-scores__label">{{ $t('our_ratings') }}</div>
 							<span class="room-scores__info" @click="handleRatesModal"
-								>Как оцениваем</span
+								>{{ $t('how_we_rate') }}</span
 							>
 						</div>
 
@@ -198,7 +198,7 @@
 						class="btn-block"
 						:slug="room.review.slug"
 						type="default"
-						:label="`Обзор ${room.title}`"
+						:label="$t('room_review', {room: room.title})"
 					/>
 				</div>
 			</div>

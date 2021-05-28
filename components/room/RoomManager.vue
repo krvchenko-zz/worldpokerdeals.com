@@ -3,7 +3,7 @@
 		<div class="manager-card__info">
 			<div class="manager-card__info-wrap">
 				<div class="manager-card__label">
-					<span class="manager-card__badge_yellow">Vip</span>поддержка
+					<span class="manager-card__badge_yellow">Vip</span>{{ $t('vip_support') }}
 				</div>
 				<div class="manager-card__name">{{ name }}</div>
 				<div class="manager-card__position">{{ position }}</div>
@@ -18,9 +18,9 @@
 				v-html="manager_info ? manager_info : manager_info_default"
 			></div>
 
-			<button-contact block size="md" type="chat">Начать чат</button-contact>
+			<button-contact block size="md" type="chat">{{ $t('start_chat') }}</button-contact>
 			<div class="manager-card__messengers-label">
-				или напиши {{ name }} в месенджеры
+				{{ $t('contact_manager_via_messengers', {name: name}) }}
 			</div>
 			<div class="manager-card__messengers">
 				<button-contact

@@ -23,7 +23,7 @@
 					}"
 				>
 					<a :class="['btn', 'top-room__review']" :href="href" @click="navigate"
-						>Обзор рума</a
+						>{{ $t('room_review') }}</a
 					>
 				</nuxt-link>
 			</div>
@@ -55,7 +55,7 @@
 				<room-action-button
 					:class="['btn-block', 'top-room__download']"
 					type="download"
-					label="Перейти на сайт"
+					:label="$t('go_to_site')"
 					:icon="false"
 					:slug="slug"
 				/>
@@ -76,8 +76,8 @@
 						:icon="country.code"
 						prefix="flags/"
 					/><template v-if="restricted"
-						>Недоступен игрокам из {{ country.from }}!</template
-					><template v-else>Доступен игрокам из {{ country.from }}!</template>
+						>{{ $t('room_geo_restricted', {country: country.from}) }}</template
+					><template v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</template>
 				</span>
 			</div>
 		</div>

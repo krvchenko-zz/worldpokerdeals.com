@@ -26,32 +26,29 @@
 
 			<div v-if="!room.blacklist && !room.closed" class="room-advantages">
 				<room-advantage
-					label="Бонус"
+					:label="$t('bonus')"
 					:value="room.top_bonus ? room.top_bonus.title : false"
 					color="#eb5757"
 				/>
 				<room-advantage
-					label="Рейкбек"
+					:label="$t('rakeback')"
 					:value="room.rakeback"
 					color="#008be2"
 				/>
 
 				<room-advantage
-					label="Акции"
+					:label="$t('promotions')"
 					:value="room.promotions_count"
 					color="#FFFFFF"
 				/>
 			</div>
 
 			<div v-else-if="room.blacklist" class="room-blacklist">
-				К сожалению, сделка недоступна. <b>{{ room.title }}</b> внесен в
-				<a href="/blacklist">черный список</a>
-				нашего сайта.
+				{{ $t('room_blacklisted', {room: room.title}) }}
 			</div>
 
 			<div v-else-if="room.closed" class="room-blacklist">
-				К сожалению, сделка недоступна. <b>{{ room.title }}</b> закрылся
-				Несмотря на неоднократную смену названия
+				{{ $t('room_closed', {room: room.title}) }}
 			</div>
 
 			<div class="room-scores-rating">
@@ -63,16 +60,15 @@
 				<span
 					v-if="!room.blacklist && !room.closed"
 					class="room-scores-rating__label"
+					v-html="$t('rating_position')"
 				>
-					Место<br />в рейтинге
 				</span>
 				<span
 					v-else
 					class="room-scores-rating__label"
 					:style="{ color: '#DB1414', fontWeight: 'bold' }"
+					v-html="$t('rating_excluded')"
 				>
-					Исключен <br />
-					из рейтинга
 				</span>
 				<room-rating
 					:value="room.rating"
@@ -84,16 +80,16 @@
 		<div class="room-header__details-wrapper">
 			<!-- Details -->
 			<div class="room-details">
-				<div class="room-details__heading">Характеристики</div>
+				<div class="room-details__heading">{{ $t('characteristics') }}</div>
 
 				<div class="room-detail">
-					<div class="room-detail__label">Отзывов</div>
+					<div class="room-detail__label">{{ $t('reviews_count') }}</div>
 					<div class="room-detail__value reviews" @click="handleReviewsClick">
 						<span class="room-detail__reviews-count">{{
 							room.reviews_count
 						}}</span>
 						<span class="room-detail__reviews-sep"></span>
-						<span class="room-detail__reviews-val-label">Оценка</span>
+						<span class="room-detail__reviews-val-label">{{ $t('rating') }}</span>
 						<span class="room-detail__reviews-val"
 							><span class="room-detail__reviews-current">{{
 								room.reviews_rate
@@ -104,7 +100,7 @@
 				</div>
 
 				<div v-if="room.types.length" class="room-detail">
-					<div class="room-detail__label">Тип рума</div>
+					<div class="room-detail__label">{{ $t('room_type') }}</div>
 					<div class="room-detail__value">
 						<span v-for="(item, index) in room.types" :key="index"
 							>{{ item.title
@@ -116,7 +112,7 @@
 				</div>
 
 				<div class="room-detail">
-					<div class="room-detail__label">Лицензия</div>
+					<div class="room-detail__label">{{ $t('license') }}</div>
 					<div class="room-detail__value">
 						<template v-if="room.licenses.length">
 							<span v-for="(item, index) in room.licenses" :key="index">
@@ -134,12 +130,12 @@
 								</template>
 							</span>
 						</template>
-						<template v-else>Отсутствует</template>
+						<template v-else>{{$t('not_available')}}</template>
 					</div>
 				</div>
 
 				<div v-if="room.payment_methods.length" class="room-detail">
-					<div class="room-detail__label">Платежи</div>
+					<div class="room-detail__label">{{ $t('payments') }}</div>
 					<div class="room-detail__value">
 						<ul class="room-payment-list">
 							<li
@@ -183,7 +179,7 @@
 				</div>
 
 				<div v-if="room.platforms.length" class="room-detail">
-					<div class="room-detail__label">Устройства</div>
+					<div class="room-detail__label">{{ $t('devices') }}</div>
 					<div class="room-detail__value">
 						<ul class="room-platform-list">
 							<transition-group name="fade">
@@ -203,7 +199,7 @@
 				</div>
 
 				<div class="room-detail">
-					<div class="room-detail__label">Локализация</div>
+					<div class="room-detail__label">{{ $t('localization') }}</div>
 					<div class="room-detail__value room-detail__value_locale">
 						<svg-icon
 							:class="[
@@ -225,16 +221,16 @@
 			<div
 				:class="['room-summary', room.blacklist && 'room-summary_blacklist']"
 			>
-				<div class="room-summary__label">Ключевые факты:</div>
+				<div class="room-summary__label">{{ $t('key_facts') }}</div>
 				<div class="room-summary__list" v-html="room.description_short"></div>
 			</div>
 		</div>
 
 		<div class="room-scores">
 			<div class="room-scores__label-wrap">
-				<div class="room-scores__label">Наши оценки</div>
+				<div class="room-scores__label">{{ $t('our_ratings') }}</div>
 				<span class="room-scores__info" @click="handleRatesModal"
-					>Как оцениваем</span
+					>{{ $t('how_we_rate') }}</span
 				>
 			</div>
 
@@ -262,7 +258,7 @@
 				"
 				class="room-header-actions__download"
 				type="download"
-				label="Перейти"
+				:label="$t('room_download')"
 			/>
 
 			<room-action-button
@@ -271,8 +267,8 @@
 				type="contacts"
 				:label="
 					room.types.some(type => type.id === 3)
-						? 'Доступ в клубы'
-						: 'Чат с менеджером'
+						? $t('club_access')
+						: $t('manager_chat')
 				"
 				class="room-header-actions__contacts"
 			/>
@@ -280,7 +276,7 @@
 			<room-action-button
 				:slug="room.slug"
 				type="review"
-				label="Оставить отзыв"
+				:label="$t('feedback')"
 				@click="handleReviewsClick"
 			/>
 
@@ -289,7 +285,7 @@
 				:slug="room.slug"
 				:title="room.title"
 				type="connection"
-				label="Привязать счет"
+				:label="$t('tag_account')"
 			/>
 
 			<room-action-button
@@ -297,7 +293,7 @@
 				:icon="false"
 				:title="room.title"
 				type="blacklist"
-				label="Представитель рума?"
+				:label="$t('room_representative')"
 			/>
 		</div>
 
@@ -305,10 +301,10 @@
 			<span
 				v-if="room.restricted && room.available"
 				class="room-restrictions__geo"
-				>Недоступен для игроков из {{ country.from }}
+				>{{ $t('room_geo_restricted', { country: country.from }) }}
 			</span>
 			<span v-if="!room.available" class="room-restrictions__unavailable"
-				>К сожалению, сделка временно недоступна</span
+				>{{ $t('room_unavailable') }}</span
 			>
 		</div>
 
@@ -323,7 +319,7 @@
 				room.closed && 'rooms-recomended_closed',
 			]"
 		>
-			<div class="rooms-recomended__title">Рекомендованные покер-румы</div>
+			<div class="rooms-recomended__title">{{ $t('recommended_poker_rooms') }}</div>
 			<div class="rooms-recomended__list">
 				<room-recomended-item
 					v-for="(item, index) in recomended"
