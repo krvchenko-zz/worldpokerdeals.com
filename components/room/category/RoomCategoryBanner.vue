@@ -1,22 +1,16 @@
 <template>
 	<div class="help-banner">
-		<div class="help-banner__title">
-			Помощь в выборе <br />
-			покер-рума!
-		</div>
+		<div class="help-banner__title" v-html="$t('let_us_help')"></div>
 		<img
 			class="help-banner__img"
 			decoding="async"
 			loading="lazy"
 			src="~assets/i/room-category-banner.svg"
-			alt="Помощь в выборе покер-рума"
+			:alt="$t('let_us_help')"
 		/>
-		<p class="help-banner__text">
-			Появился вопрос по настройке софта или проблема с покер-румом? Не знаешь
-			где искать помощи? Даем советы и помогаем решить любые покерные вопросы.
-		</p>
+		<p class="help-banner__text" v-html="$t('assistance_text')"></p>
 		<div class="help-banner__actions">
-			<button-contact block size="md" type="chat">Начать чат</button-contact>
+			<button-contact block size="md" type="chat">{{ $t('start_chat') }}</button-contact>
 			<div class="help-banner__messengers">
 				<button-contact
 					class="help-banner__btn"
