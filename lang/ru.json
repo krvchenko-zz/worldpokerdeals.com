@@ -133,5 +133,7 @@
   "with_private_clubs": "С приватными клубами",
   "best_rooms": "Лучшие румы",
   "top_rooms_count": "Топ-{count} покер-румов",
-  "show_more_count": "Показать еще {count}"
+  "show_more_count": "Показать еще {count}",
+  "full_rooms_catalogue": "Полный каталог покерных румов",
+  "all_poker_sites": "Все {total} покерных {sites}"
 }

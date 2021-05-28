@@ -142,15 +142,15 @@
 							'top-rooms__footer-text',
 							`top-rooms__footer-text_${type}`,
 						]"
-						>Полный каталог покерных румов</span
+						>{{ $t('full_rooms_catalogue') }}</span
 					>
 					<span
 						:class="[
 							'top-rooms__footer-total',
 							`top-rooms__footer-total_${type}`,
 						]"
-						>Все {{ total }} покерных
-						{{ declOfNum(total, ['сайта', 'сайтов', 'сайтов']) }}</span
+						>{{ $t('all_poker_sites', {total: total, sites: declOfNum(total, ['сайта', 'сайтов', 'сайтов'])}) }}
+						</span
 					>
 				</a>
 			</nuxt-link>
@@ -206,11 +206,7 @@
 
 		async fetch() {},
 
-		watch: {
-			// $route() {
-			// 	this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
-			// }
-		},
+		watch: {},
 
 		methods: {
 			async handleLoadMore() {
