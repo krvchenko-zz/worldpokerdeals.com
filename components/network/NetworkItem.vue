@@ -61,7 +61,7 @@
 <style lang="scss">
 	$ico-network-more: url('~assets/i/ico-network-more.svg?data');
 	.network-item {
-		margin: 24px 0;
+		margin-top: 24px;
 		background: #fafafa;
 		border: 1px solid #e9e9e9;
 		border-radius: 4px;
@@ -109,6 +109,40 @@
 				height: 12px;
 				display: block;
 				background: $ico-network-more no-repeat center;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.network-item {
+			margin-top: 0;
+			&__wrap {
+				display: grid;
+				grid-template-areas:
+					'title icon'
+					'rooms icon';
+				padding: 28px;
+			}
+			&__icon-wrap {
+				position: relative;
+				grid-area: icon;
+				margin-top: -8px;
+				justify-self: end;
+				right: 0;
+				top: 0;
+			}
+			&__title {
+				grid-area: title;
+				padding-right: 0;
+				padding-top: 8px;
+			}
+			&__rooms {
+				grid-area: rooms;
+				width: max-content;
+				&:after {
+					right: -28px;
+					transform: translateX(100%);
+				}
 			}
 		}
 	}
