@@ -1,194 +1,187 @@
 <template>
 	<div class="network">
-		<div class="container-fluid">
-			<breadcrumb-list v-if="pageable" />
+		<breadcrumb-list v-if="pageable" class="network__breadcrumbs" />
 
-			<network-header />
-		</div>
+		<network-header class="network__header" />
 
-		<div class="container-fluid">
-			<h2
-				:id="urlLit(`Все покер-румы сети ${network.title}`)"
-				class="network-rooms__title"
-			>
-				Все покер-румы сети {{ network.title }}
-			</h2>
+		<h2
+			:id="urlLit(`Все покер-румы сети ${network.title}`)"
+			class="network__rooms-title network-rooms__title"
+		>
+			Все покер-румы сети {{ network.title }}
+		</h2>
 
-			<div class="row">
-				<div class="col-9">
-					<div class="network-rooms">
-						<div class="network-filters">
-							<div v-if="data.length" class="network-filters__info">
-								Показано {{ total }} из {{ overall }} покер-румов
-							</div>
-
-							<div v-if="data.length" class="network-filters__geo">
-								<geo-switcher
-									:value="country.code"
-									:geo.sync="geo"
-									@change="fetchItems"
-								/>
-							</div>
-						</div>
-
-						<room
-							v-for="(item, index) in data"
-							v-if="data.length"
-							:id="item.id"
-							:key="index"
-							:title="item.title"
-							:slug="item.slug"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:image="item.image"
-							:restricted="item.restricted"
-							:available="item.available"
-							:network="item.network"
-							:tags="item.tags"
-							:review="item.review"
-						/>
-
-						<pagination
-							v-if="rooms.length"
-							:last="last_page"
-							:current="parseInt(page)"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							:load-more-width="208"
-							load-more-text="Показать еще румы"
-							total-text="покер-румов"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						>
-						</pagination>
-					</div>
-
-					<div class="row">
-						<div class="col-auto">
-							<toc-list v-if="network.toc">
-								<template #default="{ inline }">
-									<toc-item
-										:inline="inline"
-										:anchor="urlLit(`Все покер-румы сети ${network.title}`)"
-										:text="`Все покер-румы сети ${network.title}`"
-									>
-									</toc-item>
-									<toc-item
-										v-for="(item, index) in network.toc"
-										:key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text"
-									>
-									</toc-item>
-								</template>
-							</toc-list>
-						</div>
-
-						<div class="col col-article">
-							<!-- Article -->
-							<page-article :text="network.text">
-								<template #footer>
-									<!-- Faq -->
-									<faq-list
-										v-if="network.faq && network.faq.mainEntity.length"
-										label="FAQ"
-									>
-										<faq-item
-											v-for="(item, index) in network.faq.mainEntity"
-											:key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text"
-										>
-										</faq-item>
-									</faq-list>
-									<!-- Author -->
-									<author v-if="network.user" :author="network.user" />
-									<!-- Comments -->
-									<comments
-										commentable_type="App\Network"
-										:commentable_id="network.id"
-									/>
-								</template>
-							</page-article>
-						</div>
-					</div>
+		<div class="network__rooms network-rooms">
+			<div class="network-filters">
+				<div v-if="data.length" class="network-filters__info">
+					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
 
-				<div class="col-3">
-					<network-filters
-						v-if="filters"
-						:geo="geo"
-						:kycs="filters.kycs"
-						:platforms="filters.platforms"
-						:tags="filters.tags"
-						:payments="filters.payments"
-						:types="filters.types"
-						:networks="filters.networks"
-						:licenses="filters.licenses"
-						@change="handleFilterChange"
+				<div v-if="data.length" class="network-filters__geo">
+					<geo-switcher
+						:value="country.code"
+						:geo.sync="geo"
+						@change="fetchItems"
 					/>
-
-					<topic-list v-if="network.topics.length">
-						<topic-item
-							v-for="(item, index) in network.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
 				</div>
 			</div>
 
-			<lazy-hydrate when-visible>
-				<post-list
-					v-if="posts && posts.length"
-					:label="`Новости ${network.title}`"
-				>
-					<div class="row">
-						<div v-for="(item, index) in posts" :key="index" class="col-3">
-							<post-item
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:slug="item.slug"
-								:author="item.user"
-								:created="item.created_at"
-								:categories="item.categories"
-								:medium="true"
-							/>
-						</div>
-					</div>
-				</post-list>
-			</lazy-hydrate>
+			<div class="network__rooms__item">
+				<room
+					v-for="(item, index) in data"
+					v-if="data.length"
+					:id="item.id"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:rating="item.rating"
+					:rakeback="item.rakeback"
+					:bonus="item.bonus"
+					:background="item.background"
+					:image="item.image"
+					:restricted="item.restricted"
+					:available="item.available"
+					:network="item.network"
+					:tags="item.tags"
+					:review="item.review"
+				/>
+			</div>
 
-			<lazy-hydrate when-visible>
-				<network-list v-if="related" label="Другие покерные сети">
-					<div class="row">
-						<div v-for="(item, index) in related" :key="index" class="col-3">
-							<network-item
-								:title="item.title"
-								:url="item.url"
-								:rooms="item.rooms_count"
-								:vip="item.vip_status"
-								:page="item.page"
-							>
-							</network-item>
-						</div>
-					</div>
-				</network-list>
-			</lazy-hydrate>
+			<pagination
+				v-if="rooms.length"
+				:last="last_page"
+				:current="parseInt(page)"
+				:prev-url="prev_page_url"
+				:next-url="next_page_url"
+				:total="total"
+				:from="from"
+				:to="to"
+				:load-more-width="208"
+				load-more-text="Показать еще румы"
+				total-text="покер-румов"
+				@next="handlePageNext"
+				@prev="handlePagePrev"
+				@change="handlePageChange"
+				@more="handleShowMore"
+			>
+			</pagination>
 		</div>
+
+		<div class="network__toc">
+			<toc-list v-if="network.toc">
+				<template #default="{ inline }">
+					<toc-item
+						:inline="inline"
+						:anchor="urlLit(`Все покер-румы сети ${network.title}`)"
+						:text="`Все покер-румы сети ${network.title}`"
+					>
+					</toc-item>
+					<toc-item
+						v-for="(item, index) in network.toc"
+						:key="index"
+						:index="index"
+						:inline="inline"
+						:anchor="item.anchor_id"
+						:text="item.text"
+					>
+					</toc-item>
+				</template>
+			</toc-list>
+		</div>
+
+		<!-- Article -->
+		<page-article :text="network.text" class="network__article">
+			<template #footer>
+				<!-- Faq -->
+				<faq-list
+					v-if="network.faq && network.faq.mainEntity.length"
+					label="FAQ"
+				>
+					<faq-item
+						v-for="(item, index) in network.faq.mainEntity"
+						:key="index"
+						:question="item.name"
+						:answer="item.acceptedAnswer.text"
+					>
+					</faq-item>
+				</faq-list>
+				<!-- Author -->
+				<author v-if="network.user" :author="network.user" />
+				<!-- Comments -->
+				<comments commentable_type="App\Network" :commentable_id="network.id" />
+			</template>
+		</page-article>
+
+		<div class="network__aside">
+			<network-filters
+				v-if="filters"
+				:geo="geo"
+				:kycs="filters.kycs"
+				:platforms="filters.platforms"
+				:tags="filters.tags"
+				:payments="filters.payments"
+				:types="filters.types"
+				:networks="filters.networks"
+				:licenses="filters.licenses"
+				@change="handleFilterChange"
+				class="network__filters"
+			/>
+
+			<topic-list v-if="network.topics.length" class="network__topics">
+				<topic-item
+					v-for="(item, index) in network.topics"
+					:key="index"
+					:title="item.title"
+					:url="item.url"
+					:author="item.author"
+					:created="item.created_at"
+				/>
+			</topic-list>
+		</div>
+
+		<lazy-hydrate when-visible>
+			<post-list
+				v-if="posts && posts.length"
+				:label="`Новости ${network.title}`"
+				class="network__posts"
+			>
+				<div class="network__posts__list">
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+					/>
+				</div>
+			</post-list>
+		</lazy-hydrate>
+
+		<lazy-hydrate when-visible>
+			<network-list
+				v-if="related"
+				label="Другие покерные сети"
+				class="network__network-list"
+			>
+				<div class="network__network-list__list">
+					<network-item
+						v-for="(item, index) in related"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:rooms="item.rooms_count"
+						:vip="item.vip_status"
+						:page="item.page"
+					>
+					</network-item>
+				</div>
+			</network-list>
+		</lazy-hydrate>
 	</div>
 </template>
 
@@ -422,15 +415,66 @@
 </script>
 
 <style lang="scss">
-	// .promotion {
-	//   &__wrap {
-	//     padding: 0 30px;
-	//   }
-
-	//   &__img-wrap {
-	//     margin: 20px 0 30px 0;
-	//   }
-	// }
+	.network {
+		max-width: 1440px;
+		width: 100%;
+		@include paddings('desktop');
+		display: grid;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		column-gap: 28px;
+		grid-template-areas:
+			'breadcrumbs breadcrumbs breadcrumbs'
+			'header header header'
+			'rooms-title rooms-title .'
+			'rooms rooms aside'
+			'toc article aside'
+			'posts posts posts'
+			'network-list network-list network-list';
+		&__breadcrumbs {
+			grid-area: breadcrumbs;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+		&__header {
+			grid-area: header;
+		}
+		&__rooms-title {
+			grid-area: rooms-title;
+		}
+		&__rooms {
+			grid-area: rooms;
+		}
+		&__toc {
+			grid-area: toc;
+		}
+		&__article {
+			grid-area: article;
+		}
+		&__filters {
+			grid-area: filters;
+		}
+		&__topics {
+			grid-area: topics;
+		}
+		&__posts {
+			grid-area: posts;
+			&__list {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				column-gap: 28px;
+			}
+		}
+		&__network-list {
+			grid-area: network-list;
+			&__list {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				column-gap: 28px;
+				row-gap: 24px;
+			}
+		}
+	}
 
 	.network-filters {
 		margin-bottom: 24px;
@@ -460,6 +504,69 @@
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+	}
+
+	@include mq('laptop') {
+		.network {
+			@include paddings('tablet');
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'breadcrumbs'
+				'header'
+				'rooms-title'
+				'rooms'
+				'toc'
+				'article'
+				'aside'
+				'posts'
+				'network-list';
+
+			&__posts {
+				&__list {
+					column-gap: 20px;
+				}
+			}
+			&__network-list {
+				&__list {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 20px;
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.network {
+			@include paddings('mobile');
+			&__rooms {
+				&__item {
+					margin-left: -21px;
+					margin-right: -20px;
+				}
+			}
+			& &__posts {
+				margin-right: -20px;
+				overflow-x: scroll;
+				scrollbar-width: none;
+				&__list {
+					grid-auto-columns: 288px;
+					grid-template-columns: none;
+					grid-auto-flow: column;
+					column-gap: 16px;
+				}
+			}
+			&__network-list {
+				margin-right: -20px;
+				overflow-x: scroll;
+				scrollbar-width: none;
+				&__list {
+					grid-template-columns: none;
+					grid-auto-columns: 288px;
+					grid-auto-flow: column;
+					gap: 16px;
+				}
+			}
 		}
 	}
 </style>

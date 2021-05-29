@@ -1,46 +1,41 @@
 <template>
 	<div class="network-header">
-		<div class="container-fluid">
-			<div class="network-header__wrap">
-				<div class="row">
-					<div class="col-2">
-						<div class="network-header__logo">
-							<svg-icon
-								class="network__icon"
-								:icon="network.url"
-								:width="136"
-								:height="136"
-								view-box="0 0 200 200"
-							/>
-						</div>
-					</div>
-					<div class="col-6">
-						<h1 class="network__title">{{ network.heading }}</h1>
-						<page-meta
-							:author="network.user ? network.user.full_name : null"
-							:created="network.created_at"
-							:updated="network.updated_at"
-							:dark="true"
-						>
-						</page-meta>
-						<div class="network__summary" v-html="network.summary"></div>
-					</div>
-					<div class="col-4">
-						<room-top
-							v-if="rooms"
-							:id="rooms[0].id"
-							:style="{ top: 0, margin: '0 0 26px 0' }"
-							:title="rooms[0].title"
-							:slug="rooms[0].slug"
-							:restricted="rooms[0].restricted"
-							:country="country"
-							:rating="rooms[0].rating"
-							:bonus="rooms[0].top_bonus"
-							:review="rooms[0].review"
-						/>
-					</div>
-				</div>
+		<div class="network-header__wrap">
+			<div class="network-header__logo">
+				<svg-icon
+					class="network__icon"
+					:icon="network.url"
+					:width="$device.isMobile ? 120 : 136"
+					:height="$device.isMobile ? 120 : 136"
+					view-box="0 0 200 200"
+				/>
 			</div>
+
+			<div class="network-header__content">
+				<h1 class="network__title">{{ network.heading }}</h1>
+				<page-meta
+					:author="network.user ? network.user.full_name : null"
+					:created="network.created_at"
+					:updated="network.updated_at"
+					:dark="true"
+					class="network-header__meta"
+				>
+				</page-meta>
+				<div class="network__summary" v-html="network.summary"></div>
+			</div>
+
+			<room-top
+				v-if="rooms"
+				:id="rooms[0].id"
+				:title="rooms[0].title"
+				:slug="rooms[0].slug"
+				:restricted="rooms[0].restricted"
+				:country="country"
+				:rating="rooms[0].rating"
+				:bonus="rooms[0].top_bonus"
+				:review="rooms[0].review"
+				class="network__top-room"
+			/>
 		</div>
 	</div>
 </template>
@@ -98,17 +93,25 @@
 
 	.network {
 		&-header {
+			padding: 28px 60px 0 28px;
 			&__wrap {
-				padding: 30px 30px 0 30px;
+				display: flex;
+				gap: 56px;
 				position: relative;
 			}
 
 			&__logo {
+				padding-left: 28px;
 				text-align: right;
 			}
 
 			&__meta {
 			}
+		}
+
+		&__top-room {
+			margin: 0 0 26px 0;
+			top: 0;
 		}
 
 		&__title {
@@ -131,6 +134,77 @@
 
 		&__icon {
 			border-radius: 50%;
+		}
+	}
+
+	@include mq('desktop') {
+		.network-header {
+			padding: 28px 24px;
+			&__wrap {
+				gap: 20px;
+			}
+			&__logo {
+				padding-left: 24px;
+			}
+		}
+
+		.network {
+			&__top-room {
+				margin-left: 48px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.network-header {
+			padding-bottom: 32px;
+			&__logo {
+				padding-left: 21px;
+				margin-right: 46px;
+			}
+		}
+
+		.network {
+			&__top-room {
+				display: none;
+			}
+			&__summary {
+				padding-bottom: 0;
+				p:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.network-header {
+			padding: 24px 20px 32px;
+			margin-left: -20px;
+			margin-right: -20px;
+			&__wrap {
+				flex-direction: column;
+				align-items: center;
+				gap: 20px;
+			}
+			&__logo {
+				padding-left: 0;
+				margin-right: 0;
+			}
+			&__meta {
+				justify-content: center;
+
+				/* .page-meta__item {
+					margin: 0;
+					padding: 0;
+				} */
+			}
+		}
+
+		.network {
+			&__title {
+				text-align: center;
+			}
 		}
 	}
 </style>
