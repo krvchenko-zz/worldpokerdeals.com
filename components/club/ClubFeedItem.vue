@@ -56,7 +56,7 @@
 
 			<div class="club-item__col">
 				<div class="club-item__prop-wrap">
-					<span class="club-item__prop-label">ID клуба</span>
+					<span class="club-item__prop-label">{{ $t('club_id') }}</span>
 					<span
 						class="club-item__prop club-item__prop_id"
 						@click="handleCopy"
@@ -64,15 +64,15 @@
 					>
 				</div>
 				<div class="club-item__prop-wrap">
-					<span class="club-item__prop-label">ID агента</span>
+					<span class="club-item__prop-label">{{ $t('agent_id') }}</span>
 					<span class="club-item__prop">{{ agent_id }}</span>
 				</div>
 				<div class="club-item__prop-wrap">
-					<span class="club-item__prop-label">Гарантия</span>
+					<span class="club-item__prop-label">{{ $t('guarantee') }}</span>
 					<span class="club-item__prop">{{ warranty }}</span>
 				</div>
 				<div class="club-item__prop-wrap">
-					<span class="club-item__prop-label">Страна</span>
+					<span class="club-item__prop-label">{{ $t('country') }}</span>
 					<span class="club-item__prop">
 						<svg-icon
 							prefix="flags/"
@@ -86,18 +86,18 @@
 
 			<div class="club-item__col">
 				<div class="club-item__prop-wrap">
-					<span class="club-item__prop-label">Рейкбэк</span>
+					<span class="club-item__prop-label">{{ $t('rakeback') }}</span>
 					<span class="club-item__prop">{{ rakeback }}</span>
 				</div>
 
 				<div class="club-item__prop-wrap">
-					<span class="club-item__prop-label">Столов</span>
+					<span class="club-item__prop-label">{{ $t('tables') }}</span>
 					<span class="club-item__prop">{{ tables_count }}</span>
 				</div>
 
 				<div class="club-item__actions">
 					<a class="btn btn-block btn-border club-item__join" href="#"
-						>Вступить в клуб</a
+						>{{ $t('join_club') }}</a
 					>
 				</div>
 			</div>

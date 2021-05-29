@@ -35,17 +35,17 @@
 		>
 			<div class="club-front-item__col">
 				<div class="club-front-item__prop-wrap">
-					<span class="club-front-item__prop-label">Рейкбэк</span>
+					<span class="club-front-item__prop-label">{{ $t('rakeback') }}</span>
 					<span class="club-front-item__prop">{{ rakeback }}</span>
 				</div>
 
 				<div class="club-front-item__prop-wrap">
-					<span class="club-front-item__prop-label">Гарантия</span>
+					<span class="club-front-item__prop-label">{{ $t('guarantee') }}</span>
 					<span class="club-front-item__prop">{{ warranty }}</span>
 				</div>
 
 				<div class="club-front-item__prop-wrap">
-					<span class="club-front-item__prop-label">Страны</span>
+					<span class="club-front-item__prop-label">{{ $t('country') }}</span>
 					<span class="club-front-item__prop">
 						<svg-icon
 							prefix="flags/"
@@ -58,7 +58,7 @@
 			</div>
 
 			<div style="margin-bottom: 12px;" class="club-front-item__prop-wrap">
-				<span class="club-front-item__prop-label">ID клуба</span>
+				<span class="club-front-item__prop-label">{{ $t('club_id') }}</span>
 				<span
 					class="club-front-item__prop club-front-item__prop_id"
 					@click="handleCopy"
@@ -67,12 +67,12 @@
 			</div>
 
 			<div style="margin-bottom: 12px;" class="club-front-item__prop-wrap">
-				<span class="club-front-item__prop-label">ID агента</span>
+				<span class="club-front-item__prop-label">{{ $t('agent_id') }}</span>
 				<span class="club-front-item__prop">{{ agent_id }}</span>
 			</div>
 
 			<div style="margin-bottom: 12px;" class="club-front-item__prop-wrap">
-				<span class="club-front-item__prop-label">Столов</span>
+				<span class="club-front-item__prop-label">{{ $t('tables') }}</span>
 				<span class="club-front-item__prop">{{ tables_count }}</span>
 			</div>
 
@@ -126,11 +126,7 @@
 			</ul>
 
 			<div class="club-front-item__actions">
-				<a class="btn btn-block btn-sm btn-primary" href="#">Вступить в клуб</a>
-
-				<!--       <nuxt-link v-if="review" :to="{name: 'index', params: {parent: 'rakeback-deals', child: review.url}}" v-slot="{ href, route, navigate }">
-          <a :class="['btn', 'btn-block', 'room-item__link', small && 'room-item__link_s', 'room-item__link_review']" :href="href" @click="navigate">Обзор</a>
-      </nuxt-link> -->
+				<a class="btn btn-block btn-sm btn-primary" href="#">{{ $t('join_club') }}</a>
 			</div>
 		</div>
 	</div>

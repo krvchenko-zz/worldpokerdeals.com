@@ -1,11 +1,11 @@
 <template>
 	<div class="room-params">
 		<div class="room-params__label room-params__label_support">
-			Служба поддержки
+			{{ $t('support') }}
 		</div>
 		<div class="room-params__list">
 			<div class="room-param room-param_languages">
-				<span class="room-param__label">Языки</span>
+				<span class="room-param__label">{{ $t('language') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value room-param__value_languages">
 					<svg-icon
@@ -21,7 +21,7 @@
 			</div>
 
 			<div class="room-param room-param_email">
-				<span class="room-param__label">Эл. почта</span>
+				<span class="room-param__label">{{ $t('email') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<a :href="`mailto:${email}`" class="room-param__emial">{{ email }}</a>
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="room-param room-param_phone">
-				<span class="room-param__label">Телефон</span>
+				<span class="room-param__label">{{ $t('phone') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value room-param__value_phone">
 					<span class="room-param__phone">{{ phone }}</span>
@@ -37,7 +37,7 @@
 			</div>
 
 			<div class="room-param room-param_trackers">
-				<span class="room-param__label">Лайв-чат</span>
+				<span class="room-param__label">{{ $t('live_chat') }}</span>
 				<span class="room-param__sep"></span>
 				<span class="room-param__value">
 					<span

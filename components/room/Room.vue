@@ -65,9 +65,12 @@
 						:height="16"
 						:icon="country.code"
 						prefix="flags/"
-					/><template v-if="restricted"
-						>Недоступен игрокам из {{ country.from }}!</template
-					><template v-else>Доступен игрокам из {{ country.from }}</template>
+					/><template v-if="restricted">{{
+						$t('room_geo_restricted', { country: country.from })
+					}}</template
+					><template v-else>{{
+						$t('room_geo_allowed', { country: country.from })
+					}}</template>
 				</span>
 			</div>
 
@@ -100,14 +103,16 @@
 			</div>
 
 			<dl v-if="available && !blacklist" class="room-item__details">
-				<dt class="room-item__dt">Бонус</dt>
+				<dt class="room-item__dt">{{ $t('bonus') }}</dt>
 				<dd class="room-item__dd">{{ bonus || 'n/a' }}</dd>
-				<dt class="room-item__dt room-item__dt_rakeback">Рейкбек</dt>
+				<dt class="room-item__dt room-item__dt_rakeback">
+					{{ $t('rakeback') }}
+				</dt>
 				<dd class="room-item__dd room-item__dd_rakeback">{{ rakeback }}</dd>
 			</dl>
 
 			<div v-if="blacklist" class="room-item__claim">
-				<span class="room-item__claim-label">Сумма претензии</span>
+				<span class="room-item__claim-label">{{ $t('claim_amount') }}</span>
 				<span class="room-item__claim-amount"
 					>{{ claim_currency.symbol }}{{ claim_amount }}</span
 				>
@@ -115,7 +120,7 @@
 
 			<!-- TODO -->
 			<div v-if="!available" class="room-item__unavailable">
-				К сожалению, сделка временно недоступна!
+				{{ $t('room_unavailable') }}
 			</div>
 
 			<div class="room-item__actions">
@@ -137,13 +142,13 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>Обзор</a
+						>{{ $t('review') }}</a
 					>
 				</nuxt-link>
 
 				<room-action-button
 					v-if="!blacklist"
-					label="Перейти"
+					:label="$t('room_download')"
 					type="download"
 					:class="[
 						'btn-block',
@@ -167,7 +172,7 @@
 					]"
 					@click="handleBlackList"
 				>
-					Представитель рума?
+					{{ $t('room_representative') }}
 				</button>
 			</div>
 		</div>

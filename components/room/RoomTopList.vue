@@ -25,7 +25,7 @@
 							`top-rooms-header__label_${type}`,
 						]"
 					>
-						Топовые румы
+						{{ $t('top_rooms') }}
 					</div>
 					<div
 						:class="[
@@ -33,7 +33,7 @@
 							`top-rooms-header__country_${type}`,
 						]"
 					>
-						для {{ country.from }}
+						{{ $t('for_country', { country: country.from }) }}
 					</div>
 				</button>
 				<button
@@ -49,7 +49,7 @@
 							`top-rooms-header__label_${type}`,
 						]"
 					>
-						Приложения
+						{{ $t('apps') }}
 					</div>
 					<div
 						:class="[
@@ -57,7 +57,7 @@
 							`top-rooms-header__country_${type}`,
 						]"
 					>
-						С приватными клубами
+						{{ $t('with_private_clubs') }}
 					</div>
 				</button>
 			</template>
@@ -69,7 +69,7 @@
 						`top-rooms-header__label_${type}`,
 					]"
 				>
-					Лучшие румы
+					{{ $t('best_rooms') }}
 				</div>
 			</template>
 
@@ -87,7 +87,7 @@
 						`top-rooms-header__label_${type}`,
 					]"
 				>
-					Топ-{{ rooms.length }} покер-румов
+					{{ $t('top_rooms_count', { count: rooms.length }) }}
 				</div>
 				<div
 					:class="[
@@ -95,7 +95,7 @@
 						`top-rooms-header__country_${type}`,
 					]"
 				>
-					для {{ country.from }}
+					{{ $t('for_country', { country: country.from }) }}
 				</div>
 			</template>
 		</div>
@@ -125,7 +125,7 @@
 				v-if="type !== 'front'"
 				class="top-rooms__footer-more"
 				@click.prevent="handleLoadMore"
-				>Показать еще 5</span
+				>{{ $t('show_more_count', { count: 5 }) }}</span
 			>
 
 			<nuxt-link
@@ -142,16 +142,20 @@
 							'top-rooms__footer-text',
 							`top-rooms__footer-text_${type}`,
 						]"
-						>Полный каталог покерных румов</span
+						>{{ $t('full_rooms_catalogue') }}</span
 					>
 					<span
 						:class="[
 							'top-rooms__footer-total',
 							`top-rooms__footer-total_${type}`,
 						]"
-						>Все {{ total }} покерных
-						{{ declOfNum(total, ['сайта', 'сайтов', 'сайтов']) }}</span
-					>
+						>{{
+							$t('all_poker_sites', {
+								total: total,
+								sites: declOfNum(total, ['сайта', 'сайтов', 'сайтов']),
+							})
+						}}
+					</span>
 				</a>
 			</nuxt-link>
 		</div>
@@ -206,11 +210,7 @@
 
 		async fetch() {},
 
-		watch: {
-			// $route() {
-			// 	this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
-			// }
-		},
+		watch: {},
 
 		methods: {
 			async handleLoadMore() {

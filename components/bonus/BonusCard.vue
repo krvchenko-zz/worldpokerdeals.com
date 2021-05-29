@@ -22,7 +22,7 @@
 						:class="['btn', 'bonus-card__link bonus-card__link_review']"
 						:href="href"
 						@click="navigate"
-						>Обзор рума</a
+						>{{ $t('room_review') }}</a
 					>
 				</nuxt-link>
 			</div>
@@ -58,7 +58,7 @@
 					:slug="review.slug"
 					:icon="false"
 					type="download"
-					label="Перейти"
+					:label="$t('room_download')"
 				/>
 			</div>
 
@@ -77,8 +77,8 @@
 						:icon="country.code"
 						prefix="flags/"
 					/><template v-if="restricted"
-						>Недоступен игрокам из {{ country.from }}!</template
-					><template v-else>Доступен игрокам из {{ country.from }}!</template>
+						>{{ $t('room_geo_restricted', {country: country.from}) }}</template
+					><template v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</template>
 				</span>
 			</div>
 		</div>

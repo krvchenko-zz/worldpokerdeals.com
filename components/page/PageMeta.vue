@@ -2,7 +2,7 @@
 	<div :class="['page-meta']">
 		<div v-if="author" :class="['page-meta__item', 'page-meta__item_author']">
 			<span :class="['page-meta__label', dark && 'page-meta__label_dark']"
-				>Автор</span
+				>{{ $t('author') }}</span
 			>
 			<span :class="['page-meta__name', dark && 'page-meta__name_dark']">{{
 				author
@@ -10,7 +10,7 @@
 		</div>
 		<div :class="['page-meta__item', 'page-meta__item_created']">
 			<span :class="['page-meta__label', dark && 'page-meta__label_dark']"
-				>Дата публикации</span
+				>{{ $t('created_at') }}</span
 			>
 			<span :class="['page-meta__date', dark && 'page-meta__date_dark']">{{
 				dateFormat(created)
@@ -18,7 +18,7 @@
 		</div>
 		<div :class="['page-meta__item', 'page-meta__item_updated']">
 			<span :class="['page-meta__label', dark && 'page-meta__label_dark']"
-				>Последняя редакция</span
+				>{{ $t('updated_at') }}</span
 			>
 			<span :class="['page-meta__date', dark && 'page-meta__date_dark']">{{
 				dateFormat(updated)

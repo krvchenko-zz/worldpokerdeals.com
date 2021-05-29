@@ -29,9 +29,9 @@
 			</div>
 
 			<dl class="room-recomended__details">
-				<dt class="room-recomended__dt">Бонус</dt>
+				<dt class="room-recomended__dt">{{ $t('bonus') }}</dt>
 				<dd class="room-recomended__dd">{{ bonus || 'n/a' }}</dd>
-				<dt class="room-recomended__dt">Рейкбек</dt>
+				<dt class="room-recomended__dt">{{ $t('rakeback') }}</dt>
 				<dd class="room-recomended__dd">{{ rakeback }}</dd>
 			</dl>
 
@@ -51,7 +51,7 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>Обзор</a
+						>{{ $t('review') }}</a
 					>
 				</nuxt-link>
 
@@ -69,7 +69,7 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>Перейти</a
+						>{{ $t('room_download') }}</a
 					>
 				</nuxt-link>
 			</div>
@@ -164,18 +164,11 @@
 
 <style lang="scss">
 	.room-recomended {
-		width: 20%;
-		margin: 0 14px;
+		width: 100%;
+		margin: 0;
 		background: #fafafa;
 		border-radius: 4px;
 		overflow: hidden;
-		&:first-child {
-			margin-left: 0;
-		}
-
-		&:last-child {
-			margin-right: 0;
-		}
 
 		&__img {
 			display: flex;

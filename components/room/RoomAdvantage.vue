@@ -33,7 +33,7 @@
 				}"
 			>
 				<template v-if="value">{{ value }}</template>
-				<template v-else>Отсутствует</template>
+				<template v-else>{{ $('not_available') }}</template>
 			</span>
 		</div>
 	</div>

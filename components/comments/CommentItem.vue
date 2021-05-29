@@ -28,7 +28,7 @@
 					v-if="user"
 					class="comment-item__reply-link"
 					@click="handleReplyClick(comment.id)"
-					>Ответить</span
+					>{{ $t('reply') }}</span
 				>
 
 				<transition name="fade" leave-active-class="">

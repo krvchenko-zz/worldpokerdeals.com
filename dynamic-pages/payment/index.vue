@@ -1,179 +1,162 @@
 <template>
 	<div class="payment">
-		<div class="container-fluid">
-			<breadcrumb-list v-if="pageable" />
+		<breadcrumb-list v-if="pageable" />
 
-			<payment-header />
-		</div>
+		<payment-header />
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-					<div v-if="tab.show_rooms" class="payment-rooms">
-						<div class="payment-filters">
-							<div v-if="data.length" class="payment-filters__info">
-								Показано {{ total }} из {{ overall }} покер-румов
-							</div>
-
-							<div v-if="data.length" class="payment-filters__geo">
-								<geo-switcher
-									:value="country.code"
-									:geo.sync="geo"
-									@change="fetchItems"
-								/>
-							</div>
-						</div>
-
-						<room
-							v-for="(item, index) in data"
-							v-if="data.length"
-							:id="item.id"
-							:key="index"
-							:title="item.title"
-							:slug="item.slug"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:image="item.image"
-							:restricted="item.restricted"
-							:network="item.network"
-							:tags="item.tags"
-							:review="item.review"
-						/>
-
-						<pagination
-							v-if="data.length && next_page_url"
-							:last="last_page"
-							:current="page"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						>
-						</pagination>
+		<div class="payment-content">
+			<div v-if="tab.show_rooms" class="payment-content__rooms payment-rooms">
+				<div class="payment-filters">
+					<div v-if="data.length" class="payment-filters__info">
+						Показано {{ total }} из {{ overall }} покер-румов
 					</div>
 
-					<div class="row">
-						<div class="col-auto">
-							<toc-list v-if="tab.toc">
-								<template #default="{ inline }">
-									<toc-item
-										v-for="(item, index) in tab.toc"
-										:key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text"
-									>
-									</toc-item>
-								</template>
-							</toc-list>
-						</div>
-
-						<div class="col col-article">
-							<page-article :text="tab.text">
-								<template #footer>
-									<!-- Faq -->
-									<faq-list
-										v-if="tab.faq && tab.faq.mainEntity.length"
-										label="FAQ"
-									>
-										<faq-item
-											v-for="(item, index) in tab.faq.mainEntity"
-											:key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text"
-										>
-										</faq-item>
-									</faq-list>
-									<!-- Author -->
-									<author v-if="tab.author" :author="tab.author" />
-									<!-- Comments -->
-									<comments
-										commentable_type="App\Tab"
-										:commentable_id="tab.id"
-									/>
-								</template>
-							</page-article>
-						</div>
+					<div v-if="data.length" class="payment-filters__geo">
+						<geo-switcher
+							:value="country.code"
+							:geo.sync="geo"
+							@change="fetchItems"
+						/>
 					</div>
 				</div>
 
-				<div class="col-3">
-					<payment-filters
-						v-if="tab.show_rooms && filters"
-						:geo="geo"
-						:kycs="filters.kycs"
-						:platforms="filters.platforms"
-						:tags="filters.tags"
-						:payments="filters.payments"
-						:types="filters.types"
-						:licenses="filters.licenses"
-						@change="handleFilterChange"
-					/>
+				<room
+					v-for="(item, index) in data"
+					v-if="data.length"
+					:id="item.id"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:rating="item.rating"
+					:rakeback="item.rakeback"
+					:bonus="item.bonus"
+					:background="item.background"
+					:image="item.image"
+					:restricted="item.restricted"
+					:network="item.network"
+					:tags="item.tags"
+					:review="item.review"
+				/>
 
-					<room-top-list />
-
-					<topic-list v-if="tab.topics && tab.topics.length">
-						<topic-item
-							v-for="(item, index) in tab.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
-
-					<game-search-banner />
-				</div>
+				<pagination
+					v-if="data.length && next_page_url"
+					:last="last_page"
+					:current="page"
+					:prev-url="prev_page_url"
+					:next-url="next_page_url"
+					:total="total"
+					:from="from"
+					:to="to"
+					@next="handlePageNext"
+					@prev="handlePagePrev"
+					@change="handlePageChange"
+					@more="handleShowMore"
+				>
+				</pagination>
 			</div>
 
-			<lazy-hydrate when-visible>
-				<post-list
-					v-if="posts && posts.length"
-					:label="`Новости ${payment.title}`"
-				>
-					<div class="row">
-						<div v-for="(item, index) in posts" :key="index" class="col-3">
-							<post-item
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:slug="item.slug"
-								:author="item.user"
-								:created="item.created_at"
-								:categories="item.categories"
-								:medium="true"
-							/>
-						</div>
-					</div>
-				</post-list>
-			</lazy-hydrate>
+			<div class="payment-content__toc">
+				<toc-list v-if="tab.toc">
+					<template #default="{ inline }">
+						<toc-item
+							v-for="(item, index) in tab.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:anchor="item.anchor_id"
+							:text="item.text"
+						>
+						</toc-item>
+					</template>
+				</toc-list>
+			</div>
 
-			<lazy-hydrate when-visible>
-				<payment-list v-if="related" label="Другие платежные системы">
-					<div class="row">
-						<div v-for="(item, index) in related" :key="index" class="col-3">
-							<payment-item
-								:title="item.title"
-								:icon="item.icon"
-								:rooms="item.rooms_count"
-								:vip="item.vip_status"
-								:page="item.page"
-							>
-							</payment-item>
-						</div>
-					</div>
-				</payment-list>
-			</lazy-hydrate>
+			<page-article :text="tab.text" class="payment-content__article">
+				<template #footer>
+					<!-- Faq -->
+					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" label="FAQ">
+						<faq-item
+							v-for="(item, index) in tab.faq.mainEntity"
+							:key="index"
+							:question="item.name"
+							:answer="item.acceptedAnswer.text"
+						>
+						</faq-item>
+					</faq-list>
+					<!-- Author -->
+					<author v-if="tab.author" :author="tab.author" />
+					<!-- Comments -->
+					<comments commentable_type="App\Tab" :commentable_id="tab.id" />
+				</template>
+			</page-article>
+
+			<div class="payment-content__aside">
+				<payment-filters
+					v-if="tab.show_rooms && filters"
+					:geo="geo"
+					:kycs="filters.kycs"
+					:platforms="filters.platforms"
+					:tags="filters.tags"
+					:payments="filters.payments"
+					:types="filters.types"
+					:licenses="filters.licenses"
+					@change="handleFilterChange"
+				/>
+
+				<room-top-list />
+
+				<topic-list v-if="tab.topics && tab.topics.length">
+					<topic-item
+						v-for="(item, index) in tab.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
+
+				<game-search-banner />
+			</div>
 		</div>
+
+		<lazy-hydrate when-visible>
+			<post-list
+				v-if="posts && posts.length"
+				:label="`Новости ${payment.title}`"
+				class=""
+			>
+				<div class="payment__news-list">
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+					/>
+				</div>
+			</post-list>
+		</lazy-hydrate>
+
+		<lazy-hydrate when-visible>
+			<payment-list v-if="related" label="Другие платежные системы">
+				<payment-item
+					v-for="(item, index) in related"
+					:key="index"
+					:title="item.title"
+					:icon="item.icon"
+					:rooms="item.rooms_count"
+					:vip="item.vip_status"
+					:page="item.page"
+				>
+				</payment-item>
+			</payment-list>
+		</lazy-hydrate>
 	</div>
 </template>
 
@@ -389,15 +372,44 @@
 </script>
 
 <style lang="scss">
-	// .promotion {
-	//   &__wrap {
-	//     padding: 0 30px;
-	//   }
-
-	//   &__img-wrap {
-	//     margin: 20px 0 30px 0;
-	//   }
-	// }
+	.payment {
+		max-width: 1440px;
+		width: 100%;
+		@include paddings('desktop');
+		&__news-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, 326px);
+			column-gap: 20px;
+		}
+	}
+	.payment-content {
+		display: grid;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		grid-template-areas:
+			'rooms rooms aside'
+			'toc article aside';
+		column-gap: 28px;
+		&__rooms {
+			grid-area: rooms;
+		}
+		&__toc {
+			grid-area: toc;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+		&__article {
+			grid-area: article;
+		}
+		@include mq('laptop') {
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'rooms'
+				'toc'
+				'article'
+				'aside';
+		}
+	}
 
 	.payment-filters {
 		margin-bottom: 24px;
@@ -427,6 +439,29 @@
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+	}
+
+	@include mq('laptop') {
+		.payment {
+			@include paddings('tablet');
+			&__news-list {
+				grid-template-columns: repeat(auto-fit, 226px);
+				column-gap: 20px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.payment {
+			@include paddings('mobile');
+			&__news-list {
+				overflow-x: scroll;
+				scrollbar-width: none;
+				grid-auto-columns: repeat(auto-fit, 386px);
+				grid-auto-flow: column;
+				column-gap: 16px;
+			}
 		}
 	}
 </style>

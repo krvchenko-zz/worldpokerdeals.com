@@ -1,10 +1,10 @@
 <template>
 	<div class="filters">
-		<div class="filters__label">Фильтры</div>
+		<div class="filters__label">{{ $t('filters') }}</div>
 
 		<filter-dropdown
 			v-if="payments.length"
-			label="Методы депозита"
+			:label="$t('payment_methods')"
 			icon="filter-payments"
 			:opened="true"
 			@open="$emit('filterOpen')"
@@ -34,7 +34,7 @@
 
 		<filter-dropdown
 			v-if="disciplines.length"
-			label="По дисциплинам"
+			:label="$t('by_games')"
 			icon="filter-discipline"
 		>
 			<filter-item
@@ -51,7 +51,11 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown v-if="games.length" label="Формат игры" icon="filter-game">
+		<filter-dropdown
+			v-if="games.length"
+			:label="$t('game_types')"
+			icon="filter-game"
+		>
 			<filter-item
 				v-for="(item, index) in games"
 				:key="index"
@@ -66,7 +70,11 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown v-if="limits.length" label="Лимиты" icon="filter-limit">
+		<filter-dropdown
+			v-if="limits.length"
+			:label="$t('stakes')"
+			icon="filter-limit"
+		>
 			<filter-item
 				v-for="(item, index) in limits"
 				:key="index"
@@ -83,7 +91,7 @@
 
 		<filter-dropdown
 			v-if="types.length"
-			label="Тип рума"
+			:label="$t('room_type')"
 			icon="filter-room-type"
 			@open="$emit('filterOpen')"
 		>
@@ -103,7 +111,7 @@
 
 		<filter-dropdown
 			v-if="platforms.length"
-			label="Платформы"
+			:label="$t('platforms')"
 			icon="filter-platforms"
 			@open="$emit('filterOpen')"
 		>
@@ -133,7 +141,7 @@
 
 		<filter-dropdown
 			v-if="huds.length"
-			label="Поддержка HUD"
+			:label="$t('hud_support')"
 			icon="filter-hud"
 			@open="$emit('filterOpen')"
 		>
@@ -155,7 +163,7 @@
 
 		<filter-dropdown
 			v-if="certificates.length"
-			label="ГСЧ-проверка"
+			:label="$t('rng_check')"
 			icon="filter-certificate"
 			@open="$emit('filterOpen')"
 		>
@@ -175,7 +183,7 @@
 
 		<filter-dropdown
 			v-if="licenses.length"
-			label="Лицензии"
+			:label="$t('licenses')"
 			icon="filter-licenses"
 			@open="$emit('filterOpen')"
 		>
@@ -195,7 +203,7 @@
 
 		<filter-dropdown
 			v-if="networks.length"
-			label="Покерные сети"
+			:label="$t('poker_networks')"
 			icon="filter-network"
 		>
 			<filter-item
@@ -225,7 +233,7 @@
 
 		<filter-dropdown
 			v-if="kycs.length"
-			label="Верификация"
+			:label="$t('verification')"
 			icon="filter-kyc"
 			@open="$emit('filterOpen')"
 		>
@@ -246,7 +254,7 @@
 
 		<filter-dropdown
 			v-if="tags.length"
-			label="Особенности рума"
+			:label="$t('room_features')"
 			icon="filter-room-features"
 			@open="$emit('filterOpen')"
 		>
