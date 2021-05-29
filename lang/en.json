@@ -31,7 +31,12 @@
   "reply": "Reply",
   "comments": "Comments",
   "show_more": "Show more",
-  "comment_unauthorized": "Unauthorized users can't leave comments. Please, sign in or sign up",
+  "comment_unauthorized": {
+    "text": "Unauthorized users can't leave comments. Please,",
+    "log_in": "sign in",
+    "or": "or",
+    "sign_in": "sign up"
+  },
   "filtered": "Filtered {total} from {overall} {entity}",
   "offers_for": "Offers for {country}",
   "safe_access_to_clubs": "Safe access to clubs",

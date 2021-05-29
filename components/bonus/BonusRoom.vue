@@ -24,7 +24,7 @@
 							:class="['btn', 'bonus-room__link bonus-room__link_review']"
 							:href="href"
 							@click="navigate"
-							>Обзор рума</a
+							>{{ $t('room_review') }}</a
 						>
 					</nuxt-link>
 				</div>

@@ -1,7 +1,7 @@
 <template>
 	<div class="front-promotions">
 		<div class="front-promotions__wrap">
-			<h2 class="front-promotions__title">Текущие акции</h2>
+			<h2 class="front-promotions__title">{{ $t('current_promotions') }}</h2>
 			<nuxt-link
 				v-slot="{ href, route, navigate, isActive, isExactActive }"
 				to="/promotions"
@@ -10,7 +10,7 @@
 					class="btn btn-sm btn-primary front-promotiones__button"
 					:href="href"
 					@click="navigate"
-					>Все акции</a
+					>{{ $t('all_promotions') }}</a
 				>
 			</nuxt-link>
 		</div>
@@ -82,7 +82,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	export default {
 		name: 'FrontPromotions',

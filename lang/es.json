@@ -31,7 +31,12 @@
   "reply": "Responder",
   "comments": "Comentarios",
   "show_more": "Mostrar más",
-  "comment_unauthorized": "Los usuarios no registrados no pueden dejar comentarios. Por favor, regístrate o ingresa",
+  "comment_unauthorized": {
+    "text": "Los usuarios no registrados no pueden dejar comentarios. Por favor,",
+    "log_in": "regístrate",
+    "or": "o",
+    "sign_in": "ingresa"
+  },
   "filtered": "{total} filtradas de {overall}",
   "offers_for": "Ofertas para {country}",
   "safe_access_to_clubs": "Acceso seguro a clubes",

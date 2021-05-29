@@ -56,7 +56,7 @@
 								@click="onMenuItemClick($event, 'rooms')"
 							>
 								<a class="header-nav__link" href="/rakeback-deals"
-									>Покер-румы
+									>{{ $t('poker_rooms') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -70,7 +70,7 @@
 									>
 										<template #after>
 											<room-top-list
-												label="Лучшие румы"
+												:label="$t('best_rooms')"
 												type="menu"
 												:style="{
 													flex: '0 0 300px',
@@ -91,7 +91,7 @@
 								@click="onMenuItemClick($event, 'news')"
 							>
 								<a class="header-nav__link" href="/blog">
-									Новости
+									{{ $t('news') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -109,7 +109,7 @@
 								@click="onMenuItemClick($event, 'deals')"
 							>
 								<a class="header-nav__link" href="/promotions"
-									>Акции
+									>{{ $t('promotions') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -142,7 +142,7 @@
 								@click="onMenuItemClick($event, 'online-poker')"
 							>
 								<a class="header-nav__link" href="#"
-									>Онлайн-покер
+									>{{ $t('online_poker') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -165,7 +165,7 @@
 								@click="onMenuItemClick($event, 'about-us')"
 							>
 								<a class="header-nav__link" href="/our-team"
-									>О нас
+									>{{ $t('about_us') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -280,7 +280,7 @@
 						class="btn btn-md btn-primary btn_login"
 						@click="handleAuth"
 					>
-						Войти
+						{{ $t('sign_in') }}
 					</button>
 					<button class="header-buttons__login" @click="handleAuth">
 						<img :src="loginSrc" />

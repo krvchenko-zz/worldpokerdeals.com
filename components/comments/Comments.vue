@@ -1,7 +1,7 @@
 <template>
 	<div class="comments">
 		<div v-if="comments" class="block-title block-title_lg">
-			Комментарии <span class="comments__count">{{ comments.total }}</span>
+			{{ $t('comments') }} <span class="comments__count">{{ comments.total }}</span>
 		</div>
 
 		<comment-list v-if="comments">
@@ -19,7 +19,7 @@
 				class="btn btn-border comments__more"
 				@click.prevent="handleLoadMore"
 			>
-				Показать еще <span>{{ remain }}</span>
+				{{ $t('show_more') }} <span>{{ remain }}</span>
 			</button>
 		</div>
 
@@ -31,19 +31,18 @@
 
 		<div v-if="!user" class="comments-login">
 			<p>
-				Незарегистрированные пользователи не могут оставлять комментарии.
-				Пожалуйста,
+				{{ $t('comment_unauthorized.text') }}
 				<button class="comments-login__link" @click="handleAuthModal">
-					войдите
+					{{ $t('comment_unauthorized.log_in') }}
 				</button>
-				или
+				{{ $t('comment_unauthorized.or') }}
 				<nuxt-link
 					v-slot="{ href, navigate }"
 					prefetch
 					:to="{ name: 'register' }"
 				>
 					<a class="comments-login__link" :href="href" @click="navigate"
-						>зарегистрируйтесь</a
+						>{{ $t('comment_unauthorized.sign_in') }}</a
 					>.
 				</nuxt-link>
 			</p>
@@ -53,7 +52,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 	import eventBus from '~/utils/event-bus'
 	import CommentForm from '~/components/comments/CommentForm'
 	import CommentList from '~/components/comments/CommentList'

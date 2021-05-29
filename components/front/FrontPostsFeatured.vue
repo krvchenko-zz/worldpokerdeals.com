@@ -1,7 +1,7 @@
 <template>
 	<div class="front-posts-featured">
 		<div class="container-fluid">
-			<h2 class="front-posts-featured__title">Это важно</h2>
+			<h2 class="front-posts-featured__title">{{ $t('important') }}</h2>
 
 			<div class="front-posts-featured__list">
 				<client-only>

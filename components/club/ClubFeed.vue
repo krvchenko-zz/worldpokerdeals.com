@@ -19,24 +19,19 @@
 
 		<div v-if="next_page_url" class="promotions-more">
 			<button class="btn promotions__more" @click.prevent="handleLoadMore">
-				Показать еще <span>{{ total - per_page }}</span>
+				{{ $t('show_more') }} <span>{{ total - per_page }}</span>
 			</button>
 		</div>
 	</div>
 </template>
 
 <script>
-	import axios from 'axios'
 	import { mapGetters } from 'vuex'
-
-	import ClubFeedItem from '~/components/club/ClubFeedItem'
 
 	export default {
 		name: 'PromotionFeed',
 
-		components: {
-			ClubFeedItem,
-		},
+		components: {},
 
 		props: {
 			room_id: {

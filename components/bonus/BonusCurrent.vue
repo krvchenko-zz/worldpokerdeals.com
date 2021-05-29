@@ -1,6 +1,6 @@
 <template>
 	<div class="bonus-current-list">
-		<div class="bonus-current-list__title">Текущие акции рума</div>
+		<div class="bonus-current-list__title">{{ $t('current_room_promotions') }}</div>
 
 		<div class="bonus-current-list__wrap">
 			<carousel
@@ -51,7 +51,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	export default {
 		name: 'BonusCurrent',

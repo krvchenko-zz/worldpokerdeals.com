@@ -2,7 +2,7 @@
 	<div class="front-rooms__container">
 		<div class="front-rooms">
 			<div class="front-rooms__wrap">
-				<h2 class="front-rooms__title">Покерные румы</h2>
+				<h2 class="front-rooms__title">{{ $t('poker_rooms') }}</h2>
 				<nuxt-link
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
 					to="/rakeback-deals"
@@ -11,18 +11,18 @@
 						class="btn btn-primary front-rooms__all-rooms-button"
 						:href="href"
 						@click="navigate"
-						>Все покерные румы</a
+						>{{ $t('all_poker_rooms') }}</a
 					>
 				</nuxt-link>
 			</div>
 
 			<div class="front-rooms__details">
-				<text-spoiler class="text-spoiler_front" :text="text" :limit="300" />
+				<text-spoiler class="text-spoiler_front" :text="$t('wpd_front_disclaimer')" :limit="300" />
 			</div>
 
 			<filter-tab-list>
 				<filter-tab-item
-					label="Все покер-румы"
+					:label="$t('all_poker_rooms')"
 					:value="null"
 					:active="category_id === null"
 					@click="handleFilter"

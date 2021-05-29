@@ -2,7 +2,7 @@
 	<div class="front-clubs__container">
 		<div class="front-clubs">
 			<div class="front-clubs__wrap">
-				<h2 class="front-clubs__title">Клубы в приложениях</h2>
+				<h2 class="front-clubs__title">{{ $t('clubs_in_apps') }}</h2>
 			</div>
 
 			<text-spoiler

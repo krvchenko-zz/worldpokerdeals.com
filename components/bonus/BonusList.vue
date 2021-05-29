@@ -9,10 +9,10 @@
 		>
 			<thead class="bonus-table__header">
 				<tr class="bonus-table__header-row">
-					<th colspan="2" class="bonus-table__label">Бонус</th>
-					<th class="bonus-table__label">Кешбэк</th>
-					<th class="bonus-table__label">К депозиту</th>
-					<th colspan="5" class="bonus-table__label">Макс Бонус</th>
+					<th colspan="2" class="bonus-table__label">{{ $t('bonus') }}</th>
+					<th class="bonus-table__label">{{ $t('cashback') }}</th>
+					<th class="bonus-table__label">{{ $t('deposit') }}</th>
+					<th colspan="5" class="bonus-table__label">{{ $t('max_bonus') }}</th>
 				</tr>
 			</thead>
 			<slot />

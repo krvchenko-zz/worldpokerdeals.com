@@ -19,7 +19,7 @@
 					/>
 				</div>
 				<div class="network-item__title">{{ title }}</div>
-				<div class="network-item__rooms">{{ rooms }} покер-румов</div>
+				<div class="network-item__rooms">{{ $t('rooms_count', {count: rooms}) }}</div>
 			</a>
 		</nuxt-link>
 	</div>
