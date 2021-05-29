@@ -8,20 +8,7 @@
 			class="front-welcome__img"
 		/>
 		<div class="front-welcome__wrap">
-			<h3>Всем привет!</h3>
-			<p>
-				Меня зовут Родион Лонга. Вы могли читать мои посты на Покерофф и
-				Gipsyteam.
-			</p>
-			<p>
-				Уже 5 лет я живу в Азии и занимаюсь комплексной организацией игры
-				покерных профессионалов.
-			</p>
-			<p>
-				На этом сайте <a href="/our-team">наша команда</a> собирает лучшие
-				предложения в самых рыбных сетях интернета и предоставляет комплексный
-				сервис по сопровождению онлайн-игры.
-			</p>
+			<div v-html="$t('wpd_front_rodion')"></div>
 
 			<div class="front-welcome__contacts">
 				<button-contact
@@ -39,7 +26,7 @@
 			</div>
 
 			<a href="/our-team" class="btn btn-block btn-border btn-welcome-banner"
-				>Подробнее о нас</a
+				>{{ $t('more_about_us') }}</a
 			>
 		</div>
 	</div>

@@ -1,15 +1,15 @@
 <template>
 	<div class="room-params">
-		<div class="room-params__label">Общая информация</div>
+		<div class="room-params__label">{{ $t('general_info') }}</div>
 		<div class="room-params__list">
 			<div class="room-param room-param_year">
-				<span class="room-param__label">Год основания</span>
+				<span class="room-param__label">{{ $t('founded_in') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">{{ dateFormat(founded_at) }}</div>
 			</div>
 
 			<div class="room-param room-param_network">
-				<span class="room-param__label">Сеть</span>
+				<span class="room-param__label">{{ $t('network') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<nuxt-link
@@ -33,7 +33,7 @@
 			</div>
 
 			<div class="room-param room-param_license">
-				<span class="room-param__label">Лицензия</span>
+				<span class="room-param__label">{{ $t('license') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<template v-if="licenses.length">
@@ -63,7 +63,7 @@
 			</div>
 
 			<div class="room-param room-param_cert">
-				<span class="room-param__label">ГСЧ проверка</span>
+				<span class="room-param__label">{{ $t('rng_check') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<template v-if="certificates.length">
@@ -82,7 +82,7 @@
 			</div>
 
 			<div class="room-param room-param_peak">
-				<span class="room-param__label">Игроков в пик</span>
+				<span class="room-param__label">{{ $t('players_peak') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<template v-if="players_peak">{{ players_peak }}</template>
@@ -97,7 +97,7 @@
 			</div>
 
 			<div class="room-param room-param_trackers">
-				<span class="room-param__label">Трекеры</span>
+				<span class="room-param__label">{{ $t('trackers') }}</span>
 				<span class="room-param__sep"></span>
 				<span class="room-param__value">
 					<span
@@ -111,7 +111,7 @@
 			</div>
 
 			<div class="room-param room-param_deposit">
-				<span class="room-param__label">Мин/макс депозит</span>
+				<span class="room-param__label">{{ $t('min_max_deposit') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					{{ min_deposit }}–{{ max_deposit }}$
@@ -119,7 +119,7 @@
 			</div>
 
 			<div v-if="currencies.length" class="room-param room-param_currencies">
-				<span class="room-param__label">Валюта счета</span>
+				<span class="room-param__label">{{ $t('account_currency') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<span v-for="(item, index) in currencies" :key="index"
@@ -132,7 +132,7 @@
 			</div>
 
 			<div v-if="games.length" class="room-param room-param_games">
-				<span class="room-param__label">Игры</span>
+				<span class="room-param__label">{{ $t('games') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value room-param__value_games">
 					<svg-icon

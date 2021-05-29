@@ -20,7 +20,7 @@
 						<h1 class="bonus__title">{{ promotion.heading }}</h1>
 						<div class="bonus-header__row">
 							<div class="bonus-header__col">
-								<div class="bonus-header__label">Статус</div>
+								<div class="bonus-header__label">{{ $t('status') }}</div>
 								<div class="bonus-header__value">
 									<span
 										:class="[
@@ -28,18 +28,18 @@
 											promotion.active && 'bonus__status_active',
 										]"
 									>
-										<template v-if="promotion.active">Активен</template>
-										<template v-else>Не активен</template>
+										<template v-if="promotion.active">{{ $t('active') }}</template>
+										<template v-else>{{ $t('inactive') }}</template>
 									</span>
 									<span class="bonus__last-update"
-										>Проверено {{ dateFormat(promotion.updated_at) }}</span
+										>{{ $t('last_check_date', {date: dateFormat(promotion.updated_at)}) }}</span
 									>
 								</div>
 							</div>
 
 							<div class="bonus-header__col bonus-header__col_max">
 								<div :class="['bonus__max']">
-									<div class="bonus-header__label">Макс бонус</div>
+									<div class="bonus-header__label">{{ $t('max_bonus') }}</div>
 									<div class="bonus-header__value">
 										{{ promotion.max_bonus_currency.symbol
 										}}{{ promotion.max_bonus }}
@@ -58,7 +58,7 @@
 											'bonus__code-label',
 											codeHovered && 'bonus__code-label_hover',
 										]"
-										>Бонус-код</span
+										>{{ $t('bonus_code') }}</span
 									>
 									<span class="bonus__code-value">{{ promotion.code }}</span>
 								</span>
@@ -67,7 +67,7 @@
 						<div class="bonus-header__row">
 							<div class="bonus-header__col">
 								<div class="bonus__deposit">
-									<div class="bonus-header__label">К депозиту</div>
+									<div class="bonus-header__label">{{ $t('deposit') }}</div>
 									<div class="bonus-header__value">
 										+{{ promotion.deposit_bonus }}%
 									</div>
@@ -76,7 +76,7 @@
 
 							<div class="bonus-header__col">
 								<div class="bonus__cashback">
-									<div class="bonus-header__label">Кешбек велью</div>
+									<div class="bonus-header__label">{{ $t('cashback_value') }}</div>
 									<div class="bonus-header__value">
 										{{ promotion.cashback_value }}%
 									</div>
@@ -85,7 +85,7 @@
 
 							<div class="bonus-header__col">
 								<div class="bonus__min-deposit">
-									<div class="bonus-header__label">Мин депозит</div>
+									<div class="bonus-header__label">{{ $t('min_deposit') }}</div>
 									<div :class="['bonus-header__value']">
 										{{ promotion.min_deposit_currency.symbol
 										}}{{ promotion.min_deposit }}
@@ -110,9 +110,9 @@
 								:icon="country.code"
 								prefix="flags/"
 							/><template v-if="promotion.room.restricted"
-								>Недоступен игрокам из {{ country.from }}!</template
+								>{{ $t('room_geo_restricted', {country: country.from}) }}</template
 							><template v-else
-								>Доступен игрокам из {{ country.from }}</template
+								>{{ $t('room_geo_allowed', {country: country.from}) }}</template
 							>
 						</span>
 					</div>
@@ -125,7 +125,7 @@
 									:slug="promotion.room.slug"
 									:icon="true"
 									type="download"
-									label="Получить бонус"
+									:label="$t('get_bonus')"
 								/>
 							</div>
 							<div class="col">
@@ -134,7 +134,7 @@
 									:slug="promotion.room.slug"
 									:icon="true"
 									type="contacts"
-									label="Чат с менеджером"
+									:label="$t('manager_chat')"
 								/>
 							</div>
 						</div>

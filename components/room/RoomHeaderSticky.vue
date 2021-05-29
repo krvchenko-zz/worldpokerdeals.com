@@ -27,20 +27,20 @@
 					>
 						<room-advantage
 							type="white"
-							label="Бонус"
+							:label="$t('bonus')"
 							:value="room.bonus ? room.bonus.title : false"
 							color="#eb5757"
 						/>
 						<room-advantage
 							type="white"
-							label="Рейкбек"
+							:label="$t('rakeback')"
 							:value="room.rakeback"
 							color="#008be2"
 						/>
 
 						<room-advantage
 							type="white"
-							label="Акции"
+							:label="$t('promotions')"
 							:value="room.promotions_count"
 							color="#CCCCCC"
 						/>
@@ -57,7 +57,7 @@
 							:slug="room.slug"
 							:icon="false"
 							type="contacts"
-							label="Чат с менеджером"
+							:label="$t('manager_chat')"
 						/>
 						<room-action-button
 							class="btn-block"
@@ -69,7 +69,7 @@
 							:slug="room.slug"
 							:icon="false"
 							type="download"
-							label="Перейти"
+							:label="$t('room_download')"
 						/>
 						<button
 							class="btn room-header-sticky__top"

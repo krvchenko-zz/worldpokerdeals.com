@@ -22,8 +22,11 @@
 						params: { parent: 'rakeback-deals', child: review.slug },
 					}"
 				>
-					<a :class="['btn', 'top-room__review']" :href="href" @click="navigate"
-						>Обзор рума</a
+					<a
+						:class="['btn', 'top-room__review']"
+						:href="href"
+						@click="navigate"
+						>{{ $t('room_review') }}</a
 					>
 				</nuxt-link>
 			</div>
@@ -55,7 +58,7 @@
 				<room-action-button
 					:class="['btn-block', 'top-room__download']"
 					type="download"
-					label="Перейти на сайт"
+					:label="$t('go_to_site')"
 					:icon="false"
 					:slug="slug"
 				/>
@@ -75,9 +78,12 @@
 						:height="16"
 						:icon="country.code"
 						prefix="flags/"
-					/><template v-if="restricted"
-						>Недоступен игрокам из {{ country.from }}!</template
-					><template v-else>Доступен игрокам из {{ country.from }}!</template>
+					/><template v-if="restricted">{{
+						$t('room_geo_restricted', { country: country.from })
+					}}</template
+					><template v-else>{{
+						$t('room_geo_allowed', { country: country.from })
+					}}</template>
 				</span>
 			</div>
 		</div>

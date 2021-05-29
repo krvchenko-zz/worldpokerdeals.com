@@ -1,17 +1,8 @@
 <template>
 	<div class="front-top">
 		<div class="front-top__wrap">
-			<h1 class="front-top__title">
-				Больше, чем <br />
-				покерный аффилейт
-			</h1>
-			<div class="front-top__summary">
-				<p>
-					<b>Экспертно</b> об онлайн-покере, рейкбек в <b>100+ румах</b> <br />
-					и экзотических комнатах, проактивное комьюнити <br />
-					и <b>умные решения</b> для игроков
-				</p>
-			</div>
+			<h1 class="front-top__title" v-html="$t('wpd_front_title')"></h1>
+			<div class="front-top__summary" v-html="$t('wpd_front_info')"></div>
 			<div class="front-top__buttons">
 				<nuxt-link
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
@@ -25,7 +16,7 @@
 						style="margin-right: 32px;"
 						:href="href"
 						@click="navigate"
-						>Выбрать покер-рум</a
+						>{{ $t('choose_poker_room') }}</a
 					>
 				</nuxt-link>
 				<nuxt-link
@@ -36,12 +27,12 @@
 						class="btn btn-border front-top__buttons__support"
 						:href="href"
 						@click="navigate"
-						>Написать нам</a
+						>{{ $t('contact_us') }}</a
 					>
 				</nuxt-link>
 			</div>
 			<p class="front-top__awards-title">
-				Наши аффилиатские заносы и знаки доверия от игорных сообществ:
+				{{ $t('our_awards') }}
 			</p>
 			<div class="front-top-awards">
 				<a

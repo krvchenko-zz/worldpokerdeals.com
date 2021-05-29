@@ -20,7 +20,7 @@
 			</div>
 			<div class="comment-form__submit">
 				<button class="btn btn-primary" type="submit" :loading="loading">
-					Комментировать
+					{{ $t('leave_comment') }}
 				</button>
 			</div>
 		</form>
@@ -28,7 +28,6 @@
 </template>
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 	import Form from 'vform'
 
 	import eventBus from '~/utils/event-bus'

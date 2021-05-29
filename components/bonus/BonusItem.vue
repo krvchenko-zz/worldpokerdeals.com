@@ -52,7 +52,7 @@
 							'bonus-item__code-label',
 							codeHovered && 'bonus-item__code-label_hover',
 						]"
-						>Бонус-код</span
+						>{{ $t('bonus_code') }}</span
 					>
 					<span class="bonus-item__code-value">{{ code }}</span>
 				</span>
@@ -63,7 +63,7 @@
 					class="btn-get-bonus"
 					:icon="false"
 					type="download"
-					label="Получить"
+					:label="$t('get')"
 					:slug="room.slug"
 				/>
 			</td>
@@ -105,7 +105,7 @@
 				>
 					<i class="bonus-item__terms-icon"></i>
 					<span @click="terms ? (showTerms = !showTerms) : (showTerms = false)"
-						>Условия получения</span
+						>{{ $t('bonus_conditions') }}</span
 					>
 				</span>
 
@@ -123,9 +123,9 @@
 						prefix="flags/"
 					/>
 					<span v-if="room.restricted"
-						>Недоступен игрокам из {{ country.from }}!</span
+						>{{ $t('room_geo_restricted', {country: country.from}) }}</span
 					>
-					<span v-else>Доступен игрокам из {{ country.from }}</span>
+					<span v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</span>
 				</span>
 			</td>
 		</tr>

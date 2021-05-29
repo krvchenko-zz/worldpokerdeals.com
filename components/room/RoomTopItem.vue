@@ -60,7 +60,9 @@
 				{{ title }}
 			</div>
 			<div :class="['top-rooms__item-rating', 'top-rooms__item-cell']">
-				<span :class="['top-rooms__item-rating-label']">Рейтинг</span>
+				<span :class="['top-rooms__item-rating-label']">{{
+					$t('rating')
+				}}</span>
 				<span :class="['top-rooms__item-rating-val']">{{ rating }}</span>
 				<span :class="['top-rooms__item-rating-overall']">/5</span>
 			</div>
@@ -69,7 +71,9 @@
 				v-if="!hovered"
 				:class="['top-rooms__item-rakeback', 'top-rooms__item-cell']"
 			>
-				<span :class="['top-rooms__item-rakeback-label']">Рейкбек</span>
+				<span :class="['top-rooms__item-rakeback-label']">{{
+					$t('rakeback')
+				}}</span>
 				<span :class="['top-rooms__item-rakeback-val']">{{ rakeback }}</span>
 			</div>
 
@@ -79,7 +83,7 @@
 						:class="['top-rooms__item-link', 'top-rooms__item-link_download']"
 						@click="handleDownload"
 					>
-						Перейти
+						{{ $t('room_download') }}
 					</button>
 				</nuxt-link>
 			</div>
@@ -100,7 +104,7 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>Обзор</a
+						>{{ $t('review') }}</a
 					>
 				</nuxt-link>
 			</div>

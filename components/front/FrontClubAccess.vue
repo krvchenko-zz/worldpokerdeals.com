@@ -2,7 +2,7 @@
 	<div class="front-club-access">
 		<!-- <img decoding="async" loading="lazy" src="~assets/i/club-access-banner.jpg" alt="Вестник Бамхантера" class="front-club-access__img"> -->
 		<div class="front-club-access__wrap">
-			<div class="front-club-access__title">Безопасный доступ в клубы</div>
+			<div class="front-club-access__title">{{ $t('safe_access_to_clubs') }}</div>
 			<div class="front-club-access__info">
 				Ать вы с инты, к любым сроку их полни дежност витекту шевклаг
 			</div>
@@ -11,7 +11,7 @@
 				class="btn btn-block btn-green"
 				rel="nofollow"
 				href="/contact-us"
-				>Подробнее</a
+				>{{ $t('more') }}</a
 			>
 		</div>
 	</div>

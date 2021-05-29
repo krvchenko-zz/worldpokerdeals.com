@@ -1,10 +1,10 @@
 <template>
 	<div class="front-features">
-		<div class="front-features__label">Мы в цифрах</div>
+		<div class="front-features__label">{{ $t('our_numbers') }}</div>
 		<div class="front-features__list">
 			<div v-for="(item, index) in features" :key="index" class="front-feature">
 				<span class="front-feature__value">{{ item.value }}</span>
-				<span class="front-feature__label" v-html="item.label"></span>
+				<span class="front-feature__label" v-html="$t(item.label)"></span>
 			</div>
 		</div>
 	</div>
@@ -23,27 +23,27 @@
 		data: () => ({
 			features: [
 				{
-					label: 'Лет на <br> рынке',
+					label: 'our_numbers_years',
 					value: '7',
 				},
 				{
-					label: 'Покерныx <br> румов',
+					label: 'our_numbers_rooms',
 					value: '150',
 				},
 				{
-					label: 'Клубов',
+					label: 'our_numbers_clubs',
 					value: '26',
 				},
 				{
-					label: 'Партнеров',
+					label: 'our_numbers_partners',
 					value: '70',
 				},
 				{
-					label: 'Активныx <br> игроков',
+					label: 'our_numbers_active',
 					value: '10 000',
 				},
 				{
-					label: 'Аффилейт-менеджеров <br> в команде',
+					label: 'our_numbers_managers',
 					value: '10',
 				},
 			],

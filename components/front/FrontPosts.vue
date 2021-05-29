@@ -3,13 +3,13 @@
 		<div class="front-posts">
 			<div class="front-posts__news">
 				<div class="front-posts__wrap">
-					<h2 class="front-posts__title">Новости покера</h2>
+					<h2 class="front-posts__title">{{ $t('poker_news') }}</h2>
 					<nuxt-link
 						v-slot="{ href, route, navigate, isActive, isExactActive }"
 						to="/blog"
 					>
 						<a class="btn btn-sm btn-primary" :href="href" @click="navigate"
-							>Все новости</a
+							>{{ $t('all_news') }}</a
 						>
 					</nuxt-link>
 				</div>
@@ -62,7 +62,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	import LazyHydrate from 'vue-lazy-hydration'
 

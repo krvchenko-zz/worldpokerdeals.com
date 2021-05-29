@@ -1,8 +1,8 @@
 <template>
 	<div class="filters">
-		<div class="filters__label">Фильтры</div>
+		<div class="filters__label">{{ $t('filters') }}</div>
 
-		<filter-dropdown label="Тип рума" icon="filter-room-type">
+		<filter-dropdown :label="$t('room_type')" icon="filter-room-type">
 			<filter-item
 				v-for="(item, index) in types"
 				v-if="types.length"
@@ -18,7 +18,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Платежки" icon="filter-payments">
+		<filter-dropdown :label="$t('payments')" icon="filter-payments">
 			<filter-item
 				v-for="(item, index) in payments"
 				v-if="payments.length"
@@ -35,7 +35,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Платформы" icon="filter-platforms">
+		<filter-dropdown :label="$t('platforms')" icon="filter-platforms">
 			<filter-item
 				v-for="(item, index) in platforms"
 				v-if="platforms.length"
@@ -51,7 +51,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Лицензии" icon="filter-licenses">
+		<filter-dropdown :label="$t('licenses')" icon="filter-licenses">
 			<filter-item
 				v-for="(item, index) in licenses"
 				v-if="licenses.length"
@@ -67,7 +67,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Верицикация" icon="filter-kyc">
+		<filter-dropdown :label="$t('verification')" icon="filter-kyc">
 			<filter-item
 				v-for="(item, index) in kycs"
 				v-if="kycs.length"
@@ -85,7 +85,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Особенности рума" icon="filter-room-features">
+		<filter-dropdown :label="$t('room_features')" icon="filter-room-features">
 			<filter-item
 				v-for="(item, index) in tags"
 				v-if="tags.length"

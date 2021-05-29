@@ -5,18 +5,14 @@
 				class="front-telegram__icon"
 				src="~assets/i/messengers/ico-telegram-big.svg?data"
 			/>
-			<div class="front-telegram__title">
-				Telegram-канал<br /><b>«Вестник Бамхантера»</b>
-			</div>
-			<div class="front-telegram__info">
-				Подпольное издание для тех, кто ценит свое время и выбирает лучшую игру
-			</div>
+			<div class="front-telegram__title" v-html="$t('bumhunters')"></div>
+			<div class="front-telegram__info" v-html="$t('bumhunters_text')"></div>
 			<a
 				class="btn btn-block btn-green front-telegram__subscribe-button"
 				rel="nofollow"
 				href="https://t.me/worldpokerdealsRU"
 				target="_blank"
-				>Подписаться</a
+				>{{ $t('subscribe') }}</a
 			>
 		</div>
 	</div>

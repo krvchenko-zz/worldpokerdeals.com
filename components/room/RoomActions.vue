@@ -4,13 +4,13 @@
 			:slug="room.slug"
 			:icon="true"
 			type="download"
-			label="Перейти"
+			:label="$t('room_download')"
 		/>
 		<room-action-button
 			:slug="room.slug"
 			:icon="true"
 			type="connection"
-			label="Привязать счет"
+			:label="$t('tag_account')"
 		/>
 	</div>
 </template>
