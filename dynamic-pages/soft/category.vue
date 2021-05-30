@@ -1,145 +1,136 @@
 <template>
 	<div class="soft-category">
 		<!-- Header -->
-		<soft-category-header />
+		<soft-category-header class="soft-category__header" />
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-					<div class="soft-category-top">
-						<div v-if="data.length" class="soft-category__info">
-							Показано {{ total }} из {{ overall }} програм для покера
-						</div>
-
-						<div v-if="data.length" class="soft-category-top__sort">
-							<custom-select
-								:options="[
-									{
-										label: 'По стоимости',
-										value: 'price',
-									},
-									{
-										label: 'Сначала новые',
-										value: 'created_at',
-									},
-								]"
-								:default="'price'"
-								@input="handleSortChange"
-							/>
-						</div>
-					</div>
-
-					<div class="soft-list">
-						<div v-if="items" class="row">
-							<div v-for="(item, index) in data" :key="index" class="col-4">
-								<soft-item
-									v-if="data.length"
-									:id="item.id"
-									:title="item.title"
-									:review="item.review"
-									:url="item.url"
-									:short_description="item.short_description"
-									:discount="item.discount"
-									:available="item.available"
-									:discount_value="item.discount_value"
-									:price="item.price"
-									:image="item.image"
-									:category="item.categories[0].title"
-									:currency="item.currency ? item.currency.symbol : ''"
-								/>
-							</div>
-						</div>
-
-						<pagination
-							v-if="data.length"
-							:last="last_page"
-							:current="page"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						>
-						</pagination>
-					</div>
-
-					<div class="row">
-						<!-- Toc -->
-						<div class="col-auto">
-							<toc-list v-if="category.toc">
-								<template #default="{ inline }">
-									<toc-item
-										v-for="(item, index) in category.toc"
-										:key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text"
-									>
-									</toc-item>
-								</template>
-							</toc-list>
-						</div>
-						<div class="col">
-							<!-- Article -->
-							<page-article :text="category.text">
-								<template #footer>
-									<!-- Faq -->
-									<faq-list
-										v-if="category.faq && category.faq.mainEntity.length"
-										label="FAQ"
-									>
-										<faq-item
-											v-for="(item, index) in category.faq.mainEntity"
-											:key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text"
-										>
-										</faq-item>
-									</faq-list>
-
-									<!-- Author -->
-									<author v-if="category.author" :author="category.author" />
-
-									<!-- Comments -->
-									<comments
-										commentable_type="App\SoftCategory"
-										:commentable_id="category.id"
-									/>
-								</template>
-							</page-article>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-3">
-					<filters
-						v-if="filters"
-						:geo="geo"
-						:categories="filters.categories"
-						:free="filters.free"
-						@change="handleFilterChange"
-						@filterOpen="handleFilterOpen"
-					/>
-
-					<room-top-list />
-
-					<topic-list v-if="category.topics.length">
-						<topic-item
-							v-for="(item, index) in category.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
-				</div>
+		<div class="soft-category-top">
+			<div v-if="data.length" class="soft-category__info">
+				Показано {{ total }} из {{ overall }} програм для покера
 			</div>
+
+			<div v-if="data.length" class="soft-category-top__sort">
+				<custom-select
+					:options="[
+						{
+							label: 'По стоимости',
+							value: 'price',
+						},
+						{
+							label: 'Сначала новые',
+							value: 'created_at',
+						},
+					]"
+					:default="'price'"
+					@input="handleSortChange"
+				/>
+			</div>
+		</div>
+
+		<div class="soft-list" v-if="items && data.length">
+			<div class="soft-list__list">
+				<soft-item
+					v-for="(item, index) in data"
+					:key="index"
+					:id="item.id"
+					:title="item.title"
+					:review="item.review"
+					:url="item.url"
+					:short_description="item.short_description"
+					:discount="item.discount"
+					:available="item.available"
+					:discount_value="item.discount_value"
+					:price="item.price"
+					:image="item.image"
+					:category="item.categories[0].title"
+					:currency="item.currency ? item.currency.symbol : ''"
+				/>
+			</div>
+
+			<pagination
+				v-if="data.length"
+				:last="last_page"
+				:current="page"
+				:prev-url="prev_page_url"
+				:next-url="next_page_url"
+				:total="total"
+				:from="from"
+				:to="to"
+				@next="handlePageNext"
+				@prev="handlePagePrev"
+				@change="handlePageChange"
+				@more="handleShowMore"
+				class="soft-list__pagination"
+			>
+			</pagination>
+		</div>
+
+		<!-- Toc -->
+		<div class="soft-category__toc">
+			<toc-list v-if="category.toc">
+				<template #default="{ inline }">
+					<toc-item
+						v-for="(item, index) in category.toc"
+						:key="index"
+						:index="index"
+						:inline="inline"
+						:anchor="item.anchor_id"
+						:text="item.text"
+					>
+					</toc-item>
+				</template>
+			</toc-list>
+		</div>
+
+		<!-- Article -->
+		<page-article :text="category.text" class="soft-category__article">
+			<template #footer>
+				<!-- Faq -->
+				<faq-list
+					v-if="category.faq && category.faq.mainEntity.length"
+					label="FAQ"
+				>
+					<faq-item
+						v-for="(item, index) in category.faq.mainEntity"
+						:key="index"
+						:question="item.name"
+						:answer="item.acceptedAnswer.text"
+					>
+					</faq-item>
+				</faq-list>
+
+				<!-- Author -->
+				<author v-if="category.author" :author="category.author" />
+
+				<!-- Comments -->
+				<comments
+					commentable_type="App\SoftCategory"
+					:commentable_id="category.id"
+				/>
+			</template>
+		</page-article>
+
+		<div class="soft-category__aside">
+			<filters
+				v-if="filters"
+				:geo="geo"
+				:categories="filters.categories"
+				:free="filters.free"
+				@change="handleFilterChange"
+				@filterOpen="handleFilterOpen"
+			/>
+
+			<room-top-list />
+
+			<topic-list v-if="category.topics.length">
+				<topic-item
+					v-for="(item, index) in category.topics"
+					:key="index"
+					:title="item.title"
+					:url="item.url"
+					:author="item.author"
+					:created="item.created_at"
+				/>
+			</topic-list>
 		</div>
 	</div>
 </template>
@@ -314,10 +305,45 @@
 </script>
 
 <style lang="scss">
+	.soft-category {
+		max-width: 1440px;
+		width: 100%;
+		@include paddings('desktop');
+		display: grid;
+		&__header {
+			grid-area: header;
+		}
+		&__toc {
+			grid-area: toc;
+		}
+		&__article {
+			grid-area: article;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		grid-template-areas:
+			'header header header'
+			'filter-soft filter-soft aside'
+			'soft-list soft-list aside'
+			'toc article aside';
+		column-gap: 28px;
+	}
 	.soft-list {
-		margin-top: 28px;
+		grid-area: soft-list;
+		&__list {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			column-gap: 28px;
+			row-gap: 48px;
+		}
+		&__pagination {
+			margin-top: 28px;
+		}
 	}
 	.soft-category-top {
+		grid-area: filter-soft;
 		margin-bottom: 38px;
 		display: flex;
 		justify-content: space-between;
@@ -335,6 +361,61 @@
 			font-size: 16px;
 			line-height: 16px;
 			color: #222222;
+		}
+	}
+
+	@include mq('desktop') {
+		.soft-category {
+			column-gap: 24px;
+			.soft-item__wrap {
+				padding-left: 24px;
+				padding-right: 24px;
+			}
+		}
+		.soft-list {
+			&__list {
+				column-gap: 24px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.soft-category {
+			@include paddings('tablet');
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'header'
+				'filter-soft'
+				'soft-list'
+				'toc'
+				'article'
+				'aside';
+		}
+
+		.soft-list {
+			&__list {
+				grid-template-columns: repeat(2, 1fr);
+				column-gap: 20px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.soft-category {
+			@include paddings('mobile');
+			grid-template-areas:
+				'header'
+				'filter-soft'
+				'soft-list'
+				'toc'
+				'article'
+				'aside';
+		}
+
+		.soft-list {
+			&__list {
+				grid-template-columns: 100%;
+			}
 		}
 	}
 </style>

@@ -280,7 +280,7 @@
 
 		&__img {
 			&-wrap {
-				margin: -43px -28px 0 0;
+				margin: -43px -28px 0 auto;
 			}
 		}
 
