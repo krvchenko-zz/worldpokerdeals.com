@@ -113,6 +113,8 @@
 		margin-bottom: 32px;
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
+		margin-left: -26px;
+		margin-right: -26px;
 		&:before {
 			opacity: 0.5;
 			left: 0;
