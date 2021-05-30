@@ -1,176 +1,166 @@
 <template>
 	<div class="game">
-		<div class="container-fluid">
-			<breadcrumb-list v-if="pageable" />
-			<game-header />
-		</div>
+		<breadcrumb-list v-if="pageable" class="game__breadcrumbs" />
+		<game-header class="game__header" />
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-					<div v-if="tab.show_rooms" class="game-rooms">
-						<div class="game-filters">
-							<div v-if="data.length" class="game-filters__info">
-								Показано {{ total }} из {{ overall }} покер-румов
-							</div>
-							<div v-if="data.length" class="game-filters__geo">
-								<geo-switcher
-									:value="country.code"
-									:geo.sync="geo"
-									@change="fetchItems"
-								/>
-							</div>
-						</div>
-
-						<room
-							v-for="(item, index) in data"
-							v-if="data.length"
-							:id="item.id"
-							:key="index"
-							:title="item.title"
-							:slug="item.slug"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:image="item.image"
-							:restricted="item.restricted"
-							:available="item.available"
-							:network="item.network"
-							:tags="item.tags"
-							:review="item.review"
-						/>
-
-						<pagination
-							v-if="data.length"
-							:last="last_page"
-							:current="page"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						>
-						</pagination>
-					</div>
-
-					<div class="row">
-						<div class="col-auto">
-							<toc-list v-if="tab.toc">
-								<template #default="{ inline }">
-									<toc-item
-										v-for="(item, index) in tab.toc"
-										:key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text"
-									>
-									</toc-item>
-								</template>
-							</toc-list>
-						</div>
-
-						<div class="col col-article">
-							<!-- Article -->
-							<page-article :text="tab.text">
-								<template #footer>
-									<!-- Faq -->
-									<faq-list
-										v-if="tab.faq && tab.faq.mainEntity.length"
-										label="FAQ"
-									>
-										<faq-item
-											v-for="(item, index) in tab.faq.mainEntity"
-											:key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text"
-										>
-										</faq-item>
-									</faq-list>
-									<!-- Author -->
-									<author v-if="tab.author" :author="tab.author" />
-									<!-- Comments -->
-									<comments
-										commentable_type="App\Tab"
-										:commentable_id="tab.id"
-									/>
-								</template>
-							</page-article>
-						</div>
-					</div>
+		<div v-if="tab.show_rooms" class="game-rooms">
+			<div class="game-filters">
+				<div v-if="data.length" class="game-filters__info">
+					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
-
-				<div class="col-3">
-					<game-filters
-						v-if="tab.show_rooms && filters"
-						:geo="geo"
-						:kycs="filters.kycs"
-						:platforms="filters.platforms"
-						:tags="filters.tags"
-						:payments="filters.payments"
-						:types="filters.types"
-						:licenses="filters.licenses"
-						@change="handleFilterChange"
+				<div v-if="data.length" class="game-filters__geo">
+					<geo-switcher
+						:value="country.code"
+						:geo.sync="geo"
+						@change="fetchItems"
 					/>
-
-					<room-top-list />
-					<!-- <room-top-list v-sticky="{topSpacing: 100}" /> -->
-
-					<topic-list v-if="tab.topics">
-						<topic-item
-							v-for="(item, index) in tab.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
 				</div>
 			</div>
 
-			<lazy-hydrate when-visible>
-				<post-list v-if="posts.length" :label="`Новости ${game.title}`">
-					<div class="row">
-						<div v-for="(item, index) in posts" :key="index" class="col-3">
-							<post-item
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:slug="item.slug"
-								:author="item.user"
-								:created="item.created_at"
-								:categories="item.categories"
-								:medium="true"
-							/>
-						</div>
-					</div>
-				</post-list>
-			</lazy-hydrate>
+			<div class="game-rooms__list">
+				<room
+					v-for="(item, index) in data"
+					v-if="data.length"
+					:id="item.id"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:rating="item.rating"
+					:rakeback="item.rakeback"
+					:bonus="item.bonus"
+					:background="item.background"
+					:image="item.image"
+					:restricted="item.restricted"
+					:available="item.available"
+					:network="item.network"
+					:tags="item.tags"
+					:review="item.review"
+				/>
+			</div>
 
-			<lazy-hydrate when-visible>
-				<div v-if="games.length" class="games-list">
-					<div class="block-title">Другие покерные игры</div>
-					<div class="row">
-						<div v-for="item in games" :key="item.slug" class="col">
-							<game-item
-								:center="true"
-								:title="item.title"
-								:icon="item.icon"
-								:rooms="item.rooms_count"
-								:page="item.page"
-							>
-							</game-item>
-						</div>
-					</div>
-				</div>
-			</lazy-hydrate>
+			<pagination
+				v-if="data.length"
+				:last="last_page"
+				:current="page"
+				:prev-url="prev_page_url"
+				:next-url="next_page_url"
+				:total="total"
+				:from="from"
+				:to="to"
+				@next="handlePageNext"
+				@prev="handlePagePrev"
+				@change="handlePageChange"
+				@more="handleShowMore"
+			>
+			</pagination>
 		</div>
+
+		<div class="game__toc">
+			<toc-list v-if="tab.toc">
+				<template #default="{ inline }">
+					<toc-item
+						v-for="(item, index) in tab.toc"
+						:key="index"
+						:index="index"
+						:inline="inline"
+						:anchor="item.anchor_id"
+						:text="item.text"
+					>
+					</toc-item>
+				</template>
+			</toc-list>
+		</div>
+
+		<div class="game__article">
+			<!-- Article -->
+			<page-article :text="tab.text">
+				<template #footer>
+					<!-- Faq -->
+					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" label="FAQ">
+						<faq-item
+							v-for="(item, index) in tab.faq.mainEntity"
+							:key="index"
+							:question="item.name"
+							:answer="item.acceptedAnswer.text"
+						>
+						</faq-item>
+					</faq-list>
+					<!-- Author -->
+					<author v-if="tab.author" :author="tab.author" />
+					<!-- Comments -->
+					<comments commentable_type="App\Tab" :commentable_id="tab.id" />
+				</template>
+			</page-article>
+		</div>
+
+		<div class="game__aside">
+			<game-filters
+				v-if="tab.show_rooms && filters"
+				:geo="geo"
+				:kycs="filters.kycs"
+				:platforms="filters.platforms"
+				:tags="filters.tags"
+				:payments="filters.payments"
+				:types="filters.types"
+				:licenses="filters.licenses"
+				@change="handleFilterChange"
+			/>
+
+			<room-top-list />
+			<!-- <room-top-list v-sticky="{topSpacing: 100}" /> -->
+
+			<topic-list v-if="tab.topics">
+				<topic-item
+					v-for="(item, index) in tab.topics"
+					:key="index"
+					:title="item.title"
+					:url="item.url"
+					:author="item.author"
+					:created="item.created_at"
+				/>
+			</topic-list>
+		</div>
+
+		<lazy-hydrate when-visible>
+			<post-list
+				v-if="posts.length"
+				class="game__news"
+				:label="`Новости ${game.title}`"
+			>
+				<div class="game__news__list">
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+					/>
+				</div>
+			</post-list>
+		</lazy-hydrate>
+
+		<lazy-hydrate when-visible>
+			<div v-if="games.length" class="game__games-list games-list">
+				<div class="block-title">Другие покерные игры</div>
+				<div class="game__games-list__list">
+					<game-item
+						v-for="item in games"
+						:key="item.slug"
+						:center="true"
+						:title="item.title"
+						:icon="item.icon"
+						:rooms="item.rooms_count"
+						:page="item.page"
+					>
+					</game-item>
+				</div>
+			</div>
+		</lazy-hydrate>
 	</div>
 </template>
 
@@ -387,6 +377,52 @@
 </script>
 
 <style lang="scss">
+	.game {
+		width: 100%;
+		max-width: 1440px;
+		@include paddings('desktop');
+		display: grid;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		grid-template-areas:
+			'breadcrumbs breadcrumbs breadcrumbs'
+			'header header header' 'game-rooms game-rooms aside'
+			'toc article aside'
+			'news news news'
+			'games-list games-list games-list';
+		column-gap: 28px;
+		&__breadcrumbs {
+			grid-area: breadcrumbs;
+		}
+		&__header {
+			grid-area: header;
+		}
+		&__toc {
+			grid-area: toc;
+		}
+		&__article {
+			grid-area: article;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+		&__news {
+			grid-area: news;
+			&__list {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				column-gap: 28px;
+			}
+		}
+		&__games-list {
+			grid-area: games-list;
+			&__list {
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				column-gap: 20px;
+			}
+		}
+	}
+
 	.game-filters {
 		margin-bottom: 24px;
 		display: flex;
@@ -408,6 +444,7 @@
 	}
 
 	.game-rooms {
+		grid-area: game-rooms;
 		margin-bottom: 40px;
 		&__title {
 			margin-bottom: 20px;
@@ -415,6 +452,60 @@
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+	}
+
+	@include mq('laptop') {
+		.game {
+			@include paddings('tablet');
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'breadcrumbs'
+				'header'
+				'game-rooms'
+				'toc'
+				'article'
+				'aside'
+				'news'
+				'games-list';
+			&__games-list {
+				&__list {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.game {
+			@include paddings('mobile');
+			&__news {
+				margin-right: -20px;
+				&__list {
+					overflow-x: scroll;
+					scrollbar-width: none;
+					grid-template-columns: none;
+					grid-auto-columns: 288px;
+					grid-auto-flow: column;
+					column-gap: 16px;
+				}
+			}
+			&__games-list {
+				margin-right: -20px;
+				&__list {
+					overflow-x: scroll;
+					scrollbar-width: none;
+					grid-template-columns: none;
+					grid-auto-columns: 288px;
+					grid-auto-flow: column;
+					column-gap: 16px;
+				}
+			}
+		}
+
+		.game-rooms__list {
+			margin-right: -20px;
+			margin-left: -21px;
 		}
 	}
 </style>
