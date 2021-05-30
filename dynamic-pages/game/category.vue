@@ -1,97 +1,92 @@
 <template>
 	<div class="games">
 		<div class="games-header">
-			<div class="container-fluid">
-				<breadcrumb-list :white="true" />
-				<h1 class="games__title">{{ category.title }}</h1>
-				<div class="games__summary" v-html="category.summary"></div>
+			<breadcrumb-list :white="true" />
+			<h1 class="games__title">{{ category.title }}</h1>
+			<div class="games__summary" v-html="category.summary"></div>
 
-				<game-nav-list>
-					<game-nav-item
-						v-for="(item, index) in types"
-						:key="index"
-						:active="item.value === type"
-						:label="item.label"
-						:value="item.value"
-						@click="handleNavClick"
-					>
-					</game-nav-item>
-				</game-nav-list>
-			</div>
+			<game-nav-list>
+				<game-nav-item
+					v-for="(item, index) in types"
+					:key="index"
+					:active="item.value === type"
+					:label="item.label"
+					:value="item.value"
+					@click="handleNavClick"
+				>
+				</game-nav-item>
+			</game-nav-list>
 		</div>
-		<div class="container-fluid">
-			<div class="games-list">
-				<div class="row">
-					<div v-for="item in games" :key="item.slug" class="col-3">
-						<game-item
-							:title="item.title"
-							:icon="item.icon"
-							:rooms="item.rooms"
-							:page="item.page"
+
+		<div class="games-list">
+			<game-item
+				v-for="item in games"
+				:key="item.slug"
+				:title="item.title"
+				:icon="item.icon"
+				:rooms="item.rooms"
+				:page="item.page"
+			>
+			</game-item>
+		</div>
+
+		<div class="article-container">
+			<div class="article-container__toc">
+				<toc-list v-if="category.toc">
+					<template #default="{ inline }">
+						<toc-item
+							v-for="(item, index) in category.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:anchor="item.anchor_id"
+							:text="item.text"
 						>
-						</game-item>
-					</div>
-				</div>
+						</toc-item>
+					</template>
+				</toc-list>
 			</div>
 
-			<div class="row">
-				<div class="col-auto">
-					<toc-list v-if="category.toc">
-						<template #default="{ inline }">
-							<toc-item
-								v-for="(item, index) in category.toc"
-								:key="index"
-								:index="index"
-								:inline="inline"
-								:anchor="item.anchor_id"
-								:text="item.text"
-							>
-							</toc-item>
-						</template>
-					</toc-list>
-				</div>
-
-				<div class="col col-article">
-					<!-- Article -->
-					<page-article :text="category.text">
-						<template #footer>
-							<!-- Author -->
-							<author v-if="category.author" :author="category.author" />
-							<!-- Comments -->
-							<comments
-								commentable_type="App\GameCategory"
-								:commentable_id="category.id"
-							/>
-						</template>
-					</page-article>
-				</div>
-
-				<div class="col-3">
-					<room-top-list />
-					<topic-list v-if="category.topics">
-						<topic-item
-							v-for="(item, index) in category.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
+			<div class="article-container__article">
+				<!-- Article -->
+				<page-article :text="category.text">
+					<template #footer>
+						<!-- Author -->
+						<author v-if="category.author" :author="category.author" />
+						<!-- Comments -->
+						<comments
+							commentable_type="App\GameCategory"
+							:commentable_id="category.id"
 						/>
-					</topic-list>
-					<post-list v-if="posts">
-						<post-item
-							v-for="(item, index) in posts"
-							:key="index"
-							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
-							:slug="item.slug"
-							:author="item.user"
-							:created="item.created_at"
-							:categories="item.categories"
-						></post-item>
-					</post-list>
-				</div>
+					</template>
+				</page-article>
+			</div>
+
+			<div class="article-container__aside-content">
+				<room-top-list />
+				<topic-list v-if="category.topics">
+					<topic-item
+						v-for="(item, index) in category.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
+				<post-list v-if="posts">
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+					></post-item>
+				</post-list>
 			</div>
 		</div>
 
@@ -232,16 +227,29 @@
 <style lang="scss">
 	$games-bg: url('~assets/i/games-bg.jpg');
 
+	.games {
+		width: 100%;
+		max-width: 1440px;
+		@include paddings('desktop');
+	}
+
 	.games-header {
 		margin-bottom: 32px;
 		padding: 0 0 32px 0;
 		// background: radial-gradient(96.88% 66.11% at 57.43% 2.13%, #BA2B2B 0%, #5A0101 100%);
 		background: $games-bg no-repeat center;
 		background-size: cover;
+		margin-left: -26px;
+		margin-right: -26px;
+		width: calc(100% + 2 * 26px);
+		@include paddings('desktop');
 	}
 
 	.games-list {
 		margin-bottom: 20px;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		column-gap: 20px;
 	}
 
 	.games__title {
@@ -262,5 +270,63 @@
 		text-align: center;
 		color: #ffffff;
 		opacity: 0.8;
+	}
+
+	@include mq('laptop') {
+		.games {
+			@include paddings('tablet');
+
+			.page-banners {
+				margin-right: -24px;
+				width: calc(100% + 24px);
+			}
+		}
+
+		.games-header {
+			@include paddings('tablet');
+			margin-left: -24px;
+			margin-right: -24px;
+			width: calc(100% + 2 * 24px);
+		}
+
+		.games-list {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@include mq('tablet') {
+		.games {
+			@include paddings('mobile');
+
+			.page-banners {
+				margin-right: -20px;
+				width: calc(100% + 20px);
+			}
+		}
+
+		.games-list {
+			grid-template-columns: 100%;
+		}
+
+		.games-header {
+			@include paddings('mobile');
+			margin-left: -20px;
+			margin-right: -20px;
+			width: calc(100% + 2 * 20px);
+
+			.games-nav {
+				&__label {
+					white-space: nowrap;
+				}
+				&__list {
+					overflow-x: scroll;
+					scrollbar-width: none;
+					justify-content: start;
+				}
+				&__item {
+					margin-right: 0;
+				}
+			}
+		}
 	}
 </style>
