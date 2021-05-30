@@ -1,45 +1,29 @@
 <template>
 	<div class="soft-category-header">
-		<div class="container-fluid">
-			<breadcrumb-list v-if="pageable" :white="true" />
+		<breadcrumb-list v-if="pageable" :white="true" />
 
-			<div class="soft-category-header__wrap">
-				<div class="row">
-					<div class="col-9">
-						<i v-if="category.icon" class="soft-category-header__icon">
-							<svg-icon :icon="category.icon" />
-						</i>
-						<div class="soft-category-meta__wrap">
-							<h1 class="soft-category__title">{{ category.title }}</h1>
-							<page-meta
-								:author="category.author.full_name"
-								:created="category.created_at"
-								:updated="category.updated_at"
-							>
-							</page-meta>
-						</div>
-						<div class="soft-category__summary" v-html="category.summary"></div>
-					</div>
-					<div class="col-3"></div>
-				</div>
+		<div class="soft-category-header__wrap">
+			<i v-if="category.icon" class="soft-category-header__icon">
+				<svg-icon :icon="category.icon" />
+			</i>
+			<div class="soft-category-header__text-wrapper">
+				<h1 class="soft-category__title">{{ category.title }}</h1>
+				<div class="soft-category__summary" v-html="category.summary"></div>
 			</div>
 		</div>
-		<div class="container-fluid">
-			<!-- Navigation -->
-			<div class="row">
-				<div class="col-9">
-					<nav-list>
-						<nav-item
-							v-for="(item, index) in categories"
-							:key="index"
-							:name="item.label"
-							:page="item.page"
-							:icon="item.icon"
-						>
-						</nav-item>
-					</nav-list>
-				</div>
-			</div>
+
+		<!-- Navigation -->
+		<div class="soft-category-header__nav">
+			<nav-list>
+				<nav-item
+					v-for="(item, index) in categories"
+					:key="index"
+					:name="item.label"
+					:page="item.page"
+					:icon="item.icon"
+				>
+				</nav-item>
+			</nav-list>
 		</div>
 	</div>
 </template>
@@ -77,14 +61,25 @@
 
 	.soft-category {
 		&-header {
+			width: calc(100% + 2 * 26px);
 			margin-bottom: 60px;
+			@include paddings('desktop');
+			margin-left: -26px;
+			margin-right: -26px;
 			// background: radial-gradient(96.88% 66.11% at 57.43% 2.13%, #6E43A5 0%, #2B0759 100%);
 			background: $category-bg no-repeat center;
 			background-size: cover;
 
 			&__wrap {
+				display: flex;
 				padding: 0;
 				position: relative;
+			}
+
+			&__text-wrapper {
+				display: flex;
+				flex-direction: column;
+				max-width: 960px;
 			}
 
 			&__icon {
@@ -104,13 +99,6 @@
 			color: #ffffff;
 		}
 
-		&-meta {
-			display: flex;
-			&__wrap {
-				display: inline-block;
-			}
-		}
-
 		&__summary {
 			padding-bottom: 40px;
 			font-family: Proxima Nova;
@@ -120,6 +108,28 @@
 			line-height: 22px;
 			color: #ffffff;
 			opacity: 0.8;
+		}
+	}
+
+	@include mq('laptop') {
+		.soft-category-header {
+			width: calc(100% + 2 * 24px);
+			margin-left: -24px;
+			margin-right: -24px;
+			@include paddings('tablet');
+		}
+	}
+
+	@include mq('tablet') {
+		.soft-category-header {
+			width: calc(100% + 2 * 20px);
+			margin-left: -20px;
+			margin-right: -20px;
+			@include paddings('mobile');
+		}
+
+		.soft-category__summary {
+			padding-bottom: 24px;
 		}
 	}
 </style>
