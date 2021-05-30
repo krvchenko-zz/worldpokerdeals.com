@@ -1,99 +1,89 @@
 <template>
 	<div class="soft-header">
-		<div class="container-fluid">
-			<div class="soft-header__wrap">
-				<div class="row">
-					<div class="col-2">
-						<div class="soft-header__logo">
-							<img
-								:class="['soft-item__img']"
-								decoding="async"
-								loading="lazy"
-								:src="img"
-								:alt="soft.image.alt || `${soft.title} logo`"
-							/>
-						</div>
-					</div>
-					<div class="col-7">
-						<div v-if="soft.category" class="soft-category">
-							{{ soft.category.title }}
-						</div>
-						<h1 class="soft__title">{{ tab.title }}</h1>
-						<page-meta
-							:author="tab.author ? tab.author.full_name : ''"
-							:created="tab.created_at"
-							:updated="tab.updated_at"
-							:dark="true"
-						>
-						</page-meta>
+		<div class="soft-header__logo">
+			<img
+				:class="['soft-item__img']"
+				decoding="async"
+				loading="lazy"
+				:src="img"
+				:alt="soft.image.alt || `${soft.title} logo`"
+			/>
+		</div>
 
-						<div class="soft-actions">
-							<soft-action-button
-								v-if="soft.url"
-								label="Скачать"
-								type="download"
-								:slug="soft.slug"
-								:icon="true"
-							/>
-							<div class="soft-price">
-								<span class="soft-price__label">Стоимость</span>
-								<span class="soft-price__value">
-									<template v-if="soft.currency">{{
-										soft.currency.symbol
-									}}</template
-									>{{ soft.price }}
-								</span>
-							</div>
-						</div>
+		<div class="soft-header__header">
+			<div v-if="soft.category" class="soft-category">
+				{{ soft.category.title }}
+			</div>
+			<h1 class="soft__title">{{ tab.title }}</h1>
+			<page-meta
+				:author="tab.author ? tab.author.full_name : ''"
+				:created="tab.created_at"
+				:updated="tab.updated_at"
+				:dark="true"
+			>
+			</page-meta>
 
-						<div class="soft__summary" v-html="tab.summary"></div>
-					</div>
-					<div class="col-3">
-						<div v-if="soft.images.length" class="soft-screenshots">
-							<carousel
-								:navigation-enabled="false"
-								:per-page-custom="[[0, 1]]"
-								:pagination-padding="5"
-								:pagination-size="8"
-								pagination-color="#ffffff"
-								pagination-active-color="#CCCCCC"
-							>
-								<slide v-for="(item, index) in soft.images" :key="index">
-									<a
-										:href="`${mediaUrl}/gallery-large/${item.filename}`"
-										class="soft-screenshots__item lightbox"
-									>
-										<img
-											class="soft-screenshots__img"
-											:src="
-												`${mediaUrl}/room-screenshot-medium/${item.filename}`
-											"
-											:alt="item.alt"
-										/>
-									</a>
-								</slide>
-							</carousel>
-						</div>
-					</div>
-				</div>
-
-				<div v-if="soft.tabs.length && soft.tabs.length > 1" class="row">
-					<div class="col-12">
-						<tab-list>
-							<tab-item
-								v-for="(item, index) in soft.tabs"
-								:key="index"
-								:params="{
-									parent: 'soft',
-									child: item.slug,
-								}"
-								:name="item.name"
-							>
-							</tab-item>
-						</tab-list>
-					</div>
+			<div class="soft-actions">
+				<soft-action-button
+					v-if="soft.url"
+					label="Скачать"
+					type="download"
+					:slug="soft.slug"
+					:icon="true"
+				/>
+				<div class="soft-price">
+					<span class="soft-price__label">Стоимость</span>
+					<span class="soft-price__value">
+						<template v-if="soft.currency">{{ soft.currency.symbol }}</template
+						>{{ soft.price }}
+					</span>
 				</div>
 			</div>
+		</div>
+
+		<div class="soft__summary" v-html="tab.summary"></div>
+
+		<div v-if="soft.images.length" class="soft-screenshots">
+			<carousel
+				:navigation-enabled="false"
+				:per-page-custom="[[0, 1]]"
+				:per-page="1"
+				:pagination-padding="5"
+				:pagination-size="8"
+				pagination-color="#ffffff"
+				pagination-active-color="#CCCCCC"
+			>
+				<slide v-for="(item, index) in soft.images" :key="index">
+					<a
+						:href="`${mediaUrl}/gallery-large/${item.filename}`"
+						class="soft-screenshots__item lightbox"
+					>
+						<img
+							class="soft-screenshots__img"
+							:src="`${mediaUrl}/room-screenshot-medium/${item.filename}`"
+							:alt="item.alt"
+						/>
+					</a>
+				</slide>
+			</carousel>
+		</div>
+
+		<div
+			v-if="soft.tabs.length && soft.tabs.length > 1"
+			class="soft-header__nav"
+		>
+			<tab-list>
+				<tab-item
+					v-for="(item, index) in soft.tabs"
+					:key="index"
+					:params="{
+						parent: 'soft',
+						child: item.slug,
+					}"
+					:name="item.name"
+				>
+				</tab-item>
+			</tab-list>
 		</div>
 	</div>
 </template>
@@ -155,6 +145,7 @@
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
 		&:before {
+			z-index: -1;
 			opacity: 0.5;
 			left: 0;
 			top: 0;
@@ -170,13 +161,26 @@
 
 	.soft {
 		&-header {
-			&__wrap {
-				padding: 30px 15px 0 15px;
-				position: relative;
-			}
+			padding: 28px 28px 0;
+			position: relative;
+			display: grid;
+			grid-template-columns: 180px minmax(0, 1fr) 300px;
+			grid-template-areas:
+				'logo header slider'
+				'logo summary slider'
+				'nav nav nav';
+			column-gap: 56px;
 
 			&__logo {
+				grid-area: logo;
 				text-align: right;
+			}
+			&__header {
+				grid-area: header;
+			}
+			&__nav {
+				grid-area: nav;
+				flex-basis: 100%;
 			}
 		}
 
@@ -218,8 +222,12 @@
 			}
 		}
 		&-screenshots {
+			grid-area: slider;
+			display: flex;
+			align-self: center;
+			width: 300px;
 			&__img {
-				width: 100%;
+				width: 300px;
 				height: auto;
 			}
 		}
@@ -234,12 +242,99 @@
 		}
 
 		&__summary {
+			grid-area: summary;
 			padding-bottom: 40px;
 			font-family: 'Proxima Nova';
 			font-size: 17px;
 			line-height: 22px;
 			color: #222222;
 			opacity: 0.8;
+		}
+	}
+
+	@include mq('desktop') {
+		.soft-header {
+			padding-left: 24px;
+			padding-right: 24px;
+			grid-template-columns: 180px minmax(0, 1fr) 312px;
+			column-gap: 24px;
+		}
+
+		.soft-screenshots {
+			width: 288px;
+			padding-left: 24px;
+			&__img {
+				width: 288px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.soft-header {
+			@include paddings('tablet');
+			padding-left: 0;
+			grid-template-columns: 24px 180px 42px 1fr;
+			grid-template-areas:
+				'. logo . header'
+				'. summary summary summary'
+				'. slider slider .'
+				'nav nav nav nav';
+			column-gap: 0;
+		}
+
+		.soft {
+			&__summary {
+				padding-bottom: 0;
+				margin-bottom: 32px;
+			}
+		}
+		.soft-screenshots {
+			display: block;
+			padding-left: 0;
+			width: 300px;
+			align-self: start;
+			margin-bottom: 32px;
+		}
+	}
+
+	@include mq('tablet') {
+		.soft-header {
+			@include paddings('mobile');
+			margin-left: -20px;
+			margin-right: -20px;
+			grid-template-columns: 20px 1fr 20px;
+			grid-template-areas:
+				'. logo .'
+				'. header .'
+				'. summary .'
+				'. slider .'
+				'nav nav nav';
+			justify-content: center;
+			&__logo {
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			&__header {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+		}
+
+		.soft-actions {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+		.soft-price {
+			display: flex;
+			column-gap: 16px;
+			align-items: center;
+			justify-content: center;
+			margin-left: 0;
+		}
+		.soft-screenshots {
+			margin: 0 auto 28px;
 		}
 	}
 </style>

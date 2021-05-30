@@ -174,11 +174,13 @@
 	$ico-soft-unavailable: url('~assets/i/ico-soft-unavailable.svg?data');
 
 	.soft-item {
-		margin-bottom: 48px;
 		position: relative;
 		min-height: 281px;
 		&__wrap {
 			z-index: 3;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
 			padding: 20px 28px 24px 28px;
 			background: #fafafa;
 			border: 1px solid #e9e9e9;
@@ -268,6 +270,7 @@
 
 		&__price {
 			margin-bottom: 8px;
+			margin-top: auto;
 			font-family: 'Proxima Nova Sb';
 			font-size: 22px;
 			line-height: 24px;
@@ -283,7 +286,7 @@
 
 		&__actions {
 			display: flex;
-			justify-content: spece-between;
+			justify-content: space-between;
 		}
 
 		&__link {
