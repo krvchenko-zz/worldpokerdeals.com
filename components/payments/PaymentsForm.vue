@@ -25,7 +25,6 @@
 				<div class="col-3 offset-md-2">
 					<form-input
 						v-model="form.email"
-						:disabled="!auth"
 						placeholder="Электронная почта"
 						type="email"
 						name="email"
@@ -46,7 +45,6 @@
 						type="text"
 						name="account_id"
 						label-color="#636363"
-						:disabled="!auth"
 						:required="true"
 						:loading="form.busy"
 						:error="form.errors.has('account_id')"
@@ -62,7 +60,6 @@
 				<div class="col-3">
 					<form-input
 						v-model="form.contact"
-						:disabled="!auth"
 						placeholder=""
 						type="text"
 						name="contact"
@@ -95,8 +92,7 @@
 				<div class="col-8 offset-md-2">
 					<form-textarea
 						v-model="form.comment"
-						:disabled="!auth"
-						placeholder="Вопросы или комментарии"
+						placeholder="Вопрос или комментарий"
 						name="comment"
 						label-color="#636363"
 						:required="true"

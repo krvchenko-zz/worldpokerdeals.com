@@ -261,9 +261,9 @@
 		}
 	}
 
-	.post-subscribe {
-		display: none;
-	}
+	// .post-subscribe {
+	// 	display: none;
+	// }
 
 	@include mq('laptop') {
 		.post {

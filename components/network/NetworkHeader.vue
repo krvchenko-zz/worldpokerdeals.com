@@ -25,7 +25,7 @@
 			</div>
 
 			<room-top
-				v-if="rooms"
+				v-if="rooms && rooms.length"
 				:id="rooms[0].id"
 				:title="rooms[0].title"
 				:slug="rooms[0].slug"

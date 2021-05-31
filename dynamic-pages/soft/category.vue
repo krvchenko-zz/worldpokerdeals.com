@@ -253,6 +253,8 @@
 			async fetchItems() {
 				this.$nuxt.$loading.start()
 
+				console.log(this.params);
+
 				await this.$axios
 					.get(`soft/list`, { params: this.params })
 					.then(response => {

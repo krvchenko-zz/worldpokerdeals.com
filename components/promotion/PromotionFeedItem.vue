@@ -37,10 +37,10 @@
 				</span>
 				<span class="promotion-item__max">
 					<span class="promotion-item__params-label">Макс бонус</span>
-					${{ max_bonus }}
 					<template v-if="max_bonus_currency">{{
 						max_bonus_currency.symbol
 					}}</template>
+					{{ max_bonus }}
 				</span>
 			</span>
 

@@ -29,7 +29,7 @@
 				<div :class="['game-item__title', center && 'game-item__title_center']">
 					{{ title }}
 				</div>
-				<div class="game-item__rooms">{{ $t('rooms_count', {count: rooms}) }}</div>
+				<div class="game-item__rooms">{{ $tc('rooms_count', rooms) }}</div>
 			</a>
 		</nuxt-link>
 	</div>

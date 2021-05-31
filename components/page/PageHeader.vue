@@ -151,8 +151,8 @@
 								<transition name="fade">
 									<page-menu
 										:items="menu.poker"
-										:columns="isDesktop ? 2 : 1"
-										:width="isDesktop ? 600 : menuWidth"
+										:columns="1"
+										:width="isDesktop ? 300 : menuWidth"
 									/>
 								</transition>
 							</li>

@@ -13,6 +13,7 @@
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<nuxt-link
+						v-if="network.published"
 						v-slot="{ href, route, navigate, isActive, isExactActive }"
 						prefetch
 						:to="{
@@ -29,6 +30,7 @@
 							network.title
 						}}</a>
 					</nuxt-link>
+					<template v-else>{{ network.title }}</template>
 				</div>
 			</div>
 

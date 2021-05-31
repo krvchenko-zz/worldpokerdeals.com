@@ -1,6 +1,6 @@
 <template>
 	<div class="payment-menu">
-		<div class="payment-menu__label">VIP-статусы</div>
+		<div class="payment-menu__label">{{ $t('vip_statuses') }}</div>
 		<ul class="payment-menu__list">
 			<nuxt-link
 				v-for="(item, index) in items"

@@ -24,20 +24,20 @@
 				<div v-if="payment.vip_status" class="payment__actions">
 					<payment-action-button
 						class="payment__actions__button"
-						label="Открыть счет"
+						:label="$t('open_acconut')"
 						type="register"
 						:url="payment.partner_url"
 						:background="payment.btn_color"
 					/>
 					<payment-action-button
 						class="payment__actions__button"
-						label="Чат с менеджером"
+						:label="$t('manager_chat')"
 						type="default"
 						background="#70AC30"
 					/>
 					<payment-action-button
 						class="payment__actions__button"
-						label="VIP-статус"
+						:label="$t('vip_status')"
 						type="internal"
 						:vip-url="payment.vip_url"
 						background="#F5A200"

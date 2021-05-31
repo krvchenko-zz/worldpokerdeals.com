@@ -22,8 +22,7 @@
 				</div>
 				<div class="payment-item__title">{{ title }}</div>
 				<div class="payment-item__rooms">
-					{{ rooms }}
-					{{ declOfNum(rooms, ['покер-рум', 'покер-румов', 'покер-румов']) }}
+					{{ $tc('rooms_count', rooms) }}
 				</div>
 			</a>
 		</nuxt-link>

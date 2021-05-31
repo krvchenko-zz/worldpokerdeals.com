@@ -138,10 +138,10 @@
   "with_private_clubs": "С приватными клубами",
   "best_rooms": "Лучшие румы",
   "top_rooms_count": "Топ-{count} покер-румов",
-  "rooms_count": "{count} покер-румов",
+  "rooms_count": "0 покер-румов | {n} покер-рум | {n} покер-рума | {n} покер-румов",
   "show_more_count": "Показать еще {count}",
   "full_rooms_catalogue": "Полный каталог покерных румов",
-  "all_poker_sites": "Все {total} покерных {sites}",
+  "all_poker_sites": "0 покерных сайтов | {n} покерный сайт | Все {n} покерных сайта | Все {n} покерных сайтов",
   "current_room_promotions": "Текущие акции рума",
   "status": "Статус",
   "active": "Активен",
@@ -160,5 +160,15 @@
   "online_poker": "Онлайн-покер",
   "about_us": "О нас",
   "sign_in": "Войти",
-  "open_acconut": "Открыть счет"
+  "open_acconut": "Открыть счет",
+  "vip_status": "VIP-статус",
+  "vip_statuses": "VIP-статусы",
+  "vip_status_in": "VIP-статус в {title}",
+  "form": {
+    "email": "Электронная почта",
+    "account_id": "ID Счета",
+    "contact_type": "Способ связи",
+    "comment": "Вопрос или комментарий",
+    "check_your_id": "Как узнать свой ID?"
+  }
 }
