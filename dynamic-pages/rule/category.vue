@@ -246,6 +246,8 @@
 	}
 
 	.rules {
+		width: 100%;
+		max-width: 1440px;
 		@include paddings('desktop');
 		&__title {
 			text-align: center;
