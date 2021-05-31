@@ -1,87 +1,82 @@
 <template>
 	<div class="rules">
 		<div class="rules-header">
-			<div class="container-fluid">
-				<breadcrumb-list :white="true" />
-				<h1 class="rules__title">{{ category.title }}</h1>
-				<div class="rules__summary" v-html="category.summary"></div>
-			</div>
+			<breadcrumb-list :white="true" />
+			<h1 class="rules__title">{{ category.title }}</h1>
+			<div class="rules__summary" v-html="category.summary"></div>
 		</div>
-		<div class="container-fluid">
-			<div class="rules-list">
-				<div class="row">
-					<div v-for="item in rules" :key="item.slug" class="col-3">
-						<rule-item
-							:title="item.title"
-							:icon="item.icon"
-							:image="item.image"
-							:background="item.background"
-							:rooms="item.rooms"
-							:page="item.page"
+
+		<div class="rules-list">
+			<rule-item
+				v-for="item in rules"
+				:key="item.slug"
+				:title="item.title"
+				:icon="item.icon"
+				:image="item.image"
+				:background="item.background"
+				:rooms="item.rooms"
+				:page="item.page"
+			>
+			</rule-item>
+		</div>
+
+		<div class="article-container">
+			<div class="article-container__toc">
+				<toc-list v-if="category.toc">
+					<template #default="{ inline }">
+						<toc-item
+							v-for="(item, index) in category.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:anchor="item.anchor_id"
+							:text="item.text"
 						>
-						</rule-item>
-					</div>
-				</div>
+						</toc-item>
+					</template>
+				</toc-list>
 			</div>
 
-			<div class="row">
-				<div class="col-auto">
-					<toc-list v-if="category.toc">
-						<template #default="{ inline }">
-							<toc-item
-								v-for="(item, index) in category.toc"
-								:key="index"
-								:index="index"
-								:inline="inline"
-								:anchor="item.anchor_id"
-								:text="item.text"
-							>
-							</toc-item>
-						</template>
-					</toc-list>
-				</div>
-
-				<div class="col col-article">
-					<!-- Article -->
-					<page-article :text="category.text">
-						<template #footer>
-							<!-- Author -->
-							<author v-if="category.author" :author="category.author" />
-							<!-- Comments -->
-							<comments
-								commentable_type="App\PokerRuleCategory"
-								:commentable_id="category.id"
-							/>
-						</template>
-					</page-article>
-				</div>
-
-				<div class="col-3">
-					<room-top-list />
-					<topic-list v-if="category.topics">
-						<topic-item
-							v-for="(item, index) in category.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
+			<div class="article-container__article">
+				<!-- Article -->
+				<page-article :text="category.text">
+					<template #footer>
+						<!-- Author -->
+						<author v-if="category.author" :author="category.author" />
+						<!-- Comments -->
+						<comments
+							commentable_type="App\PokerRuleCategory"
+							:commentable_id="category.id"
 						/>
-					</topic-list>
-					<post-list v-if="posts">
-						<post-item
-							v-for="(item, index) in posts"
-							:key="index"
-							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
-							:slug="item.slug"
-							:author="item.user"
-							:created="item.created_at"
-							:categories="item.categories"
-						></post-item>
-					</post-list>
-				</div>
+					</template>
+				</page-article>
+			</div>
+
+			<div class="article-container__aside-content">
+				<room-top-list />
+				<topic-list v-if="category.topics">
+					<topic-item
+						v-for="(item, index) in category.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
+				<post-list v-if="posts">
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+					></post-item>
+				</post-list>
 			</div>
 		</div>
 	</div>
@@ -231,6 +226,11 @@
 	$poker-rules-bg: url('~assets/i/poker-rules-bg.jpg');
 
 	.rules-header {
+		display: flex;
+		flex-direction: column;
+		@include paddings('desktop');
+		margin-left: -26px;
+		margin-right: -26px;
 		margin-bottom: 32px;
 		padding: 0 0 32px 0;
 		// background: radial-gradient(96.88% 66.11% at 57.43% 2.13%, #BA2B2B 0%, #5A0101 100%);
@@ -240,25 +240,55 @@
 
 	.rules-list {
 		margin-bottom: 20px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(262px, 1fr));
+		column-gap: 20px;
 	}
 
-	.rules__title {
-		text-align: center;
-		margin: 0 0 16px 0;
-		font-family: Proxima Nova;
-		font-weight: bold;
-		font-size: 32px;
-		line-height: 36px;
-		color: #ffffff;
+	.rules {
+		@include paddings('desktop');
+		&__title {
+			text-align: center;
+			margin: 0 0 16px 0;
+			font-family: Proxima Nova;
+			font-weight: bold;
+			font-size: 32px;
+			line-height: 36px;
+			color: #ffffff;
+		}
+
+		&__summary {
+			margin-bottom: 24px;
+			font-family: Proxima Nova;
+			font-size: 18px;
+			line-height: 24px;
+			text-align: center;
+			color: #ffffff;
+			opacity: 0.8;
+		}
 	}
 
-	.rules__summary {
-		margin-bottom: 24px;
-		font-family: Proxima Nova;
-		font-size: 18px;
-		line-height: 24px;
-		text-align: center;
-		color: #ffffff;
-		opacity: 0.8;
+	@include mq('laptop') {
+		.rules-header {
+			@include paddings('tablet');
+			margin-left: -24px;
+			margin-right: -24px;
+		}
+
+		.rules {
+			@include paddings('tablet');
+		}
+	}
+
+	@include mq('tablet') {
+		.rules-header {
+			@include paddings('mobile');
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+
+		.rules {
+			@include paddings('mobile');
+		}
 	}
 </style>
