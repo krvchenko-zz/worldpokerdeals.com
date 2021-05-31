@@ -50,7 +50,6 @@
 </template>
 
 <script>
-	import axios from 'axios'
 	import { mapGetters } from 'vuex'
 
 	export default {
@@ -76,6 +75,7 @@
 		computed: {
 			...mapGetters({
 				country: 'location/country',
+				locale: 'lang/locale',
 				feed: 'promotions/feed',
 				room: 'rooms/room',
 			}),
@@ -103,6 +103,7 @@
 					params: {
 						per_page: this.per_page,
 						room_id: this.room_id,
+						locale: this.locale,
 					},
 				})
 				.then(response => {

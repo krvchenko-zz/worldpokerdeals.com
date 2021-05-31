@@ -20,7 +20,7 @@
 					</toc-list>
 				</div>
 
-				<div class="col">
+				<div class="col col-article">
 					<!-- Article -->
 					<page-article :text="tab.text">
 						<template #footer>

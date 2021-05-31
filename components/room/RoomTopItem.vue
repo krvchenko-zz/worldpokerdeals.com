@@ -34,7 +34,7 @@
 				v-if="bonus"
 				:class="['top-rooms__item-bonus', `top-rooms__item-bonus_${type}`]"
 			>
-				{{ bonus }}
+				{{ bonus.title }}
 			</div>
 		</a>
 		<div

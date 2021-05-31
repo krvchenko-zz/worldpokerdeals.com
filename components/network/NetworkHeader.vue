@@ -27,7 +27,7 @@
 					</div>
 					<div class="col-4">
 						<room-top
-							v-if="rooms"
+							v-if="rooms && rooms.length"
 							:id="rooms[0].id"
 							:style="{ top: 0, margin: '0 0 26px 0' }"
 							:title="rooms[0].title"

@@ -138,16 +138,12 @@
 			type: 'discipline',
 			types: [
 				{
-					label: 'Дисциплины',
+					label: 'Виды покера',
 					value: 'discipline',
 				},
 				{
-					label: 'Виды покера',
+					label: 'Дисциплины',
 					value: 'game',
-				},
-				{
-					label: 'Лимиты',
-					value: 'limit',
 				},
 				{
 					label: 'Тип стола',

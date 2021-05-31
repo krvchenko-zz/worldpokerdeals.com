@@ -150,10 +150,7 @@
 							`top-rooms__footer-total_${type}`,
 						]"
 						>{{
-							$t('all_poker_sites', {
-								total: total,
-								sites: declOfNum(total, ['сайта', 'сайтов', 'сайтов']),
-							})
+							$tc('all_poker_sites', total)
 						}}
 					</span>
 				</a>
