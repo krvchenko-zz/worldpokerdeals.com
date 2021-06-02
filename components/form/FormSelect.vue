@@ -173,6 +173,7 @@
 
 		&__inner {
 			position: relative;
+			width: 100%;
 		}
 
 		&__value {
