@@ -51,7 +51,7 @@
 							>
 								<slide v-for="(item, index) in items" :key="index">
 									<club-front-item
-										v-if="index !== 4"
+										v-if="!item.banner"
 										:title="item.title"
 										:rating="item.rating"
 										:rakeback="item.rakeback"
@@ -66,7 +66,7 @@
 										:features="item.games"
 										:room="item.room"
 									/>
-									<front-club-access v-if="index === 4" />
+									<front-club-access v-else />
 								</slide>
 							</carousel>
 						</client-only>
@@ -101,9 +101,17 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 				geo: 'location/code',
-				items: 'front/clubs',
+				clubs: 'front/clubs',
 				categories: 'front/club_categories',
 			}),
+
+			items() {
+				return [
+					...this.clubs.slice(0, 4),
+					{ banner: true },
+					...this.clubs.slice(4, this.clubs.length),
+				]
+			},
 		},
 
 		watch: {},

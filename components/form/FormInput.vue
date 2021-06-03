@@ -19,8 +19,8 @@
 		<div
 			:class="['form-input__inner', hasPrefix && 'form-input__inner_prepend']"
 		>
-			<div v-if="hasPrefix" class="form-input__prepend">
-				<slot name="prefix" :prefix="prefix" />
+			<div class="form-input__prepend">
+				<slot name="prefix" />
 			</div>
 			<input
 				autocomplete="false"

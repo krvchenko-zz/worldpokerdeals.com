@@ -157,6 +157,8 @@
 				:background="item.background"
 				:image="item.image"
 				:restricted="item.restricted"
+				:available="item.available"
+				:blacklist="item.blacklist"
 				:network="item.network"
 				:tags="item.tags"
 				:review="item.review"

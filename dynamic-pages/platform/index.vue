@@ -130,6 +130,31 @@
 					</topic-list>
 				</div>
 			</div>
+
+			<lazy-hydrate when-visible>
+				<post-list
+					v-if="posts"
+					label="Похожие статьи"
+					class="post__similar-news"
+					:asRow="$device.isDesktopOrTablet"
+				>
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+						:asCard="$device.isMobile"
+					/>
+				</post-list>
+			</lazy-hydrate>
+
+			<page-banners />
 		</div>
 	</div>
 </template>
@@ -144,7 +169,7 @@
 
 		data: () => ({
 			loading: false,
-			per_page: 10,
+			per_page: 5,
 			page: 1,
 			sort: 'rating',
 			order: 'desc',
@@ -189,6 +214,7 @@
 				rooms: 'rooms/rooms',
 				best: 'rooms/best',
 				filters: 'platforms/filters',
+				posts: 'platforms/posts',
 			}),
 
 			mediaUrl() {
@@ -223,31 +249,10 @@
 				})
 				.then(response => {
 					this.$store.commit('platforms/FETCH_PLATFORM', {
-						platform: {
-							id: response.data.id,
-							title: response.data.title,
-							heading: response.data.heading,
-							summary: response.data.summary,
-							toc: response.data.toc,
-							faq: response.data.faq,
-							text: response.data.text,
-							icon: response.data.icon,
-							created_at: response.data.created_at,
-							updated_at: response.data.updated_at,
-							topics: response.data.topics.map(this.mapTopics),
-							meta_title: response.data.meta_title,
-							meta_description: response.data.meta_description,
-							meta_keywords: response.data.meta_keywords,
-							author: {
-								username: response.data.author.username,
-								full_name: response.data.author.full_name,
-								image: response.data.author.image
-									? {
-											filename: response.data.author.image.filename,
-									  }
-									: null,
-							},
-						},
+						platform: response.data.platform,
+					})
+					this.$store.commit('platforms/FETCH_POSTS', {
+						posts: response.data.posts,
 					})
 				})
 
@@ -255,7 +260,7 @@
 				.get('rooms/list', {
 					params: {
 						geo: this.country.code,
-						per_page: 10,
+						per_page: this.per_page,
 						sort: 'rating',
 						order: 'desc',
 						platform_id: this.platform.id,

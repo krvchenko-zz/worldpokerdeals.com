@@ -57,24 +57,24 @@
 					<h3 class="block-title">
 						Участвующие румы
 					</h3>
-					<lazy-hydrate when-visible>
-						<lazy-room
-							v-for="(item, index) in promotion.rooms"
-							:id="item.id"
-							:key="index"
-							:title="item.title"
-							:slug="item.slug"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:image="item.image"
-							:network="item.network"
-							:tags="item.tags"
-							:review="item.review"
-							:small="true"
-						/>
-					</lazy-hydrate>
+					<!-- <lazy-hydrate when-visible> -->
+					<lazy-room
+						v-for="(item, index) in promotion.rooms"
+						:id="item.id"
+						:key="index"
+						:title="item.title"
+						:slug="item.slug"
+						:rating="item.rating"
+						:rakeback="item.rakeback"
+						:bonus="item.bonus"
+						:background="item.background"
+						:image="item.image"
+						:network="item.network"
+						:tags="item.tags"
+						:review="item.review"
+						:small="true"
+					/>
+					<!-- </lazy-hydrate> -->
 
 					<lazy-hydrate when-visible>
 						<faq-list
@@ -215,7 +215,9 @@
 			}),
 
 			img() {
-				return `${this.mediaUrl}/promotion-large/${this.promotion.image.filename}`
+				return this.promotion.type === 'promotion'
+					? `${this.mediaUrl}/promotion-large/${this.promotion.image.filename}`
+					: null
 			},
 
 			mediaUrl() {

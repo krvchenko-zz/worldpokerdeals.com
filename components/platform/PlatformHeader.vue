@@ -117,7 +117,7 @@
 			}
 
 			&__logo {
-				text-align: right;
+				text-align: center;
 			}
 		}
 

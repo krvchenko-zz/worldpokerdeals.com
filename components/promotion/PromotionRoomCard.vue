@@ -34,7 +34,7 @@
 					v-slot="{ href, route, navigate }"
 					:to="{
 						name: 'index',
-						params: { parent: 'rakeback-deals', child: review.url },
+						params: { parent: 'rakeback-deals', child: review.slug },
 					}"
 				>
 					<a
@@ -52,7 +52,7 @@
 				<nuxt-link
 					v-if="review"
 					v-slot="{ href, route, navigate }"
-					:to="`/rakeback-deals/${review.url}/play`"
+					:to="`/rakeback-deals/${slug}/download`"
 				>
 					<a
 						:class="[

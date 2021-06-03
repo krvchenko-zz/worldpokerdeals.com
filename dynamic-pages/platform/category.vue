@@ -56,7 +56,7 @@
 								</faq-item>
 							</faq-list>
 							<!-- Author -->
-							<author v-if="category.user" :author="category.user" />
+							<author v-if="category.author" :author="category.author" />
 							<!-- Comments -->
 							<comments
 								commentable_type="App\PlatfofmCategory"
@@ -68,16 +68,6 @@
 
 				<div class="col-3">
 					<room-top-list />
-					<topic-list v-if="category.topics && category.topics.length">
-						<topic-item
-							v-for="(item, index) in category.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
 					<post-list v-if="posts">
 						<post-item
 							v-for="(item, index) in posts"
@@ -91,9 +81,22 @@
 							:categories="item.categories"
 						></post-item>
 					</post-list>
+					<topic-list v-if="category.topics && category.topics.length">
+						<topic-item
+							v-for="(item, index) in category.topics"
+							:key="index"
+							:title="item.title"
+							:url="item.url"
+							:author="item.author"
+							:created="item.created_at"
+						/>
+					</topic-list>
+					<game-search-banner />
 				</div>
 			</div>
 		</div>
+
+		<page-banners />
 	</div>
 </template>
 

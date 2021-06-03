@@ -1,6 +1,8 @@
 <template>
 	<div class="bonus-current-list">
-		<div class="bonus-current-list__title">{{ $t('current_room_promotions') }}</div>
+		<div class="bonus-current-list__title">
+			{{ $t('current_room_promotions') }}
+		</div>
 
 		<div class="bonus-current-list__wrap">
 			<carousel

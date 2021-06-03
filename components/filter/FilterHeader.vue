@@ -1,7 +1,9 @@
 <template>
 	<div class="filters-header">
 		<div class="filters-header__text">
-			{{ $t('filtered', {total: total, overall: overall, entity: entityLabel}) }}
+			{{
+				$t('filtered', { total: total, overall: overall, entity: entityLabel })
+			}}
 		</div>
 		<div class="filters-header__geo">
 			<div class="filters-header__text_geo">{{ $t('offers_for') }}</div>

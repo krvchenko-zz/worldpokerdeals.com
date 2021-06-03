@@ -4,6 +4,7 @@ export const state = () => ({
 	platforms: null,
 	category: null,
 	filters: null,
+	posts: null,
 })
 
 // getters
@@ -12,6 +13,7 @@ export const getters = {
 	platforms: state => state.platforms,
 	category: state => state.category,
 	filters: state => state.filters,
+	posts: state => state.posts,
 }
 
 // mutations
@@ -30,6 +32,10 @@ export const mutations = {
 
 	FETCH_FILTERS(state, { filters }) {
 		state.filters = filters
+	},
+
+	FETCH_POSTS(state, { posts }) {
+		state.posts = posts
 	},
 }
 

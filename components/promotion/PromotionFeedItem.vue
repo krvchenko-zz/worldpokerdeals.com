@@ -495,8 +495,9 @@
 					margin: 0;
 				}
 				&:before {
-					top: 7px;
-					left: 0px;
+					display: none;
+					// top: 7px;
+					// left: 0px;
 				}
 			}
 

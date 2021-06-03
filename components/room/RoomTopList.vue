@@ -130,7 +130,7 @@
 
 			<nuxt-link
 				v-slot="{ href, route, navigate, isActive, isExactActive }"
-				to="/rakeback-deals"
+				to="/rakeback-deals/best-poker-rooms-2020"
 			>
 				<a
 					:class="['top-rooms__footer-link', `top-rooms__footer-link_${type}`]"
@@ -149,9 +149,7 @@
 							'top-rooms__footer-total',
 							`top-rooms__footer-total_${type}`,
 						]"
-						>{{
-							$tc('all_poker_sites', total)
-						}}
+						>{{ $tc('all_poker_sites', total) }}
 					</span>
 				</a>
 			</nuxt-link>

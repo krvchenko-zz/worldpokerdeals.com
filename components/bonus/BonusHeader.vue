@@ -28,12 +28,16 @@
 											promotion.active && 'bonus__status_active',
 										]"
 									>
-										<template v-if="promotion.active">{{ $t('active') }}</template>
+										<template v-if="promotion.active">{{
+											$t('active')
+										}}</template>
 										<template v-else>{{ $t('inactive') }}</template>
 									</span>
-									<span class="bonus__last-update"
-										>{{ $t('last_check_date', {date: dateFormat(promotion.updated_at)}) }}</span
-									>
+									<span class="bonus__last-update">{{
+										$t('last_check_date', {
+											date: dateFormat(promotion.updated_at),
+										})
+									}}</span>
 								</div>
 							</div>
 
@@ -76,7 +80,9 @@
 
 							<div class="bonus-header__col">
 								<div class="bonus__cashback">
-									<div class="bonus-header__label">{{ $t('cashback_value') }}</div>
+									<div class="bonus-header__label">
+										{{ $t('cashback_value') }}
+									</div>
 									<div class="bonus-header__value">
 										{{ promotion.cashback_value }}%
 									</div>
@@ -109,11 +115,12 @@
 								:height="16"
 								:icon="country.code"
 								prefix="flags/"
-							/><template v-if="promotion.room.restricted"
-								>{{ $t('room_geo_restricted', {country: country.from}) }}</template
-							><template v-else
-								>{{ $t('room_geo_allowed', {country: country.from}) }}</template
-							>
+							/><template v-if="promotion.room.restricted">{{
+								$t('room_geo_restricted', { country: country.from })
+							}}</template
+							><template v-else>{{
+								$t('room_geo_allowed', { country: country.from })
+							}}</template>
 						</span>
 					</div>
 

@@ -104,7 +104,8 @@
 					]"
 				>
 					<i class="bonus-item__terms-icon"></i>
-					<span @click="terms ? (showTerms = !showTerms) : (showTerms = false)"
+					<span
+						@click="terms ? (showTerms = !showTerms) : (showTerms = false)"
 						>{{ $t('bonus_conditions') }}</span
 					>
 				</span>
@@ -122,10 +123,12 @@
 						:icon="country.code"
 						prefix="flags/"
 					/>
-					<span v-if="room.restricted"
-						>{{ $t('room_geo_restricted', {country: country.from}) }}</span
-					>
-					<span v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</span>
+					<span v-if="room.restricted">{{
+						$t('room_geo_restricted', { country: country.from })
+					}}</span>
+					<span v-else>{{
+						$t('room_geo_allowed', { country: country.from })
+					}}</span>
 				</span>
 			</td>
 		</tr>
@@ -371,6 +374,7 @@
 		}
 
 		&__title {
+			white-space: nowrap;
 			display: block;
 			font-family: 'Proxima Nova Sb';
 			font-style: normal;
@@ -380,6 +384,7 @@
 		}
 
 		&__category {
+			white-space: nowrap;
 			margin-bottom: 4px;
 			padding: 4px 8px 3px 8px;
 			display: inline-block;

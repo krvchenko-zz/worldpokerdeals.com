@@ -66,7 +66,7 @@
 
 		<!-- Toc -->
 		<div class="soft-category__toc">
-			<toc-list v-if="category.toc">
+			<toc-list v-if="category.toc && category.toc.length">
 				<template #default="{ inline }">
 					<toc-item
 						v-for="(item, index) in category.toc"
@@ -253,7 +253,7 @@
 			async fetchItems() {
 				this.$nuxt.$loading.start()
 
-				console.log(this.params);
+				console.log(this.params)
 
 				await this.$axios
 					.get(`soft/list`, { params: this.params })

@@ -371,7 +371,7 @@
 			info:
 				'Рейкбек-сделки, безопасный доступ ко всем покерным сетям и комплексные решения для игроков',
 			address: 'G2 4JR, 272 Bath Street, Glasgow, United Kingdom',
-			credentials: '2006–2020 © Bosslike gaming LP. <br/> All rights reserved',
+			credentials: '2006–2021 © Bosslike gaming LP. <br/> All rights reserved',
 			activeCategory: null,
 		}),
 

@@ -8,9 +8,9 @@
 						v-slot="{ href, route, navigate, isActive, isExactActive }"
 						to="/blog"
 					>
-						<a class="btn btn-sm btn-primary" :href="href" @click="navigate"
-							>{{ $t('all_news') }}</a
-						>
+						<a class="btn btn-sm btn-primary" :href="href" @click="navigate">{{
+							$t('all_news')
+						}}</a>
 					</nuxt-link>
 				</div>
 

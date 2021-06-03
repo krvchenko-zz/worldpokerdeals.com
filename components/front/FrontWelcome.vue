@@ -25,9 +25,9 @@
 				<button-contact icon type="vk" href="https://vk.com/worldpokerdeals" />
 			</div>
 
-			<a href="/our-team" class="btn btn-block btn-border btn-welcome-banner"
-				>{{ $t('more_about_us') }}</a
-			>
+			<a href="/our-team" class="btn btn-block btn-border btn-welcome-banner">{{
+				$t('more_about_us')
+			}}</a>
 		</div>
 	</div>
 </template>

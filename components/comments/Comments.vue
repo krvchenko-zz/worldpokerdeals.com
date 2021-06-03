@@ -1,7 +1,8 @@
 <template>
 	<div class="comments">
 		<div v-if="comments" class="block-title block-title_lg">
-			{{ $t('comments') }} <span class="comments__count">{{ comments.total }}</span>
+			{{ $t('comments') }}
+			<span class="comments__count">{{ comments.total }}</span>
 		</div>
 
 		<comment-list v-if="comments">
@@ -41,8 +42,9 @@
 					prefetch
 					:to="{ name: 'register' }"
 				>
-					<a class="comments-login__link" :href="href" @click="navigate"
-						>{{ $t('comment_unauthorized.sign_in') }}</a
+					<a class="comments-login__link" :href="href" @click="navigate">{{
+						$t('comment_unauthorized.sign_in')
+					}}</a
 					>.
 				</nuxt-link>
 			</p>

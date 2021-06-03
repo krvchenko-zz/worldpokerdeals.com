@@ -179,7 +179,7 @@
 		data: () => ({
 			// loading: true,
 			loading: false,
-			per_page: 10,
+			per_page: 5,
 			page: 1,
 			sort: 'rating',
 			order: 'desc',
@@ -268,7 +268,7 @@
 				.get('rooms/list', {
 					params: {
 						geo: this.country.code,
-						per_page: 10,
+						per_page: this.per_page,
 						sort: 'rating',
 						order: 'desc',
 						game_id: this.game.id,

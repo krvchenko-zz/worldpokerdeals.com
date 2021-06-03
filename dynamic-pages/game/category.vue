@@ -32,7 +32,7 @@
 
 		<div class="article-container">
 			<div class="article-container__toc">
-				<toc-list v-if="category.toc">
+				<toc-list v-if="category.toc && category.toc.length">
 					<template #default="{ inline }">
 						<toc-item
 							v-for="(item, index) in category.toc"
@@ -64,16 +64,6 @@
 
 			<div class="article-container__aside-content">
 				<room-top-list />
-				<topic-list v-if="category.topics">
-					<topic-item
-						v-for="(item, index) in category.topics"
-						:key="index"
-						:title="item.title"
-						:url="item.url"
-						:author="item.author"
-						:created="item.created_at"
-					/>
-				</topic-list>
 				<post-list v-if="posts">
 					<post-item
 						v-for="(item, index) in posts"
@@ -87,6 +77,17 @@
 						:categories="item.categories"
 					></post-item>
 				</post-list>
+				<topic-list v-if="category.topics && category.topics.length">
+					<topic-item
+						v-for="(item, index) in category.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
+				<game-search-banner />
 			</div>
 		</div>
 

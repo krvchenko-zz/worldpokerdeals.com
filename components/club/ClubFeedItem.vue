@@ -96,9 +96,9 @@
 				</div>
 
 				<div class="club-item__actions">
-					<a class="btn btn-block btn-border club-item__join" href="#"
-						>{{ $t('join_club') }}</a
-					>
+					<a class="btn btn-block btn-border club-item__join" href="#">{{
+						$t('join_club')
+					}}</a>
 				</div>
 			</div>
 		</div>

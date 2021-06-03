@@ -164,11 +164,19 @@
   "vip_status": "VIP-статус",
   "vip_statuses": "VIP-статусы",
   "vip_status_in": "VIP-статус в {title}",
+  "access": "Доступ",
   "form": {
     "email": "Электронная почта",
     "account_id": "ID Счета",
     "contact_type": "Способ связи",
     "comment": "Вопрос или комментарий",
-    "check_your_id": "Как узнать свой ID?"
+    "check_your_id": "Как узнать свой ID?",
+    "tos": "условия передачи и хранения данных",
+    "accept": "Принимаю"
+  },
+  "search": {
+    "rooms": "Покер-румы",
+    "networks": "Покерные сети",
+    "posts": "Покерные новости"
   }
 }

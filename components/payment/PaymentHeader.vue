@@ -13,7 +13,7 @@
 			<div class="payment__content">
 				<h1 class="payment__title">{{ tab.title }}</h1>
 				<page-meta
-					:author="tab.author.full_name"
+					:author="tab.author ? tab.author.full_name : ''"
 					:created="tab.created_at"
 					:updated="tab.updated_at"
 					:dark="true"

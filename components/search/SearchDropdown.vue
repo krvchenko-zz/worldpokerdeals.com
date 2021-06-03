@@ -6,7 +6,7 @@
 				:key="index"
 				class="search-dropdown-group__wrap"
 			>
-				<li class="search-dropdown-group__title">{{ group.label }}</li>
+				<li class="search-dropdown-group__title">{{ $t(group.label) }}</li>
 				<li>
 					<ul class="search-dropdown-group">
 						<li
@@ -14,22 +14,46 @@
 							:key="idx"
 							class="search-dropdown__item"
 						>
-							<a class="search-dropdown__item-link" :href="item.url">
-								<span
-									class="search-dropdown__item-icon"
-									:style="iconStyles(item.background)"
+							<nuxt-link
+								v-slot="{ href, route, navigate, isActive, isExactActive }"
+								prefetch
+								:to="{
+									name: 'index',
+									params: {
+										parent: item.page.parent
+											? item.page.parent.slug
+											: item.page.slug,
+										child: item.page.parent ? item.page.slug : null,
+									},
+								}"
+							>
+								<a
+									class="search-dropdown__item-link"
+									:href="href"
+									@click="navigate"
 								>
-									<img
-										class="search-dropdown__item-img"
-										:src="item.icon"
-										:alt="item.title"
-									/>
-								</span>
-								<span
-									class="search-dropdown__item-label"
-									v-html="highlightSearch(item.title)"
-								></span>
-							</a>
+									<span class="search-dropdown__item-img">
+										<img
+											v-if="item.image"
+											class="search-dropdown__item-img"
+											:src="`${mediaUrl}/search-small/${item.image.filename}`"
+											:alt="item.title"
+										/>
+										<svg-icon
+											class="search-dropdown__item-icon"
+											v-else
+											:icon="item.icon"
+											:width="28"
+											:height="28"
+											viewBox="0 0 200 200"
+										/>
+									</span>
+									<span
+										class="search-dropdown__item-label"
+										v-html="highlightSearch(item.title)"
+									></span>
+								</a>
+							</nuxt-link>
 						</li>
 					</ul>
 				</li>
@@ -38,7 +62,7 @@
 	</div>
 </template>
 <script>
-	// import { mapGetters } from 'vuex'
+	import { mapGetters } from 'vuex'
 
 	export default {
 		components: {},
@@ -50,63 +74,74 @@
 		},
 
 		data: () => ({
-			data: [
-				{
-					label: 'Покер румы',
-					items: [
-						{
-							title: 'GGpoker',
-							url: '/',
-							icon:
-								'https://media.worldpokerdeals01.com/uploads/53944926f85ca26afdb1300d837cc275.png',
-							background: '#000000',
-						},
-						{
-							title: 'GGpokerOK',
-							url: '/',
-							icon:
-								'https://media.worldpokerdeals01.com/uploads/pokerok-logo.png',
-							background: '#000000',
-						},
-					],
-				},
-				{
-					label: 'Покер румы',
-					items: [
-						{
-							title: 'GGpoker',
-							url: '/',
-							icon:
-								'https://media.worldpokerdeals01.com/uploads/53944926f85ca26afdb1300d837cc275.png',
-							background: '#000000',
-						},
-						{
-							title: 'GGpokerOK',
-							url: '/',
-							icon:
-								'https://media.worldpokerdeals01.com/uploads/pokerok-logo.png',
-							background: '#000000',
-						},
-					],
-				},
-			],
+			// data: [
+			// 	{
+			// 		label: 'Покер румы',
+			// 		items: [
+			// 			{
+			// 				title: 'GGpoker',
+			// 				url: '/',
+			// 				icon:
+			// 					'https://media.worldpokerdeals01.com/uploads/53944926f85ca26afdb1300d837cc275.png',
+			// 				background: '#000000',
+			// 			},
+			// 			{
+			// 				title: 'GGpokerOK',
+			// 				url: '/',
+			// 				icon:
+			// 					'https://media.worldpokerdeals01.com/uploads/pokerok-logo.png',
+			// 				background: '#000000',
+			// 			},
+			// 		],
+			// 	},
+			// 	{
+			// 		label: 'Покер румы',
+			// 		items: [
+			// 			{
+			// 				title: 'GGpoker',
+			// 				url: '/',
+			// 				icon:
+			// 					'https://media.worldpokerdeals01.com/uploads/53944926f85ca26afdb1300d837cc275.png',
+			// 				background: '#000000',
+			// 			},
+			// 			{
+			// 				title: 'GGpokerOK',
+			// 				url: '/',
+			// 				icon:
+			// 					'https://media.worldpokerdeals01.com/uploads/pokerok-logo.png',
+			// 				background: '#000000',
+			// 			},
+			// 		],
+			// 	},
+			// ],
 			results: [],
 		}),
 
-		computed: {},
+		computed: {
+			...mapGetters({
+				locale: 'lang/locale',
+			}),
+
+			mediaUrl() {
+				return process.env.mediaUrl
+			},
+		},
 
 		watch: {
 			value: {
 				immediate: true,
 				deep: true,
-				handler(value) {
+				async handler(value) {
 					if (value !== '') {
 						this.$emit('loading', true)
-						setTimeout(() => {
-							this.$emit('open', true)
-							this.$emit('loading', false)
-							this.results = this.data
-						}, 1000)
+						const { data } = await this.$axios.get('/search', {
+							params: {
+								locale: this.locale,
+								q: value,
+							},
+						})
+						this.results = data
+						this.$emit('loading', false)
 					} else {
 						this.results = []
 					}
@@ -194,7 +229,7 @@
 				}
 			}
 			&-icon {
-				margin-right: 16px;
+				margin-right: 4px;
 				border-radius: 50%;
 				overflow: hidden;
 				width: 28px;
@@ -205,6 +240,8 @@
 				padding: 1.75px;
 			}
 			&-img {
+				border-radius: 4px;
+				margin-right: 4px;
 				max-width: 100%;
 				height: auto;
 			}

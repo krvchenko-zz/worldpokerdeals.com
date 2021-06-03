@@ -13,17 +13,17 @@ const routes = [
 		component: page('front.vue'),
 	},
 	{
-		path: '/pokernye-akcii/skrill',
+		path: '/vip-skrill',
 		name: 'skrill',
 		component: page('skrill.vue'),
 	},
 	{
-		path: '/pokernye-akcii/neteller',
+		path: '/vip-neteller',
 		name: 'neteller',
 		component: page('neteller.vue'),
 	},
 	{
-		path: '/pokernye-akcii/ecopayz',
+		path: '/vip-ecopayz',
 		name: 'ecopayz',
 		component: page('ecopayz.vue'),
 	},

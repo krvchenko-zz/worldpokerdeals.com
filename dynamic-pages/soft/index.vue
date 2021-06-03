@@ -43,6 +43,21 @@
 			<div class="article-container__aside-content">
 				<room-top-list />
 
+				<post-list>
+					<post-item
+						v-for="item in recent"
+						:key="item.id"
+						:medium="false"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+					/>
+				</post-list>
+
 				<topic-list v-if="tab.topics.length">
 					<topic-item
 						v-for="(item, index) in tab.topics"
@@ -114,12 +129,14 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'SoftPage',
 
-		components: {},
+		components: {
+			LazyHydrate,
+		},
 
 		data: () => ({
 			loading: false,
@@ -148,6 +165,7 @@
 				tab: 'soft/tab',
 				related: 'soft/related',
 				posts: 'soft/posts',
+				recent: 'soft/recent',
 			}),
 
 			mediaUrl() {
@@ -163,6 +181,9 @@
 					related: response.data.related,
 				})
 				this.$store.commit('soft/FETCH_POSTS', { posts: response.data.posts })
+				this.$store.commit('soft/FETCH_RECENT', {
+					recent: response.data.recent,
+				})
 			})
 		},
 

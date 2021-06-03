@@ -5,7 +5,7 @@
 				<h2 class="front-rooms__title">{{ $t('poker_rooms') }}</h2>
 				<nuxt-link
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
-					to="/rakeback-deals"
+					to="/rakeback-deals/best-poker-rooms-2020"
 				>
 					<a
 						class="btn btn-primary front-rooms__all-rooms-button"
@@ -17,7 +17,11 @@
 			</div>
 
 			<div class="front-rooms__details">
-				<text-spoiler class="text-spoiler_front" :text="$t('wpd_front_disclaimer')" :limit="300" />
+				<text-spoiler
+					class="text-spoiler_front"
+					:text="$t('wpd_front_disclaimer')"
+					:limit="300"
+				/>
 			</div>
 
 			<filter-tab-list>

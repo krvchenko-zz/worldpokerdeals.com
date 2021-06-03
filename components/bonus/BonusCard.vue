@@ -76,9 +76,12 @@
 						:height="16"
 						:icon="country.code"
 						prefix="flags/"
-					/><template v-if="restricted"
-						>{{ $t('room_geo_restricted', {country: country.from}) }}</template
-					><template v-else>{{ $t('room_geo_allowed', {country: country.from}) }}</template>
+					/><template v-if="restricted">{{
+						$t('room_geo_restricted', { country: country.from })
+					}}</template
+					><template v-else>{{
+						$t('room_geo_allowed', { country: country.from })
+					}}</template>
 				</span>
 			</div>
 		</div>

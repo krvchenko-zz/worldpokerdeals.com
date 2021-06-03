@@ -5,13 +5,14 @@
 		<network-header class="network__header" />
 
 		<h2
+			v-if="data.length"
 			:id="urlLit(`Все покер-румы сети ${network.title}`)"
 			class="network__rooms-title network-rooms__title"
 		>
 			Все покер-румы сети {{ network.title }}
 		</h2>
 
-		<div class="network__rooms network-rooms">
+		<div v-if="data.length" class="network__rooms network-rooms">
 			<div class="network-filters">
 				<div v-if="data.length" class="network-filters__info">
 					Показано {{ total }} из {{ overall }} покер-румов
@@ -68,7 +69,7 @@
 		</div>
 
 		<div class="network__toc">
-			<toc-list v-if="network.toc">
+			<toc-list v-if="network.toc && network.toc.length">
 				<template #default="{ inline }">
 					<toc-item
 						:inline="inline"
@@ -137,6 +138,8 @@
 					:created="item.created_at"
 				/>
 			</topic-list>
+
+			<game-search-banner />
 		</div>
 
 		<lazy-hydrate when-visible>
@@ -198,7 +201,7 @@
 
 		data: () => ({
 			loading: false,
-			per_page: 10,
+			per_page: 5,
 			page: 1,
 			sort: 'rating',
 			order: 'desc',
@@ -294,7 +297,7 @@
 				.get('rooms/list', {
 					params: {
 						geo: this.geo,
-						per_page: 10,
+						per_page: this.per_page,
 						sort: 'rating',
 						order: 'desc',
 						network_id: this.network.id,

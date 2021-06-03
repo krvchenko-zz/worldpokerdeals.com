@@ -14,12 +14,9 @@
 			:to="{ name: 'index', params: { parent: 'blog', child: slug } }"
 		>
 			<a :href="href" :class="['post-featured-item__link']">
-				<span
-					v-for="(item, index) in categories"
-					:key="index"
-					class="post-featured-item__category"
-					>{{ item.title }}</span
-				>
+				<span class="post-featured-item__category">{{
+					categories[0].title
+				}}</span>
 				<span :class="['post-featured-item__title']">{{ title }}</span>
 			</a>
 		</nuxt-link>

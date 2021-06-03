@@ -169,6 +169,8 @@
 						})
 
 						this.$store.dispatch('auth/updateUser', user)
+
+						eventBus.$emit('authModal:show', false)
 					})
 					.catch(e => {})
 			},

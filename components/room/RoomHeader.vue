@@ -43,9 +43,17 @@
 				/>
 			</div>
 
-			<div v-else-if="room.blacklist" class="room-blacklist" v-html="$t('room_blacklisted', { room: room.title })"></div>
+			<div
+				v-else-if="room.blacklist"
+				class="room-blacklist"
+				v-html="$t('room_blacklisted', { room: room.title })"
+			></div>
 
-			<div v-else-if="room.closed" class="room-blacklist" v-html="$t('room_closed', { room: room.title })"></div>
+			<div
+				v-else-if="room.closed"
+				class="room-blacklist"
+				v-html="$t('room_closed', { room: room.title })"
+			></div>
 
 			<div class="room-scores-rating">
 				<span

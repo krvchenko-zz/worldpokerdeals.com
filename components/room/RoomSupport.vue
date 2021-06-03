@@ -24,7 +24,10 @@
 				<span class="room-param__label">{{ $t('email') }}</span>
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
-					<a :href="`mailto:${email}`" class="room-param__emial">{{ email }}</a>
+					<template v-if="email === 'n/a' || email === ''">n/a</template>
+					<a v-else :href="`mailto:${email}`" class="room-param__emial">{{
+						email
+					}}</a>
 				</div>
 			</div>
 
@@ -61,7 +64,7 @@
 		props: {
 			email: {
 				type: String,
-				default: '',
+				default: 'n/a',
 			},
 
 			phone: {

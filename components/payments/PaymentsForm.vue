@@ -25,7 +25,7 @@
 				<div class="col-3 offset-md-2">
 					<form-input
 						v-model="form.email"
-						placeholder="Электронная почта"
+						:placeholder="$t('form.email')"
 						type="email"
 						name="email"
 						label-color="#636363"
@@ -41,7 +41,7 @@
 				<div class="col-2">
 					<form-input
 						v-model="form.account_id"
-						placeholder="ID Счета"
+						:placeholder="$t('form.account_id')"
 						type="text"
 						name="account_id"
 						label-color="#636363"
@@ -52,9 +52,9 @@
 					<transition name="fade">
 						<has-error :form="form" field="account_id" />
 					</transition>
-					<a v-if="type === 'skrill'" href="#" class="payments-form__link"
-						>Как узнать свой ID?</a
-					>
+					<a v-if="type === 'skrill'" href="#" class="payments-form__link">{{
+						$t('form.check_your_id')
+					}}</a>
 				</div>
 
 				<div class="col-3">
@@ -68,12 +68,13 @@
 						:loading="form.busy"
 						:error="form.errors.has('contact')"
 					>
-						<template #prefix>
+						<template v-slot:prefix>
 							<form-select
 								v-model="form.contact_type"
 								:options="contact_options"
-								placeholder="Способ связи"
+								:placeholder="$t('form.contact_type')"
 								name="contact_type"
+								:prefix="true"
 								label-color="#636363"
 								:loading="form.busy"
 								:error="form.errors.has('contact_type')"
@@ -92,7 +93,7 @@
 				<div class="col-8 offset-md-2">
 					<form-textarea
 						v-model="form.comment"
-						placeholder="Вопрос или комментарий"
+						:placeholder="$t('form.comment')"
 						name="comment"
 						label-color="#636363"
 						:required="true"
@@ -109,10 +110,8 @@
 		<div class="payments-form-group">
 			<div class="row">
 				<div class="col-8 offset-md-2">
-					<form-checkbox v-model="form.terms" label="Принимаю">
-						<a class="payments-form__link" href="#"
-							>условия передачи и хранения данных</a
-						>
+					<form-checkbox v-model="form.terms" :label="$t('form.accept')">
+						<a class="payments-form__link" href="#">{{ $t('form.tos') }}</a>
 					</form-checkbox>
 				</div>
 			</div>

@@ -83,7 +83,7 @@
 						:class="['top-rooms__item-link', 'top-rooms__item-link_download']"
 						@click="handleDownload"
 					>
-						{{ $t('room_download') }}
+						{{ $t('access') }}
 					</button>
 				</nuxt-link>
 			</div>
@@ -154,7 +154,7 @@
 			},
 
 			bonus: {
-				type: [String, Boolean],
+				type: [String, Boolean, Object],
 				default: false,
 			},
 

@@ -1,16 +1,25 @@
 <template>
 	<div :class="['club-front-item', toggled && 'club-front-item_toggled']">
 		<div :class="['club-front-item__header']">
-			<div class="club-front-item__room">
-				<svg-icon
-					class="club-front-item__room-icon"
-					view-box="0 0 200 200"
-					:icon="room.slug"
-					:width="16"
-					:height="16"
-				/>
-				{{ room.title }}
-			</div>
+			<nuxt-link
+				v-slot="{ href, route, navigate, isActive, isExactActive }"
+				prefetch
+				:to="{
+					name: 'index',
+					params: { parent: 'rakeback-deals', child: room.review.slug },
+				}"
+			>
+				<a class="club-front-item__room" :href="href" @click="navigate">
+					<svg-icon
+						class="club-front-item__room-icon"
+						view-box="0 0 200 200"
+						:icon="room.slug"
+						:width="16"
+						:height="16"
+					/>
+					{{ room.title }}
+				</a>
+			</nuxt-link>
 			<div class="club-front-item__info">
 				<rating class="club-front-item__rating" :value="room.rating" />
 				<div class="club-front-item__title">{{ title }}</div>
@@ -126,7 +135,18 @@
 			</ul>
 
 			<div class="club-front-item__actions">
-				<a class="btn btn-block btn-sm btn-primary" href="#">{{ $t('join_club') }}</a>
+				<nuxt-link
+					v-slot="{ href, route, navigate, isActive, isExactActive }"
+					prefetch
+					:to="{ name: 'contacts' }"
+				>
+					<a
+						class="btn btn-block btn-sm btn-primary"
+						:href="href"
+						@click="navigate"
+						>{{ $t('join_club') }}</a
+					>
+				</nuxt-link>
 			</div>
 		</div>
 	</div>
@@ -433,6 +453,11 @@
 			line-height: 16px;
 			font-feature-settings: 'tnum' on, 'lnum' on;
 			color: #777777;
+			text-decoration: none;
+			&:hover {
+				color: #777777;
+				text-decoration: none;
+			}
 			&-icon {
 				position: absolute;
 				top: 3px;

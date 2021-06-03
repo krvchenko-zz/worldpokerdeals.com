@@ -183,6 +183,13 @@
 
 			&_active {
 				color: #999999;
+				&:hover,
+				&:active,
+				&:focus,
+				&:visited,
+				&:link {
+					color: #999999;
+				}
 			}
 
 			&_inline {

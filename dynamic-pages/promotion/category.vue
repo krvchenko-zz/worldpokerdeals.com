@@ -5,7 +5,7 @@
 
 		<nav-list class="promotions__nav">
 			<nav-item
-				v-for="(item, index) in categories"
+				v-for="(item, index) in navs"
 				:key="index"
 				:name="item.label"
 				:page="item.page"
@@ -232,7 +232,7 @@
 				user: 'auth/user',
 				pageable: 'pages/page',
 				category: 'promotions/category',
-				categories: 'promotions/categories',
+				navs: 'promotions/categories',
 				items: 'promotions/items',
 				filters: 'promotions/filters',
 			}),
@@ -270,6 +270,7 @@
 			limits: [],
 			games: [],
 			rooms: [],
+			categoies: [],
 			networks: [],
 			data: [],
 			from: 0,

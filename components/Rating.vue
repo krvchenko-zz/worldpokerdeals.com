@@ -56,7 +56,8 @@
 		display: flex;
 		align-items: baseline;
 		justify-content: space-between;
-		flex-flow: wrap;
+		// flex-flow: wrap;
+		flex-flow: nowrap;
 		font-size: 0;
 		&__value {
 			font-family: 'Proxima Nova Sb';
