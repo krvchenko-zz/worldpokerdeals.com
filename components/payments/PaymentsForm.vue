@@ -5,130 +5,117 @@
 		@keydown="form.onKeydown($event)"
 	>
 		<div v-if="type === 'ecopayz'" class="payments-form-group">
-			<div class="row">
-				<div class="col-8 offset-md-2">
-					<form-radio-group>
-						<form-radio
-							v-for="(item, index) in account_options"
-							:key="index"
-							v-model="form.account_type"
-							:label="item.label"
-							:value="item.value"
+			<form-radio-group>
+				<form-radio
+					v-for="(item, index) in account_options"
+					:key="index"
+					v-model="form.account_type"
+					:label="item.label"
+					:value="item.value"
+				/>
+			</form-radio-group>
+		</div>
+
+		<div class="payments-form-group payments-form__credentials">
+			<div class="payments-form__credentials__email">
+				<form-input
+					v-model="form.email"
+					placeholder="Электронная почта"
+					type="email"
+					name="email"
+					label-color="#636363"
+					:required="true"
+					:loading="form.busy"
+					:error="form.errors.has('email')"
+				/>
+				<transition name="fade">
+					<has-error :form="form" field="email" />
+				</transition>
+			</div>
+
+			<div class="payments-form__credentials__account-id">
+				<form-input
+					v-model="form.account_id"
+					placeholder="ID Счета"
+					type="text"
+					name="account_id"
+					label-color="#636363"
+					:required="true"
+					:loading="form.busy"
+					:error="form.errors.has('account_id')"
+				/>
+				<transition name="fade">
+					<has-error :form="form" field="account_id" />
+				</transition>
+				<a
+					v-if="type === 'skrill'"
+					href="#"
+					class="payments-form__link payments-form__credentials__id-link"
+					>Как узнать свой ID?</a
+				>
+			</div>
+
+			<div class="payments-form__credentials__contact">
+				<form-input
+					v-model="form.contact"
+					placeholder=""
+					type="text"
+					name="contact"
+					label-color="#636363"
+					:required="true"
+					:loading="form.busy"
+					:error="form.errors.has('contact')"
+				>
+					<template #prefix>
+						<form-select
+							class="payments-form__credentials__select"
+							v-model="form.contact_type"
+							:options="contact_options"
+							placeholder="Способ связи"
+							name="contact_type"
+							label-color="#636363"
+							:loading="form.busy"
+							:error="form.errors.has('contact_type')"
 						/>
-					</form-radio-group>
-				</div>
+					</template>
+				</form-input>
+				<transition name="fade">
+					<has-error :form="form" field="contact_type" />
+				</transition>
 			</div>
 		</div>
 
 		<div class="payments-form-group">
-			<div class="row">
-				<div class="col-3 offset-md-2">
-					<form-input
-						v-model="form.email"
-						:placeholder="$t('form.email')"
-						type="email"
-						name="email"
-						label-color="#636363"
-						:required="true"
-						:loading="form.busy"
-						:error="form.errors.has('email')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="email" />
-					</transition>
-				</div>
-
-				<div class="col-2">
-					<form-input
-						v-model="form.account_id"
-						:placeholder="$t('form.account_id')"
-						type="text"
-						name="account_id"
-						label-color="#636363"
-						:required="true"
-						:loading="form.busy"
-						:error="form.errors.has('account_id')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="account_id" />
-					</transition>
-					<a v-if="type === 'skrill'" href="#" class="payments-form__link">{{
-						$t('form.check_your_id')
-					}}</a>
-				</div>
-
-				<div class="col-3">
-					<form-input
-						v-model="form.contact"
-						placeholder=""
-						type="text"
-						name="contact"
-						label-color="#636363"
-						:required="true"
-						:loading="form.busy"
-						:error="form.errors.has('contact')"
-					>
-						<template v-slot:prefix>
-							<form-select
-								v-model="form.contact_type"
-								:options="contact_options"
-								:placeholder="$t('form.contact_type')"
-								name="contact_type"
-								:prefix="true"
-								label-color="#636363"
-								:loading="form.busy"
-								:error="form.errors.has('contact_type')"
-							/>
-						</template>
-					</form-input>
-					<transition name="fade">
-						<has-error :form="form" field="contact_type" />
-					</transition>
-				</div>
-			</div>
+			<form-textarea
+				v-model="form.comment"
+				placeholder="Вопрос или комментарий"
+				name="comment"
+				label-color="#636363"
+				:required="true"
+				:loading="form.busy"
+				:error="form.errors.has('comment')"
+			/>
+			<transition name="fade">
+				<has-error :form="form" field="comment" />
+			</transition>
 		</div>
 
 		<div class="payments-form-group">
-			<div class="row">
-				<div class="col-8 offset-md-2">
-					<form-textarea
-						v-model="form.comment"
-						:placeholder="$t('form.comment')"
-						name="comment"
-						label-color="#636363"
-						:required="true"
-						:loading="form.busy"
-						:error="form.errors.has('comment')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="comment" />
-					</transition>
-				</div>
-			</div>
+			<form-checkbox v-model="form.terms" label="Принимаю">
+				<a class="payments-form__link" href="#"
+					>условия передачи и хранения данных</a
+				>
+			</form-checkbox>
 		</div>
 
 		<div class="payments-form-group">
-			<div class="row">
-				<div class="col-8 offset-md-2">
-					<form-checkbox v-model="form.terms" :label="$t('form.accept')">
-						<a class="payments-form__link" href="#">{{ $t('form.tos') }}</a>
-					</form-checkbox>
-				</div>
-			</div>
-		</div>
-
-		<div class="payments-form-group">
-			<div class="row">
-				<div class="col-8 offset-md-2">
-					<form-submit-button
-						:disabled="!form.terms || !form.account_id || !form.contact"
-						class="btn-payments-form"
-						label="Присоединиться"
-						:loading="form.busy"
-					>
-					</form-submit-button>
-				</div>
-			</div>
+			<form-submit-button
+				:disabled="!form.terms || !form.account_id || !form.contact"
+				class="btn-payments-form"
+				label="Присоединиться"
+				:loading="form.busy"
+			>
+			</form-submit-button>
 		</div>
 	</form>
 </template>
@@ -227,6 +214,25 @@
 	.payments-form {
 		margin-bottom: 48px;
 
+		&__credentials {
+			display: grid;
+			grid-template-columns: 3fr 2fr 3fr;
+			grid-template-areas: 'email account-id contact';
+			column-gap: 28px;
+			&__email {
+				grid-area: email;
+			}
+			&__account-id {
+				grid-area: account-id;
+			}
+			&__contact {
+				grid-area: contact;
+			}
+			&__select {
+				width: 100%;
+			}
+		}
+
 		&-group {
 			position: relative;
 			margin-bottom: 24px;
@@ -251,5 +257,69 @@
 
 	.btn-payments-form {
 		padding: 10px 28px;
+	}
+
+	@include mq('desktop') {
+		.payments-form {
+			&__credentials {
+				grid-template-columns: 1fr 1fr;
+				gap: 24px;
+				grid-template-areas:
+					'email account-id'
+					'contact .';
+				&__account-id {
+					display: flex;
+					align-items: center;
+				}
+				&__id-link {
+					margin-left: 24px;
+				}
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.payments-form {
+			&__credentials {
+				gap: 20px;
+				grid-template-areas:
+					'email account-id'
+					'contact contact';
+				&__account-id {
+					display: block;
+				}
+				&__id-link {
+					margin-left: 0;
+				}
+				.form-input__prepend {
+					width: 25%;
+				}
+				.form-input__value_prepend {
+					width: 75%;
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.payments-form {
+			&__credentials {
+				gap: 16px;
+				grid-template-areas:
+					'email email'
+					'account-id'
+					'contact';
+				.form-input__prepend {
+					width: 35%;
+				}
+				.form-input__value_prepend {
+					width: 65%;
+				}
+			}
+			.btn-payments-form {
+				width: 100%;
+				height: 44px;
+			}
+		}
 	}
 </style>

@@ -17,7 +17,7 @@
 			<slot name="label" />
 		</label>
 		<div
-			:class="['form-input__inner', hasPrefix && 'form-input__inner_prepend']"
+			:class="['form-input__inner', hasPrefix() && 'form-input__inner_prepend']"
 		>
 			<div class="form-input__prepend">
 				<slot name="prefix" />
@@ -38,7 +38,7 @@
 					loading && 'form-input__value_loading',
 					error && 'form-input__value_error',
 					disabled && 'form-input__value_disabled',
-					hasPrefix && 'form-input__value_prepend',
+					hasPrefix() && 'form-input__value_prepend',
 				]"
 				@input="$emit('input', $event.target.value)"
 			/>
@@ -131,17 +131,17 @@
 			showPassword: false,
 		}),
 
-		computed: {
-			hasPrefix() {
-				return this.$slots.prefix
-			},
-		},
+		computed: {},
 
 		watch: {},
 
 		created() {},
 
-		methods: {},
+		methods: {
+			hasPrefix() {
+				return !!this.$slots.prefix
+			},
+		},
 	}
 </script>
 

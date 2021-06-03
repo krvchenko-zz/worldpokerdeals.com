@@ -62,6 +62,9 @@
 
 <style lang="scss">
 	.btn-payments {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		padding: 16px 20px;
 		font-family: 'Proxima Nova Sb';
 		font-style: normal;

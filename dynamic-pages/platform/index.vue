@@ -1,161 +1,148 @@
 <template>
 	<div class="platform">
-		<div class="container-fluid">
-			<breadcrumb-list v-if="pageable" />
-			<platform-header />
-		</div>
+		<breadcrumb-list v-if="pageable" class="platform__breadcrumbs" />
+		<platform-header class="platform__header" />
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-9">
-					<div class="platform-rooms">
-						<div class="platform-filters">
-							<div v-if="data.length" class="platform-filters__info">
-								Показано {{ total }} из {{ overall }} покер-румов
-							</div>
-							<div v-if="data.length" class="platform-filters__geo">
-								<geo-switcher
-									:value="country.code"
-									:geo.sync="geo"
-									@change="fetchItems"
-								/>
-							</div>
-						</div>
-
-						<room
-							v-for="(item, index) in data"
-							v-if="data.length"
-							:id="item.id"
-							:key="index"
-							:title="item.title"
-							:slug="item.slug"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:image="item.image"
-							:restricted="item.restricted"
-							:network="item.network"
-							:tags="item.tags"
-							:review="item.review"
-						/>
-
-						<pagination
-							v-if="data.length"
-							:last="last_page"
-							:current="page"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						>
-						</pagination>
-					</div>
-
-					<div class="row">
-						<div class="col-auto">
-							<toc-list v-if="platform.toc">
-								<template #default="{ inline }">
-									<toc-item
-										v-for="(item, index) in platform.toc"
-										:key="index"
-										:index="index"
-										:inline="inline"
-										:anchor="item.anchor_id"
-										:text="item.text"
-									>
-									</toc-item>
-								</template>
-							</toc-list>
-						</div>
-
-						<div class="col col-article">
-							<!-- Article -->
-							<page-article :text="platform.text">
-								<template #footer>
-									<!-- Faq -->
-									<faq-list
-										v-if="platform.faq && platform.faq.mainEntity.length"
-										label="FAQ"
-									>
-										<faq-item
-											v-for="(item, index) in platform.faq.mainEntity"
-											:key="index"
-											:question="item.name"
-											:answer="item.acceptedAnswer.text"
-										>
-										</faq-item>
-									</faq-list>
-									<!-- Author -->
-									<author v-if="platform.author" :author="platform.author" />
-									<!-- Comments -->
-									<comments
-										commentable_type="App\PlatformTranslation"
-										:commentable_id="pageable.pageable_id"
-									/>
-								</template>
-							</page-article>
-						</div>
-					</div>
+		<div class="platform-rooms">
+			<div class="platform-filters">
+				<div v-if="data.length" class="platform-filters__info">
+					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
-
-				<div class="col-3">
-					<platform-filters
-						v-if="filters"
-						:geo="geo"
-						:kycs="filters.kycs"
-						:tags="filters.tags"
-						:payments="filters.payments"
-						:types="filters.types"
-						:licenses="filters.licenses"
-						@change="handleFilterChange"
+				<div v-if="data.length" class="platform-filters__geo">
+					<geo-switcher
+						:value="country.code"
+						:geo.sync="geo"
+						@change="fetchItems"
 					/>
-
-					<room-top-list />
-
-					<topic-list v-if="platform.topics && platform.topics.length">
-						<topic-item
-							v-for="(item, index) in platform.topics"
-							:key="index"
-							:title="item.title"
-							:url="item.url"
-							:author="item.author"
-							:created="item.created_at"
-						/>
-					</topic-list>
 				</div>
 			</div>
 
-			<lazy-hydrate when-visible>
-				<post-list
-					v-if="posts"
-					label="Похожие статьи"
-					class="post__similar-news"
-					:asRow="$device.isDesktopOrTablet"
-				>
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
-						:categories="item.categories"
-						:medium="true"
-						:asCard="$device.isMobile"
-					/>
-				</post-list>
-			</lazy-hydrate>
+			<div class="platform__rooms-list">
+				<room
+					v-for="(item, index) in data"
+					v-if="data.length"
+					:id="item.id"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:rating="item.rating"
+					:rakeback="item.rakeback"
+					:bonus="item.bonus"
+					:background="item.background"
+					:image="item.image"
+					:restricted="item.restricted"
+					:network="item.network"
+					:tags="item.tags"
+					:review="item.review"
+				/>
+			</div>
 
-			<page-banners />
+			<pagination
+				v-if="data.length"
+				:last="last_page"
+				:current="page"
+				:prev-url="prev_page_url"
+				:next-url="next_page_url"
+				:total="total"
+				:from="from"
+				:to="to"
+				@next="handlePageNext"
+				@prev="handlePagePrev"
+				@change="handlePageChange"
+				@more="handleShowMore"
+			>
+			</pagination>
 		</div>
+
+		<div class="platform__toc">
+			<toc-list v-if="platform.toc">
+				<template #default="{ inline }">
+					<toc-item
+						v-for="(item, index) in platform.toc"
+						:key="index"
+						:index="index"
+						:inline="inline"
+						:anchor="item.anchor_id"
+						:text="item.text"
+					>
+					</toc-item>
+				</template>
+			</toc-list>
+		</div>
+
+		<div class="platform__article">
+			<!-- Article -->
+			<page-article :text="platform.text">
+				<template #footer>
+					<!-- Faq -->
+					<faq-list
+						v-if="platform.faq && platform.faq.mainEntity.length"
+						label="FAQ"
+					>
+						<faq-item
+							v-for="(item, index) in platform.faq.mainEntity"
+							:key="index"
+							:question="item.name"
+							:answer="item.acceptedAnswer.text"
+						>
+						</faq-item>
+					</faq-list>
+					<!-- Author -->
+					<author v-if="platform.author" :author="platform.author" />
+					<!-- Comments -->
+					<comments
+						commentable_type="App\PlatformTranslation"
+						:commentable_id="pageable.pageable_id"
+					/>
+				</template>
+			</page-article>
+		</div>
+
+		<div class="platform__aside">
+			<platform-filters
+				v-if="filters"
+				:geo="geo"
+				:kycs="filters.kycs"
+				:tags="filters.tags"
+				:payments="filters.payments"
+				:types="filters.types"
+				:licenses="filters.licenses"
+				@change="handleFilterChange"
+			/>
+
+			<room-top-list />
+
+			<topic-list v-if="platform.topics && platform.topics.length">
+				<topic-item
+					v-for="(item, index) in platform.topics"
+					:key="index"
+					:title="item.title"
+					:url="item.url"
+					:author="item.author"
+					:created="item.created_at"
+				/>
+			</topic-list>
+		</div>
+
+		<lazy-hydrate when-visible>
+			<post-list v-if="posts" label="Похожие статьи">
+				<post-item
+					v-for="(item, index) in posts"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+					:medium="true"
+					:asCard="$device.isMobile"
+				/>
+			</post-list>
+		</lazy-hydrate>
+
+		<page-banners />
 	</div>
 </template>
 
@@ -378,6 +365,35 @@
 </script>
 
 <style lang="scss">
+	.platform {
+		width: 100%;
+		max-width: 1440px;
+		@include paddings('desktop');
+		display: grid;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		grid-template-areas:
+			'breadcrumbs breadcrumbs breadcrumbs'
+			'header header header'
+			'platform-rooms platform-rooms aside'
+			'toc article aside';
+		column-gap: 24px;
+		&__toc {
+			grid-area: toc;
+		}
+		&__article {
+			grid-area: article;
+		}
+		&__header {
+			grid-area: header;
+		}
+		&__breadcrumbs {
+			grid-area: breadcrumbs;
+		}
+		&__aside {
+			grid-area: aside;
+		}
+	}
+
 	.platform-filters {
 		margin-bottom: 24px;
 		display: flex;
@@ -399,6 +415,7 @@
 	}
 
 	.platform-rooms {
+		grid-area: platform-rooms;
 		margin-bottom: 40px;
 		&__title {
 			margin-bottom: 20px;
@@ -406,6 +423,30 @@
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+	}
+
+	@include mq('laptop') {
+		.platform {
+			@include paddings('tablet');
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'breadcrumbs'
+				'header'
+				'platform-rooms'
+				'toc'
+				'article'
+				'aside';
+		}
+	}
+
+	@include mq('tablet') {
+		.platform {
+			@include paddings('mobile');
+			&__rooms-list {
+				margin-right: -20px;
+				margin-left: -21px;
+			}
 		}
 	}
 </style>
