@@ -1,236 +1,234 @@
 <template>
 	<section :class="['content']">
 		<div class="neteller">
-			<div class="neteller-header">
-				<div class="neteller-header__wrap">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-10 offset-md-1">
-								<h1 class="neteller__title">VIP-статус Neteller</h1>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-8 offset-md-2">
-								<div class="neteller__summary">{{ summary }}</div>
-							</div>
+			<vip-payments-header
+				title="VIP-статус Neteller"
+				type="neteller"
+				:summary="summary"
+			>
+				<template #buttons>
+					<payments-button-action
+						type="neteller"
+						label="Регистрация в Neteller"
+						url="https://ntupgrade.vip/wpdeals"
+					/>
+
+					<payments-button-action
+						:external="false"
+						type="default"
+						label="Получить VIP"
+						@click="handleJoinClick"
+					/>
+				</template>
+			</vip-payments-header>
+
+			<div class="neteller-body">
+				<div class="vip-payments-advantages vip-payments-advantages--neteller">
+					<h2 class="vip-payments-advantages__title">
+						В чем преимущества в получении
+						<span class="vip-payments-advantages__title--highlight"
+							>VIP&#8209;статуса от Neteller</span
+						>
+					</h2>
+
+					<svg-icon
+						class="vip-payments-advantages__logo neteller__logo"
+						icon="neteller-logo"
+						view-box="0 0 295 50"
+					/>
+
+					<div
+						class="vip-payments-advantages__list vip-payments-advantages__list--neteller"
+					>
+						<div
+							class="vip-payments-advantages__list-item vip-payments-advantages__list-item--neteller"
+						>
+							<svg-icon
+								:width="50"
+								:height="50"
+								class="vip-payments-advantages__icon"
+								icon="neteller-comission"
+							/>
+							<span
+								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
+								><b>Сниженные комиссии</b> на транзакции</span
+							>
 						</div>
 
-						<div class="row">
-							<div class="col-3 offset-md-3">
-								<payments-button-action
-									type="neteller"
-									label="Регистрация в Neteller"
-									url="https://ntupgrade.vip/wpdeals"
-								/>
-							</div>
-							<div class="col-3">
-								<payments-button-action
-									:external="false"
-									type="default"
-									label="Получить VIP"
-									@click="handleJoinClick"
-								/>
-							</div>
+						<div
+							class="vip-payments-advantages__list-item vip-payments-advantages__list-item--neteller"
+						>
+							<svg-icon
+								:width="50"
+								:height="50"
+								class="vip-payments-advantages__icon"
+								icon="neteller-verify"
+							/>
+							<span
+								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
+								><b>Ускоренная верификация счета</b></span
+							>
+						</div>
+
+						<div
+							class="vip-payments-advantages__list-item vip-payments-advantages__list-item--neteller"
+						>
+							<svg-icon
+								:width="50"
+								:height="50"
+								class="vip-payments-advantages__icon"
+								icon="neteller-limits"
+							/>
+							<span
+								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
+								><b>Повышенные лимиты</b></span
+							>
+						</div>
+
+						<div
+							class="vip-payments-advantages__list-item vip-payments-advantages__list-item--neteller"
+						>
+							<svg-icon
+								:width="50"
+								:height="50"
+								class="vip-payments-advantages__icon"
+								icon="neteller-rakeback"
+							/>
+							<span
+								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
+								><b>Рейкбек +1,5%</b>в любом покер-руме на 3 месяца</span
+							>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="neteller-body">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-10 offset-md-1">
-							<div class="neteller-advantages">
-								<div class="row">
-									<div class="col-9">
-										<h2 class="neteller-advantages__title">
-											В чем преимущества в получении <br />
-											<span class="neteller-advantages__title-highlight"
-												>VIP-статуса от Neteller</span
-											>
-										</h2>
-									</div>
-									<div class="col-3">
-										<svg-icon
-											class="neteller__logo"
-											icon="neteller-logo"
-											view-box="0 0 295 50"
-										/>
-									</div>
+				<div class="neteller-info">
+					<div class="neteller-card neteller-card_vip">
+						<h3 class="neteller-card__title neteller-card__title_vip">
+							Neteller <br />
+							<span class="neteller-card__title-highlight"
+								>+ Worldpokerdeals</span
+							>
+						</h3>
+						<ul class="neteller-card__list">
+							<li class="neteller-card__item">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								<div>Верификации счета NETELLER <b>за 24 часа</b></div>
+							</li>
+							<li class="neteller-card__item">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								<div>
+									<b>Silver VIP</b> – за депозиты на сумму 6 000$ за квартал
 								</div>
-
-								<div class="neteller-advantages__row">
-									<div class="neteller-advantages__col">
-										<svg-icon
-											:width="50"
-											:height="50"
-											class="neteller-advantages__icon"
-											icon="neteller-comission"
-										/>
-										<span class="neteller-advantages__label"
-											><b>Сниженные комиссии</b> на транзакции</span
-										>
-									</div>
-
-									<div class="neteller-advantages__col">
-										<svg-icon
-											:width="50"
-											:height="50"
-											class="neteller-advantages__icon"
-											icon="neteller-verify"
-										/>
-										<span class="neteller-advantages__label"
-											><b>Ускоренная верификация счета</b></span
-										>
-									</div>
-
-									<div class="neteller-advantages__col">
-										<svg-icon
-											:width="50"
-											:height="50"
-											class="neteller-advantages__icon"
-											icon="neteller-limits"
-										/>
-										<span class="neteller-advantages__label"
-											><b>Повышенные лимиты</b></span
-										>
-									</div>
-
-									<div class="neteller-advantages__col">
-										<svg-icon
-											:width="50"
-											:height="50"
-											class="neteller-advantages__icon"
-											icon="neteller-rakeback"
-										/>
-										<span class="neteller-advantages__label"
-											><b>Рейкбек +1,5%</b>в любом покер-руме на 3 месяца</span
-										>
-									</div>
+							</li>
+							<li class="neteller-card__item">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								<div>
+									<b>Эксклюзивный статус Bronze Pro VIP</b> (после верификации)
 								</div>
-							</div>
+							</li>
+							<li class="neteller-card__item">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								Персональная поддержка по всем вопросам в режиме реального
+								времени
+							</li>
+							<li class="neteller-card__item">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								Решение нестандартных задач: ввод/вывод больших сумм, переводы в
+								другие платежные системы и т.д.
+							</li>
+						</ul>
+					</div>
 
-							<div class="neteller-info">
-								<div class="row">
-									<div class="col-6">
-										<div class="neteller-card neteller-card_vip">
-											<h3 class="neteller-card__title neteller-card__title_vip">
-												Neteller <br />
-												<span class="neteller-card__title-highlight"
-													>+ Worldpokerdeals</span
-												>
-											</h3>
-											<ul class="neteller-card__list">
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													Верификации счета NETELLER <b>за 24 часа</b>
-												</li>
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													<b>Silver VIP</b> – за депозиты на сумму 6 000$ за
-													квартал
-												</li>
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													<b>Эксклюзивный статус Bronze Pro VIP</b> (после
-													верификации)
-												</li>
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													Персональная поддержка по всем вопросам в режиме
-													реального времени
-												</li>
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													Решение нестандартных задач: ввод/вывод больших сумм,
-													переводы в другие платежные системы и т.д.
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="neteller-card">
-											<h3 class="neteller-card__title">Обычный клиент</h3>
-											<ul class="neteller-card__list">
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													Верификация счета с срок от 3 дней
-												</li>
-												<li
-													class="neteller-card__item neteller-card__item_plus"
-												>
-													Silver VIP – за депозиты на сумму 15 000$ за квартал
-												</li>
-												<li
-													style="min-height: 85px;"
-													class="neteller-card__item neteller-card__item_minus"
-												>
-													Нет
-												</li>
-												<li
-													style="min-height: 85px;"
-													class="neteller-card__item neteller-card__item_minus"
-												>
-													Нет
-												</li>
-												<li
-													style="min-height: 85px;"
-													class="neteller-card__item neteller-card__item_minus"
-												>
-													Нет
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="neteller-card">
+						<h3 class="neteller-card__title">Обычный клиент</h3>
+						<ul class="neteller-card__list">
+							<li class="neteller-card__item neteller-card__item--common-user">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								Верификация счета с срок от 3 дней
+							</li>
+							<li class="neteller-card__item neteller-card__item--common-user">
+								<svg-icon
+									icon="neteller-plus"
+									class="neteller-card__item__icon"
+								/>
+								Silver VIP – за депозиты на сумму 15 000$ за квартал
+							</li>
+							<li class="neteller-card__item neteller-card__item--common-user">
+								<svg-icon
+									icon="neteller-minus"
+									class="neteller-card__item__icon"
+								/>
+								Нет
+							</li>
+							<li class="neteller-card__item neteller-card__item--common-user">
+								<svg-icon
+									icon="neteller-minus"
+									class="neteller-card__item__icon"
+								/>
+								Нет
+							</li>
+							<li class="neteller-card__item neteller-card__item--common-user">
+								<svg-icon
+									icon="neteller-minus"
+									class="neteller-card__item__icon"
+								/>
+								Нет
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 
 			<div id="neteller-footer" class="neteller-footer">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-8 offset-md-2">
-							<h2 class="neteller-footer__title">
-								Заполнить заявку на VIP-статус
-							</h2>
-							<div class="neteller-footer__info">
-								Заполните заявку на подключение к нашей VIP программе для
-								Skrill, и получите лучшие условия обслуживания, а так же быстрый
-								саппорт, в который вы можете обратиться по любому вопросу.
-							</div>
-						</div>
-					</div>
-					<payments-form action="/payments/neteller/getvip" type="neteller" />
-
-					<div class="row">
-						<div class="col-8 offset-md-2">
-							<manager
-								v-if="manager"
-								:style="{ margin: 0 }"
-								:pattern="true"
-								:status="false"
-								:image="manager.image"
-								:name="manager.name"
-								:position="manager.position"
-								:telegram="manager.telegram"
-								:skype="manager.skype"
-								:whatsapp="manager.whatsapp"
-								:email="manager.email"
-								label="Остались вопросы? Напишите нам"
-								description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса Skrill"
-							/>
-						</div>
-					</div>
+				<h2 class="neteller-footer__title">
+					Заполнить заявку на VIP-статус
+				</h2>
+				<div class="neteller-footer__info">
+					Заполните заявку на подключение к нашей VIP программе для Skrill, и
+					получите лучшие условия обслуживания, а так же быстрый саппорт, в
+					который вы можете обратиться по любому вопросу.
 				</div>
+
+				<payments-form
+					class="neteller-footer__payment"
+					action="/payments/neteller/getvip"
+					type="neteller"
+				/>
+
+				<manager
+					v-if="manager"
+					:style="{ margin: 0 }"
+					:pattern="true"
+					:status="false"
+					:image="manager.image"
+					:name="manager.name"
+					:position="manager.position"
+					:telegram="manager.telegram"
+					:skype="manager.skype"
+					:whatsapp="manager.whatsapp"
+					:email="manager.email"
+					label="Остались вопросы? Напишите нам"
+					description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса Skrill"
+				/>
 			</div>
 		</div>
 	</section>
@@ -310,67 +308,20 @@
 <style lang="scss">
 	$neteller-bg: url('~assets/i/neteller-bg.jpg');
 	$ico-neteller-form: url('~assets/i/ico-neteller-form.svg?data');
-	$ico-neteller-plus: url('~assets/i/ico-neteller-plus.svg?data');
-	$ico-neteller-minus: url('~assets/i/ico-neteller-minus.svg?data');
 
 	.neteller {
-		&-header {
-			position: relative;
-			min-height: 658px;
-			background: $neteller-bg no-repeat center;
-			background-size: cover;
-			clip-path: polygon(0 0, 100% 0%, 100% calc(450 / 658 * 100%), 0 98%);
-			&:before {
-				content: '';
-				left: 0;
-				top: 0;
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				display: block;
-				background: radial-gradient(
-					96.88% 66.11% at 57.43% 2.13%,
-					#84a94c 0%,
-					#4a7b25 100%
-				);
-				mix-blend-mode: normal;
-				opacity: 0.7;
-				box-shadow: 0px 15px 30px rgba(106, 148, 59, 0.3);
-				transform: matrix(-1, 0, 0, 1, 0, 0);
-			}
-			&__wrap {
-				z-index: 1;
-				position: relative;
-			}
-		}
-
-		&__title {
-			margin-top: 24px;
-			margin-bottom: 20px;
-			font-family: Proxima Nova;
-			font-style: normal;
-			font-weight: bold;
-			font-size: 40px;
-			line-height: 44px;
-			text-align: center;
-			color: #ffffff;
-		}
-
-		&__summary {
-			margin-bottom: 40px;
-			font-family: Proxima Nova;
-			font-size: 20px;
-			line-height: 24px;
-			text-align: center;
-			color: #ffffff;
-		}
-
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		max-width: 1440px;
 		&__logo {
 			max-width: 100%;
 		}
 
 		&-body {
-			margin-top: -360px;
+			width: 100%;
+			margin-top: -336px;
 			background: linear-gradient(
 				180deg,
 				rgba(236, 235, 235, 0) 0%,
@@ -378,80 +329,28 @@
 			);
 		}
 
-		&-advantages {
-			margin-bottom: 70px;
-			padding: 40px 40px 44px 40px;
-			background: radial-gradient(
-				96.88% 66.11% at 57.43% 2.13%,
-				#3a3e51 0%,
-				#1d1f2c 100%
-			);
-			border-radius: 10px;
-
-			&__title {
-				margin-bottom: 44px;
-				font-family: 'Proxima Nova Sb';
-				font-style: normal;
-				font-size: 32px;
-				line-height: 36px;
-				color: #ffffff;
-				&-highlight {
-					font-family: 'Proxima Nova Th';
-					color: #f6a519;
-				}
-			}
-
-			&__label {
-				font-family: Proxima Nova;
-				font-style: normal;
-				font-weight: normal;
-				font-size: 20px;
-				line-height: 24px;
-				color: #ffffff;
-			}
-
-			&__icon {
-				margin-bottom: 20px;
-				flex: 0 0 50px;
-			}
-
-			&__row {
-				display: flex;
-			}
-
-			&__col {
-				margin-bottom: 28px;
-				margin-right: 28px;
-				display: flex;
-				width: calc(100% / 3);
-				flex-flow: column;
-				&:last-child {
-					margin-right: 0;
-				}
-			}
-		}
-
 		&-card {
 			position: relative;
+			max-width: 586px;
 			z-index: 1;
-			margin-left: -14px;
-			margin-bottom: 60px;
-			border-bottom-left-radius: 10px;
 			border-bottom-right-radius: 10px;
+			flex-grow: 1;
+			margin-left: -10px;
 			background: linear-gradient(0deg, #e5e5e5, #e5e5e5),
 				radial-gradient(61.16% 100% at 61.16% 0%, #9d2777 0%, #731a56 61.46%);
 			&_vip {
+				max-width: 578px;
+				border-bottom-left-radius: 10px;
 				z-index: 2;
-				margin-right: -14px;
+				margin-left: 0px;
 				box-shadow: 0px 30px 100px rgba(0, 0, 0, 0.15);
 				background: linear-gradient(0deg, #f8f8f8, #f8f8f8),
 					radial-gradient(61.16% 100% at 61.16% 0%, #9d2777 0%, #731a56 61.46%);
 			}
 			&__title {
 				margin-bottom: 0;
-				border-top-left-radius: 10px;
 				border-top-right-radius: 10px;
-				padding: 28px 40px;
+				padding: 28px 40px 28px 50px;
 				color: #f8f8f8;
 				font-family: Proxima Nova;
 				font-weight: bold;
@@ -461,7 +360,9 @@
 				background: linear-gradient(0deg, #6b6d7c, #6b6d7c),
 					radial-gradient(61.16% 100% at 61.16% 0%, #9d2777 0%, #731a56 61.46%);
 				&_vip {
+					border-top-left-radius: 10px;
 					margin-top: -32px;
+					padding: 28px 40px;
 					font-family: 'Proxima Nova Th';
 					font-size: 32px;
 					line-height: 32px;
@@ -485,32 +386,38 @@
 
 			&__list {
 				min-height: 208px;
-				margin: 0 0 32px 0;
+				margin: 0 0 8px 0;
 				padding: 0;
 			}
 
 			&__item {
-				padding: 20px 40px 20px 76px;
+				display: flex;
+				gap: 16px;
+				padding: 20px 40px;
+				min-height: 85px;
 				list-style: none;
 				font-family: Proxima Nova;
 				font-size: 18px;
 				line-height: 22px;
 				color: #555555;
 				border-bottom: 1px solid #d5d5d5;
+				&--common-user {
+					padding-left: 50px;
+				}
 				&:last-child {
 					border-bottom: 0;
 				}
-				&_plus {
-					background: $ico-neteller-plus no-repeat 40px 20px;
-				}
-
-				&_minus {
-					background: $ico-neteller-minus no-repeat 40px 20px;
+				&__icon {
+					flex-shrink: 0;
 				}
 			}
 		}
 
 		&-footer {
+			width: 807px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			&__title {
 				padding-top: 112px;
 				margin-top: 44px;
@@ -535,7 +442,102 @@
 		}
 	}
 
+	.neteller-info {
+		display: flex;
+		margin: 0 auto;
+		padding-bottom: 60px;
+		padding-top: 36px;
+		justify-content: center;
+		max-width: 1152px;
+	}
+
 	.ptn-payments-form {
 		padding: 10px 45px;
+	}
+
+	@include mq('laptop') {
+		.neteller-info {
+			max-width: 1016px;
+		}
+	}
+
+	@include mq('laptop') {
+		.neteller-body {
+			width: 100%;
+			@include paddings('tablet');
+		}
+
+		.neteller-card {
+			max-width: 50%;
+			&__item {
+				padding: 20px 24px;
+				&--common-user {
+					padding-left: 34px;
+				}
+				&:nth-child(4) {
+					min-height: 107px;
+				}
+			}
+			&__title {
+				padding: 28px 24px;
+				padding-left: 34px;
+				&_vip {
+					padding-left: 24px;
+				}
+			}
+		}
+
+		.neteller-footer {
+			width: 100%;
+			@include paddings('tablet');
+			&__payment {
+				width: 100%;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.neteller-body {
+			margin-top: -276px;
+			@include paddings('mobile');
+		}
+		.neteller-card {
+			min-width: 304px;
+			&_vip {
+				box-shadow: 0px 30px 100px rgba(0, 0, 0, 0.15);
+			}
+			&__item {
+				padding: 20px;
+				min-height: 106px;
+				&--common-user {
+					padding-left: 30px;
+				}
+				&:nth-child(4) {
+					min-height: 129px;
+				}
+			}
+		}
+		.neteller-info {
+			overflow-x: scroll;
+			scrollbar-width: none;
+			justify-content: flex-start;
+			margin-left: -20px;
+			padding-left: 20px;
+			margin-right: -20px;
+		}
+
+		.neteller-footer {
+			&__title {
+				font-size: 28px;
+				padding-top: 0;
+				padding-left: 88px;
+				background-position: center left;
+				background-size: 64px 64px;
+				text-align: left;
+			}
+			&__info {
+				text-align: left;
+			}
+		}
 	}
 </style>

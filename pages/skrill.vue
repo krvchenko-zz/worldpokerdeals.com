@@ -1,109 +1,107 @@
 <template>
 	<section :class="['content']">
 		<div class="skrill">
-			<div class="skrill-header">
-				<div class="skrill-header__wrapper">
-					<h1 class="skrill__title">VIP-статус Skrill</h1>
+			<vip-payments-header
+				title="VIP-статус Skrill"
+				type="skrill"
+				:summary="summary"
+			>
+				<template #buttons>
+					<payments-button-action
+						type="skrill"
+						label="Регистрация в Skrill"
+						url="https://ntupgrade.vip/wpdeals"
+					/>
 
-					<div class="skrill__summary">{{ summary }}</div>
-
-					<div class="skrill-header__buttons">
-						<payments-button-action
-							type="skrill"
-							label="Регистрация в Skrill"
-							url="https://ntupgrade.vip/wpdeals"
-						/>
-
-						<payments-button-action
-							:external="false"
-							type="default"
-							label="Получить VIP"
-							@click="handleJoinClick"
-						/>
-					</div>
-				</div>
-			</div>
+					<payments-button-action
+						:external="false"
+						type="default"
+						label="Получить VIP"
+						@click="handleJoinClick"
+					/>
+				</template>
+			</vip-payments-header>
 
 			<div class="skrill-body">
-				<div class="skrill-advantages">
-					<h2 class="skrill-advantages__title">
+				<div class="vip-payments-advantages skrill-advantages">
+					<h2 class="vip-payments-advantages__title">
 						В чем преимущества в получении <br />
-						<span class="skrill-advantages__title-highlight"
+						<span class="vip-payments-advantages__title--highlight"
 							>VIP-статуса от Skrill</span
 						>
 					</h2>
 
 					<svg-icon
-						class="skrill-advantages__skrill-icon skrill__logo"
+						class="vip-payments-advantages__logo skrill__logo"
 						icon="skrill-logo"
 					/>
 
-					<div class="skrill-advantages__list">
-						<div class="skrill-advantages__list-item">
+					<div class="vip-payments-advantages__list">
+						<div class="vip-payments-advantages__list-item">
 							<svg-icon
 								:width="50"
 								:height="50"
-								class="skrill-advantages__icon"
+								class="vip-payments-advantages__icon"
 								icon="skrill-advantages"
 							/>
-							<span class="skrill-advantages__label"
+							<span class="vip-payments-advantages__label"
 								><b>Льготные преимущества</b> использования Skrill</span
 							>
 						</div>
-						<div class="skrill-advantages__list-item">
+						<div class="vip-payments-advantages__list-item">
 							<svg-icon
 								:width="50"
 								:height="50"
-								class="skrill-advantages__icon"
+								class="vip-payments-advantages__icon"
 								icon="skrill-support"
 							/>
-							<span class="skrill-advantages__label"
+							<span class="vip-payments-advantages__label"
 								><b>Поддержка на русском языке</b> по email, Skype, Telegram и в
 								соцсетях</span
 							>
 						</div>
-						<div class="skrill-advantages__list-item">
+						<div class="vip-payments-advantages__list-item">
 							<svg-icon
 								:width="50"
 								:height="50"
-								class="skrill-advantages__icon"
+								class="vip-payments-advantages__icon"
 								icon="skrill-verify"
 							/>
-							<span class="skrill-advantages__label"
+							<span class="vip-payments-advantages__label"
 								><b>Верификация</b> за 24 часа</span
 							>
 						</div>
 
-						<div class="skrill-advantages__list-item">
+						<div class="vip-payments-advantages__list-item">
 							<svg-icon
 								:width="50"
 								:height="50"
-								class="skrill-advantages__icon"
+								class="vip-payments-advantages__icon"
 								icon="skrill-rakeback"
 							/>
-							<span class="skrill-advantages__label"
+							<span class="vip-payments-advantages__label"
 								><b>1,5% рейкбэка</b> в любом покер-руме на 3 месяца</span
 							>
 						</div>
-						<div class="skrill-advantages__list-item">
+						<div class="vip-payments-advantages__list-item">
 							<svg-icon
 								:width="50"
 								:height="50"
-								class="skrill-advantages__icon"
+								class="vip-payments-advantages__icon"
 								icon="skrill-limits"
 							/>
-							<span class="skrill-advantages__label"
+							<span class="vip-payments-advantages__label"
 								><b>Увеличение лимитов</b></span
 							>
 						</div>
-						<div class="skrill-advantages__list-item">
+						<div class="vip-payments-advantages__list-item">
 							<svg-icon
 								:width="50"
 								:height="50"
-								class="skrill-advantages__icon"
+								class="vip-payments-advantages__icon"
 								icon="skrill-arbitrage"
 							/>
-							<span class="skrill-advantages__label"
+							<span class="vip-payments-advantages__label"
 								>Помощь в решении спорных вопросов за 24 часа</span
 							>
 						</div>
@@ -359,66 +357,6 @@
 		align-items: center;
 		width: 100%;
 		max-width: 1440px;
-		&-header {
-			position: relative;
-			width: 100%;
-			min-height: 658px;
-			background: $skrill-bg no-repeat center;
-			background-size: cover;
-			clip-path: polygon(0 0, 100% 0%, 100% calc(450 / 658 * 100%), 0 98%);
-			&:before {
-				content: '';
-				left: 0;
-				top: 0;
-				z-index: -1;
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				display: block;
-				background: radial-gradient(
-					100% 100% at 100% 0%,
-					#9d2777 0%,
-					#731a56 61.46%
-				);
-				opacity: 0.7;
-				box-shadow: 0px 15px 30px rgba(115, 27, 86, 0.3);
-				transform: matrix(-1, 0, 0, 1, 0, 0);
-			}
-			&__wrapper {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				max-width: 818px;
-				margin: 0 auto;
-			}
-			&__buttons {
-				display: flex;
-				width: 680px;
-				gap: 28px;
-				height: 50px;
-			}
-		}
-
-		&__title {
-			margin-top: 24px;
-			margin-bottom: 20px;
-			font-family: Proxima Nova;
-			font-style: normal;
-			font-weight: bold;
-			font-size: 40px;
-			line-height: 44px;
-			text-align: center;
-			color: #ffffff;
-		}
-
-		&__summary {
-			margin-bottom: 40px;
-			font-family: Proxima Nova;
-			font-size: 20px;
-			line-height: 24px;
-			text-align: center;
-			color: #ffffff;
-		}
 
 		&-body {
 			margin-top: -318px;
@@ -427,72 +365,6 @@
 				rgba(236, 235, 235, 0) 0%,
 				#f3f1f1 100%
 			);
-		}
-
-		&-advantages {
-			display: grid;
-			grid-template-columns: 3fr 2fr;
-			grid-template-areas:
-				'title logo'
-				'list list';
-			row-gap: 44px;
-			position: relative;
-			margin-bottom: 40px;
-			padding: 40px 60px 44px 32px;
-			max-width: 1016px;
-			margin-left: auto;
-			margin-right: auto;
-			background: radial-gradient(
-				96.88% 66.11% at 57.43% 2.13%,
-				#3a3e51 0%,
-				#1d1f2c 100%
-			);
-			border-radius: 10px;
-
-			&__skrill-icon {
-				grid-area: logo;
-				justify-self: end;
-				align-self: center;
-			}
-
-			&__title {
-				grid-area: title;
-				font-family: 'Proxima Nova Sb';
-				font-style: normal;
-				font-size: 32px;
-				line-height: 36px;
-				color: #ffffff;
-				&-highlight {
-					font-family: 'Proxima Nova Th';
-					color: #f6a519;
-				}
-			}
-
-			&__label {
-				padding-top: 15px;
-				padding-left: 20px;
-				font-family: Proxima Nova;
-				font-style: normal;
-				font-weight: normal;
-				font-size: 20px;
-				line-height: 24px;
-				color: #ffffff;
-			}
-
-			&__icon {
-				flex: 0 0 50px;
-			}
-			&__list {
-				grid-area: list;
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				column-gap: 24px;
-				row-gap: 28px;
-			}
-
-			&__list-item {
-				display: flex;
-			}
 		}
 
 		&-info {
@@ -591,6 +463,10 @@
 				flex-direction: column;
 				min-height: 376px;
 			}
+
+			.btn-payments {
+				margin-top: auto;
+			}
 		}
 
 		&-footer {
@@ -625,66 +501,10 @@
 		}
 	}
 
-	.btn-payments_plain {
-		margin-top: auto;
-	}
-	.ptn-payments-form {
-		padding: 10px 45px;
-	}
-
-	@include mq('desktop') {
-		.skrill {
-		}
-		.skrill-header {
-			&__wrapper {
-				max-width: 808px;
-			}
-			&__buttons {
-				justify-content: center;
-			}
-		}
-
-		.btn-payments_skrill {
-			max-width: 290px;
-		}
-		.btn-payments_default {
-			max-width: 284px;
-		}
-	}
-
 	@include mq('laptop') {
-		.skrill-header {
-			@include paddings('tablet');
-			&__wrapper {
-				width: 100%;
-			}
-			&__buttons {
-				gap: 20px;
-			}
-		}
-
 		.skrill-body {
 			width: 100%;
 			@include paddings('tablet');
-		}
-
-		.skrill-advantages {
-			padding: 28px 24px 32px;
-			grid-template-columns: 1fr 1fr;
-			&__list {
-				grid-template-columns: 1fr 1fr;
-				column-gap: 20px;
-			}
-			&__skrill-icon {
-				margin: 0 auto;
-			}
-		}
-
-		.btn-payments_skrill {
-			max-width: 288px;
-		}
-		.btn-payments_default {
-			max-width: 288px;
 		}
 
 		.skrill-card {
@@ -715,38 +535,9 @@
 	}
 
 	@include mq('tablet') {
-		.skrill-header {
-			@include paddings('mobile');
-			&__buttons {
-				width: 100%;
-				gap: 16px;
-				.btn {
-					height: 44px;
-				}
-			}
-		}
-
 		.skrill-body {
 			@include paddings('mobile');
 			margin-top: -307px;
-		}
-
-		.skrill-advantages {
-			grid-template-columns: 1fr;
-			align-items: center;
-			grid-template-areas:
-				'logo'
-				'title'
-				'list';
-			row-gap: 24px;
-			&__title {
-				font-size: 24px;
-				text-align: center;
-			}
-			&__list {
-				grid-template-columns: 1fr;
-				row-gap: 20px;
-			}
 		}
 
 		.skrill-info {
