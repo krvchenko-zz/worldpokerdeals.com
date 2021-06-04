@@ -20,7 +20,7 @@
 			<front-clubs />
 		</lazy-hydrate>
 		<lazy-hydrate when-visible>
-			<page-banners class="page-banners_front" />
+			<page-banners class="page-banners_front" :front="true" />
 		</lazy-hydrate>
 		<lazy-hydrate when-visible>
 			<front-features />

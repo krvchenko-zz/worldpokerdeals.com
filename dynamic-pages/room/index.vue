@@ -10,7 +10,9 @@
 					<toc-item
 						:inline="inline"
 						:anchor="urlLit(tab.title)"
-						:text="tab.title"
+						:text="
+							tab.is_review ? $t('room_about', { room: room.title }) : tab.title
+						"
 					>
 					</toc-item>
 					<toc-item
@@ -21,6 +23,10 @@
 						:anchor="item.anchor_id"
 						:text="item.text"
 					>
+					</toc-item>
+					<toc-item :inline="inline" anchor="faq" text="Вопросы и ответы">
+					</toc-item>
+					<toc-item :inline="inline" anchor="reviews" text="Отзывы игроков">
 					</toc-item>
 				</template>
 			</toc-list>
@@ -37,7 +43,11 @@
 				:meta="true"
 			>
 				<template #footer>
-					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" label="FAQ">
+					<faq-list
+						id="faq"
+						v-if="tab.faq && tab.faq.mainEntity.length"
+						label="FAQ"
+					>
 						<faq-item
 							v-for="(item, index) in tab.faq.mainEntity"
 							:key="index"
@@ -56,7 +66,7 @@
 
 					<author v-if="tab.author" :author="tab.author" />
 
-					<reviews :room_id="room.id" :reviews="reviews" />
+					<reviews id="reviews" :room_id="room.id" :reviews="reviews" />
 				</template>
 			</page-article>
 

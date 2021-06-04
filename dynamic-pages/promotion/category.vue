@@ -304,10 +304,7 @@
 				})
 				.then(response => {
 					this.$store.commit('promotions/FETCH_CATEGORY', {
-						category: response.data.category,
-					})
-					this.$store.commit('promotions/FETCH_BEST', {
-						best: response.data.best,
+						category: response.data,
 					})
 				})
 

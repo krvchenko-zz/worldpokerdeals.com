@@ -165,6 +165,7 @@
   "vip_statuses": "VIP-статусы",
   "vip_status_in": "VIP-статус в {title}",
   "access": "Доступ",
+  "room_about": "О {room}",
   "form": {
     "email": "Электронная почта",
     "account_id": "ID Счета",

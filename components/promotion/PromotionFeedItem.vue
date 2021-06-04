@@ -388,7 +388,6 @@
 		}
 
 		&__title {
-			margin-bottom: 12px;
 		}
 
 		&__icon {
@@ -654,7 +653,6 @@
 		}
 
 		&__code {
-			margin-bottom: 12px;
 			position: relative;
 			cursor: pointer;
 			display: block;

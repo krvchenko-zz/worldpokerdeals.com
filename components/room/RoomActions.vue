@@ -56,6 +56,7 @@
 
 	.btn-room-action {
 		&_download {
+			max-width: 212px;
 			margin-right: 14px;
 			padding: 13px 70px 15px 70px;
 			&:after {
@@ -63,6 +64,7 @@
 			}
 		}
 		&_connection {
+			max-width: 212px;
 			margin-left: 14px;
 			padding: 12px 40px 14px 40px;
 			border: 2px solid rgba(85, 85, 85, 0.4);

@@ -322,6 +322,7 @@
 			eventBus.$on('authModal:show', event => {
 				this.authModal = event
 				this.auth = event
+				document.body.classList.remove('modal-open')
 			})
 
 			eventBus.$on('registerModal:show', event => {

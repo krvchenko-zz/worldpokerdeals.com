@@ -69,7 +69,7 @@
 					v-if="rooms.length"
 					:query="true"
 					:last="last_page"
-					:current="parseInt(page)"
+					:current="parseInt(page) || current_page"
 					:prev-url="prev_page_url"
 					:next-url="next_page_url"
 					:total="total"
@@ -309,28 +309,7 @@
 				.get(`rooms/category/${this.pageable.slug}`)
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
-						category: {
-							id: response.data.item.id,
-							title: response.data.item.title,
-							icon: response.data.item.icon,
-							author: {
-								full_name: response.data.item.author.full_name,
-								image: {
-									filename: response.data.item.author.image.filename,
-								},
-							},
-							created_at: response.data.item.created_at,
-							updated_at: response.data.item.updated_at,
-							summary: response.data.item.summary,
-							text: response.data.item.text,
-							is_blacklist: response.data.item.is_blacklist,
-							faq: response.data.item.faq,
-							toc: response.data.item.toc,
-							topics: response.data.item.topics,
-							meta_title: response.data.item.meta_title,
-							meta_description: response.data.item.meta_description,
-							meta_keywords: response.data.item.meta_keywords,
-						},
+						category: response.data.item,
 					})
 
 					this.$store.commit('rooms/FETCH_BEST', { best: response.data.best })
@@ -432,17 +411,17 @@
 			},
 
 			handlePageNext() {
-				this.page = this.current_page + 1
+				this.page = parseInt(this.current_page) + 1
 				this.fetchItems()
 			},
 
 			handlePagePrev() {
-				this.page = this.current_page - 1
+				this.page = parseInt(this.current_page) - 1
 				this.fetchItems()
 			},
 
 			handlePageChange(number) {
-				this.page = number
+				this.page = parseInt(number)
 				this.fetchItems()
 			},
 

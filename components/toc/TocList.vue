@@ -49,6 +49,7 @@
 		position: sticky;
 		top: 100px;
 		width: 208px;
+		align-self: start;
 		&_inline {
 			width: auto;
 			top: 0;

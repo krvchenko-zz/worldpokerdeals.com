@@ -22,7 +22,7 @@
 			<game-item
 				v-for="item in games"
 				:key="item.slug"
-				:title="item.title"
+				:title="item.name || item.title"
 				:icon="item.icon"
 				:rooms="item.rooms"
 				:page="item.page"
@@ -168,6 +168,7 @@
 					this.$store.commit('games/FETCH_GAMES', {
 						games: response.data.map(item => ({
 							title: item.title,
+							name: item.name,
 							icon: item.icon,
 							page: item.page,
 							rooms: item.rooms_count,

@@ -149,6 +149,10 @@
 				type: Boolean,
 			},
 
+			available: {
+				type: Boolean,
+			},
+
 			country: {
 				type: Object,
 			},

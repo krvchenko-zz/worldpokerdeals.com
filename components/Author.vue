@@ -48,14 +48,10 @@
 </template>
 
 <script>
-	import ButtonContact from '~/components/ButtonContact'
-
 	export default {
 		name: 'Author',
 
-		components: {
-			ButtonContact,
-		},
+		components: {},
 
 		props: {
 			author: {
@@ -102,7 +98,7 @@
 			}
 		}
 		&-info {
-			width: 100%;
+			flex-grow: 1;
 			margin-right: 30px;
 			&__label {
 				margin-bottom: 5px;

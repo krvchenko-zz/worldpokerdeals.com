@@ -94,10 +94,10 @@
 			></div>
 
 			<div
-				:class="[
-					'room-item__rating',
-					!available || (blacklist && 'room-item__rating_disabled'),
-				]"
+				:class="{
+					'room-item__rating': true,
+					'room-item__rating_disabled': !available || blacklist,
+				}"
 			>
 				<rating :value="rating" />
 			</div>
@@ -573,16 +573,12 @@
 				&:active,
 				&:focus,
 				&:visited {
+					background: #ff4151;
 					color: #ffffff;
 				}
-			}
-			&_disabled {
-				cursor: not-allowed;
-				background: #aaaaaa;
-				&:hover,
-				&:active,
-				&:focus {
-					background: #aaaaaa;
+				&[disabled='disabled'] {
+					opacity: 0.5;
+					cursor: not-allowed;
 				}
 			}
 			&_blacklist {

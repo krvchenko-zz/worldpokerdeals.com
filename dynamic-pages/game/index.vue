@@ -56,7 +56,7 @@
 		</div>
 
 		<div class="game__toc">
-			<toc-list v-if="tab.toc">
+			<toc-list v-if="tab.toc && tab.toc.length">
 				<template #default="{ inline }">
 					<toc-item
 						v-for="(item, index) in tab.toc"
@@ -107,9 +107,8 @@
 			/>
 
 			<room-top-list />
-			<!-- <room-top-list v-sticky="{topSpacing: 100}" /> -->
 
-			<topic-list v-if="tab.topics">
+			<topic-list v-if="tab.topics && tab.topics.length">
 				<topic-item
 					v-for="(item, index) in tab.topics"
 					:key="index"
@@ -119,6 +118,8 @@
 					:created="item.created_at"
 				/>
 			</topic-list>
+
+			<game-search-banner />
 		</div>
 
 		<lazy-hydrate when-visible>
@@ -269,6 +270,7 @@
 					params: {
 						geo: this.country.code,
 						per_page: this.per_page,
+						locale: this.locale,
 						sort: 'rating',
 						order: 'desc',
 						game_id: this.game.id,

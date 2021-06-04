@@ -41,8 +41,8 @@
 					v-for="(item, index) in game.tabs"
 					:key="index"
 					:params="{
-						parent: 'raznovidnosti-pokera',
-						child: item.slug,
+						parent: item.page.parent ? item.page.parent.slug : item.page.slug,
+						child: item.page.parent ? item.page.slug : null,
 					}"
 					:name="item.name"
 				>

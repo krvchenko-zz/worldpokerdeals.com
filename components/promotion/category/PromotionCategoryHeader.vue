@@ -32,34 +32,39 @@
 			</div>
 			<div class="promotions-header__promotion">
 				<promotion-item
-					v-if="best && category.entity === 'promotion'"
-					:image="best.image"
-					:title="best.title"
-					:summary="best.summary"
-					:page="best.page"
-					:author="best.author"
-					:created="best.created_at"
-					:category="best.category"
-					:time_left="best.time_left"
-					:time_before="best.time_before"
-					:regularity="best.regularity"
-					:prize="best.prize"
-					:currency="best.currency ? best.currency.symbol : ''"
-					:exclusive="best.exclusive"
-					:active="best.active"
+					v-if="category.promotion && category.entity === 'promotion'"
+					:image="category.promotion.image"
+					:title="category.promotion.title"
+					:summary="category.promotion.summary"
+					:page="category.promotion.page"
+					:author="category.promotion.author"
+					:created="category.promotion.created_at"
+					:category="category.promotion.category"
+					:time_left="category.promotion.time_left"
+					:time_before="category.promotion.time_before"
+					:regularity="category.promotion.regularity"
+					:prize="category.promotion.prize"
+					:currency="
+						category.promotion.currency
+							? category.promotion.currency.symbol
+							: ''
+					"
+					:exclusive="category.promotion.exclusive"
+					:active="category.promotion.active"
 					:featured="true"
 				/>
 
 				<room-top
-					v-if="best && category.entity === 'bonus'"
-					:id="best.room.id"
-					:title="best.room.title"
-					:slug="best.room.slug"
-					:restricted="best.room.restricted"
+					v-if="category.promotion && category.entity === 'bonus'"
+					:id="category.promotion.room.id"
+					:title="category.promotion.room.title"
+					:slug="category.promotion.room.slug"
+					:restricted="category.promotion.room.restricted"
 					:country="country"
-					:rating="best.room.rating"
-					:bonus="best"
-					:review="best.room.review"
+					:rating="category.promotion.room.rating"
+					:bonus="category.promotion.room.top_bonus"
+					:review="category.promotion.room.review"
+					label="Лучший бонус"
 				/>
 			</div>
 		</div>
@@ -68,7 +73,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 
 	export default {
 		name: 'PromotionCategoryHeader',
@@ -88,7 +92,6 @@
 				category: 'promotions/category',
 				pageable: 'pages/page',
 				categories: 'promotions/categories',
-				best: 'promotions/best',
 			}),
 		},
 

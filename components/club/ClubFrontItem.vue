@@ -6,7 +6,10 @@
 				prefetch
 				:to="{
 					name: 'index',
-					params: { parent: 'rakeback-deals', child: room.review.slug },
+					params: {
+						parent: 'rakeback-deals',
+						child: room.review ? room.review.slug : null,
+					},
 				}"
 			>
 				<a class="club-front-item__room" :href="href" @click="navigate">
