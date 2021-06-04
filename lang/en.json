@@ -95,7 +95,33 @@
   "rating_position": "Position<br>in our rating",
   "rating_excluded": "Excluded <br> from our rating",
   "our_ratings": "Our ratings",
-  "how_we_rate": "How do we rate?",
+  "how_we_rate": {
+    "title": "How do we rate?",
+    "reliability": {
+      "title": "Reliability",
+      "text": "In this block, we check the operator's license and its reputation (yes, not all licenses are equally 'useful'), the random number generator (RNG) certificate (or lack of), the identity verification procedure (KYC), year of brand foundation, public information about the owners and player reviews from our website and specialized forums."
+    },
+    "promotions": {
+      "title": "Bonuses and promotions",
+      "text": "Promotions are vital for attracting and retaining customers. And for players — an additional benefit like rakeback and bonuses. Here we consider the rake structure, the deposit bonus and wagering terms, and net rakeback value. We also assess the regularity and scope of the promotions."
+    },
+    "game_selection": {
+      "title": "Game selection",
+      "text": "For any player is crucial that the room features regular action at his favorite game and at suitable stakes. In this assessment, we consider the total cash traffic of the site, the number of poker disciplines in the lobby, stakes, and the quantity and variety of regular MTT tournaments. A plus for the room will be offering games like Omaha, Spins, fast-fold poker, short deck (6+) heads-up (HU)."
+    },
+    "casual_players": {
+      "title": "Casual players",
+      "text": "Poker would not be poker if it were not for the competitive element and the influence of skill in the result. We highlight the weakness of the field in a separate rating based on the results of our team (we always test the poker sites ourselves before adding them to our portfolio) and the win rates of our players. Also, we consider the ecology rules, the attitude towards PRO players, poker software, HUD, poker trackers, mining, and bumhunt."
+    },
+    "software": {
+      "title": "Convenience of the software",
+      "text": "While a professional player may quickly adapt to inconvenient software, then for beginners and casual players, the usability of the client is almost the main decisive factor. In this section, we test and evaluate the PC and mobile client of the rooms, its stability, and the cross-platform compatibility."
+    },
+    "withdrawal_speed": {
+      "title": "Deposits and withdrawals",
+      "text": "It's easy to understand why the ability to quickly and conveniently deposit or withdraw any amount by simply clicking a few buttons is so essential. The best online poker rooms create the most comfortable cashier for their customers. A player who can process money transactions in a matter of hours remains satisfied with the service and loyal to the operator. We lock at the number of supported e-wallets, the speed and limits for withdrawing money, commissions on cashouts, and the availability of an agent's cashier."
+    }
+  },
   "room_download": "Sign up",
   "club_access": "Access to clubs",
   "manager_chat": "Contact us",

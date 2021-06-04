@@ -95,7 +95,33 @@
   "rating_position": "Posición<br>en nuestro rating",
   "rating_excluded": "Excluida de <br> nuestro rating",
   "our_ratings": "Nuestras calificaciones",
-  "how_we_rate": "¿Cómo calificamos?",
+  "how_we_rate": {
+    "title": "¿Cómo calificamos?",
+    "reliability": {
+      "title": "Confiabilidad",
+      "text": "En este bloque validamos la licencia del operador y la reputación de esta (sí, no todas las licencias son igual de “útiles”) el certificado del generador de números aleatorio (RNG) o la ausencia del mismo, el procedimiento de verificación de identidad (KYC), año de fundación de la marca, información pública acerca de los propietarios y reseñas de los jugadores de nuestro sitio web y foros especializados."
+    },
+    "promotions": {
+      "title": "Bonos y promociones",
+      "text": "Las promociones son vitales para atraer y retener a los clientes. Y para los jugadores — un beneficio adicional como rakeback y bonos. Aquí consideramos la estructura de rake, el bono de depósito y las condiciones para liberarlo, además del valor neto del cashback. También evaluamos la periodicidad y alcance de las promociones."
+    },
+    "game_selection": {
+      "title": "Selección de juegos",
+      "text": "Para cualquier jugador es importante que la sala tenga acción regular en su juego y límites favoritos. En esta evaluación tenemos en cuenta el tráfico total de mesas de dinero del sitio, la cantidad de formatos ofrecidos en el lobby, stakes, y la cantidad y variedad de torneos MTT regulares. Un plus para la sala sería tener juegos como Omaha, Spins, póker rápido, short deck (6+) heads-up (HU)."
+    },
+    "casual_players": {
+      "title": "Jugadores casuales",
+      "text": "El póker no sería póker si no fuera por el elemento competitivo y la influencia de la habilidad en el resultado. Resaltamos el nivel de habilidad de las mesas en una clasificación independiente con base a los resultados de nuestro equipo (siempre probamos las salas de póker antes de añadirlas a nuestro portafolio) y las tasas de ganancias de nuestros jugadores. Además, tenemos en cuenta las normas de “ecología”, la actitud hacía jugadores profesionales, software de póker, HUD, trackers, mining, y bumhunt."
+    },
+    "software": {
+      "title": "Amabilidad del software",
+      "text": "Mientras que un jugador profesional puede adaptarse fácilmente a un software poco amigable, para los principiantes y jugadores casuales, la usabilidad del cliente es casi el principal factor de decisión. En esta sección probamos y evaluamos el cliente de PC y móvil, su estabilidad, y la compatibilidad entre distintas plataformas."
+    },
+    "withdrawal_speed": {
+      "title": "Depósitos y retiros",
+      "text": "Es fácil entender porque la posibilidad de depositar y retirar fácil y rápidamente simplemente haciendo clic en un par de botones es tan importante. Las mejores salas de póker crean los cajeros más cómodos para sus clientes. Un jugador que pueda procesar transacciones de dinero en cuestión de horas estará satisfecho y se mantendrá leal al operador. Verificamos la cantidad de monederos electrónicos (e-wallets) soportados, la velocidad de depósitos y retiros, comisiones en extracciones, y la disponibilidad de un cajero agente."
+    }
+  },
   "room_download": "Registro",
   "club_access": "Acceso a clubes",
   "manager_chat": "Contáctanos",

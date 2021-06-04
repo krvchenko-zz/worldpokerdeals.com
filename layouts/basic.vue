@@ -196,7 +196,7 @@
 							color: '#222222',
 						}"
 					>
-						Как мы оцениваем
+						{{ $t('how_we_rate.title') }}
 					</div>
 				</template>
 				<template #body>
