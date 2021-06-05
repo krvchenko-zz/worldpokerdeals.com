@@ -1,6 +1,9 @@
 <template>
 	<form
 		class="payments-form"
+		:class="{
+			'payments-form--skrill': type === 'skrill',
+		}"
 		@submit.prevent="submit"
 		@keydown="form.onKeydown($event)"
 	>
@@ -262,11 +265,8 @@
 	@include mq('desktop') {
 		.payments-form {
 			&__credentials {
-				grid-template-columns: 1fr 1fr;
+				grid-template-columns: 2.5fr 1.5fr 4fr;
 				gap: 24px;
-				grid-template-areas:
-					'email account-id'
-					'contact .';
 				&__account-id {
 					display: flex;
 					align-items: center;
@@ -275,12 +275,20 @@
 					margin-left: 24px;
 				}
 			}
+
+			&--skrill &__credentials {
+				grid-template-columns: 1fr 1fr;
+				grid-template-areas:
+					'email account-id'
+					'contact .';
+			}
 		}
 	}
 
 	@include mq('laptop') {
 		.payments-form {
 			&__credentials {
+				grid-template-columns: 1fr 1fr;
 				gap: 20px;
 				grid-template-areas:
 					'email account-id'
@@ -298,6 +306,13 @@
 					width: 75%;
 				}
 			}
+
+			&--skrill &__credentials {
+				grid-template-columns: 1fr 1fr;
+				grid-template-areas:
+					'email account-id'
+					'contact contact';
+			}
 		}
 	}
 
@@ -305,8 +320,9 @@
 		.payments-form {
 			&__credentials {
 				gap: 16px;
+				grid-template-columns: 100%;
 				grid-template-areas:
-					'email email'
+					'email'
 					'account-id'
 					'contact';
 				.form-input__prepend {
@@ -320,6 +336,19 @@
 				width: 100%;
 				height: 44px;
 			}
+
+			&--skrill &__credentials {
+				grid-template-columns: 100%;
+				grid-template-areas:
+					'email'
+					'account-id'
+					'contact';
+			}
+		}
+
+		.form-radio-group__wrap {
+			flex-direction: column;
+			gap: 20px;
 		}
 	}
 </style>

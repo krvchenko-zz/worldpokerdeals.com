@@ -1,245 +1,217 @@
 <template>
 	<section :class="['content', 'content_ecopayz']">
 		<div class="ecopayz">
-			<div class="ecopayz-header">
-				<div class="ecopayz-header__wrap">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-10 offset-md-1">
-								<h1 class="ecopayz__title">VIP-статус ecoPayz</h1>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-8 offset-md-2">
-								<div class="ecopayz__summary">{{ summary }}</div>
-							</div>
-						</div>
+			<vip-payments-header
+				title="VIP-статус ecoPayz"
+				type="ecopayz"
+				:summary="summary"
+			>
+				<template #buttons>
+					<payments-button-action
+						type="ecopayz"
+						label="Регистрация в ecoPayz"
+						url="https://ntupgrade.vip/wpdeals"
+					/>
 
-						<div class="row">
-							<div class="col-3 offset-md-3">
-								<payments-button-action
-									type="ecopayz"
-									label="Регистрация в ecoPayz"
-									url="https://ntupgrade.vip/wpdeals"
-								/>
-							</div>
-							<div class="col-3">
-								<payments-button-action
-									:external="false"
-									type="default"
-									label="Получить VIP"
-									@click="handleJoinClick"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+					<payments-button-action
+						:external="false"
+						type="default"
+						label="Получить VIP"
+						@click="handleJoinClick"
+					/>
+				</template>
+			</vip-payments-header>
 
 			<div class="ecopayz-body">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-10 offset-md-1">
-							<div class="ecopayz-advantages">
-								<div class="row">
-									<div class="col-6">
-										<h2 class="ecopayz-advantages__title">
-											В чем преимущества в получении <br />
-											<span class="ecopayz-advantages__title-highlight"
-												>VIP-статуса от ecoPayz</span
-											>
-										</h2>
-									</div>
-									<div class="col-6">
-										<svg-icon
-											class="ecopayz__logo"
-											icon="ecopayz-logo"
-											view-box="0 0 305 72"
-										/>
-									</div>
-								</div>
+				<div class="ecopayz-advantages">
+					<div class="ecopayz-advantages__header">
+						<h2 class="ecopayz-advantages__title">
+							В чем преимущества в получении
+							<span class="ecopayz-advantages__title-highlight"
+								>VIP&#8209;статуса от ecoPayz</span
+							>
+						</h2>
 
-								<div class="ecopayz-advantages__row">
-									<div class="ecopayz-advantages__col">
-										<svg-icon
-											:width="50"
-											:height="50"
-											class="ecopayz-advantages__icon"
-											icon="ecopayz-gold"
-										/>
-										<span class="ecopayz-advantages__label"
-											><b>Статус GOLD</b> после верификации</span
-										>
-									</div>
-									<div class="ecopayz-advantages__col">
-										<svg-icon
-											:width="50"
-											:height="50"
-											class="ecopayz-advantages__icon"
-											icon="ecopayz-rakeback"
-										/>
-										<span class="ecopayz-advantages__label"
-											><b>1,5% рейкбэка</b> в любом покер-руме на 3 месяца</span
-										>
-									</div>
-								</div>
+						<svg-icon
+							class="ecopayz__logo ecopayz-advantages__header-logo"
+							icon="ecopayz-logo"
+							view-box="0 0 305 72"
+						/>
+					</div>
 
-								<div class="ecopayz-list-wrap">
-									<div class="ecopayz-list-wrap__title">
-										<b>ecoPayz</b> <span> + Worldpokerdeals</span>
-									</div>
-									<ul class="ecopayz-list">
-										<li class="ecopayz-list__item">
-											Мгновенное оформление статуса Gold за верификацию
-										</li>
-										<li class="ecopayz-list__item">
-											VIP статус за пополнение счета на €10 000
-										</li>
-										<li class="ecopayz-list__item">Персональная поддержка</li>
-										<li class="ecopayz-list__item">
-											Безлимитное количество счетов в 45 валютах
-										</li>
-										<li class="ecopayz-list__item">
-											Повышенные лимиты на транзакции
-										</li>
-										<li class="ecopayz-list__item">
-											Бесплатное пополнение через банк в России и Украине
-										</li>
-										<li class="ecopayz-list__item">Персональная поддержка</li>
-										<li class="ecopayz-list__item">
-											Переводы внутри системы — 0%
-										</li>
-										<li class="ecopayz-list__item">
-											Пополнение счета банковской картой – от 1,69% до 2,90%
-										</li>
-									</ul>
-								</div>
-
-								<div class="ecopayz-advantages-footer">
-									<figure class="ecopayz-advantages-footer__item">
-										<img
-											loading="lazy"
-											decoding="async"
-											src="~assets/i/ecopayz-gold-img.png"
-											alt="Статус GOLD"
-										/>
-										<figcaption>Статус GOLD</figcaption>
-									</figure>
-									<figure class="ecopayz-advantages-footer__item">
-										<img
-											loading="lazy"
-											decoding="async"
-											src="~assets/i/ecopayz-rakeback-img.png"
-											alt="1,5% рейкбэка в любом покер-руме на 3 месяца"
-										/>
-										<figcaption>
-											1,5% рейкбэка в любом покер-руме на 3 месяца
-										</figcaption>
-									</figure>
-								</div>
-							</div>
-
-							<div class="ecopayz-info">
-								<div class="ecopayz-info__title">
-									Сравнение условий получения статусов
-								</div>
-
-								<table class="ecopayz-table">
-									<thead>
-										<tr>
-											<th>Статус</th>
-											<th>
-												Клиент <br />
-												WorldPokerDeals
-											</th>
-											<th>Обычный клиент</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Gold</td>
-											<td>Пройти верификацию личности и адреса</td>
-											<td>
-												<ul class="ecopayz-table-list">
-													<li class="ecopayz-table-list__item">
-														Пройти верификацию личности и адреса
-													</li>
-													<li class="ecopayz-table-list__item">
-														Верифицировать банковскую карту
-													</li>
-													<li class="ecopayz-table-list__item">
-														Внести депозит на €5 000 или €2 500 с кредитной
-														карты
-													</li>
-													<li class="ecopayz-table-list__item">
-														Иметь Silver ecoAccount в течение 30 дней
-													</li>
-													<li class="ecopayz-table-list__item">
-														Совершить покупки на € 25 000 (или эквивалентную
-														сумму в валюте)
-													</li>
-												</ul>
-											</td>
-										</tr>
-										<tr>
-											<td>VIP</td>
-											<td>Пополнить счет на €10 000</td>
-											<td>
-												<ul class="ecopayz-table-list">
-													<li class="ecopayz-table-list__item">
-														Владеть Platinum статусом в течение 30 дней
-													</li>
-													<li class="ecopayz-table-list__item">
-														Совершить покупки (сделать депозиты) на €25 0000
-													</li>
-												</ul>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+					<div class="ecopayz-advantages__row">
+						<div class="ecopayz-advantages__col">
+							<svg-icon
+								:width="50"
+								:height="50"
+								class="ecopayz-advantages__icon"
+								icon="ecopayz-gold"
+							/>
+							<span class="ecopayz-advantages__label"
+								><b>Статус GOLD</b> после верификации</span
+							>
+						</div>
+						<div class="ecopayz-advantages__col">
+							<svg-icon
+								:width="50"
+								:height="50"
+								class="ecopayz-advantages__icon"
+								icon="ecopayz-rakeback"
+							/>
+							<span class="ecopayz-advantages__label"
+								><b>1,5% рейкбэка</b> в любом покер-руме на 3 месяца</span
+							>
 						</div>
 					</div>
+
+					<div class="ecopayz-list-wrap">
+						<div class="ecopayz-list-wrap__title">
+							<b>ecoPayz</b> <span> + Worldpokerdeals</span>
+						</div>
+						<ul class="ecopayz-list">
+							<li class="ecopayz-list__item">
+								Мгновенное оформление статуса Gold за верификацию
+							</li>
+							<li class="ecopayz-list__item">
+								VIP статус за пополнение счета на €10 000
+							</li>
+							<li class="ecopayz-list__item">Персональная поддержка</li>
+							<li class="ecopayz-list__item">
+								Безлимитное количество счетов в 45 валютах
+							</li>
+							<li class="ecopayz-list__item">
+								Повышенные лимиты на транзакции
+							</li>
+							<li class="ecopayz-list__item">
+								Бесплатное пополнение через банк в России и Украине
+							</li>
+							<li class="ecopayz-list__item">Персональная поддержка</li>
+							<li class="ecopayz-list__item">
+								Переводы внутри системы — 0%
+							</li>
+							<li class="ecopayz-list__item">
+								Пополнение счета банковской картой – от 1,69% до 2,90%
+							</li>
+						</ul>
+					</div>
+
+					<div class="ecopayz-advantages-footer">
+						<figure class="ecopayz-advantages-footer__item">
+							<img
+								loading="lazy"
+								decoding="async"
+								src="~assets/i/ecopayz-gold-img.png"
+								alt="Статус GOLD"
+							/>
+							<figcaption class="ecopayz-advantages-footer__caption">
+								Статус GOLD
+							</figcaption>
+						</figure>
+						<figure class="ecopayz-advantages-footer__item">
+							<img
+								loading="lazy"
+								decoding="async"
+								src="~assets/i/ecopayz-rakeback-img.png"
+								alt="1,5% рейкбэка в любом покер-руме на 3 месяца"
+							/>
+							<figcaption class="ecopayz-advantages-footer__caption">
+								1,5% рейкбэка в любом покер-руме на 3 месяца
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+
+				<div class="ecopayz-info">
+					<div class="ecopayz-info__title">
+						Сравнение условий получения статусов
+					</div>
+
+					<table class="ecopayz-table">
+						<thead>
+							<tr>
+								<th class="ecopayz-table__status">Статус</th>
+								<th class="ecopayz-table__header-wpd">
+									Клиент <br />
+									WorldPokerDeals
+								</th>
+								<th class="ecopayz-table__header-common">Обычный клиент</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Gold</td>
+								<td>Пройти верификацию личности и адреса</td>
+								<td>
+									<ul class="ecopayz-table-list">
+										<li class="ecopayz-table-list__item">
+											Пройти верификацию личности и адреса
+										</li>
+										<li class="ecopayz-table-list__item">
+											Верифицировать банковскую карту
+										</li>
+										<li class="ecopayz-table-list__item">
+											Внести депозит на €5 000 или €2 500 с кредитной карты
+										</li>
+										<li class="ecopayz-table-list__item">
+											Иметь Silver ecoAccount в течение 30 дней
+										</li>
+										<li class="ecopayz-table-list__item">
+											Совершить покупки на € 25 000 (или эквивалентную сумму в
+											валюте)
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>VIP</td>
+								<td>Пополнить счет на €10 000</td>
+								<td>
+									<ul class="ecopayz-table-list">
+										<li class="ecopayz-table-list__item">
+											Владеть Platinum статусом в течение 30 дней
+										</li>
+										<li class="ecopayz-table-list__item">
+											Совершить покупки (сделать депозиты) на €25 0000
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 
 			<div id="ecopayz-footer" class="ecopayz-footer">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-8 offset-md-2">
-							<h2 class="ecopayz-footer__title">
-								Заполнить заявку на VIP-статус
-							</h2>
-							<div class="ecopayz-footer__info">
-								Заполните заявку на подключение к нашей VIP программе для
-								ecoPayz, и получите лучшие условия обслуживания, а так же
-								быстрый саппорт, в который вы можете обратиться по любому
-								вопросу.
-							</div>
-						</div>
-					</div>
-					<payments-form action="/payments/ecopayz/getvip" type="ecopayz" />
-
-					<div class="row">
-						<div class="col-8 offset-md-2">
-							<manager
-								v-if="manager"
-								:style="{ margin: 0 }"
-								:pattern="true"
-								:status="false"
-								:image="manager.image"
-								:name="manager.name"
-								:position="manager.position"
-								:telegram="manager.telegram"
-								:skype="manager.skype"
-								:whatsapp="manager.whatsapp"
-								:email="manager.email"
-								label="Остались вопросы? Напишите нам"
-								description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса ecoPayz"
-							/>
-						</div>
-					</div>
+				<h2 class="ecopayz-footer__title">
+					Заполнить заявку на VIP-статус
+				</h2>
+				<div class="ecopayz-footer__info">
+					Заполните заявку на подключение к нашей VIP программе для ecoPayz, и
+					получите лучшие условия обслуживания, а так же быстрый саппорт, в
+					который вы можете обратиться по любому вопросу.
 				</div>
+
+				<payments-form
+					class="ecopayz-footer__payment"
+					action="/payments/ecopayz/getvip"
+					type="ecopayz"
+				/>
+
+				<manager
+					v-if="manager"
+					:style="{ margin: 0 }"
+					:pattern="true"
+					:status="false"
+					:image="manager.image"
+					:name="manager.name"
+					:position="manager.position"
+					:telegram="manager.telegram"
+					:skype="manager.skype"
+					:whatsapp="manager.whatsapp"
+					:email="manager.email"
+					label="Остались вопросы? Напишите нам"
+					description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса ecoPayz"
+				/>
 			</div>
 		</div>
 	</section>
@@ -261,7 +233,7 @@
 
 		data: () => ({
 			summary:
-				'ecoPayz является одним из самых популярных кошельков для игроков в покер.  Он удобный и безопасный. А если вы зарегистрируете ecoPayz с нами, то сможете получить VIP обслуживание, быстрый саппорт и много других полезных функций!',
+				'ecoPayz является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете ecoPayz с нами, то сможете получить VIP обслуживание, быстрый саппорт и много других полезных функций!',
 
 			manager: null,
 		}),
@@ -317,68 +289,28 @@
 </script>
 
 <style lang="scss">
-	$ecopayz-bg: url('~assets/i/ecopayz-bg.jpg');
 	$ico-ecopayz-form: url('~assets/i/ico-ecopayz-form.svg?data');
 	$ico-ecopayz-plus: url('~assets/i/ico-ecopayz-plus.svg?data');
 	$ico-ecopayz-list: url('~assets/i/ico-ecopayz-list.svg?data');
 
 	.ecopayz {
-		&-header {
-			position: relative;
-			min-height: 658px;
-			background: $ecopayz-bg no-repeat center;
-			background-size: cover;
-			clip-path: polygon(0 0, 100% 0%, 100% calc(450 / 658 * 100%), 0 98%);
-			&:before {
-				content: '';
-				left: 0;
-				top: 0;
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				display: block;
-				background: radial-gradient(
-					100% 100% at 100% 0%,
-					#10579b 0%,
-					#033564 61.46%
-				);
-				opacity: 0.7;
-				transform: matrix(-1, 0, 0, 1, 0, 0);
-			}
-			&__wrap {
-				z-index: 1;
-				position: relative;
-			}
-		}
-
-		&__title {
-			margin-top: 24px;
-			margin-bottom: 20px;
-			font-family: Proxima Nova;
-			font-style: normal;
-			font-weight: bold;
-			font-size: 40px;
-			line-height: 44px;
-			text-align: center;
-			color: #ffffff;
-		}
-
-		&__summary {
-			margin-bottom: 40px;
-			font-family: Proxima Nova;
-			font-size: 20px;
-			line-height: 24px;
-			text-align: center;
-			color: #ffffff;
-		}
-
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		max-width: 1440px;
 		&__logo {
 			float: right;
 			max-width: 100%;
 		}
 
 		&-body {
-			margin-top: -360px;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: relative;
+			margin-top: -338px;
 			background: linear-gradient(
 				180deg,
 				rgba(236, 235, 235, 0) 0%,
@@ -387,6 +319,7 @@
 		}
 
 		&-advantages {
+			max-width: 1152px;
 			padding: 40px 40px 44px 40px;
 			background: radial-gradient(
 				96.88% 66.11% at 57.43% 2.13%,
@@ -394,8 +327,15 @@
 				#1d1f2c 100%
 			);
 			border-radius: 10px;
+			&__header {
+				display: flex;
+			}
+			&__header-logo {
+				margin-left: auto;
+			}
 
 			&__title {
+				max-width: 640px;
 				margin-bottom: 44px;
 				font-family: 'Proxima Nova Sb';
 				font-style: normal;
@@ -420,22 +360,18 @@
 			}
 
 			&__icon {
-				margin-bottom: 20px;
 				flex: 0 0 50px;
 			}
 
 			&__row {
 				display: flex;
+				gap: 28px;
+				padding-bottom: 44px;
 			}
 
 			&__col {
-				margin-bottom: 28px;
-				margin-right: 28px;
 				display: flex;
 				width: calc(100% / 2);
-				&:last-child {
-					margin-right: 0;
-				}
 			}
 
 			&-footer {
@@ -516,6 +452,7 @@
 		}
 
 		&-info {
+			max-width: 1152px;
 			&__title {
 				margin: 40px 0 77px 0;
 				font-family: Proxima Nova;
@@ -706,6 +643,13 @@
 		}
 
 		&-footer {
+			width: 916px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			&__payment {
+				width: 100%;
+			}
 			&__title {
 				padding-top: 112px;
 				margin-top: 44px;
@@ -732,5 +676,166 @@
 
 	.ptn-payments-form {
 		padding: 10px 45px;
+	}
+
+	@include mq('desktop') {
+		.ecopayz-advantages {
+			max-width: 1016px;
+		}
+		.ecopayz-info {
+			max-width: 1016px;
+		}
+		.ecopayz-footer {
+			max-width: 916px;
+		}
+	}
+
+	@include mq('laptop') {
+		.ecopayz-body {
+			width: 100%;
+			@include paddings('tablet');
+		}
+
+		.ecopayz-advantages {
+			padding: 28px 24px 40px;
+			&__title {
+				margin-bottom: 40px;
+			}
+			&-footer {
+				margin-top: -62px;
+				&__item {
+					margin-bottom: 0;
+				}
+			}
+		}
+		.ecopayz-list {
+			column-gap: 20px;
+			row-gap: 16px;
+			&__item {
+				width: calc(100% / 2 - 10px);
+				margin-right: 0;
+				margin-bottom: 0;
+			}
+		}
+
+		.ecopayz-footer {
+			width: 100%;
+			@include paddings('tablet');
+		}
+	}
+
+	@include mq('tablet') {
+		.ecopayz-body {
+			width: 100%;
+			margin-top: -290px;
+			@include paddings('mobile');
+		}
+
+		.ecopayz-advantages {
+			@include paddings('mobile');
+			padding-bottom: 28px;
+			&__header {
+				flex-direction: column-reverse;
+				align-items: center;
+			}
+			&__header-logo {
+				margin-left: 0;
+				max-width: 190px;
+			}
+			&__title {
+				font-size: 24px;
+				text-align: center;
+				margin-bottom: 24px;
+			}
+			&__row {
+				flex-direction: column;
+				padding-bottom: 24px;
+			}
+			&__col {
+				width: 100%;
+			}
+		}
+
+		.ecopayz-list {
+			row-gap: 16px;
+			&__item {
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 0;
+			}
+			&-wrap {
+				padding: 34px 40px 86px;
+				margin-left: -40px;
+				margin-right: -40px;
+			}
+		}
+
+		.ecopayz-advantages-footer {
+			img {
+				max-width: 100px;
+			}
+			&__item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				flex: 0 0 50%;
+			}
+			&__caption {
+				max-width: 180px;
+			}
+		}
+
+		.ecopayz-info {
+			width: calc(100% + 20px);
+			padding-top: 52px;
+			overflow-x: scroll;
+			@include hide-scroll();
+			max-width: none;
+			margin-right: -20px;
+			align-self: flex-start;
+			&__title {
+				display: none;
+			}
+		}
+
+		.ecopayz-table {
+			width: auto;
+			table-layout: fixed;
+			thead tr th:nth-child(1) {
+				min-width: 108px;
+				font-size: 20px;
+				line-height: 24px;
+			}
+			tbody tr td {
+				font-size: 24px;
+			}
+			thead tr th {
+				padding: 20px;
+			}
+			thead tr th:nth-child(2) {
+				min-width: 196px;
+				font-size: 20px;
+				line-height: 24px;
+				margin-top: -24px;
+			}
+			thead tr th:nth-child(3) {
+				min-width: 472px;
+				font-size: 20px;
+				line-height: 24px;
+			}
+			& tbody tr:nth-child(1) td:nth-child(2),
+			& tbody tr:nth-child(2) td:nth-child(2),
+			& tbody tr:nth-child(1) td:nth-child(3),
+			& tbody tr:nth-child(2) td:nth-child(3) {
+				font-size: 18px;
+				line-height: 20px;
+			}
+		}
+	}
+
+	@media (max-width: 400px) {
+		.ecopayz-body {
+			margin-top: -200px;
+		}
 	}
 </style>

@@ -19,6 +19,7 @@
 				return {
 					'vip-payments-header--skrill': this.type === 'skrill',
 					'vip-payments-header--neteller': this.type === 'neteller',
+					'vip-payments-header--ecopayz': this.type === 'ecopayz',
 				}
 			},
 		},
@@ -27,11 +28,12 @@
 
 <style lang="scss">
 	$skrill-bg: url('~assets/i/skrill-bg.jpg');
+	$ecopayz-bg: url('~assets/i/ecopayz-bg.jpg');
+	$neteller-bg: url('~assets/i/neteller-bg.jpg');
 	.vip-payments-header {
 		position: relative;
 		width: 100%;
 		min-height: 658px;
-		background: $skrill-bg no-repeat center;
 		background-size: cover;
 		clip-path: polygon(0 0, 100% 0%, 100% calc(450 / 658 * 100%), 0 98%);
 		&:before {
@@ -46,21 +48,37 @@
 			opacity: 0.7;
 			transform: matrix(-1, 0, 0, 1, 0, 0);
 		}
-		&--skrill:before {
-			background: radial-gradient(
-				100% 100% at 100% 0%,
-				#9d2777 0%,
-				#731a56 61.46%
-			);
-			box-shadow: 0px 15px 30px rgba(115, 27, 86, 0.3);
+		&--skrill {
+			background: $skrill-bg no-repeat center;
+			&:before {
+				background: radial-gradient(
+					100% 100% at 100% 0%,
+					#9d2777 0%,
+					#731a56 61.46%
+				);
+				box-shadow: 0px 15px 30px rgba(115, 27, 86, 0.3);
+			}
 		}
-		&--neteller:before {
-			background: radial-gradient(
-				96.88% 66.11% at 57.43% 2.13%,
-				#84a94c 0%,
-				#4a7b25 100%
-			);
-			box-shadow: 0px 15px 30px rgba(106, 148, 59, 0.3);
+		&--neteller {
+			background: $neteller-bg no-repeat center;
+			&:before {
+				background: radial-gradient(
+					96.88% 66.11% at 57.43% 2.13%,
+					#84a94c 0%,
+					#4a7b25 100%
+				);
+				box-shadow: 0px 15px 30px rgba(106, 148, 59, 0.3);
+			}
+		}
+		&--ecopayz {
+			background: $ecopayz-bg no-repeat center;
+			&:before {
+				background: radial-gradient(
+					100% 100% at 100% 0%,
+					#10579b 0%,
+					#033564 61.46%
+				);
+			}
 		}
 		&__inner {
 			display: flex;
@@ -111,6 +129,10 @@
 			&__buttons {
 				justify-content: center;
 			}
+			.btn-payments {
+				max-width: 288px;
+			}
+
 			.btn-payments_skrill {
 				max-width: 290px;
 			}
@@ -129,10 +151,6 @@
 			&__buttons {
 				gap: 20px;
 			}
-
-			.btn-payments {
-				max-width: 288px;
-			}
 		}
 	}
 
@@ -145,6 +163,9 @@
 				.btn {
 					height: 44px;
 				}
+			}
+			.btn-payments {
+				max-width: 50%;
 			}
 		}
 	}

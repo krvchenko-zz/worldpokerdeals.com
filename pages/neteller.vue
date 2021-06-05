@@ -306,7 +306,6 @@
 </script>
 
 <style lang="scss">
-	$neteller-bg: url('~assets/i/neteller-bg.jpg');
 	$ico-neteller-form: url('~assets/i/ico-neteller-form.svg?data');
 
 	.neteller {
