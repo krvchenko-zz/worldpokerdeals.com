@@ -137,7 +137,6 @@
 
 <style lang="scss">
 	.team-item {
-		margin-bottom: 68px;
 		padding: 28px 20px 20px 28px;
 		background: radial-gradient(
 			173.62% 345.07% at -13.07% 75%,
@@ -217,6 +216,31 @@
 				line-height: 16px;
 				color: #e5e5e5;
 				opacity: 0.25;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.team-item {
+			padding: 24px 20px 20px;
+			&__info {
+				padding-right: 94px;
+			}
+			&__img {
+				top: -12px;
+				width: 70px;
+				height: 70px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.team-item {
+			padding: 29px 28px 27px;
+			&__img {
+				top: -5px;
+				width: 130px;
+				height: 130px;
 			}
 		}
 	}
