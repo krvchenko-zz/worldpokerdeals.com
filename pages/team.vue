@@ -1,313 +1,283 @@
 <template>
 	<div class="content content_team">
 		<div class="team">
-			<div class="team-top">
+			<div class="team-top"></div>
+
+			<div class="team-managers">
+				<h1 class="team-managers__title">Наша команда</h1>
+				<!-- <team-list> -->
+				<div class="team-managers__list">
+					<team-item
+						class="team-managers__manager"
+						v-for="(item, index) in managers"
+						:key="index"
+						:name="item.name"
+						:position="item.position"
+						:email="item.email"
+						:telegram="item.telegram"
+						:skype="item.skype"
+						:whatsapp="item.whatsapp"
+						:facebook="item.facebook"
+						:locales="item.locales"
+						:image="item.image"
+					/>
+				</div>
+				<!-- </team-list> -->
+			</div>
+
+			<article class="team-about">
+				<div class="team-about__text">
+					<h2 class="team-about__title">Кто мы такие?</h2>
+					<div class="team-about__summary">
+						Мы — компания креативных покерных игроков и менеджеров,
+						зарегистрированная в Великобритании под брендом "BOSSLIKE GAMING
+						LP", расселенная и путешествующая по всему миру — Юго-Восточной
+						Азии, Америке, Европе, Украине, России и даже Южной Америке в
+						поисках крутых эмоций и хорошей игры.
+					</div>
+					<p>
+						Наш проект начался в 2014 году, как авторский блог и небольшой
+						самодельный сайт с несколькими азиатскими покер-румами.
+					</p>
+					<blockquote class="blockquote blockquote_img">
+						<div class="blockquote__img">
+							<img
+								src="https://media.worldpokerdeals01.com/images/manager-small/d89efd0343de59bb68cec06e721343a0.jpg"
+							/>
+						</div>
+						<p class="blockquote__author">Родион Лонга:</p>
+						<p>
+							<b
+								>«Отыграв в Heads Up Cash профессионально на протяжении 6 лет, я
+								всегда понимал влияние гейм-селекта на винрейт и находился в
+								поиске «мягких» румов с невысокой конкуренцией со стороны
+								собратьев по Холдем Менеджеру»</b
+							>
+						</p>
+					</blockquote>
+					<p>
+						Это породило идею — создать проект, который даст возможность катать
+						в наиболее «лояльных» составах, получая весь «пакет» по доступу и
+						сопровождению игры: финансовые операции, необходимый софт,
+						бесплатный майнинг, гарантии на депозиты, VPN-сервисы, а главное —
+						<b>лучший саппорт доступный на рынке покерных аффилейтов.</b>
+					</p>
+					<div class="team-about-sep">
+						<span class="team-about-sep__item"></span>
+						<span class="team-about-sep__item"></span>
+						<span class="team-about-sep__item"></span>
+					</div>
+					<p>
+						С тех пор мы прошли долгий путь: росла наша команда, добавлялись
+						новые сети, сделки, условия. В 2017 мы
+						<b>вышли на рынки Америки, Латинской Америки и Европы.</b>В 2019
+						году <b>получили две премии на церемонии iGB Awards в Лондоне</b>,
+						как лучший покерный сайт и лучший зарубежный аффилейт.
+					</p>
+					<p>
+						На сегодняшний день мы, без скромности, предлагаем самый широкий
+						<nuxt-link
+							v-slot="{ href, route, navigate, isActive, isExactActive }"
+							prefetch
+							:to="{
+								name: 'index',
+								params: { parent: 'online-poker-networks' },
+							}"
+						>
+							<a :href="href" @click="navigate">выбор сетей</a>,
+						</nuxt-link>
+						<nuxt-link
+							v-slot="{ href, route, navigate, isActive, isExactActive }"
+							prefetch
+							:to="{
+								name: 'index',
+								params: {
+									parent: 'rakeback-deals',
+									child: 'best-poker-rooms-2020',
+								},
+							}"
+						>
+							<a :href="href" @click="navigate">румов</a>,
+						</nuxt-link>
+						<nuxt-link
+							v-slot="{ href, route, navigate, isActive, isExactActive }"
+							prefetch
+							:to="{ name: 'vip' }"
+						>
+							<a :href="href" @click="navigate">VIP-сервис</a>
+						</nuxt-link>
+						для фулл-тайм игроков, и самое главное —
+						<b
+							>единственный трастовый сервис для игры в приложениях и частных
+							клубах.</b
+						>
+					</p>
+				</div>
+
+				<div class="team-about__picture team-picture">
+					<img
+						class="team-picture__img"
+						decoding="async"
+						loading="lazy"
+						src="~assets/i/about-img.png"
+						alt="our team"
+					/>
+					<blockquote
+						class="team-picture__blockquote"
+						cite="http://example.com/facts"
+					>
+						<p>
+							Лонга на связи — главный и ответственный за все, что происходит на
+							Worldpokerdeals
+						</p>
+					</blockquote>
+				</div>
+				<div class="team-about__history team-history">
+					<h2 class="team-history__label">История Worldpokerdeals</h2>
+					<ul class="team-history__list">
+						<li
+							v-for="(item, index) in history"
+							:key="index"
+							:class="[
+								'team-history__item',
+								item.year && 'team-history__item_year',
+								item.big && 'team-history__item_big',
+								item.inactive && 'team-history__item_inactive',
+							]"
+						>
+							<span
+								v-if="item.year"
+								:class="[
+									'team-history__year',
+									item.big && 'team-history__year_big',
+									item.inactive && 'team-history__year_inactive',
+								]"
+								>{{ item.year }}</span
+							>
+							<span
+								:class="[
+									'team-history__title',
+									item.big && 'team-history__title_big',
+									item.inactive && 'team-history__title_inactive',
+								]"
+								>{{ item.title }}</span
+							>
+							<span
+								:class="[
+									'team-history__text',
+									item.big && 'team-history__text_big',
+									item.inactive && 'team-history__text_inactive',
+								]"
+								>{{ item.text }}</span
+							>
+						</li>
+					</ul>
+				</div>
+			</article>
+
+			<div class="team-slides">
 				<img
-					class="team-top__img"
+					class="team-slides__img"
 					decoding="async"
 					loading="lazy"
-					src="~assets/i/about-bg.jpg"
+					src="~assets/i/about-slides.png"
 					alt="our team"
 				/>
 			</div>
 
-			<div class="team-managers">
-				<div class="container-fluid">
-					<h1 class="team-managers__title">Наша команда</h1>
-					<!-- <team-list> -->
-					<div class="row">
-						<div v-for="(item, index) in managers" :key="index" class="col-3">
-							<team-item
-								:name="item.name"
-								:position="item.position"
-								:email="item.email"
-								:telegram="item.telegram"
-								:skype="item.skype"
-								:whatsapp="item.whatsapp"
-								:facebook="item.facebook"
-								:locales="item.locales"
-								:image="item.image"
-							/>
-						</div>
-					</div>
-					<!-- </team-list> -->
-				</div>
-			</div>
-
-			<div class="container-fluid">
-				<article class="team-about">
-					<div class="row">
-						<div class="col-5 offset-md-1">
-							<h2 class="team-about__title">Кто мы такие?</h2>
-							<div class="team-about__summary">
-								Мы — компания креативных покерных игроков и менеджеров,
-								зарегистрированная в Великобритании под брендом "BOSSLIKE GAMING
-								LP", расселенная и путешествующая по всему миру — Юго-Восточной
-								Азии, Америке, Европе, Украине, России и даже Южной Америке в
-								поисках крутых эмоций и хорошей игры.
-							</div>
-							<p>
-								Наш проект начался в 2014 году, как авторский блог и небольшой
-								самодельный сайт с несколькими азиатскими покер-румами.
-							</p>
-							<blockquote class="blockquote blockquote_img">
-								<div class="blockquote__img">
-									<img
-										src="https://media.worldpokerdeals01.com/images/manager-small/d89efd0343de59bb68cec06e721343a0.jpg"
-									/>
-								</div>
-								<p class="blockquote__author">Родион Лонга:</p>
-								<p>
-									<b
-										>«Отыграв в Heads Up Cash профессионально на протяжении 6
-										лет, я всегда понимал влияние гейм-селекта на винрейт и
-										находился в поиске «мягких» румов с невысокой конкуренцией
-										со стороны собратьев по Холдем Менеджеру»</b
-									>
-								</p>
-							</blockquote>
-							<p>
-								Это породило идею — создать проект, который даст возможность
-								катать в наиболее «лояльных» составах, получая весь «пакет» по
-								доступу и сопровождению игры: финансовые операции, необходимый
-								софт, бесплатный майнинг, гарантии на депозиты, VPN-сервисы, а
-								главное —
-								<b>лучший саппорт доступный на рынке покерных аффилейтов.</b>
-							</p>
-							<div class="team-about-sep">
-								<span class="team-about-sep__item"></span>
-								<span class="team-about-sep__item"></span>
-								<span class="team-about-sep__item"></span>
-							</div>
-							<p>
-								С тех пор мы прошли долгий путь: росла наша команда, добавлялись
-								новые сети, сделки, условия. В 2017 мы
-								<b>вышли на рынки Америки, Латинской Америки и Европы.</b>В 2019
-								году
-								<b>получили две премии на церемонии iGB Awards в Лондоне</b>,
-								как лучший покерный сайт и лучший зарубежный аффилейт.
-							</p>
-							<p>
-								На сегодняшний день мы, без скромности, предлагаем самый широкий
-								<nuxt-link
-									v-slot="{ href, route, navigate, isActive, isExactActive }"
-									prefetch
-									:to="{
-										name: 'index',
-										params: { parent: 'online-poker-networks' },
-									}"
-								>
-									<a :href="href" @click="navigate">выбор сетей</a>,
-								</nuxt-link>
-								<nuxt-link
-									v-slot="{ href, route, navigate, isActive, isExactActive }"
-									prefetch
-									:to="{
-										name: 'index',
-										params: {
-											parent: 'rakeback-deals',
-											child: 'best-poker-rooms-2020',
-										},
-									}"
-								>
-									<a :href="href" @click="navigate">румов</a>,
-								</nuxt-link>
-								<nuxt-link
-									v-slot="{ href, route, navigate, isActive, isExactActive }"
-									prefetch
-									:to="{ name: 'vip' }"
-								>
-									<a :href="href" @click="navigate">VIP-сервис</a>
-								</nuxt-link>
-								для фулл-тайм игроков, и самое главное —
-								<b
-									>единственный трастовый сервис для игры в приложениях и
-									частных клубах.</b
-								>
-							</p>
-						</div>
-						<div class="col-5">
-							<div class="team-picture">
-								<img
-									class="team-picture__img"
-									decoding="async"
-									loading="lazy"
-									src="~assets/i/about-img.png"
-									alt="our team"
-								/>
-								<blockquote
-									class="team-picture__blockquote"
-									cite="http://example.com/facts"
-								>
-									<p>
-										Лонга на связи — главный и ответственный за все, что
-										происходит на Worldpokerdeals
-									</p>
-								</blockquote>
-							</div>
-							<div class="team-history">
-								<h2 class="team-history__label">История Worldpokerdeals</h2>
-								<ul class="team-history__list">
-									<li
-										v-for="(item, index) in history"
-										:key="index"
-										:class="[
-											'team-history__item',
-											item.year && 'team-history__item_year',
-											item.big && 'team-history__item_big',
-											item.inactive && 'team-history__item_inactive',
-										]"
-									>
-										<span
-											v-if="item.year"
-											:class="[
-												'team-history__year',
-												item.big && 'team-history__year_big',
-												item.inactive && 'team-history__year_inactive',
-											]"
-											>{{ item.year }}</span
-										>
-										<span
-											:class="[
-												'team-history__title',
-												item.big && 'team-history__title_big',
-												item.inactive && 'team-history__title_inactive',
-											]"
-											>{{ item.title }}</span
-										>
-										<span
-											:class="[
-												'team-history__text',
-												item.big && 'team-history__text_big',
-												item.inactive && 'team-history__text_inactive',
-											]"
-											>{{ item.text }}</span
-										>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</article>
-			</div>
-
-			<div class="team-slides">
-				<div class="container-fluid">
-					<img
-						class="team-slides__img"
-						decoding="async"
-						loading="lazy"
-						src="~assets/i/about-slides.png"
-						alt="our team"
-					/>
-				</div>
-			</div>
-
 			<div class="team-features">
-				<div class="container-fluid">
-					<div class="team-features__title">Наши принципы</div>
-					<div class="row">
-						<div v-for="(item, index) in features" :key="index" class="col-3">
-							<div class="team-feature">
-								<img
-									class="team-feature__img"
-									decoding="async"
-									loading="lazy"
-									:src="require(`~/assets/i/about-feature-${index + 1}.png`)"
-									alt="our team"
-								/>
-								<div class="team-feature__wrap">
-									<div class="team-feature__title" v-html="item.title"></div>
-									<div class="team-feature__text">{{ item.text }}</div>
-								</div>
-							</div>
+				<div class="team-features__title">Наши принципы</div>
+				<div class="team-feature__list">
+					<div
+						class="team-feature"
+						v-for="(item, index) in features"
+						:key="index"
+					>
+						<img
+							class="team-feature__img"
+							decoding="async"
+							loading="lazy"
+							:src="require(`~/assets/i/about-feature-${index + 1}.png`)"
+							alt="our team"
+						/>
+						<div class="team-feature__wrap">
+							<div class="team-feature__title" v-html="item.title"></div>
+							<div class="team-feature__text">{{ item.text }}</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="col-12">
-							<div class="team-numbers__title">Мы в цифрах</div>
-							<div class="team-numbers">
-								<div
-									v-for="(item, index) in numbers"
-									:key="index"
-									class="team-number"
-								>
-									<span class="team-number__value">{{ item.value }}</span>
-									<span class="team-number__label" v-html="item.label"></span>
-								</div>
-							</div>
+				<div>
+					<div class="team-numbers__title">Мы в цифрах</div>
+					<div class="team-numbers">
+						<div
+							v-for="(item, index) in numbers"
+							:key="index"
+							class="team-number"
+						>
+							<span class="team-number__value">{{ item.value }}</span>
+							<span class="team-number__label" v-html="item.label"></span>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="team-contacts">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-10 offset-md-1">
-							<div class="team-contacts__title">
-								Остались вопросы? Напишите нам
-							</div>
-						</div>
-						<div class="col-6 offset-md-1">
-							<contacts-form style="margin: 0;" />
-						</div>
-						<div class="col-4 offset-md-1">
-							<div class="team-contacts__info">
-								Или свяжитесь с нами в социальных<br />сетях, мессенджерах или
-								онлайн чате
-							</div>
-							<div
-								v-if="managers && managers.length"
-								class="team-contacts__buttons"
-							>
-								<button-contact
-									icon
-									size="md"
-									type="telegram"
-									href="worldpokerdealsRU"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="whatsapp"
-									:href="managers[0].whatsapp"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="skype"
-									:href="managers[0].skype"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="fb"
-									href="https://www.facebook.com/worldpokerdealsRu"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="instagram"
-									href="https://instagram.com/worldpokerdeals"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="vk"
-									href="https://vk.com/worldpokerdeals"
-								/>
-							</div>
-							<button-contact
-								block
-								size="md"
-								type="chat"
-								style="max-width: 208px;"
-								>Начать чат</button-contact
-							>
-						</div>
+				<div class="team-contacts__title">
+					Остались вопросы? Напишите нам
+				</div>
+
+				<contacts-form class="team-contacts__contacts" style="margin: 0;" />
+
+				<div class="team-contacts__social">
+					<div class="team-contacts__info">
+						Или свяжитесь с нами в социальных<br />сетях, мессенджерах или
+						онлайн чате
 					</div>
+					<div
+						v-if="managers && managers.length"
+						class="team-contacts__buttons"
+					>
+						<button-contact
+							icon
+							size="md"
+							type="telegram"
+							href="worldpokerdealsRU"
+						/>
+						<button-contact
+							icon
+							size="md"
+							type="whatsapp"
+							:href="managers[0].whatsapp"
+						/>
+						<button-contact
+							icon
+							size="md"
+							type="skype"
+							:href="managers[0].skype"
+						/>
+						<button-contact
+							icon
+							size="md"
+							type="fb"
+							href="https://www.facebook.com/worldpokerdealsRu"
+						/>
+						<button-contact
+							icon
+							size="md"
+							type="instagram"
+							href="https://instagram.com/worldpokerdeals"
+						/>
+						<button-contact
+							icon
+							size="md"
+							type="vk"
+							href="https://vk.com/worldpokerdeals"
+						/>
+					</div>
+					<button-contact block size="md" type="chat" style="max-width: 208px;"
+						>Начать чат</button-contact
+					>
 				</div>
 			</div>
 		</div>
@@ -399,7 +369,7 @@
 						'Наша цель — обеспечивать игроков и партнёров лучшими условиями, чем они могли бы получить в любом другом месте',
 				},
 				{
-					title: 'Не прятать <br>лиц',
+					title: 'Не прятать<br>лиц',
 					text:
 						'Надежность аффилейта во многом определяется публичностью его команды. За нашим сервисом всегда стоят реальные люди с большим покерным бэкграундом',
 				},
@@ -409,7 +379,7 @@
 						'Мы занимаемся своей работой с удовольствием, потому что наживаем на том, что помогаем наживать другим',
 				},
 				{
-					title: 'Жить <br>активно',
+					title: 'Жить<br>активно',
 					text:
 						'Мы любим работать, но еще больше обожаем отдыхать: заниматься спортом, играть в мафию, устраивать техно-вечеринки и, конечно, путешествовать',
 				},
@@ -487,19 +457,34 @@
 <style lang="scss">
 	$team-cite-bg: url('~assets/i/team-cite-bg.svg?data');
 	$ico-quote-tail: url('~assets/i/ico-quote-tail.svg?data');
+	$team-cite-bg-mobile: url('~assets/i/team-cite-bg-mobile.svg?data');
 	$about-map-bg: url('~/assets/i/about-map-bg.png');
 
-	.content_team {
+	.team {
+		max-width: 1440px;
+		width: 100%;
 	}
 
 	.team-contacts {
+		display: grid;
+		grid-template-columns: 600px minmax(auto, max-content);
+		grid-template-areas:
+			'title .'
+			'contacts social';
+		justify-content: center;
+		column-gap: 146px;
+		row-gap: 32px;
+		margin-top: 44px;
 		&__title {
-			margin: 44px 0 32px 0;
+			grid-area: title;
 			font-family: 'Proxima Nova Sb';
 			font-size: 28px;
 			line-height: 32px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+		&__social {
+			grid-area: social;
 		}
 
 		&__info {
@@ -512,6 +497,10 @@
 
 		&__buttons {
 			display: flex;
+		}
+		&__contacts {
+			grid-area: contacts;
+			max-width: 600px;
 		}
 
 		.btn-contact {
@@ -526,6 +515,7 @@
 		position: relative;
 		display: flex;
 		justify-content: center;
+		@include paddings('desktop');
 		&:before {
 			content: '';
 			width: 100%;
@@ -585,7 +575,7 @@
 	}
 
 	.team-features {
-		padding-top: 250px;
+		padding-top: 300px;
 		padding-bottom: 44px;
 		clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
 		background: radial-gradient(
@@ -607,32 +597,33 @@
 	.team-top {
 		position: relative;
 		min-height: 573px;
-		&__img {
-			display: block;
-			width: auto;
-			position: relative;
-			left: 50%;
-			transform: translateX(-50%);
-			min-height: 573px;
-			min-width: 100%;
-		}
+		background-image: url('~assets/i/about-bg.jpg');
+		background-position: center;
+		background-size: cover;
 	}
 
 	.team-managers {
 		position: relative;
+		@include paddings('desktop');
 		&:before {
 			content: '';
 			top: 0;
 			left: 0;
 			position: absolute;
 			display: block;
+			z-index: -1;
 			width: 100%;
-			// height: 100%;
 			height: calc(100% - 86px);
 			background: linear-gradient(0deg, #262937, #262937),
 				radial-gradient(96.88% 74.8% at 57.43% 2.41%, #3a3e51 0%, #1d1f2c 100%);
 			transform: matrix(-1, 0, 0, 1, 0, 0);
 			clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 92%);
+		}
+		&__list {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			column-gap: 28px;
+			row-gap: 68px;
 		}
 		&__title {
 			position: relative;
@@ -647,10 +638,25 @@
 	}
 
 	.team-about {
+		margin-top: 60px;
+		display: grid;
+		grid-template-columns: 144px 562px 28px 1fr 60px;
+		grid-template-areas:
+			'. text . picture .'
+			'. text . history .';
 		padding-bottom: 19px;
 		position: relative;
 		background: $about-map-bg no-repeat -26px bottom;
 		background-size: 852px;
+		&__text {
+			grid-area: text;
+		}
+		&__picture {
+			grid-area: picture;
+		}
+		&__history {
+			grid-area: history;
+		}
 		&-sep {
 			display: flex;
 			align-items: center;
@@ -754,7 +760,7 @@
 	}
 
 	.team-picture {
-		margin-top: -254px;
+		margin-top: -334px;
 		position: relative;
 		&__wrap {
 		}
@@ -768,7 +774,7 @@
 		&__blockquote {
 			position: relative;
 			margin: -76px 0 28px 0;
-			right: -70px;
+			right: -108px;
 			max-width: 531px;
 			padding: 86px 56px 56px 48px;
 			background: $team-cite-bg no-repeat center;
@@ -785,7 +791,7 @@
 	}
 
 	.team-history {
-		padding: 0 0 0 90px;
+		padding: 0 0 0 124px;
 		&__list {
 			margin: 0;
 			padding: 0;
@@ -795,6 +801,8 @@
 		&__item {
 			padding: 0 0 20px 118px;
 			position: relative;
+			width: 326px;
+			box-sizing: content-box;
 			&:before {
 				content: '';
 				top: 3px;
@@ -927,7 +935,7 @@
 	}
 
 	.team-slides {
-		margin-bottom: -280px;
+		margin-bottom: -307px;
 		position: relative;
 		z-index: 1;
 		&__img {
@@ -935,7 +943,6 @@
 			width: auto;
 			position: relative;
 			left: 50%;
-			top: -35px;
 			transform: translateX(-50%);
 			min-width: 100%;
 		}
@@ -949,6 +956,11 @@
 			max-width: 100%;
 			height: auto;
 			display: block;
+		}
+		&__list {
+			display: flex;
+			@include paddings('desktop');
+			gap: 28px;
 		}
 		&__wrap {
 			padding: 28px 60px 32px 28px;
@@ -975,6 +987,229 @@
 			font-size: 18px;
 			line-height: 24px;
 			color: #fdfdfd;
+		}
+	}
+
+	@include mq('desktop') {
+		.team-about {
+			grid-template-columns: minmax(108px, auto) 496px 28px 1fr;
+			grid-template-areas:
+				'. text . picture'
+				'. text . history';
+		}
+
+		.team-history {
+			padding-left: 98px;
+			&__item {
+				padding-left: 98px;
+			}
+		}
+
+		.team-slides {
+			margin-bottom: -260px;
+			&__img {
+				max-width: 109%;
+			}
+		}
+
+		.team-features {
+			padding-top: 260px;
+		}
+	}
+
+	@include mq('laptop') {
+		.team-top {
+			min-height: 400px;
+		}
+
+		.team-managers {
+			@include paddings('tablet');
+			padding-bottom: 240px;
+			&::before {
+				height: 100%;
+			}
+			&__title {
+				margin-bottom: 32px;
+			}
+			&__list {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(227px, 1fr));
+				column-gap: 20px;
+				row-gap: 20px;
+			}
+		}
+
+		.team-about {
+			grid-template-columns: 100%;
+			justify-content: center;
+			grid-template-areas:
+				'picture'
+				'text'
+				'history';
+			background: none;
+			&__text {
+				padding: 0 52px 230px;
+				background: $about-map-bg no-repeat 0px bottom;
+				background-size: contain;
+			}
+		}
+
+		.team-history {
+			margin-top: 24px;
+			&__item {
+				width: 473px;
+				padding-left: 112px;
+			}
+			&__label {
+				padding-left: 112px;
+			}
+		}
+
+		.team-picture {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: -260px;
+			&__blockquote {
+				right: -60px;
+				margin-top: -100px;
+			}
+		}
+
+		.team-slides {
+			margin-bottom: -220px;
+			overflow: hidden;
+			&__img {
+				max-width: none;
+			}
+		}
+
+		.team-feature {
+			min-width: 288px;
+			&__title {
+				margin-bottom: 32px;
+			}
+			&__wrap {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				padding: 28px 20px 32px;
+			}
+			&__list {
+				overflow-x: scroll;
+				@include hide-scroll();
+				@include paddings('tablet');
+				gap: 20px;
+			}
+			&__text {
+				position: static;
+			}
+		}
+
+		.team-contacts {
+			@include paddings('mobile');
+			grid-template-columns: 2fr 1fr;
+			grid-template-areas:
+				'title .'
+				'contacts social';
+			gap: 20px;
+			justify-content: normal;
+			&__title {
+				white-space: nowrap;
+			}
+
+			.btn-contact {
+				width: 32px;
+				height: 32px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.team-managers {
+			@include paddings('mobile');
+			padding-bottom: 280px;
+			&::before {
+				clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 98%);
+			}
+			&__list {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.team-history {
+			@include paddings('mobile');
+			&__item {
+				box-sizing: border-box;
+				width: 100%;
+				padding-left: 76px;
+				&_year::before {
+					left: 50px;
+				}
+				&::after {
+					left: 55px;
+				}
+				&::before {
+					left: 50px;
+				}
+			}
+			&__year {
+				left: 0;
+				&_big {
+					font-size: 18px;
+					line-height: 18px;
+					font-weight: bold;
+				}
+			}
+			&__label {
+				padding-left: 0;
+				text-align: center;
+			}
+		}
+
+		.team-contacts {
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'title'
+				'contacts'
+				'social';
+		}
+
+		.team-top {
+			min-height: 277px;
+		}
+
+		.team-picture {
+			&__blockquote {
+				right: initial;
+				max-width: 100%;
+				background: $team-cite-bg-mobile no-repeat center;
+				margin-top: -80px;
+			}
+		}
+
+		.team-about {
+			&__text {
+				padding: 0 20px 140px;
+				@include paddings('mobile');
+			}
+
+			.blockquote {
+				margin-left: -20px;
+				margin-right: -20px;
+			}
+		}
+
+		.team-slides {
+			margin-bottom: -380px;
+		}
+		.team-features {
+			padding-top: 380px;
+			clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+		}
+		.team-numbers {
+			overflow-x: auto;
+			@include hide-scroll();
 		}
 	}
 </style>
