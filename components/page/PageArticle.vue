@@ -25,7 +25,7 @@
 
 		<slot name="header" />
 
-		<v-runtime-template v-carousel v-table-hideable :template="template" />
+		<v-runtime-template ref="article" v-carousel v-table-hideable :template="template" />
 
 		<slot name="footer" />
 	</article>

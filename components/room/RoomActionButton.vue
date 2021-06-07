@@ -150,6 +150,14 @@
 					background-position: right center;
 				}
 			}
+			&[disabled='disabled'] {
+				background: #aaaaaa;
+				&:hover,
+				&:active,
+				&:focus {
+					background: #aaaaaa;
+				}
+			}
 		}
 
 		&_contacts {
@@ -203,11 +211,18 @@
 
 		&_disabled {
 			cursor: not-allowed;
-			background: #aaaaaa;
-			&:hover,
-			&:active,
-			&:focus {
-				background: #aaaaaa;
+		}
+
+		&_connection {
+			&[disabled='disabled'] {
+				background: transparent;
+				opacity: 0.5;
+				&:hover,
+				&:active,
+				&:focus {
+					border: 2px solid rgba(229, 229, 229, 0.8);
+					color: #ffffff;
+				}
 			}
 		}
 

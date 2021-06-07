@@ -70,6 +70,7 @@
 
 			<td class="bonus-item__col bonus-item__col_action">
 				<nuxt-link
+					v-if="hasPage"
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
 					prefetch
 					:to="{
@@ -222,6 +223,11 @@
 			page: {
 				type: Object,
 				required: true,
+			},
+
+			hasPage: {
+				type: [Boolean, Number],
+				default: true,
 			},
 		},
 

@@ -288,6 +288,7 @@
 
 			<room-action-button
 				v-if="!room.blacklist"
+				:disabled="room.closed || !room.available"
 				:slug="room.slug"
 				:title="room.title"
 				type="connection"

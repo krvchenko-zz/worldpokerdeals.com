@@ -89,6 +89,7 @@
 					:max_bonus_currency="item.max_bonus_currency"
 					:deposit_bonus="item.deposit_bonus"
 					:index="index"
+					:has-page="item.has_page"
 				></bonus-item>
 			</bonus-list>
 		</template>

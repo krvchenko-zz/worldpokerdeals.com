@@ -111,6 +111,7 @@
 					/>
 
 					<nuxt-link
+						v-if="hasPage"
 						v-slot="{ href, route, navigate, isActive, isExactActive }"
 						prefetch
 						:to="{
@@ -297,6 +298,11 @@
 				type: [String, Boolean],
 				default: '',
 			},
+
+			hasPage: {
+				type: [Boolean, Number],
+				default: true,
+			},
 		},
 
 		data: () => ({
@@ -355,7 +361,6 @@
 							: '')
 					)
 				} catch (e) {
-					console.log(e)
 				}
 			},
 		},
@@ -723,8 +728,8 @@
 
 		&__buttons {
 			display: flex;
-			justify-content: flex-end;
-			margin-left: auto;
+			justify-content: flex-start;
+			// margin-left: auto;
 			max-width: 188px;
 		}
 
@@ -789,7 +794,6 @@
 
 	.btn-get-promotion {
 		flex-grow: 1;
-		margin-right: 20px;
 		display: block;
 		padding: 12px 24px;
 		font-family: 'Proxima Nova Sb';
@@ -807,6 +811,7 @@
 	}
 
 	.btn-promotion-review {
+		margin-left: 20px;
 		display: block;
 		padding: 0;
 		border: 1px solid rgba(119, 119, 119, 0.3);

@@ -577,6 +577,7 @@
 					color: #ffffff;
 				}
 				&[disabled='disabled'] {
+					background: #ff4151;
 					opacity: 0.5;
 					cursor: not-allowed;
 				}

@@ -32,6 +32,7 @@
 				:index="index"
 				:page="item.page"
 				:terms="item.terms"
+				:has-page="item.has_page"
 			/>
 		</div>
 

@@ -68,6 +68,7 @@
 							}"
 							:slug="room.slug"
 							:icon="false"
+							:disabled="!room.available || room.closed || room.blacklist"
 							type="download"
 							:label="$t('room_download')"
 						/>

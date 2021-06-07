@@ -192,6 +192,8 @@
   "vip_status_in": "VIP-статус в {title}",
   "access": "Доступ",
   "room_about": "О {room}",
+  "room_faq": "Вопросы и ответы",
+  "room_reviews": "Отзывы игроков",
   "form": {
     "email": "Электронная почта",
     "account_id": "ID Счета",

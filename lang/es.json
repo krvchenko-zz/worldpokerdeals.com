@@ -153,5 +153,8 @@
   "rakeback_deals_and_safe_access": "Tratos superiores de rakeback, acceso seguro a todas las redes de póker y soluciones completas para jugadores",
   "best_game_title": "¿Estás buscando la mejor acción?",
   "best_game_text": "Asistencia personalizada para seleccionar la mejor opción entre 50+ salas y 30+ clubes",
-  "private_clubs_and_rake_stats_short": "Clubes asiáticos privados, estadísticas de rake, historiales de manos gratuitos y ofertas secretas"
+  "private_clubs_and_rake_stats_short": "Clubes asiáticos privados, estadísticas de rake, historiales de manos gratuitos y ofertas secretas",
+  "room_about": "About {room}",
+  "room_faq": "FAQ",
+  "room_reviews": "Reviews"
 }
