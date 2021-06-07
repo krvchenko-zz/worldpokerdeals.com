@@ -378,6 +378,9 @@
 					li {
 						padding-left: 24px;
 						background: $ico-blacklist-summary no-repeat left 2px;
+						&:before {
+							display: none;
+						}
 					}
 				}
 			}

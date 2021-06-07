@@ -87,6 +87,8 @@
 </script>
 
 <style lang="scss">
+	$networks-bg: url('~assets/i/networks-bg.jpg');
+
 	.networks {
 		width: 100%;
 		max-width: 1440px;
@@ -108,14 +110,10 @@
 		}
 	}
 
-	.networks .networks-header {
+	.networks-header {
 		margin-bottom: 32px;
 		padding: 0 0 32px 0;
-		background: radial-gradient(
-			96.88% 66.11% at 57.43% 2.13%,
-			#364cb1 0%,
-			#081759 100%
-		);
+		background: $networks-bg no-repeat center;
 	}
 
 	@include mq('laptop') {
