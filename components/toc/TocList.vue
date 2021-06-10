@@ -1,15 +1,28 @@
 <template>
 	<nav :class="['toc', inline && 'toc_inline', white && 'toc_white']">
-		<div v-if="!inline" class="toc__label">Содержание</div>
-		<ul
-			:class="[
-				'toc-list',
-				inline && 'toc-list_inline',
-				white && 'toc-list_white',
-			]"
-		>
-			<slot :inline="inline" :white="white" />
-		</ul>
+		<div v-if="!inline" class="toc__label" @click="toggleDropdown">
+			Содержание
+			<svg-icon
+				:class="{ 'toc__arrow--opened': !shouldBeHidden }"
+				class="toc__arrow"
+				:width="20"
+				:height="20"
+				fill="#C9C9C9"
+				icon="arrow-down"
+			/>
+		</div>
+		<transition name="fade">
+			<ul
+				v-show="!shouldBeHidden"
+				:class="[
+					'toc-list',
+					inline && 'toc-list_inline',
+					white && 'toc-list_white',
+				]"
+			>
+				<slot :inline="inline" :white="white" />
+			</ul>
+		</transition>
 	</nav>
 </template>
 
@@ -31,15 +44,26 @@
 			},
 		},
 
-		data: () => ({}),
+		data() {
+			return { isOpen: false }
+		},
 
-		computed: {},
+		computed: {
+			shouldBeHidden() {
+				return (this.$device.isMobile || this.$device.isTablet) && !this.isOpen
+			},
+		},
 
 		watch: {},
 
 		created() {},
 
-		methods: {},
+		methods: {
+			toggleDropdown() {
+				console.log('clicked')
+				this.isOpen = !this.isOpen
+			},
+		},
 	}
 </script>
 
@@ -57,9 +81,14 @@
 			padding: 0;
 			margin-bottom: 24px;
 		}
+		&__arrow {
+			display: none;
+			&--opened {
+				transform: rotate(180deg);
+			}
+		}
 	}
 	.toc__label {
-		margin-bottom: 16px;
 		color: #243238;
 		font-style: normal;
 		font-weight: bold;
@@ -76,7 +105,33 @@
 	@include mq('laptop') {
 		.toc {
 			width: 100%;
+			margin-top: 16px;
+			margin-bottom: 40px;
 			position: initial;
+			background: #ffffff;
+			box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+			padding: 16px 20px;
+			&__label {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			&__arrow {
+				display: block;
+			}
+		}
+
+		.toc-list {
+			margin-top: 20px;
+		}
+	}
+
+	@include mq('tablet') {
+		.toc {
+			width: calc(100% + 2 * 20px);
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 	}
 </style>
