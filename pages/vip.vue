@@ -1,79 +1,58 @@
 <template>
 	<section class="content content_vip">
 		<div class="vip">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-10 offset-md-1">
-						<div class="vip-header">
-							<h1 class="vip__title">VIP<span></span>Сервис</h1>
-							<div class="vip__brand">От Worldpokerdeals</div>
-							<div class="vip__extra">+EV решения для игроков с 2015 года</div>
-							<div class="vip__description">
-								Хочешь стать нашим игроком или партнёром? Начинай играть <br />
-								в покер-румах с нами и получи доступ к нашим <b>VIP-услугам</b>
-							</div>
-							<button class="btn btn-lg btn-yellow">Зарегистрироваться</button>
-						</div>
+			<div class="vip__inner">
+				<div class="vip-header">
+					<h1 class="vip__title">VIP<span></span>Сервис</h1>
+					<div class="vip__brand">От Worldpokerdeals</div>
+					<div class="vip__extra">+EV решения для игроков с 2015 года</div>
+					<div class="vip__description">
+						Хочешь стать нашим игроком или партнёром? Начинай играть в
+						покер-румах с нами и получи доступ к нашим <b>VIP-услугам</b>
+					</div>
+					<button class="btn btn-lg btn-yellow">Зарегистрироваться</button>
+				</div>
 
-						<div class="vip-body">
-							<div class="row">
-								<div class="col-8">
-									<div class="vip__list">
-										<div class="row">
-											<div
-												v-for="(item, index) in services"
-												:key="index"
-												class="col-6"
-											>
-												<div class="vip-item">
-													<div class="vip-item__wrap">
-														<svg-icon
-															class="vip-item__icon"
-															:icon="item.icon"
-														/>
-														<span
-															class="vip-item__title"
-															v-html="item.title"
-														></span>
-													</div>
-													<span class="vip-item__text">{{ item.text }}</span>
-												</div>
-											</div>
-										</div>
-									</div>
+				<div class="vip-body">
+					<div class="vip__list">
+						<div v-for="(item, index) in services" :key="index">
+							<div class="vip-item">
+								<div class="vip-item__wrap">
+									<svg-icon class="vip-item__icon" :icon="item.icon" />
+									<span class="vip-item__title" v-html="item.title"></span>
 								</div>
-								<div class="col-4">
-									<vip-form
-										v-if="manager"
-										:name="manager.name"
-										:position="manager.position"
-										:telegram="manager.telegram"
-										:skype="manager.skype"
-										:whatsapp="manager.whatsapp"
-										:email="manager.email"
-										:image="manager.image"
-									/>
-								</div>
+								<span class="vip-item__text">{{ item.text }}</span>
 							</div>
 						</div>
+					</div>
 
-						<div class="vip-footer">
-							<div class="vip-footer__actions">
-								<button class="btn btn-lg btn-yellow">
-									Зарегистрироваться
-								</button>
-							</div>
-							<div class="vip-footer__label">Мы в цифрах</div>
-							<div class="vip-features">
-								<div
-									v-for="(item, index) in features"
-									:key="index"
-									class="vip-feature"
-								>
-									<span class="vip-feature__value">{{ item.value }}</span>
-									<span class="vip-feature__label" v-html="item.label"></span>
-								</div>
-							</div>
+					<vip-form
+						v-if="manager"
+						:name="manager.name"
+						:position="manager.position"
+						:telegram="manager.telegram"
+						:skype="manager.skype"
+						:whatsapp="manager.whatsapp"
+						:email="manager.email"
+						:image="manager.image"
+					/>
+				</div>
+
+				<div class="vip-footer">
+					<div class="vip-footer__actions">
+						<button class="btn btn-lg btn-yellow">
+							Зарегистрироваться
+						</button>
+					</div>
+					<div class="vip-footer__label">Мы в цифрах</div>
+					<div class="vip-features">
+						<div
+							v-for="(item, index) in features"
+							:key="index"
+							class="vip-feature"
+						>
+							<span class="vip-feature__value">{{ item.value }}</span>
+							<span class="vip-feature__label" v-html="item.label"></span>
 						</div>
 					</div>
 				</div>
@@ -233,8 +212,21 @@
 	}
 
 	.vip {
+		width: 100%;
 		background: $vip-bg no-repeat center top;
 		background-size: contain;
+		&__inner {
+			max-width: 1440px;
+			margin: 0 auto;
+			padding-left: 144px;
+			padding-right: 26px;
+		}
+		&__list {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			column-gap: 28px;
+			row-gap: 32px;
+		}
 		&-header {
 			margin: 28px 0 52px 0;
 		}
@@ -305,12 +297,15 @@
 		}
 
 		&-body {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			column-gap: 28px;
+			align-items: start;
 		}
 
 		&-item {
 			min-height: 200px;
 			position: relative;
-			margin-bottom: 32px;
 			padding: 28px;
 			background: radial-gradient(
 				173.62% 345.07% at 75% -13.07%,
@@ -370,6 +365,8 @@
 		&-features {
 			display: flex;
 			justify-content: center;
+			overflow-x: scroll;
+			@include hide-scroll();
 		}
 
 		&-feature {
@@ -408,6 +405,120 @@
 				font-size: 16px;
 				line-height: 20px;
 				color: #90939d;
+			}
+		}
+	}
+
+	@include mq('desktop') {
+		.vip {
+			&__inner {
+				@include paddings('laptop');
+			}
+		}
+
+		.vip-header {
+			padding-left: 16px;
+		}
+	}
+
+	@include mq('laptop') {
+		.vip {
+			&__inner {
+				@include paddings('tablet');
+			}
+			&__list {
+				row-gap: 24px;
+				column-gap: 20px;
+				margin-bottom: 40px;
+			}
+		}
+		.vip-header {
+			margin-bottom: 42px;
+		}
+
+		.vip-body {
+			grid-template-columns: 1fr;
+		}
+
+		.vip-features {
+			justify-content: flex-start;
+		}
+
+		.vip-form {
+			max-width: 390px;
+			margin: 0 auto;
+			margin-bottom: 44px;
+		}
+
+		.vip-features {
+			margin-right: -24px;
+		}
+
+		.vip-feature {
+			margin-right: 44px;
+			&__value {
+				white-space: nowrap;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.vip {
+			&__inner {
+				@include paddings('mobile');
+			}
+			&__title {
+				font-size: 64px;
+				line-height: 60px;
+				margin-bottom: 8px;
+			}
+			&__extra {
+				margin-left: 0;
+			}
+			&__brand {
+				white-space: nowrap;
+				font-size: 32px;
+				line-height: 32px;
+				margin-bottom: 12px;
+			}
+			&__description {
+				text-align: center;
+				margin-bottom: 32px;
+				font-size: 18px;
+				line-height: 22px;
+			}
+			&__list {
+				grid-template-columns: 1fr;
+				row-gap: 20px;
+			}
+		}
+
+		.vip-header {
+			padding-left: 0;
+		}
+
+		.vip-features {
+			margin-right: -20px;
+		}
+
+		.vip-feature {
+			margin-right: 56px;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.vip {
+			&__title {
+				font-size: 55px;
+				line-height: 55px;
+			}
+			&__brand {
+				font-size: 30px;
+				line-height: 30px;
+			}
+			&__extra {
+				font-size: 16px;
+				line-height: 16px;
 			}
 		}
 	}
