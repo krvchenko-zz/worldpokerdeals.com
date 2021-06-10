@@ -454,11 +454,22 @@
 				color: #777777;
 			}
 		}
+	}
 
-		@media (max-width: 480px) {
+	@include mq('laptop') {
+		.top-rooms_front {
+			max-width: 720px;
+			width: 100%;
+			box-shadow: 0px -30px 50px rgba(0, 0, 0, 0.3);
+		}
+	}
+
+	@include mq('tablet') {
+		.top-rooms {
 			.top-rooms-header_front {
 				.top-rooms-header {
 					&__button {
+						width: 50%;
 						font-size: 20px;
 						line-height: 21px;
 						white-space: nowrap;
@@ -525,11 +536,16 @@
 		}
 	}
 
-	@include mq('laptop') {
-		.top-rooms_front {
-			max-width: 720px;
-			width: 100%;
-			box-shadow: 0px -30px 50px rgba(0, 0, 0, 0.3);
+	@media (max-width: 400px) {
+		.top-rooms-header_front {
+			.top-rooms-header {
+				&__button {
+					padding: 16px 16px 16px 40px;
+				}
+			}
 		}
+	}
+	.top-rooms-header__flag_front {
+		left: 10px;
 	}
 </style>

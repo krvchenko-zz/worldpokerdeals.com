@@ -255,7 +255,7 @@
 			}
 			&__wrap {
 				grid-column: 1;
-				@include paddings('laptop');
+				@include paddings('tablet');
 				padding-bottom: 36px;
 				padding-top: 40px;
 			}
@@ -290,7 +290,7 @@
 				}
 			}
 			&__wrap {
-				@include paddings('tablet');
+				@include paddings('mobile');
 				padding-right: 0;
 				grid-column: 1;
 				grid-row: summary;
@@ -324,10 +324,6 @@
 		}
 
 		@include mq('mobile') {
-			&__wrap {
-				@include paddings('mobile');
-				padding-right: 0;
-			}
 			&__top-rooms-wrapper {
 				background: none;
 				padding-bottom: 30px;

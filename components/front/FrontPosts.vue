@@ -123,7 +123,7 @@
 		max-width: 1440px;
 		width: 100%;
 		display: grid;
-		grid-template-columns: 1fr 326px;
+		grid-template-columns: minmax(0, 1fr) 326px;
 		grid-column-gap: 28px;
 		@include paddings('desktop');
 		position: relative;
