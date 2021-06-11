@@ -411,6 +411,9 @@
 			},
 
 			handleSearchClick() {
+				if (this.$device.isMobile) {
+					document.body.classList.toggle('modal-open')
+				}
 				this.showSearch = !this.showSearch
 			},
 
@@ -477,7 +480,7 @@
 
 		&-buttons {
 			padding: 22px 0;
-			margin-left: 30px;
+			margin-left: 158px;
 			display: flex;
 			align-items: center;
 			&__login {
@@ -574,7 +577,6 @@
 			display: flex;
 			position: relative;
 			max-width: 575px;
-			margin-right: 32px;
 			&--opened {
 				width: 100%;
 			}
@@ -627,8 +629,6 @@
 
 	.search-toggle {
 		position: relative;
-		margin-right: 8px;
-		margin-left: 38px;
 		padding: 0;
 		width: 40px;
 		height: 40px;
@@ -684,10 +684,8 @@
 	}
 
 	@include mq('desktop') {
-		.search {
-			&__wrapper {
-				margin-right: 0;
-			}
+		.header-buttons {
+			margin-left: 36px;
 		}
 
 		.btn_login {
@@ -712,7 +710,8 @@
 
 		.header {
 			&__inner {
-				@include paddings('laptop');
+				padding-left: 12px;
+				padding-right: 24px;
 			}
 			&__geo {
 				margin-right: auto;
@@ -720,7 +719,6 @@
 			&__hamburger-menu {
 				display: block;
 				margin-right: 16px;
-				margin-left: -8px;
 			}
 		}
 
@@ -817,7 +815,8 @@
 	@include mq('tablet') {
 		.header {
 			&__inner {
-				@include paddings('tablet');
+				padding-left: 8px;
+				padding-right: 16px;
 			}
 			&__geo {
 				display: none;
@@ -827,32 +826,59 @@
 			}
 		}
 
-		.header-buttons__login {
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
-			width: 20px;
-			height: 20px;
-			padding: 0;
-			outline: none;
-			background: none;
-			border: none;
-			margin-left: 30px;
-			opacity: 0.7;
+		.header-buttons {
+			margin-left: 20px;
+			&__login {
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				width: 40px;
+				height: 40px;
+				padding: 0;
+				outline: none;
+				background: none;
+				border: none;
+				margin-left: 20px;
+				opacity: 0.7;
+			}
 		}
 
 		.logo {
 			&__link {
-				width: 140px;
+				width: 158px;
 				background-size: contain;
 			}
 		}
 
 		.search-toggle {
-			width: 16px;
-			height: 16px;
-			background-size: contain;
 			margin-left: 0;
+		}
+
+		.search {
+			&__wrapper {
+				margin-left: auto;
+				overflow-y: scroll;
+				@include hide-scroll();
+				&--opened {
+					z-index: 100;
+					position: fixed;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: #2f323f;
+
+					.search__input {
+						height: 64px;
+						border-radius: 0;
+					}
+
+					.search-toggle {
+						top: 12px;
+						right: 8px;
+					}
+				}
+			}
 		}
 
 		.btn-vip {
@@ -868,10 +894,10 @@
 		}
 	}
 
-	@include mq('mobile') {
-		.header {
-			&__inner {
-				@include paddings('mobile');
+	@media (max-width: 400px) {
+		.logo {
+			&__link {
+				width: 140px;
 			}
 		}
 	}

@@ -97,4 +97,10 @@
 			opacity: 0;
 		}
 	}
+
+	@include mq('tablet') {
+		.search-loader {
+			top: 20px;
+		}
+	}
 </style>

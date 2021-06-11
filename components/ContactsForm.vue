@@ -4,39 +4,34 @@
 		@submit.prevent="submit"
 		@keydown="form.onKeydown($event)"
 	>
-		<div class="contacts-form-group">
-			<div class="row">
-				<div class="col">
-					<form-input
-						v-model="form.name"
-						placeholder="Ваше Имя"
-						type="text"
-						name="name"
-						label-color="#636363"
-						:required="true"
-						:loading="form.busy"
-						:error="form.errors.has('name')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="name" />
-					</transition>
-				</div>
-				<div class="col">
-					<form-input
-						v-model="form.email"
-						placeholder="Электронная почта"
-						type="email"
-						name="email"
-						label-color="#636363"
-						:required="true"
-						:loading="form.busy"
-						:error="form.errors.has('email')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="email" />
-					</transition>
-				</div>
-			</div>
+		<div class="contacts-form__contacts contacts-form-group">
+			<form-input
+				v-model="form.name"
+				placeholder="Ваше Имя"
+				type="text"
+				name="name"
+				label-color="#636363"
+				:required="true"
+				:loading="form.busy"
+				:error="form.errors.has('name')"
+			/>
+			<transition name="fade">
+				<has-error :form="form" field="name" />
+			</transition>
+
+			<form-input
+				v-model="form.email"
+				placeholder="Электронная почта"
+				type="email"
+				name="email"
+				label-color="#636363"
+				:required="true"
+				:loading="form.busy"
+				:error="form.errors.has('email')"
+			/>
+			<transition name="fade">
+				<has-error :form="form" field="email" />
+			</transition>
 		</div>
 
 		<div class="contacts-form-group">
@@ -72,19 +67,13 @@
 		</div>
 
 		<div class="contacts-form-group">
-			<div class="row">
-				<div class="col-5">
-					<form-submit-button
-						:disabled="
-							!form.terms || !form.email || !form.name || !form.message
-						"
-						class="btn-block btn-contacts-form"
-						label="Отправить"
-						:loading="form.busy"
-					>
-					</form-submit-button>
-				</div>
-			</div>
+			<form-submit-button
+				:disabled="!form.terms || !form.email || !form.name || !form.message"
+				class="btn-block btn-contacts-form"
+				label="Отправить"
+				:loading="form.busy"
+			>
+			</form-submit-button>
 		</div>
 	</form>
 </template>
@@ -146,6 +135,12 @@
 	.contacts-form {
 		margin-bottom: 48px;
 
+		&__contacts {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			column-gap: 28px;
+		}
+
 		&-group {
 			position: relative;
 			margin-bottom: 24px;
@@ -163,12 +158,33 @@
 			font-feature-settings: 'tnum' on, 'lnum' on;
 			color: #008be2;
 		}
-
-		&__contacts {
-		}
 	}
 
 	.btn-contacts-form {
 		padding: 10px 28px;
+		max-width: 208px;
+		height: 40px;
+	}
+
+	@include mq('laptop') {
+		.contacts-form {
+			&__contacts {
+				column-gap: 20px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.contacts-form {
+			&__contacts {
+				grid-template-columns: 1fr;
+				row-gap: 24px;
+			}
+		}
+
+		.btn-contacts-form {
+			max-width: none;
+			width: 100%;
+		}
 	}
 </style>

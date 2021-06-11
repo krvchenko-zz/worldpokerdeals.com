@@ -260,4 +260,11 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.search-dropdown {
+			position: relative;
+			top: auto;
+		}
+	}
 </style>

@@ -34,6 +34,9 @@ $grid-breakpoints: (
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+  &.modal-open {
+    overflow: hidden;
+  }
 }
 
 .container-fluid {

@@ -1114,9 +1114,6 @@
 				'contacts social';
 			gap: 20px;
 			justify-content: normal;
-			&__title {
-				white-space: nowrap;
-			}
 
 			.btn-contact {
 				width: 32px;

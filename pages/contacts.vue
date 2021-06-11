@@ -1,66 +1,63 @@
 <template>
 	<section class="content content_contacts">
 		<div class="contacts">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-5 offset-md-1">
-						<h1 class="contacts__title">
-							Свяжись с нами, чтобы узнать о закрытых сделках и секретных румах.
-							Отвечаем сразу!
-						</h1>
-						<contacts-form />
-					</div>
-					<div class="col-md-auto offset-md-1">
-						<div v-if="manager" class="contacts-box">
-							<div class="contacts-box__wrap">
-								<h2 class="contacts-box__title">
-									Наши месседжеры и социальные сети
-								</h2>
-								<div class="contacts-box__buttons">
-									<button-contact
-										icon
-										size="md"
-										type="skype"
-										:href="manager.skype"
-									/>
-									<button-contact
-										icon
-										size="md"
-										type="telegram"
-										:href="manager.telegram"
-									/>
-									<button-contact
-										icon
-										size="md"
-										type="whatsapp"
-										:href="manager.whatsapp"
-									/>
-									<button-contact icon size="md" type="fb" :href="manager.fb" />
-									<button-contact icon size="md" type="vk" :href="manager.vk" />
-									<button-contact
-										icon
-										size="md"
-										type="instagram"
-										:href="manager.instagram"
-									/>
-								</div>
-								<div class="contacts-box__email">
-									<p>Электронная почта</p>
-									<a :href="`mailto:${manager.email}`">{{ manager.email }}</a>
-								</div>
-							</div>
-							<div class="contacts-box__chat">
-								<button-contact
-									:style="{
-										borderRadius: '100px',
-										padding: '0 52px',
-									}"
-									size="md"
-									type="chat"
-									>Начать чат</button-contact
-								>
-							</div>
+			<div class="contacts__form">
+				<h1 class="contacts__title">
+					Свяжись с нами, чтобы узнать о закрытых сделках и секретных румах.
+					Отвечаем сразу!
+				</h1>
+				<contacts-form />
+			</div>
+
+			<div class="contacts__social">
+				<div v-if="manager" class="contacts-box">
+					<div class="contacts-box__wrap">
+						<h2 class="contacts-box__title">
+							Наши месседжеры и социальные сети
+						</h2>
+						<div class="contacts-box__buttons">
+							<button-contact
+								icon
+								size="md"
+								type="skype"
+								:href="manager.skype"
+							/>
+							<button-contact
+								icon
+								size="md"
+								type="telegram"
+								:href="manager.telegram"
+							/>
+							<button-contact
+								icon
+								size="md"
+								type="whatsapp"
+								:href="manager.whatsapp"
+							/>
+							<button-contact icon size="md" type="fb" :href="manager.fb" />
+							<button-contact icon size="md" type="vk" :href="manager.vk" />
+							<button-contact
+								icon
+								size="md"
+								type="instagram"
+								:href="manager.instagram"
+							/>
 						</div>
+						<div class="contacts-box__email">
+							<p>Электронная почта</p>
+							<a :href="`mailto:${manager.email}`">{{ manager.email }}</a>
+						</div>
+					</div>
+					<div class="contacts-box__chat">
+						<button-contact
+							:style="{
+								borderRadius: '100px',
+								padding: '0 52px',
+							}"
+							size="md"
+							type="chat"
+							>Начать чат</button-contact
+						>
 					</div>
 				</div>
 			</div>
@@ -131,6 +128,17 @@
 		background-size: cover;
 	}
 	.contacts {
+		display: flex;
+		width: 100%;
+		max-width: 1440px;
+		gap: 146px;
+		justify-content: center;
+		&__form {
+			max-width: 562px;
+		}
+		&__social {
+			max-width: 444px;
+		}
 		&__title {
 			margin: 40px 0;
 			font-family: 'Proxima Nova Sb';
@@ -231,6 +239,85 @@
 				bottom: -20px;
 				left: 50%;
 				transform: translateX(-50%);
+			}
+		}
+	}
+
+	@include mq('desktop') {
+		.contacts {
+			gap: 38px;
+		}
+	}
+
+	@include mq('laptop') {
+		.contacts {
+			flex-direction: column;
+			gap: 72px;
+			align-items: center;
+			padding-bottom: 15px;
+			&__form {
+				max-width: 596px;
+			}
+			&__social {
+				max-width: 474px;
+			}
+
+			.contacts-form {
+				margin-bottom: 0;
+			}
+		}
+
+		.contacts-box {
+			margin-top: 0;
+		}
+	}
+
+	@include mq('tablet') {
+		.contacts {
+			@include paddings('mobile');
+			gap: 40px;
+			&__form {
+				max-width: 596px;
+			}
+			&__social {
+				max-width: 474px;
+				width: 100%;
+			}
+		}
+
+		.contacts-box {
+			width: 100%;
+			&__wrap {
+				width: calc(100% - 2 * 20px);
+				padding: 32px 26px;
+				margin-left: 0;
+				margin-right: 0;
+				margin: 0 auto;
+				max-width: 100%;
+				clip-path: polygon(88% 0, 100% 12%, 100% 100%, 0% 100%, 0 0);
+				&::before {
+					width: 12%;
+					height: 12%;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 415px) {
+		.contacts-box {
+			&::after {
+				bottom: 66px;
+			}
+		}
+	}
+
+	@media (max-width: 376px) {
+		.contacts-box {
+			&::after {
+				bottom: 44px;
+			}
+			&__wrap {
+				padding: 32px 20px;
 			}
 		}
 	}

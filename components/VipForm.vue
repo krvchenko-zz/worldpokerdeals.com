@@ -300,6 +300,7 @@
 
 		&-group {
 			&__wrap {
+				display: flex;
 				position: relative;
 			}
 		}
@@ -324,7 +325,7 @@
 
 	.form-input {
 		&_vip {
-			padding-right: 42px;
+			flex-grow: 1;
 			.form-input__prepend {
 				width: 72px;
 			}
