@@ -24,9 +24,18 @@
 						:text="item.text"
 					>
 					</toc-item>
-					<toc-item v-if="tab.faq && tab.faq.mainEntity.length" :inline="inline" anchor="faq" :text="$t('room_faq')">
+					<toc-item
+						v-if="tab.faq && tab.faq.mainEntity.length"
+						:inline="inline"
+						anchor="faq"
+						:text="$t('room_faq')"
+					>
 					</toc-item>
-					<toc-item :inline="inline" anchor="reviews" :text="$t('room_reviews')">
+					<toc-item
+						:inline="inline"
+						anchor="reviews"
+						:text="$t('room_reviews')"
+					>
 					</toc-item>
 				</template>
 			</toc-list>
