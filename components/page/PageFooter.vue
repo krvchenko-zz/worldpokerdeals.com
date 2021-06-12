@@ -112,6 +112,7 @@
 									:key="index"
 									:page="item.page"
 									:name="item.name"
+									:icon="item.icon"
 								/>
 							</div>
 						</div>
@@ -139,6 +140,7 @@
 									:key="index"
 									:page="item.page"
 									:name="item.name"
+									:icon="item.icon"
 								/>
 							</div>
 						</div>
@@ -168,6 +170,7 @@
 									:key="index"
 									:page="item.page"
 									:name="item.name"
+									:icon="item.icon"
 								/>
 							</div>
 						</div>
@@ -195,6 +198,7 @@
 									:key="index"
 									:page="item.page"
 									:name="item.name"
+									:icon="item.icon"
 								/>
 							</div>
 						</div>
@@ -224,6 +228,7 @@
 									:key="index"
 									:page="item.page"
 									:name="item.name"
+									:icon="item.icon"
 								/>
 							</div>
 						</div>
@@ -786,6 +791,7 @@
 
 			&__list {
 				display: none;
+				margin-top: 10px;
 			}
 		}
 	}

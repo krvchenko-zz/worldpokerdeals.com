@@ -11,12 +11,14 @@
 		}"
 	>
 		<li class="footer-category-item">
-			<a
-				:class="['footer-category-item__link']"
-				:href="href"
-				@click="navigate"
-				>{{ name }}</a
-			>
+			<a :class="['footer-category-item__link']" :href="href" @click="navigate">
+				<svg-icon
+					v-if="icon && $device.isMobile"
+					:class="['footer-category-item__icon']"
+					:icon="icon"
+					fill="#999999"
+				/>{{ name }}
+			</a>
 		</li>
 	</nuxt-link>
 </template>
@@ -33,6 +35,10 @@
 			},
 
 			name: {
+				type: String,
+			},
+
+			icon: {
 				type: String,
 			},
 		},
@@ -56,6 +62,10 @@
 		&-item {
 			list-style: none;
 			margin-bottom: 5px;
+			&__icon {
+				margin-right: 16px;
+				fill: '#999999';
+			}
 			&__link {
 				font-family: 'Proxima Nova';
 				font-size: 14px;
@@ -75,7 +85,22 @@
 
 	@include mq('tablet') {
 		.footer-category-item {
-			padding-left: 20px;
+			display: flex;
+			align-items: center;
+			padding-left: 24px;
+			margin-bottom: 20px;
+			&__link {
+				font-size: 16px;
+				line-height: 20px;
+				color: #ffffff;
+				font-weight: 600;
+				&:hover,
+				&:focus,
+				&:visited,
+				&:link {
+					color: #ffffff;
+				}
+			}
 		}
 	}
 </style>

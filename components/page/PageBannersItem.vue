@@ -161,7 +161,7 @@
 		}
 	}
 
-	@media (max-width: 480px) {
+	@include mq('laptop') {
 		.page-banner {
 			min-width: 288px;
 			background: none;
