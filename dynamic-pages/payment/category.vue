@@ -42,7 +42,10 @@
 			<page-article :text="category.text" class="article-container__article">
 				<template #footer>
 					<!-- Faq -->
-					<faq-list v-if="category.faq && category.faq.mainEntity.length" label="FAQ">
+					<faq-list
+						v-if="category.faq && category.faq.mainEntity.length"
+						label="FAQ"
+					>
 						<faq-item
 							v-for="(item, index) in category.faq.mainEntity"
 							:key="index"

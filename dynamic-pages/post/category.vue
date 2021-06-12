@@ -253,11 +253,19 @@
 			},
 
 			handleFilter(id, slug) {
+				if (slug) {
+					return this.$router.push({
+						path: this.$route.path,
+						query: slug ? { category: slug } : {},
+					})
+				}
+
+				this.category_id = null
+
 				this.$router.push({
-					path: this.$route.path,
-					query: slug ? { category: slug } : {},
+					path: 'blog',
+					query: null,
 				})
-				// this.category_id = id
 				// this.fetchItems()
 			},
 

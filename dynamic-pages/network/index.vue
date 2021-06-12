@@ -298,8 +298,6 @@
 					params: {
 						geo: this.geo,
 						per_page: this.per_page,
-						sort: 'rating',
-						order: 'desc',
 						network_id: this.network.id,
 					},
 				})

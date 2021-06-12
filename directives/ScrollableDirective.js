@@ -2,7 +2,7 @@ export default {
 	name: 'scrollable',
 
 	inserted: (el, binding) => {
-		let getItemsWidth = function(items) {
+		const getItemsWidth = function(items) {
 			let width = 0
 			for (var i = 0; i < items.length; i++) {
 				width += items[i].offsetWidth
@@ -10,7 +10,7 @@ export default {
 			return width
 		}
 
-		let handler = function() {
+		const handler = function() {
 			let container = el,
 				parent = el.parentNode,
 				items = container.children,
@@ -19,6 +19,7 @@ export default {
 				toggle = document.querySelector('.scrollable__item'),
 				position = 0,
 				scrollTo = 0,
+				back = false,
 				//Touch
 				isDown = false,
 				startX,
@@ -27,18 +28,38 @@ export default {
 			if (itemsWidth > containerWidth) {
 				if (!toggle) {
 					toggle = document.createElement('button')
-					toggle.className = 'scrollable__item scrollable__item_r'
+					toggle.classList.add('scrollable__item')
 					parent.appendChild(toggle)
 				}
 
+				if (scrollTo + containerWidth < itemsWidth) {
+					toggle.classList.add('scrollable__item_r')
+				}
+
 				toggle.addEventListener('click', function() {
-					if (scrollTo + containerWidth < itemsWidth) {
+					if (position + 5 < items.length && !back) {
 						position = position + 5
-						scrollTo = items[position].offsetLeft
 					} else {
-						position = 0
-						scrollTo = 0
+						back = true
+						position = position - 5
 					}
+
+					if (position - 5 < 0) {
+						back = false
+					}
+
+					scrollTo = items[position].offsetLeft
+
+					if (position + 5 >= items.length) {
+						toggle.classList.remove('scrollable__item_r')
+						toggle.classList.add('scrollable__item_l')
+					}
+
+					if (position - 5 < 0) {
+						toggle.classList.remove('scrollable__item_l')
+						toggle.classList.add('scrollable__item_r')
+					}
+
 					container.scrollTo({
 						top: 0,
 						left: scrollTo,
@@ -48,20 +69,28 @@ export default {
 			}
 
 			container.addEventListener('mousedown', e => {
+				startX = e.pageX - container.offsetLeft
+				scrollLeft = container.scrollLeft
+			})
+
+			container.addEventListener('mousedown', e => {
 				isDown = true
 				container.classList.add('active')
 				startX = e.pageX - container.offsetLeft
 				scrollLeft = container.scrollLeft
 			})
+
 			container.addEventListener('mouseleave', () => {
 				isDown = false
 				container.classList.remove('active')
 			})
+
 			container.addEventListener('mouseup', e => {
 				e.stopPropagation()
 				isDown = false
 				container.classList.remove('active')
 			})
+
 			container.addEventListener('mousemove', e => {
 				if (!isDown) return
 				e.preventDefault()
