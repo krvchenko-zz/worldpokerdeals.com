@@ -52,7 +52,7 @@
 			&__list {
 				width: 100%;
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				grid-auto-columns: 288px;
 				grid-template-columns: none;
 				grid-auto-flow: column;

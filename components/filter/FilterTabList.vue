@@ -35,11 +35,7 @@
 			padding: 0;
 			display: flex;
 			list-style: none;
-			&::-webkit-scrollbar {
-				display: none;
-			}
-			-ms-overflow-style: none; /* IE and Edge */
-			scrollbar-width: none; /* Firefox */
+			@include hide-scroll();
 			&:before {
 				content: '';
 				bottom: 3px;

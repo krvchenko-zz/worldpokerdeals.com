@@ -943,9 +943,7 @@ body {
 			top: 0;
 			display: flex;
 			overflow-x: scroll;
-			&::-webkit-scrollbar {
-				display: none;
-			}
+      @include hide-scroll();
 			&-wrap {
 				position: relative;
 				margin-bottom: 25px;
@@ -961,8 +959,7 @@ body {
 					top: 0;
 				}
 			}
-			-ms-overflow-style: none;
-			scrollbar-width: none;
+
 
 			&__item {
 				margin: 0 10px 0 0;

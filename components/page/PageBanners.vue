@@ -131,7 +131,7 @@
 	@include mq('laptop') {
 		.page-banners {
 			overflow-x: scroll;
-			scrollbar-width: none;
+			@include hide-scroll();
 			&_front {
 				@include paddings('laptop');
 			}

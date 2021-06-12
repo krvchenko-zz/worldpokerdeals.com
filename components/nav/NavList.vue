@@ -43,11 +43,7 @@
 			flex-wrap: nowrap;
 			-webkit-overflow-scrolling: touch;
 			transition: transform 0.25s;
-			&::-webkit-scrollbar {
-				display: none;
-			}
-			-ms-overflow-style: none; /* IE and Edge */
-			scrollbar-width: none; /* Firefox */
+			@include hide-scroll();
 		}
 	}
 

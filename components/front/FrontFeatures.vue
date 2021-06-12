@@ -137,7 +137,7 @@
 			padding-left: 24px;
 			&__list {
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				justify-content: space-between;
 				margin-right: -24px;
 				&::after {

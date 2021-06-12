@@ -485,7 +485,7 @@
 				margin-right: -20px;
 				&__list {
 					overflow-x: scroll;
-					scrollbar-width: none;
+					@include hide-scroll();
 					grid-template-columns: none;
 					grid-auto-columns: 288px;
 					grid-auto-flow: column;
@@ -496,7 +496,7 @@
 				margin-right: -20px;
 				&__list {
 					overflow-x: scroll;
-					scrollbar-width: none;
+					@include hide-scroll();
 					grid-template-columns: none;
 					grid-auto-columns: 288px;
 					grid-auto-flow: column;

@@ -551,7 +551,7 @@
 			& &__posts {
 				margin-right: -20px;
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				&__list {
 					grid-auto-columns: 288px;
 					grid-template-columns: none;
@@ -562,7 +562,7 @@
 			&__network-list {
 				margin-right: -20px;
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				&__list {
 					grid-template-columns: none;
 					grid-auto-columns: 288px;

@@ -318,7 +318,7 @@
 				}
 				&__list {
 					overflow-x: scroll;
-					scrollbar-width: none;
+					@include hide-scroll();
 					justify-content: start;
 				}
 				&__item {

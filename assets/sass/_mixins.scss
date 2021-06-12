@@ -33,6 +33,7 @@ $paddings: (
 
 @mixin hide-scroll() {
     scrollbar-width: none;
+    -ms-overflow-style: none;
     &::-webkit-scrollbar {
       width: 0; /* Remove scrollbar space */
       background: transparent; /* Optional: just make scrollbar invisible */

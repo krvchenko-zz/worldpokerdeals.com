@@ -272,7 +272,7 @@
 			}
 			&-awards {
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 			}
 		}
 

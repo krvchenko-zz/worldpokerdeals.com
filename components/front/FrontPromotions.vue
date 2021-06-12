@@ -242,7 +242,7 @@
 			}
 			&__features {
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				white-space: nowrap;
 				padding-bottom: 32px;
 				padding-top: 20px;
@@ -255,7 +255,7 @@
 				grid-template-columns: repeat(auto-fill, minmax(227px, 1fr));
 				grid-template-rows: 1fr;
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 			}
 			&__item {
 				grid-row: 1;

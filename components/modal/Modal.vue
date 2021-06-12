@@ -103,11 +103,7 @@
 			border-radius: 10px;
 			box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.5);
 
-			&::-webkit-scrollbar {
-				display: none;
-			}
-			-ms-overflow-style: none; /* IE and Edge */
-			scrollbar-width: none; /* Firefox */
+			@include hide-scroll();
 		}
 
 		&-overlay {

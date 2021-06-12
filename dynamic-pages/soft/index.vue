@@ -267,12 +267,12 @@
 			}
 			&__news-wrapper {
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				margin-right: -20px;
 			}
 			&__soft-list-wrapper {
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				margin-right: -20px;
 			}
 		}

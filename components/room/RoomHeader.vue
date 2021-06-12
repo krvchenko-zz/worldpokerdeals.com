@@ -597,7 +597,7 @@
 			grid-auto-flow: column;
 			overflow-x: scroll;
 			gap: 16px;
-			scrollbar-width: none;
+			@include hide-scroll();
 		}
 		&__title {
 			margin-bottom: 20px;

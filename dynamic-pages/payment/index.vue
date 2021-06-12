@@ -459,7 +459,7 @@
 			@include paddings('mobile');
 			&__news-list {
 				overflow-x: scroll;
-				scrollbar-width: none;
+				@include hide-scroll();
 				grid-auto-columns: repeat(auto-fit, 386px);
 				grid-auto-flow: column;
 				column-gap: 16px;

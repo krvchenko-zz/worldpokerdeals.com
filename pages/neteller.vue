@@ -518,7 +518,7 @@
 		}
 		.neteller-info {
 			overflow-x: scroll;
-			scrollbar-width: none;
+			@include hide-scroll();
 			justify-content: flex-start;
 			margin-left: -20px;
 			padding-left: 20px;
