@@ -189,11 +189,11 @@
 
 	@include mq('laptop') {
 		.front-rooms {
-			@include paddings('laptop');
+			@include paddings('tablet');
 		}
 	}
 
-	@include mq('mobile') {
+	@include mq('tablet') {
 		.front-rooms {
 			@include paddings('mobile');
 			&__all-rooms-button {

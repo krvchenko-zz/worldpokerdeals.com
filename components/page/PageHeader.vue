@@ -2,7 +2,7 @@
 	<header class="header">
 		<div class="header__inner">
 			<div class="header__wrap">
-				<div class="header__hamburger-menu" @click="showHamburger = true">
+				<div class="header__hamburger-menu" @click="toggleHamburgerMenu">
 					<img :src="hamburgerSrc" />
 				</div>
 
@@ -36,12 +36,17 @@
 						'header-nav__wrap--hide': hideNav,
 						'header-nav__wrap--opened': showHamburger,
 					}"
+					@click.self="handleOutsideClick($event)"
 				>
 					<!-- Nav -->
-					<nav class="header-nav" :class="{ 'header-nav--hide': hideNav }">
+					<nav
+						class="header-nav"
+						:class="{ 'header-nav--hide': hideNav }"
+						ref="nav"
+					>
 						<ul class="header-nav__list">
 							<li class="header-nav__item close-nav-button__wrapper">
-								<button class="close-nav-button" @click="showHamburger = false">
+								<button class="close-nav-button" @click="toggleHamburgerMenu">
 									<img
 										class="close-nav-button__icon"
 										src="~assets/i/ico-modal-close.svg?data"
@@ -410,6 +415,11 @@
 				this.searchLoading = $event
 			},
 
+			toggleHamburgerMenu() {
+				document.body.classList.toggle('modal-open')
+				this.showHamburger = !this.showHamburger
+			},
+
 			handleSearchClick() {
 				if (this.$device.isMobile) {
 					document.body.classList.toggle('modal-open')
@@ -421,6 +431,14 @@
 				if (window.innerWidth < 1280) {
 					event.preventDefault()
 					this.openedMenuItem = this.openedMenuItem === type ? null : type
+				}
+			},
+
+			handleOutsideClick(event) {
+				if (this.$device.isMobile || this.$device.isTablet) {
+					if (!this.$refs.nav.contains(event.target)) {
+						this.toggleHamburgerMenu()
+					}
 				}
 			},
 		},
@@ -724,21 +742,25 @@
 
 		.header-nav {
 			width: 100%;
+			height: 100vh;
+			background: #2b2e3b;
+			max-width: 436px;
+			box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.5);
 			&__wrap {
 				position: fixed;
 				top: 0;
 				left: -100%;
 				&--opened {
 					left: 0;
+					right: 0;
 					height: 100vh;
+					width: 100vw;
 					align-items: flex-start;
+					max-width: none;
 				}
 				width: 100vw;
 				margin-left: 0;
-				background: #2b2e3b;
-				max-width: 436px;
 				z-index: 999;
-				box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.5);
 			}
 			&__list {
 				flex-direction: column;
@@ -824,6 +846,11 @@
 			&__logo {
 				width: 158px;
 			}
+		}
+
+		.header-nav {
+			width: 100%;
+			max-width: 436px;
 		}
 
 		.header-buttons {
