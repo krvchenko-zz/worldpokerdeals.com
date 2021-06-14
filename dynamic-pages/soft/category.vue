@@ -41,7 +41,7 @@
 					:discount_value="item.discount_value"
 					:price="item.price"
 					:image="item.image"
-					:category="item.categories[0].title"
+					:category="item.category.title"
 					:currency="item.currency ? item.currency.symbol : ''"
 				/>
 			</div>

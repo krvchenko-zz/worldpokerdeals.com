@@ -45,13 +45,15 @@
 
 		<div v-if="soft.images.length" class="soft-screenshots">
 			<carousel
-				:navigation-enabled="false"
-				:per-page-custom="[[0, 1]]"
+				:navigation-enabled="true"
+				:pagination-enabled="true"
 				:per-page="1"
 				:pagination-padding="5"
 				:pagination-size="8"
 				pagination-color="#ffffff"
 				pagination-active-color="#CCCCCC"
+				navigation-next-label=""
+				navigation-prev-label=""
 			>
 				<slide v-for="(item, index) in soft.images" :key="index">
 					<a
@@ -136,8 +138,8 @@
 </script>
 
 <style lang="scss">
-	$soft-bg: url('~assets/i/summary-bg.jpg?data');
-
+	$soft-bg: url('~assets/i/summary-bg.jpg');
+	$ico-front-slider-arrow: url('~assets/i/ico-front-slider-arrow.svg?data');
 	.soft-header {
 		overflow: hidden;
 		position: relative;
@@ -223,12 +225,62 @@
 		}
 		&-screenshots {
 			grid-area: slider;
-			display: flex;
-			align-self: center;
 			width: 300px;
 			&__img {
 				width: 300px;
 				height: auto;
+			}
+
+			.VueCarousel {
+				&-navigation {
+					position: absolute;
+					width: 100%;
+					height: 32px;
+					top: calc(50% - 28px);
+				}
+				&-pagination {
+					font-size: 0;
+				}
+				&-wrapper {
+					border-radius: 4px;
+				}
+				&-dot-container {
+					margin: 0 !important;
+				}
+				&-navigation-button {
+					border-radius: 50%;
+					width: 32px;
+					height: 32px;
+					top: 0 !important;
+					transform: none !important;
+					border: 1px solid #e9e9e9;
+					background: #ffffff !important;
+					&:before {
+						display: block;
+						top: 0;
+						left: 0;
+						position: absolute;
+						content: '';
+						width: 32px;
+						height: 32px;
+						background: $ico-front-slider-arrow no-repeat 11px center;
+					}
+				}
+
+				&-navigation--disabled {
+					display: none;
+				}
+
+				&-navigation-prev {
+					left: -16px !important;
+				}
+
+				&-navigation-next {
+					right: -16px !important;
+					&:before {
+						transform: matrix(-1, 0, 0, 1, 0, 0);
+					}
+				}
 			}
 		}
 

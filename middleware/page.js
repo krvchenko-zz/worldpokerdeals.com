@@ -1,8 +1,3 @@
-// import Cookies from 'js-cookie'
-// import { cookieFromRequest } from '~/utils'
-
-// import axios from 'axios'
-
 export default async ({ app, store, params, redirect, route, $axios }) => {
 	let url = `pages/${params.parent}`
 
