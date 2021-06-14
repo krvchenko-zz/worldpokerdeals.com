@@ -182,9 +182,8 @@
 	$label-bg: url('~assets/i/ico-card-label.svg?data');
 
 	.top-room {
-		margin-bottom: 32px;
 		max-width: 326px;
-		float: right;
+		width: 100%;
 		position: relative;
 		&__header {
 			z-index: 1;

@@ -2,37 +2,40 @@
 	<div
 		:class="['rooms-header', category.is_blacklist && 'rooms-header_blacklist']"
 	>
-		<breadcrumb-list v-if="pageable" :white="true" />
+		<breadcrumb-list
+			v-if="pageable"
+			:white="true"
+			class="rooms-header__breadcrumbs"
+		/>
 
-		<div class="rooms-header__wrap">
-			<div class="rooms-header__about">
-				<div class="rooms-meta__wrap">
-					<svg-icon class="rooms-header__icon" :icon="category.icon" />
-					<h1 class="rooms__title">{{ category.title }}</h1>
-					<page-meta
-						class="rooms-meta__meta"
-						:title="false"
-						:author="category.author.full_name"
-						:created="category.created_at"
-						:updated="category.updated_at"
-					>
-					</page-meta>
-				</div>
-				<div class="rooms__summary" v-html="category.summary"></div>
+		<div class="rooms-header__about">
+			<div class="rooms-meta__wrap">
+				<svg-icon class="rooms-header__icon" :icon="category.icon" />
+				<h1 class="rooms__title">{{ category.title }}</h1>
+				<page-meta
+					class="rooms-meta__meta"
+					:title="false"
+					:author="category.author.full_name"
+					:created="category.created_at"
+					:updated="category.updated_at"
+				>
+				</page-meta>
 			</div>
-			<div class="rooms-header__bonus">
-				<room-top
-					v-if="best"
-					:id="best.id"
-					:title="best.title"
-					:slug="best.slug"
-					:restricted="best.restricted"
-					:country="country"
-					:rating="best.rating"
-					:bonus="best.bonus"
-					:review="best.review"
-				/>
-			</div>
+			<div class="rooms__summary" v-html="category.summary"></div>
+		</div>
+
+		<div class="rooms-header__bonus">
+			<room-top
+				v-if="best"
+				:id="best.id"
+				:title="best.title"
+				:slug="best.slug"
+				:restricted="best.restricted"
+				:country="country"
+				:rating="best.rating"
+				:bonus="best.bonus"
+				:review="best.review"
+			/>
 		</div>
 
 		<div class="rooms-header__nav">
@@ -87,7 +90,15 @@
 			@include paddings('desktop');
 			margin-bottom: 55px;
 			background: $rooms-bg no-repeat center top;
-			background-size: auto 420px;
+			background-size: cover;
+			display: grid;
+			grid-column-gap: 28px;
+			grid-row-gap: 8px;
+			grid-template-columns: [first] minmax(0, 2fr) [second] minmax(0, 1fr);
+			grid-template-areas:
+				'breadcrumbs bonus'
+				'about bonus'
+				'nav nav';
 			&_blacklist {
 				background: linear-gradient(0deg, #111111, #111111),
 					radial-gradient(
@@ -96,30 +107,31 @@
 						#583e11 100%
 					);
 			}
-			&__wrap {
-				display: grid;
-				grid-column-gap: 24px;
-				grid-row-gap: 28px;
-				grid-template-columns: [first] minmax(0, 3fr) [second] minmax(0, 1fr);
-				grid-template-rows: [content] 1fr [nav] auto;
-				position: relative;
+			&__breadcrumbs {
+				grid-area: breadcrumbs;
 			}
 
 			&__about {
-				grid-column: first;
-				grid-row: content;
+				grid-area: about;
+				padding-left: 60px;
 			}
 
 			&__bonus {
-				grid-column: second;
-				grid-row: content;
+				grid-area: bonus;
+				display: flex;
+				padding-top: 32px;
+				justify-content: center;
 			}
 
 			&__nav {
-				grid-column: 1 / -1;
-				grid-row: nav;
+				grid-area: nav;
 				max-width: 100%;
-				margin-top: -26px;
+				height: 52px;
+				margin-top: 24px;
+				margin-bottom: -26px;
+				.page-nav {
+					height: 100%;
+				}
 			}
 
 			&__icon {
@@ -157,7 +169,6 @@
 		}
 
 		&__summary {
-			padding-bottom: 40px;
 			font-family: Proxima Nova;
 			font-style: normal;
 			font-weight: normal;
@@ -168,13 +179,20 @@
 		}
 	}
 
+	@include mq('desktop') {
+		.rooms-header {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+			&__about {
+				padding-left: 0;
+			}
+		}
+	}
+
 	@include mq('laptop') {
 		.rooms-header {
-			@include paddings('laptop');
+			@include paddings('tablet');
 			background-size: cover;
-			&__wrap {
-				grid-template-columns: [first] minmax(0, 7fr) [second] minmax(0, 5fr);
-			}
+			grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
 			& &__icon {
 				display: none;
 			}
@@ -196,10 +214,12 @@
 
 	@include mq('tablet') {
 		.rooms-header {
-			@include paddings('tablet');
-			&__wrap {
-				grid-template-columns: [first] 1fr;
-			}
+			@include paddings('mobile');
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'breadcrumbs'
+				'about'
+				'nav';
 			& &__icon {
 				display: inline-block;
 				grid-column: icon;
@@ -242,16 +262,14 @@
 		.rooms__summary {
 			grid-column: span 2;
 			grid-row: 2;
+			font-size: 17px;
+			padding-bottom: 0;
 		}
 	}
 
 	@include mq('mobile') {
 		.rooms-header {
 			@include paddings('mobile');
-		}
-		.rooms__summary {
-			font-size: 17px;
-			padding-bottom: 0;
 		}
 	}
 </style>

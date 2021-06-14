@@ -301,7 +301,7 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	$ico-room-unavailable: url('~assets/i/ico-room-unavailable.svg?data');
 	$ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
 	.room-item {
@@ -419,7 +419,6 @@
 		}
 		&__actions {
 			grid-area: buttons;
-			align-self: baseline;
 			justify-content: stretch;
 			&_s {
 				padding-right: 20px;
@@ -550,7 +549,7 @@
 				margin: 0;
 			}
 		}
-		&__link {
+		& &__link {
 			padding: 11px 20px;
 			border-radius: 3px;
 			font-family: 'Proxima Nova Sb';
@@ -642,7 +641,7 @@
 			}
 		}
 	}
-	/* @include mq('laptop') { */
+
 	@media (max-width: 1000px) {
 		.room-item {
 			grid-template-columns: 1fr minmax(0, 3fr);
@@ -656,6 +655,12 @@
 					'tags  bonus'
 					'buttons buttons';
 			}
+			&__top {
+				margin-bottom: 8px;
+			}
+			&__geo {
+				margin-bottom: 16px;
+			}
 			&__info {
 				padding: 0;
 			}
@@ -666,6 +671,9 @@
 				padding-top: 20px;
 				padding-right: 0;
 				width: 100%;
+			}
+			& &__link {
+				margin-bottom: 0;
 			}
 			&__link_review {
 				margin-bottom: 0;
@@ -680,6 +688,8 @@
 	@include mq('tablet') {
 		.room-item {
 			column-gap: 16px;
+			padding-right: 20px;
+			grid-template-columns: minmax(0, 1fr) 2fr;
 			&__wrap {
 				row-gap: 12px;
 				grid-template-areas:
@@ -699,28 +709,31 @@
 			&__actions {
 				padding-top: 0;
 			}
-			/* TODO */
-			.rating {
+			&__rating {
+				height: 100%;
+			}
+			&__geo {
+				margin-bottom: 0;
+			}
+			& .rating {
 				display: grid;
 				grid-template-columns: 1fr;
 				row-gap: 12px;
-				flex-direction: column;
 				justify-content: center;
-				align-items: flex-end;
+				align-items: baseline;
+				height: 100%;
+				&__digit {
+					display: flex;
+					justify-content: flex-end;
+				}
+				&__stars {
+					flex: 0;
+					margin-top: auto;
+					margin-bottom: auto;
+					margin-right: 0;
+					margin-left: auto;
+				}
 			}
-			.rating__stars {
-				flex: 0;
-				margin-bottom: 12px;
-				margin-right: 0;
-			}
-		}
-	}
-	@include mq('mobile') {
-		.room-item {
-			column-gap: 16px;
-			@include paddings('mobile');
-			margin-left: -20px;
-			margin-right: -20px;
 		}
 	}
 </style>

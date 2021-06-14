@@ -511,7 +511,7 @@
 	@include mq('laptop') {
 		.rooms {
 			&__catalog {
-				@include paddings('laptop');
+				@include paddings('tablet');
 				grid-template-columns: 100%;
 				grid-template-areas:
 					'filter'
@@ -526,27 +526,20 @@
 				padding-left: 24px;
 			}
 		}
-	}
 
-	@include mq('tablet') {
-		.rooms {
-			&__catalog {
-				@include paddings('tablet');
-			}
-			&__page-banners {
-				padding-left: 20px;
-			}
-		}
-		.rooms-list {
+		.room-list {
 			margin-left: -25px;
 			margin-right: -24px;
 		}
 	}
 
-	@include mq('mobile') {
+	@include mq('tablet') {
 		.rooms {
 			&__catalog {
 				@include paddings('mobile');
+			}
+			&__page-banners {
+				padding-left: 20px;
 			}
 		}
 		.rooms-list {
