@@ -43,12 +43,15 @@
 
 			<div class="soft-item__actions">
 				<soft-action-button
-					:class="['soft-item__link', 'soft-item__link_download']"
+					:class="[
+						'soft-item__link',
+						!available && 'soft-item__link_disabled',
+						'soft-item__link_download',
+					]"
 					label="Скачать"
 					type="download"
 				/>
 				<nuxt-link
-					v-if="review"
 					v-slot="{ href, route, navigate }"
 					:to="{
 						name: 'index',
@@ -62,7 +65,6 @@
 						:class="[
 							'btn',
 							'soft-item__link',
-							!available && 'soft-item__link_disabled',
 							'btn-default',
 							'soft-item__link_review',
 						]"

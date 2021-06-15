@@ -381,6 +381,8 @@
 			async fetchItems(query) {
 				this.$nuxt.$loading.start()
 
+				console.log(this.params)
+
 				if (query) {
 					this.page = query.page
 				}

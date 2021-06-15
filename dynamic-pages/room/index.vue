@@ -248,6 +248,7 @@
 				.get(`rooms/${this.pageable.slug}`, {
 					params: {
 						country_id: this.country.id,
+						locale: this.locale,
 					},
 				})
 				.then(response => {
