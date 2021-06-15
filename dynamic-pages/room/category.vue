@@ -19,7 +19,11 @@
 				/>
 
 				<filter-selected-list
-					v-if="selected.length && !category.is_blacklist"
+					v-if="
+						selected.length &&
+							!category.is_blacklist &&
+							!$device.isMobileOrTablet
+					"
 					class="rooms__filter-selected"
 				>
 					<filter-selected
@@ -128,24 +132,34 @@
 				</page-article>
 			</div>
 
-			<div class="rooms__category-filters">
-				<room-category-filters
-					v-if="filters && !category.is_blacklist"
-					:kycs="filters.kycs"
-					:platforms="filters.platforms"
-					:tags="filters.tags"
-					:payments="filters.payments"
-					:types="filters.types"
-					:networks="filters.networks"
-					:licenses="filters.licenses"
-					:limits="filters.limits"
-					:disciplines="filters.disciplines"
-					:games="filters.games"
-					:huds="filters.huds"
-					:certificates="filters.certificates"
-					@change="handleFilterChange"
-					@filterOpen="handleFilterOpen"
-				/>
+			<div class="rooms__aside">
+				<div
+					class="rooms__aside__filter-wrapper"
+					:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
+					@click.self="handleOutsideClick($event)"
+				>
+					<room-category-filters
+						v-if="filters && !category.is_blacklist"
+						class="rooms__aside__filter"
+						:kycs="filters.kycs"
+						:platforms="filters.platforms"
+						:tags="filters.tags"
+						:payments="filters.payments"
+						:types="filters.types"
+						:networks="filters.networks"
+						:licenses="filters.licenses"
+						:limits="filters.limits"
+						:disciplines="filters.disciplines"
+						:games="filters.games"
+						:huds="filters.huds"
+						:certificates="filters.certificates"
+						:geo.sync="geo"
+						@update:sort="fetchItems"
+						@update:geo="fetchItems"
+						@change="handleFilterChange"
+						@filterOpen="handleFilterOpen"
+					/>
+				</div>
 
 				<div v-if="!category.is_blacklist" class="block-title">
 					Последние акции
@@ -191,6 +205,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'RoomCategory',
@@ -302,6 +317,7 @@
 					value: 'created_at',
 				},
 			],
+			showFilter: false,
 		}),
 
 		async fetch() {
@@ -366,6 +382,9 @@
 		},
 
 		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
 			this.geo = this.country.code
 		},
 
@@ -376,6 +395,18 @@
 					this[key] = selected.values[key]
 				})
 				this.fetchItems()
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.rooms__aside__filter')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
 			},
 
 			async fetchItems(query) {
@@ -450,10 +481,10 @@
 			grid-template-columns: [left-part] 2fr [central-part] minmax(0, 7fr) [right-part] 3fr;
 			column-gap: 28px;
 			grid-template-areas:
-				'filter filter category-filter'
-				'selected selected category-filter'
-				'rooms-list rooms-list category-filter'
-				'toc info category-filter';
+				'filter filter aside'
+				'selected selected aside'
+				'rooms-list rooms-list aside'
+				'toc info aside';
 			@include paddings('desktop');
 			max-width: 1440px;
 		}
@@ -463,8 +494,8 @@
 		&__filter-selected {
 			grid-area: selected;
 		}
-		&__category-filters {
-			grid-area: category-filter;
+		&__aside {
+			grid-area: aside;
 		}
 		&__toc {
 			grid-area: toc;
@@ -519,10 +550,30 @@
 					'filter'
 					'rooms-list'
 					'toc'
-					'info';
+					'info'
+					'aside';
 			}
-			&__category-filters {
-				display: none;
+			&__aside {
+				&__filter {
+					margin-bottom: 0;
+					margin-left: auto;
+					max-width: 436px;
+					height: 100%;
+					overflow-y: scroll;
+					@include hide-scroll();
+				}
+				&__filter-wrapper {
+					display: none;
+					position: fixed;
+					right: 0;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					z-index: 999;
+					&--opened {
+						display: block;
+					}
+				}
 			}
 			&__page-banners {
 				padding-left: 24px;
