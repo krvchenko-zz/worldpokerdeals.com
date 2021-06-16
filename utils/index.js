@@ -27,15 +27,20 @@ export function scrollBehavior(to, from, savedPosition) {
 		return savedPosition
 	}
 
-	let position = {}
+	let position = {},
+		offset = document.getElementById('header').offsetHeight
 
 	if (to.matched.length < 2) {
-		position = { x: 0, y: 0 }
+		position = { x: 0, y: 0, offset: { x: 0, y: offset } }
 	} else if (to.matched.some(r => r.components.default.options.scrollToTop)) {
-		position = { x: 0, y: 0 }
+		position = { x: 0, y: 0, offset: { x: 0, y: offset } }
 	}
 	if (to.hash) {
-		position = { selector: to.hash }
+		position = {
+			selector: to.hash,
+			offset: { x: 0, y: offset },
+			behavior: 'smooth',
+		}
 	}
 
 	return position

@@ -1,10 +1,12 @@
-import axios from 'axios'
 import Cookies from 'js-cookie'
 
 // state
 export const state = () => ({
 	user: null,
 	token: null,
+	age: false,
+	cookie: false,
+	disclaimer: false,
 })
 
 // getters
@@ -12,6 +14,9 @@ export const getters = {
 	user: state => state.user,
 	token: state => state.token,
 	check: state => state.user !== null,
+	age: state => state.age,
+	cookie: state => state.cookie,
+	disclaimer: state => state.disclaimer,
 }
 
 // mutations
@@ -36,17 +41,25 @@ export const mutations = {
 	UPDATE_USER(state, user) {
 		state.user = user
 	},
+
+	SET_DISCLAIMER(state, { disclaimer }) {
+		state.disclaimer = disclaimer
+	},
+
+	SET_AGE(state, { age }) {
+		state.age = age
+	},
+
+	SET_COOKIE(state, { cookie }) {
+		state.cookie = cookie
+	},
 }
 
 // actions
 export const actions = {
 	saveToken({ commit, dispatch }, { token, remember }) {
 		commit('SET_TOKEN', token)
-
-		this.$cookiz.set('token', token, {
-			maxAge: 60 * 60 * 24 * 365,
-		})
-		// Cookies.set('token', token, { expires: remember ? 365 : null })
+		Cookies.set('token', token, { expires: remember ? 365 : null })
 	},
 
 	async fetchUser({ commit }) {
@@ -76,7 +89,7 @@ export const actions = {
 				})
 			})
 		} catch (e) {
-			// Cookies.remove('token')
+			Cookies.remove('token')
 			commit('FETCH_USER_FAILURE')
 		}
 	},
@@ -99,5 +112,20 @@ export const actions = {
 		const { data } = await this.$axios.post(`/oauth/${provider}`)
 
 		return data.url
+	},
+
+	setDisclaimer({ commit }, { disclaimer }) {
+		commit('SET_DISCLAIMER', { disclaimer })
+		Cookies.set('disclaimer', disclaimer, { expires: 365 })
+	},
+
+	setAge({ commit }, { age }) {
+		commit('SET_AGE', { age })
+		Cookies.set('age', age, { expires: 365 })
+	},
+
+	setCookie({ commit }, { cookie }) {
+		commit('SET_COOKIE', { cookie })
+		Cookies.set('cookie', cookie, { expires: 365 })
 	},
 }
