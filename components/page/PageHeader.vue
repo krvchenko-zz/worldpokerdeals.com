@@ -1,5 +1,5 @@
 <template>
-	<header class="header">
+	<header id="header" class="header">
 		<div class="header__inner">
 			<div class="header__wrap">
 				<div class="header__hamburger-menu" @click="toggleHamburgerMenu">

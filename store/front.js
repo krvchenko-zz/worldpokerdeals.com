@@ -22,6 +22,7 @@ export const getters = {
 	room_categories: state => state.room_categories,
 	promotion_categories: state => state.promotion_categories,
 	club_categories: state => state.club_categories,
+	disclaimer: state => state.disclaimer,
 }
 
 // mutations

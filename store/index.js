@@ -22,5 +22,20 @@ export const actions = {
 		if (geo) {
 			commit('location/SET_CODE', { geo })
 		}
+
+		const disclaimer = cookieFromRequest(req, 'disclaimer')
+		if (disclaimer) {
+			commit('auth/SET_DISCLAIMER', { disclaimer })
+		}
+
+		const age = cookieFromRequest(req, 'age')
+		if (age) {
+			commit('auth/SET_AGE', { age })
+		}
+
+		const cookie = cookieFromRequest(req, 'cookie')
+		if (cookie) {
+			commit('auth/SET_COOKIE', { cookie })
+		}
 	},
 }

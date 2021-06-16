@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 // state
 export const state = () => ({
 	country: null,
@@ -43,5 +41,10 @@ export const actions = {
 				}
 			)
 		})
+	},
+
+	setCode({ commit }, { code }) {
+		commit('SET_CODE', { code })
+		Cookies.set('code', code, { expires: 365 })
 	},
 }

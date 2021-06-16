@@ -1,8 +1,12 @@
 <template>
 	<div class="page">
+		<client-only>
+			<page-disclaimer v-if="!disclaimer" />
+		</client-only>
 		<transition name="fade">
 			<page-header v-show="!hideHeader" />
 		</transition>
+
 		<nuxt />
 
 		<lazy-hydrate when-visible>
@@ -247,11 +251,6 @@
 
 		components: {
 			LazyHydrate,
-			// Modal: () => import('~/components/modals/Modal'),
-			// AuthForm: () => import('~/components/AuthForm'),
-			// BlacklistForm: () => import('~/components/BlacklistForm'),
-			// ConnectionForm: () => import('~/components/ConnectionForm'),
-			// ModalRates: () => import('~/components/modals/ModalRates')
 		},
 
 		computed: {
@@ -261,7 +260,7 @@
 				user: 'auth/user',
 				geo: 'location/code',
 				page: 'pages/page',
-				// room: 'rooms/room',
+				disclaimer: 'auth/disclaimer',
 				topList: 'rooms/topList',
 			}),
 		},
