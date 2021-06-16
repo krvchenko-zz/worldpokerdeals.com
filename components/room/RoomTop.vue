@@ -366,4 +366,22 @@
 			}
 		}
 	}
+
+	@include mq('laptop') {
+		.top-room {
+			&__header {
+				padding: 28px 20px;
+			}
+			&__icon {
+				left: 20px;
+			}
+			&__info {
+				padding-left: 104px;
+			}
+			&__footer {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+		}
+	}
 </style>
