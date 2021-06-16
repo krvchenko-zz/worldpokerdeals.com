@@ -70,6 +70,7 @@ export default {
 						styleLibraryName: 'theme-chalk',
 					},
 				],
+				'@babel/plugin-proposal-optional-chaining',
 			],
 		},
 		extend(config, { isDev, isClient }) {
