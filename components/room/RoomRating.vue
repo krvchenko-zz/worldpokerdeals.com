@@ -69,6 +69,7 @@
 			// padding: 4px 20px;
 			// display: inline-block;
 			font-size: 0;
+			white-space: nowrap;
 			// background: linear-gradient(0deg, #373B4A, #373B4A), #21232D;
 		}
 
