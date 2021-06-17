@@ -120,4 +120,10 @@
 			line-height: 18px;
 		}
 	}
+
+	@include mq('tablet') {
+		.room-advantage {
+			flex-shrink: 0;
+		}
+	}
 </style>

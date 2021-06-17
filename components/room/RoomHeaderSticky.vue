@@ -182,4 +182,10 @@
 			}
 		}
 	}
+
+	@include mq('laptop') {
+		.room-header-sticky {
+			display: none;
+		}
+	}
 </style>

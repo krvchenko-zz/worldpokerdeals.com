@@ -31,6 +31,7 @@
 
 	.tab-nav {
 		position: relative;
+		height: 52px;
 		&__list {
 			padding: 2px 0 0 0;
 			margin: 0;
