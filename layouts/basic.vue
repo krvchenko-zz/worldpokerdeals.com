@@ -208,7 +208,6 @@
 				</template>
 			</lazy-modal>
 		</transition>
-
 		<transition name="fade">
 			<lazy-modal
 				v-if="authModal"
@@ -238,6 +237,19 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<transition name="fade">
+			<lazy-modal
+				v-if="age === 'false' || !age"
+				:show="age === 'false' || !age"
+				:show-close="false"
+				:width="530"
+				header-bg="#FFFFFF"
+			>
+				<template #body>
+					<age-form />
+				</template>
+			</lazy-modal>
+		</transition>
 	</div>
 </template>
 
@@ -262,6 +274,7 @@
 				page: 'pages/page',
 				disclaimer: 'auth/disclaimer',
 				topList: 'rooms/topList',
+				age: 'auth/age',
 			}),
 		},
 
@@ -351,6 +364,12 @@
 
 			eventBus.$on('pageHeader:hide', event => {
 				this.hideHeader = event
+			})
+
+			eventBus.$on('ageModal:click', event => {
+				if (event) {
+					document.body.classList.remove('modal-open')
+				}
 			})
 		},
 

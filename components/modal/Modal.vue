@@ -7,12 +7,14 @@
 			}"
 		>
 			<div
+				v-if="header"
 				class="modal-header"
 				:style="{
 					background: headerBg,
 				}"
 			>
 				<span
+					v-if="showClose"
 					:class="['modal__close', `modal__close_${closeColor}`]"
 					@click="handleModalClose"
 				></span>
@@ -37,6 +39,11 @@
 				default: false,
 			},
 
+			showClose: {
+				type: Boolean,
+				default: true,
+			},
+
 			width: {
 				type: Number,
 				default: 600,
@@ -55,11 +62,16 @@
 
 		data: () => ({}),
 
-		computed: {},
+		computed: {
+			header() {
+				return this.$slots.header ? true : false
+			},
+		},
 
 		watch: {},
 
 		mounted() {
+			console.log(this.$slots.header);
 			document.body.classList.add('modal-open')
 		},
 
@@ -70,9 +82,7 @@
 				this.$emit('update:show', false)
 			},
 
-			onEsc() {
-				console.log('test')
-			},
+			onEsc() {},
 		},
 	}
 </script>
