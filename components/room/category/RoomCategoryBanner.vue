@@ -171,6 +171,7 @@
 
 	@include mq('laptop') {
 		.help-banner {
+			overflow: hidden;
 			grid-template-columns: 3.5fr 2.5fr;
 			grid-template-areas:
 				'title image'

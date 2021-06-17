@@ -165,23 +165,27 @@
 					Последние акции
 				</div>
 
-				<promotion-item
-					v-for="(item, index) in promotions"
+				<div
+					class="rooms__aside__promotions-list"
 					v-if="promotions && !category.is_blacklist"
-					:key="index"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:page="item.page"
-					:author="item.author"
-					:created="item.created_at"
-					:category="item.category"
-					:time_left="item.time_left"
-					:time_before="item.time_before"
-					:prize="item.prize"
-					:currency="item.currency ? item.currency.symbol : '$'"
-					:exclusive="item.exclusive"
-				></promotion-item>
+				>
+					<promotion-item
+						v-for="(item, index) in promotions"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:page="item.page"
+						:author="item.author"
+						:created="item.created_at"
+						:category="item.category"
+						:time_left="item.time_left"
+						:time_before="item.time_before"
+						:prize="item.prize"
+						:currency="item.currency ? item.currency.symbol : '$'"
+						:exclusive="item.exclusive"
+					></promotion-item>
+				</div>
 
 				<topic-list v-if="category.topics.length">
 					<topic-item
@@ -574,6 +578,11 @@
 						display: block;
 					}
 				}
+				&__promotions-list {
+					display: grid;
+					grid-template-columns: repeat(3, 1fr);
+					column-gap: 20px;
+				}
 			}
 			&__page-banners {
 				padding-left: 24px;
@@ -593,6 +602,16 @@
 			}
 			&__page-banners {
 				padding-left: 20px;
+			}
+			&__aside {
+				&__promotions-list {
+					display: grid;
+					overflow-x: scroll;
+					@include hide-scroll();
+					margin-right: -20px;
+					grid-template-columns: repeat(3, 288px);
+					column-gap: 16px;
+				}
 			}
 		}
 		.rooms-list {

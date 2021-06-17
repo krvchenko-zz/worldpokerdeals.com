@@ -105,6 +105,7 @@
 		}
 
 		&__title {
+			grid-area: title;
 			margin-bottom: 20px;
 			padding-top: 68px;
 			padding-bottom: 18px;
@@ -132,6 +133,7 @@
 		}
 
 		&__info {
+			grid-area: info;
 			margin-bottom: 36px;
 			font-family: Proxima Nova;
 			font-size: 16px;
@@ -141,6 +143,7 @@
 		}
 
 		&__actions {
+			grid-area: actions;
 		}
 
 		&__messengers {
@@ -153,6 +156,70 @@
 			margin-right: 20px;
 			&:last-child {
 				margin: 0;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.game-search-banner {
+			&__wrap {
+				display: grid;
+				padding: 28px;
+				grid-template-columns: 5.5fr 4.2fr;
+				column-gap: 52px;
+				grid-template-areas:
+					'title actions'
+					'info actions';
+			}
+			&__title {
+				padding-left: 70px;
+				padding-top: 0;
+				background-position: left top;
+				text-align: left;
+				padding-bottom: 0;
+				margin-bottom: 14px;
+				&:after {
+					display: none;
+				}
+			}
+			&__info {
+				margin-bottom: 0;
+				padding-left: 70px;
+				text-align: left;
+			}
+			&__messengers {
+				justify-content: flex-start;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.game-search-banner {
+			&__wrap {
+				grid-template-columns: 100%;
+				grid-template-areas:
+					'title'
+					'info'
+					'actions';
+			}
+			&__title {
+				padding-top: 60px;
+				padding-left: 0;
+				padding-bottom: 16px;
+				background-position: center top;
+				text-align: center;
+				margin-bottom: 16px;
+				&:after {
+					display: block;
+				}
+			}
+			&__info {
+				text-align: center;
+				padding-left: 0;
+				margin-bottom: 20px;
+			}
+			&__messengers {
+				justify-content: center;
 			}
 		}
 	}
