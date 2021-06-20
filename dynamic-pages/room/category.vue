@@ -134,12 +134,12 @@
 
 			<div class="rooms__aside">
 				<div
+					v-if="filters && !category.is_blacklist"
 					class="rooms__aside__filter-wrapper"
 					:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
 					@click.self="handleOutsideClick($event)"
 				>
 					<room-category-filters
-						v-if="filters && !category.is_blacklist"
 						class="rooms__aside__filter"
 						:kycs="filters.kycs"
 						:platforms="filters.platforms"

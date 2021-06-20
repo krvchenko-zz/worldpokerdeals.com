@@ -364,19 +364,17 @@
 	}
 
 	@include mq('tablet') {
-		.post-category {
-			.pagination {
-				flex-direction: row;
-				flex-wrap: wrap;
-				&__list {
-					margin-right: 20px;
-				}
+		.pagination {
+			flex-direction: row;
+			flex-wrap: wrap;
+			&__list {
+				margin-right: 20px;
 			}
-			.btn-pagination_more {
-				width: 100%;
-				margin-right: 0px;
-				margin-bottom: 20px;
-			}
+		}
+		.btn-pagination_more {
+			width: 100%;
+			margin-right: 0px;
+			margin-bottom: 20px;
 		}
 	}
 </style>

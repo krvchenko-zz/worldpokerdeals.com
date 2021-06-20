@@ -178,6 +178,9 @@
 				grid-template-columns: 1fr 288px;
 				justify-content: space-between;
 			}
+			&__promotion {
+				align-self: baseline;
+			}
 			& &__icon {
 				display: none;
 			}
@@ -195,6 +198,7 @@
 	@include mq('tablet') {
 		.promotions-header {
 			@include paddings('mobile');
+			margin: 0 -20px;
 			&__wrap {
 				grid-template-columns: 100%;
 				justify-content: space-between;
