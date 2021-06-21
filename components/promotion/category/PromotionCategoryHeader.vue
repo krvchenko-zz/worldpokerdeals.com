@@ -114,7 +114,7 @@
 		background-size: cover;
 		&__wrap {
 			display: grid;
-			grid-template-columns: 1fr max-content;
+			grid-template-columns: 1fr minmax(auto, 326px);
 			gap: 86px;
 			padding: 0 60px;
 			position: relative;
@@ -166,6 +166,16 @@
 			line-height: 22px;
 			color: #ffffff;
 			opacity: 0.8;
+		}
+	}
+
+	@include mq('desktop') {
+		.promotions-header {
+			&__wrap {
+				padding: 0;
+				column-gap: 48px;
+				grid-template-columns: 1fr minmax(auto, 288px);
+			}
 		}
 	}
 

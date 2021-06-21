@@ -71,7 +71,10 @@
 			</template>
 
 			<template v-else>
-				<bonus-list v-if="!loading && data.length" class="promotions__list">
+				<bonus-list
+					v-if="!loading && data.length"
+					class="promotions__bonus-list"
+				>
 					<bonus-item
 						v-for="(item, index) in data"
 						:key="index"
@@ -497,6 +500,13 @@
 		}
 		&__aside {
 			grid-area: aside;
+		}
+	}
+
+	@include mq('desktop') {
+		.promotions {
+			grid-template-columns: 3fr minmax(auto, 288px);
+			column-gap: 24px;
 		}
 	}
 
