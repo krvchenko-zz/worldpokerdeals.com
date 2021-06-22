@@ -81,8 +81,10 @@
 			padding: 0;
 			margin-bottom: 24px;
 		}
-		&__arrow {
+		.svg-icon {
 			display: none;
+		}
+		&__arrow {
 			&--opened {
 				transform: rotate(180deg);
 			}
@@ -117,8 +119,8 @@
 				justify-content: space-between;
 				align-items: center;
 			}
-			&__arrow {
-				display: block;
+			.svg-icon {
+				display: inline-block;
 			}
 		}
 
