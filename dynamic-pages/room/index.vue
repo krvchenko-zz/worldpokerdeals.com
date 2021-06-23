@@ -163,7 +163,9 @@
 		</div>
 
 		<div class="room__recommended">
-			<div class="block-title">Похожие предложения</div>
+			<div class="room__recommended__title block-title">
+				Похожие предложения
+			</div>
 			<room
 				v-for="(item, index) in related"
 				:id="item.id"
@@ -187,8 +189,6 @@
 		<transition name="fade">
 			<room-header-sticky v-if="showSticky" />
 		</transition>
-
-		<page-banners />
 	</section>
 </template>
 
@@ -358,6 +358,7 @@
 		.room {
 			@include paddings('tablet');
 			&__recommended {
+				@include paddings('tablet');
 				margin: 0 -24px;
 			}
 		}
@@ -367,7 +368,17 @@
 		.room {
 			@include paddings('mobile');
 			&__recommended {
-				margin: 0 -20px;
+				padding: 0;
+				margin: 0 -21px;
+				&__title {
+					padding-left: 20px;
+					&::before {
+						left: 20px;
+					}
+				}
+			}
+			& &__toc {
+				margin-top: 0;
 			}
 		}
 	}

@@ -114,7 +114,7 @@
 		background-size: cover;
 		&__wrap {
 			display: grid;
-			grid-template-columns: 1fr max-content;
+			grid-template-columns: 1fr minmax(auto, 326px);
 			gap: 86px;
 			padding: 0 60px;
 			position: relative;
@@ -169,6 +169,16 @@
 		}
 	}
 
+	@include mq('desktop') {
+		.promotions-header {
+			&__wrap {
+				padding: 0;
+				column-gap: 48px;
+				grid-template-columns: 1fr minmax(auto, 288px);
+			}
+		}
+	}
+
 	@include mq('laptop') {
 		.promotions-header {
 			@include paddings('tablet');
@@ -177,6 +187,9 @@
 				gap: 12px;
 				grid-template-columns: 1fr 288px;
 				justify-content: space-between;
+			}
+			&__promotion {
+				align-self: baseline;
 			}
 			& &__icon {
 				display: none;
@@ -195,6 +208,7 @@
 	@include mq('tablet') {
 		.promotions-header {
 			@include paddings('mobile');
+			margin: 0 -20px;
 			&__wrap {
 				grid-template-columns: 100%;
 				justify-content: space-between;

@@ -1,22 +1,16 @@
 <template>
 	<div class="bonus-list">
-		<table
-			class="bonus-table"
-			cellspacing="0"
-			cellpadding="0"
-			border="0"
-			width="100%"
-		>
-			<thead class="bonus-table__header">
-				<tr class="bonus-table__header-row">
-					<th colspan="2" class="bonus-table__label">{{ $t('bonus') }}</th>
-					<th class="bonus-table__label">{{ $t('cashback') }}</th>
-					<th class="bonus-table__label">{{ $t('deposit') }}</th>
-					<th colspan="5" class="bonus-table__label">{{ $t('max_bonus') }}</th>
-				</tr>
-			</thead>
-			<slot />
-		</table>
+		<div class="bonus-list__header">
+			<div class="bonus-list__label bonus-list__label-bonus">
+				{{ $t('bonus') }}
+			</div>
+			<div class="bonus-list__label">
+				{{ $t('max_bonus') }}
+			</div>
+			<div class="bonus-list__label">{{ $t('cashback') }}</div>
+			<div class="bonus-list__label">{{ $t('deposit') }}</div>
+		</div>
+		<slot />
 	</div>
 </template>
 
@@ -41,11 +35,15 @@
 </script>
 
 <style lang="scss">
-	.bonus-table {
-		margin-bottom: 30px;
-		border-collapse: separate;
+	.bonus-list {
+		grid-area: list;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 28px;
 
 		&__header {
+			display: grid;
+			grid-template-columns: 354px 116px 83px 1fr;
 			background: #f1efef;
 		}
 
@@ -65,10 +63,39 @@
 			color: #777777;
 			background: #f1efef;
 			border-left: 1px solid #e9e9e9;
-			border-bottom: 2px solid #d7d7d7;
+			border-bottom: 1px solid #d7d7d7;
 			&:first-child {
 				border-left: none;
 			}
+		}
+	}
+
+	@include mq('desktop') {
+		.bonus-list {
+			&__header {
+				grid-template-columns: 278px 92px 79px 1fr;
+			}
+			&__label {
+				padding-left: 8px;
+				&-bonus {
+					padding-left: 20px;
+				}
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.bonus-list {
+			&__header {
+				display: none;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.bonus-list {
+			margin-left: -20px;
+			margin-right: -21px;
 		}
 	}
 </style>

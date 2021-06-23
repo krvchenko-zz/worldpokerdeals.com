@@ -13,178 +13,191 @@
 			/>
 		</nav-list>
 
-		<div class="promotions__filter">
-			<client-only>
-				<filter-header
-					v-if="items"
-					:geo.sync="geo"
-					:sort.sync="sort"
-					:total.sync="total"
-					:overall.sync="overall"
-					:sort-options="sortOptions"
-					entity-label="акций"
-					@update:sort="fetchItems"
-					@update:geo="fetchItems"
-				/>
-
-				<filter-selected-list v-if="selected.length">
-					<filter-selected
-						v-for="(item, index) in selected"
-						:key="index"
-						:label="item.label"
-						:value="item.value"
-						:item-key="item.key"
+		<div class="promotions__container">
+			<div class="promotions__filter">
+				<client-only>
+					<filter-header
+						v-if="items"
+						:geo.sync="geo"
+						:sort.sync="sort"
+						:total.sync="total"
+						:overall.sync="overall"
+						:sort-options="sortOptions"
+						entity-label="акций"
+						@update:sort="fetchItems"
+						@update:geo="fetchItems"
 					/>
-					<filter-selected
-						:key="null"
-						label="Очистить фильтры"
-						:clear="true"
-						:value="null"
-					/>
-				</filter-selected-list>
-			</client-only>
-		</div>
 
-		<!-- List -->
-		<template v-if="category.entity === 'promotion'">
-			<promotion-list v-if="!loading && data.length" class="promotions__list">
-				<promotion-item
-					v-for="(item, index) in data"
-					:key="index"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:page="item.page"
-					:author="item.user"
-					:created="item.created_at"
-					:category="item.category"
-					:time_left="item.time_left"
-					:time_before="item.time_before"
-					:regularity="item.regularity"
-					:prize="item.prize"
-					:currency="item.currency ? item.currency.symbol : ''"
-					:exclusive="item.exclusive"
-					:active="item.active"
-				></promotion-item>
-			</promotion-list>
-		</template>
+					<filter-selected-list v-if="selected.length">
+						<filter-selected
+							v-for="(item, index) in selected"
+							:key="index"
+							:label="item.label"
+							:value="item.value"
+							:item-key="item.key"
+						/>
+						<filter-selected
+							:key="null"
+							label="Очистить фильтры"
+							:clear="true"
+							:value="null"
+						/>
+					</filter-selected-list>
+				</client-only>
+			</div>
 
-		<template v-else>
-			<bonus-list v-if="!loading && data.length" class="promotions__list">
-				<bonus-item
-					v-for="(item, index) in data"
-					:key="index"
-					:title="item.title"
-					:slug="item.slug"
-					:created="item.created_at"
-					:code="item.code"
-					:terms="item.terms"
-					:room="item.room"
-					:page="item.page"
-					:category="item.category"
-					:min_deposit="item.min_deposit"
-					:min_deposit_currency="item.min_deposit_currency"
-					:cashback_value="item.cashback_value"
-					:max_bonus="item.max_bonus"
-					:max_bonus_currency="item.max_bonus_currency"
-					:deposit_bonus="item.deposit_bonus"
-					:index="index"
-					:has-page="item.has_page"
-				></bonus-item>
-			</bonus-list>
-		</template>
-
-		<!-- Pagination -->
-		<pagination
-			v-if="data.length"
-			:last="last_page"
-			:current="page"
-			:prev-url="prev_page_url"
-			:next-url="next_page_url"
-			:total="total"
-			:from="from"
-			:to="to"
-			:load-more-width="208"
-			:load-more-text="
-				category.entity === 'promotion'
-					? 'Показать еще акции'
-					: 'Показать еще бонусы'
-			"
-			total-text="акций"
-			@next="handlePageNext"
-			@prev="handlePagePrev"
-			@change="handlePageChange"
-			@more="handleShowMore"
-			class="promotions__pagination"
-		>
-		</pagination>
-
-		<!-- Toc -->
-		<div class="promotions__toc">
-			<toc-list v-if="category.toc && category.toc.length">
-				<template #default="{ inline }">
-					<toc-item
-						v-for="(item, index) in category.toc"
+			<!-- List -->
+			<template v-if="category.entity === 'promotion'">
+				<promotion-list v-if="!loading && data.length" class="promotions__list">
+					<promotion-item
+						v-for="(item, index) in data"
 						:key="index"
-						:index="index"
-						:inline="inline"
-						:anchor="item.anchor_id"
-						:text="item.text"
-					>
-					</toc-item>
-				</template>
-			</toc-list>
-		</div>
-
-		<!-- Article -->
-		<page-article
-			:meta="false"
-			:text="category.text"
-			:author="category.author ? category.author.full_name : null"
-			:created="category.created_at"
-			:updated="category.updated_at"
-			class="promotions__article"
-		>
-			<template #footer>
-				<!-- Faq -->
-				<faq-list
-					v-if="category.faq && category.faq.mainEntity.length"
-					label="FAQ"
-				>
-					<faq-item
-						v-for="(item, index) in category.faq.mainEntity"
-						:key="index"
-						:question="item.name"
-						:answer="item.acceptedAnswer.text"
-					>
-					</faq-item>
-				</faq-list>
-
-				<!-- Author -->
-				<author v-if="category.author" :author="category.author" />
-
-				<!-- Comments -->
-				<comments
-					commentable_type="App\PromotionCategory"
-					:commentable_id="category.id"
-				/>
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:page="item.page"
+						:author="item.user"
+						:created="item.created_at"
+						:category="item.category"
+						:time_left="item.time_left"
+						:time_before="item.time_before"
+						:regularity="item.regularity"
+						:prize="item.prize"
+						:currency="item.currency ? item.currency.symbol : ''"
+						:exclusive="item.exclusive"
+						:active="item.active"
+					></promotion-item>
+				</promotion-list>
 			</template>
-		</page-article>
+
+			<template v-else>
+				<bonus-list
+					v-if="!loading && data.length"
+					class="promotions__bonus-list"
+				>
+					<bonus-item
+						v-for="(item, index) in data"
+						:key="index"
+						:title="item.title"
+						:slug="item.slug"
+						:created="item.created_at"
+						:code="item.code"
+						:terms="item.terms"
+						:room="item.room"
+						:page="item.page"
+						:category="item.category"
+						:min_deposit="item.min_deposit"
+						:min_deposit_currency="item.min_deposit_currency"
+						:cashback_value="item.cashback_value"
+						:max_bonus="item.max_bonus"
+						:max_bonus_currency="item.max_bonus_currency"
+						:deposit_bonus="item.deposit_bonus"
+						:index="index"
+						:has-page="item.has_page"
+					></bonus-item>
+				</bonus-list>
+			</template>
+
+			<!-- Pagination -->
+			<pagination
+				v-if="data.length"
+				:last="last_page"
+				:current="page"
+				:prev-url="prev_page_url"
+				:next-url="next_page_url"
+				:total="total"
+				:from="from"
+				:to="to"
+				:load-more-width="208"
+				:load-more-text="
+					category.entity === 'promotion'
+						? 'Показать еще акции'
+						: 'Показать еще бонусы'
+				"
+				total-text="акций"
+				@next="handlePageNext"
+				@prev="handlePagePrev"
+				@change="handlePageChange"
+				@more="handleShowMore"
+				class="promotions__pagination"
+			>
+			</pagination>
+
+			<!-- Toc -->
+			<div class="promotions__toc">
+				<toc-list v-if="category.toc && category.toc.length">
+					<template #default="{ inline }">
+						<toc-item
+							v-for="(item, index) in category.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:anchor="item.anchor_id"
+							:text="item.text"
+						>
+						</toc-item>
+					</template>
+				</toc-list>
+			</div>
+
+			<!-- Article -->
+			<page-article
+				:meta="false"
+				:text="category.text"
+				:author="category.author ? category.author.full_name : null"
+				:created="category.created_at"
+				:updated="category.updated_at"
+				class="promotions__article"
+			>
+				<template #footer>
+					<!-- Faq -->
+					<faq-list
+						v-if="category.faq && category.faq.mainEntity.length"
+						label="FAQ"
+					>
+						<faq-item
+							v-for="(item, index) in category.faq.mainEntity"
+							:key="index"
+							:question="item.name"
+							:answer="item.acceptedAnswer.text"
+						>
+						</faq-item>
+					</faq-list>
+
+					<!-- Author -->
+					<author v-if="category.author" :author="category.author" />
+
+					<!-- Comments -->
+					<comments
+						commentable_type="App\PromotionCategory"
+						:commentable_id="category.id"
+					/>
+				</template>
+			</page-article>
+		</div>
 
 		<div class="promotions__aside">
 			<client-only>
-				<promotion-category-filters
+				<div
 					v-if="filters"
-					:geo="geo"
-					:categories="filters.categories"
-					:disciplines="filters.disciplines"
-					:limits="filters.limits"
-					:games="filters.games"
-					:rooms="filters.rooms"
-					:networks="filters.networks"
-					:exclusive="filters.exclusive"
-					@change="handleFilterChange"
-				/>
+					class="promotions__aside__filter-wrapper"
+					:class="{ 'promotions__aside__filter-wrapper--opened': showFilter }"
+					@click.self="handleOutsideClick($event)"
+				>
+					<promotion-category-filters
+						class="promotions__aside__filter"
+						:geo.sync="geo"
+						:categories="filters.categories"
+						:disciplines="filters.disciplines"
+						:limits="filters.limits"
+						:games="filters.games"
+						:rooms="filters.rooms"
+						:networks="filters.networks"
+						:exclusive="filters.exclusive"
+						@change="handleFilterChange"
+						@update:geo="fetchItems"
+					/>
+				</div>
 			</client-only>
 			<room-top-list v-if="category.entity === 'promotion'" />
 
@@ -206,6 +219,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
 	import axios from 'axios'
 
 	export default {
@@ -294,6 +308,7 @@
 					value: 'exclusive',
 				},
 			],
+			showFilter: false,
 		}),
 
 		async fetch() {
@@ -349,6 +364,9 @@
 		},
 
 		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
 			this.geo = this.country.code
 		},
 
@@ -359,6 +377,20 @@
 					this[key] = selected.values[key]
 				})
 				this.fetchItems()
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector(
+					'.promotions__aside__filter'
+				)
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
 			},
 
 			async fetchItems() {
@@ -420,22 +452,30 @@
 <style lang="scss">
 	.promotions {
 		display: grid;
-		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		grid-template-columns: minmax(0, 9fr) 3fr;
 		column-gap: 28px;
 		max-width: 1440px;
 		width: 100%;
 		@include paddings('desktop');
 		grid-template-areas:
-			'header header header'
-			'nav nav nav'
-			'filter filter aside'
-			'list list aside'
-			'pagination pagination aside'
-			'toc article aside';
+			'header header'
+			'nav nav'
+			'container aside';
 		&__nav {
 			grid-area: nav;
 			margin-top: -26px;
 			margin-bottom: 32px;
+		}
+		&__container {
+			grid-area: container;
+			display: grid;
+			grid-template-columns: 2fr minmax(0, 7fr);
+			grid-auto-rows: max-content;
+			grid-template-areas:
+				'filter filter'
+				'list list'
+				'pagination pagination'
+				'toc article';
 		}
 		&__header {
 			grid-area: header;
@@ -463,6 +503,13 @@
 		}
 	}
 
+	@include mq('desktop') {
+		.promotions {
+			grid-template-columns: 3fr minmax(auto, 288px);
+			column-gap: 24px;
+		}
+	}
+
 	@include mq('laptop') {
 		.promotions {
 			@include paddings('tablet');
@@ -470,12 +517,40 @@
 			grid-template-areas:
 				'header'
 				'nav'
-				'filter'
-				'list'
-				'pagination'
-				'toc'
-				'article'
+				'container'
 				'aside';
+			&__container {
+				grid-template-columns: 100%;
+				grid-template-areas:
+					'filter'
+					'list'
+					'pagination'
+					'toc'
+					'article';
+			}
+			&__aside {
+				margin-top: 40px;
+				&__filter {
+					margin-bottom: 0;
+					margin-left: auto;
+					max-width: 436px;
+					height: 100%;
+					overflow-y: scroll;
+					@include hide-scroll();
+				}
+				&__filter-wrapper {
+					display: none;
+					position: fixed;
+					right: 0;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					z-index: 999;
+					&--opened {
+						display: block;
+					}
+				}
+			}
 		}
 	}
 
@@ -484,6 +559,18 @@
 			@include paddings('mobile');
 			&__list {
 				grid-template-columns: 100%;
+			}
+
+			.promotion-item {
+				max-width: none;
+				&__img {
+					width: 100%;
+				}
+				&__prize {
+					max-width: 326px;
+					margin-left: auto;
+					margin-right: auto;
+				}
 			}
 		}
 	}

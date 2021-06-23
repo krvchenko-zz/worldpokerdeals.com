@@ -367,10 +367,10 @@
 		}
 	}
 
-	@include mq('laptop') {
+	@include mq('desktop') {
 		.top-room {
 			&__header {
-				padding: 28px 20px;
+				padding: 28px 20px 36px;
 			}
 			&__icon {
 				left: 20px;
@@ -381,6 +381,14 @@
 			&__footer {
 				padding-left: 20px;
 				padding-right: 20px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.top-room {
+			&__header {
+				padding: 28px 20px;
 			}
 		}
 	}

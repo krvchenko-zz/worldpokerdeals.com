@@ -1,7 +1,7 @@
 <template>
-	<tbody class="bonus-item">
-		<tr class="bonus-item__row">
-			<td class="bonus-item__col bonus-item__col_icon">
+	<div class="bonus-item">
+		<div class="bonus-item__content">
+			<div class="bonus-item__icon-wrapper">
 				<svg-icon
 					v-if="room"
 					class="bonus-item__icon"
@@ -10,9 +10,9 @@
 					:height="42"
 					view-box="0 0 200 200"
 				/>
-			</td>
+			</div>
 
-			<td class="bonus-item__col bonus-item__col_title">
+			<div class="bonus-item__text">
 				<span
 					:style="{
 						color: category.label_color,
@@ -25,122 +25,112 @@
 					>{{ category.title }}</span
 				>
 				<span class="bonus-item__title">{{ title }}</span>
-			</td>
+			</div>
 
-			<td class="bonus-item__col bonus-item__col_cashback">
-				<span class="bonus-item__cashback">{{ cashback_value }}%</span>
-			</td>
-
-			<td class="bonus-item__col bonus-item__col_deposit">
-				<span class="bonus-item__deposit">+{{ deposit_bonus }}%</span>
-			</td>
-
-			<td class="bonus-item__col bonus-item__col_max">
+			<div class="bonus-item__params">
 				<span class="bonus-item__max"
+					><span class="bonus-item__params__title">{{ $t('max_bonus') }}</span
 					>{{ max_bonus_currency.symbol }}{{ max_bonus }}</span
 				>
-			</td>
+				<span class="bonus-item__cashback">
+					<span class="bonus-item__params__title">{{ $t('cashback') }}</span
+					>{{ cashback_value }}%
+				</span>
 
-			<td class="bonus-item__col bonus-item__col_bonus">
+				<span class="bonus-item__deposit"
+					><span class="bonus-item__params__title">{{ $t('deposit') }}</span
+					>+{{ deposit_bonus }}%</span
+				>
+			</div>
+
+			<div class="bonus-item__buttons">
 				<span
-					:class="['bonus-item__code', codeHovered && 'bonus-item__code_hover']"
+					:class="[
+						'bonus-item__code',
+						codeHovered && 'bonus-item__code--hover',
+					]"
 					@mouseover="codeHovered = true"
 					@mouseleave="codeHovered = false"
 				>
 					<span
 						:class="[
 							'bonus-item__code-label',
-							codeHovered && 'bonus-item__code-label_hover',
+							codeHovered && 'bonus-item__code-label--hover',
 						]"
 						>{{ $t('bonus_code') }}</span
 					>
 					<span class="bonus-item__code-value">{{ code }}</span>
 				</span>
-			</td>
 
-			<td class="bonus-item__col bonus-item__col_action">
 				<room-action-button
-					class="btn-get-bonus"
+					class="btn-get-bonus bonus-item__action bonus-item__get-button"
 					:icon="false"
 					type="download"
 					:label="$t('get')"
 					:slug="room.slug"
 				/>
-			</td>
 
-			<td class="bonus-item__col bonus-item__col_action">
-				<nuxt-link
-					v-if="hasPage"
-					v-slot="{ href, route, navigate, isActive, isExactActive }"
-					prefetch
-					:to="{
-						name: 'index',
-						params: {
-							parent: page.parent ? page.parent.slug : page.slug,
-							child: page.parent ? page.slug : null,
-						},
-					}"
-				>
-					<a
-						:class="['btn btn-bonus-review']"
-						:href="href"
-						@click="navigate"
-					></a>
-				</nuxt-link>
-			</td>
-		</tr>
-		<tr class="bonus-item__row">
-			<td
-				colspan="8"
+				<div v-if="hasPage" class="bonus-item__review">
+					<nuxt-link
+						v-slot="{ href, route, navigate, isActive, isExactActive }"
+						prefetch
+						:to="{
+							name: 'index',
+							params: {
+								parent: page.parent ? page.parent.slug : page.slug,
+								child: page.parent ? page.slug : null,
+							},
+						}"
+					>
+						<a
+							:class="['btn btn-bonus-review bonus-item__review__button']"
+							:href="href"
+							@click="navigate"
+						></a>
+					</nuxt-link>
+				</div>
+			</div>
+		</div>
+
+		<div
+			:class="['bonus-item__info', showTerms && 'bonus-item__info--expanded']"
+		>
+			<span
 				:class="[
-					'bonus-item__col',
-					'bonus-item__col_info',
-					showTerms && 'bonus-item__col_info_expanded',
+					'bonus-item__terms',
+					showTerms && 'bonus-item__terms--expanded',
 				]"
 			>
-				<span
-					:class="[
-						'bonus-item__terms',
-						showTerms && 'bonus-item__terms_expanded',
-					]"
-				>
-					<i class="bonus-item__terms-icon"></i>
-					<span
-						@click="terms ? (showTerms = !showTerms) : (showTerms = false)"
-						>{{ $t('bonus_conditions') }}</span
-					>
-				</span>
+				<i class="bonus-item__terms-icon"></i>
+				<span @click="terms ? (showTerms = !showTerms) : (showTerms = false)">{{
+					$t('bonus_conditions')
+				}}</span>
+			</span>
 
-				<span
-					:class="{
-						'bonus-item__avaliable': true,
-						[`bonus-item__avaliable_yes`]: !room.restricted,
-						[`bonus-item__avaliable_no`]: room.restricted,
-					}"
-				>
-					<svg-icon
-						:width="16"
-						:height="16"
-						:icon="country.code"
-						prefix="flags/"
-					/>
-					<span v-if="room.restricted">{{
-						$t('room_geo_restricted', { country: country.from })
-					}}</span>
-					<span v-else>{{
-						$t('room_geo_allowed', { country: country.from })
-					}}</span>
-				</span>
-			</td>
-		</tr>
-		<tr v-show="showTerms" class="bonus-item__row">
-			<td
-				colspan="8"
-				class="bonus-item__col bonus-item__col_terms"
-				v-html="terms"
-			></td>
-		</tr>
-	</tbody>
+			<span
+				:class="{
+					'bonus-item__avaliable': true,
+					[`bonus-item__avaliable_yes`]: !room.restricted,
+					[`bonus-item__avaliable_no`]: room.restricted,
+				}"
+			>
+				<svg-icon
+					:width="16"
+					:height="16"
+					:icon="country.code"
+					prefix="flags/"
+				/>
+				<span v-if="room.restricted">{{
+					$t('room_geo_restricted', { country: country.from })
+				}}</span>
+				<span v-else>{{
+					$t('room_geo_allowed', { country: country.from })
+				}}</span>
+			</span>
+		</div>
+
+		<div v-show="showTerms" class="bonus-item__terms-text" v-html="terms"></div>
+	</div>
 </template>
 
 <script>
@@ -263,106 +253,141 @@
 	$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
 	.bonus-item {
-		&__table {
-			width: 100%;
+		display: flex;
+		flex-direction: column;
+		&__content {
+			border-top: 1px solid #e9e9e9;
+			border-left: 1px solid #e9e9e9;
+			border-right: 1px solid #e9e9e9;
+			display: grid;
+			padding: 20px;
+			grid-template-columns: 58px 276px 1fr 352px;
+			grid-template-areas: 'icon text params buttons';
+		}
+		&__icon-wrapper {
+			grid-area: icon;
+			margin-right: 16px;
+		}
+		&__icon {
+			border-radius: 4px;
+			display: block;
+			width: 42px;
+			margin-bottom: auto;
+		}
+		&__text {
+			grid-area: text;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: flex-start;
+			margin-right: 20px;
+		}
+		&__params {
+			grid-area: params;
+			display: flex;
+			&__title {
+				display: none;
+				width: 100%;
+				white-space: nowrap;
+				font-weight: 600;
+				font-size: 12px;
+				line-height: 16px;
+				letter-spacing: 0.3px;
+				text-transform: uppercase;
+				color: #777777;
+				margin-bottom: 4px;
+			}
+		}
+		&__buttons {
+			grid-area: buttons;
+			height: 46px;
+			display: flex;
+		}
+		& &__get-button {
+			display: block;
+			min-width: 120px;
+			flex-grow: 0;
+			padding: 14px 24px 16px 24px;
+			font-size: 16px;
+			line-height: 16px;
+			text-align: center;
+			color: #ffffff;
 		}
 
-		&__col {
-			padding: 20px;
-			vertical-align: middle;
-			background: #ffffff;
-			&_icon {
-				padding: 20px;
-				width: 42px;
-				border-left: 1px solid #e9e9e9;
+		&__action {
+			padding-left: 0;
+			&:last-child {
+				border-right: 1px solid #e9e9e9;
 			}
-			&_title {
-				width: 25%;
-				padding: 20px 20px 20px 0;
-			}
+		}
 
-			&_action {
-				padding-left: 0;
+		&__info {
+			padding: 8px 20px;
+			background: #fafafa;
+			border: 1px solid #e9e9e9;
+			font-size: 0;
+			&--expanded {
+				border-bottom: none;
+			}
+		}
+
+		&__cashback,
+		&__deposit,
+		&__max {
+			display: flex;
+			align-items: center;
+			position: relative;
+			padding-left: 12px;
+			padding-right: 20px;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 22px;
+			height: 100%;
+			border-left: 1px solid #e9e9e9;
+		}
+
+		&__cashback {
+			grid-area: cashback;
+			width: 84px;
+			grid-area: cashback;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+		}
+
+		&__deposit {
+			grid-area: deposit;
+			width: 106px;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			color: #243238;
+		}
+
+		&__max {
+			grid-area: max;
+			width: 116px;
+			color: #243238;
+		}
+
+		&__terms-text {
+			border: 1px solid #e9e9e9;
+			border-top: none;
+			background: #fafafa;
+			padding: 4px 20px 20px 20px;
+			ol,
+			ul {
+				margin: 0 0 20px 0;
+				padding: 0;
+				list-style-position: inside;
 				&:last-child {
-					border-right: 1px solid #e9e9e9;
+					margin: 0;
 				}
-			}
-
-			&_info {
-				padding: 8px 20px;
-				background: #fafafa;
-				border: 1px solid #e9e9e9;
-				border-bottom-width: 2px;
-				font-size: 0;
-				&_expanded {
-					border-bottom: none;
-				}
-			}
-
-			&_cashback,
-			&_deposit,
-			&_max {
-				position: relative;
-				&:before {
-					content: '';
-					top: calc(50% - (40px / 2));
-					left: 0px;
-					position: absolute;
-					display: block;
-					width: 1px;
-					height: calc(100% / 2);
-					background: #e9e9e9;
-				}
-			}
-
-			&_terms {
-				border: 1px solid #e9e9e9;
-				border-top: none;
-				background: #fafafa;
-				padding: 4px 20px 20px 20px;
-				ol,
-				ul {
-					margin: 0 0 20px 0;
-					padding: 0;
-					list-style-position: inside;
-					&:last-child {
-						margin: 0;
-					}
-					li {
-						margin: 0 0 10px 0;
-						font-family: 'Proxima Nova';
-						font-size: 15px;
-						line-height: 18px;
-						color: #777777;
-						&:last-child {
-							margin: 0;
-						}
-					}
-				}
-
-				ol {
-					list-style-type: decimal;
-					li {
-						padding: 0;
-						&:before {
-							display: none;
-						}
-					}
-				}
-
-				ul {
-					list-style: none;
-					li {
-						padding: 0 0 0 20px;
-						&:before {
-							top: 7px;
-							left: 0px;
-						}
-					}
-				}
-
-				p {
-					margin: 0 0 16px 0;
+				li {
+					margin: 0 0 10px 0;
 					font-family: 'Proxima Nova';
 					font-size: 15px;
 					line-height: 18px;
@@ -372,11 +397,38 @@
 					}
 				}
 			}
-		}
 
-		&__icon {
-			border-radius: 4px;
-			display: block;
+			ol {
+				list-style-type: decimal;
+				li {
+					padding: 0;
+					&:before {
+						display: none;
+					}
+				}
+			}
+
+			ul {
+				list-style: none;
+				li {
+					padding: 0;
+					&:before {
+						top: 7px;
+						left: 0px;
+					}
+				}
+			}
+
+			p {
+				margin: 0 0 16px 0;
+				font-family: 'Proxima Nova';
+				font-size: 15px;
+				line-height: 18px;
+				color: #777777;
+				&:last-child {
+					margin: 0;
+				}
+			}
 		}
 
 		&__title {
@@ -406,32 +458,14 @@
 			border: 1px solid #212529;
 		}
 
-		&__cashback {
-			font-family: 'Proxima Nova Sb';
-			font-style: normal;
-			font-size: 16px;
-			line-height: 22px;
-			color: #243238;
-		}
-
-		&__deposit {
-			font-family: 'Proxima Nova Sb';
-			font-style: normal;
-			font-size: 16px;
-			line-height: 22px;
-			color: #243238;
-		}
-
-		&__max {
-			font-family: 'Proxima Nova';
-			font-style: normal;
-			font-weight: bold;
-			font-size: 20px;
-			line-height: 22px;
-			color: #243238;
+		&__review {
+			width: 44px;
+			margin-left: 20px;
 		}
 
 		&__code {
+			width: 128px;
+			margin-right: 20px;
 			position: relative;
 			cursor: pointer;
 			display: block;
@@ -441,7 +475,7 @@
 			border: 1px dashed rgba(119, 119, 119, 0.5);
 			border-radius: 4px;
 			transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-			&_hover {
+			&--hover {
 				border-color: #008be2;
 
 				&:before {
@@ -468,7 +502,7 @@
 				color: #777777;
 				transition: background 0.1s ease, border-color 0.1s ease,
 					color 0.1s ease;
-				&_hover {
+				&--hover {
 					color: #008be2;
 				}
 			}
@@ -489,6 +523,7 @@
 		&__terms {
 			margin-right: 40px;
 			padding-left: 26px;
+			white-space: nowrap;
 			position: relative;
 			cursor: pointer;
 			display: inline-block;
@@ -516,10 +551,8 @@
 				background: $ico-terms no-repeat center;
 			}
 
-			&_expanded {
-				.promotion-item__terms-icon {
-					transform: rotate(180deg);
-				}
+			&--expanded &-icon {
+				transform: rotate(180deg);
 			}
 		}
 
@@ -543,21 +576,12 @@
 		}
 	}
 
-	.btn-get-bonus {
-		display: block;
-		padding: 14px 24px 16px 24px;
-		font-size: 16px;
-		line-height: 16px;
-		text-align: center;
-		color: #ffffff;
-	}
-
 	.btn-bonus-review {
 		display: block;
 		padding: 0;
 		border: 1px solid rgba(119, 119, 119, 0.3);
 		border-radius: 3px;
-		width: 46px;
+		width: 44px;
 		height: 46px;
 		background: $ico-arrow-right no-repeat center;
 		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
@@ -565,6 +589,160 @@
 		&:active,
 		&:focus {
 			background: #dddddd $ico-arrow-right no-repeat center;
+		}
+	}
+
+	@include mq('desktop') {
+		.bonus-item {
+			&__content {
+				padding: 20px;
+				grid-template-columns: 58px 200px 1fr 352px;
+				grid-template-areas: 'icon text params buttons';
+			}
+			&__category {
+				white-space: break-spaces;
+			}
+			&__max {
+				width: 92px;
+			}
+			&__cashback {
+				width: 79px;
+			}
+			&__deposit {
+				width: 106px;
+			}
+		}
+	}
+
+	@include mq('laptop') {
+		.bonus-item {
+			&__content {
+				grid-template-columns: 58px 1fr 184px;
+				grid-template-areas:
+					'icon text buttons'
+					'icon params buttons';
+			}
+			&__text {
+				margin-right: 0;
+				margin-bottom: 16px;
+			}
+			&__buttons {
+				height: 100%;
+				flex-wrap: wrap;
+			}
+			& &__get-button {
+				height: 42px;
+				flex-grow: 1;
+			}
+			&__max,
+			&__cashback,
+			&__deposit {
+				flex-wrap: wrap;
+				padding-left: 16px;
+				padding-right: 16px;
+			}
+			&__max {
+				padding-left: 0;
+				border-left: none;
+				width: 126px;
+			}
+			&__cashback {
+				width: 122px;
+			}
+			&__deposit {
+				width: auto;
+				min-width: 122px;
+			}
+			&__params {
+				&__title {
+					display: inline-block;
+				}
+			}
+			&__code {
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 20px;
+			}
+			&__review {
+				&__button {
+					height: 42px;
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.bonus-item {
+			&__content {
+				grid-template-columns: 58px 1fr;
+				grid-template-areas:
+					'icon text'
+					'icon params'
+					'icon buttons';
+			}
+			&__text {
+				margin-bottom: 12px;
+			}
+			&__params {
+				margin-bottom: 20px;
+			}
+			&__buttons {
+				display: grid;
+				grid-template-columns: minmax(152px, 1fr) minmax(148px, 1fr) 40px;
+				column-gap: 16px;
+				align-items: center;
+				height: 40px;
+				margin-left: 0;
+			}
+			& &__code {
+				min-width: 152px;
+				margin-right: 0px;
+				margin-bottom: 0;
+				padding-bottom: 4px;
+				padding-top: 4px;
+				height: 40px;
+			}
+			&__get-button {
+				min-width: 148px;
+				height: 40px;
+			}
+			&__review {
+				margin-left: 0px;
+				&__button {
+					height: 40px;
+					width: 40px;
+				}
+			}
+		}
+	}
+
+	@include mq('mobile') {
+		.bonus-item {
+			&__content {
+				grid-template-columns: 58px 1fr;
+				grid-template-areas:
+					'icon text'
+					'params params'
+					'buttons buttons';
+			}
+			&__buttons {
+				grid-template-columns: minmax(140px, 1fr) minmax(120px, 1fr) 40px;
+			}
+			& &__code {
+				min-width: 140px;
+			}
+			&__get-button {
+				min-width: 120px;
+			}
+			&__info {
+				display: flex;
+			}
+			&__terms {
+				margin-right: 16px;
+			}
+			&__available {
+				display: flex;
+			}
 		}
 	}
 </style>

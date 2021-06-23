@@ -490,7 +490,7 @@
 
 	.room-header-actions {
 		grid-area: buttons;
-		margin: 32px 0;
+		margin: 28px 0 36px;
 		display: flex;
 		.btn-room-action {
 			margin-right: 28px;
@@ -972,6 +972,7 @@
 				letter-spacing: 1px;
 				text-transform: uppercase;
 				color: #e5e5e5;
+				white-space: nowrap;
 			}
 		}
 	}
@@ -1010,6 +1011,15 @@
 		min-height: 34px;
 	}
 
+	@include mq('desktop') {
+		.room-header-actions {
+			.btn-room-action {
+				margin-right: 24px;
+				max-width: 260px;
+			}
+		}
+	}
+
 	@include mq('laptop') {
 		.room-header {
 			grid-template-columns: 1fr 1fr;
@@ -1030,12 +1040,26 @@
 		.room-scores-rating {
 			margin-top: 28px;
 			margin-bottom: 0;
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.room-nav {
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 
 		.room-scores {
 			margin-top: 20px;
 			margin-left: -20px;
 			margin-right: -20px;
+			padding-left: 20px;
+			padding-right: 20px;
+			&__list {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				column-gap: 28px;
+			}
 		}
 
 		.room-header-actions {
@@ -1047,6 +1071,7 @@
 			.btn-room-action {
 				margin-right: 0px;
 				width: 100%;
+				max-width: none;
 			}
 		}
 
@@ -1065,7 +1090,7 @@
 			grid-template-columns: 100%;
 			grid-template-areas: 'network' 'header' 'details' 'scores' 'buttons' 'restriction' 'recommended-rooms' 'nav';
 			padding: 0 20px;
-			margin: 0 -20px 40px;
+			margin: 0 -20px 0px;
 			&__details-wrapper {
 				grid-template-columns: 1fr;
 				row-gap: 24px;
@@ -1081,7 +1106,10 @@
 		}
 
 		.room-advantages {
-			flex-wrap: wrap;
+			width: calc(100% + 20px);
+			margin-right: -20px;
+			overflow-x: scroll;
+			@include hide-scroll();
 		}
 
 		.room-network {
@@ -1095,16 +1123,22 @@
 			row-gap: 28px;
 		}
 		.room-scores-rating {
+			padding: 0;
 			margin-top: 0;
 			border-bottom: none;
 			padding-bottom: 0;
 			justify-self: stretch;
 		}
+		.room-scores {
+			&__list {
+				display: block;
+			}
+		}
 		.room-logo {
 			max-width: 230px;
 		}
 		.room-header-actions {
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 			gap: 20px;
 			&__download {
 				grid-column: span 2;
@@ -1115,6 +1149,7 @@
 
 			.btn-room-action {
 				max-width: 100%;
+				padding: 12px;
 			}
 		}
 
