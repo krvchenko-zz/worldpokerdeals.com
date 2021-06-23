@@ -357,7 +357,6 @@
 				.get(`/rooms/filters/list`, {
 					params: {
 						geo: this.country.code,
-						ids: this.category.list,
 						room_category_id: this.category.id,
 					},
 				})
