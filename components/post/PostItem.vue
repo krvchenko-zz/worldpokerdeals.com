@@ -310,6 +310,20 @@
 		}
 	}
 
+	@include mq('laptop') {
+		.post-item {
+			&__meta {
+				flex-wrap: nowrap;
+			}
+			&__date {
+				margin-right: 24px;
+			}
+			&__category {
+				text-align: right;
+			}
+		}
+	}
+
 	@include mq('tablet') {
 		.post-item {
 			&--card {
@@ -323,18 +337,26 @@
 				grid-column: image;
 				grid-row: span 3;
 			}
-			&__img {
+			&__meta {
+				margin-top: 8px;
+				margin-bottom: 12px;
+			}
+			&__link,
+			&__summary {
+				margin-bottom: 8px;
+			}
+			&--card &__img {
+				width: 136px;
+				min-width: 136px;
+				height: auto;
 				clip-path: none;
 			}
-			&__meta,
-			&__link,
-			&__summary,
-			&__author {
+			&--card &__meta,
+			&--card &__link,
+			&--card &__summary,
+			&--card &__author {
 				grid-column: content;
 				margin: 0;
-			}
-			&__meta {
-				height: 16px;
 			}
 		}
 	}

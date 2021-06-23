@@ -404,6 +404,10 @@
 			&__filter {
 				margin-right: -24px;
 			}
+			&__news {
+				column-gap: 20px;
+				row-gap: 0;
+			}
 		}
 
 		.blog-subscribe {
