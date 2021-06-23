@@ -728,7 +728,7 @@
 		&__buttons {
 			display: flex;
 			justify-content: flex-start;
-			// margin-left: auto;
+			margin-top: auto;
 			max-width: 188px;
 		}
 
@@ -830,7 +830,7 @@
 		.promotion-item {
 			&__params {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+				grid-template-columns: 1.46fr 1.32fr 1.54fr;
 			}
 			&__prize {
 				padding-right: 12px;
@@ -851,7 +851,7 @@
 		.promotion-item {
 			&__params {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+				grid-template-columns: 1.46fr 1.32fr 1.54fr;
 			}
 		}
 	}
@@ -877,11 +877,22 @@
 				align-items: center;
 				width: 100%;
 				flex-direction: row;
-				gap: 16px;
 				flex-wrap: wrap;
 			}
+			&__params {
+				justify-content: space-between;
+				grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+			}
+			&__deposit,
+			&__max {
+				padding-left: 10px;
+			}
+			&__regularity {
+				padding-left: 10px;
+			}
 			&__buttons {
-				margin-left: 0;
+				margin-left: auto;
+				max-width: none;
 			}
 			&__countdown {
 				margin-right: auto;
@@ -892,6 +903,9 @@
 			&__code {
 				margin-bottom: 0;
 				margin-right: auto;
+				height: 40px;
+				padding-top: 4px;
+				min-width: 149px;
 			}
 			&__info {
 				display: flex;
@@ -899,6 +913,14 @@
 			&__terms {
 				margin-right: 40px;
 			}
+		}
+
+		.btn-promotion-review {
+			margin-left: 16px;
+		}
+
+		.btn-room-action_download {
+			min-width: 149px;
 		}
 	}
 
@@ -912,6 +934,7 @@
 			}
 			&__params {
 				justify-content: space-between;
+				grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 			}
 			&__info {
 				justify-content: space-between;
@@ -928,6 +951,14 @@
 			&__end {
 				padding-left: 16px;
 			}
+			&__code {
+				min-width: 132px;
+			}
+		}
+
+		.btn-room-action_download {
+			min-width: 132px;
+			max-width: 132px;
 		}
 	}
 </style>

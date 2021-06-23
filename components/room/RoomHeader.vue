@@ -1106,6 +1106,8 @@
 		}
 
 		.room-advantages {
+			width: calc(100% + 20px);
+			margin-right: -20px;
 			overflow-x: scroll;
 			@include hide-scroll();
 		}
