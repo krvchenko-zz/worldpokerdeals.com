@@ -392,8 +392,13 @@
 		watch: {},
 
 		mounted() {
-			this.isDesktop = window.innerWidth >= 1280
-			this.menuWidth = window.innerWidth < 436 ? window.innerWidth : 436
+			this.calcScreenDependedProps()
+
+			window.addEventListener('resize', this.calcScreenDependedProps)
+		},
+
+		beforeDestroy() {
+			window.removeEventListener('resize', this.calcScreenDependedProps)
 		},
 
 		methods: {
@@ -439,6 +444,14 @@
 					if (!this.$refs.nav.contains(event.target)) {
 						this.toggleHamburgerMenu()
 					}
+				}
+			},
+
+			calcScreenDependedProps() {
+				this.isDesktop = window.innerWidth >= 1280
+				this.menuWidth = window.innerWidth < 436 ? window.innerWidth : 436
+				if (this.isDesktop) {
+					this.openedMenuItem = null
 				}
 			},
 		},
