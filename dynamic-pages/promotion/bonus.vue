@@ -1,319 +1,142 @@
 <template>
-	<div :class="[promotion.type]">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12">
-					<breadcrumb-list v-if="pageable" />
-				</div>
-			</div>
+	<div class="bonus">
+		<div class="bonus__container">
+			<breadcrumb-list v-if="pageable" class="bonus__breadcrumbs" />
 
-			<div v-if="promotion.type === 'bonus'" class="row">
-				<div class="col-8 offset-md-2">
-					<lazy-bonus-header />
-				</div>
-			</div>
+			<lazy-bonus-header class="bonus__header" />
 
-			<div v-if="promotion.type === 'bonus'" class="row">
-				<div class="col-8 offset-md-2">
-					<client-only>
-						<lazy-bonus-current v-if="promotions.length" />
-					</client-only>
-				</div>
-			</div>
+			<client-only>
+				<lazy-bonus-current
+					v-if="promotions.length"
+					class="bonus__promotions"
+				/>
+			</client-only>
 
-			<div class="row">
-				<div class="col-2" v-if="promotion.type === 'promotion'">
-					<lazy-promotion-room-card
-						v-if="promotion"
-						:id="promotion.room.id"
-						:title="promotion.room.title"
-						:slug="promotion.room.slug"
-						:rating="promotion.room.rating"
-						:rakeback="promotion.room.rakeback"
-						:bonus="promotion.room.bonus"
-						:background="promotion.room.background"
-						:image="promotion.room.image"
-						:network="promotion.room.network"
-						:review="promotion.room.review"
-					/>
-				</div>
-
-				<div
-					:class="[
-						promotion.type === 'promotion' ? 'col-7' : 'col-8 offset-md-2',
-					]"
-				>
-					<div :class="[`${promotion.type}__wrap`]">
-						<lazy-toc-list
-							v-if="promotion.toc && promotion.type === 'bonus'"
-							:inline="true"
-							:white="false"
+			<div class="bonus__info-container">
+				<lazy-toc-list v-if="promotion.toc" :inline="true" :white="false">
+					<template v-slot="{ inline, white }">
+						<lazy-toc-item
+							v-for="(item, index) in promotion.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:white="white"
+							:anchor="item.anchor_id"
+							:text="item.text"
 						>
-							<template v-slot="{ inline, white }">
-								<lazy-toc-item
-									v-for="(item, index) in promotion.toc"
-									:key="index"
-									:index="index"
-									:inline="inline"
-									:white="white"
-									:anchor="item.anchor_id"
-									:text="item.text"
-								>
-								</lazy-toc-item>
-								<lazy-toc-item
-									:inline="inline"
-									:text="`О покер-руме ${promotion.room.title}`"
-									anchor="about"
-								>
-								</lazy-toc-item>
-							</template>
-						</lazy-toc-list>
+						</lazy-toc-item>
+						<lazy-toc-item
+							:inline="inline"
+							:text="`О покер-руме ${promotion.room.title}`"
+							anchor="about"
+						>
+						</lazy-toc-item>
+					</template>
+				</lazy-toc-list>
 
-						<div class="row">
-							<div class="col-1" v-if="promotion.type === 'bonus'">
-								<lazy-bonus-card
-									:id="promotion.room.id"
-									:title="promotion.room.title"
-									:slug="promotion.room.slug"
-									:restricted="promotion.room.restricted"
-									:country="country"
-									:rating="promotion.room.rating"
-									:bonus="promotion.title"
-									:review="promotion.room.review"
-									:bonus_category_label="promotion.category.label_color"
-									:bonus_category="promotion.category.title"
-								/>
-							</div>
-							<div :class="[promotion.type === 'bonus' ? 'col-10' : 'col-12']">
-								<page-article
-									:title="
-										promotion.type === 'promotion' ? promotion.title : false
-									"
-									:author="promotion.author.full_name"
-									:created="promotion.created_at"
-									:updated="promotion.updated_at"
-									:text="promotion.text"
-									:meta="true"
-								>
-									<template v-slot:header>
-										<div
-											v-if="promotion.type === 'promotion'"
-											class="promotion__img-wrap"
-										>
-											<img
-												decoding="async"
-												loading="lazy"
-												:class="['promotion__img']"
-												width="742px"
-												height="234px"
-												:src="img"
-												:alt="promotion.image.alt || promotion.title"
-											/>
-										</div>
-										<lazy-promotion-summary
-											v-if="promotion.type === 'promotion'"
-											:active="promotion.active"
-											:type="promotion.category.plural"
-											:prize="promotion.prize"
-											:currency="
-												promotion.currency ? promotion.currency.symbol : ''
-											"
-											:time_left="promotion.time_left"
-											:time_before="promotion.time_before"
-											:start="promotion.start"
-											:end="promotion.end"
-											:permanent="promotion.permanent"
-											:exclusive="promotion.exclusive"
-											:regularity="promotion.regularity"
-										/>
-									</template>
-
-									<template v-slot:footer>
-										<h3
-											v-if="promotion.type === 'promotion'"
-											class="block-title"
-										>
-											Участвующие румы
-										</h3>
-										<lazy-hydrate when-visible>
-											<lazy-room
-												v-if="promotion.type === 'promotion'"
-												v-for="(item, index) in promotion.rooms"
-												:key="index"
-												:id="item.id"
-												:title="item.title"
-												:slug="item.slug"
-												:rating="item.rating"
-												:rakeback="item.rakeback"
-												:bonus="item.bonus"
-												:background="item.background"
-												:image="item.image"
-												:network="item.network"
-												:tags="item.tags"
-												:review="item.review"
-												:small="true"
-											/>
-										</lazy-hydrate>
-
-										<h2
-											v-if="promotion.type === 'bonus'"
-											id="about"
-											class="block-title block-title_lg"
-										>
-											О покер-руме {{ promotion.room.title }}
-										</h2>
-										<lazy-room-summary
-											:room="promotion.room"
-											v-if="promotion.type === 'bonus'"
-											:id="promotion.room.id"
-										/>
-										<lazy-hydrate when-visible>
-											<faq-list
-												v-if="promotion.faq && promotion.faq.mainEntity.length"
-												label="FAQ"
-											>
-												<faq-item
-													v-for="(item, index) in promotion.faq.mainEntity"
-													:key="index"
-													:question="item.name"
-													:answer="item.acceptedAnswer.text"
-												>
-												</faq-item>
-											</faq-list>
-										</lazy-hydrate>
-
-										<lazy-hydrate when-visible>
-											<lazy-telegram-subscribe
-												v-if="promotion.type === 'bonus'"
-												label="Наш Телеграм-канал"
-												description="Новости покерных румов мы публикуем в нашем Телеграм-канале. Подпишись, чтобы не упускать EV."
-												btn-label="Подписаться"
-												url="https://t-do.ru/worldpokerdealsRU"
-											/>
-										</lazy-hydrate>
-
-										<author
-											v-if="promotion.author"
-											:author="promotion.author"
-										/>
-
-										<comments
-											commentable_type="App\Promotion"
-											:commentable_id="promotion.id"
-										/>
-
-										<h2 v-if="promotion.type === 'bonus'" class="block-title">
-											Похожие бонусы
-										</h2>
-										<lazy-hydrate when-visible>
-											<table
-												v-if="promotion.type === 'bonus'"
-												class="promotions-table"
-												cellspacing="0"
-												cellpadding="0"
-												border="0"
-												width="100%"
-											>
-												<lazy-promotion-feed-item
-													v-for="(item, index) in related"
-													:key="index"
-													:title="item.title"
-													:slug="item.slug"
-													:created="item.created_at"
-													:code="item.code"
-													:terms="item.terms"
-													:room="item.room"
-													:page="item.page"
-													:category="item.category"
-													:min_deposit="item.min_deposit"
-													:min_deposit_currency="item.min_deposit_currency"
-													:cashback_value="item.cashback_value"
-													:max_bonus="item.max_bonus"
-													:max_bonus_currency="item.max_bonus_currency"
-													:deposit_bonus="item.deposit_bonus"
-													:index="index"
-												/>
-											</table>
-										</lazy-hydrate>
-									</template>
-								</page-article>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div v-if="promotion.type === 'promotion'" class="col-3">
-					<lazy-room-top-list />
-					<h3 class="block-title">Последние акции</h3>
-					<lazy-hydrate when-visible>
-						<lazy-promotion-list>
-							<lazy-promotion-item
-								v-if="promotion.type === 'promotion'"
-								v-for="(item, index) in promotions"
-								:key="index"
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:page="item.page"
-								:author="item.author"
-								:created="item.created_at"
-								:category="item.category"
-								:time_left="item.time_left"
-								:time_before="item.time_before"
-								:prize="item.prize"
-								:currency="item.currency ? item.currency.symbol : '$'"
-								:exclusive="item.exclusive"
-							/>
-						</lazy-promotion-list>
-					</lazy-hydrate>
-
-					<lazy-hydrate when-visible>
-						<lazy-room-manager
-							v-if="promotion.manager && promotion.type === 'promotion'"
-							:name="promotion.manager.full_name"
-							:manager_info="promotion.room.manager_info"
-							:position="promotion.manager.position"
-							:telegram="promotion.manager.telegram"
-							:skype="promotion.manager.skype"
-							:whatsapp="promotion.manager.whatsapp"
-							:email="promotion.manager.email"
-							:image="promotion.manager.image"
+				<div class="bonus__info">
+					<div class="bonus__card-wrapper">
+						<lazy-bonus-card
+							:id="promotion.room.id"
+							:title="promotion.room.title"
+							:slug="promotion.room.slug"
+							:restricted="promotion.room.restricted"
+							:country="country"
+							:rating="promotion.room.rating"
+							:bonus="promotion.title"
+							:review="promotion.room.review"
+							:bonus_category_label="promotion.category.label_color"
+							:bonus_category="promotion.category.title"
 						/>
-					</lazy-hydrate>
+					</div>
+
+					<page-article
+						:title="false"
+						:author="promotion.author.full_name"
+						:created="promotion.created_at"
+						:updated="promotion.updated_at"
+						:text="promotion.text"
+						:meta="true"
+						class="bonus__article"
+					>
+						<template v-slot:footer>
+							<h2 id="about" class="block-title block-title_lg">
+								О покер-руме {{ promotion.room.title }}
+							</h2>
+							<lazy-room-summary
+								:room="promotion.room"
+								:id="promotion.room.id"
+							/>
+							<lazy-hydrate when-visible>
+								<faq-list
+									v-if="promotion.faq && promotion.faq.mainEntity.length"
+									label="FAQ"
+								>
+									<faq-item
+										v-for="(item, index) in promotion.faq.mainEntity"
+										:key="index"
+										:question="item.name"
+										:answer="item.acceptedAnswer.text"
+									>
+									</faq-item>
+								</faq-list>
+							</lazy-hydrate>
+
+							<lazy-hydrate when-visible>
+								<lazy-telegram-subscribe
+									label="Наш Телеграм-канал"
+									description="Новости покерных румов мы публикуем в нашем Телеграм-канале. Подпишись, чтобы не упускать EV."
+									btn-label="Подписаться"
+									url="https://t-do.ru/worldpokerdealsRU"
+								/>
+							</lazy-hydrate>
+
+							<author v-if="promotion.author" :author="promotion.author" />
+
+							<comments
+								commentable_type="App\Promotion"
+								:commentable_id="promotion.id"
+							/>
+
+							<h2 class="block-title">
+								Похожие бонусы
+							</h2>
+							<lazy-hydrate when-visible>
+								<table
+									class="promotions-table"
+									cellspacing="0"
+									cellpadding="0"
+									border="0"
+									width="100%"
+								>
+									<lazy-promotion-feed-item
+										v-for="(item, index) in related"
+										:key="index"
+										:title="item.title"
+										:slug="item.slug"
+										:created="item.created_at"
+										:code="item.code"
+										:terms="item.terms"
+										:room="item.room"
+										:page="item.page"
+										:category="item.category"
+										:min_deposit="item.min_deposit"
+										:min_deposit_currency="item.min_deposit_currency"
+										:cashback_value="item.cashback_value"
+										:max_bonus="item.max_bonus"
+										:max_bonus_currency="item.max_bonus_currency"
+										:deposit_bonus="item.deposit_bonus"
+										:index="index"
+									/>
+								</table>
+							</lazy-hydrate>
+						</template>
+					</page-article>
 				</div>
 			</div>
-		</div>
 
-		<div v-if="promotion.type === 'promotion'" class="container-fluid">
-			<h2 class="block-title" :style="{ margin: '0 0 20px 0' }">
-				Похожие акции
-			</h2>
-			<lazy-hydrate when-visible>
-				<lazy-promotion-list>
-					<div class="row">
-						<div class="col-3" v-for="(item, index) in related" :key="index">
-							<lazy-promotion-item
-								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:page="item.page"
-								:author="item.author"
-								:created="item.created_at"
-								:category="item.category"
-								:time_left="item.time_left"
-								:time_before="item.time_before"
-								:regularity="item.regularity"
-								:prize="item.prize"
-								:currency="item.currency ? item.currency.symbol : ''"
-								:exclusive="item.exclusive"
-								:active="item.active"
-							/>
-						</div>
-					</div>
-				</lazy-promotion-list>
-			</lazy-hydrate>
+			<page-banners />
 		</div>
-
-		<page-banners />
 	</div>
 </template>
 
@@ -385,27 +208,50 @@
 
 <style lang="scss">
 	$ico-bonus-toc-arrow: url('~assets/i/ico-bonus-toc-arrow.svg?data');
-	.promotion {
-		&__img {
-			border-radius: 10px;
-			display: block;
-			max-width: 100%;
-			height: auto;
-			&-wrap {
-				margin: 20px 0 30px 0;
-			}
-		}
-	}
 	.bonus {
 		background: #2d3141;
+		width: 100%;
 		margin-bottom: -90px;
 		padding-bottom: 90px;
-		&__wrap {
+		&__container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			max-width: 1440px;
+			width: 100%;
+			margin: 0 auto;
+			@include paddings('desktop');
+		}
+		&__breadcrumbs {
+			align-self: flex-start;
+		}
+		&__header {
+			max-width: 972px;
+			margin-top: 12px;
+		}
+		&__promotions {
+			max-width: 1028px;
+		}
+		&__info-container {
 			position: relative;
+			max-width: 972px;
+			width: 100%;
 			z-index: 2;
-			margin: 0 -28px;
 			background: linear-gradient(0deg, #ffffff, #ffffff), #ffffff;
 			border-radius: 16px;
+		}
+		&__card-wrapper {
+			position: absolute;
+			top: 116px;
+			left: 0;
+			height: calc(100% - 116px);
+		}
+		&__info {
+			padding: 28px 28px 40px;
+		}
+		&__article {
+			padding-right: 118px;
+			padding-left: 118px;
 		}
 		.article__wrap {
 			padding: 0 62px 32px 62px;
@@ -449,9 +295,16 @@
 			}
 		}
 	}
-	.promotions-table {
-		border: 1px solid #e9e9e9;
-		margin: 28px 0 32px 0;
-		margin-bottom: 20px !important;
+
+	@include mq('laptop') {
+		.bonus {
+			&__card-wrapper {
+				display: none;
+			}
+			&__article {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
 	}
 </style>

@@ -167,7 +167,7 @@
 <style lang="scss">
 	.bonus-card {
 		margin-top: 36px;
-		margin-left: -128px;
+		margin-left: -118px;
 		width: 208px;
 		position: sticky;
 		top: 130px;
