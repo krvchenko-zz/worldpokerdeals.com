@@ -102,7 +102,7 @@
 				top: calc(50% - 40px);
 			}
 			&-pagination {
-				margin-top: 32px;
+				margin-top: 28px;
 				font-size: 0;
 			}
 			&-dot {

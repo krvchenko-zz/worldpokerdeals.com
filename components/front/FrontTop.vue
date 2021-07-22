@@ -172,7 +172,7 @@
 		padding-bottom: 32px;
 		min-height: 519px;
 		background: $front-top-bg no-repeat center top;
-		background-size: auto 519px;
+		background-size: cover;
 		&__wrap {
 			padding-left: 68px;
 			grid-column: text;
@@ -232,6 +232,7 @@
 
 		&__top-rooms-wrapper {
 			margin-left: 26px;
+			padding-bottom: 26px;
 			grid-column: top-rooms;
 		}
 
@@ -250,6 +251,7 @@
 			padding: 0;
 			grid-template-columns: 100vw;
 			grid-template-rows: [summary] 1fr [top-rooms] 1fr;
+			background-size: auto 519px;
 			&__title {
 				margin-top: 0;
 			}
