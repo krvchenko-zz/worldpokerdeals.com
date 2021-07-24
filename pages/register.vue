@@ -1,74 +1,60 @@
 <template>
 	<section class="content content_register">
 		<div class="register">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-5 offset-md-1">
-						<h1 class="register__title">
-							Регистрируйся и получи доступ ко всем закрытым разделам сайта
-						</h1>
-						<ul class="register-list">
-							<li
-								v-for="(item, index) in features"
-								:key="index"
-								class="register-list__item"
-							>
-								<svg-icon class="register-list__icon" :icon="item.icon" />
-								<span class="register-list__title">{{ item.title }}</span>
-							</li>
-						</ul>
+			<div class="register__content">
+				<h1 class="register__title">
+					Регистрируйся и получи доступ ко всем закрытым разделам сайта
+				</h1>
+				<ul class="register-list">
+					<li
+						v-for="(item, index) in features"
+						:key="index"
+						class="register-list__item"
+					>
+						<svg-icon class="register-list__icon" :icon="item.icon" />
+						<span class="register-list__title">{{ item.title }}</span>
+					</li>
+				</ul>
 
-						<div class="register__info">
-							Ваша личная информация является строго конфиденциальной и никогда
-							не будет передана кому-либо. Гарантируем.
-						</div>
+				<div class="register__info">
+					Ваша личная информация является строго конфиденциальной и никогда не
+					будет передана кому-либо. Гарантируем.
+				</div>
 
-						<div class="register-info">
-							<p>
-								Сложности с регистрацией? Остались вопросы? Напишите нашему
-								менеджеру
-							</p>
-							<div class="register-info__buttons">
-								<button-contact
-									size="md"
-									type="chat"
-									:style="{
-										padding: '0 40px',
-									}"
-									>Начать чат</button-contact
-								>
-								<button-contact
-									icon
-									size="md"
-									type="telegram"
-									:href="manager.telegram"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="skype"
-									:href="manager.skype"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="whatsapp"
-									:href="manager.whatsapp"
-								/>
-								<button-contact
-									icon
-									size="md"
-									type="email"
-									:href="manager.email"
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-4 offset-md-1">
-						<register-form />
+				<div class="register-info">
+					<p>
+						Сложности с регистрацией? Остались вопросы? Напишите нашему
+						менеджеру
+					</p>
+					<div class="register-info__buttons">
+						<button-contact
+							size="md"
+							type="chat"
+							:style="{
+								padding: '0 40px',
+							}"
+							>Начать чат</button-contact
+						>
+						<button-contact
+							icon
+							size="md"
+							type="telegram"
+							:href="manager.telegram"
+						/>
+						<button-contact icon size="md" type="skype" :href="manager.skype" />
+						<button-contact
+							icon
+							size="md"
+							type="whatsapp"
+							:href="manager.whatsapp"
+						/>
+						<button-contact icon size="md" type="email" :href="manager.email" />
 					</div>
 				</div>
+			</div>
+
+			<div class="register__form-container">
+				<register-form />
 			</div>
 		</div>
 	</section>
@@ -156,7 +142,25 @@
 	}
 
 	.register {
+		display: grid;
+		max-width: 1440px;
+		width: 100%;
+		margin: 0 auto;
+		@include paddings('desktop');
+		grid-template-columns: 562px 444px;
+		grid-template-areas: 'content form';
+		column-gap: 146px;
 		padding-top: 40px;
+		justify-content: center;
+		&__content {
+			grid-area: content;
+		}
+		&__form-container {
+			grid-area: form;
+		}
+		&__content {
+			padding-top: 32px;
+		}
 		&__title {
 			margin-bottom: 40px;
 			font-family: 'Proxima Nova Sb';
@@ -228,6 +232,29 @@
 				content: '*';
 				display: block;
 			}
+		}
+	}
+
+	@include mq('laptop') {
+		.register {
+			grid-template-columns: 472px;
+			grid-template-areas:
+				'form'
+				'content';
+			column-gap: 0;
+			row-gap: 44px;
+		}
+	}
+
+	@include mq('tablet') {
+		.register {
+			grid-template-columns: 100%;
+			@include paddings('mobile');
+		}
+
+		.register-info:last-child {
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 	}
 </style>
