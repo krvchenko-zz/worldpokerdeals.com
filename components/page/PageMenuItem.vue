@@ -141,4 +141,21 @@
 			}
 		}
 	}
+
+	@include mq('laptop') {
+		.page-menu {
+			&__text {
+				font-size: 14px;
+			}
+			&__link {
+				&:active,
+				&:hover,
+				&_active {
+					box-shadow: inset 8px 0px 0px #2988c9;
+					text-decoration: none;
+					background: linear-gradient(0deg, #353847, #353847);
+				}
+			}
+		}
+	}
 </style>
