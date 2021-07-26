@@ -78,7 +78,7 @@
 						<div class="modal-header__info">
 							<span class="modal-header__title"
 								>Привяжи счет {{ room.title }} <br />
-								к WorldPokerDeals!</span
+								к Worldpokerdeals!</span
 							>
 							<div class="modal-header__description">
 								Участвуй в наших приватных промо и получи статус <br />
@@ -225,9 +225,9 @@
 							lineHeight: '28px',
 						}"
 					>
-						<template v-if="auth">Вход на <br />WorldPokerDeals</template>
+						<template v-if="auth">Вход на <br />Worldpokerdeals</template>
 						<template v-if="reset"
-							>Восстановление пароля на <br />WorldPokerDeals</template
+							>Восстановление пароля на <br />Worldpokerdeals</template
 						>
 					</span>
 				</template>

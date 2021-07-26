@@ -8,7 +8,7 @@
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
 					:to="{
 						name: 'index',
-						params: { parent: 'rakeback-deals', child: null },
+						params: { parent: 'rakeback-deals', child: 'best-poker-rooms-2020' },
 					}"
 				>
 					<a

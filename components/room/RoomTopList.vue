@@ -7,6 +7,7 @@
 						'top-rooms-header__button',
 						!showApps && 'top-rooms-header__button_active',
 					]"
+					:disabled="!showApps"
 					@click="handleToggleApps"
 				>
 					<svg-icon
@@ -41,6 +42,7 @@
 						'top-rooms-header__button',
 						showApps && 'top-rooms-header__button_active',
 					]"
+					:disabled="showApps"
 					@click="handleToggleApps"
 				>
 					<div
@@ -101,7 +103,7 @@
 		</div>
 		<div :class="['top-rooms__list', `top-rooms__list_${type}`]">
 			<room-top-item
-				v-for="item in rooms"
+				v-for="item in menu ? items : rooms"
 				:key="item.id"
 				:title="item.title"
 				:slug="item.slug"
@@ -190,9 +192,14 @@
 		data: () => ({
 			per_page: 5,
 			showApps: false,
+			items: []
 		}),
 
 		mounted() {},
+
+		created() {
+			this.items = this.rooms
+		},
 
 		computed: {
 			...mapGetters({

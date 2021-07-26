@@ -112,7 +112,8 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 27,
+						// id: 27,
+						id: 502,
 					},
 				})
 				.then(response => {

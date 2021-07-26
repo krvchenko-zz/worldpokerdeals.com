@@ -14,15 +14,24 @@
 				<button-contact
 					icon
 					type="fb"
+					target="_blank"
 					href="https://www.facebook.com/worldpokerdealsRu"
 				/>
-				<button-contact icon type="telegram" href="worldpokerdealsRU" />
+				<button-contact
+					icon type="telegram"
+					target="_blank"
+					href="worldpokerdealsRU" />
 				<button-contact
 					icon
 					type="instagram"
+					target="_blank"
 					href="https://instagram.com/worldpokerdeals"
 				/>
-				<button-contact icon type="vk" href="https://vk.com/worldpokerdeals" />
+				<button-contact
+					icon type="vk"
+					target="_blank"
+					href="https://vk.com/worldpokerdeals"
+				/>
 			</div>
 
 			<a href="/our-team" class="btn btn-block btn-border btn-welcome-banner">{{

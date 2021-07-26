@@ -2,7 +2,7 @@
 	<div :class="['auth-form', modal && 'auth-form_modal']">
 		<div v-if="!modal" class="auth-form-header">
 			Вход на <br />
-			WorldPokerDeals
+			Worldpokerdeals
 		</div>
 
 		<div :class="['auth-form-body', modal && 'auth-form-body_modal']">

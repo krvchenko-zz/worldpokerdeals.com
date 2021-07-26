@@ -32,25 +32,25 @@
 						</div>
 						<div class="footer-social">
 							<a
-								href="#"
+								href="https://instagram.com/worldpokerdeals"
 								class="footer-social__link footer-social__link-instagram"
 								target="_blank"
 								rel="nofollow"
 							></a>
 							<a
-								href="#"
+								href="https://twitter.com/worldpokerdeals"
 								class="footer-social__link footer-social__link-twitter"
 								target="_blank"
 								rel="nofollow"
 							></a>
 							<a
-								href="#"
+								href="https://vk.com/worldpokerdeals"
 								class="footer-social__link footer-social__link-vk"
 								target="_blank"
 								rel="nofollow"
 							></a>
 							<a
-								href="#"
+								href="https://www.facebook.com/worldpokerdealsRu"
 								class="footer-social__link footer-social__link-fb"
 								target="_blank"
 								rel="nofollow"
@@ -136,7 +136,7 @@
 							</div>
 							<div class="footer-category__list">
 								<page-footer-menu-item
-									v-for="(item, index) in menu.promotions"
+									v-for="(item, index) in menu.posts"
 									:key="index"
 									:page="item.page"
 									:name="item.name"
@@ -335,14 +335,14 @@
 
 				<div class="footer-links__wrapper">
 					<div class="footer-links">
-						<a class="footer-links__link" href="#"><span>Дисклеймер</span></a>
-						<a class="footer-links__link" href="#"
+						<!-- <a class="footer-links__link" href="#"><span>Дисклеймер</span></a> -->
+						<a class="footer-links__link" href="/terms"
 							><span>Условия и положения</span></a
 						>
-						<a class="footer-links__link" href="#"
+						<a v-if="locale !== 'ru'" class="footer-links__link" href="/privacy"
 							><span>Политика конфиденциальности</span></a
 						>
-						<a class="footer-links__link" href="#"
+						<a target="_blank" v-if="locale !== 'ru'" class="footer-links__link" href="/privacy#cookies"
 							><span>Политика использования файлов cookie</span></a
 						>
 					</div>
@@ -387,6 +387,7 @@
 				country: 'location/country',
 				topList: 'rooms/topList',
 				menu: 'menu/items',
+				locale: 'lang/locale',
 			}),
 		},
 

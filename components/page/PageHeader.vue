@@ -77,6 +77,7 @@
 											<room-top-list
 												:label="$t('best_rooms')"
 												type="menu"
+												:menu="true"
 												:style="{
 													flex: '0 0 300px',
 													position: 'relative',
@@ -217,7 +218,6 @@
 							autocomplete="off"
 							:placeholder="searchPlaceholder"
 							@focusin="handleFocusIn"
-							@focusout="handleFocusOut"
 							@keydown.esc="handleFocusOut"
 						/>
 						<search-loader :loading="searchLoading" />
@@ -425,6 +425,8 @@
 					document.body.classList.toggle('modal-open')
 				}
 				this.showSearch = !this.showSearch
+				this.query = ''
+				this.searchFocus = false
 			},
 
 			onMenuItemClick(event, type) {

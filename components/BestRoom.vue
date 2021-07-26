@@ -1,47 +1,57 @@
 <template>
 	<div class="best-room">
 		<div class="best-room__wrap">
-			<div class="best-room__item" :style="{ backgroundColor: background }">
-				<div class="best-room__geo">
-					<div class="best-room__geo-label">Лучший рум</div>
-					<div class="best-room__geo-wrap">
-						<svg-icon
-							class="best-room__geo-flag"
-							prefix="flags/"
-							:icon="country.code"
-							:width="20"
-							:height="20"
-						/>
-						<span class="best-room__geo-country">{{ country.title }}</span>
+
+			<nuxt-link
+				v-if="review"
+				v-slot="{ href, route, navigate }"
+				:to="{
+					name: 'index',
+					params: { parent: 'rakeback-deals', child: review.slug },
+				}"
+			>
+				<a
+					:style="{ backgroundColor: background }"
+					:class="['best-room__item']"
+					:href="href"
+					@click="navigate">
+					<div class="best-room__geo">
+						<div class="best-room__geo-label">Лучший рум</div>
+						<div class="best-room__geo-wrap">
+							<svg-icon
+								class="best-room__geo-flag"
+								prefix="flags/"
+								:icon="country.code"
+								:width="20"
+								:height="20"
+							/>
+							<span class="best-room__geo-country">{{ country.title }}</span>
+						</div>
 					</div>
-				</div>
-				<div class="best-room__logo">
-					<img
-						class="best-room__img"
-						decoding="async"
-						loading="lazy"
-						:src="img"
-						:alt="image.alt || `${title} logo`"
-					/>
-				</div>
-				<div class="best-room__action">
-					<nuxt-link
-						v-if="review"
-						v-slot="{ href, route, navigate }"
-						:to="{
-							name: 'index',
-							params: { parent: 'rakeback-deals', child: review.slug },
-						}"
-					>
+					<div class="best-room__logo">
+						<img
+							class="best-room__img"
+							decoding="async"
+							loading="lazy"
+							:src="img"
+							:alt="image.alt || `${title} logo`"
+						/>
+					</div>
+					<div class="best-room__action">
 						<a
 							:class="['btn', 'btn-block', 'btn-border', 'best-room__review']"
 							:href="href"
 							@click="navigate"
 							>Обзор</a
 						>
-					</nuxt-link>
-				</div>
-			</div>
+					</div>
+				</a>
+			</nuxt-link>
+
+
+<!-- 			<div class="best-room__item" :style="{ backgroundColor: background }">
+
+			</div> -->
 			<div class="best-room__item" :style="{ backgroundColor: '#4E5262' }">
 				<div class="best-room__description">
 					Закрытые азиатские клубы, статистика рейка, бесплатные хендхистори и
@@ -132,11 +142,15 @@
 			box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
 		}
 		&__item {
+			text-decoration: none;
 			padding: 24px 32px 24px 28px;
 			width: 50%;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			&:hover {
+				text-decoration: none;
+			}
 		}
 
 		&__geo {

@@ -74,46 +74,6 @@
 		},
 
 		data: () => ({
-			// data: [
-			// 	{
-			// 		label: 'Покер румы',
-			// 		items: [
-			// 			{
-			// 				title: 'GGpoker',
-			// 				url: '/',
-			// 				icon:
-			// 					'https://media.worldpokerdeals01.com/uploads/53944926f85ca26afdb1300d837cc275.png',
-			// 				background: '#000000',
-			// 			},
-			// 			{
-			// 				title: 'GGpokerOK',
-			// 				url: '/',
-			// 				icon:
-			// 					'https://media.worldpokerdeals01.com/uploads/pokerok-logo.png',
-			// 				background: '#000000',
-			// 			},
-			// 		],
-			// 	},
-			// 	{
-			// 		label: 'Покер румы',
-			// 		items: [
-			// 			{
-			// 				title: 'GGpoker',
-			// 				url: '/',
-			// 				icon:
-			// 					'https://media.worldpokerdeals01.com/uploads/53944926f85ca26afdb1300d837cc275.png',
-			// 				background: '#000000',
-			// 			},
-			// 			{
-			// 				title: 'GGpokerOK',
-			// 				url: '/',
-			// 				icon:
-			// 					'https://media.worldpokerdeals01.com/uploads/pokerok-logo.png',
-			// 				background: '#000000',
-			// 			},
-			// 		],
-			// 	},
-			// ],
 			results: [],
 		}),
 
