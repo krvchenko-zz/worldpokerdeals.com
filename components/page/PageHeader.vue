@@ -182,20 +182,8 @@
 								</transition>
 							</li>
 
-							<li
-								class="header-nav__item header-nav__item__lang"
-								:class="{
-									'header-nav__item--active': openedMenuItem === 'lang',
-								}"
-								@click="onMenuItemClick($event, 'lang')"
-							>
-								<a class="header-nav__link" href="/our-team"
-									>Change lang
-									<img
-										class="header-nav__arrow"
-										src="~assets/i/layout/header/ico-arrow-down.svg?data"
-									/>
-								</a>
+							<li class="header-nav__item header-nav__item__lang">
+								<menu-lang-switcher />
 							</li>
 						</ul>
 					</nav>
@@ -248,15 +236,6 @@
 						aria-label="VIP-сервис"
 					></a>
 
-					<!--           <button :class="['lang-switcher']">
-            <span :class="[
-            'lang-switcher__current',
-            `lang-switcher__current_lang_${locale}`
-            ]">
-              <span>{{ locales[locale] }}</span>
-            </span>
-          </button> -->
-
 					<lang-switcher />
 
 					<button v-if="user" :class="['user-dropdown']">
@@ -306,6 +285,7 @@
 		components: {
 			SearchDropdown: () => import('~/components/search/SearchDropdown'),
 			SearchLoader: () => import('~/components/search/SearchLoader'),
+			MenuLangSwitcher: () => import('~/components/lang/MenuLangSwitcher'),
 		},
 
 		props: {},
@@ -392,8 +372,13 @@
 		watch: {},
 
 		mounted() {
-			this.isDesktop = window.innerWidth >= 1280
-			this.menuWidth = window.innerWidth < 436 ? window.innerWidth : 436
+			this.calcScreenDependedProps()
+
+			window.addEventListener('resize', this.calcScreenDependedProps)
+		},
+
+		beforeDestroy() {
+			window.removeEventListener('resize', this.calcScreenDependedProps)
 		},
 
 		methods: {
@@ -441,6 +426,14 @@
 					if (!this.$refs.nav.contains(event.target)) {
 						this.toggleHamburgerMenu()
 					}
+				}
+			},
+
+			calcScreenDependedProps() {
+				this.isDesktop = window.innerWidth >= 1280
+				this.menuWidth = window.innerWidth < 436 ? window.innerWidth : 436
+				if (this.isDesktop) {
+					this.openedMenuItem = null
 				}
 			},
 		},

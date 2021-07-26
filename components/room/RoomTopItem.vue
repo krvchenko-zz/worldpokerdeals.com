@@ -11,8 +11,6 @@
 			:class="['top-rooms__item', `top-rooms__item_${type}`]"
 			:href="href"
 			@click="navigate"
-			@mouseleave="hovered = false"
-			@mouseover="hovered = true"
 		>
 			<svg-icon
 				:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
@@ -24,7 +22,7 @@
 			<div
 				:class="[
 					'top-rooms__item-title',
-					hovered && 'top-rooms__item-title_hover',
+					'top-rooms__item-title--hover',
 					`top-rooms__item-title_${type}`,
 				]"
 			>
@@ -37,47 +35,42 @@
 				{{ bonus.title }}
 			</div>
 		</a>
-		<div
-			v-else
-			:class="['top-rooms__item', `top-rooms__item_${type}`]"
-			@mouseleave="hovered = false"
-			@mouseover="hovered = true"
-		>
-			<svg-icon
-				:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
-				:icon="slug"
-				:width="40"
-				:height="40"
-				view-box="0 0 200 200"
-			/>
-			<div
-				:class="[
-					'top-rooms__item-title',
-					'top-rooms__item-cell',
-					`top-rooms__item-title_${type}`,
-				]"
-			>
-				{{ title }}
-			</div>
-			<div :class="['top-rooms__item-rating', 'top-rooms__item-cell']">
-				<span :class="['top-rooms__item-rating-label']">{{
-					$t('rating')
-				}}</span>
-				<span :class="['top-rooms__item-rating-val']">{{ rating }}</span>
-				<span :class="['top-rooms__item-rating-overall']">/5</span>
+		<div v-else :class="['top-rooms__item', `top-rooms__item_${type}`]">
+			<div class="top-rooms__item__column">
+				<svg-icon
+					:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
+					:icon="slug"
+					:width="40"
+					:height="40"
+					view-box="0 0 200 200"
+				/>
+				<div
+					:class="['top-rooms__item-title', `top-rooms__item-title_${type}`]"
+				>
+					{{ title }}
+				</div>
+				<div :class="['top-rooms__item-rating']">
+					<span :class="['top-rooms__item-rating-label']">{{
+						$t('rating')
+					}}</span>
+					<span :class="['top-rooms__item-rating-val']">{{ rating }}</span>
+					<span :class="['top-rooms__item-rating-overall']">/5</span>
+				</div>
 			</div>
 
-			<div
-				v-if="!hovered"
-				:class="['top-rooms__item-rakeback', 'top-rooms__item-cell']"
-			>
-				<span :class="['top-rooms__item-rakeback-label']">{{
-					$t('rakeback')
-				}}</span>
-				<span :class="['top-rooms__item-rakeback-val']">{{ rakeback }}</span>
-			</div>
+			<div class="top-rooms__item__column">
+				<div
+					:class="[
+						'top-rooms__item-rakeback',
+						'top-rooms__item-rakeback--hover',
+					]"
+				>
+					<span :class="['top-rooms__item-rakeback-label']">{{
+						$t('rakeback')
+					}}</span>
+					<span :class="['top-rooms__item-rakeback-val']">{{ rakeback }}</span>
+				</div>
 
-			<div v-else :class="['top-rooms__item-cell']">
 				<nuxt-link v-slot="{ href, route, navigate }" :to="{ name: 'front' }">
 					<button
 						:class="['top-rooms__item-link', 'top-rooms__item-link_download']"
@@ -86,9 +79,7 @@
 						{{ $t('access') }}
 					</button>
 				</nuxt-link>
-			</div>
 
-			<div :class="['top-rooms__item-cell']">
 				<nuxt-link
 					v-if="review"
 					v-slot="{ href, route, navigate }"
@@ -98,10 +89,7 @@
 					}"
 				>
 					<a
-						:class="[
-							'top-rooms__item-link',
-							hovered && 'top-rooms__item-link_active',
-						]"
+						:class="['top-rooms__item-link', 'top-rooms__item-link__review']"
 						:href="href"
 						@click="navigate"
 						>{{ $t('review') }}</a
@@ -225,9 +213,6 @@
 		&:visited {
 			text-decoration: none;
 		}
-		&:last-child {
-			padding-bottom: 30px;
-		}
 		&:after {
 			content: '';
 			width: 20px;
@@ -238,8 +223,14 @@
 			background: $ico-arrow no-repeat center;
 		}
 
+		&__column {
+			width: 50%;
+			display: flex;
+			align-items: center;
+		}
+
 		&_front {
-			padding: 9px 20px 9px 72px;
+			padding: 10px 20px;
 			border-bottom: 1px solid rgba(204, 204, 204, 0.1);
 			display: flex;
 			align-items: center;
@@ -252,21 +243,19 @@
 			&:after {
 				display: none;
 			}
-
-			&:last-child {
-				padding: 9px 20px 9px 72px;
-			}
 		}
 
 		&_menu {
+			display: grid;
+			grid-template-areas:
+				'icon-menu title-menu'
+				'icon-menu bonus-menu';
+			justify-content: start;
 			margin: 0;
-			padding: 8px 20px 8px 72px;
+			padding: 8px 20px 8px 24px;
 			background: #353847;
 			border: 0;
 			transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-			&:last-child {
-				padding: 8px 20px 8px 72px;
-			}
 			&:after {
 				top: 20px;
 				width: 10px;
@@ -281,13 +270,6 @@
 			}
 		}
 
-		&-cell {
-			width: 100%;
-			margin-right: 8px;
-			&:last-child {
-				margin: 0;
-			}
-		}
 		&-title {
 			margin-bottom: 4px;
 			font-family: 'Proxima Nova';
@@ -306,16 +288,18 @@
 				flex: 0 0 94px;
 			}
 			&_menu {
+				grid-area: title-menu;
 				margin: 0 0 4px 0;
 				font-family: 'Proxima Nova Sb';
 				font-size: 16px;
 				line-height: 20px;
 				color: #ffffff;
 			}
-			&_hover {
-				color: #cccccc;
-			}
 		}
+		&:hover &-title--hover {
+			color: #cccccc;
+		}
+
 		&-bonus {
 			padding-left: 20px;
 			position: relative;
@@ -335,6 +319,7 @@
 				background: $ico-bonus no-repeat center;
 			}
 			&_menu {
+				grid-area: bonus-menu;
 				padding: 0;
 				&:before {
 					display: none;
@@ -350,16 +335,11 @@
 		}
 		&-icon {
 			border-radius: 4px;
-			top: 14px;
-			left: 20px;
-			position: absolute;
-			&_front {
-				top: 50%;
-				transform: translateY(-50%);
-			}
+			flex-shrink: 0;
+			margin-right: 12px;
 			&_menu {
-				left: 24px;
-				top: 8px;
+				grid-area: icon-menu;
+				margin-right: 16px;
 			}
 		}
 		&-img {
@@ -413,8 +393,11 @@
 		}
 
 		&-rakeback {
+			display: block;
 			font-size: 0;
 			white-space: nowrap;
+			padding-left: 32px;
+			margin-right: auto;
 			&-label {
 				margin-bottom: 2px;
 				display: block;
@@ -433,6 +416,10 @@
 			}
 		}
 
+		&:hover &-rakeback--hover {
+			display: none;
+		}
+
 		&-link {
 			border: 1px solid rgba(204, 204, 204, 0.5);
 			border-radius: 4px;
@@ -443,17 +430,13 @@
 			color: #ffffff;
 			display: inline-block;
 			transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-			&:hover,
-			&:active,
-			&:focus,
-			&_active {
-				text-decoration: none;
-				color: #222222;
-				border-color: #ffffff;
-				background: #ffffff;
-			}
 
 			&_download {
+				display: none;
+				width: 96px;
+				margin-left: auto;
+				margin-right: 8px;
+				box-sizing: border-box;
 				border-color: #ff4151;
 				background: #ff4151;
 				color: #ffffff;
@@ -465,6 +448,64 @@
 					border-color: #ee3c4b;
 					background: #ee3c4b;
 				}
+			}
+		}
+
+		&:hover &-link_download {
+			display: block;
+		}
+
+		&:hover &-link__review,
+		&:active &-link__review,
+		&:focus &-link__review {
+			text-decoration: none;
+			color: #222222;
+			border-color: #ffffff;
+			background: #ffffff;
+		}
+	}
+
+	@include mq('laptop') {
+		.top-rooms__item {
+			&-rating {
+				text-align: center;
+				margin-left: auto;
+				margin-right: 68px;
+			}
+
+			&-rakeback {
+				padding-left: 0;
+			}
+			&:hover &-rakeback--hover {
+				display: block;
+			}
+
+			&-link {
+				&_download {
+					display: block;
+					margin-right: 24px;
+					margin-left: auto;
+				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.top-rooms__item {
+			&-link_download {
+				display: none;
+			}
+			&:hover &-link_download {
+				display: none;
+			}
+
+			&-rating {
+				margin-right: 0;
+			}
+
+			&-rakeback {
+				margin-left: auto;
+				margin-right: auto;
 			}
 		}
 	}

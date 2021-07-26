@@ -168,6 +168,7 @@
 			letter-spacing: 0.5px;
 			text-transform: uppercase;
 			color: #e5e5e5;
+			background: rgba(36, 50, 56, 0.8);
 		}
 	}
 </style>
