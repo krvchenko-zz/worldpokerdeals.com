@@ -498,6 +498,19 @@
 			&:hover &-link_download {
 				display: none;
 			}
+			&:hover,
+			&:focus,
+			&:active {
+				background: #fafafa;
+				border-bottom: 1px solid transparent;
+			}
+			&:hover &-link__review,
+			&:active &-link__review,
+			&:focus &-link__review {
+				border: 1px solid rgba(204, 204, 204, 0.5);
+				background: #e9e9e9;
+				color: #777777;
+			}
 
 			&-rating {
 				margin-right: 0;
