@@ -1,7 +1,13 @@
 <template>
 	<div class="front-features">
 		<div class="front-features__label">{{ $t('our_numbers') }}</div>
-		<div class="front-features__list">
+		<div
+			class="front-features__list"
+			@dragscrollstart="isDragging = true"
+			@dragscrollend="isDragging = false"
+			v-dragscroll
+			:class="{ 'disable-dragging': isDragging }"
+		>
 			<div v-for="(item, index) in features" :key="index" class="front-feature">
 				<span class="front-feature__value">{{ item.value }}</span>
 				<span class="front-feature__label" v-html="$t(item.label)"></span>
@@ -47,6 +53,7 @@
 					value: '10',
 				},
 			],
+			isDragging: false,
 		}),
 
 		async fetch() {},
@@ -138,6 +145,7 @@
 			&__list {
 				overflow-x: scroll;
 				@include hide-scroll();
+				cursor: grab;
 				justify-content: space-between;
 				margin-right: -24px;
 				&::after {

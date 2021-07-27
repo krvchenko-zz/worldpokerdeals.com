@@ -34,11 +34,18 @@
 			<p class="front-top__awards-title">
 				{{ $t('our_awards') }}
 			</p>
-			<div class="front-top-awards">
+			<div
+				class="front-top-awards"
+				@dragscrollstart="isDragging = true"
+				@dragscrollend="isDragging = false"
+				:class="{ 'disable-dragging': isDragging }"
+				v-dragscroll
+			>
 				<a
 					class="front-top-awards__item"
 					href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"
 					target="_blank"
+					draggable="false"
 				>
 					<img
 						class="front-top-awards__img"
@@ -46,12 +53,14 @@
 						loading="lazy"
 						src="/badge-best-site.svg"
 						alt="Best poker site"
+						draggable="false"
 					/>
 				</a>
 				<a
 					class="front-top-awards__item"
 					href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"
 					target="_blank"
+					draggable="false"
 				>
 					<img
 						class="front-top-awards__img"
@@ -59,12 +68,14 @@
 						loading="lazy"
 						src="/badge-best-affiliate.svg"
 						alt="Best affiliate"
+						draggable="false"
 					/>
 				</a>
 				<a
 					class="front-top-awards__item"
 					href="https://gaffg.com/webmasters/worldpokerdeals/"
 					target="_blank"
+					draggable="false"
 				>
 					<img
 						class="front-top-awards__img"
@@ -72,12 +83,14 @@
 						loading="lazy"
 						src="/badge-gaffg.svg"
 						alt="GAFFG"
+						draggable="false"
 					/>
 				</a>
 				<a
 					class="front-top-awards__item"
 					href="https://certify.gpwa.org/verify/ru/worldpokerdeals.com/"
 					target="_blank"
+					draggable="false"
 				>
 					<img
 						class="front-top-awards__img"
@@ -85,12 +98,14 @@
 						loading="lazy"
 						src="/badge-gpwa.svg"
 						alt="GPWA"
+						draggable="false"
 					/>
 				</a>
 				<a
 					class="front-top-awards__item"
 					href="http://www.gamblersanonymous.org/ga/node/1"
 					target="_blank"
+					draggable="false"
 				>
 					<img
 						class="front-top-awards__img"
@@ -98,12 +113,14 @@
 						loading="lazy"
 						alt="Gamblers Anonymous"
 						src="/gamblers-anonymous.svg"
+						draggable="false"
 					/>
 				</a>
 				<a
 					class="front-top-awards__item"
 					href="https://www.apcw.org/"
 					target="_blank"
+					draggable="false"
 				>
 					<img
 						class="front-top-awards__img"
@@ -111,6 +128,7 @@
 						loading="lazy"
 						src="/badge-apcw.svg"
 						alt="APCW"
+						draggable="false"
 					/>
 				</a>
 			</div>
@@ -139,7 +157,7 @@
 
 		props: {},
 
-		data: () => ({}),
+		data: () => ({ isDragging: false }),
 
 		created() {},
 

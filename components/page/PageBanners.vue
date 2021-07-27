@@ -1,5 +1,11 @@
 <template>
-	<section class="page-banners">
+	<section
+		class="page-banners"
+		@dragscrollstart="isDragging = true"
+		@dragscrollend="isDragging = false"
+		v-dragscroll
+		:class="{ 'disable-dragging': isDragging }"
+	>
 		<div class="page-banners__wrap">
 			<page-banners-item
 				v-if="item.page && index < 5"
@@ -29,7 +35,9 @@
 			},
 		},
 
-		data: () => ({}),
+		data: () => ({
+			isDragging: false,
+		}),
 
 		created() {},
 
@@ -126,6 +134,9 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+		}
+		&--drag {
+			pointer-events: none;
 		}
 	}
 	@include mq('laptop') {

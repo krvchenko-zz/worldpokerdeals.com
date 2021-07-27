@@ -1,6 +1,12 @@
 <template>
 	<nav class="filter-tabs">
-		<ul class="filter-tabs__list">
+		<ul
+			class="filter-tabs__list"
+			@dragscrollstart="isDragging = true"
+			@dragscrollend="isDragging = false"
+			v-dragscroll
+			:class="{ 'disable-dragging': isDragging }"
+		>
 			<slot />
 		</ul>
 	</nav>
@@ -14,7 +20,7 @@
 
 		props: {},
 
-		data: () => ({}),
+		data: () => ({ isDragging: false }),
 
 		computed: {},
 
