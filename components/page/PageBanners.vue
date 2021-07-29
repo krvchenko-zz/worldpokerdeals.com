@@ -1,5 +1,5 @@
 <template>
-	<section class="page-banners">
+	<div class="page-banners">
 		<div class="page-banners__wrap">
 			<page-banners-item
 				v-if="item.page && index < 5"
@@ -12,7 +12,7 @@
 				:background="item.background"
 			/>
 		</div>
-	</section>
+	</div>
 </template>
 
 <script>
@@ -120,6 +120,7 @@
 		max-width: 1440px;
 		padding: 40px 0 0 0;
 		&_front {
+			margin: 0 auto;
 			padding: 32px 26px 40px;
 		}
 		&__wrap {

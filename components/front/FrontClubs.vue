@@ -150,8 +150,9 @@
 			justify-content: center;
 			width: 100%;
 			padding: 0 26px;
-			background: linear-gradient(0deg, #e9e9e9, #e9e9e9),
-				linear-gradient(270deg, #2b2e3b 47.41%, #20222c 100%);
+			background: #ffffff;
+			// background: linear-gradient(0deg, #e9e9e9, #e9e9e9),
+				// linear-gradient(270deg, #2b2e3b 47.41%, #20222c 100%);
 		}
 		&__wrap {
 			padding: 28px 0 20px 0;

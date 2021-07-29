@@ -13,18 +13,20 @@
 		<lazy-hydrate when-visible>
 			<front-rooms />
 		</lazy-hydrate>
-		<lazy-hydrate when-visible>
+<!-- 		<lazy-hydrate when-visible>
 			<front-promotions />
-		</lazy-hydrate>
+		</lazy-hydrate> -->
 		<lazy-hydrate when-visible>
 			<front-clubs />
 		</lazy-hydrate>
-		<lazy-hydrate when-visible>
+		<div class="front-bottom">
 			<page-banners class="page-banners_front" :front="true" />
-		</lazy-hydrate>
-		<lazy-hydrate when-visible>
 			<front-features />
-		</lazy-hydrate>
+		</div>
+		<!-- <lazy-hydrate when-visible> -->
+		<!-- </lazy-hydrate> -->
+		<!-- <lazy-hydrate when-visible> -->
+		<!-- </lazy-hydrate> -->
 		<!-- </div> -->
 	</section>
 </template>
@@ -113,5 +115,16 @@
 	.content {
 		padding-bottom: 90px;
 		grid-template-rows: [front-top] auto [front-posts] auto [front-posts-featured] auto [front-rooms] auto [front-promotions] auto [front-clubs] auto [front-banners] auto [front-features] auto;
+	}
+
+	.front-bottom {
+		margin-bottom: -90px;
+	  padding-bottom: 90px;
+		width: 100%;
+background: linear-gradient(
+0deg
+, #e9e9e9, #e9e9e9), linear-gradient(
+270deg
+, #2b2e3b 47.41%, #20222c 100%);
 	}
 </style>
