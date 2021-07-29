@@ -22,7 +22,13 @@
 				:limit="300"
 			/>
 
-			<div class="promotion-features front-promotions__features">
+			<div
+				class="promotion-features front-promotions__features"
+				@dragscrollstart="isDragging = true"
+				@dragscrollend="isDragging = false"
+				v-dragscroll
+				:class="{ 'disable-dragging': isDragging }"
+			>
 				<div
 					v-for="(item, index) in features"
 					:key="index"
@@ -116,6 +122,7 @@
 			category_id: null,
 			text:
 				'<b>Интному интерок умериме ненитель</b>. их элемы нение ствия рабсоль которче неримени <b>продактивам та файлойна добна</b> докумет еницы. Ши примените и венять <b>ругиейсу интные вое будосло</b> строгот орчень оглавледмете эффекты на дохногл авлегда дейстровки позмощный вышает публицы. Игу, вывать вышаетн оструемые руктиро',
+			isDragging: false,
 		}),
 
 		created() {},
@@ -259,6 +266,12 @@
 			}
 			&__item {
 				grid-row: 1;
+			}
+		}
+
+		.promotion-features {
+			&__item {
+				cursor: grab;
 			}
 		}
 	}

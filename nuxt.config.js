@@ -38,6 +38,7 @@ export default {
 		{ src: '~/plugins/glightbox', mode: 'client' },
 		{ src: '~/plugins/asyncComputed' },
 		{ src: '~/plugins/vue-carousel', mode: 'client' },
+		{ src: '~/plugins/vue-dragscroll', mode: 'client' },
 	],
 
 	modules: [

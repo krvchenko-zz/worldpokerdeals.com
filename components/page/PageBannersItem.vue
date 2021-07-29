@@ -25,7 +25,12 @@
 				},
 			}"
 		>
-			<a class="page-banner__link" :href="href" @click="navigate">
+			<a
+				class="page-banner__link"
+				:href="href"
+				@click="navigate"
+				draggable="false"
+			>
 				<div class="page-banner__wrap">
 					<span class="page-banner__title">{{ title }}</span>
 					<span class="page-banner__text">{{ text }}</span>

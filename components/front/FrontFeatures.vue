@@ -1,12 +1,10 @@
 <template>
 	<div class="front-features">
-		<div class="front-features__wrap">
-			<div class="front-features__label">{{ $t('our_numbers') }}</div>
-			<div class="front-features__list">
-				<div v-for="(item, index) in features" :key="index" class="front-feature">
-					<span class="front-feature__value">{{ item.value }}</span>
-					<span class="front-feature__label" v-html="$t(item.label)"></span>
-				</div>
+		<div class="front-features__label">{{ $t('our_numbers') }}</div>
+		<div class="front-features__list">
+			<div v-for="(item, index) in features" :key="index" class="front-feature">
+				<span class="front-feature__value">{{ item.value }}</span>
+				<span class="front-feature__label" v-html="$t(item.label)"></span>
 			</div>
 		</div>
 	</div>
@@ -70,7 +68,6 @@
 		max-width: 1440px;
 		width: 100%;
 		padding: 0 26px;
-		margin: 0 auto;
 		&__list {
 			display: flex;
 			justify-content: center;

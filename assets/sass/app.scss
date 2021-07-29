@@ -1764,3 +1764,7 @@ body {
 .has-error {
 	border-color: #ff4151 !important;
 }
+
+.disable-dragging {
+  pointer-events: none;
+}
