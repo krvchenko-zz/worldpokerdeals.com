@@ -87,24 +87,20 @@
 		},
 
 		watch: {
-			value: {
-				immediate: true,
-				deep: true,
-				async handler(value) {
-					if (value !== '') {
-						this.$emit('loading', true)
-						const { data } = await this.$axios.get('/search', {
-							params: {
-								locale: this.locale,
-								q: value,
-							},
-						})
-						this.results = data
-						this.$emit('loading', false)
-					} else {
-						this.results = []
-					}
-				},
+			async value(value) {
+				if (value !== '') {
+					this.$emit('loading', true)
+					const { data } = await this.$axios.get('/search', {
+						params: {
+							locale: this.locale,
+							q: value,
+						},
+					})
+					this.results = data
+					this.$emit('loading', false)
+				} else {
+					this.results = []
+				}
 			},
 		},
 

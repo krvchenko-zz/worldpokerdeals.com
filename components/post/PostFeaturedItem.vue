@@ -88,7 +88,7 @@
 		margin: 0 14px;
 		overflow: hidden;
 		position: relative;
-		border-radius: 4px;
+		border-radius: 10px;
 		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
 		&:before {
 			z-index: 2;
@@ -154,7 +154,7 @@
 		}
 
 		&__category {
-			padding: 3px 12px;
+			padding: 4px 12px;
 			top: 28px;
 			left: 28px;
 			position: absolute;
@@ -164,7 +164,7 @@
 			font-family: Proxima Nova;
 			font-weight: bold;
 			font-size: 12px;
-			line-height: 16px;
+			line-height: 15px;
 			letter-spacing: 0.5px;
 			text-transform: uppercase;
 			color: #e5e5e5;
