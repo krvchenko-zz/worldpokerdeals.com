@@ -30,7 +30,6 @@
 								<a
 									class="search-dropdown__item-link"
 									:href="href"
-									@click="navigate"
 								>
 									<span class="search-dropdown__item-img">
 										<img
