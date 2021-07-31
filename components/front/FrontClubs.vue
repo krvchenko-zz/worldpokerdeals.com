@@ -28,46 +28,50 @@
 				/>
 			</filter-tab-list>
 
-			<div v-if="items" class="front-clubs__list">
-				<client-only>
-					<carousel
-						class="front-slider front-slider_clubs"
-						:style="{ margin: '0' }"
-						:navigation-enabled="false"
-						:per-page-custom="[
-							[0, 2],
-							[768, 3],
-							[1280, 5],
-						]"
-						:pagination-enabled="true"
-						:pagination-padding="0"
-						:pagination-size="6"
-						pagination-active-color="#CCCCCC"
-						navigation-next-label=""
-						navigation-prev-label=""
-						:navigation-click-target-size="0"
-					>
-						<slide v-for="(item, index) in items" :key="index">
-							<club-front-item
-								v-if="!item.banner"
-								:title="item.title"
-								:rating="item.rating"
-								:rakeback="item.rakeback"
-								:background="item.background"
-								:image="item.image"
-								:warranty="item.warranty"
-								:club_id="item.club_id"
-								:agent_id="item.agent_id"
-								:tables_count="item.tables_count"
-								:union="item.union"
-								:country="item.country"
-								:features="item.games"
-								:room="item.room"
-							/>
-							<front-club-access v-else />
-						</slide>
-					</carousel>
-				</client-only>
+			<div class="row">
+				<div class="col">
+					<div v-if="items" class="front-clubs__list">
+						<client-only>
+							<carousel
+								class="front-slider front-slider_clubs"
+								:style="{ margin: '0' }"
+								:navigation-enabled="false"
+								:per-page-custom="[
+									[0, 2],
+									[768, 3],
+									[1280, 5],
+								]"
+								:pagination-enabled="true"
+								:pagination-padding="0"
+								:pagination-size="6"
+								pagination-active-color="#CCCCCC"
+								navigation-next-label=""
+								navigation-prev-label=""
+								:navigation-click-target-size="0"
+							>
+								<slide v-for="(item, index) in items" :key="index">
+									<club-front-item
+										v-if="!item.banner"
+										:title="item.title"
+										:rating="item.rating"
+										:rakeback="item.rakeback"
+										:background="item.background"
+										:image="item.image"
+										:warranty="item.warranty"
+										:club_id="item.club_id"
+										:agent_id="item.agent_id"
+										:tables_count="item.tables_count"
+										:union="item.union"
+										:country="item.country"
+										:features="item.games"
+										:room="item.room"
+									/>
+									<front-club-access v-else />
+								</slide>
+							</carousel>
+						</client-only>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -141,14 +145,14 @@
 	.front-clubs {
 		width: 100%;
 		max-width: 1440px;
-		padding: 0 26px;
 		&__container {
 			display: flex;
 			justify-content: center;
 			width: 100%;
+			padding: 0 26px;
 			background: #ffffff;
 			// background: linear-gradient(0deg, #e9e9e9, #e9e9e9),
-			// linear-gradient(270deg, #2b2e3b 47.41%, #20222c 100%);
+				// linear-gradient(270deg, #2b2e3b 47.41%, #20222c 100%);
 		}
 		&__wrap {
 			padding: 28px 0 20px 0;
@@ -171,12 +175,13 @@
 	}
 
 	.front-slider_clubs {
+		margin: 0px -14px !important;
 		.VueCarousel-inner {
 			padding: 20px 0 32px 0;
 		}
 
 		.VueCarousel-pagination {
-			margin: 0 0 28px !important;
+			margin: 0 0 28px!important;
 		}
 	}
 
