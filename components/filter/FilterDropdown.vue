@@ -12,8 +12,18 @@
 		</div>
 
 		<transition name="slide">
-			<div v-show="!collapsed" class="filter-dropdown-list">
+			<div v-show="!collapsed" class="filter-dropdown-list" ref="filterList">
 				<slot />
+				<div
+					class="filter-dropdown__show-more-wrapper"
+					:class="{
+						'filter-dropdown__show-more-wrapper--show': shouldShowMore,
+					}"
+				>
+					<div class="filter-dropdown__show-more" @click="showRestItems">
+						Показать еще {{ hiddenItemsLength }}
+					</div>
+				</div>
 			</div>
 		</transition>
 	</div>
@@ -44,6 +54,8 @@
 
 		data: () => ({
 			collapsed: true,
+			shouldShowMore: false,
+			hiddenItemsLength: 0,
 		}),
 
 		computed: {},
@@ -54,6 +66,14 @@
 
 		mounted() {
 			this.collapsed = !this.opened
+			const listElements = this.$refs.filterList.children
+			if (listElements.length > 11) {
+				this.shouldShowMore = true
+				this.hiddenItemsLength = listElements.length - 11
+				for (let i = 10; i < listElements.length - 1; i++) {
+					listElements[i].style.display = 'none'
+				}
+			}
 		},
 
 		methods: {
@@ -64,6 +84,14 @@
 				} else {
 					this.$emit('open', this.collapsed)
 				}
+			},
+
+			showRestItems() {
+				const listElements = this.$refs.filterList.children
+				for (let i = 10; i < listElements.length - 1; i++) {
+					listElements[i].style.display = 'flex'
+				}
+				this.shouldShowMore = false
 			},
 		},
 	}
@@ -83,6 +111,26 @@
 
 		&:last-child {
 			border-bottom: 1px solid #e9e9e9;
+		}
+
+		&__show-more-wrapper {
+			display: none;
+			margin-top: -8px;
+			padding-bottom: 15px;
+			&--show {
+				display: block;
+			}
+		}
+		&__show-more {
+			font-size: 12px;
+			line-height: 20px;
+			font-feature-settings: 'tnum' on, 'lnum' on;
+			color: #008be2;
+			margin: 0 auto;
+			width: max-content;
+			text-align: center;
+			cursor: pointer;
+			border-bottom: 1px dashed #008be2;
 		}
 
 		&__header {
@@ -124,7 +172,7 @@
 		}
 
 		&-list {
-			padding: 0 20px;
+			padding: 0 20px 5px;
 		}
 	}
 </style>
