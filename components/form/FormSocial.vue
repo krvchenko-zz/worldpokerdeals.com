@@ -47,11 +47,11 @@
 		text-indent: -99999px;
 		&_vk {
 			background: #6588b9 $ico-vk no-repeat center;
-			background-size: 28px;
+			// background-size: 28px;
 		}
 		&_fb {
 			background: #4a67ad $ico-fb no-repeat center;
-			background-size: 14px;
+			// background-size: 14px;
 		}
 	}
 </style>
