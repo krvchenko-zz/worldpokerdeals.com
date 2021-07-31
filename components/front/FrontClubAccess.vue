@@ -44,9 +44,8 @@
 	$club-access-banner: url('~assets/i/club-access-banner.jpg');
 
 	.front-club-access {
-		// margin-top: 20px;
 		// width: 262px;
-		margin: 0 10px;
+		margin: 0 20px 0 0;
 		position: relative;
 		border-radius: 10px;
 		overflow: hidden;
@@ -101,6 +100,12 @@
 			text-align: center;
 			color: #ffffff;
 			opacity: 0.9;
+		}
+	}
+
+	@include mq('tablet') {
+		.front-club-access {
+			margin: 0 16px 0 0;
 		}
 	}
 </style>
