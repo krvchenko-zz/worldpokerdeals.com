@@ -181,7 +181,7 @@
 		}
 
 		.VueCarousel-pagination {
-			margin: 0 0 28px;
+			margin: 0 0 28px!important;
 		}
 	}
 
