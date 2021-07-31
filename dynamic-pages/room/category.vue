@@ -515,6 +515,7 @@
 	}
 
 	.rooms-list {
+		margin-top: -20px;
 	}
 
 	.rooms-top {
