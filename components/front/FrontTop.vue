@@ -267,7 +267,7 @@
 
 		@include mq('laptop') {
 			padding: 0;
-			grid-template-columns: 100vw;
+			grid-template-columns: 100%;
 			grid-template-rows: [summary] 1fr [top-rooms] 1fr;
 			background-size: auto 519px;
 			&__title {
@@ -297,7 +297,7 @@
 		}
 
 		@include mq('tablet') {
-			grid-template-columns: 100vw;
+			grid-template-columns: 100%;
 			grid-template-rows: [summary] 1fr [top-rooms] auto;
 			background: none;
 			&__buttons {
