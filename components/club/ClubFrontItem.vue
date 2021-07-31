@@ -469,4 +469,10 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.club-front-item {
+			margin: 0 8px;
+		}
+	}
 </style>
