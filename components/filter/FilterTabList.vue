@@ -37,7 +37,7 @@
 		&__list {
 			overflow-x: scroll;
 			position: relative;
-			margin: 0 0 28px 0;
+			margin: 0;
 			padding: 0;
 			display: flex;
 			list-style: none;
