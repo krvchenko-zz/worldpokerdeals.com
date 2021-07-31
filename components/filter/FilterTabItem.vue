@@ -22,7 +22,7 @@
 			},
 
 			label: {
-				type: String,
+				// type: [String, Boolean, Number],
 				required: true,
 			},
 
