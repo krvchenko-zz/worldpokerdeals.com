@@ -194,7 +194,7 @@
 				>
 					<div v-show="showSearch" class="search header__search">
 						<input
-							v-model="query"
+							:value="query"
 							:class="{
 								search__input: true,
 								search__input_loading: searchLoading,
@@ -207,14 +207,16 @@
 							:placeholder="searchPlaceholder"
 							@focusin="handleFocusIn"
 							@keydown.esc="handleFocusOut"
+							@input="$e => query = $e.target.value"
 						/>
 						<search-loader :loading="searchLoading" />
 						<search-dropdown
 							v-if="searchFocus"
-							v-model="query"
+							:value="query"
 							@loading="handleLoading($event)"
 							@open="searchDropdownOpen = $event"
 							@close="searchDropdownOpen = $event"
+							@input="$e => query = $e.target.value"
 						/>
 					</div>
 
