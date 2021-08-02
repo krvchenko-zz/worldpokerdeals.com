@@ -28,6 +28,7 @@
 
 <style lang="scss">
 	.filters-selected {
+		margin-top: -12px;
 		margin-bottom: 16px;
 		display: flex;
 		flex-wrap: wrap;

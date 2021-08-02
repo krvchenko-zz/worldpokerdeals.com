@@ -37,13 +37,16 @@
 		</a>
 		<div v-else :class="['top-rooms__item', `top-rooms__item_${type}`]">
 			<div class="top-rooms__item__column">
-				<svg-icon
-					:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
-					:icon="slug"
-					:width="40"
-					:height="40"
-					view-box="0 0 200 200"
-				/>
+				<div class="top-rooms__item__icon-wrapper">
+					<svg-icon
+						:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
+						:icon="slug"
+						:width="40"
+						:height="40"
+						view-box="0 0 200 200"
+					/>
+				</div>
+
 				<div
 					:class="['top-rooms__item-title', `top-rooms__item-title_${type}`]"
 				>
@@ -336,11 +339,16 @@
 		&-icon {
 			border-radius: 4px;
 			flex-shrink: 0;
-			margin-right: 12px;
 			&_menu {
 				grid-area: icon-menu;
 				margin-right: 16px;
 			}
+		}
+		&__icon-wrapper {
+			display: block;
+			width: 40px;
+			height: 40px;
+			margin-right: 12px;
 		}
 		&-img {
 			&-wrap {

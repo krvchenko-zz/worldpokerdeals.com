@@ -171,6 +171,7 @@
 	}
 
 	.front-slider_clubs {
+		margin: 0px -10px !important;
 		.VueCarousel-inner {
 			padding: 20px 0 32px 0;
 		}
@@ -185,9 +186,30 @@
 		}
 	}
 
+	@include mq('laptop') {
+		.front-clubs {
+			@include paddings('tablet');
+			&__list {
+				margin-right: -14px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.front-slider_clubs {
+			margin: 0px -8px !important;
+		}
+
+		.front-clubs {
+			@include paddings('mobile');
+			&__list {
+				margin-right: -12px;
+			}
+		}
+	}
+
 	@media (max-width: 480px) {
 		.front-clubs {
-			padding: 0 16px;
 			&__container {
 				padding: 0;
 			}

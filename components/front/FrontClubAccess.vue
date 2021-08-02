@@ -45,7 +45,7 @@
 
 	.front-club-access {
 		// width: 262px;
-		margin: 0 20px 0 0;
+		margin: 0 10px;
 		position: relative;
 		border-radius: 10px;
 		overflow: hidden;
@@ -105,7 +105,7 @@
 
 	@include mq('tablet') {
 		.front-club-access {
-			margin: 0 16px 0 0;
+			margin: 0 8px;
 		}
 	}
 </style>

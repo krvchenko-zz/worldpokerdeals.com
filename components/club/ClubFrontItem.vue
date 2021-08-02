@@ -255,7 +255,7 @@
 	$ico-front-club-toggle: url('~assets/i/ico-front-club-toggle.svg?data');
 
 	.club-front-item {
-		margin-right: 20px;
+		margin: 0 10px;
 		border-radius: 4px;
 		&_toggled {
 			margin-top: -8px;
@@ -472,7 +472,7 @@
 
 	@include mq('tablet') {
 		.club-front-item {
-			margin-right: 16px;
+			margin: 0 8px;
 		}
 	}
 </style>

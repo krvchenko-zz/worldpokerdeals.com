@@ -4,90 +4,92 @@
 		<room-category-header />
 
 		<div class="rooms__catalog">
-			<client-only>
-				<filter-header
-					v-if="!category.is_blacklist"
-					class="rooms__filter-header"
-					:geo.sync="geo"
-					:sort.sync="sort"
-					:total.sync="total"
-					:overall.sync="overall"
-					:sort-options="sortOptions"
-					entity-label="покер-румов"
-					@update:sort="fetchItems"
-					@update:geo="fetchItems"
-				/>
-
-				<filter-selected-list
-					v-if="
-						selected.length &&
-							!category.is_blacklist &&
-							!$device.isMobileOrTablet
-					"
-					class="rooms__filter-selected"
-				>
-					<filter-selected
-						v-for="(item, index) in selected"
-						:key="index"
-						:label="item.label"
-						:value="item.value"
-						:item-key="item.key"
-					/>
-					<filter-selected
-						:key="null"
-						label="Очистить фильтры"
-						:clear="true"
-						:value="null"
-					/>
-				</filter-selected-list>
-			</client-only>
-
-			<div class="rooms-list">
-				<template v-for="(item, index) in items">
-					<room
-						v-if="!item.banner"
-						:id="item.id"
-						:key="index"
-						:title="item.title"
-						:slug="item.slug"
-						:rating="item.rating"
-						:rakeback="item.rakeback"
-						:bonus="item.bonus"
-						:background="item.background"
-						:restricted="item.restricted"
-						:available="item.available"
-						:blacklist="item.blacklist"
-						:summary="item.summary"
-						:claim_amount="item.claim_amount"
-						:claim_currency="item.claim_currency"
-						:image="item.image"
-						:network="item.network"
-						:tags="item.tags"
-						:review="item.review"
+			<div class="rooms__rooms-container">
+				<client-only>
+					<filter-header
+						v-if="!category.is_blacklist"
+						class="rooms__filter-header"
+						:geo.sync="geo"
+						:sort.sync="sort"
+						:total.sync="total"
+						:overall.sync="overall"
+						:sort-options="sortOptions"
+						entity-label="покер-румов"
+						@update:sort="fetchItems"
+						@update:geo="fetchItems"
 					/>
 
-					<room-category-banner v-else :key="index" />
-				</template>
+					<filter-selected-list
+						v-if="
+							selected.length &&
+								!category.is_blacklist &&
+								!$device.isMobileOrTablet
+						"
+						class="rooms__filter-selected"
+					>
+						<filter-selected
+							v-for="(item, index) in selected"
+							:key="index"
+							:label="item.label"
+							:value="item.value"
+							:item-key="item.key"
+						/>
+						<filter-selected
+							:key="null"
+							label="Очистить фильтры"
+							:clear="true"
+							:value="null"
+						/>
+					</filter-selected-list>
+				</client-only>
 
-				<pagination
-					v-if="rooms.length"
-					:query="true"
-					:last="last_page"
-					:current="parseInt(page) || current_page"
-					:prev-url="prev_page_url"
-					:next-url="next_page_url"
-					:total="total"
-					:from="from"
-					:to="to"
-					:load-more-width="208"
-					load-more-text="Показать еще румы"
-					total-text="покер-румов"
-					@next="handlePageNext"
-					@prev="handlePagePrev"
-					@change="handlePageChange"
-					@more="handleShowMore"
-				>
-				</pagination>
+				<div class="rooms-list">
+					<template v-for="(item, index) in items">
+						<room
+							v-if="!item.banner"
+							:id="item.id"
+							:key="index"
+							:title="item.title"
+							:slug="item.slug"
+							:rating="item.rating"
+							:rakeback="item.rakeback"
+							:bonus="item.bonus"
+							:background="item.background"
+							:restricted="item.restricted"
+							:available="item.available"
+							:blacklist="item.blacklist"
+							:summary="item.summary"
+							:claim_amount="item.claim_amount"
+							:claim_currency="item.claim_currency"
+							:image="item.image"
+							:network="item.network"
+							:tags="item.tags"
+							:review="item.review"
+						/>
+
+						<room-category-banner v-else :key="index" />
+					</template>
+
+					<pagination
+						v-if="rooms.length"
+						:query="true"
+						:last="last_page"
+						:current="parseInt(page) || current_page"
+						:prev-url="prev_page_url"
+						:next-url="next_page_url"
+						:total="total"
+						:from="from"
+						:to="to"
+						:load-more-width="208"
+						load-more-text="Показать еще румы"
+						total-text="покер-румов"
+						@next="handlePageNext"
+						@prev="handlePagePrev"
+						@change="handlePageChange"
+						@more="handleShowMore"
+					>
+					</pagination>
+				</div>
 			</div>
 
 			<div class="rooms__toc">
@@ -484,18 +486,19 @@
 			grid-template-columns: [left-part] 2fr [central-part] minmax(0, 7fr) [right-part] 3fr;
 			column-gap: 28px;
 			grid-template-areas:
-				'filter filter aside'
-				'selected selected aside'
-				'rooms-list rooms-list aside'
+				'rooms-container rooms-container aside'
 				'toc info aside';
 			@include paddings('desktop');
 			max-width: 1440px;
 		}
+		&__rooms-container {
+			grid-area: rooms-container;
+			display: flex;
+			flex-direction: column;
+		}
 		&__filter-header {
-			grid-area: filter;
 		}
 		&__filter-selected {
-			grid-area: selected;
 		}
 		&__aside {
 			grid-area: aside;
@@ -512,7 +515,7 @@
 	}
 
 	.rooms-list {
-		grid-area: rooms-list;
+		margin-top: -20px;
 	}
 
 	.rooms-top {
@@ -550,8 +553,7 @@
 				@include paddings('tablet');
 				grid-template-columns: 100%;
 				grid-template-areas:
-					'filter'
-					'rooms-list'
+					'rooms-container'
 					'toc'
 					'info'
 					'aside';
