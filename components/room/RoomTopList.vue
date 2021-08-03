@@ -221,7 +221,7 @@
 				await this.$axios
 					.get('/rooms/geo/top', {
 						params: {
-							geo: this.country.geo,
+							geo: this.country.code,
 							per_page: this.per_page,
 						},
 					})
@@ -237,7 +237,7 @@
 				await this.$axios
 					.get('/rooms/geo/top', {
 						params: {
-							geo: this.country.geo,
+							geo: this.country.code,
 							per_page: this.per_page,
 							type_id: this.showApps ? 3 : null,
 						},
