@@ -30,7 +30,7 @@
 
 			<dl class="room-recomended__details">
 				<dt class="room-recomended__dt">{{ $t('bonus') }}</dt>
-				<dd class="room-recomended__dd">{{ bonus.title || 'n/a' }}</dd>
+				<dd class="room-recomended__dd">{{ bonus ? bonus.title : 'n/a' }}</dd>
 				<dt class="room-recomended__dt">{{ $t('rakeback') }}</dt>
 				<dd class="room-recomended__dd">{{ rakeback }}</dd>
 			</dl>
