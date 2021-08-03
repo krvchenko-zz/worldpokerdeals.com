@@ -13,21 +13,16 @@
 		<lazy-hydrate when-visible>
 			<front-rooms />
 		</lazy-hydrate>
-<!-- 		<lazy-hydrate when-visible>
-			<front-promotions />
-		</lazy-hydrate> -->
+		<!-- <front-promotions /> -->
 		<lazy-hydrate when-visible>
 			<front-clubs />
 		</lazy-hydrate>
-		<div class="front-bottom">
-			<page-banners class="page-banners_front" :front="true" />
-			<front-features />
-		</div>
-		<!-- <lazy-hydrate when-visible> -->
-		<!-- </lazy-hydrate> -->
-		<!-- <lazy-hydrate when-visible> -->
-		<!-- </lazy-hydrate> -->
-		<!-- </div> -->
+		<lazy-hydrate when-visible>
+			<div class="front-bottom">
+				<page-banners class="page-banners_front" :front="true" />
+				<front-features />
+			</div>
+		</lazy-hydrate>
 	</section>
 </template>
 

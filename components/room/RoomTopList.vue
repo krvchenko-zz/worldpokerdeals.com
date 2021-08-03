@@ -222,6 +222,7 @@
 					.get('/rooms/geo/top', {
 						params: {
 							geo: this.country.code,
+							locale: this.locale,
 							per_page: this.per_page,
 						},
 					})
@@ -238,6 +239,7 @@
 					.get('/rooms/geo/top', {
 						params: {
 							geo: this.country.code,
+							locale: this.locale,
 							per_page: this.per_page,
 							type_id: this.showApps ? 3 : null,
 						},
