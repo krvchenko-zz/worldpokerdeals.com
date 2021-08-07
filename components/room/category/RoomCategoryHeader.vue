@@ -21,7 +21,15 @@
 				>
 				</page-meta>
 			</div>
-			<div class="rooms__summary" v-html="category.summary"></div>
+			<common-text-spoiler
+				:limit="333"
+				class="rooms__summary"
+				:text="category.summary"
+			>
+				<template v-slot:button>
+					<svg-icon icon="spoiler-sep" width="35" height="16" />
+				</template>
+			</common-text-spoiler>
 		</div>
 
 		<div class="rooms-header__bonus">
@@ -95,6 +103,7 @@
 			grid-column-gap: 28px;
 			grid-row-gap: 8px;
 			grid-template-columns: [first] minmax(0, 2fr) [second] minmax(0, 1fr);
+			grid-template-rows: auto 1fr;
 			grid-template-areas:
 				'breadcrumbs bonus'
 				'about bonus'
@@ -270,6 +279,9 @@
 	@include mq('mobile') {
 		.rooms-header {
 			@include paddings('mobile');
+			&__about {
+				grid-template-columns: 100%;
+			}
 		}
 	}
 </style>
