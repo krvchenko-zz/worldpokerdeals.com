@@ -94,6 +94,7 @@
 				line-height: 20px;
 				color: #ffffff;
 				font-weight: 600;
+				word-break: break-word;
 				&:hover,
 				&:focus,
 				&:visited,

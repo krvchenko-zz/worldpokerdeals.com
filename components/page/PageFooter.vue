@@ -62,7 +62,13 @@
 				<div class="footer-rooms">
 					<div class="footer-rooms__header">
 						<div class="footer-rooms__label">Лучшие покер-румы</div>
-						<ul class="footer-rooms__list">
+						<ul
+							class="footer-rooms__list"
+							@dragscrollstart="isDraggingTopRooms = true"
+							@dragscrollend="isDraggingTopRooms = false"
+							:class="{ 'disable-dragging': isDraggingTopRooms }"
+							v-dragscroll
+						>
 							<nuxt-link
 								v-for="(item, index) in topList"
 								:key="index"
@@ -342,7 +348,11 @@
 						<a v-if="locale !== 'ru'" class="footer-links__link" href="/privacy"
 							><span>Политика конфиденциальности</span></a
 						>
-						<a target="_blank" v-if="locale !== 'ru'" class="footer-links__link" href="/privacy#cookies"
+						<a
+							target="_blank"
+							v-if="locale !== 'ru'"
+							class="footer-links__link"
+							href="/privacy#cookies"
 							><span>Политика использования файлов cookie</span></a
 						>
 					</div>
@@ -378,6 +388,7 @@
 			address: 'G2 4JR, 272 Bath Street, Glasgow, United Kingdom',
 			credentials: '2006–2021 © Bosslike gaming LP. <br/> All rights reserved',
 			activeCategory: null,
+			isDraggingTopRooms: false,
 		}),
 
 		created() {},
@@ -431,7 +442,7 @@
 			display: grid;
 			max-width: 1440px;
 			margin: 0 auto;
-			grid-template-columns: 1fr 3fr;
+			grid-template-columns: 1fr minmax(0, 3fr);
 			grid-template-areas: 'info rooms';
 			column-gap: 28px;
 			@include paddings('desktop');
@@ -708,6 +719,19 @@
 				margin-right: 0;
 			}
 		}
+
+		.footer-rooms {
+			&__item {
+				white-space: nowrap;
+			}
+			&__list {
+				overflow-x: scroll;
+				@include hide-scroll();
+				cursor: grab;
+				margin-right: -24px;
+			}
+		}
+
 		.footer-categories {
 			display: grid;
 			grid-template-columns: repeat(3, minmax(0, 1fr));
