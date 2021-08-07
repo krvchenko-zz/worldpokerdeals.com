@@ -3,7 +3,6 @@
 		<p v-if="shouldHide">
 			{{ visibleText }}
 			<span @click="showAllText" class="common-text-spoiler__button">
-				<i class="text-spoiler__sep"></i>
 				<slot name="button" />
 			</span>
 		</p>
@@ -105,7 +104,7 @@
 				for (let i = 0; i < words.length; i++) {
 					sum += words[i].length
 
-					// minus number of spaces between words
+					// limit minus number of spaces between words
 					if (sum > limit - words.length + 1) {
 						break
 					}
