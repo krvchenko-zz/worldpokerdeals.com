@@ -239,7 +239,7 @@
 			}
 			&__about {
 				display: grid;
-				grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+				grid-template-columns: 100%;
 				grid-template-rows: auto auto;
 			}
 			&__icon {
@@ -259,7 +259,7 @@
 			&__wrap {
 				grid-row-gap: 16px;
 				align-items: center;
-				grid-column: 2;
+				grid-column: 1;
 				grid-row: 1;
 			}
 			&__meta {
