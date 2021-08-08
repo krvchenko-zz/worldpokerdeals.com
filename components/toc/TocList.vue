@@ -72,7 +72,7 @@
 		padding-top: 0;
 		position: sticky;
 		top: 100px;
-		width: 208px;
+		width: 100%;
 		align-self: start;
 		&_inline {
 			width: auto;

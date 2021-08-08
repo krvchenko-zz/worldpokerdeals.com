@@ -162,28 +162,30 @@
 			</div>
 		</div>
 
-		<div class="room__recommended">
-			<div class="room__recommended__title block-title">
-				Похожие предложения
+		<div class="room__recommended-container">
+			<div class="room__recommended">
+				<div class="room__recommended__title block-title">
+					Похожие предложения
+				</div>
+				<room
+					v-for="(item, index) in related"
+					:id="item.id"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:rating="item.rating"
+					:rakeback="item.rakeback"
+					:bonus="item.bonus"
+					:background="item.background"
+					:image="item.image"
+					:restricted="item.restricted"
+					:available="item.available"
+					:blacklist="item.blacklist"
+					:network="item.network"
+					:tags="item.tags"
+					:review="item.review"
+				/>
 			</div>
-			<room
-				v-for="(item, index) in related"
-				:id="item.id"
-				:key="index"
-				:title="item.title"
-				:slug="item.slug"
-				:rating="item.rating"
-				:rakeback="item.rakeback"
-				:bonus="item.bonus"
-				:background="item.background"
-				:image="item.image"
-				:restricted="item.restricted"
-				:available="item.available"
-				:blacklist="item.blacklist"
-				:network="item.network"
-				:tags="item.tags"
-				:review="item.review"
-			/>
 		</div>
 
 		<transition name="fade">
@@ -324,6 +326,15 @@
 		width: 100%;
 		max-width: 1440px;
 		@include paddings('desktop');
+		&__recommended {
+			grid-area: list;
+		}
+		&__recommended-container {
+			display: grid;
+			grid-template-columns: auto 742px 326px;
+			grid-template-areas: 'list list .';
+			column-gap: 56px;
+		}
 	}
 
 	.room-screenshots__list {
@@ -354,12 +365,28 @@
 		height: auto;
 	}
 
+	@include mq('desktop') {
+		.room {
+			&__recommended-container {
+				grid-template-columns: minmax(184px, 2fr) minmax(704px, 7fr) minmax(
+						288px,
+						3fr
+					);
+				column-gap: 24px;
+			}
+		}
+	}
+
 	@include mq('laptop') {
 		.room {
 			@include paddings('tablet');
 			&__recommended {
 				@include paddings('tablet');
 				margin: 0 -24px;
+			}
+			&__recommended-container {
+				grid-template-columns: 100%;
+				grid-template-areas: 'list';
 			}
 		}
 	}
