@@ -390,6 +390,10 @@
 				grid-template-areas: 'list';
 			}
 		}
+
+		.room-screenshots {
+			display: none;
+		}
 	}
 
 	@include mq('tablet') {
