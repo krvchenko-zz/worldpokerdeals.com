@@ -21,13 +21,13 @@
 							:height="24"
 						/>
 					</div>
-					<div class="footer__text">{{ info }}</div>
+					<div class="footer__text">{{ $t('rakeback_deals_and_safe_access') }}</div>
 					<div class="footer__credentials" v-html="credentials"></div>
 					<div class="footer__address">{{ address }}</div>
 					<div class="footer__info__buttons">
 						<div class="footer-livechat">
 							<button-contact size="md" type="chat" block
-								>Начать лайв-чат</button-contact
+								>{{ $t('live_chat') }}</button-contact
 							>
 						</div>
 						<div class="footer-social">
@@ -61,7 +61,7 @@
 
 				<div class="footer-rooms">
 					<div class="footer-rooms__header">
-						<div class="footer-rooms__label">Лучшие покер-румы</div>
+						<div class="footer-rooms__label">{{ $t('rooms_best') }}</div>
 						<ul
 							class="footer-rooms__list"
 							@dragscrollstart="isDraggingTopRooms = true"
@@ -104,7 +104,7 @@
 								class="footer-category__label"
 								@click="onCategoryItemClick('rooms')"
 							>
-								Покер-румы
+								{{ $t('menu.rooms') }}
 								<svg-icon
 									class="footer-category__arrow"
 									:width="20"
@@ -132,7 +132,7 @@
 								class="footer-category__label"
 								@click="onCategoryItemClick('news')"
 							>
-								Новости
+								{{ $t('menu.news') }}
 								<svg-icon
 									class="footer-category__arrow"
 									:width="20"
@@ -162,7 +162,7 @@
 								class="footer-category__label"
 								@click="onCategoryItemClick('promotions')"
 							>
-								Акции
+								{{ $t('menu.promotions') }}
 								<svg-icon
 									class="footer-category__arrow"
 									:width="20"
@@ -190,7 +190,7 @@
 								class="footer-category__label"
 								@click="onCategoryItemClick('poker')"
 							>
-								Онлайн покер
+								{{ $t('menu_promotions') }}
 								<svg-icon
 									class="footer-category__arrow"
 									:width="20"
@@ -220,7 +220,7 @@
 								class="footer-category__label"
 								@click="onCategoryItemClick('about-us')"
 							>
-								О нас
+								{{ $t('menu.about') }}
 								<svg-icon
 									class="footer-category__arrow"
 									:width="20"
@@ -246,7 +246,7 @@
 		<div class="footer__bottom">
 			<div class="footer__bottom__inner">
 				<div class="footer-awards">
-					<div class="footer-awards__label">Нам доверяют</div>
+					<div class="footer-awards__label">{{ $t('trusted_by') }}</div>
 					<div class="footer-awards__links">
 						<a
 							id="GPWASeal"
@@ -343,17 +343,17 @@
 					<div class="footer-links">
 						<!-- <a class="footer-links__link" href="#"><span>Дисклеймер</span></a> -->
 						<a class="footer-links__link" href="/terms"
-							><span>Условия и положения</span></a
+							><span>{{ $t('menu.terms') }}</span></a
 						>
 						<a v-if="locale !== 'ru'" class="footer-links__link" href="/privacy"
-							><span>Политика конфиденциальности</span></a
+							><span>{{ $t('menu.privacy') }}</span></a
 						>
 						<a
 							target="_blank"
 							v-if="locale !== 'ru'"
 							class="footer-links__link"
 							href="/privacy#cookies"
-							><span>Политика использования файлов cookie</span></a
+							><span>{{ $t('menu.cookie') }}</span></a
 						>
 					</div>
 					<svg-icon

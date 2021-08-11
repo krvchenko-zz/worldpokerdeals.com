@@ -61,7 +61,7 @@
 								@click="onMenuItemClick($event, 'rooms')"
 							>
 								<a class="header-nav__link" href="/rakeback-deals"
-									>{{ $t('poker_rooms') }}
+									>{{ $t('menu.rooms') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -97,7 +97,7 @@
 								@click="onMenuItemClick($event, 'news')"
 							>
 								<a class="header-nav__link" href="/blog">
-									{{ $t('news') }}
+									{{ $t('menu.news') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -115,7 +115,7 @@
 								@click="onMenuItemClick($event, 'deals')"
 							>
 								<a class="header-nav__link" href="/promotions"
-									>{{ $t('promotions') }}
+									>{{ $t('menu.promotions') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -148,7 +148,7 @@
 								@click="onMenuItemClick($event, 'online-poker')"
 							>
 								<a class="header-nav__link" href="#"
-									>{{ $t('online_poker') }}
+									>{{ $t('menu.online_poker') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
@@ -171,7 +171,7 @@
 								@click="onMenuItemClick($event, 'about-us')"
 							>
 								<a class="header-nav__link" href="/our-team"
-									>{{ $t('about_us') }}
+									>{{ $t('menu.about') }}
 									<img
 										class="header-nav__arrow"
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"

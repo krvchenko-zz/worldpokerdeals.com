@@ -51,7 +51,7 @@
 						class="front-top-awards__img"
 						decoding="async"
 						loading="lazy"
-						src="/badge-best-site.svg"
+						:src="`/badge-best-site${locale !== 'ru' ? '-en' : ''}.svg`"
 						alt="Best poker site"
 						draggable="false"
 					/>
@@ -66,7 +66,7 @@
 						class="front-top-awards__img"
 						decoding="async"
 						loading="lazy"
-						src="/badge-best-affiliate.svg"
+						:src="`/badge-best-site${locale !== 'ru' ? '-en' : ''}.svg`"
 						alt="Best affiliate"
 						draggable="false"
 					/>
@@ -81,7 +81,7 @@
 						class="front-top-awards__img"
 						decoding="async"
 						loading="lazy"
-						src="/badge-gaffg.svg"
+						:src="`/badge-gaffg${locale !== 'ru' ? '-en' : ''}.svg`"
 						alt="GAFFG"
 						draggable="false"
 					/>
@@ -96,7 +96,7 @@
 						class="front-top-awards__img"
 						decoding="async"
 						loading="lazy"
-						src="/badge-gpwa.svg"
+						:src="`/badge-gpwa${locale !== 'ru' ? '-en' : ''}.svg`"
 						alt="GPWA"
 						draggable="false"
 					/>
@@ -179,6 +179,7 @@
 
 <style lang="scss">
 	$front-top-bg: url('~assets/i/front-bg.jpg');
+	// $front-top-bg: url('~assets/i/front-top-bg-mobile.jpg');
 	.front-top {
 		display: grid;
 		width: 100%;
@@ -297,6 +298,7 @@
 		}
 
 		@include mq('tablet') {
+			$front-top-bg: url('~assets/i/front-top-bg-mobile.jpg');
 			grid-template-columns: 100%;
 			grid-template-rows: [summary] 1fr [top-rooms] auto;
 			background: none;
@@ -322,6 +324,7 @@
 				);
 				background: $front-top-bg no-repeat center top;
 				background-size: auto 100%;
+				background-position: -260px top;
 			}
 			&__top-rooms-wrapper {
 				grid-column: 1;
@@ -344,6 +347,7 @@
 		}
 
 		@include mq('mobile') {
+			// $front-top-bg: url('~assets/i/front-bg.jpg');
 			&__top-rooms-wrapper {
 				background: none;
 				padding-bottom: 30px;

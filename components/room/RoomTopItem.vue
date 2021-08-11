@@ -501,11 +501,27 @@
 	@include mq('tablet') {
 		.top-rooms__item {
 			&-link_download {
-				display: none;
+				// display: none;
+				border-color: #ff4151;
+		    background: #ff4151;
+		    color: #ffffff;
+			}
+			&-link__review {
+				border: 1px solid rgba(204, 204, 204, 0.5);
+				background: #e9e9e9;
+				color: #777777;
 			}
 			&:hover &-link_download {
-				display: none;
+				// display: none;
 			}
+			&:hover &-link_download,
+			&:active &-link_download,
+			&:focus &-link_download {
+				border-color: #ff4151;
+		    background: #ff4151;
+		    color: #ffffff;
+			}
+
 			&:hover,
 			&:focus,
 			&:active {
@@ -525,8 +541,13 @@
 			}
 
 			&-rakeback {
-				margin-left: auto;
-				margin-right: auto;
+				display: none;
+				// margin-left: auto;
+				// margin-right: auto;
+			}
+
+			&:hover &-rakeback--hover {
+				display: none;
 			}
 		}
 	}

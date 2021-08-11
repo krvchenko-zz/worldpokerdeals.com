@@ -116,12 +116,12 @@ export const actions = {
 
 	setDisclaimer({ commit }, { disclaimer }) {
 		commit('SET_DISCLAIMER', { disclaimer })
-		Cookies.set('disclaimer', disclaimer, { expires: 365 })
+		Cookies.set('disclaimer', disclaimer, { expires: 365, domain: '.worldpokerdeals01.com' })
 	},
 
 	setAge({ commit }, { age }) {
 		commit('SET_AGE', { age })
-		Cookies.set('age', age, { expires: 365 })
+		Cookies.set('age', age, { expires: 365, domain: '.worldpokerdeals01.com' })
 	},
 
 	setCookie({ commit }, { cookie }) {

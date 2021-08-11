@@ -16,7 +16,7 @@
 					:href="href"
 					@click="navigate">
 					<div class="best-room__geo">
-						<div class="best-room__geo-label">Лучший рум</div>
+						<div class="best-room__geo-label">{{ $t('best_room') }}</div>
 						<div class="best-room__geo-wrap">
 							<svg-icon
 								class="best-room__geo-flag"
@@ -42,7 +42,7 @@
 							:class="['btn', 'btn-block', 'btn-border', 'best-room__review']"
 							:href="href"
 							@click="navigate"
-							>Обзор</a
+							>{{ $t('review') }}</a
 						>
 					</div>
 				</a>
@@ -53,17 +53,14 @@
 
 			</div> -->
 			<div class="best-room__item" :style="{ backgroundColor: '#4E5262' }">
-				<div class="best-room__description">
-					Закрытые азиатские клубы, статистика рейка, бесплатные хендхистори и
-					приватные офферы
-				</div>
+				<div class="best-room__description">{{ $t('private_clubs_and_rake_stats_short') }}</div>
 				<div class="best-room__action">
 					<nuxt-link v-slot="{ href, route, navigate }" to="/register">
 						<a
 							:class="['btn', 'btn-block', 'btn-action', 'best-room__register']"
 							:href="href"
 							@click="navigate"
-							>Регистрируйтесь</a
+							>{{ $t('join_us') }}</a
 						>
 					</nuxt-link>
 				</div>
