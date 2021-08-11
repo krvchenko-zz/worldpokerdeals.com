@@ -20,7 +20,7 @@
 				<text-spoiler
 					class="text-spoiler_front"
 					:text="$t('wpd_front_disclaimer')"
-					:limit="300"
+					:limit="$device.isMobile ? 50 : 300"
 				/>
 			</div>
 
@@ -73,6 +73,7 @@
 								:image="item.image"
 								:network="item.network"
 								:review="item.review"
+								:categories="item.categories"
 							/>
 						</slide>
 					</carousel>

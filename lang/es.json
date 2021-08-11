@@ -8,6 +8,7 @@
   "room_geo_restricted": "No disponible en {country}!",
   "room_geo_allowed": "Disponible para jugadores de {country}!",
   "room_best": "Mejor sala de póker",
+  "rooms_best": "Mejores salas de póker",
   "bonus": "Bono",
   "cashback": "Cashback",
   "deposit": "Depósito",
@@ -51,6 +52,7 @@
   "our_numbers_managers": "10 mánagers de afiliados <br> en nuestro equipo",
   "poker_news": "Noticias de póker",
   "all_news": "Todas las noticias",
+  "all_clubs": "Todas las clubes",
   "important": "Importantes",
   "current_promotions": "Promociones vigentes",
   "all_promotions": "Todas las promociones",
@@ -65,7 +67,7 @@
   "choose_poker_room": "Seleccionar sala de póker",
   "contact_us": "Contáctanos",
   "our_awards": "Nuestros premios y sellos de confianza de la comunidad del juego",
-  "wpd_front_rodion": "¡Hola, regulares! Mi nombre es Rodion Longa. Soy un ex-jugador profesional de póker, entrenador, y ahora líder de Worldpokerdeals.com, un grupo de afiliados con sede en Tailandia. Desde hace 8 años vivo en el sudeste asiático suministrando soluciones de juego completas y tratos únicos para profesionales del póker.En este sitio nuestro equipo gestiona las mejores ofertas en las mejores redes de póquer, incluyendo rakeback y protegiendo los intereses de los jugadores en la industria.Bienvenido, y nunca dudes en contactar a nuestro equipo o contáctame directamente en Facebook",
+  "wpd_front_rodion": "<h3>¡Hola, regulares!</h3><p>Mi nombre es Rodion Longa. Soy un ex-jugador profesional de póker, entrenador, y ahora líder de Worldpokerdeals.com, un grupo de afiliados con sede en Tailandia. Desde hace 8 años vivo en el sudeste asiático suministrando soluciones de juego completas y tratos únicos para profesionales del póker.En este sitio nuestro equipo gestiona las mejores ofertas en las mejores redes de póquer, incluyendo rakeback y protegiendo los intereses de los jugadores en la industria.Bienvenido, y nunca dudes en contactar a nuestro equipo o contáctame directamente en Facebook</p>",
   "more_about_us": "Acerca de nosotros",
   "filters": "Filtros",
   "payment_methods": "Métodos de pago",
@@ -146,6 +148,7 @@
   "email": "E-mail",
   "phone": "Teléfono",
   "live_chat": "Chat en vivo",
+  "trusted_by": "Trusted by",
   "contact_for_private_deals": "Contáctanos para conocer más acerca de tratos privados y salas secretas. ¡Respondemos inmediatamente!",
   "our_messengers": "Nuestros métodos de contacto y redes sociales",
   "accept_terms": "Aceptar los términos y condiciones",
@@ -154,7 +157,34 @@
   "best_game_title": "¿Estás buscando la mejor acción?",
   "best_game_text": "Asistencia personalizada para seleccionar la mejor opción entre 50+ salas y 30+ clubes",
   "private_clubs_and_rake_stats_short": "Clubes asiáticos privados, estadísticas de rake, historiales de manos gratuitos y ofertas secretas",
+  "join_us": "¡Únete a nosotros!",
+  "best_room": "Best room",
   "room_about": "About {room}",
   "room_faq": "FAQ",
-  "room_reviews": "Reviews"
+  "room_reviews": "Reviews",
+  "age_confirm": {
+    "question": "¿Tienes más de 18 años?",
+    "restricted": "No puedes acceder a este sitio web",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "page_banners": {
+    "rooms": "Mejores salas",
+    "deals": "Rakeback deals",
+    "games": "Games",
+    "mobile": "Mobile poker",
+    "networks": "Redes de póker",
+    "soft": "Poker software",
+    "payments": "Deposit Methods"
+  },
+  "menu": {
+    "rooms": "Salas de póker",
+    "news": "Noticias",
+    "promotions": "Promotions",
+    "online_poker": "Póker online",
+    "about": "Acerca de nosotros",
+    "terms": "General Terms and Conditions",
+    "privacy": "Privacy Policy",
+    "cookie": "Cookie Policy"
+  }
 }

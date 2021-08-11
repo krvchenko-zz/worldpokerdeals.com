@@ -16,7 +16,7 @@
 
 				<filter-tab-list>
 					<filter-tab-item
-						label="Все посты"
+						:label="$t('all_news')"
 						:value="null"
 						:active="category_id === null"
 						@click="handleFilter"

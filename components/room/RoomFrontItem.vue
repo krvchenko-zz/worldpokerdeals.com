@@ -57,7 +57,10 @@
 					>
 				</nuxt-link>
 
-				<nuxt-link v-slot="{ href, route, navigate }" :to="{ name: 'front' }">
+				<nuxt-link v-if="!categories.some(category => {
+					return category.is_clubs || category.is_blacklist
+				})"
+				v-slot="{ href, route, navigate }" :to="{ name: 'front' }">
 					<button
 						:class="[
 							'btn',
@@ -137,6 +140,10 @@
 			review: {
 				type: Object,
 				required: true,
+			},
+
+			categories: {
+				type: Array,
 			},
 		},
 

@@ -14,12 +14,12 @@
         color: '#222222',
       }"
     >
-      <template v-if="!declained">Вам уже исполнилось 18 лет?</template>
-      <template v-else>Вам запрещен доступ на сайт</template>
+      <template v-if="!declained">{{ $t('age_confirm.question') }}</template>
+      <template v-else>{{ $t('age_confirm.restricted') }}</template>
     </div>
     <div v-if="!declained" class="age-form-group">
-      <button @click.prevent="handleClick(true)" class="btn btn-block btn-lg btn-primary btn-age-form">Да</button>
-      <button @click.prevent="handleClick(false)" class="btn btn-block btn-lg btn-default btn-age-form">Нет</button>
+      <button @click.prevent="handleClick(true)" class="btn btn-block btn-lg btn-primary btn-age-form">{{ $t('age_confirm.yes') }}</button>
+      <button @click.prevent="handleClick(false)" class="btn btn-block btn-lg btn-default btn-age-form">{{ $t('age_confirm.no') }}</button>
     </div>
   </form>
 </template>

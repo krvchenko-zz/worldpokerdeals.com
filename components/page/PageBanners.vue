@@ -8,11 +8,11 @@
 	>
 		<div class="page-banners__wrap">
 			<page-banners-item
-				v-if="item.page && index < 5"
+				v-if="item.page"
 				v-for="(item, index) in items"
 				:key="index"
 				:page="item.page"
-				:title="item.title"
+				:title="$t(item.title)"
 				:text="item.text"
 				:image="item.image"
 				:background="item.background"
@@ -44,57 +44,89 @@
 		computed: {
 			...mapGetters({
 				menu: 'menu/items',
+				locale: 'lang/locale',
 				pageable: 'pages/page',
 			}),
 
 			items() {
-				let result = []
-				let items = [
+				let result = [],
+						items = [
 					{
 						page: {
-							slug: 'rakeback-deals',
+							slug: 'best-poker-rooms-2020',
+							parent: {
+								slug: 'rakeback-deals'
+							}
 						},
-						title: 'Лучшие покер-румы',
+						locales: ['en' , 'es'],
+						title: 'page_banners.rooms',
 						text: 'Неримени продактивам та файлойна добна',
 						image: 'img-page-banner-games.png',
 						background:
 							'radial-gradient(83.54% 115.31% at 83.54% 0%, #F53D3D 0%, #7C0000 78.75%)',
 					},
 					{
-						page: this.menu.poker[3] ? this.menu.poker[3].page : null,
-						title: 'Игры',
+						page: {
+							slug: 'poker-games',
+							parent: null
+						},
+						locales: ['ru'],
+						title: 'page_banners.games',
 						text: 'Неримени продактивам та файлойна добна докумет еницы',
 						image: 'img-page-banner-games.png',
 						background:
 							'radial-gradient(83.54% 115.31% at 83.54% 0%, #F53D3D 0%, #7C0000 78.75%)',
 					},
 					{
-						page: this.menu.poker[4] ? this.menu.poker[4].page : null,
-						title: 'Покер на мобильный',
+						page: {
+							slug: 'mobile-poker'
+						},
+						locales: ['ru'],
+						title: 'page_banners.mobile',
 						text: 'Ать вы с инты, к любым сроку их полни дежност',
 						image: 'img-page-banner-mobile.png',
 						background:
 							'radial-gradient(83.54% 115.31% at 83.54% 0%, #1BB46B 0%, #097E46 78.75%)',
 					},
 					{
-						page: this.menu.poker[1] ? this.menu.poker[1].page : null,
-						title: 'Сети',
+						page: {
+							slug: 'rakeback-deals'
+						},
+						locales: ['en', 'es'],
+						title: 'page_banners.deals',
+						text: 'Ать вы с инты, к любым сроку их полни дежност',
+						image: 'img-page-banner-mobile.png',
+						background:
+							'radial-gradient(83.54% 115.31% at 83.54% 0%, #1BB46B 0%, #097E46 78.75%)',
+					},
+					{
+						page: {
+							slug: 'online-poker-networks'
+						},
+						locales: ['ru', 'en', 'es'],
+						title: 'page_banners.networks',
 						text: 'Неримени продактивам та файлойна добна докумет еницы',
 						image: 'img-page-banner-networks.png',
 						background:
 							'radial-gradient(83.54% 115.31% at 83.54% 0%, #4C66E0 0%, #0D279D 78.75%)',
 					},
 					{
-						page: this.menu.poker[2] ? this.menu.poker[2].page : null,
-						title: 'Программы для покера',
+						page: {
+							slug: 'soft'
+						},
+						locales: ['ru', 'en', 'es'],
+						title: 'page_banners.soft',
 						text: 'Ать вы с инты, к любым сроку их полни дежност',
 						image: 'img-page-banner-soft.png',
 						background:
 							'radial-gradient(83.54% 115.31% at 83.54% 0%, #9260D1 0%, #4C0C9E 78.75%)',
 					},
 					{
-						page: this.menu.poker[0] ? this.menu.poker[0].page : null,
-						title: 'Платёжки',
+						page: {
+							slug: 'online-poker-payments'
+						},
+						locales: ['ru', 'en', 'es'],
+						title: 'page_banners.payments',
 						text: 'Интному интерок умериме ненитель. Их элемы нение ствия',
 						image: 'img-page-banner-payments.png',
 						background:
@@ -103,14 +135,19 @@
 				]
 
 				result = items.filter((item, idx) => {
-					return idx !== 1
+					// return idx !== 1
+					return item.locales.includes(this.locale)
 				})
 
-				if (!this.front) {
-					result = items.filter(item => {
-						return item.page && this.pageable.slug !== item.page.slug
-					})
-				}
+				// if (!this.front) {
+				// 	result = items.filter(item => {
+				// 		return item.page && this.pageable.slug !== item.page.slug
+				// 	})
+				// }
+
+				// result = items.filter(item => {
+				// 	return item.page && this.pageable.slug !== item.page.slug
+				// })
 
 				return result
 			},

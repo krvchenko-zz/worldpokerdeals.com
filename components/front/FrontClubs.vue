@@ -8,12 +8,12 @@
 			<text-spoiler
 				class="text-spoiler_front front-clubs__spoiler"
 				:text="text"
-				:limit="300"
+				:limit="$device.isMobile ? 50 : 300"
 			/>
 
 			<filter-tab-list>
 				<filter-tab-item
-					label="Все клубы"
+					:label="$t('all_clubs')"
 					:value="null"
 					:active="room_id === null"
 					@click="handleFilter"
