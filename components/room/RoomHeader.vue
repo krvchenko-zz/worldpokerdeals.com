@@ -1049,6 +1049,10 @@
 			margin-right: -20px;
 		}
 
+		.room-blacklist {
+			margin-right: 0;
+		}
+
 		.room-scores {
 			margin-top: 20px;
 			margin-left: -20px;
@@ -1151,6 +1155,11 @@
 				max-width: 100%;
 				padding: 12px;
 			}
+		}
+
+		.room-blacklist {
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 
 		.rooms-recomended {
