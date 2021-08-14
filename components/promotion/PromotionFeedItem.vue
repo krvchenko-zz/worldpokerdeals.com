@@ -1,9 +1,9 @@
 <template>
-	<div class="promotion-item">
-		<div class="promotion-item__content">
-			<div class="promotion-item__icon-wrapper">
+	<div class="promotion-feed-item">
+		<div class="promotion-feed-item__content">
+			<div class="promotion-feed-item__icon-wrapper">
 				<svg-icon
-					class="promotion-item__icon"
+					class="promotion-feed-item__icon"
 					:icon="parent ? parent.slug : room.slug"
 					:width="42"
 					:height="42"
@@ -11,32 +11,32 @@
 				/>
 			</div>
 
-			<div class="promotion-item__text">
+			<div class="promotion-feed-item__text">
 				<span
 					:style="{
 						color: category.label_color,
 						borderColor: category.label_color,
 					}"
 					:class="{
-						'promotion-item__category': true,
-						[`promotion-item__category_${category.id}`]: true,
+						'promotion-feed-item__category': true,
+						[`promotion-feed-item__category_${category.id}`]: true,
 					}"
 					>{{ category.name }}
 				</span>
-				<span class="promotion-item__title">{{ title }}</span>
+				<span class="promotion-feed-item__title">{{ title }}</span>
 			</div>
 
-			<span v-if="type === 'bonus'" class="promotion-item__params">
-				<span class="promotion-item__cashback">
-					<span class="promotion-item__params-label">Кешбэк</span>
+			<span v-if="type === 'bonus'" class="promotion-feed-item__params">
+				<span class="promotion-feed-item__cashback">
+					<span class="promotion-feed-item__params-label">Кешбэк</span>
 					{{ cashback_value }}%
 				</span>
-				<span class="promotion-item__deposit">
-					<span class="promotion-item__params-label">К депозиту</span>
+				<span class="promotion-feed-item__deposit">
+					<span class="promotion-feed-item__params-label">К депозиту</span>
 					+{{ deposit_bonus }}%
 				</span>
-				<span class="promotion-item__max">
-					<span class="promotion-item__params-label">Макс бонус</span>
+				<span class="promotion-feed-item__max">
+					<span class="promotion-feed-item__params-label">Макс бонус</span>
 					<template v-if="max_bonus_currency">{{
 						max_bonus_currency.symbol
 					}}</template>
@@ -44,56 +44,59 @@
 				</span>
 			</span>
 
-			<span v-else class="promotion-item__params">
-				<span class="promotion-item__prize">
-					<span class="promotion-item__params-label">Призовой фонд</span>
+			<span v-else class="promotion-feed-item__params">
+				<span class="promotion-feed-item__prize">
+					<span class="promotion-feed-item__params-label">Призовой фонд</span>
 					{{ formatMoney(prize) }}
 					<template v-if="currency">{{ currency.symbol }}</template>
 				</span>
 
-				<span v-if="permanent && regularity" class="promotion-item__regularity">
-					<span class="promotion-item__params-label">Регулярная</span>
+				<span
+					v-if="permanent && regularity"
+					class="promotion-feed-item__regularity"
+				>
+					<span class="promotion-feed-item__params-label">Регулярная</span>
 					{{ regularity }}
 				</span>
 
 				<template v-else>
-					<span class="promotion-item__start">
-						<span class="promotion-item__params-label">Начало</span>
+					<span class="promotion-feed-item__start">
+						<span class="promotion-feed-item__params-label">Начало</span>
 						{{ dateFormat(start) }}
 					</span>
 
-					<span class="promotion-item__end">
-						<span class="promotion-item__params-label">Окончание</span>
+					<span class="promotion-feed-item__end">
+						<span class="promotion-feed-item__params-label">Окончание</span>
 						{{ dateFormat(end) }}
 					</span>
 				</template>
 			</span>
 
-			<div class="promotion-item__actions">
+			<div class="promotion-feed-item__actions">
 				<span
 					v-if="type === 'bonus'"
 					:class="[
-						'promotion-item__code',
-						codeHovered && 'promotion-item__code--hover',
+						'promotion-feed-item__code',
+						codeHovered && 'promotion-feed-item__code--hover',
 					]"
 					@mouseover="codeHovered = true"
 					@mouseleave="codeHovered = false"
 				>
 					<span
 						:class="[
-							'promotion-item__code-label',
-							codeHovered && 'promotion-item__code-label--hover',
+							'promotion-feed-item__code-label',
+							codeHovered && 'promotion-feed-item__code-label--hover',
 						]"
 						>Бонус-код</span
 					>
-					<span class="promotion-item__code-value">{{ code }}</span>
+					<span class="promotion-feed-item__code-value">{{ code }}</span>
 				</span>
 
 				<span
 					v-else-if="time_left || time_before"
-					class="promotion-item__countdown"
+					class="promotion-feed-item__countdown"
 				>
-					<span class="promotion-item__countdown-label">
+					<span class="promotion-feed-item__countdown-label">
 						<template v-if="time_left">До окончания</template>
 						<template v-if="time_before">До начала</template>
 					</span>
@@ -101,7 +104,7 @@
 					<countdown v-if="time_before" :days="time_before.days" />
 				</span>
 
-				<span class="promotion-item__buttons">
+				<span class="promotion-feed-item__buttons">
 					<room-action-button
 						class="btn-get-promotion"
 						:icon="false"
@@ -134,26 +137,26 @@
 
 		<div
 			:class="[
-				'promotion-item__info',
-				showTerms && 'promotion-item__info--expanded',
+				'promotion-feed-item__info',
+				showTerms && 'promotion-feed-item__info--expanded',
 			]"
 		>
 			<span
 				:class="[
-					'promotion-item__terms',
-					showTerms && 'promotion-item__terms--expanded',
+					'promotion-feed-item__terms',
+					showTerms && 'promotion-feed-item__terms--expanded',
 				]"
 				@click="terms ? (showTerms = !showTerms) : (showTerms = false)"
 			>
-				<i class="promotion-item__terms-icon"></i>
+				<i class="promotion-feed-item__terms-icon"></i>
 				<span>Условия получения</span>
 			</span>
 
 			<span
 				:class="{
-					'promotion-item__avaliable': true,
-					[`promotion-item__avaliable_yes`]: !room.restricted,
-					[`promotion-item__avaliable_no`]: room.restricted,
+					'promotion-feed-item__avaliable': true,
+					[`promotion-feed-item__avaliable_yes`]: !room.restricted,
+					[`promotion-feed-item__avaliable_no`]: room.restricted,
 				}"
 			>
 				<svg-icon
@@ -170,7 +173,7 @@
 		</div>
 
 		<div
-			class="promotion-item__terms-text"
+			class="promotion-feed-item__terms-text"
 			v-show="showTerms"
 			v-html="terms"
 		></div>
@@ -371,7 +374,7 @@
 	$ico-terms: url('~assets/i/promotion/ico-bonus-terms.svg?data');
 	$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
-	.promotion-item {
+	.promotion-feed-item {
 		display: grid;
 		grid-template-columns: 1fr;
 		background: #ffffff;
@@ -764,7 +767,7 @@
 			}
 
 			&--expanded {
-				.promotion-item__terms-icon {
+				.promotion-feed-item__terms-icon {
 					transform: rotate(180deg);
 				}
 			}
@@ -827,7 +830,7 @@
 	}
 
 	@media screen and (min-width: 1280px) and (max-width: 1339px) {
-		.promotion-item {
+		.promotion-feed-item {
 			&__params {
 				display: grid;
 				grid-template-columns: 1.46fr 1.32fr 1.54fr;
@@ -848,7 +851,7 @@
 	}
 
 	@include mq('laptop') {
-		.promotion-item {
+		.promotion-feed-item {
 			&__params {
 				display: grid;
 				grid-template-columns: 1.46fr 1.32fr 1.54fr;
@@ -857,7 +860,7 @@
 	}
 
 	@include mq('tablet') {
-		.promotion-item {
+		.promotion-feed-item {
 			&__title {
 				font-weight: 600;
 				font-size: 20px;
@@ -925,7 +928,7 @@
 	}
 
 	@include mq('mobile') {
-		.promotion-item {
+		.promotion-feed-item {
 			&__content {
 				grid-template-areas:
 					'icon text'
