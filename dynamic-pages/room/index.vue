@@ -13,6 +13,7 @@
 						:text="
 							tab.is_review ? $t('room_about', { room: room.title }) : tab.title
 						"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
@@ -22,6 +23,7 @@
 						:inline="inline"
 						:anchor="item.anchor_id"
 						:text="item.text"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
@@ -29,12 +31,14 @@
 						:inline="inline"
 						anchor="faq"
 						:text="$t('room_faq')"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
 						:inline="inline"
 						anchor="reviews"
 						:text="$t('room_reviews')"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 				</template>
@@ -211,6 +215,7 @@
 		data: () => ({
 			loading: false,
 			showSticky: false,
+			anchorOffset: 40,
 		}),
 
 		head() {
