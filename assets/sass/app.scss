@@ -1274,14 +1274,19 @@ body {
 			padding: 0;
 			margin: 0;
 			align-items: center;
-		display: flex;
+      display: flex;
+      overflow-x: auto;
+      @include hide-scroll();
 			&__item {
-				padding: 0;
-			margin: 0 16px 16px 0;
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
+        padding: 0;
+        margin: 0 16px 16px 0;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
 			}
+      @include mq('tablet') {
+        margin-right: -20px;
+      }
 		}
 
 		.platforms {
