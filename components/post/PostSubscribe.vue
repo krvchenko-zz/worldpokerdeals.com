@@ -66,7 +66,7 @@
 			border-color: #4b9fdb;
 			font-size: 12px;
 			line-height: 30px;
-			color: #ffffff !important;
+			color: #ffffff;
 			&:before {
 				background-size: 24px;
 				left: 8px;
