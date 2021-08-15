@@ -748,6 +748,49 @@ body {
 			}
 		}
 
+    .payments-table {
+      &__payment {
+        white-space: nowrap;
+      }
+      &__icon {
+        margin-right: 12px;
+      }
+    }
+
+    .payment-table-wrap {
+      td {
+        font-size: 15px;
+        line-height: 16px;
+        &:nth-child(2),
+        &:nth-child(3) {
+          font-weight: bold;
+        }
+      }
+      th {
+        padding: 15px 16px;
+      }
+      tr, td {
+        padding: 8px 16px;
+      }
+      @media screen and (max-width: 376px) {
+        th {
+          padding: 15px 8px;
+        }
+        tr, td {
+          padding: 8px;
+        }
+      }
+    }
+
+    @include mq('tablet') {
+      .payment-table-wrap {
+        th {
+          font-size: 12px;
+          line-height: 12px;
+        }
+      }
+    }
+
 		.layout {
 			&-row {
 				border-radius: 3px;
@@ -1045,6 +1088,7 @@ body {
 					line-height: 20px;
 					letter-spacing: -0.2px;
 					color: #555555;
+          white-space: nowrap;
 				}
 				&:nth-child(3n) {
 					margin-right: 0;
@@ -1087,6 +1131,20 @@ body {
 					color: #222222;
 				}
 			}
+
+      @include mq('tablet') {
+        &__item {
+          width: calc((100% / 2) - 21px);
+          &:nth-child(3n) {
+            margin: 0 20px 20px 0;
+            border-right: 1px solid #e9e9e9;
+          }
+          &:nth-child(2n) {
+            margin-right: 0;
+            border: none;
+          }
+        }
+      }
 		}
 
 		// Scores
