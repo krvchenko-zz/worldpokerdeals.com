@@ -190,7 +190,7 @@
 								class="footer-category__label"
 								@click="onCategoryItemClick('poker')"
 							>
-								{{ $t('menu_promotions') }}
+								{{ $t('menu.online_poker') }}
 								<svg-icon
 									class="footer-category__arrow"
 									:width="20"

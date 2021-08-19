@@ -164,8 +164,8 @@
 			color: #222222;
 		}
 		&__spoiler {
-			display: grid;
-			grid-template-columns: 3fr 1fr;
+			// display: grid;
+			// grid-template-columns: 3fr 1fr;
 			margin-bottom: 24px;
 		}
 	}
