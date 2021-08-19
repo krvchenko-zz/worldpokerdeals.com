@@ -47,6 +47,10 @@
 			index: {
 				type: Number,
 			},
+
+			offset: {
+				type: Number,
+			},
 		},
 
 		data: () => ({
@@ -81,7 +85,11 @@
 				let el = document.getElementById(this.anchor)
 				if (el) {
 					// el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-					let offset = el.getBoundingClientRect().top - 80 + window.pageYOffset
+					let offset =
+						el.getBoundingClientRect().top -
+						80 -
+						(this.offset || 0) +
+						window.pageYOffset
 					window.scrollTo({ top: offset, behavior: 'smooth' })
 				}
 			},

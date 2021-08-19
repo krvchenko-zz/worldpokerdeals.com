@@ -13,6 +13,7 @@
 						:text="
 							tab.is_review ? $t('room_about', { room: room.title }) : tab.title
 						"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
@@ -22,6 +23,7 @@
 						:inline="inline"
 						:anchor="item.anchor_id"
 						:text="item.text"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
@@ -29,12 +31,14 @@
 						:inline="inline"
 						anchor="faq"
 						:text="$t('room_faq')"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
 						:inline="inline"
 						anchor="reviews"
 						:text="$t('room_reviews')"
+						:offset="anchorOffset"
 					>
 					</toc-item>
 				</template>
@@ -67,6 +71,7 @@
 					</faq-list>
 
 					<telegram-subscribe
+						v-if="!$device.isMobile"
 						label="Наш Телеграм-канал"
 						description="Новости покерных румов мы публикуем в нашем Телеграм-канале. Подпишись, чтобы не упускать EV."
 						btn-label="Подписаться"
@@ -210,6 +215,7 @@
 		data: () => ({
 			loading: false,
 			showSticky: false,
+			anchorOffset: 40,
 		}),
 
 		head() {
@@ -388,6 +394,10 @@
 				grid-template-columns: 100%;
 				grid-template-areas: 'list';
 			}
+		}
+
+		.room-screenshots {
+			display: none;
 		}
 	}
 

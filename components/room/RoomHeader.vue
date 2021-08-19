@@ -425,7 +425,7 @@
 		display: grid;
 		grid-template-columns: 2fr 1fr;
 		grid-template-areas:
-			'network .' 'header header' 'details scores' 'buttons buttons' 'restrictions restriction'
+			'network .' 'header header' 'details scores' 'buttons buttons' 'restrictions restrictions'
 			'recommended-rooms recommended-rooms' 'nav nav';
 		margin-bottom: 40px;
 		position: relative;
@@ -1023,7 +1023,7 @@
 	@include mq('laptop') {
 		.room-header {
 			grid-template-columns: 1fr 1fr;
-			grid-template-areas: 'network .' 'header header' 'details details' 'scores scores' 'restrictions restriction' 'buttons buttons' 'recommended-rooms recommended-rooms' 'nav nav';
+			grid-template-areas: 'network .' 'header header' 'details details' 'scores scores' 'restrictions restrictions' 'buttons buttons' 'recommended-rooms recommended-rooms' 'nav nav';
 			padding: 0 20px;
 		}
 
@@ -1047,6 +1047,10 @@
 		.room-nav {
 			margin-left: -20px;
 			margin-right: -20px;
+		}
+
+		.room-blacklist {
+			margin-right: 0;
 		}
 
 		.room-scores {
@@ -1088,7 +1092,7 @@
 	@include mq('tablet') {
 		.room-header {
 			grid-template-columns: 100%;
-			grid-template-areas: 'network' 'header' 'details' 'scores' 'buttons' 'restriction' 'recommended-rooms' 'nav';
+			grid-template-areas: 'network' 'header' 'details' 'scores' 'buttons' 'restrictions' 'recommended-rooms' 'nav';
 			padding: 0 20px;
 			margin: 0 -20px 0px;
 			&__details-wrapper {
@@ -1151,6 +1155,11 @@
 				max-width: 100%;
 				padding: 12px;
 			}
+		}
+
+		.room-blacklist {
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 
 		.rooms-recomended {

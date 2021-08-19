@@ -748,6 +748,49 @@ body {
 			}
 		}
 
+    .payments-table {
+      &__payment {
+        white-space: nowrap;
+      }
+      &__icon {
+        margin-right: 12px;
+      }
+    }
+
+    .payment-table-wrap {
+      td {
+        font-size: 15px;
+        line-height: 16px;
+        &:nth-child(2),
+        &:nth-child(3) {
+          font-weight: bold;
+        }
+      }
+      th {
+        padding: 15px 16px;
+      }
+      tr, td {
+        padding: 8px 16px;
+      }
+      @media screen and (max-width: 376px) {
+        th {
+          padding: 15px 8px;
+        }
+        tr, td {
+          padding: 8px;
+        }
+      }
+    }
+
+    @include mq('tablet') {
+      .payment-table-wrap {
+        th {
+          font-size: 12px;
+          line-height: 12px;
+        }
+      }
+    }
+
 		.layout {
 			&-row {
 				border-radius: 3px;
@@ -785,6 +828,26 @@ body {
 					z-index: 10;
 				}
 			}
+
+      @include mq('laptop') {
+        &-col {
+          padding: 28px 24px;
+          margin-right: 20px;
+        }
+      }
+
+      @include mq('tablet') {
+        &-row {
+          flex-direction: column;
+        }
+        &-col {
+          margin-right: 0;
+          padding: 20px;
+          &:first-child {
+            margin-bottom: 20px;
+          }
+        }
+      }
 		}
 
 		.advantages {
@@ -1025,6 +1088,7 @@ body {
 					line-height: 20px;
 					letter-spacing: -0.2px;
 					color: #555555;
+          white-space: nowrap;
 				}
 				&:nth-child(3n) {
 					margin-right: 0;
@@ -1067,6 +1131,20 @@ body {
 					color: #222222;
 				}
 			}
+
+      @include mq('tablet') {
+        &__item {
+          width: calc((100% / 2) - 21px);
+          &:nth-child(3n) {
+            margin: 0 20px 20px 0;
+            border-right: 1px solid #e9e9e9;
+          }
+          &:nth-child(2n) {
+            margin-right: 0;
+            border: none;
+          }
+        }
+      }
 		}
 
 		// Scores
@@ -1196,14 +1274,19 @@ body {
 			padding: 0;
 			margin: 0;
 			align-items: center;
-		display: flex;
+      display: flex;
+      overflow-x: auto;
+      @include hide-scroll();
 			&__item {
-				padding: 0;
-			margin: 0 16px 16px 0;
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
+        padding: 0;
+        margin: 0 16px 16px 0;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
 			}
+      @include mq('tablet') {
+        margin-right: -20px;
+      }
 		}
 
 		.platforms {
@@ -1531,21 +1614,31 @@ body {
 	}
 }
 
-.btn-contact {
+.btn-contact,
+a.btn-contact {
 	position: relative;
 	border-radius: 4px;
 	border: 1px solid #e9e9e9;
-	color: #777777 !important;
-	text-decoration: none !important;
+	color: #777777;
+	text-decoration: none;
 	font-family: "Proxima Nova Sb";
 	background: transparent;
 	transition: all 0.2s ease-out;
 	white-space: nowrap;
 	&:hover,
 	&:active,
-	&:focus,
-	&:visited {
-		color: #ffffff !important;
+	&:focus {
+		color: #ffffff;
+		text-decoration: none;
+	}
+  &:visited {
+    color: #777777;
+    text-decoration: none ;
+  }
+	&:visited:hover,
+	&:visited:active,
+	&:visited:focus {
+		color: #ffffff;
 		text-decoration: none;
 	}
 
@@ -1597,7 +1690,9 @@ body {
 			background-color: #4b9fdb;
 			background-image: $ico-telegram;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #4b9fdb;
 			background-color: #4b9fdb;
 		}
@@ -1608,7 +1703,9 @@ body {
 			background-color: #00aff0;
 			background-image: $ico-skype;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #00aff0;
 			background-color: #00aff0;
 		}
@@ -1619,7 +1716,9 @@ body {
 			background-color: #3ace01;
 			background-image: $ico-whatsapp;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #3ace01;
 			background-color: #3ace01;
 		}
@@ -1630,7 +1729,9 @@ body {
 			background-color: #ff5e38;
 			background-image: $ico-email;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #ff5e38;
 			background-color: #ff5e38;
 		}
@@ -1641,7 +1742,9 @@ body {
 			background-color: #4969ad;
 			background-image: $ico-fb;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #4969ad;
 			background-color: #4969ad;
 		}
@@ -1652,7 +1755,9 @@ body {
 			background-color: #5376a4;
 			background-image: $ico-vk;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #5376a4;
 			background-color: #5376a4;
 		}
@@ -1663,7 +1768,9 @@ body {
 			background-color: #5ab5f8;
 			background-image: $ico-twitter;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			border-color: #5ab5f8;
 			background-color: #5ab5f8;
 		}
@@ -1679,7 +1786,9 @@ body {
 		&:before {
 			background-image: $ico-instagram;
 		}
-		&:hover {
+		&:hover,
+    &:active,
+    &:focus {
 			background-color: linear-gradient(
 				49.12deg,
 				#ffdd55 6.62%,
@@ -1692,7 +1801,7 @@ body {
 	&_chat {
 		padding-left: 10px;
 		padding-right: 10px;
-		color: #ffffff !important;
+		color: #ffffff;
 		background-color: #70ac30;
 		border-color: #70ac30;
 		font-weight: bold;
@@ -1709,11 +1818,23 @@ body {
 			background-size: 16px;
 			background-image: $ico-chat;
 		}
-		&:hover {
-			color: #ffffff !important;
+		&:hover,
+    &:active,
+    &:focus {
+			color: #ffffff;
 			border-color: #70ac30;
 			background-color: #70ac30;
 		}
+    &:visited {
+		  color: #ffffff;
+      text-decoration: none ;
+    }
+    &:visited:hover,
+    &:visited:active,
+    &:visited:focus {
+      color: #ffffff;
+      text-decoration: none;
+    }
 	}
 
 	&_icon {
