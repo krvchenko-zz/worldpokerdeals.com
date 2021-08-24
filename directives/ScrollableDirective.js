@@ -16,7 +16,8 @@ export default {
 				items = container.children,
 				containerWidth = container.offsetWidth,
 				itemsWidth = getItemsWidth(items),
-				toggle = document.querySelector('.scrollable__item'),
+				toggleRight = document.querySelector('.scrollable__item_r'),
+				toggleLeft = document.querySelector('.scrollable__item_l'),
 				position = 0,
 				scrollTo = 0,
 				back = false,
@@ -26,39 +27,68 @@ export default {
 				scrollLeft
 
 			if (itemsWidth > containerWidth) {
-				if (!toggle) {
-					toggle = document.createElement('button')
-					toggle.classList.add('scrollable__item')
-					parent.appendChild(toggle)
+
+				if (!toggleRight && !toggleLeft) {
+					toggleRight = document.createElement('button')
+					toggleLeft = document.createElement('button')
+
+					toggleRight.classList.add('scrollable__item')
+					toggleRight.classList.add('scrollable__item_r')
+					toggleRight.classList.add('scrollable__item_hidden')
+
+					toggleLeft.classList.add('scrollable__item')
+					toggleLeft.classList.add('scrollable__item_l')
+					toggleLeft.classList.add('scrollable__item_hidden')
+
+					parent.appendChild(toggleRight)
+					parent.appendChild(toggleLeft)
 				}
 
 				if (scrollTo + containerWidth < itemsWidth) {
-					toggle.classList.add('scrollable__item_r')
+					toggleRight.classList.remove('scrollable__item_hidden')
 				}
 
-				toggle.addEventListener('click', function() {
-					if (position + 5 < items.length && !back) {
+				toggleRight.addEventListener('click', function() {
+
+					if (position + 5 <= (items.length - 1)) {
 						position = position + 5
-					} else {
-						back = true
-						position = position - 5
+						toggleLeft.classList.remove('scrollable__item_hidden')
 					}
 
-					if (position - 5 < 0) {
-						back = false
+					if (position + 5 >= (items.length - 1)) {
+						toggleRight.classList.add('scrollable__item_hidden')
 					}
 
 					scrollTo = items[position].offsetLeft
 
-					if (position + 5 >= items.length) {
-						toggle.classList.remove('scrollable__item_r')
-						toggle.classList.add('scrollable__item_l')
+					container.scrollTo({
+						top: 0,
+						left: scrollTo,
+						behavior: 'smooth',
+					})
+
+				})
+
+				toggleLeft.addEventListener('click', function() {
+
+					if (position - 5 <= (items.length - 1)) {
+						position = position - 5
 					}
 
-					if (position - 5 < 0) {
-						toggle.classList.remove('scrollable__item_l')
-						toggle.classList.add('scrollable__item_r')
+					if (position <= 0) {
+						toggleLeft.classList.add('scrollable__item_hidden')
+						toggleRight.classList.remove('scrollable__item_hidden')
 					}
+
+					if (position > 0) {
+						toggleRight.classList.remove('scrollable__item_hidden')
+					}
+
+					if (position + 5 >= (items.length - 1)) {
+						toggleRight.classList.remove('scrollable__item_hidden')
+					}
+
+					scrollTo = items[position].offsetLeft
 
 					container.scrollTo({
 						top: 0,
@@ -105,7 +135,6 @@ export default {
 		window.addEventListener('resize', handler)
 	},
 
-	bind: (el, binding) => {},
-
-	update: (el, binding) => {},
+	// bind: (el, binding) => {},
+	// update: (el, binding) => {},
 }

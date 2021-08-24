@@ -1,6 +1,6 @@
 {
   "header": {
-    "search_form_placeholder": "Найти что-угодно, например: GGPoker",
+    "search_form_placeholder": "Find anything, GGpoker, for example",
     "btn_vip": "VIP-сервис",
     "btn_telegram": "Telegram-канал",
     "btn_telegram_href": "https://t-do.ru/worldpokerdealsRU"
@@ -170,6 +170,29 @@
   "room_about": "About {room}",
   "room_faq": "FAQ",
   "room_reviews": "Reviews",
+  "form": {
+    "email": "E-mail",
+    "password": "Password",
+    "account_id": "ID Счета",
+    "contact_type": "Способ связи",
+    "comment": "Вопрос или комментарий",
+    "check_your_id": "Как узнать свой ID?",
+    "tos": "условия передачи и хранения данных",
+    "accept": "Принимаю",
+    "sign_in": "Sign in",
+    "log_in_text": "Sign in to Worldpokerdeals",
+    "forgot_password": "Forgot password?",
+    "social_networks_text": "Sign in via",
+    "sign_up_text": "Don't have an account? Sign up now!",
+    "password_reset_text": "Reset Password",
+    "password_email_text": "E-mail of your account"
+  },
+  "search": {
+    "rooms": "Покер-румы",
+    "networks": "Покерные сети",
+    "posts": "Покерные новости",
+    "placeholder": "Find anything, GGpoker, for example"
+  },
   "age_confirm": {
     "question": "Are you over 18?",
     "restricted": "You are denied access to the site",
@@ -193,6 +216,9 @@
     "about": "About us",
     "terms": "General Terms and Conditions",
     "privacy": "Privacy Policy",
-    "cookie": "Cookie Policy"
+    "cookie": "Cookie Policy",
+    "our_team": "Our team",
+    "contact_us": "Contact us",
+    "vip_service": "VIP-service"
   }
 }

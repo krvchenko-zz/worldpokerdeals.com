@@ -34,6 +34,7 @@
 
 		<div class="rooms-header__bonus">
 			<room-top
+				class="game-header__room-top"
 				v-if="best"
 				:id="best.id"
 				:title="best.title"
@@ -41,7 +42,7 @@
 				:restricted="best.restricted"
 				:country="country"
 				:rating="best.rating"
-				:bonus="best.bonus"
+				:bonus="best.top_bonus"
 				:review="best.review"
 			/>
 		</div>

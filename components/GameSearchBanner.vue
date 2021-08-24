@@ -21,6 +21,7 @@
 					<button-contact
 						class="game-search-banner__btn"
 						icon
+						target="_blank"
 						size="md"
 						type="telegram"
 						:href="telegram"
@@ -61,10 +62,10 @@
 		props: {},
 
 		data: () => ({
-			telegram: '',
-			skype: '',
-			whatsapp: '',
-			email: '',
+			telegram: 'worldpokerdealsRU',
+			skype: 'anton.wpd',
+			whatsapp: '+66956396293',
+			email: 'antonio@worldpokerdeals.com',
 		}),
 
 		computed: {},

@@ -537,6 +537,7 @@
 			}
 
 			&-rating {
+				display: none;
 				margin-right: 0;
 			}
 

@@ -301,7 +301,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	$ico-room-unavailable: url('~assets/i/ico-room-unavailable.svg?data');
 	$ico-blacklist-summary: url('~assets/i/ico-blacklist-summary.svg?data');
 	.room-item {
@@ -351,6 +351,9 @@
 			display: block;
 			max-width: 80%;
 			max-height: 80%;
+			&_s {
+				margin: 0;
+			}
 			&_disabled {
 				filter: grayscale(1);
 			}

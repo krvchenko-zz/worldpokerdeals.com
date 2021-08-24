@@ -3,12 +3,15 @@
 		<!-- More -->
 		<button
 			v-if="nextUrl"
+			:style="{
+				width: loadMoreWidth ? `${loadMoreWidth}px` : 'auto'
+			}"
 			:class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
 			@click="handleShowMore"
 		>
 			{{ loadMoreText }}
 		</button>
-		<ul class="pagination__list">
+		<ul v-if="showPages" class="pagination__list">
 			<!-- Prev -->
 			<li v-if="prevUrl" :class="['pagination__item', 'pagination__item_prev']">
 				<nuxt-link
@@ -116,6 +119,12 @@
 		components: {},
 
 		props: {
+
+			showPages: {
+				type: Boolean,
+				default: true,
+			},
+
 			last: {
 				type: Number,
 				required: true,
@@ -164,6 +173,11 @@
 			loadMoreText: {
 				type: String,
 				default: 'Показать еще',
+			},
+
+			loadMoreWidth: {
+				type: [Number, String],
+				default: 'auto',
 			},
 		},
 

@@ -224,11 +224,8 @@
 							fontSize: '22px',
 							lineHeight: '28px',
 						}"
+						v-html="auth ? $t('form.log_in_text') : $t('form.password_reset_text')"
 					>
-						<template v-if="auth">Вход на <br />Worldpokerdeals</template>
-						<template v-if="reset"
-							>Восстановление пароля на <br />Worldpokerdeals</template
-						>
 					</span>
 				</template>
 				<template #body>

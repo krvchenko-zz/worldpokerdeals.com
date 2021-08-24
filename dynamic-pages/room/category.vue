@@ -80,7 +80,8 @@
 						:total="total"
 						:from="from"
 						:to="to"
-						:load-more-width="208"
+						:load-more-width="215"
+						:showPages="false"
 						load-more-text="Показать еще румы"
 						total-text="покер-румов"
 						@next="handlePageNext"
@@ -333,14 +334,13 @@
 					this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
 						category: response.data.item,
 					})
-
-					this.$store.commit('rooms/FETCH_BEST', { best: response.data.best })
 				})
 
 			await this.$axios
 				.get(`rooms/list`, { params: this.params })
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
+					this.$store.commit('rooms/FETCH_BEST', { best: response.data.data[0] })
 
 					Object.keys(response.data).forEach(key => {
 						if (key !== 'data') {
@@ -438,6 +438,8 @@
 						this.$store.commit('rooms/FETCH_ROOMS', {
 							rooms: response.data.data,
 						})
+
+						this.$store.commit('rooms/FETCH_BEST', { best: response.data.data[0] })
 
 						Object.keys(response.data).forEach(key => {
 							if (key !== 'data') {

@@ -1,9 +1,6 @@
 <template>
 	<div :class="['auth-form', modal && 'auth-form_modal']">
-		<div v-if="!modal" class="auth-form-header">
-			Вход на <br />
-			Worldpokerdeals
-		</div>
+		<div v-if="!modal" class="auth-form-header" v-html="$t('form.log_in_text')"></div>
 
 		<div :class="['auth-form-body', modal && 'auth-form-body_modal']">
 			<form
@@ -15,7 +12,7 @@
 				<div class="auth-form-group">
 					<form-input
 						v-model="form.email"
-						label="Электронная почта"
+						:label="$t('form.email')"
 						type="email"
 						name="email"
 						:loading="form.busy"
@@ -30,7 +27,7 @@
 				<div class="auth-form-group">
 					<form-input
 						v-model="form.password"
-						label="Пароль"
+						:label="$t('form.password')"
 						type="password"
 						name="password"
 						:loading="form.busy"
@@ -41,7 +38,7 @@
 								class="auth-form__link auth-form__link_right"
 								@click.prevent="handleReset"
 							>
-								Забыли пароль?
+								{{ $t('form.forgot_password') }}
 							</button>
 						</template>
 					</form-input>
@@ -53,7 +50,7 @@
 				<div class="auth-form-group">
 					<form-submit-button
 						class="btn-block"
-						label="Войти"
+						:label="$t('form.sign_in')"
 						:loading="form.busy"
 					>
 					</form-submit-button>
@@ -71,9 +68,7 @@
 			</div>
 
 			<div v-if="modal" class="auth-form-social">
-				<div class="auth-form-social__label">
-					Войти при помощи социальных сетей
-				</div>
+				<div class="auth-form-social__label" v-html="$t('form.social_networks_text')"></div>
 				<div class="auth-form-social__actions">
 					<form-social type="fb" style="margin-right: 10px;" />
 					<form-social type="vk" style="margin-left: 10px;" />

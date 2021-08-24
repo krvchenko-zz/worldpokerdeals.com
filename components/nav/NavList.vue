@@ -123,6 +123,10 @@
 					background: $ico-scrollable no-repeat center;
 				}
 			}
+
+			&_hidden {
+				display: none;
+			}
 		}
 	}
 

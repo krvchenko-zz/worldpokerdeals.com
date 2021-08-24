@@ -201,17 +201,26 @@
   "room_reviews": "Отзывы игроков",
   "form": {
     "email": "Электронная почта",
+    "password": "Пароль",
     "account_id": "ID Счета",
     "contact_type": "Способ связи",
     "comment": "Вопрос или комментарий",
     "check_your_id": "Как узнать свой ID?",
     "tos": "условия передачи и хранения данных",
-    "accept": "Принимаю"
+    "accept": "Принимаю",
+    "sign_in": "Войти",
+    "log_in_text": "Вход на <br /> Worldpokerdeals",
+    "forgot_password": "Забыли пароль?",
+    "social_networks_text": "Войти при помощи социальных сетей",
+    "sign_up_text": "Ещё нет аккаунта? Зарегистрируйся",
+    "password_reset_text": "Восстановление пароля на Worldpokerdeals",
+    "password_email_text": "Электронная почта при регистрации"
   },
   "search": {
     "rooms": "Покер-румы",
     "networks": "Покерные сети",
-    "posts": "Покерные новости"
+    "posts": "Покерные новости",
+    "placeholder": "Найти что-угодно, например: GGPoker"
   },
   "age_confirm": {
     "question": "Вам уже исполнилось 18 лет?",
@@ -236,6 +245,9 @@
     "about": "О нас",
     "terms": "Условия и положения",
     "privacy": "Политика конфиденциальности",
-    "cookie": "Политика использования файлов cookie"
+    "cookie": "Политика использования файлов cookie",
+    "our_team": "Наша команда",
+    "contact_us": "Написать нам",
+    "vip_service": "VIP-Сервис"
   }
 }
