@@ -337,7 +337,12 @@
 					this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
 						category: response.data.item,
 					})
-					this.$store.commit('promotions/FETCH_ITEMS', { items: response.data.promotions })
+					this.$store.commit('promotions/FETCH_ITEMS', {
+						items: response.data.promotions
+					})
+					this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
+						categories: response.data.categories,
+					})
 				})
 
 			await this.$axios
@@ -352,12 +357,6 @@
 						}
 					})
 				})
-
-			await this.$axios.get(`rooms/category/list`).then(response => {
-				this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
-					categories: response.data,
-				})
-			})
 
 			await this.$axios
 				.get(`/rooms/filters/list`, {
