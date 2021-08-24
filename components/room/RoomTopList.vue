@@ -192,7 +192,7 @@
 		data: () => ({
 			per_page: 5,
 			showApps: false,
-			items: []
+			items: [],
 		}),
 
 		mounted() {},
@@ -488,6 +488,9 @@
 						&_active {
 							background: #fafafa;
 							box-shadow: 0px -4px 0px #feb83c;
+						}
+						&:nth-child(2) {
+							padding-left: 20px;
 						}
 					}
 

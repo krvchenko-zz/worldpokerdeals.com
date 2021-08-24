@@ -441,7 +441,7 @@
 
 			&_download {
 				display: none;
-				width: 96px;
+				min-width: 96px;
 				margin-left: auto;
 				margin-right: 8px;
 				box-sizing: border-box;
@@ -500,16 +500,26 @@
 
 	@include mq('tablet') {
 		.top-rooms__item {
+			padding-left: 16px;
+			padding-right: 8px;
+			&-link {
+				box-sizing: border-box;
+			}
 			&-link_download {
-				// display: none;
 				border-color: #ff4151;
-		    background: #ff4151;
-		    color: #ffffff;
+				background: #ff4151;
+				color: #ffffff;
+				margin-right: 8px;
+				padding-left: 16px;
+				padding-right: 16px;
 			}
 			&-link__review {
 				border: 1px solid rgba(204, 204, 204, 0.5);
 				background: #e9e9e9;
 				color: #777777;
+				padding-left: 12px;
+				padding-right: 12px;
+				min-width: 75px;
 			}
 			&:hover &-link_download {
 				// display: none;
@@ -518,8 +528,8 @@
 			&:active &-link_download,
 			&:focus &-link_download {
 				border-color: #ff4151;
-		    background: #ff4151;
-		    color: #ffffff;
+				background: #ff4151;
+				color: #ffffff;
 			}
 
 			&:hover,
@@ -549,6 +559,15 @@
 
 			&:hover &-rakeback--hover {
 				display: none;
+			}
+		}
+	}
+
+	@media screen and (max-width: 413px) {
+		.top-rooms__item {
+			&-link_download {
+				margin-right: 4px;
+				min-width: 80px;
 			}
 		}
 	}
