@@ -137,33 +137,35 @@
 			</div>
 
 			<div class="rooms__aside">
-				<div
-					v-if="filters && !category.is_blacklist"
-					class="rooms__aside__filter-wrapper"
-					:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
-					@click.self="handleOutsideClick($event)"
-				>
-					<room-category-filters
-						class="rooms__aside__filter"
-						:kycs="filters.kycs"
-						:platforms="filters.platforms"
-						:tags="filters.tags"
-						:payments="filters.payments"
-						:types="filters.types"
-						:networks="filters.networks"
-						:licenses="filters.licenses"
-						:limits="filters.limits"
-						:disciplines="filters.disciplines"
-						:games="filters.games"
-						:huds="filters.huds"
-						:certificates="filters.certificates"
-						:geo.sync="geo"
-						@update:sort="fetchItems"
-						@update:geo="fetchItems"
-						@change="handleFilterChange"
-						@filterOpen="handleFilterOpen"
-					/>
-				</div>
+				<client-only>
+					<div
+						v-if="filters && !category.is_blacklist"
+						class="rooms__aside__filter-wrapper"
+						:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
+						@click.self="handleOutsideClick($event)"
+					>
+						<room-category-filters
+							class="rooms__aside__filter"
+							:kycs="filters.kycs"
+							:platforms="filters.platforms"
+							:tags="filters.tags"
+							:payments="filters.payments"
+							:types="filters.types"
+							:networks="filters.networks"
+							:licenses="filters.licenses"
+							:limits="filters.limits"
+							:disciplines="filters.disciplines"
+							:games="filters.games"
+							:huds="filters.huds"
+							:certificates="filters.certificates"
+							:geo.sync="geo"
+							@update:sort="fetchItems"
+							@update:geo="fetchItems"
+							@change="handleFilterChange"
+							@filterOpen="handleFilterOpen"
+						/>
+					</div>
+				</client-only>
 
 				<div v-if="!category.is_blacklist" class="block-title">
 					Последние акции
@@ -335,6 +337,7 @@
 					this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
 						category: response.data.item,
 					})
+					this.$store.commit('promotions/FETCH_ITEMS', { items: response.data.promotions })
 				})
 
 			await this.$axios
@@ -365,17 +368,6 @@
 				})
 				.then(response => {
 					this.$store.commit('rooms/FETCH_FILTERS', { filters: response.data })
-				})
-
-			await this.$axios
-				.get(`promotion/latest`, {
-					params: {
-						type: 'promotion',
-						per_page: 3,
-					},
-				})
-				.then(response => {
-					this.$store.commit('promotions/FETCH_ITEMS', { items: response.data })
 				})
 		},
 
@@ -418,20 +410,9 @@
 			async fetchItems(query) {
 				this.$nuxt.$loading.start()
 
-				console.log(this.params)
-
 				if (query) {
 					this.page = query.page
 				}
-
-				// await this.$axios.get(`/rooms/filters/list`, {
-				//   params: {
-				//     geo: this.geo,
-				//     room_category_id: this.category.id
-				//   }
-				// }).then((response) => {
-				//   this.$store.commit('rooms/FETCH_FILTERS', { filters: response.data })
-				// })
 
 				await this.$axios
 					.get(`rooms/list`, { params: this.params })
@@ -439,8 +420,6 @@
 						this.$store.commit('rooms/FETCH_ROOMS', {
 							rooms: response.data.data,
 						})
-
-						this.$store.commit('rooms/FETCH_BEST', { best: response.data.data[0] })
 
 						Object.keys(response.data).forEach(key => {
 							if (key !== 'data') {
