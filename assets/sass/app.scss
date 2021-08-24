@@ -667,6 +667,12 @@ body {
 
 		.table-wrap {
 			margin-bottom: 40px;
+      @include mq('tablet') {
+        overflow-x: scroll;
+        @include hide-scroll();
+        margin-right: -20px;
+        margin-left: -20px;
+      }
 		}
 
 		.table-toggle {
@@ -753,6 +759,23 @@ body {
 				line-height: 16px;
 				font-family: "Proxima Nova";
 			}
+
+      @include mq('tablet') {
+        table-layout: auto;
+        tr {
+          th {
+            font-size: 12px;
+            line-height: 12px;
+            padding: 12px 16px;
+          }
+          td {
+            font-size: 15px;
+            line-height: 16px;
+            padding: 12px 16px;
+            white-space: nowrap;
+          }
+        }
+      }
 		}
 
     .payments-table {
