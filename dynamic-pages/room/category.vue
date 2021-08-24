@@ -82,7 +82,7 @@
 							:total="total"
 							:from="from"
 							:to="to"
-							:load-more-width="$device.isDesktop ? 215: 'auto'"
+							:load-more-width="$device.isDesktop ? 215 : 'auto'"
 							:showPages="false"
 							load-more-text="Показать еще румы"
 							total-text="покер-румов"
@@ -174,7 +174,6 @@
 				</client-only>
 
 				<lazy-hydrate when-visible>
-
 					<div v-if="!category.is_blacklist" class="block-title">
 						Последние акции
 					</div>
@@ -213,7 +212,6 @@
 					</topic-list>
 
 					<game-search-banner />
-
 				</lazy-hydrate>
 			</div>
 		</div>
@@ -353,7 +351,7 @@
 						category: response.data.item,
 					})
 					this.$store.commit('promotions/FETCH_ITEMS', {
-						items: response.data.promotions
+						items: response.data.promotions,
 					})
 					this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
 						categories: response.data.categories,
@@ -361,11 +359,12 @@
 				})
 
 			await this.$axios
-				.get(`rooms/list`, { params: {...this.params, cached: true}
-				})
+				.get(`rooms/list`, { params: { ...this.params, cached: true } })
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
-					this.$store.commit('rooms/FETCH_BEST', { best: response.data.data[0] })
+					this.$store.commit('rooms/FETCH_BEST', {
+						best: response.data.data[0],
+					})
 
 					Object.keys(response.data).forEach(key => {
 						if (key !== 'data') {
@@ -502,9 +501,12 @@
 		}
 		&__toc {
 			grid-area: toc;
+			padding-right: 14px;
 		}
 		&__info {
 			grid-area: info;
+			padding-left: 14px;
+			padding-right: 28px;
 		}
 		&__page-banners {
 			padding-left: 26px;
@@ -541,6 +543,26 @@
 			font-size: 16px;
 			line-height: 16px;
 			color: #222222;
+		}
+	}
+
+	@include mq('desktop') {
+		.rooms {
+			&__catalog {
+				gap: 24px;
+				grid-template-columns: [left-part] 2fr [central-part] minmax(704px, 7fr) [right-part] minmax(
+						288px,
+						3fr
+					);
+			}
+			&__toc {
+				grid-area: toc;
+				padding-right: 0px;
+			}
+			&__info {
+				padding-left: 0;
+				padding-right: 0px;
+			}
 		}
 	}
 

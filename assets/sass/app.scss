@@ -283,6 +283,7 @@ body {
     column-gap: 56px;
     &__toc {
         grid-area: toc;
+        max-width: 196px;
     }
     &__aside-content {
         grid-area: aside;
@@ -293,10 +294,16 @@ body {
     @include mq('desktop') {
       grid-template-columns: [left-part] minmax(184px, 2fr) [central-part] minmax(704px, 7fr) [right-part] minmax(288px, 3fr);
       column-gap: 24px;
+      &__toc {
+        max-width: 184px;
+      }
     }
     @include mq('laptop') {
-        grid-template-columns: 100%;
-        grid-template-areas: 'toc' 'article' 'aside';
+      grid-template-columns: 100%;
+      grid-template-areas: 'toc' 'article' 'aside';
+      &__toc {
+        max-width: none;
+      }
     }
 }
 

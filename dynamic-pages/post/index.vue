@@ -1,86 +1,104 @@
 <template>
 	<div class="post">
-		<breadcrumb-list v-if="pageable" class="post__breadcrumbs" />
+		<breadcrumb-list v-if="pageable" />
 
-		<toc-list v-if="post.toc" class="post__toc">
-			<template #default="{ inline }">
-				<toc-item
-					v-for="(item, index) in post.toc"
-					:key="index"
-					:index="index"
-					:inline="inline"
-					:anchor="item.anchor_id"
-					:text="item.text"
+		<div class="article-container post__news">
+			<toc-list v-if="post.toc" class="article-container__toc post__aside-toc">
+				<template #default="{ inline }">
+					<toc-item
+						v-for="(item, index) in post.toc"
+						:key="index"
+						:index="index"
+						:inline="inline"
+						:anchor="item.anchor_id"
+						:text="item.text"
+					>
+					</toc-item>
+					<post-subscribe />
+				</template>
+			</toc-list>
+
+			<div class="poker-rule__wrap article-container__article">
+				<!-- Article -->
+				<page-article
+					:text="post.text"
+					:title="post.title"
+					:image="post.image"
+					:summary="post.summary"
 				>
-				</toc-item>
-				<post-subscribe />
-			</template>
-		</toc-list>
+					<template #header>
+						<toc-list v-if="post.toc" class="post__header-toc">
+							<template #default="{ inline }">
+								<toc-item
+									v-for="(item, index) in post.toc"
+									:key="index"
+									:index="index"
+									:inline="inline"
+									:anchor="item.anchor_id"
+									:text="item.text"
+								>
+								</toc-item>
+								<post-subscribe />
+							</template>
+						</toc-list>
+					</template>
+				</page-article>
+				<!-- Faq -->
+				<faq-list v-if="post.faq && post.faq.mainEntity.length" label="FAQ">
+					<faq-item
+						v-for="(item, index) in post.faq.mainEntity"
+						:key="index"
+						:question="item.name"
+						:answer="item.acceptedAnswer.text"
+					>
+					</faq-item>
+				</faq-list>
+				<!-- Author -->
+				<author v-if="post.user" :author="post.user" />
+				<!-- Comments -->
+				<comments commentable_type="App\Post" :commentable_id="post.id" />
+			</div>
 
-		<div class="poker-rule__wrap post__article">
-			<!-- Article -->
-			<page-article
-				:text="post.text"
-				:title="post.title"
-				:image="post.image"
-				:summary="post.summary"
-			/>
-			<!-- Faq -->
-			<faq-list v-if="post.faq && post.faq.mainEntity.length" label="FAQ">
-				<faq-item
-					v-for="(item, index) in post.faq.mainEntity"
-					:key="index"
-					:question="item.name"
-					:answer="item.acceptedAnswer.text"
-				>
-				</faq-item>
-			</faq-list>
-			<!-- Author -->
-			<author v-if="post.user" :author="post.user" />
-			<!-- Comments -->
-			<comments commentable_type="App\Post" :commentable_id="post.id" />
-		</div>
+			<div class="article-container__aside-content">
+				<room-top-list />
 
-		<div class="post__aside">
-			<room-top-list />
+				<post-list label="Это важно" featured :asRow="$device.isTablet">
+					<post-item
+						v-for="item in important"
+						:key="item.id"
+						:medium="false"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+					/>
+				</post-list>
 
-			<post-list label="Это важно" featured :asRow="$device.isTablet">
-				<post-item
-					v-for="item in important"
-					:key="item.id"
-					:medium="false"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
-					:categories="item.categories"
-				/>
-			</post-list>
-
-			<post-list v-if="posts" :asRow="$device.isTablet">
-				<post-item
-					v-for="(item, index) in posts"
-					:key="index"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
-					:categories="item.categories"
-					:medium="true"
-					:asCard="$device.isMobile"
-				></post-item>
-			</post-list>
+				<post-list v-if="posts" :asRow="$device.isTablet">
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+						:asCard="$device.isMobile"
+					></post-item>
+				</post-list>
+			</div>
 		</div>
 
 		<lazy-hydrate when-visible>
 			<post-list
 				v-if="related"
 				label="Похожие статьи"
-				class="post__similar-news"
 				:asRow="$device.isDesktopOrTablet"
 			>
 				<post-item
@@ -237,45 +255,37 @@
 
 <style lang="scss">
 	.post {
-		display: grid;
-		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
-		grid-template-areas: 'breadcrumbs breadcrumbs breadcrumbs' 'toc article aside' 'similar similar similar';
-		column-gap: 28px;
+		display: flex;
+		flex-direction: column;
 		max-width: 1440px;
 		width: 100%;
 		@include paddings('desktop');
-		&__toc {
-			grid-area: toc;
+		&__news {
+			margin-top: 8px;
 		}
-		&__article {
-			grid-area: article;
-		}
-		&__post {
-			grid-area: aside;
-		}
-		&__breadcrumbs {
-			grid-area: breadcrumbs;
-		}
-		&__similar-news {
-			grid-area: similar;
+		&__header-toc {
+			display: none;
 		}
 	}
 
-	// .post-subscribe {
-	// 	display: none;
-	// }
-
 	@include mq('laptop') {
 		.post {
-			grid-template-columns: 100%;
-			grid-template-areas: 'breadcrumbs' 'toc' 'article' 'similar' 'aside';
 			@include paddings('tablet');
+			&__header-toc {
+				display: block;
+			}
+			&__aside-toc {
+				display: none;
+			}
 		}
 	}
 
 	@include mq('tablet') {
 		.post {
 			@include paddings('mobile');
+			&__news {
+				margin-top: 0px;
+			}
 		}
 	}
 </style>
