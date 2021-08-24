@@ -346,7 +346,8 @@
 				})
 
 			await this.$axios
-				.get(`rooms/list`, { params: this.params })
+				.get(`rooms/list`, { params: {...this.params, cached: true}
+				})
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
 					this.$store.commit('rooms/FETCH_BEST', { best: response.data.data[0] })
