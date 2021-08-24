@@ -67,10 +67,10 @@
 		mounted() {
 			this.collapsed = !this.opened
 			const listElements = this.$refs.filterList.children
-			if (listElements.length > 11) {
+			if (listElements.length > 6) {
 				this.shouldShowMore = true
-				this.hiddenItemsLength = listElements.length - 11
-				for (let i = 10; i < listElements.length - 1; i++) {
+				this.hiddenItemsLength = listElements.length - 6
+				for (let i = 5; i < listElements.length - 1; i++) {
 					listElements[i].style.display = 'none'
 				}
 			}
@@ -88,7 +88,7 @@
 
 			showRestItems() {
 				const listElements = this.$refs.filterList.children
-				for (let i = 10; i < listElements.length - 1; i++) {
+				for (let i = 5; i < listElements.length - 1; i++) {
 					listElements[i].style.display = 'flex'
 				}
 				this.shouldShowMore = false

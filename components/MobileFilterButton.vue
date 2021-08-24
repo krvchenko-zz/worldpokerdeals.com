@@ -1,5 +1,6 @@
 <template>
 	<button class="filter-button" @click="onClick">
+		<span v-if="selected" class="filter-button__label">{{ selected }}</span>
 		<svg-icon
 			fill="#fff"
 			class="filter-button__icon"
@@ -14,6 +15,11 @@
 
 	export default {
 		name: 'MobileFilterButton',
+		props: {
+			selected: {
+				type: [String, Number],
+			}
+		},
 		methods: {
 			onClick() {
 				eventBus.$emit('filter:toggle', null)
@@ -24,6 +30,7 @@
 
 <style lang="scss">
 	.filter-button {
+		position: relative;
 		display: inline-flex;
 		border: none;
 		outline: none;
@@ -39,6 +46,22 @@
 		line-height: 16px;
 		&__icon {
 			margin-right: 12px;
+		}
+
+		&__label {
+			left: -4px;
+			top: -4px;
+			padding: 0 4px;
+			background: #F82814;
+			border: 1px solid #FFFFFF;
+			border-radius: 10px;
+			position: absolute;
+			display: block;
+			font-family: 'Proxima Nova Sb';
+			font-style: normal;
+			font-size: 10px;
+			line-height: 14px;
+			color: #FFFFFF;
 		}
 	}
 </style>

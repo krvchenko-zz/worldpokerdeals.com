@@ -22,7 +22,7 @@
 				</page-meta>
 			</div>
 			<common-text-spoiler
-				:limit="333"
+				:limit="$device.isMobile || $device.isTablet ? 120 : 300"
 				class="rooms__summary"
 				:text="category.summary"
 			>

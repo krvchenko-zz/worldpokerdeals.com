@@ -14,6 +14,7 @@
 						:total.sync="total"
 						:overall.sync="overall"
 						:sort-options="sortOptions"
+						:selected="selected.length"
 						entity-label="покер-румов"
 						@update:sort="fetchItems"
 						@update:geo="fetchItems"

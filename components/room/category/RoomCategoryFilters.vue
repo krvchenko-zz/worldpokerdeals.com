@@ -41,6 +41,7 @@
 
 		<filter-dropdown
 			v-if="disciplines.length"
+			:opened="true"
 			:label="$t('by_games')"
 			icon="filter-discipline"
 		>

@@ -1,6 +1,6 @@
 <template>
 	<div class="filters-header">
-		<mobile-filter-button v-if="showFilterButton" />
+		<mobile-filter-button v-if="showFilterButton" :selected="selected" />
 
 		<div v-if="!showFilterButton" class="filters-header__text">
 			{{
@@ -78,6 +78,10 @@
 				type: [String, Number],
 				default: 0,
 			},
+
+			selected: {
+				type: [String, Number],
+			}
 		},
 
 		data: () => ({

@@ -22,25 +22,25 @@
 					type="fb"
 					icon
 					size="xs"
-					:href="author.facebook"
+					:href="author.facebook ? author.facebook : 'https://www.facebook.com/worldpokerdealsRu'"
 				></button-contact>
 				<button-contact
 					type="vk"
 					icon
 					size="xs"
-					:href="author.vk"
+					:href="author.vk ? author.vk : 'https://vk.com/worldpokerdeals'"
 				></button-contact>
 				<button-contact
 					type="twitter"
 					icon
 					size="xs"
-					:href="author.twitter"
+					:href="author.twitter ? author.twitter : 'https://twitter.com/worldpokerdeals'"
 				></button-contact>
 				<button-contact
 					type="instagram"
 					icon
 					size="xs"
-					:href="author.instagram"
+					:href="author.instagram ? author.instagram : 'https://instagram.com/worldpokerdeals'"
 				></button-contact>
 			</div>
 		</div>
