@@ -452,15 +452,15 @@
 <style lang="scss">
 	.promotions {
 		display: grid;
-		grid-template-columns: minmax(0, 9fr) 3fr;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
 		column-gap: 28px;
 		max-width: 1440px;
 		width: 100%;
 		@include paddings('desktop');
 		grid-template-areas:
-			'header header'
-			'nav nav'
-			'container aside';
+			'header header header'
+			'nav nav nav'
+			'container container aside';
 		&__nav {
 			grid-area: nav;
 			margin-top: -26px;
@@ -470,6 +470,7 @@
 			grid-area: container;
 			display: grid;
 			grid-template-columns: 2fr minmax(0, 7fr);
+			column-gap: 28px;
 			grid-auto-rows: max-content;
 			grid-template-areas:
 				'filter filter'
@@ -485,6 +486,8 @@
 		}
 		&__article {
 			grid-area: article;
+			padding-left: 14px;
+			padding-right: 28px;
 		}
 		&__list {
 			grid-area: list;
@@ -497,6 +500,7 @@
 		}
 		&__toc {
 			grid-area: toc;
+			padding-right: 14px;
 		}
 		&__aside {
 			grid-area: aside;
@@ -505,8 +509,19 @@
 
 	@include mq('desktop') {
 		.promotions {
-			grid-template-columns: 3fr minmax(auto, 288px);
+			grid-template-columns: 2fr minmax(704px, 7fr) minmax(288px, 1fr);
 			column-gap: 24px;
+			&__container {
+				column-gap: 24px;
+				grid-template-columns: 2fr minmax(704px, 7fr);
+			}
+			&__toc {
+				padding-right: 0;
+			}
+			&__article {
+				padding-left: 0;
+				padding-right: 0;
+			}
 		}
 	}
 
