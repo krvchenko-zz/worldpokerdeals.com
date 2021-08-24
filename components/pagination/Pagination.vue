@@ -381,6 +381,7 @@
 		.pagination {
 			flex-direction: row;
 			flex-wrap: wrap;
+			justify-content: center;
 			&__list {
 				margin-right: 20px;
 			}

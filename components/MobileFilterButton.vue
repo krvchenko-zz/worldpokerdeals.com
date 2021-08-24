@@ -51,6 +51,7 @@
 		&__label {
 			left: -4px;
 			top: -4px;
+			min-width: 16px;
 			padding: 0 4px;
 			background: #F82814;
 			border: 1px solid #FFFFFF;

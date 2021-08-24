@@ -81,7 +81,7 @@
 						:total="total"
 						:from="from"
 						:to="to"
-						:load-more-width="215"
+						:load-more-width="$device.isDesktop ? 215: 'auto'"
 						:showPages="false"
 						load-more-text="Показать еще румы"
 						total-text="покер-румов"
