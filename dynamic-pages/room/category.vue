@@ -44,97 +44,103 @@
 					</filter-selected-list>
 				</client-only>
 
-				<div class="rooms-list">
-					<template v-for="(item, index) in items">
-						<room
-							v-if="!item.banner"
-							:id="item.id"
-							:key="index"
-							:title="item.title"
-							:slug="item.slug"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:restricted="item.restricted"
-							:available="item.available"
-							:blacklist="item.blacklist"
-							:summary="item.summary"
-							:claim_amount="item.claim_amount"
-							:claim_currency="item.claim_currency"
-							:image="item.image"
-							:network="item.network"
-							:tags="item.tags"
-							:review="item.review"
-						/>
-
-						<room-category-banner v-else :key="index" />
-					</template>
-
-					<pagination
-						v-if="rooms.length"
-						:query="true"
-						:last="last_page"
-						:current="parseInt(page) || current_page"
-						:prev-url="prev_page_url"
-						:next-url="next_page_url"
-						:total="total"
-						:from="from"
-						:to="to"
-						:load-more-width="$device.isDesktop ? 215: 'auto'"
-						:showPages="false"
-						load-more-text="Показать еще румы"
-						total-text="покер-румов"
-						@next="handlePageNext"
-						@prev="handlePagePrev"
-						@change="handlePageChange"
-						@more="handleShowMore"
-					>
-					</pagination>
-				</div>
-			</div>
-
-			<div class="rooms__toc">
-				<toc-list v-if="category.toc">
-					<template #default="{ inline }">
-						<toc-item
-							v-for="(item, index) in category.toc"
-							:key="index"
-							:index="index"
-							:inline="inline"
-							:anchor="item.anchor_id"
-							:text="item.text"
-						>
-						</toc-item>
-					</template>
-				</toc-list>
-			</div>
-
-			<div class="rooms__info">
-				<page-article :title="false" :text="category.text">
-					<template #footer>
-						<faq-list
-							v-if="category.faq && category.faq.mainEntity.length"
-							label="FAQ"
-						>
-							<faq-item
-								v-for="(item, index) in category.faq.mainEntity"
+				<lazy-hydrate when-visible>
+					<div class="rooms-list">
+						<template v-for="(item, index) in items">
+							<room
+								v-if="!item.banner"
+								:id="item.id"
 								:key="index"
-								:question="item.name"
-								:answer="item.acceptedAnswer.text"
-							>
-							</faq-item>
-						</faq-list>
+								:title="item.title"
+								:slug="item.slug"
+								:rating="item.rating"
+								:rakeback="item.rakeback"
+								:bonus="item.bonus"
+								:background="item.background"
+								:restricted="item.restricted"
+								:available="item.available"
+								:blacklist="item.blacklist"
+								:summary="item.summary"
+								:claim_amount="item.claim_amount"
+								:claim_currency="item.claim_currency"
+								:image="item.image"
+								:network="item.network"
+								:tags="item.tags"
+								:review="item.review"
+							/>
 
-						<author v-if="category.author" :author="category.author" />
+							<room-category-banner v-else :key="index" />
+						</template>
 
-						<comments
-							commentable_type="App\RoomCategory"
-							:commentable_id="category.id"
-						/>
-					</template>
-				</page-article>
+						<pagination
+							v-if="rooms.length"
+							:query="true"
+							:last="last_page"
+							:current="parseInt(page) || current_page"
+							:prev-url="prev_page_url"
+							:next-url="next_page_url"
+							:total="total"
+							:from="from"
+							:to="to"
+							:load-more-width="$device.isDesktop ? 215: 'auto'"
+							:showPages="false"
+							load-more-text="Показать еще румы"
+							total-text="покер-румов"
+							@next="handlePageNext"
+							@prev="handlePagePrev"
+							@change="handlePageChange"
+							@more="handleShowMore"
+						>
+						</pagination>
+					</div>
+				</lazy-hydrate>
 			</div>
+
+			<lazy-hydrate when-visible>
+				<div class="rooms__toc">
+					<toc-list v-if="category.toc">
+						<template #default="{ inline }">
+							<toc-item
+								v-for="(item, index) in category.toc"
+								:key="index"
+								:index="index"
+								:inline="inline"
+								:anchor="item.anchor_id"
+								:text="item.text"
+							>
+							</toc-item>
+						</template>
+					</toc-list>
+				</div>
+			</lazy-hydrate>
+
+			<lazy-hydrate when-visible>
+				<div class="rooms__info">
+					<page-article :title="false" :text="category.text">
+						<template #footer>
+							<faq-list
+								v-if="category.faq && category.faq.mainEntity.length"
+								label="FAQ"
+							>
+								<faq-item
+									v-for="(item, index) in category.faq.mainEntity"
+									:key="index"
+									:question="item.name"
+									:answer="item.acceptedAnswer.text"
+								>
+								</faq-item>
+							</faq-list>
+
+							<author v-if="category.author" :author="category.author" />
+
+							<comments
+								commentable_type="App\RoomCategory"
+								:commentable_id="category.id"
+							/>
+						</template>
+					</page-article>
+				</div>
+			</lazy-hydrate>
 
 			<div class="rooms__aside">
 				<client-only>
@@ -167,60 +173,69 @@
 					</div>
 				</client-only>
 
-				<div v-if="!category.is_blacklist" class="block-title">
-					Последние акции
-				</div>
+				<lazy-hydrate when-visible>
 
-				<div
-					class="rooms__aside__promotions-list"
-					v-if="promotions && !category.is_blacklist"
-				>
-					<promotion-item
-						v-for="(item, index) in promotions"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:page="item.page"
-						:author="item.author"
-						:created="item.created_at"
-						:category="item.category"
-						:time_left="item.time_left"
-						:time_before="item.time_before"
-						:prize="item.prize"
-						:currency="item.currency ? item.currency.symbol : '$'"
-						:exclusive="item.exclusive"
-					></promotion-item>
-				</div>
+					<div v-if="!category.is_blacklist" class="block-title">
+						Последние акции
+					</div>
 
-				<topic-list v-if="category.topics.length">
-					<topic-item
-						v-for="(item, index) in category.topics"
-						:key="index"
-						:title="item.title"
-						:url="item.url"
-						:author="item.author"
-						:created="item.created_at"
-					/>
-				</topic-list>
+					<div
+						class="rooms__aside__promotions-list"
+						v-if="promotions && !category.is_blacklist"
+					>
+						<promotion-item
+							v-for="(item, index) in promotions"
+							:key="index"
+							:image="item.image"
+							:title="item.title"
+							:summary="item.summary"
+							:page="item.page"
+							:author="item.author"
+							:created="item.created_at"
+							:category="item.category"
+							:time_left="item.time_left"
+							:time_before="item.time_before"
+							:prize="item.prize"
+							:currency="item.currency ? item.currency.symbol : '$'"
+							:exclusive="item.exclusive"
+						></promotion-item>
+					</div>
 
-				<game-search-banner />
+					<topic-list v-if="category.topics.length">
+						<topic-item
+							v-for="(item, index) in category.topics"
+							:key="index"
+							:title="item.title"
+							:url="item.url"
+							:author="item.author"
+							:created="item.created_at"
+						/>
+					</topic-list>
+
+					<game-search-banner />
+
+				</lazy-hydrate>
 			</div>
 		</div>
-		<div class="rooms__page-banners">
-			<page-banners />
-		</div>
+		<lazy-hydrate when-visible>
+			<div class="rooms__page-banners">
+				<page-banners />
+			</div>
+		</lazy-hydrate>
 	</div>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'RoomCategory',
 
-		components: {},
+		components: {
+			LazyHydrate,
+		},
 
 		head() {
 			return {
