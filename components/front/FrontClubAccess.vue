@@ -44,12 +44,12 @@
 	$club-access-banner: url('~assets/i/club-access-banner.jpg');
 
 	.front-club-access {
-		// width: 262px;
-		margin: 0 10px;
+		min-height: 458px;
+		max-height: 458px;
+		margin: 0;
 		position: relative;
 		border-radius: 10px;
 		overflow: hidden;
-		min-height: 459px;
 		background: $club-access-banner no-repeat center;
 		background-size: cover;
 		// &__img {
@@ -106,6 +106,10 @@
 	@include mq('tablet') {
 		.front-club-access {
 			margin: 0 8px;
+			min-height: 304px;
+			&__wrap {
+				padding: 24px;
+			}
 		}
 	}
 </style>

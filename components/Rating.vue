@@ -42,7 +42,7 @@
 		computed: {
 			style() {
 				return {
-					width: `${this.value * 19 - 2}px`,
+					width: `${this.value * 16 - 4}px`,
 				}
 			},
 		},
@@ -87,16 +87,15 @@
 		}
 
 		&__stars {
-			margin-right: 20px;
-			width: 90px;
-			height: 14px;
-			flex: 0 0 90px;
+			margin-right: 12px;
+			height: 12px;
+			flex: 0 0 76px;
 			background-image: $ico-rating;
 			background-repeat: repeat-x;
-			background-position: 0px -14px;
+			background-position: 0px -12px;
 			div {
 				width: 0px;
-				height: 14px;
+				height: 12px;
 				background-image: $ico-rating;
 				background-repeat: repeat-x;
 				background-position: 0px 0px;

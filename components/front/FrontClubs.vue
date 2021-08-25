@@ -28,16 +28,15 @@
 				/>
 			</filter-tab-list>
 
-			<div v-if="items" class="front-clubs__list">
+			<div v-if="clubs" class="front-clubs__list">
 				<client-only>
 					<carousel
 						class="front-slider front-slider_clubs"
 						:style="{ margin: '0' }"
 						:navigation-enabled="false"
 						:per-page-custom="[
-							[0, 2],
-							[768, 3],
-							[1280, 5],
+							[768, 2],
+							[1280, 4],
 						]"
 						:pagination-enabled="true"
 						:pagination-padding="0"
@@ -47,7 +46,7 @@
 						navigation-prev-label=""
 						:navigation-click-target-size="0"
 					>
-						<slide v-for="(item, index) in items" :key="index">
+						<slide v-for="(item, index) in clubs" :key="index">
 							<club-front-item
 								v-if="!item.banner"
 								:title="item.title"
@@ -64,10 +63,10 @@
 								:features="item.games"
 								:room="item.room"
 							/>
-							<front-club-access v-else />
 						</slide>
 					</carousel>
 				</client-only>
+				<front-club-access class="front-clubs__club-access" />
 			</div>
 		</div>
 	</div>
@@ -100,14 +99,6 @@
 				clubs: 'front/clubs',
 				categories: 'front/club_categories',
 			}),
-
-			items() {
-				return [
-					...this.clubs.slice(0, 4),
-					{ banner: true },
-					...this.clubs.slice(4, this.clubs.length),
-				]
-			},
 		},
 
 		watch: {},
@@ -139,6 +130,23 @@
 
 <style lang="scss">
 	.front-clubs {
+		--items-number: 5;
+		--paddings: 26px;
+		--number-of-gaps: 4;
+		--column-gap: 20px;
+		--screen-width: min(1440px, 100vw);
+
+		--item-width: calc(
+			(
+					var(--screen-width) - 2 * var(--paddings) - var(--number-of-gaps) *
+						var(--column-gap)
+				) / var(--items-number)
+		);
+
+		--slider-width: calc(
+			var(--screen-width) - var(--item-width) - 2 * var(--paddings)
+		);
+
 		width: 100%;
 		max-width: 1440px;
 		padding: 0 26px;
@@ -164,14 +172,25 @@
 			color: #222222;
 		}
 		&__spoiler {
-			// display: grid;
-			// grid-template-columns: 3fr 1fr;
 			margin-bottom: 24px;
+		}
+		&__list {
+			display: grid;
+			width: 100%;
+			grid-template-columns: max-content var(--item-width);
+			column-gap: var(--column-gap);
+		}
+		&__club-access {
+			margin-top: 20px;
 		}
 	}
 
 	.front-slider_clubs {
-		margin: 0px -10px !important;
+		margin: 0px -20px 0 0 !important;
+		width: auto;
+
+		max-width: var(--slider-width);
+
 		.VueCarousel-inner {
 			padding: 20px 0 32px 0;
 		}
@@ -179,31 +198,43 @@
 		.VueCarousel-pagination {
 			margin: 0 0 28px !important;
 		}
+
+		.club-front-item {
+			width: var(--item-width);
+		}
 	}
 
-	@media (max-width: 1280px) {
-		.front-clubs {
+	@include mq('desktop') {
+		.font-clubs {
+			--paddings: 24px;
 		}
 	}
 
 	@include mq('laptop') {
 		.front-clubs {
+			--items-number: 3;
+			--number-of-gaps: 2;
 			@include paddings('tablet');
-			&__list {
-				margin-right: -14px;
-			}
 		}
 	}
 
 	@include mq('tablet') {
 		.front-slider_clubs {
-			margin: 0px -8px !important;
+			margin: 0px -28px 0 -8px !important;
+			max-width: 100%;
+			.club-front-item {
+				width: 288px;
+			}
 		}
 
 		.front-clubs {
 			@include paddings('mobile');
 			&__list {
 				margin-right: -12px;
+				grid-template-columns: calc(100% + 20px);
+			}
+			&__club-access {
+				margin: 4px 20px 36px 0;
 			}
 		}
 	}
