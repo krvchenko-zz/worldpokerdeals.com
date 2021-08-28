@@ -11,7 +11,7 @@
 		</div>
 
 		<div class="soft-header__header">
-			<div v-if="soft.category" class="soft-category">
+			<div v-if="soft.category" class="soft-header__category">
 				{{ soft.category.title }}
 			</div>
 			<h1 class="soft__title">{{ tab.title }}</h1>
@@ -190,7 +190,7 @@
 			margin-bottom: 32px;
 			font-size: 0;
 		}
-		&-category {
+		&__category {
 			margin-bottom: 8px;
 			font-family: 'Proxima Nova';
 			font-weight: bold;

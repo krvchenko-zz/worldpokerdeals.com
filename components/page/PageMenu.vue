@@ -1,5 +1,9 @@
 <template>
-	<nav class="page-menu" :style="{ width: `${width}px` }">
+	<nav
+		class="page-menu"
+		:style="{ width: `${width}px` }"
+		@click="handleMenuItemClick"
+	>
 		<slot name="before" />
 
 		<div class="page-menu__wrap">
@@ -86,7 +90,11 @@
 
 		watch: {},
 
-		methods: {},
+		methods: {
+			handleMenuItemClick() {
+				this.$emit('menuClicked')
+			},
+		},
 	}
 </script>
 

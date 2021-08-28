@@ -72,6 +72,7 @@
 										:width="isDesktop ? 900 : menuWidth"
 										:items="menu.rooms"
 										:columns="isDesktop ? 2 : 1"
+										@menuClicked="handleLinkClicked"
 									>
 										<template #after>
 											<room-top-list
@@ -104,7 +105,10 @@
 									/>
 								</a>
 								<transition name="fade">
-									<page-menu :items="menu.posts" />
+									<page-menu
+										:items="menu.posts"
+										@menuClicked="handleLinkClicked"
+									/>
 								</transition>
 							</li>
 							<li
@@ -125,6 +129,7 @@
 									<page-menu
 										:items="menu.promotions"
 										:width="isDesktop ? 600 : menuWidth"
+										@menuClicked="handleLinkClicked"
 									>
 										<template v-if="isDesktop" #after>
 											<payment-menu
@@ -159,6 +164,7 @@
 										:items="menu.poker"
 										:columns="1"
 										:width="isDesktop ? 300 : menuWidth"
+										@menuClicked="handleLinkClicked"
 									/>
 								</transition>
 							</li>
@@ -178,7 +184,10 @@
 									/>
 								</a>
 								<transition name="fade">
-									<page-menu :items="menu.about" />
+									<page-menu
+										:items="menu.about"
+										@menuClicked="handleLinkClicked"
+									/>
 								</transition>
 							</li>
 
@@ -207,7 +216,7 @@
 							:placeholder="searchPlaceholder"
 							@focusin="handleFocusIn"
 							@keydown.esc="handleFocusOut"
-							@input="$e => query = $e.target.value"
+							@input="$e => (query = $e.target.value)"
 						/>
 						<search-loader :loading="searchLoading" />
 						<search-dropdown
@@ -216,7 +225,7 @@
 							@loading="handleLoading($event)"
 							@open="searchDropdownOpen = $event"
 							@close="searchDropdownOpen = $event"
-							@input="$e => query = $e.target.value"
+							@input="$e => (query = $e.target.value)"
 						/>
 					</div>
 
@@ -420,6 +429,13 @@
 				if (window.innerWidth < 1280) {
 					event.preventDefault()
 					this.openedMenuItem = this.openedMenuItem === type ? null : type
+				}
+			},
+
+			handleLinkClicked() {
+				if (window.innerWidth < 1280) {
+					document.body.classList.remove('modal-open')
+					this.showHamburger = false
 				}
 			},
 

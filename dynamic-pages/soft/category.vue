@@ -317,9 +317,12 @@
 		}
 		&__toc {
 			grid-area: toc;
+			padding-right: 14px;
 		}
 		&__article {
 			grid-area: article;
+			padding-left: 14px;
+			padding-right: 28px;
 		}
 		&__aside {
 			grid-area: aside;
@@ -369,6 +372,14 @@
 	@include mq('desktop') {
 		.soft-category {
 			column-gap: 24px;
+			grid-template-columns: 2fr minmax(704px, 7fr) minmax(288px, 3fr);
+			&__toc {
+				padding-right: 0;
+			}
+			&__article {
+				padding-left: 0;
+				padding-right: 0;
+			}
 			.soft-item__wrap {
 				padding-left: 24px;
 				padding-right: 24px;

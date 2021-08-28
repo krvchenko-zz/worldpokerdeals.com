@@ -1,5 +1,5 @@
 <template>
-	<div class="payment-item">
+	<div class="network-payment">
 		<nuxt-link
 			v-slot="{ href, route, navigate, isActive, isExactActive }"
 			prefetch
@@ -8,20 +8,20 @@
 				params: { parent: page.parent.slug, child: page.slug },
 			}"
 		>
-			<a :class="['payment-item__wrap']" :href="href" @click="navigate">
-				<div v-if="vip" class="payment-item__vip-wrap">
-					<span class="payment-item__vip">VIP-статус</span>
+			<a :class="['network-payment__wrap']" :href="href" @click="navigate">
+				<div v-if="vip" class="network-payment__vip-wrap">
+					<span class="network-payment__vip">VIP-статус</span>
 				</div>
-				<div class="payment-item__icon-wrap">
+				<div class="network-payment__icon-wrap">
 					<svg-icon
-						class="payment-item__icon"
+						class="network-payment__icon"
 						:icon="icon"
 						:width="88"
 						:height="88"
 					/>
 				</div>
-				<div class="payment-item__title">{{ title }}</div>
-				<div class="payment-item__rooms">
+				<div class="network-payment__title">{{ title }}</div>
+				<div class="network-payment__rooms">
 					{{ $tc('rooms_count', rooms) }}
 				</div>
 			</a>
@@ -79,7 +79,7 @@
 	$ico-network-more: url('~assets/i/ico-network-more.svg?data');
 	$label-bg: url('~assets/i/ico-card-label.svg?data');
 
-	.payment-item {
+	.network-payment {
 		margin: 24px 0;
 		background: #fafafa;
 		border: 1px solid #e9e9e9;

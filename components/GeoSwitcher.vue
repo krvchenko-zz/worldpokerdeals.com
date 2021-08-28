@@ -66,6 +66,7 @@
 				immediate: true,
 				handler(val) {
 					this.result = val
+					this.updateValue()
 				},
 			},
 		},
