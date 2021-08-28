@@ -199,7 +199,7 @@
 			@include paddings('mobile');
 			&__all-rooms-button {
 				width: auto;
-				min-width: 172px;
+				// min-width: 172px;
 				padding: 8px 12px;
 			}
 			&__title {
