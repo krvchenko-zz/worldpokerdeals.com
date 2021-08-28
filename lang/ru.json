@@ -57,7 +57,7 @@
   "current_promotions": "Текущие акции",
   "all_promotions": "Все акции",
   "poker_rooms": "Покерные румы",
-  "all_poker_rooms": "Все покерные румы",
+  "all_poker_rooms": "Все румы",
   "wpd_front_disclaimer": "Worldpokerdeals выплачивает рейкбек, проводит рейк-гонки, публикует бонус-коды и проводит фрироллы во всех покерных сетях, включая iPoker, MPN, Winning, Chico, Bodog, Hive, IDN, GG, Dollaro, а также во всех закрытых резервациях: Итальянских, Французских, Индийских, Китайских рыбных покер-румах, обеспечивая безопасный доступ",
   "bumhunters": "Telegram-канал<br><b>«Вестник Бамхантера»</b>",
   "bumhunters_text": "Подпольное издание для тех, кто ценит свое время и выбирает лучшую игру",
@@ -249,5 +249,11 @@
     "our_team": "Наша команда",
     "contact_us": "Написать нам",
     "vip_service": "VIP-Сервис"
+  },
+  "social": {
+    "vk": "https://vk.com/worldpokerdeals",
+    "facebook": "https://www.facebook.com/worldpokerdealsRu",
+    "twitter": "https://twitter.com/worldpokerdeals",
+    "telegram": "worldpokerdealsRU"
   }
 }

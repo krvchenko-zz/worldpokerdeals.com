@@ -219,5 +219,11 @@
     "our_team": "Nuestro equipo",
     "contact_us": "Contactos",
     "vip_service": "Servicio VIP"
+  },
+  "social": {
+    "vk": "https://vk.com/worldpokerdeals",
+    "facebook": "https://www.facebook.com/wpdes",
+    "twitter": "https://twitter.com/eswpdcom",
+    "telegram": "wpdespanol"
   }
 }

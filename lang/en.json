@@ -220,5 +220,11 @@
     "our_team": "Our team",
     "contact_us": "Contact us",
     "vip_service": "VIP-service"
+  },
+  "social": {
+    "vk": "https://vk.com/worldpokerdeals",
+    "facebook": "https://www.facebook.com/worldpokerdealsRu",
+    "twitter": "https://twitter.com/worldpokerdeals",
+    "telegram": "wpdenglish"
   }
 }

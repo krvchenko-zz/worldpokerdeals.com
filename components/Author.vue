@@ -22,24 +22,28 @@
 					type="fb"
 					icon
 					size="xs"
-					:href="author.facebook ? author.facebook : 'https://www.facebook.com/worldpokerdealsRu'"
+					target="_blank"
+					:href="author.facebook ? author.facebook : $t('social.facebook')"
 				></button-contact>
 				<button-contact
 					type="vk"
 					icon
 					size="xs"
-					:href="author.vk ? author.vk : 'https://vk.com/worldpokerdeals'"
+					target="_blank"
+					:href="author.vk ? author.vk : $t('social.vk')"
 				></button-contact>
 				<button-contact
 					type="twitter"
 					icon
 					size="xs"
-					:href="author.twitter ? author.twitter : 'https://twitter.com/worldpokerdeals'"
+					target="_blank"
+					:href="author.twitter ? author.twitter : $t('social.twitter')"
 				></button-contact>
 				<button-contact
 					type="instagram"
 					icon
 					size="xs"
+					target="_blank"
 					:href="author.instagram ? author.instagram : 'https://instagram.com/worldpokerdeals'"
 				></button-contact>
 			</div>

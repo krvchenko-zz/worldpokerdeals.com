@@ -19,13 +19,15 @@
 					icon
 					size="sm"
 					type="telegram"
-					:href="telegram"
+					target="_blank"
+					:href="$t('social.telegram')"
 				></button-contact>
 				<button-contact
 					class="help-banner__btn"
 					icon
 					size="sm"
 					type="skype"
+					target="_blank"
 					:href="skype"
 				></button-contact>
 				<button-contact
@@ -33,6 +35,7 @@
 					icon
 					size="sm"
 					type="whatsapp"
+					target="_blank"
 					:href="whatsapp"
 				></button-contact>
 				<button-contact
@@ -40,6 +43,7 @@
 					icon
 					size="sm"
 					type="email"
+					target="_blank"
 					:href="email"
 				></button-contact>
 			</div>

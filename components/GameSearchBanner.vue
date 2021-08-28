@@ -24,12 +24,13 @@
 						target="_blank"
 						size="md"
 						type="telegram"
-						:href="telegram"
+						:href="$t('social.telegram')"
 					></button-contact>
 					<button-contact
 						class="game-search-banner__btn"
 						icon
 						size="md"
+						target="_blank"
 						type="skype"
 						:href="skype"
 					></button-contact>
@@ -37,6 +38,7 @@
 						class="game-search-banner__btn"
 						icon
 						size="md"
+						target="_blank"
 						type="whatsapp"
 						:href="whatsapp"
 					></button-contact>
@@ -44,6 +46,7 @@
 						class="game-search-banner__btn"
 						icon
 						size="md"
+						target="_blank"
 						type="email"
 						:href="email"
 					></button-contact>

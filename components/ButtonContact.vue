@@ -61,7 +61,7 @@
 					(this.type === 'fb' && `${this.href}`) ||
 					(this.type === 'vk' && `${this.href}`) ||
 					(this.type === 'twitter' && `${this.href}`) ||
-					(this.type === 'whatsapp' && `whatsapp://tel:${this.href}`) ||
+					(this.type === 'whatsapp' && `https://api.whatsapp.com/send?phone=${this.href}`) ||
 					(this.type === 'instagram' && `${this.href}`)
 				)
 			},
