@@ -44,7 +44,6 @@
 					</filter-selected-list>
 				</client-only>
 
-				<lazy-hydrate when-visible>
 					<div class="rooms-list">
 						<template v-for="(item, index) in items">
 							<room
@@ -93,10 +92,8 @@
 						>
 						</pagination>
 					</div>
-				</lazy-hydrate>
 			</div>
 
-			<lazy-hydrate when-visible>
 				<div class="rooms__toc">
 					<toc-list v-if="category.toc">
 						<template #default="{ inline }">
@@ -112,9 +109,7 @@
 						</template>
 					</toc-list>
 				</div>
-			</lazy-hydrate>
 
-			<lazy-hydrate when-visible>
 				<div class="rooms__info">
 					<page-article :title="false" :text="category.text">
 						<template #footer>
@@ -140,7 +135,6 @@
 						</template>
 					</page-article>
 				</div>
-			</lazy-hydrate>
 
 			<div class="rooms__aside">
 				<client-only>
@@ -173,7 +167,6 @@
 					</div>
 				</client-only>
 
-				<lazy-hydrate when-visible>
 					<div v-if="!category.is_blacklist" class="block-title">
 						Последние акции
 					</div>
@@ -212,14 +205,11 @@
 					</topic-list>
 
 					<game-search-banner />
-				</lazy-hydrate>
 			</div>
 		</div>
-		<lazy-hydrate when-visible>
 			<div class="rooms__page-banners">
 				<page-banners />
 			</div>
-		</lazy-hydrate>
 	</div>
 </template>
 
