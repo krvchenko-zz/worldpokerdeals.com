@@ -280,9 +280,9 @@
 
 			items() {
 				return [
-					...this.rooms.slice(0, this.rooms.length / 2),
+					...this.rooms.slice(0, this.total >= 10 ? 5 : this.rooms.length / 2),
 					{ banner: true },
-					...this.rooms.slice(this.rooms.length / 2, this.rooms.length),
+					...this.rooms.slice(this.total >= 10 ? 5 : this.rooms.length / 2, this.rooms.length),
 				]
 			},
 		},
