@@ -478,6 +478,10 @@
 				row-gap: 24px;
 			}
 		}
+
+		.pagination {
+			margin-bottom: 0;
+		}
 	}
 
 	.network-filters {
@@ -551,6 +555,10 @@
 					gap: 20px;
 				}
 			}
+		}
+
+		.network-rooms {
+			margin-bottom: 12px;
 		}
 	}
 
