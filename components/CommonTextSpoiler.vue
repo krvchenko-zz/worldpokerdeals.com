@@ -34,57 +34,14 @@
 
 		computed: {},
 
-		watch: {},
+		watch: {
+			text() {
+				this.makeSpoiler()
+			},
+		},
 
 		mounted() {
-			const parser = new DOMParser()
-			const doc = parser.parseFromString(this.text, 'text/html')
-			const children = doc.body.children
-
-			let indexToWhichInclude = null
-			let sum = 0
-			let howManySymbolsIncludeFromLastChild = 0
-
-			// text has several p tags
-			if (children.length) {
-				for (let i = 0; i < children.length; i++) {
-					const childContentLength = children[i].textContent.length
-					sum += childContentLength
-					if (sum > this.limit) {
-						indexToWhichInclude = i
-						howManySymbolsIncludeFromLastChild =
-							childContentLength - (sum - this.limit)
-						this.shouldHide = true
-						break
-					}
-				}
-
-				if (indexToWhichInclude !== null) {
-					this.visibleText = this.breakOnWord(
-						children[indexToWhichInclude].textContent,
-						howManySymbolsIncludeFromLastChild
-					)
-
-					for (let i = indexToWhichInclude - 1; i >= 0; i--) {
-						this.$refs.container.insertAdjacentElement(
-							'afterbegin',
-							children[i]
-						)
-					}
-				} else {
-					this.$refs.container.innerHTML = this.text
-				}
-			}
-			// text hasn't p tags only textContent
-			else {
-				this.shouldHide = this.text.length > this.limit
-
-				if (this.shouldHide) {
-					this.visibleText = this.breakOnWord(this.text, this.limit)
-				} else {
-					this.$refs.container.innerHTML = this.text
-				}
-			}
+			this.makeSpoiler()
 		},
 
 		created() {},
@@ -113,6 +70,57 @@
 				}
 
 				return words.slice(0, lastIncludedIndex + 1).join(' ')
+			},
+
+			makeSpoiler() {
+				const parser = new DOMParser()
+				const doc = parser.parseFromString(this.text, 'text/html')
+				const children = doc.body.children
+
+				let indexToWhichInclude = null
+				let sum = 0
+				let howManySymbolsIncludeFromLastChild = 0
+
+				// text has several p tags
+				if (children.length) {
+					for (let i = 0; i < children.length; i++) {
+						const childContentLength = children[i].textContent.length
+						sum += childContentLength
+						if (sum > this.limit) {
+							indexToWhichInclude = i
+							howManySymbolsIncludeFromLastChild =
+								childContentLength - (sum - this.limit)
+							this.shouldHide = true
+							break
+						}
+					}
+
+					if (indexToWhichInclude !== null) {
+						this.visibleText = this.breakOnWord(
+							children[indexToWhichInclude].textContent,
+							howManySymbolsIncludeFromLastChild
+						)
+
+						for (let i = indexToWhichInclude - 1; i >= 0; i--) {
+							this.$refs.container.insertAdjacentElement(
+								'afterbegin',
+								children[i]
+							)
+						}
+					} else {
+						this.$refs.container.innerHTML = this.text
+					}
+				}
+				// text hasn't p tags only textContent
+				else {
+					this.shouldHide = this.text.length > this.limit
+
+					if (this.shouldHide) {
+						this.visibleText = this.breakOnWord(this.text, this.limit)
+					} else {
+						this.$refs.container.innerHTML = this.text
+					}
+				}
 			},
 		},
 	}
