@@ -463,6 +463,7 @@
 		}
 		&__posts {
 			grid-area: posts;
+			margin-bottom: 0;
 			&__list {
 				display: grid;
 				grid-template-columns: repeat(4, 1fr);
@@ -476,6 +477,10 @@
 				grid-template-columns: repeat(4, 1fr);
 				column-gap: 28px;
 				row-gap: 24px;
+			}
+
+			.block-title {
+				margin-top: 15px;
 			}
 		}
 
@@ -554,6 +559,10 @@
 					grid-template-columns: repeat(2, 1fr);
 					gap: 20px;
 				}
+
+				.block-title {
+					margin-top: 0;
+				}
 			}
 		}
 
@@ -573,9 +582,9 @@
 			}
 			& &__posts {
 				margin-right: -20px;
-				overflow-x: scroll;
-				@include hide-scroll();
 				&__list {
+					overflow-x: scroll;
+					@include hide-scroll();
 					grid-auto-columns: 288px;
 					grid-template-columns: none;
 					grid-auto-flow: column;
