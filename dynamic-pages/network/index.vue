@@ -554,9 +554,30 @@
 					column-gap: 20px;
 				}
 			}
-			&__network-list {
+
+			& &__posts {
+				.posts__list {
+					grid-template-columns: 100%;
+				}
+
 				&__list {
-					grid-template-columns: repeat(2, 1fr);
+					overflow-x: scroll;
+					@include hide-scroll();
+					grid-auto-columns: calc((100% - 40px) / 3);
+					grid-template-columns: none;
+					grid-auto-flow: column;
+					column-gap: 20px;
+				}
+			}
+
+			&__network-list {
+				margin-right: -24px;
+				&__list {
+					overflow-x: scroll;
+					@include hide-scroll();
+					grid-template-columns: none;
+					grid-auto-columns: 350px;
+					grid-auto-flow: column;
 					gap: 20px;
 				}
 
@@ -583,22 +604,14 @@
 			& &__posts {
 				margin-right: -20px;
 				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
 					grid-auto-columns: 288px;
-					grid-template-columns: none;
-					grid-auto-flow: column;
 					column-gap: 16px;
 				}
 			}
 			&__network-list {
 				margin-right: -20px;
-				overflow-x: scroll;
-				@include hide-scroll();
 				&__list {
-					grid-template-columns: none;
 					grid-auto-columns: 288px;
-					grid-auto-flow: column;
 					gap: 16px;
 				}
 			}
