@@ -14,8 +14,8 @@
 					<div v-if="data.length" class="payment-filters__geo">
 						<geo-switcher
 							:value="country.code"
-							:geo.sync="geo"
-							@change="fetchItems"
+							:geo="geo"
+							@change:geo="fetchItems"
 						/>
 					</div>
 				</div>

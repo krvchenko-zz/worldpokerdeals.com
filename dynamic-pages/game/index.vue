@@ -12,7 +12,7 @@
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
-						@change="fetchItems"
+						@change:geo="fetchItems"
 					/>
 				</div>
 			</div>

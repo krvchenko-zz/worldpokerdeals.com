@@ -1,6 +1,15 @@
 <template>
 	<div class="filters">
-		<div class="filters__label">{{ $t('filters') }}</div>
+		<div class="filters__label">
+			{{ $t('filters') }}
+			<div class="filters__label__icon" @click="onClick">
+				<svg-icon icon="close" />
+			</div>
+		</div>
+
+		<div v-if="showGeo" class="filters__geo">
+			<geo-switcher :value="country.code" :geo="geo" v-on="$listeners" />
+		</div>
 
 		<filter-dropdown
 			v-if="types.length"
@@ -118,6 +127,12 @@
 				/>
 			</filter-item>
 		</filter-dropdown>
+
+		<div class="filters__actions">
+			<button class="filters__clear-button btn btn-block" @click="clearFilters">
+				Очистить фильтры
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -125,6 +140,7 @@
 	import { mapGetters } from 'vuex'
 	import filterMixin from '~/mixins/filterMixin'
 	import { deepCopy } from '~/utils'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		components: {},
@@ -159,6 +175,10 @@
 			licenses: {
 				type: Array,
 			},
+
+			showGeo: {
+				type: Number,
+			},
 		},
 
 		data: () => ({
@@ -183,8 +203,8 @@
 				country: 'location/country',
 			}),
 
-			uniqSelected() {
-				return
+			cloneGeo() {
+				return this.geo
 			},
 
 			flatten() {
@@ -229,6 +249,18 @@
 					})
 				}
 			},
+
+			onClick() {
+				eventBus.$emit('filter:toggle', null)
+			},
+
+			clearFilters() {
+				eventBus.$emit('selected:delete', {
+					clear: true,
+					key: null,
+					value: null,
+				})
+			},
 		},
 	}
 </script>
@@ -242,6 +274,19 @@
 		overflow: hidden;
 		background: #2e3141;
 		box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
+		&__actions {
+			border-top: 1px solid #e9e9e9;
+			display: block;
+			padding: 24px 28px;
+		}
+		&__clear-button {
+			border: 1px solid #e9e9e9;
+			background: none;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 16px;
+			color: #555555;
+		}
 	}
 
 	.filters__label {
@@ -264,6 +309,9 @@
 			height: 34px;
 			background: $ico-filters no-repeat center;
 		}
+		&__icon {
+			display: none;
+		}
 	}
 
 	.filter {
@@ -275,6 +323,25 @@
 		padding: 20px;
 		.filter-item {
 			padding: 0;
+		}
+	}
+
+	@include mq('laptop') {
+		.filters {
+			overflow-y: scroll;
+			@include hide-scroll();
+			margin-bottom: 0;
+			background: #ffffff;
+			box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
+			&__label {
+				background: #ffffff;
+				color: #222222;
+				box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+				&__icon {
+					display: block;
+					margin-left: auto;
+				}
+			}
 		}
 	}
 </style>
