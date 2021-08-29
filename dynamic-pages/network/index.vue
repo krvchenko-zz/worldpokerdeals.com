@@ -27,6 +27,25 @@
 				</div>
 			</div>
 
+			<filter-selected-list
+				v-if="selected.length && !$device.isMobileOrTablet"
+				class=""
+			>
+				<filter-selected
+					v-for="item in selected"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+					:item-key="item.key"
+				/>
+				<filter-selected
+					:key="null"
+					label="Очистить фильтры"
+					:clear="true"
+					:value="null"
+				/>
+			</filter-selected-list>
+
 			<div class="network__rooms__item">
 				<room
 					v-for="(item, index) in data"
@@ -114,19 +133,21 @@
 		</page-article>
 
 		<div class="network__aside">
-			<network-filters
-				v-if="filters"
-				:geo="geo"
-				:kycs="filters.kycs"
-				:platforms="filters.platforms"
-				:tags="filters.tags"
-				:payments="filters.payments"
-				:types="filters.types"
-				:networks="filters.networks"
-				:licenses="filters.licenses"
-				@change="handleFilterChange"
-				class="network__filters"
-			/>
+			<client-only>
+				<network-filters
+					v-if="filters"
+					:geo="geo"
+					:kycs="filters.kycs"
+					:platforms="filters.platforms"
+					:tags="filters.tags"
+					:payments="filters.payments"
+					:types="filters.types"
+					:networks="filters.networks"
+					:licenses="filters.licenses"
+					@change="handleFilterChange"
+					class="network__filters"
+				/>
+			</client-only>
 
 			<topic-list v-if="network.topics.length" class="network__topics">
 				<topic-item
@@ -222,6 +243,7 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
 		}),
 
 		head() {
@@ -387,8 +409,10 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
 			},

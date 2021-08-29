@@ -2,10 +2,13 @@
 	<div class="filters">
 		<div class="filters__label">{{ $t('filters') }}</div>
 
-		<filter-dropdown :label="$t('room_type')" icon="filter-room-type">
+		<filter-dropdown
+			v-if="types.length"
+			:label="$t('room_type')"
+			icon="filter-room-type"
+		>
 			<filter-item
 				v-for="(item, index) in types"
-				v-if="types.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -18,10 +21,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('payments')" icon="filter-payments">
+		<filter-dropdown
+			v-if="payments.length"
+			:label="$t('payments')"
+			icon="filter-payments"
+		>
 			<filter-item
 				v-for="(item, index) in payments"
-				v-if="payments.length"
 				:key="index"
 				:count="item.count"
 				:icon="`${item.slug}-color-square`"
@@ -35,10 +41,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('platforms')" icon="filter-platforms">
+		<filter-dropdown
+			v-if="platforms.length"
+			:label="$t('platforms')"
+			icon="filter-platforms"
+		>
 			<filter-item
 				v-for="(item, index) in platforms"
-				v-if="platforms.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -51,10 +60,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('licenses')" icon="filter-licenses">
+		<filter-dropdown
+			v-if="licenses.length"
+			:label="$t('licenses')"
+			icon="filter-licenses"
+		>
 			<filter-item
 				v-for="(item, index) in licenses"
-				v-if="licenses.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -67,10 +79,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('verification')" icon="filter-kyc">
+		<filter-dropdown
+			v-if="kycs.length"
+			:label="$t('verification')"
+			icon="filter-kyc"
+		>
 			<filter-item
 				v-for="(item, index) in kycs"
-				v-if="kycs.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -85,10 +100,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('room_features')" icon="filter-room-features">
+		<filter-dropdown
+			v-if="tags.length"
+			:label="$t('room_features')"
+			icon="filter-room-features"
+		>
 			<filter-item
 				v-for="(item, index) in tags"
-				v-if="tags.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -105,9 +123,13 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import filterMixin from '~/mixins/filterMixin'
+	import { deepCopy } from '~/utils'
 
 	export default {
 		components: {},
+
+		mixins: [filterMixin],
 
 		props: {
 			geo: {
@@ -160,13 +182,52 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 			}),
+
+			uniqSelected() {
+				return
+			},
+
+			flatten() {
+				let items = []
+				Object.keys(this.selected).forEach(key => {
+					if (Array.isArray(this.selected[key]) && this.selected[key].length) {
+						for (let i = 0; i < this.selected[key].length; i++) {
+							const item = this[key].find(
+								el => el.value === this.selected[key][i]
+							)
+							items.push({ ...item, key })
+						}
+					}
+				})
+
+				return items
+			},
+
+			values() {
+				let items = {}
+				Object.keys(this.selected).forEach(key => {
+					if (Array.isArray(this.selected[key])) {
+						items[key] = this.selected[key]
+					}
+				})
+				return items
+			},
 		},
 
 		watch: {},
 
 		methods: {
-			handleFilterChange() {
-				this.$emit('change', this.selected)
+			reset(data, clear) {
+				if (data.clear) {
+					this.selected = deepCopy(this.initial)
+					return false
+				}
+
+				if (Array.isArray(this.selected[data.key])) {
+					this.selected[data.key] = this.selected[data.key].filter(value => {
+						return value !== data.value
+					})
+				}
 			},
 		},
 	}
