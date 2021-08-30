@@ -1,11 +1,23 @@
 <template>
 	<div class="filters">
-		<div class="filters__label">{{ $t('filters') }}</div>
+		<div class="filters__label">
+			{{ $t('filters') }}
+			<div class="filters__label__icon" @click="onClick">
+				<svg-icon icon="close" />
+			</div>
+		</div>
 
-		<filter-dropdown :label="$t('room_type')" icon="filter-room-type">
+		<div v-if="showGeo" class="filters__geo">
+			<geo-switcher :value="country.code" :geo="geo" v-on="$listeners" />
+		</div>
+
+		<filter-dropdown
+			v-if="types.length"
+			:label="$t('room_type')"
+			icon="filter-room-type"
+		>
 			<filter-item
 				v-for="(item, index) in types"
-				v-if="types.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -18,10 +30,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('payments')" icon="filter-payments">
+		<filter-dropdown
+			v-if="payments.length"
+			:label="$t('payments')"
+			icon="filter-payments"
+		>
 			<filter-item
 				v-for="(item, index) in payments"
-				v-if="payments.length"
 				:key="index"
 				:count="item.count"
 				:icon="`${item.slug}-color-square`"
@@ -35,10 +50,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('platforms')" icon="filter-platforms">
+		<filter-dropdown
+			v-if="platforms.length"
+			:label="$t('platforms')"
+			icon="filter-platforms"
+		>
 			<filter-item
 				v-for="(item, index) in platforms"
-				v-if="platforms.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -51,10 +69,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('licenses')" icon="filter-licenses">
+		<filter-dropdown
+			v-if="licenses.length"
+			:label="$t('licenses')"
+			icon="filter-licenses"
+		>
 			<filter-item
 				v-for="(item, index) in licenses"
-				v-if="licenses.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -67,10 +88,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('verification')" icon="filter-kyc">
+		<filter-dropdown
+			v-if="kycs.length"
+			:label="$t('verification')"
+			icon="filter-kyc"
+		>
 			<filter-item
 				v-for="(item, index) in kycs"
-				v-if="kycs.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -85,10 +109,13 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('room_features')" icon="filter-room-features">
+		<filter-dropdown
+			v-if="tags.length"
+			:label="$t('room_features')"
+			icon="filter-room-features"
+		>
 			<filter-item
 				v-for="(item, index) in tags"
-				v-if="tags.length"
 				:key="index"
 				:count="item.count"
 			>
@@ -100,14 +127,25 @@
 				/>
 			</filter-item>
 		</filter-dropdown>
+
+		<div class="filters__actions">
+			<button class="filters__clear-button btn btn-block" @click="clearFilters">
+				Очистить фильтры
+			</button>
+		</div>
 	</div>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex'
+	import filterMixin from '~/mixins/filterMixin'
+	import { deepCopy } from '~/utils'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		components: {},
+
+		mixins: [filterMixin],
 
 		props: {
 			geo: {
@@ -137,6 +175,10 @@
 			licenses: {
 				type: Array,
 			},
+
+			showGeo: {
+				type: Number,
+			},
 		},
 
 		data: () => ({
@@ -160,13 +202,64 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 			}),
+
+			cloneGeo() {
+				return this.geo
+			},
+
+			flatten() {
+				let items = []
+				Object.keys(this.selected).forEach(key => {
+					if (Array.isArray(this.selected[key]) && this.selected[key].length) {
+						for (let i = 0; i < this.selected[key].length; i++) {
+							const item = this[key].find(
+								el => el.value === this.selected[key][i]
+							)
+							items.push({ ...item, key })
+						}
+					}
+				})
+
+				return items
+			},
+
+			values() {
+				let items = {}
+				Object.keys(this.selected).forEach(key => {
+					if (Array.isArray(this.selected[key])) {
+						items[key] = this.selected[key]
+					}
+				})
+				return items
+			},
 		},
 
 		watch: {},
 
 		methods: {
-			handleFilterChange() {
-				this.$emit('change', this.selected)
+			reset(data, clear) {
+				if (data.clear) {
+					this.selected = deepCopy(this.initial)
+					return false
+				}
+
+				if (Array.isArray(this.selected[data.key])) {
+					this.selected[data.key] = this.selected[data.key].filter(value => {
+						return value !== data.value
+					})
+				}
+			},
+
+			onClick() {
+				eventBus.$emit('filter:toggle', null)
+			},
+
+			clearFilters() {
+				eventBus.$emit('selected:delete', {
+					clear: true,
+					key: null,
+					value: null,
+				})
 			},
 		},
 	}
@@ -181,6 +274,19 @@
 		overflow: hidden;
 		background: #2e3141;
 		box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
+		&__actions {
+			border-top: 1px solid #e9e9e9;
+			display: block;
+			padding: 24px 28px;
+		}
+		&__clear-button {
+			border: 1px solid #e9e9e9;
+			background: none;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 16px;
+			color: #555555;
+		}
 	}
 
 	.filters__label {
@@ -203,6 +309,9 @@
 			height: 34px;
 			background: $ico-filters no-repeat center;
 		}
+		&__icon {
+			display: none;
+		}
 	}
 
 	.filter {
@@ -214,6 +323,25 @@
 		padding: 20px;
 		.filter-item {
 			padding: 0;
+		}
+	}
+
+	@include mq('laptop') {
+		.filters {
+			overflow-y: scroll;
+			@include hide-scroll();
+			margin-bottom: 0;
+			background: #ffffff;
+			box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
+			&__label {
+				background: #ffffff;
+				color: #222222;
+				box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+				&__icon {
+					display: block;
+					margin-left: auto;
+				}
+			}
 		}
 	}
 </style>

@@ -74,7 +74,7 @@
 		methods: {
 			updateValue(event) {
 				this.$emit('update:geo', this.result)
-				this.$emit('change', this.result)
+				this.$emit('change:geo', this.result)
 			},
 		},
 	}

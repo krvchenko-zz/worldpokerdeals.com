@@ -93,7 +93,6 @@
 		margin-bottom: 40px;
 		border-radius: 4px;
 		overflow: hidden;
-		background: #2e3141;
 		box-shadow: 0px 2px 0px rgba(198, 199, 202, 0.5);
 	}
 

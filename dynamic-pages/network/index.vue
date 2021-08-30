@@ -18,14 +18,41 @@
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
 
-				<div v-if="data.length" class="network-filters__geo">
+				<mobile-filter-button
+					v-if="showFilterButton"
+					:selected="selected.length || 0"
+				/>
+
+				<div
+					v-if="data.length && !showFilterButton"
+					class="network-filters__geo"
+				>
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
-						@change="fetchItems"
+						@change:geo="fetchItems"
 					/>
 				</div>
 			</div>
+
+			<filter-selected-list
+				v-if="selected.length && !$device.isMobileOrTablet"
+				class="network__selected-filters"
+			>
+				<filter-selected
+					v-for="item in selected"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+					:item-key="item.key"
+				/>
+				<filter-selected
+					:key="null"
+					label="Очистить фильтры"
+					:clear="true"
+					:value="null"
+				/>
+			</filter-selected-list>
 
 			<div class="network__rooms__item">
 				<room
@@ -114,19 +141,27 @@
 		</page-article>
 
 		<div class="network__aside">
-			<network-filters
+			<div
 				v-if="filters"
-				:geo="geo"
-				:kycs="filters.kycs"
-				:platforms="filters.platforms"
-				:tags="filters.tags"
-				:payments="filters.payments"
-				:types="filters.types"
-				:networks="filters.networks"
-				:licenses="filters.licenses"
-				@change="handleFilterChange"
-				class="network__filters"
-			/>
+				class="network__aside__filter-wrapper"
+				:class="{ 'network__aside__filter-wrapper--opened': showFilter }"
+				@click.self="handleOutsideClick($event)"
+			>
+				<network-filters
+					class="network__aside__filter"
+					:geo.sync="geo"
+					:kycs="filters.kycs"
+					:platforms="filters.platforms"
+					:tags="filters.tags"
+					:payments="filters.payments"
+					:types="filters.types"
+					:networks="filters.networks"
+					:licenses="filters.licenses"
+					:showGeo="data.length"
+					@change="handleFilterChange"
+					@change:geo="fetchItems"
+				/>
+			</div>
 
 			<topic-list v-if="network.topics.length" class="network__topics">
 				<topic-item
@@ -191,6 +226,7 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import LazyHydrate from 'vue-lazy-hydration'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'NetworkPage',
@@ -222,6 +258,8 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
+			showFilter: false,
 		}),
 
 		head() {
@@ -233,6 +271,12 @@
 					{ name: 'keywords', content: this.network.meta_keywords },
 				],
 			}
+		},
+
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
 		},
 
 		computed: {
@@ -269,6 +313,10 @@
 					types: this.types,
 					licenses: this.licenses,
 				}
+			},
+
+			showFilterButton() {
+				return this.$device.isMobileOrTablet
 			},
 		},
 
@@ -381,14 +429,28 @@
 				this.fetchItems()
 			},
 
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.network__aside__filter')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
+			},
+
 			handleSortChange(order) {
 				this.sort = order
 				this.fetchItems()
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
 			},
@@ -454,9 +516,6 @@
 			grid-area: article;
 			padding-left: 14px;
 			padding-right: 28px;
-		}
-		&__filters {
-			grid-area: filters;
 		}
 		&__topics {
 			grid-area: topics;
@@ -548,6 +607,29 @@
 				'aside'
 				'posts'
 				'network-list';
+
+			&__aside {
+				&__filter {
+					margin-bottom: 0;
+					margin-left: auto;
+					max-width: 436px;
+					height: 100%;
+					overflow-y: scroll;
+					@include hide-scroll();
+				}
+				&__filter-wrapper {
+					display: none;
+					position: fixed;
+					right: 0;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					z-index: 999;
+					&--opened {
+						display: block;
+					}
+				}
+			}
 
 			&__posts {
 				&__list {
