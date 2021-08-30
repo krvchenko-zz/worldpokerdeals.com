@@ -38,7 +38,6 @@
 									:text="item.text"
 								>
 								</toc-item>
-								<post-subscribe />
 							</template>
 						</toc-list>
 					</template>
