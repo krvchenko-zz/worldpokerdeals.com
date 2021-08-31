@@ -131,7 +131,11 @@
 					:created="item.created_at"
 				/>
 			</topic-list>
+
+			<game-search-banner />
 		</div>
+
+		<page-banners class="soft-category__banners" />
 	</div>
 </template>
 
@@ -327,12 +331,16 @@
 		&__aside {
 			grid-area: aside;
 		}
+		&__banners {
+			grid-area: banners;
+		}
 		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
 		grid-template-areas:
 			'header header header'
 			'filter-soft filter-soft aside'
 			'soft-list soft-list aside'
-			'toc article aside';
+			'toc article aside'
+			'banners banners banners';
 		column-gap: 28px;
 	}
 	.soft-list {
@@ -402,7 +410,13 @@
 				'soft-list'
 				'toc'
 				'article'
-				'aside';
+				'aside'
+				'banners';
+
+			&__banners {
+				margin-right: -24px;
+				width: calc(100% + 24px);
+			}
 		}
 
 		.soft-list {
@@ -423,6 +437,10 @@
 				'toc'
 				'article'
 				'aside';
+			&__banners {
+				margin-right: -20px;
+				width: calc(100% + 20px);
+			}
 		}
 
 		.soft-list {
