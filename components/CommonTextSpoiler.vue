@@ -1,11 +1,12 @@
 <template>
-	<div class="common-text-spoiler" ref="container">
-		<p v-if="shouldHide">
+	<div class="common-text-spoiler">
+		<p v-show="shouldHide">
 			{{ visibleText }}
 			<span @click="showAllText" class="common-text-spoiler__button">
 				<slot name="button" />
 			</span>
 		</p>
+		<div v-show="!shouldHide" ref="container"></div>
 	</div>
 </template>
 
@@ -80,6 +81,7 @@
 				let indexToWhichInclude = null
 				let sum = 0
 				let howManySymbolsIncludeFromLastChild = 0
+				this.shouldHide = false
 
 				// text has several p tags
 				if (children.length) {
