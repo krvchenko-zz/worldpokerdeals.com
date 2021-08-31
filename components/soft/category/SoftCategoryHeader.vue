@@ -8,7 +8,15 @@
 			</i>
 			<div class="soft-category-header__text-wrapper">
 				<h1 class="soft-category__title">{{ category.title }}</h1>
-				<div class="soft-category__summary" v-html="category.summary"></div>
+				<common-text-spoiler
+					:limit="$device.isMobileOrTablet ? 100 : 600"
+					class="soft-category__summary"
+					:text="category.summary"
+				>
+					<template v-slot:button>
+						<svg-icon icon="spoiler-sep" width="35" height="16" />
+					</template>
+				</common-text-spoiler>
 			</div>
 		</div>
 
