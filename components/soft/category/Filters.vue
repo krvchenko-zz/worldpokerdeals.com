@@ -18,6 +18,7 @@
 			v-if="categories.length"
 			label="Тип софта"
 			icon="filter-discipline"
+			:opened="true"
 		>
 			<filter-item
 				v-for="(item, index) in categories"
