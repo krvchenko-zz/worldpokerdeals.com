@@ -95,6 +95,9 @@
 				display: inline-block;
 				vertical-align: top;
 			}
+			&__nav {
+				margin-bottom: -26px;
+			}
 		}
 
 		&__title {
@@ -125,6 +128,9 @@
 			margin-left: -24px;
 			margin-right: -24px;
 			@include paddings('tablet');
+			&__nav {
+				margin-bottom: 0;
+			}
 		}
 	}
 
