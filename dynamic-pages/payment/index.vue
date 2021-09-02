@@ -126,7 +126,7 @@
 			<post-list
 				v-if="posts && posts.length"
 				:label="`Новости ${payment.title}`"
-				class=""
+				class="payment__posts"
 			>
 				<div class="payment__news-list">
 					<post-item
@@ -447,9 +447,23 @@
 	@include mq('laptop') {
 		.payment {
 			@include paddings('tablet');
+			&__posts {
+				margin-bottom: 0;
+				margin-right: -24px;
+			}
+			.posts__list {
+				grid-template-columns: 100%;
+			}
 			&__news-list {
-				grid-template-columns: repeat(auto-fit, 226px);
+				overflow-x: scroll;
+				@include hide-scroll();
+				grid-auto-columns: calc((100% - 40px - 20px) / 3);
+				grid-template-columns: none;
+				grid-auto-flow: column;
 				column-gap: 20px;
+			}
+			.block-title {
+				margin-top: 0;
 			}
 		}
 	}
@@ -457,11 +471,11 @@
 	@include mq('tablet') {
 		.payment {
 			@include paddings('mobile');
+			&__posts {
+				margin-right: -20px;
+			}
 			&__news-list {
-				overflow-x: scroll;
-				@include hide-scroll();
-				grid-auto-columns: repeat(auto-fit, 386px);
-				grid-auto-flow: column;
+				grid-auto-columns: 288px;
 				column-gap: 16px;
 			}
 		}

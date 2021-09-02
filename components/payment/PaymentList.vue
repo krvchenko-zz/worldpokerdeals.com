@@ -46,16 +46,26 @@
 		}
 	}
 
-	@include mq('tablet') {
+	@include mq('laptop') {
 		.payment-list {
-			width: 100%;
+			margin-right: -24px;
 			&__list {
-				width: 100%;
 				overflow-x: scroll;
 				@include hide-scroll();
-				grid-auto-columns: 288px;
 				grid-template-columns: none;
+				grid-auto-columns: 350px;
 				grid-auto-flow: column;
+				gap: 20px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.payment-list {
+			margin-right: -20px;
+			&__list {
+				grid-auto-columns: 288px;
+				gap: 16px;
 			}
 		}
 	}
