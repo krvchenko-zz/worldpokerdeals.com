@@ -8,6 +8,12 @@
 				Показано {{ total }} из {{ overall }} програм для покера
 			</div>
 
+			<mobile-filter-button
+				v-if="showFilterButton"
+				:selected="selected.length || 0"
+				class="soft-category__filter-button"
+			/>
+
 			<div v-if="data.length" class="soft-category-top__sort">
 				<custom-select
 					:options="[
@@ -110,14 +116,21 @@
 		</page-article>
 
 		<div class="soft-category__aside">
-			<filters
+			<div
 				v-if="filters"
-				:geo="geo"
-				:categories="filters.categories"
-				:free="filters.free"
-				@change="handleFilterChange"
-				@filterOpen="handleFilterOpen"
-			/>
+				class="soft-category__filter-wrapper"
+				:class="{ 'soft-category__filter-wrapper--opened': showFilter }"
+				@click.self="handleOutsideClick($event)"
+			>
+				<filters
+					:geo="geo"
+					:categories="filters.categories"
+					:free="filters.free"
+					@change="handleFilterChange"
+					@filterOpen="handleFilterOpen"
+					class="soft-category__filter"
+				/>
+			</div>
 
 			<room-top-list />
 
@@ -141,6 +154,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
 
 	import Filters from '~/components/soft/category/Filters'
 
@@ -189,6 +203,10 @@
 					free: this.free,
 				}
 			},
+
+			showFilterButton() {
+				return this.$device.isMobileOrTablet
+			},
 		},
 
 		data: () => ({
@@ -209,6 +227,8 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
+			showFilter: false,
 		}),
 
 		async fetch() {
@@ -251,7 +271,11 @@
 			this.geo = this.country.code
 		},
 
-		mounted() {},
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
+		},
 
 		methods: {
 			async fetchItems() {
@@ -299,10 +323,25 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				debugger
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.rooms__aside__filter')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
 			},
 
 			handleFilterOpen() {},
@@ -333,6 +372,9 @@
 		}
 		&__banners {
 			grid-area: banners;
+		}
+		&__filter-button {
+			margin-left: auto;
 		}
 		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
 		grid-template-areas:
@@ -416,6 +458,26 @@
 			&__banners {
 				margin-right: -24px;
 				width: calc(100% + 24px);
+			}
+			&__filter {
+				margin-bottom: 0;
+				margin-left: auto;
+				max-width: 436px;
+				height: 100%;
+				overflow-y: scroll;
+				@include hide-scroll();
+			}
+			&__filter-wrapper {
+				display: none;
+				position: fixed;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 999;
+				&--opened {
+					display: block;
+				}
 			}
 		}
 
