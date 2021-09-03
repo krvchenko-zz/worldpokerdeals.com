@@ -196,7 +196,7 @@
 		}
 
 		&__img {
-			max-height: 40px;
+			height: 40px;
 			width: auto;
 		}
 	}
