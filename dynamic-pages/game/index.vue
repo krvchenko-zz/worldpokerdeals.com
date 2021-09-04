@@ -414,6 +414,9 @@
 				grid-template-columns: repeat(4, 1fr);
 				column-gap: 28px;
 			}
+			.post-item {
+				margin-bottom: 0;
+			}
 		}
 		&__games-list {
 			grid-area: games-list;
@@ -421,6 +424,10 @@
 				display: grid;
 				grid-template-columns: repeat(5, 1fr);
 				column-gap: 20px;
+			}
+
+			.block-title {
+				margin-top: 0;
 			}
 		}
 	}
@@ -470,9 +477,38 @@
 				'aside'
 				'news'
 				'games-list';
-			&__games-list {
+			&__news {
+				margin-right: -24px;
+				margin-bottom: 24px;
+
+				.posts__list {
+					grid-template-columns: 100%;
+				}
+
 				&__list {
-					grid-template-columns: repeat(2, 1fr);
+					overflow-x: scroll;
+					@include hide-scroll();
+					grid-auto-columns: calc((100% - 60px) / 3);
+					grid-template-columns: none;
+					grid-auto-flow: column;
+					column-gap: 20px;
+				}
+			}
+			&__games-list {
+				margin-right: -24px;
+				margin-bottom: -6px;
+
+				&__list {
+					overflow-x: scroll;
+					@include hide-scroll();
+					grid-template-columns: none;
+					grid-auto-columns: 350px;
+					grid-auto-flow: column;
+					gap: 20px;
+				}
+
+				.game-item {
+					margin-bottom: 0;
 				}
 			}
 		}
@@ -483,6 +519,8 @@
 			@include paddings('mobile');
 			&__news {
 				margin-right: -20px;
+				margin-bottom: 36px;
+
 				&__list {
 					overflow-x: scroll;
 					@include hide-scroll();
@@ -494,13 +532,10 @@
 			}
 			&__games-list {
 				margin-right: -20px;
+				margin-bottom: 4px;
 				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-template-columns: none;
 					grid-auto-columns: 288px;
-					grid-auto-flow: column;
-					column-gap: 16px;
+					gap: 16px;
 				}
 			}
 		}
