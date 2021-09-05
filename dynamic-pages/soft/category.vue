@@ -323,7 +323,6 @@
 			},
 
 			handleFilterChange(selected) {
-				debugger
 				this.selected = selected.flatten
 
 				Object.keys(selected.values).forEach(key => {
