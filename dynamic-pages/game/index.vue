@@ -517,6 +517,9 @@
 				'aside'
 				'news'
 				'games-list';
+			&__title {
+				text-align: center;
+			}
 			&__news {
 				margin-right: -24px;
 				margin-bottom: 24px;
