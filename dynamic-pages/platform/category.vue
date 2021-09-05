@@ -316,10 +316,12 @@
 			margin-left: -20px;
 			margin-right: -20px;
 			@include paddings('mobile');
+			margin-bottom: 24px;
 		}
 
 		.games-list {
 			grid-template-columns: 1fr;
+			margin-bottom: 8px;
 		}
 	}
 </style>

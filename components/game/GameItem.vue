@@ -123,17 +123,36 @@
 			font-size: 14px;
 			line-height: 16px;
 			color: #aaaaaa;
-			white-space: nowrap;
-			width: min-content;
 			&:after {
 				content: '';
 				position: absolute;
-				left: calc(100% + 28px);
+				right: 0;
 				top: 3px;
 				width: 28px;
 				height: 12px;
 				display: block;
 				background: $ico-network-more no-repeat center;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.game-item {
+			margin: 0 0 20px 0;
+			&:last-child {
+				margin: 0;
+			}
+			&__rooms {
+				white-space: nowrap;
+				width: min-content;
+				&:after {
+					left: calc(100% + 28px);
+				}
+			}
+			&__icon-wrap {
+				margin-top: 0;
+				top: 50%;
+				transform: translateY(-50%);
 			}
 		}
 	}

@@ -304,12 +304,14 @@
 
 		.games-list {
 			grid-template-columns: 100%;
+			margin-bottom: 8px;
 		}
 
 		.games-header {
 			@include paddings('mobile');
 			margin-left: -20px;
 			margin-right: -20px;
+			margin-bottom: 24px;
 			width: calc(100% + 2 * 20px);
 
 			.games-nav {
