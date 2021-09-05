@@ -10,15 +10,12 @@
 				</div>
 
 				<mobile-filter-button
-					v-if="isMobileOrTablet"
+					v-if="isTouch"
 					:selected="selected.length || 0"
 					class="platform__filter-button"
 				/>
 
-				<div
-					v-if="data.length && !isMobileOrTablet"
-					class="platform-filters__geo"
-				>
+				<div v-if="data.length && !isTouch" class="platform-filters__geo">
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
@@ -223,7 +220,7 @@
 				best: 'rooms/best',
 				filters: 'platforms/filters',
 				posts: 'platforms/posts',
-				isMobileOrTablet: 'ui/isMobileOrTablet',
+				isTouch: 'ui/isTouch',
 			}),
 
 			mediaUrl() {

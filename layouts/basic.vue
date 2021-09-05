@@ -274,7 +274,8 @@
 				disclaimer: 'auth/disclaimer',
 				topList: 'rooms/topList',
 				age: 'auth/age',
-				isMobileOrTablet: 'ui/isMobileOrTablet',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
 			}),
 		},
 
@@ -372,19 +373,9 @@
 				}
 			})
 
-			this.$store.commit('ui/SET_IS_MOBILE_OR_TABLET', {
-				value: window.innerWidth < 1280,
-			})
+			this.setScreenSize()
 			window.addEventListener('resize', () => {
-				if (window.innerWidth < 1280) {
-					if (!this.isMobileOrTablet) {
-						this.$store.commit('ui/SET_IS_MOBILE_OR_TABLET', { value: true })
-					}
-				} else {
-					if (this.isMobileOrTablet) {
-						this.$store.commit('ui/SET_IS_MOBILE_OR_TABLET', { value: false })
-					}
-				}
+				this.setScreenSize()
 			})
 		},
 
@@ -392,6 +383,15 @@
 			handleConnectionForm() {
 				this.connectionModal = false
 				this.completeModal = true
+			},
+
+			setScreenSize() {
+				this.$store.commit('ui/SET_IS_MOBILE', {
+					value: window.innerWidth < 768,
+				})
+				this.$store.commit('ui/SET_IS_TABLET', {
+					value: window.innerWidth >= 768 && window.innerWidth < 1280,
+				})
 			},
 		},
 	}

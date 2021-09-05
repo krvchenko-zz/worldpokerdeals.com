@@ -18,15 +18,9 @@
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
 
-				<mobile-filter-button
-					v-if="isMobileOrTablet"
-					:selected="selected.length || 0"
-				/>
+				<mobile-filter-button v-if="isTouch" :selected="selected.length || 0" />
 
-				<div
-					v-if="data.length && !isMobileOrTablet"
-					class="network-filters__geo"
-				>
+				<div v-if="data.length && !isTouch" class="network-filters__geo">
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
@@ -36,7 +30,7 @@
 			</div>
 
 			<filter-selected-list
-				v-if="selected.length && !isMobileOrTablet"
+				v-if="selected.length && !isTouch"
 				class="network__selected-filters"
 			>
 				<filter-selected
@@ -289,7 +283,7 @@
 				filters: 'networks/filters',
 				related: 'networks/related',
 				posts: 'networks/posts',
-				isMobileOrTablet: 'ui/isMobileOrTablet',
+				isTouch: 'ui/isTouch',
 			}),
 
 			mediaUrl() {

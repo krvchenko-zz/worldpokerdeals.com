@@ -1,17 +1,23 @@
 // state
 export const state = () => ({
-	isMobileOrTablet: false,
+	isMobile: false,
+	isTablet: false,
 })
 
 // getters
 export const getters = {
-	isMobileOrTablet: state => state.isMobileOrTablet,
+	isTouch: state => state.isMobile || state.isTablet,
+	isMobile: state => state.isMobile,
+	isTablet: state => state.isTablet,
 }
 
 // mutations
 export const mutations = {
-	SET_IS_MOBILE_OR_TABLET(state, { value }) {
-		state.isMobileOrTablet = value
+	SET_IS_MOBILE(state, { value }) {
+		state.isMobile = value
+	},
+	SET_IS_TABLET(state, { value }) {
+		state.isTablet = value
 	},
 }
 
