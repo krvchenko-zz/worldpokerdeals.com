@@ -123,10 +123,12 @@
 			font-size: 14px;
 			line-height: 16px;
 			color: #aaaaaa;
+			white-space: nowrap;
+			width: min-content;
 			&:after {
 				content: '';
 				position: absolute;
-				right: 0;
+				left: calc(100% + 28px);
 				top: 3px;
 				width: 28px;
 				height: 12px;

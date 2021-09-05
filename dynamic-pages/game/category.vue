@@ -313,13 +313,15 @@
 			width: calc(100% + 2 * 20px);
 
 			.games-nav {
+				display: flex;
+				justify-content: center;
 				&__label {
 					white-space: nowrap;
 				}
 				&__list {
 					overflow-x: scroll;
 					@include hide-scroll();
-					justify-content: start;
+					justify-content: flex-start;
 				}
 				&__item {
 					margin-right: 0;
