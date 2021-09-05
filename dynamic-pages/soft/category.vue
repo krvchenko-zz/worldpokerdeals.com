@@ -9,12 +9,12 @@
 			</div>
 
 			<mobile-filter-button
-				v-if="showFilterButton"
+				v-if="isTouch"
 				:selected="selected.length || 0"
 				class="soft-category__filter-button"
 			/>
 
-			<div v-if="data.length" class="soft-category-top__sort">
+			<div v-if="data.length && !isTouch" class="soft-category-top__sort">
 				<custom-select
 					:options="[
 						{
@@ -118,8 +118,8 @@
 		<div class="soft-category__aside">
 			<div
 				v-if="filters"
-				class="soft-category__filter-wrapper"
-				:class="{ 'soft-category__filter-wrapper--opened': showFilter }"
+				class="filters__wrapper"
+				:class="{ 'filters__wrapper--opened': showFilter }"
 				@click.self="handleOutsideClick($event)"
 			>
 				<filters
@@ -128,7 +128,6 @@
 					:free="filters.free"
 					@change="handleFilterChange"
 					@filterOpen="handleFilterOpen"
-					class="soft-category__filter"
 				/>
 			</div>
 
@@ -187,6 +186,7 @@
 				category: 'soft/category',
 				items: 'soft/items',
 				filters: 'soft/filters',
+				isTouch: 'ui/isTouch',
 			}),
 
 			params() {
@@ -202,10 +202,6 @@
 					categories: this.categories,
 					free: this.free,
 				}
-			},
-
-			showFilterButton() {
-				return this.$device.isMobileOrTablet
 			},
 		},
 
@@ -337,7 +333,7 @@
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector('.rooms__aside__filter')
+				const filtersElement = document.querySelector('.filters')
 				if (this.showFilter && !filtersElement?.contains(event.target)) {
 					this.toggleMobileFilter()
 				}
@@ -457,26 +453,6 @@
 			&__banners {
 				margin-right: -24px;
 				width: calc(100% + 24px);
-			}
-			&__filter {
-				margin-bottom: 0;
-				margin-left: auto;
-				max-width: 436px;
-				height: 100%;
-				overflow-y: scroll;
-				@include hide-scroll();
-			}
-			&__filter-wrapper {
-				display: none;
-				position: fixed;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				z-index: 999;
-				&--opened {
-					display: block;
-				}
 			}
 		}
 
