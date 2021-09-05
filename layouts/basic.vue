@@ -372,6 +372,9 @@
 				}
 			})
 
+			this.$store.commit('ui/SET_IS_MOBILE_OR_TABLET', {
+				value: window.innerWidth < 1280,
+			})
 			window.addEventListener('resize', () => {
 				if (window.innerWidth < 1280) {
 					if (!this.isMobileOrTablet) {

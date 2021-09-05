@@ -68,6 +68,22 @@ $ico-filters: url('~assets/i/ico-filters.svg?data');
     margin-bottom: 0;
     background: #ffffff;
     box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 0;
+    margin-left: auto;
+    max-width: 436px;
+    height: 100%;
+    &__wrapper {
+      display: none;
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      &--opened {
+        display: block;
+      }
+    }
     &__geo {
       display: flex;
       flex-direction: column;

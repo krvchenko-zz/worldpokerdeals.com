@@ -8,7 +8,17 @@
 				<div v-if="data.length" class="platform-filters__info">
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
-				<div v-if="data.length" class="platform-filters__geo">
+
+				<mobile-filter-button
+					v-if="isMobileOrTablet"
+					:selected="selected.length || 0"
+					class="platform__filter-button"
+				/>
+
+				<div
+					v-if="data.length && !isMobileOrTablet"
+					class="platform-filters__geo"
+				>
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
@@ -99,16 +109,24 @@
 		</div>
 
 		<div class="platform__aside">
-			<platform-filters
+			<div
 				v-if="filters"
-				:geo="geo"
-				:kycs="filters.kycs"
-				:tags="filters.tags"
-				:payments="filters.payments"
-				:types="filters.types"
-				:licenses="filters.licenses"
-				@change="handleFilterChange"
-			/>
+				class="filters__wrapper"
+				:class="{ 'filters__wrapper--opened': showFilter }"
+				@click.self="handleOutsideClick($event)"
+			>
+				<platform-filters
+					:geo.sync="geo"
+					:kycs="filters.kycs"
+					:tags="filters.tags"
+					:payments="filters.payments"
+					:types="filters.types"
+					:licenses="filters.licenses"
+					:showGeo="!!data.length"
+					@change="handleFilterChange"
+					@change:geo="fetchItems"
+				/>
+			</div>
 
 			<room-top-list />
 
@@ -148,6 +166,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'PlatformPage',
@@ -176,6 +195,8 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
+			showFilter: false,
 		}),
 
 		head() {
@@ -202,6 +223,7 @@
 				best: 'rooms/best',
 				filters: 'platforms/filters',
 				posts: 'platforms/posts',
+				isMobileOrTablet: 'ui/isMobileOrTablet',
 			}),
 
 			mediaUrl() {
@@ -284,6 +306,12 @@
 			this.geo = this.country.code
 		},
 
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
+		},
+
 		methods: {
 			async fetchItems() {
 				this.$nuxt.$loading.start()
@@ -338,8 +366,10 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
 			},
@@ -358,6 +388,18 @@
 							  }
 							: null,
 					},
+				}
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.filters')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
 				}
 			},
 		},

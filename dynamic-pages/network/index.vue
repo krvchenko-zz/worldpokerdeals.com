@@ -19,12 +19,12 @@
 				</div>
 
 				<mobile-filter-button
-					v-if="showFilterButton"
+					v-if="isMobileOrTablet"
 					:selected="selected.length || 0"
 				/>
 
 				<div
-					v-if="data.length && !showFilterButton"
+					v-if="data.length && !isMobileOrTablet"
 					class="network-filters__geo"
 				>
 					<geo-switcher
@@ -36,7 +36,7 @@
 			</div>
 
 			<filter-selected-list
-				v-if="selected.length && !$device.isMobileOrTablet"
+				v-if="selected.length && !isMobileOrTablet"
 				class="network__selected-filters"
 			>
 				<filter-selected
@@ -143,12 +143,11 @@
 		<div class="network__aside">
 			<div
 				v-if="filters"
-				class="network__aside__filter-wrapper"
-				:class="{ 'network__aside__filter-wrapper--opened': showFilter }"
+				class="filters__wrapper"
+				:class="{ 'filters__wrapper--opened': showFilter }"
 				@click.self="handleOutsideClick($event)"
 			>
 				<network-filters
-					class="network__aside__filter"
 					:geo.sync="geo"
 					:kycs="filters.kycs"
 					:platforms="filters.platforms"
@@ -290,6 +289,7 @@
 				filters: 'networks/filters',
 				related: 'networks/related',
 				posts: 'networks/posts',
+				isMobileOrTablet: 'ui/isMobileOrTablet',
 			}),
 
 			mediaUrl() {
@@ -313,10 +313,6 @@
 					types: this.types,
 					licenses: this.licenses,
 				}
-			},
-
-			showFilterButton() {
-				return this.$device.isMobileOrTablet
 			},
 		},
 
@@ -435,7 +431,7 @@
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector('.network__aside__filter')
+				const filtersElement = document.querySelector('.filters')
 				if (this.showFilter && !filtersElement?.contains(event.target)) {
 					this.toggleMobileFilter()
 				}
@@ -607,29 +603,6 @@
 				'aside'
 				'posts'
 				'network-list';
-
-			&__aside {
-				&__filter {
-					margin-bottom: 0;
-					margin-left: auto;
-					max-width: 436px;
-					height: 100%;
-					overflow-y: scroll;
-					@include hide-scroll();
-				}
-				&__filter-wrapper {
-					display: none;
-					position: fixed;
-					right: 0;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					z-index: 999;
-					&--opened {
-						display: block;
-					}
-				}
-			}
 
 			&__posts {
 				&__list {
