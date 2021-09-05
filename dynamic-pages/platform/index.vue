@@ -418,9 +418,12 @@
 		column-gap: 24px;
 		&__toc {
 			grid-area: toc;
+			padding-right: 14px;
 		}
 		&__article {
 			grid-area: article;
+			padding-left: 14px;
+			padding-right: 28px;
 		}
 		&__header {
 			grid-area: header;
@@ -462,6 +465,18 @@
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+	}
+
+	@include mq('desktop') {
+		.platform {
+			&__toc {
+				padding-right: 0px;
+			}
+			&__article {
+				padding-left: 0px;
+				padding-right: 0px;
+			}
 		}
 	}
 
