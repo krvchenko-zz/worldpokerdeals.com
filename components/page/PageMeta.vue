@@ -64,7 +64,9 @@
 
 		methods: {
 			dateFormat(timestamp) {
-				let date = new Date(timestamp),
+				var t = timestamp.split(/[- :]/);
+
+				let date = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]),
 					d = date.getDate(),
 					m = date.getMonth() + 1,
 					y = date.getFullYear()
