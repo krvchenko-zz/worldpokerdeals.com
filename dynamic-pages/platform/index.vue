@@ -139,25 +139,26 @@
 			</topic-list>
 		</div>
 
-		<lazy-hydrate when-visible>
-			<post-list v-if="posts" label="Похожие статьи">
-				<post-item
-					v-for="(item, index) in posts"
-					:key="index"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
-					:categories="item.categories"
-					:medium="true"
-					:asCard="$device.isMobile"
-				/>
-			</post-list>
-		</lazy-hydrate>
+		<div class="platform__posts">
+			<lazy-hydrate when-visible>
+				<post-list v-if="posts" label="Похожие статьи" asRow>
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+					/>
+				</post-list>
+			</lazy-hydrate>
+		</div>
 
-		<page-banners />
+		<page-banners class="platform__banners" />
 	</div>
 </template>
 
@@ -221,6 +222,7 @@
 				filters: 'platforms/filters',
 				posts: 'platforms/posts',
 				isTouch: 'ui/isTouch',
+				isMobile: 'ui/isMobile',
 			}),
 
 			mediaUrl() {
@@ -414,7 +416,9 @@
 			'breadcrumbs breadcrumbs breadcrumbs'
 			'header header header'
 			'platform-rooms platform-rooms aside'
-			'toc article aside';
+			'toc article aside'
+			'posts posts posts'
+			'banners banners banners';
 		column-gap: 24px;
 		&__toc {
 			grid-area: toc;
@@ -433,6 +437,15 @@
 		}
 		&__aside {
 			grid-area: aside;
+		}
+		&__posts {
+			grid-area: posts;
+		}
+		&__banners {
+			grid-area: banners;
+		}
+		.page-banners {
+			padding-top: 0;
 		}
 	}
 
@@ -490,7 +503,13 @@
 				'platform-rooms'
 				'toc'
 				'article'
-				'aside';
+				'aside'
+				'posts'
+				'banners';
+
+			.page-banners {
+				padding-top: 20px;
+			}
 		}
 	}
 
@@ -500,6 +519,9 @@
 			&__rooms-list {
 				margin-right: -20px;
 				margin-left: -21px;
+			}
+			.page-banners {
+				padding-top: 0px;
 			}
 		}
 	}

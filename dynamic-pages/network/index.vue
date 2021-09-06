@@ -175,21 +175,20 @@
 				v-if="posts && posts.length"
 				:label="`Новости ${network.title}`"
 				class="network__posts"
+				asRow
 			>
-				<div class="network__posts__list">
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
-						:categories="item.categories"
-						:medium="true"
-					/>
-				</div>
+				<post-item
+					v-for="(item, index) in posts"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+					:medium="true"
+				/>
 			</post-list>
 		</lazy-hydrate>
 
@@ -513,11 +512,6 @@
 		&__posts {
 			grid-area: posts;
 			margin-bottom: 0;
-			&__list {
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				column-gap: 28px;
-			}
 		}
 		&__network-list {
 			grid-area: network-list;
@@ -529,7 +523,7 @@
 			}
 
 			.block-title {
-				margin-top: 15px;
+				margin-top: 0;
 			}
 		}
 
@@ -598,27 +592,6 @@
 				'posts'
 				'network-list';
 
-			&__posts {
-				&__list {
-					column-gap: 20px;
-				}
-			}
-
-			& &__posts {
-				.posts__list {
-					grid-template-columns: 100%;
-				}
-
-				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-auto-columns: calc((100% - 40px) / 3);
-					grid-template-columns: none;
-					grid-auto-flow: column;
-					column-gap: 20px;
-				}
-			}
-
 			&__network-list {
 				margin-right: -24px;
 				&__list {
@@ -628,10 +601,6 @@
 					grid-auto-columns: 350px;
 					grid-auto-flow: column;
 					gap: 20px;
-				}
-
-				.block-title {
-					margin-top: 0;
 				}
 			}
 		}
@@ -648,13 +617,6 @@
 				&__item {
 					margin-left: -21px;
 					margin-right: -20px;
-				}
-			}
-			& &__posts {
-				margin-right: -20px;
-				&__list {
-					grid-auto-columns: 288px;
-					column-gap: 16px;
 				}
 			}
 			&__network-list {

@@ -106,6 +106,9 @@
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(0, max-content));
 			gap: 28px;
+			.post-item {
+				margin-bottom: 0;
+			}
 		}
 	}
 
@@ -116,7 +119,13 @@
 			column-gap: 20px;
 			&--row {
 				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(226px, max-content));
+				overflow-x: scroll;
+				grid-template-columns: none;
+				margin-right: -24px;
+				margin-bottom: -16px;
+				@include hide-scroll();
+				grid-auto-columns: calc((100% - 60px) / 3);
+				grid-auto-flow: column;
 				column-gap: 20px;
 			}
 		}
@@ -127,6 +136,13 @@
 			grid-template-columns: 100%;
 			column-gap: 32px;
 			row-gap: 0;
+			margin-bottom: -4px;
+			&--row {
+				grid-template-columns: none;
+				margin-right: -20px;
+				grid-auto-columns: 288px;
+				column-gap: 16px;
+			}
 		}
 	}
 </style>

@@ -127,21 +127,20 @@
 				v-if="posts && posts.length"
 				:label="`Новости ${payment.title}`"
 				class="payment__posts"
+				asRow
 			>
-				<div class="payment__news-list">
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
-						:categories="item.categories"
-						:medium="true"
-					/>
-				</div>
+				<post-item
+					v-for="(item, index) in posts"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+					:medium="true"
+				/>
 			</post-list>
 		</lazy-hydrate>
 
@@ -378,11 +377,6 @@
 		max-width: 1440px;
 		width: 100%;
 		@include paddings('desktop');
-		&__news-list {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, 326px);
-			column-gap: 20px;
-		}
 	}
 	.payment-content {
 		display: grid;
@@ -451,17 +445,6 @@
 				margin-bottom: 0;
 				margin-right: -24px;
 			}
-			.posts__list {
-				grid-template-columns: 100%;
-			}
-			&__news-list {
-				overflow-x: scroll;
-				@include hide-scroll();
-				grid-auto-columns: calc((100% - 40px - 20px) / 3);
-				grid-template-columns: none;
-				grid-auto-flow: column;
-				column-gap: 20px;
-			}
 			.block-title {
 				margin-top: 0;
 			}
@@ -473,10 +456,6 @@
 			@include paddings('mobile');
 			&__posts {
 				margin-right: -20px;
-			}
-			&__news-list {
-				grid-auto-columns: 288px;
-				column-gap: 16px;
 			}
 		}
 	}

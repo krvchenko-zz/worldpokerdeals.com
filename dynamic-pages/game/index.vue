@@ -140,21 +140,20 @@
 				v-if="posts.length"
 				class="game__news"
 				:label="`Новости ${game.title}`"
+				asRow
 			>
-				<div class="game__news__list">
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
-						:categories="item.categories"
-						:medium="true"
-					/>
-				</div>
+				<post-item
+					v-for="(item, index) in posts"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+					:medium="true"
+				/>
 			</post-list>
 		</lazy-hydrate>
 
@@ -449,14 +448,6 @@
 		}
 		&__news {
 			grid-area: news;
-			&__list {
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				column-gap: 28px;
-			}
-			.post-item {
-				margin-bottom: 0;
-			}
 		}
 		&__games-list {
 			grid-area: games-list;
@@ -523,19 +514,6 @@
 			&__news {
 				margin-right: -24px;
 				margin-bottom: 24px;
-
-				.posts__list {
-					grid-template-columns: 100%;
-				}
-
-				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-auto-columns: calc((100% - 60px) / 3);
-					grid-template-columns: none;
-					grid-auto-flow: column;
-					column-gap: 20px;
-				}
 			}
 			&__games-list {
 				margin-right: -24px;
@@ -585,15 +563,6 @@
 			&__news {
 				margin-right: -20px;
 				margin-bottom: 36px;
-
-				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-template-columns: none;
-					grid-auto-columns: 288px;
-					grid-auto-flow: column;
-					column-gap: 16px;
-				}
 			}
 			&__games-list {
 				margin-right: -20px;
