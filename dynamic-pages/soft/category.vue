@@ -8,7 +8,13 @@
 				Показано {{ total }} из {{ overall }} програм для покера
 			</div>
 
-			<div v-if="data.length" class="soft-category-top__sort">
+			<mobile-filter-button
+				v-if="isTouch"
+				:selected="selected.length || 0"
+				class="soft-category__filter-button"
+			/>
+
+			<div v-if="data.length && !isTouch" class="soft-category-top__sort">
 				<custom-select
 					:options="[
 						{
@@ -110,14 +116,20 @@
 		</page-article>
 
 		<div class="soft-category__aside">
-			<filters
+			<div
 				v-if="filters"
-				:geo="geo"
-				:categories="filters.categories"
-				:free="filters.free"
-				@change="handleFilterChange"
-				@filterOpen="handleFilterOpen"
-			/>
+				class="filters__wrapper"
+				:class="{ 'filters__wrapper--opened': showFilter }"
+				@click.self="handleOutsideClick($event)"
+			>
+				<filters
+					:geo="geo"
+					:categories="filters.categories"
+					:free="filters.free"
+					@change="handleFilterChange"
+					@filterOpen="handleFilterOpen"
+				/>
+			</div>
 
 			<room-top-list />
 
@@ -141,6 +153,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
 
 	import Filters from '~/components/soft/category/Filters'
 
@@ -173,6 +186,7 @@
 				category: 'soft/category',
 				items: 'soft/items',
 				filters: 'soft/filters',
+				isTouch: 'ui/isTouch',
 			}),
 
 			params() {
@@ -209,6 +223,8 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
+			showFilter: false,
 		}),
 
 		async fetch() {
@@ -251,7 +267,11 @@
 			this.geo = this.country.code
 		},
 
-		mounted() {},
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
+		},
 
 		methods: {
 			async fetchItems() {
@@ -299,10 +319,24 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.filters')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
 			},
 
 			handleFilterOpen() {},
@@ -333,6 +367,9 @@
 		}
 		&__banners {
 			grid-area: banners;
+		}
+		&__filter-button {
+			margin-left: auto;
 		}
 		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
 		grid-template-areas:

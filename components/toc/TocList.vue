@@ -27,6 +27,8 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
+
 	export default {
 		name: 'TocList',
 
@@ -49,8 +51,12 @@
 		},
 
 		computed: {
+			...mapGetters({
+				isTouch: 'ui/isTouch',
+			}),
+
 			shouldBeHidden() {
-				return (this.$device.isMobile || this.$device.isTablet) && !this.isOpen
+				return this.isTouch && !this.isOpen
 			},
 		},
 
@@ -60,7 +66,6 @@
 
 		methods: {
 			toggleDropdown() {
-				console.log('clicked')
 				this.isOpen = !this.isOpen
 			},
 		},

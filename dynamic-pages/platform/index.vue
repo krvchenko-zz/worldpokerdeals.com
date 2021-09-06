@@ -8,7 +8,14 @@
 				<div v-if="data.length" class="platform-filters__info">
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
-				<div v-if="data.length" class="platform-filters__geo">
+
+				<mobile-filter-button
+					v-if="isTouch"
+					:selected="selected.length || 0"
+					class="platform__filter-button"
+				/>
+
+				<div v-if="data.length && !isTouch" class="platform-filters__geo">
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
@@ -99,16 +106,24 @@
 		</div>
 
 		<div class="platform__aside">
-			<platform-filters
+			<div
 				v-if="filters"
-				:geo="geo"
-				:kycs="filters.kycs"
-				:tags="filters.tags"
-				:payments="filters.payments"
-				:types="filters.types"
-				:licenses="filters.licenses"
-				@change="handleFilterChange"
-			/>
+				class="filters__wrapper"
+				:class="{ 'filters__wrapper--opened': showFilter }"
+				@click.self="handleOutsideClick($event)"
+			>
+				<platform-filters
+					:geo.sync="geo"
+					:kycs="filters.kycs"
+					:tags="filters.tags"
+					:payments="filters.payments"
+					:types="filters.types"
+					:licenses="filters.licenses"
+					:showGeo="!!data.length"
+					@change="handleFilterChange"
+					@change:geo="fetchItems"
+				/>
+			</div>
 
 			<room-top-list />
 
@@ -124,30 +139,32 @@
 			</topic-list>
 		</div>
 
-		<lazy-hydrate when-visible>
-			<post-list v-if="posts" label="Похожие статьи">
-				<post-item
-					v-for="(item, index) in posts"
-					:key="index"
-					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
-					:categories="item.categories"
-					:medium="true"
-					:asCard="$device.isMobile"
-				/>
-			</post-list>
-		</lazy-hydrate>
+		<div class="platform__posts">
+			<lazy-hydrate when-visible>
+				<post-list v-if="posts" label="Похожие статьи" asRow>
+					<post-item
+						v-for="(item, index) in posts"
+						:key="index"
+						:image="item.image"
+						:title="item.title"
+						:summary="item.summary"
+						:slug="item.slug"
+						:author="item.user"
+						:created="item.created_at"
+						:categories="item.categories"
+						:medium="true"
+					/>
+				</post-list>
+			</lazy-hydrate>
+		</div>
 
-		<page-banners />
+		<page-banners class="platform__banners" />
 	</div>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'PlatformPage',
@@ -176,6 +193,8 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
+			showFilter: false,
 		}),
 
 		head() {
@@ -202,6 +221,8 @@
 				best: 'rooms/best',
 				filters: 'platforms/filters',
 				posts: 'platforms/posts',
+				isTouch: 'ui/isTouch',
+				isMobile: 'ui/isMobile',
 			}),
 
 			mediaUrl() {
@@ -284,6 +305,12 @@
 			this.geo = this.country.code
 		},
 
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
+		},
+
 		methods: {
 			async fetchItems() {
 				this.$nuxt.$loading.start()
@@ -338,8 +365,10 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
 			},
@@ -360,6 +389,18 @@
 					},
 				}
 			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.filters')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
+			},
 		},
 	}
 </script>
@@ -375,13 +416,18 @@
 			'breadcrumbs breadcrumbs breadcrumbs'
 			'header header header'
 			'platform-rooms platform-rooms aside'
-			'toc article aside';
+			'toc article aside'
+			'posts posts posts'
+			'banners banners banners';
 		column-gap: 24px;
 		&__toc {
 			grid-area: toc;
+			padding-right: 14px;
 		}
 		&__article {
 			grid-area: article;
+			padding-left: 14px;
+			padding-right: 28px;
 		}
 		&__header {
 			grid-area: header;
@@ -391,6 +437,15 @@
 		}
 		&__aside {
 			grid-area: aside;
+		}
+		&__posts {
+			grid-area: posts;
+		}
+		&__banners {
+			grid-area: banners;
+		}
+		.page-banners {
+			padding-top: 0;
 		}
 	}
 
@@ -416,13 +471,31 @@
 
 	.platform-rooms {
 		grid-area: platform-rooms;
-		margin-bottom: 40px;
+		margin-bottom: 48px;
+		.pagination {
+			margin-bottom: 0;
+		}
 		&__title {
 			margin-bottom: 20px;
 			font-size: 24px;
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+		}
+	}
+
+	@include mq('desktop') {
+		.platform {
+			&__toc {
+				padding-right: 0px;
+			}
+			&__article {
+				padding-left: 0px;
+				padding-right: 0px;
+			}
+		}
+		.platform-rooms {
+			margin-bottom: 40px;
 		}
 	}
 
@@ -436,7 +509,21 @@
 				'platform-rooms'
 				'toc'
 				'article'
-				'aside';
+				'aside'
+				'posts'
+				'banners';
+
+			.page-banners {
+				padding-top: 20px;
+			}
+
+			.toc {
+				margin-top: 0;
+			}
+		}
+
+		.platform-rooms {
+			margin-bottom: 28px;
 		}
 	}
 
@@ -446,6 +533,9 @@
 			&__rooms-list {
 				margin-right: -20px;
 				margin-left: -21px;
+			}
+			.page-banners {
+				padding-top: 0px;
 			}
 		}
 	}

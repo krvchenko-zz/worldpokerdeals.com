@@ -8,7 +8,11 @@
 				<div v-if="data.length" class="game-filters__info">
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
-				<div v-if="data.length" class="game-filters__geo">
+				<mobile-filter-button
+					v-if="showFilterButton"
+					:selected="selected.length || 0"
+				/>
+				<div v-if="data.length && !showFilterButton" class="game-filters__geo">
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
@@ -94,17 +98,26 @@
 		</div>
 
 		<div class="game__aside">
-			<game-filters
-				v-if="tab.show_rooms && filters"
-				:geo="geo"
-				:kycs="filters.kycs"
-				:platforms="filters.platforms"
-				:tags="filters.tags"
-				:payments="filters.payments"
-				:types="filters.types"
-				:licenses="filters.licenses"
-				@change="handleFilterChange"
-			/>
+			<div
+				class="game__filter-wrapper"
+				:class="{ 'game__filter-wrapper--opened': showFilter }"
+				@click.self="handleOutsideClick($event)"
+			>
+				<game-filters
+					class="game__filter"
+					v-if="tab.show_rooms && filters"
+					:geo.sync="geo"
+					:kycs="filters.kycs"
+					:platforms="filters.platforms"
+					:tags="filters.tags"
+					:payments="filters.payments"
+					:types="filters.types"
+					:licenses="filters.licenses"
+					:showGeo="data.length"
+					@change="handleFilterChange"
+					@change:geo="fetchItems"
+				/>
+			</div>
 
 			<room-top-list />
 
@@ -127,21 +140,20 @@
 				v-if="posts.length"
 				class="game__news"
 				:label="`Новости ${game.title}`"
+				asRow
 			>
-				<div class="game__news__list">
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
-						:categories="item.categories"
-						:medium="true"
-					/>
-				</div>
+				<post-item
+					v-for="(item, index) in posts"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+					:medium="true"
+				/>
 			</post-list>
 		</lazy-hydrate>
 
@@ -169,6 +181,7 @@
 	import { mapGetters } from 'vuex'
 
 	import LazyHydrate from 'vue-lazy-hydration'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'GamePage',
@@ -201,6 +214,8 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			selected: [],
+			showFilter: false,
 		}),
 
 		head() {
@@ -252,6 +267,10 @@
 					types: this.types,
 					licenses: this.licenses,
 				}
+			},
+
+			showFilterButton() {
+				return this.$device.isMobileOrTablet
 			},
 		},
 
@@ -308,6 +327,12 @@
 
 		created() {
 			this.geo = this.country.code
+		},
+
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
 		},
 
 		methods: {
@@ -369,10 +394,24 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.network__aside__filter')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
 			},
 		},
 	}
@@ -409,11 +448,6 @@
 		}
 		&__news {
 			grid-area: news;
-			&__list {
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				column-gap: 28px;
-			}
 		}
 		&__games-list {
 			grid-area: games-list;
@@ -421,6 +455,10 @@
 				display: grid;
 				grid-template-columns: repeat(5, 1fr);
 				column-gap: 20px;
+			}
+
+			.block-title {
+				margin-top: 0;
 			}
 		}
 	}
@@ -470,9 +508,50 @@
 				'aside'
 				'news'
 				'games-list';
+			&__title {
+				text-align: center;
+			}
+			&__news {
+				margin-right: -24px;
+				margin-bottom: 24px;
+			}
 			&__games-list {
+				margin-right: -24px;
+				margin-bottom: -6px;
+
 				&__list {
-					grid-template-columns: repeat(2, 1fr);
+					overflow-x: scroll;
+					@include hide-scroll();
+					grid-template-columns: none;
+					grid-auto-columns: 350px;
+					grid-auto-flow: column;
+					gap: 20px;
+				}
+
+				.game-item {
+					margin-bottom: 0;
+				}
+			}
+
+			&__filter {
+				margin-bottom: 0;
+				margin-left: auto;
+				max-width: 436px;
+				height: 100%;
+				overflow-y: scroll;
+				@include hide-scroll();
+			}
+
+			&__filter-wrapper {
+				display: none;
+				position: fixed;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 999;
+				&--opened {
+					display: block;
 				}
 			}
 		}
@@ -483,24 +562,14 @@
 			@include paddings('mobile');
 			&__news {
 				margin-right: -20px;
-				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-template-columns: none;
-					grid-auto-columns: 288px;
-					grid-auto-flow: column;
-					column-gap: 16px;
-				}
+				margin-bottom: 36px;
 			}
 			&__games-list {
 				margin-right: -20px;
+				margin-bottom: 4px;
 				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-template-columns: none;
 					grid-auto-columns: 288px;
-					grid-auto-flow: column;
-					column-gap: 16px;
+					gap: 16px;
 				}
 			}
 		}

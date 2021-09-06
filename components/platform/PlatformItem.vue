@@ -114,4 +114,26 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.platform-item {
+			margin-top: 0;
+			margin-bottom: 20px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			&__icon-wrap {
+				margin-top: 0;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			&__rooms {
+				width: min-content;
+				white-space: nowrap;
+				&::after {
+					left: calc(100% + 28px);
+				}
+			}
+		}
+	}
 </style>

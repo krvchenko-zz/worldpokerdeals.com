@@ -105,7 +105,8 @@
 
 	@include mq('tablet') {
 		.front-club-access {
-			margin: 0 8px;
+			margin-left: 0;
+			margin-right: 20px;
 			min-height: 304px;
 			&__wrap {
 				padding: 24px;

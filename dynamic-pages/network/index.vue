@@ -18,15 +18,9 @@
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
 
-				<mobile-filter-button
-					v-if="showFilterButton"
-					:selected="selected.length || 0"
-				/>
+				<mobile-filter-button v-if="isTouch" :selected="selected.length || 0" />
 
-				<div
-					v-if="data.length && !showFilterButton"
-					class="network-filters__geo"
-				>
+				<div v-if="data.length && !isTouch" class="network-filters__geo">
 					<geo-switcher
 						:value="country.code"
 						:geo.sync="geo"
@@ -36,7 +30,7 @@
 			</div>
 
 			<filter-selected-list
-				v-if="selected.length && !$device.isMobileOrTablet"
+				v-if="selected.length && !isTouch"
 				class="network__selected-filters"
 			>
 				<filter-selected
@@ -143,12 +137,11 @@
 		<div class="network__aside">
 			<div
 				v-if="filters"
-				class="network__aside__filter-wrapper"
-				:class="{ 'network__aside__filter-wrapper--opened': showFilter }"
+				class="filters__wrapper"
+				:class="{ 'filters__wrapper--opened': showFilter }"
 				@click.self="handleOutsideClick($event)"
 			>
 				<network-filters
-					class="network__aside__filter"
 					:geo.sync="geo"
 					:kycs="filters.kycs"
 					:platforms="filters.platforms"
@@ -182,21 +175,20 @@
 				v-if="posts && posts.length"
 				:label="`Новости ${network.title}`"
 				class="network__posts"
+				asRow
 			>
-				<div class="network__posts__list">
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
-						:categories="item.categories"
-						:medium="true"
-					/>
-				</div>
+				<post-item
+					v-for="(item, index) in posts"
+					:key="index"
+					:image="item.image"
+					:title="item.title"
+					:summary="item.summary"
+					:slug="item.slug"
+					:author="item.user"
+					:created="item.created_at"
+					:categories="item.categories"
+					:medium="true"
+				/>
 			</post-list>
 		</lazy-hydrate>
 
@@ -290,6 +282,7 @@
 				filters: 'networks/filters',
 				related: 'networks/related',
 				posts: 'networks/posts',
+				isTouch: 'ui/isTouch',
 			}),
 
 			mediaUrl() {
@@ -313,10 +306,6 @@
 					types: this.types,
 					licenses: this.licenses,
 				}
-			},
-
-			showFilterButton() {
-				return this.$device.isMobileOrTablet
 			},
 		},
 
@@ -435,7 +424,7 @@
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector('.network__aside__filter')
+				const filtersElement = document.querySelector('.filters')
 				if (this.showFilter && !filtersElement?.contains(event.target)) {
 					this.toggleMobileFilter()
 				}
@@ -523,11 +512,6 @@
 		&__posts {
 			grid-area: posts;
 			margin-bottom: 0;
-			&__list {
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				column-gap: 28px;
-			}
 		}
 		&__network-list {
 			grid-area: network-list;
@@ -539,7 +523,7 @@
 			}
 
 			.block-title {
-				margin-top: 15px;
+				margin-top: 0;
 			}
 		}
 
@@ -608,50 +592,6 @@
 				'posts'
 				'network-list';
 
-			&__aside {
-				&__filter {
-					margin-bottom: 0;
-					margin-left: auto;
-					max-width: 436px;
-					height: 100%;
-					overflow-y: scroll;
-					@include hide-scroll();
-				}
-				&__filter-wrapper {
-					display: none;
-					position: fixed;
-					right: 0;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					z-index: 999;
-					&--opened {
-						display: block;
-					}
-				}
-			}
-
-			&__posts {
-				&__list {
-					column-gap: 20px;
-				}
-			}
-
-			& &__posts {
-				.posts__list {
-					grid-template-columns: 100%;
-				}
-
-				&__list {
-					overflow-x: scroll;
-					@include hide-scroll();
-					grid-auto-columns: calc((100% - 40px) / 3);
-					grid-template-columns: none;
-					grid-auto-flow: column;
-					column-gap: 20px;
-				}
-			}
-
 			&__network-list {
 				margin-right: -24px;
 				&__list {
@@ -661,10 +601,6 @@
 					grid-auto-columns: 350px;
 					grid-auto-flow: column;
 					gap: 20px;
-				}
-
-				.block-title {
-					margin-top: 0;
 				}
 			}
 		}
@@ -681,13 +617,6 @@
 				&__item {
 					margin-left: -21px;
 					margin-right: -20px;
-				}
-			}
-			& &__posts {
-				margin-right: -20px;
-				&__list {
-					grid-auto-columns: 288px;
-					column-gap: 16px;
 				}
 			}
 			&__network-list {

@@ -1,6 +1,11 @@
 <template>
 	<div class="filters">
-		<div class="filters__label">Фильтры</div>
+		<div class="filters__label">
+			{{ $t('filters') }}
+			<div class="filters__label__icon" @click="onClick">
+				<svg-icon icon="close" />
+			</div>
+		</div>
 
 		<div class="filter">
 			<filter-item :count="free.count">
@@ -19,6 +24,7 @@
 			label="Тип софта"
 			icon="filter-discipline"
 			:opened="true"
+			@open="$emit('filterOpen')"
 		>
 			<filter-item
 				v-for="(item, index) in categories"
@@ -33,16 +39,26 @@
 				/>
 			</filter-item>
 		</filter-dropdown>
+
+		<div class="filters__actions">
+			<button class="filters__clear-button btn btn-block" @click="clearFilters">
+				Очистить фильтры
+			</button>
+		</div>
 	</div>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex'
+	import eventBus from '~/utils/event-bus'
+	import filterMixin from '~/mixins/filterMixin'
 
 	export default {
 		name: 'Filters',
 
 		components: {},
+
+		mixins: [filterMixin],
 
 		props: {
 			geo: {
@@ -75,13 +91,47 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 			}),
+
+			flatten() {
+				let items = []
+				Object.keys(this.selected).forEach(key => {
+					if (Array.isArray(this.selected[key]) && this.selected[key].length) {
+						for (let i = 0; i < this.selected[key].length; i++) {
+							const item = this[key].find(
+								el => el.value === this.selected[key][i]
+							)
+							items.push({ ...item, key })
+						}
+					}
+				})
+
+				return items
+			},
+
+			values() {
+				let items = {}
+				Object.keys(this.selected).forEach(key => {
+					if (Array.isArray(this.selected[key])) {
+						items[key] = this.selected[key]
+					}
+				})
+				return items
+			},
 		},
 
 		watch: {},
 
 		methods: {
-			handleFilterChange() {
-				this.$emit('change', this.selected)
+			onClick() {
+				eventBus.$emit('filter:toggle', null)
+			},
+
+			clearFilters() {
+				eventBus.$emit('selected:delete', {
+					clear: true,
+					key: null,
+					value: null,
+				})
 			},
 		},
 	}

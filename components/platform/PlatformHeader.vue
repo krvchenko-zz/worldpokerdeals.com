@@ -85,7 +85,7 @@
 	.platform-header {
 		display: flex;
 		gap: 56px;
-		padding: 28px 60px 0px;
+		padding: 28px 60px 32px;
 		position: relative;
 		overflow: hidden;
 		position: relative;
@@ -127,7 +127,9 @@
 		}
 
 		&__summary {
-			padding-bottom: 32px;
+			p:last-child {
+				margin-bottom: 0;
+			}
 			font-family: 'Proxima Nova';
 			font-size: 17px;
 			line-height: 22px;
@@ -140,7 +142,7 @@
 		.platform-header {
 			display: flex;
 			gap: 24px;
-			padding: 28px 24px 0;
+			padding: 28px 24px 32px;
 			&__room-top {
 				padding-left: 38px;
 				max-width: 288px;

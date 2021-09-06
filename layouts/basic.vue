@@ -224,7 +224,9 @@
 							fontSize: '22px',
 							lineHeight: '28px',
 						}"
-						v-html="auth ? $t('form.log_in_text') : $t('form.password_reset_text')"
+						v-html="
+							auth ? $t('form.log_in_text') : $t('form.password_reset_text')
+						"
 					>
 					</span>
 				</template>
@@ -272,6 +274,8 @@
 				disclaimer: 'auth/disclaimer',
 				topList: 'rooms/topList',
 				age: 'auth/age',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
 			}),
 		},
 
@@ -368,12 +372,26 @@
 					document.body.classList.remove('modal-open')
 				}
 			})
+
+			this.setScreenSize()
+			window.addEventListener('resize', () => {
+				this.setScreenSize()
+			})
 		},
 
 		methods: {
 			handleConnectionForm() {
 				this.connectionModal = false
 				this.completeModal = true
+			},
+
+			setScreenSize() {
+				this.$store.commit('ui/SET_IS_MOBILE', {
+					value: window.innerWidth < 768,
+				})
+				this.$store.commit('ui/SET_IS_TABLET', {
+					value: window.innerWidth >= 768 && window.innerWidth < 1280,
+				})
 			},
 		},
 	}
