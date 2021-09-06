@@ -471,7 +471,10 @@
 
 	.platform-rooms {
 		grid-area: platform-rooms;
-		margin-bottom: 40px;
+		margin-bottom: 48px;
+		.pagination {
+			margin-bottom: 0;
+		}
 		&__title {
 			margin-bottom: 20px;
 			font-size: 24px;
@@ -490,6 +493,9 @@
 				padding-left: 0px;
 				padding-right: 0px;
 			}
+		}
+		.platform-rooms {
+			margin-bottom: 40px;
 		}
 	}
 
@@ -510,6 +516,14 @@
 			.page-banners {
 				padding-top: 20px;
 			}
+
+			.toc {
+				margin-top: 0;
+			}
+		}
+
+		.platform-rooms {
+			margin-bottom: 28px;
 		}
 	}
 
