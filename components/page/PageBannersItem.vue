@@ -1,11 +1,9 @@
 <template>
 	<div
-		:class="['page-banner', hover && 'page-banner_hover']"
+		:class="['page-banner']"
 		:style="{
 			background: background,
 		}"
-		@mouseleave="hover = false"
-		@mouseover="hover = true"
 	>
 		<img
 			class="page-banner__img"
@@ -68,9 +66,7 @@
 			},
 		},
 
-		data: () => ({
-			hover: false,
-		}),
+		data: () => ({}),
 
 		computed: {},
 
@@ -113,7 +109,7 @@
 			opacity: 0.5;
 			z-index: 1;
 		}
-		&_hover {
+		&:hover {
 			margin-top: -8px;
 			box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.25);
 		}
