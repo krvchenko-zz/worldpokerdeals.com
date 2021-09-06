@@ -608,6 +608,7 @@
 	@include mq('tablet') {
 		.rooms {
 			&__catalog {
+				overflow: hidden;
 				@include paddings('mobile');
 			}
 			&__page-banners {

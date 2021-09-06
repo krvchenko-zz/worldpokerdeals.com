@@ -12,7 +12,9 @@
 		</div>
 
 		<transition name="slide">
-			<div v-show="!collapsed" class="filter-dropdown-list" ref="filterList">
+			<div v-if="mounted" v-show="!collapsed" class="filter-dropdown-list" v-filter-hideable="{
+				showAll: showAll
+			}">
 				<slot />
 				<div
 					class="filter-dropdown__show-more-wrapper"
@@ -21,7 +23,8 @@
 					}"
 				>
 					<div class="filter-dropdown__show-more" @click="showRestItems">
-						Показать еще {{ hiddenItemsLength }}
+						<template v-if="!showAll">Показать еще {{ hiddenItemsLength }}</template>
+						<template v-else>Скрыть {{ hiddenItemsLength }}</template>
 					</div>
 				</div>
 			</div>
@@ -30,6 +33,7 @@
 </template>
 
 <script>
+
 	export default {
 		name: 'FilterDropdown',
 
@@ -53,30 +57,20 @@
 		},
 
 		data: () => ({
+			mounted: false,
 			collapsed: true,
 			shouldShowMore: false,
 			hiddenItemsLength: 0,
+			showAll: false,
+			items: []
 		}),
 
-		computed: {},
-
-		watch: {},
-
-		created() {},
-
 		mounted() {
+			this.mounted = true
 			this.collapsed = !this.opened
-			const listElements = this.$refs.filterList.children
-			if (listElements.length > 6) {
-				this.shouldShowMore = true
-				this.hiddenItemsLength = listElements.length - 6
-				for (let i = 5; i < listElements.length - 1; i++) {
-					listElements[i].style.display = 'none'
-				}
-			}
 		},
-
 		methods: {
+
 			handleToggle() {
 				this.collapsed = !this.collapsed
 				if (this.collapsed) {
@@ -87,11 +81,8 @@
 			},
 
 			showRestItems() {
-				const listElements = this.$refs.filterList.children
-				for (let i = 5; i < listElements.length - 1; i++) {
-					listElements[i].style.display = 'flex'
-				}
-				this.shouldShowMore = false
+				this.showAll = !this.showAll
+				this.shouldShowMore = !this.shouldShowMore
 			},
 		},
 	}
