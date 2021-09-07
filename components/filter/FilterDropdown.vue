@@ -62,7 +62,6 @@
 			shouldShowMore: false,
 			hiddenItemsLength: 0,
 			showAll: false,
-			items: []
 		}),
 
 		mounted() {
