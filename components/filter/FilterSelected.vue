@@ -78,6 +78,7 @@
 			height: 8px;
 			display: block;
 			opacity: 0.5;
+			z-index: 1;
 			background: $ico-filter-close no-repeat center;
 		}
 		&:hover {
@@ -97,6 +98,8 @@
 			}
 		}
 		&__label {
+			position: relative;
+			z-index: 2;
 			display: block;
 			padding: 3px 10px 3px 23px;
 			font-family: 'Proxima Nova Sb';

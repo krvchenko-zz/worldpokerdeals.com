@@ -329,7 +329,9 @@
 
 		watch: {},
 
-		mounted() {},
+		mounted() {
+			
+		},
 
 		methods: {
 			onClick() {

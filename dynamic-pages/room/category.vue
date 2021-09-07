@@ -21,11 +21,7 @@
 					/>
 
 					<filter-selected-list
-						v-if="
-							selected.length &&
-								!category.is_blacklist &&
-								!$device.isMobileOrTablet
-						"
+						v-if="selected.length &&!category.is_blacklist"
 						class="rooms__filter-selected"
 					>
 						<filter-selected
@@ -44,54 +40,54 @@
 					</filter-selected-list>
 				</client-only>
 
-					<div class="rooms-list">
-						<template v-for="(item, index) in items">
-							<room
-								v-if="!item.banner"
-								:id="item.id"
-								:key="index"
-								:title="item.title"
-								:slug="item.slug"
-								:rating="item.rating"
-								:rakeback="item.rakeback"
-								:bonus="item.bonus"
-								:background="item.background"
-								:restricted="item.restricted"
-								:available="item.available"
-								:blacklist="item.blacklist"
-								:summary="item.summary"
-								:claim_amount="item.claim_amount"
-								:claim_currency="item.claim_currency"
-								:image="item.image"
-								:network="item.network"
-								:tags="item.tags"
-								:review="item.review"
-							/>
+				<div class="rooms-list">
+					<template v-for="(item, index) in items">
+						<room
+							v-if="!item.banner"
+							:id="item.id"
+							:key="index"
+							:title="item.title"
+							:slug="item.slug"
+							:rating="item.rating"
+							:rakeback="item.rakeback"
+							:bonus="item.bonus"
+							:background="item.background"
+							:restricted="item.restricted"
+							:available="item.available"
+							:blacklist="item.blacklist"
+							:summary="item.summary"
+							:claim_amount="item.claim_amount"
+							:claim_currency="item.claim_currency"
+							:image="item.image"
+							:network="item.network"
+							:tags="item.tags"
+							:review="item.review"
+						/>
 
-							<room-category-banner v-else :key="index" />
-						</template>
+						<room-category-banner v-else :key="index" />
+					</template>
 
-						<pagination
-							v-if="rooms.length"
-							:query="true"
-							:last="last_page"
-							:current="parseInt(page) || current_page"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							:load-more-width="$device.isDesktop ? 215 : 'auto'"
-							:showPages="false"
-							load-more-text="Показать еще румы"
-							total-text="покер-румов"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						>
-						</pagination>
-					</div>
+					<pagination
+						v-if="rooms.length"
+						:query="true"
+						:last="last_page"
+						:current="parseInt(page) || current_page"
+						:prev-url="prev_page_url"
+						:next-url="next_page_url"
+						:total="total"
+						:from="from"
+						:to="to"
+						:load-more-width="$device.isDesktop ? 215 : 'auto'"
+						:showPages="false"
+						load-more-text="Показать еще румы"
+						total-text="покер-румов"
+						@next="handlePageNext"
+						@prev="handlePagePrev"
+						@change="handlePageChange"
+						@more="handleShowMore"
+					>
+					</pagination>
+				</div>
 			</div>
 
 				<div class="rooms__toc">
@@ -144,6 +140,7 @@
 						:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
 						@click.self="handleOutsideClick($event)"
 					>
+						<LazyHydrate when-visible>
 						<room-category-filters
 							class="rooms__aside__filter"
 							:kycs="filters.kycs"
@@ -164,6 +161,7 @@
 							@change="handleFilterChange"
 							@filterOpen="handleFilterOpen"
 						/>
+						</LazyHydrate>
 					</div>
 				</client-only>
 
@@ -351,27 +349,20 @@
 			await this.$axios
 				.get(`rooms/list`, { params: { ...this.params, cached: true } })
 				.then(response => {
-					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
+					this.$store.commit('rooms/FETCH_ROOMS', {
+						rooms: response.data.data 
+					})
 					this.$store.commit('rooms/FETCH_BEST', {
 						best: response.data.data[0],
 					})
-
+					this.$store.commit('rooms/FETCH_FILTERS', {
+						filters: response.data.filters
+					})
 					Object.keys(response.data).forEach(key => {
-						if (key !== 'data') {
+						if (key !== 'data' && key !== 'filters') {
 							this[key] = response.data[key]
 						}
 					})
-				})
-
-			await this.$axios
-				.get(`/rooms/filters/list`, {
-					params: {
-						geo: this.country.code,
-						room_category_id: this.category.id,
-					},
-				})
-				.then(response => {
-					this.$store.commit('rooms/FETCH_FILTERS', { filters: response.data })
 				})
 		},
 
@@ -391,14 +382,6 @@
 		},
 
 		methods: {
-			handleFilterChange(selected) {
-				this.selected = selected.flatten
-				Object.keys(selected.values).forEach(key => {
-					this[key] = selected.values[key]
-				})
-				this.fetchItems()
-			},
-
 			toggleMobileFilter() {
 				document.body.classList.toggle('modal-open')
 				this.showFilter = !this.showFilter
@@ -409,6 +392,15 @@
 				if (this.showFilter && !filtersElement?.contains(event.target)) {
 					this.toggleMobileFilter()
 				}
+			},
+
+			handleFilterChange(selected) {
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
+				})
+				this.fetchItems()
 			},
 
 			async fetchItems(query) {
@@ -425,11 +417,16 @@
 							rooms: response.data.data,
 						})
 
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters
+						})
+
 						Object.keys(response.data).forEach(key => {
-							if (key !== 'data') {
+							if (key !== 'data' && key !== 'filters') {
 								this[key] = response.data[key]
 							}
 						})
+
 						this.$nuxt.$loading.finish()
 					})
 			},

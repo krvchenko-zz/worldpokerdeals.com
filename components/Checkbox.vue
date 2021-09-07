@@ -49,8 +49,14 @@
 
 		computed: {
 			shouldBeChecked() {
+
 				if (this.modelValue instanceof Array) {
-					return this.modelValue.includes(this.value)
+
+					return this.modelValue.find(item => {
+						return this.value.value === item.value
+					})
+
+					// return this.modelValue.includes(this.value)
 				}
 				return this.modelValue === this.trueValue
 			},
@@ -62,6 +68,7 @@
 
 		methods: {
 			updateInput(event) {
+
 				let isChecked = event.target.checked
 
 				if (this.modelValue instanceof Array) {
@@ -70,7 +77,12 @@
 					if (isChecked) {
 						newValue.push(this.value)
 					} else {
-						newValue.splice(newValue.indexOf(this.value), 1)
+
+						newValue = newValue.filter(item => {
+							return item.value !== this.value.value
+						})
+
+						// newValue.splice(newValue.indexOf(this.value), 1)
 					}
 
 					this.$emit('change', newValue)

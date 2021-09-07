@@ -1,20 +1,29 @@
 <template>
-	<component
-		:is="component"
-		v-svg="{
-			width: width,
-			height: height,
-			fill: fill,
-			opacity: opacity,
-			removeClipPath: removeClipPath,
-			viewBox: viewBox,
-		}"
-		class="svg-icon"
-	/>
+	<client-only>
+		<lazy-hydrate when-visible>
+			<component
+				:is="component"
+				v-svg="{
+					width: width,
+					height: height,
+					fill: fill,
+					opacity: opacity,
+					removeClipPath: removeClipPath,
+					viewBox: viewBox,
+				}"
+				class="svg-icon"
+			/>
+		</lazy-hydrate>
+	</client-only>
 </template>
 <script>
+	import LazyHydrate from 'vue-lazy-hydration'
 	export default {
 		name: 'SvgIcon',
+
+		components: {
+			LazyHydrate,
+		},
 
 		props: {
 			icon: {
@@ -63,10 +72,10 @@
 					return () =>
 						import(
 							/* webpackChunkName: "icons" */
-							/* webpackPrefetch: 0 */
+							/* webpackPrefetch: true */
+							/* webpackMode: "lazy-once" */
 							`~/assets/icons/${this.prefix}${this.icon}.svg?inline`
 						).catch(e => {
-							// console.log(e);
 						})
 				},
 				watch: ['icon'],

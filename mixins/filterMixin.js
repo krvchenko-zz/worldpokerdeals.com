@@ -94,6 +94,7 @@ export default {
 
 		flatten() {
 			let items = []
+
 			Object.keys(this.selected).forEach(key => {
 				if (Array.isArray(this.selected[key]) && this.selected[key].length) {
 					for (let i = 0; i < this.selected[key].length; i++) {
