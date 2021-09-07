@@ -12,13 +12,15 @@
 			:href="href"
 			@click="navigate"
 		>
-			<svg-icon
-				:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
-				:icon="slug"
-				:width="type === 'menu' ? 40 : 44"
-				:height="type === 'menu' ? 40 : 44"
-				view-box="0 0 200 200"
-			/>
+			<div class="top-rooms__item__icon-wrapper">
+				<svg-icon
+					:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
+					:icon="slug"
+					:width="type === 'menu' ? 40 : 44"
+					:height="type === 'menu' ? 40 : 44"
+					view-box="0 0 200 200"
+				/>
+			</div>
 			<div
 				:class="[
 					'top-rooms__item-title',
@@ -37,7 +39,12 @@
 		</a>
 		<div v-else :class="['top-rooms__item', `top-rooms__item_${type}`]">
 			<div class="top-rooms__item__column">
-				<div class="top-rooms__item__icon-wrapper">
+				<div
+					:class="[
+						'top-rooms__item__icon-wrapper',
+						`top-rooms__item__icon-wrapper_${type}`,
+					]"
+				>
 					<svg-icon
 						:class="['top-rooms__item-icon', `top-rooms__item-icon_${type}`]"
 						:icon="slug"
@@ -203,12 +210,19 @@
 	$ico-bonus: url('~assets/i/ico-room-top-bonus.svg?data');
 
 	.top-rooms__item {
-		padding: 14px 50px 12px 80px;
+		padding: 12px 80px 12px 20px;
+		grid-template-columns: 60px 1fr;
+		justify-content: start;
 		position: relative;
 		background: #fafafa;
 		display: block;
+		display: grid;
+		grid-template-areas:
+			'icon-menu title-menu'
+			'icon-menu bonus-menu';
 		min-height: 44px;
 		box-sizing: content-box;
+		align-items: start;
 		border-bottom: 1px solid #e9e9e9;
 		text-decoration: none;
 		&:hover,
@@ -253,7 +267,6 @@
 			grid-template-areas:
 				'icon-menu title-menu'
 				'icon-menu bonus-menu';
-			justify-content: start;
 			margin: 0;
 			padding: 8px 20px 8px 24px;
 			background: #353847;
@@ -305,6 +318,7 @@
 
 		&-bonus {
 			padding-left: 20px;
+			grid-area: bonus-menu;
 			position: relative;
 			font-family: 'Proxima Nova';
 			font-style: normal;
@@ -322,7 +336,6 @@
 				background: $ico-bonus no-repeat center;
 			}
 			&_menu {
-				grid-area: bonus-menu;
 				padding: 0;
 				&:before {
 					display: none;
@@ -340,15 +353,20 @@
 			border-radius: 4px;
 			flex-shrink: 0;
 			&_menu {
-				grid-area: icon-menu;
 				margin-right: 16px;
 			}
 		}
 		&__icon-wrapper {
+			grid-area: icon-menu;
 			display: block;
-			width: 40px;
-			height: 40px;
-			margin-right: 12px;
+			width: 44px;
+			height: 44px;
+			margin-right: 16px;
+			&_front {
+				width: 40px;
+				height: 40px;
+				margin-right: 12px;
+			}
 		}
 		&-img {
 			&-wrap {
