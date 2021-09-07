@@ -180,12 +180,11 @@
 			<client-only>
 				<div
 					v-if="filters"
-					class="promotions__aside__filter-wrapper"
-					:class="{ 'promotions__aside__filter-wrapper--opened': showFilter }"
+					class="filters__wrapper"
+					:class="{ 'filters__wrapper--opened': showFilter }"
 					@click.self="handleOutsideClick($event)"
 				>
 					<promotion-category-filters
-						class="promotions__aside__filter"
 						:geo.sync="geo"
 						:categories="filters.categories"
 						:disciplines="filters.disciplines"
@@ -385,9 +384,7 @@
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector(
-					'.promotions__aside__filter'
-				)
+				const filtersElement = document.querySelector('.filters')
 				if (this.showFilter && !filtersElement?.contains(event.target)) {
 					this.toggleMobileFilter()
 				}
@@ -545,26 +542,6 @@
 			}
 			&__aside {
 				margin-top: 40px;
-				&__filter {
-					margin-bottom: 0;
-					margin-left: auto;
-					max-width: 436px;
-					height: 100%;
-					overflow-y: scroll;
-					@include hide-scroll();
-				}
-				&__filter-wrapper {
-					display: none;
-					position: fixed;
-					right: 0;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					z-index: 999;
-					&--opened {
-						display: block;
-					}
-				}
 			}
 		}
 	}

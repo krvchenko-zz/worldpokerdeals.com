@@ -132,13 +132,15 @@
 
 	@include mq('tablet') {
 		.page-nav {
-			margin: 0 -24px;
+			margin-left: -24px;
+			margin-right: -24px;
 		}
 	}
 
 	@include mq('mobile') {
 		.page-nav {
-			margin: 0 -20px;
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 	}
 </style>
