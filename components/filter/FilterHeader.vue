@@ -1,14 +1,14 @@
 <template>
 	<div class="filters-header">
-		<mobile-filter-button v-if="showFilterButton" :selected="selected" />
+		<mobile-filter-button v-if="isTouch" :selected="selected" />
 
-		<div v-if="!showFilterButton" class="filters-header__text">
+		<div v-if="!isTouch" class="filters-header__text">
 			{{
 				$t('filtered', { total: total, overall: overall, entity: entityLabel })
 			}}
 		</div>
 
-		<filter-geo v-if="!showFilterButton" v-on="$listeners" :geo="geo" />
+		<filter-geo v-if="!isTouch" v-on="$listeners" :geo="geo" />
 
 		<div class="filters-header__sort">
 			<el-select
@@ -81,7 +81,7 @@
 
 			selected: {
 				type: [String, Number],
-			}
+			},
 		},
 
 		data: () => ({
@@ -102,11 +102,8 @@
 			...mapGetters({
 				locale: 'lang/locale',
 				country: 'location/country',
+				isTouch: 'ui/isTouch',
 			}),
-
-			showFilterButton() {
-				return this.$device.isMobileOrTablet
-			},
 		},
 
 		watch: {},

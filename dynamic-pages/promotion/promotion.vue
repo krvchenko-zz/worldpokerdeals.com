@@ -354,8 +354,16 @@
 			&__similar {
 				&__list {
 					display: grid;
-					grid-template-columns: repeat(auto-fill, minmax(226px, max-content));
+					overflow-x: scroll;
+					grid-template-columns: none;
+					margin-right: -24px;
+					@include hide-scroll();
+					grid-auto-columns: calc((100% - 60px) / 3);
+					grid-auto-flow: column;
 					column-gap: 20px;
+					.promotion-item {
+						margin-bottom: 0;
+					}
 				}
 			}
 			&__page-banners {
@@ -372,9 +380,10 @@
 			@include paddings('mobile');
 			&__similar {
 				&__list {
-					display: grid;
-					grid-template-columns: repeat(auto-fill, minmax(226px, max-content));
-					column-gap: 20px;
+					grid-template-columns: none;
+					margin-right: -20px;
+					grid-auto-columns: 288px;
+					column-gap: 16px;
 				}
 			}
 			&__page-banners {

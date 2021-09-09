@@ -26,6 +26,5 @@
 
 <style lang="scss">
 	.promotions-list {
-		overflow: hidden;
 	}
 </style>

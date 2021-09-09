@@ -282,4 +282,17 @@
 			}
 		}
 	}
+
+	@include mq('laptop') {
+		.manager-card {
+			max-width: 474px;
+			margin: 0px auto;
+		}
+	}
+
+	@include mq('tablet') {
+		.manager-card {
+			max-width: 376px;
+		}
+	}
 </style>

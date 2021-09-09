@@ -28,7 +28,15 @@
 					class="promotions-header__meta"
 				/>
 
-				<div class="promotions__summary" v-html="category.summary"></div>
+				<common-text-spoiler
+					:limit="isTouch ? 100 : 600"
+					class="promotions__summary"
+					:text="category.summary"
+				>
+					<template v-slot:button>
+						<svg-icon icon="spoiler-sep" width="35" height="16" />
+					</template>
+				</common-text-spoiler>
 			</div>
 			<div class="promotions-header__promotion">
 				<promotion-item
@@ -92,6 +100,7 @@
 				category: 'promotions/category',
 				pageable: 'pages/page',
 				categories: 'promotions/categories',
+				isTouch: 'ui/isTouch',
 			}),
 		},
 
@@ -118,7 +127,7 @@
 			gap: 86px;
 			padding: 0 60px;
 			position: relative;
-			align-items: center;
+			align-items: start;
 		}
 		&__nav {
 			width: 100%;
