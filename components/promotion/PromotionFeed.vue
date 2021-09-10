@@ -38,13 +38,15 @@
 
 		<div v-if="fetch && next_page_url" class="promotions-more">
 			<button class="btn promotions__more" @click.prevent="handleLoadMore">
-				Все акции {{ room.title }} <span>{{ total - per_page }}</span>
+				<!-- Все акции {{ room.title }} <span>{{ total - per_page }}</span> -->
+				Показать еще акции {{ room.title }}
 			</button>
 		</div>
 
-		<div v-if="fetch && !next_page_url && total > 4" class="promotions-more">
+		<div v-if="fetch && !next_page_url && total > 2" class="promotions-more">
 			<button class="btn promotions__more" @click.prevent="handleHide">
-				Скрыть <span>{{ total - 3 }}</span>
+				<!-- Скрыть <span>{{ total - 1 }}</span> -->
+				Скрыть
 			</button>
 		</div>
 	</div>
@@ -83,7 +85,7 @@
 		},
 
 		data: () => ({
-			per_page: 3,
+			per_page: 1,
 			total: null,
 			next_page_url: null,
 		}),
@@ -127,14 +129,14 @@
 
 			handleHide() {
 				$nuxt.$loading.start()
-				this.per_page = 3
+				this.per_page = 1
 				this.$fetch()
 			},
 		},
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	.promotions-table {
 		border: 1px solid #e9e9e9;
 		margin: 28px 0 32px 0;
@@ -142,8 +144,10 @@
 	}
 
 	.promotions {
+		margin-bottom: 32px;
 		&__more {
 			padding: 6px 15px;
+			min-height: 36px;
 			font-family: 'Proxima Nova Sb';
 			font-style: normal;
 			font-size: 14px;

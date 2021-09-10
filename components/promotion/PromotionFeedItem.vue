@@ -149,7 +149,7 @@
 				@click="terms ? (showTerms = !showTerms) : (showTerms = false)"
 			>
 				<i class="promotion-feed-item__terms-icon"></i>
-				<span>Условия получения</span>
+				<span>Подробнее</span>
 			</span>
 
 			<span

@@ -99,6 +99,7 @@ export default {
 
 		window.addEventListener('load', handler)
 		window.addEventListener('resize', handler)
+		window.addEventListener('scroll', handler)
 	},
 
 	bind: (el, binding) => {},

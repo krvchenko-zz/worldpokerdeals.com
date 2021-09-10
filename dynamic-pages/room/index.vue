@@ -34,13 +34,13 @@
 						:offset="anchorOffset"
 					>
 					</toc-item>
-					<toc-item
+<!-- 					<toc-item
 						:inline="inline"
 						anchor="reviews"
 						:text="$t('room_reviews')"
 						:offset="anchorOffset"
 					>
-					</toc-item>
+					</toc-item> -->
 				</template>
 			</toc-list>
 
@@ -80,7 +80,7 @@
 
 					<author v-if="tab.author" :author="tab.author" />
 
-					<reviews id="reviews" :room_id="room.id" :reviews="reviews" />
+					<!-- <reviews id="reviews" :room_id="room.id" :reviews="reviews" /> -->
 				</template>
 			</page-article>
 
@@ -90,7 +90,7 @@
 						<div class="block-title" :style="{ marginTop: 0 }">Скриншоты</div>
 						<div class="room-screenshots__list">
 							<a
-								v-for="(item, index) in room.images"
+								v-for="(item, index) in screenshots"
 								:key="index"
 								:href="`${mediaUrl}/gallery-large/${item.filename}`"
 								:class="[
@@ -245,6 +245,30 @@
 				pageable: 'pages/page',
 				reviews: 'reviews/reviews',
 			}),
+
+			screenshots() {
+				let items = []
+
+				items = this.room.images.filter(item => {
+					return item.pivot.locale === this.locale
+				})
+
+				if (!items.length) {
+					items = this.room.images.filter(item => {
+						return item.pivot.locale === 'ru'
+					})
+				}
+
+				// items = items.sort(item => {
+				// 	return item.pivot.locale === this.locale
+				// })
+
+				// return this.room.images.filter(item => {
+				// 	return item.pivot.locale === this.locale || item.pivot.locale === 'ru'
+				// }).splice(0, 4)
+
+				return items.splice(0, 4)
+			},
 
 			mediaUrl() {
 				return process.env.mediaUrl

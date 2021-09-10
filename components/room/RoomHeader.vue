@@ -86,7 +86,7 @@
 			<div class="room-details">
 				<div class="room-details__heading">{{ $t('characteristics') }}</div>
 
-				<div class="room-detail">
+<!-- 				<div class="room-detail">
 					<div class="room-detail__label">{{ $t('reviews_count') }}</div>
 					<div class="room-detail__value reviews" @click="handleReviewsClick">
 						<span class="room-detail__reviews-count">{{
@@ -103,7 +103,7 @@
 							><span class="room-detail__reviews-max">/5</span></span
 						>
 					</div>
-				</div>
+				</div> -->
 
 				<div v-if="room.types.length" class="room-detail">
 					<div class="room-detail__label">{{ $t('room_type') }}</div>
@@ -279,12 +279,12 @@
 				class="room-header-actions__contacts"
 			/>
 
-			<room-action-button
+<!-- 			<room-action-button
 				:slug="room.slug"
 				type="review"
 				:label="$t('feedback')"
 				@click="handleReviewsClick"
-			/>
+			/> -->
 
 			<room-action-button
 				v-if="!room.blacklist"
