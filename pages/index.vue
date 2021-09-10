@@ -39,9 +39,32 @@
 			PostCategory: () => import('~/dynamic-pages/post/category'),
 			Post: () => import('~/dynamic-pages/post/index'),
 		},
+
+		async middleware({ store, redirect, params, $axios }) {
+
+			const country = store.getters['location/country']
+
+			if (country.code === 'RU' && params.child && params.child.match(/^.+-(download$)/, 'gm')) {
+				return redirect('/restricted')
+			}
+
+			let url = `pages/${params.parent}`
+
+			if (params.child) {
+				url += `/${params.child}`
+			}
+
+			await $axios
+				.get(url)
+				.then(response => {
+					store.commit('pages/FETCH_PAGE', { page: response.data })
+				})
+				.catch(error => {})
+		},
+
 		layout: 'basic',
 
-		middleware: 'page',
+		// middleware: 'page',
 
 		metaInfo: {},
 

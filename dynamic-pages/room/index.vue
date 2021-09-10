@@ -137,7 +137,10 @@
 						:livechat="room.livechat"
 					/>
 
-					<post-list v-if="room.posts.length">
+					<post-list
+						v-if="room.posts.length"
+						:label="$t('room_news', {room: room.title})"
+					>
 						<post-item
 							v-for="(item, index) in room.posts"
 							:key="index"
@@ -208,6 +211,7 @@
 		components: {
 			RoomHeaderSticky: () => import('~/components/room/RoomHeaderSticky'),
 		},
+
 		layout: 'basic',
 
 		scrollToTop: true,
