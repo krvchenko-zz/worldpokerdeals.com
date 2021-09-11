@@ -81,7 +81,7 @@
 		}
 		&__wrap {
 			position: relative;
-			z-index: 2;
+			z-index: 3;
 		}
 		&__label {
 			margin-bottom: 4px;
@@ -126,4 +126,30 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.telegram-subscribe {
+			padding: 24px;
+			&__description {
+				display: none;
+			}
+
+			&__label {
+				margin-bottom: 20px;
+			}
+		}
+	}
+
+	@include mq('mobile') {
+		.telegram-subscribe {
+			&__img {
+				max-width: 50%;
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+			}
+		}
+	}
+
 </style>

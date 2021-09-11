@@ -127,7 +127,8 @@
 	.room-header-sticky {
 		width: 100%;
 		left: 0;
-		top: 34px;
+		// top: 34px;
+		top: 10px;
 		position: fixed;
 		z-index: 10;
 		&__wrap {
