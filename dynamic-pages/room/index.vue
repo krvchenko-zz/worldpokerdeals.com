@@ -433,7 +433,7 @@
 			@include paddings('mobile');
 			&__recommended {
 				padding: 0;
-				margin: 0 -21px;
+				margin: 0 -20px;
 				&__title {
 					padding-left: 20px;
 					&::before {

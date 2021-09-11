@@ -486,6 +486,9 @@
 
 	.room-nav {
 		grid-area: nav;
+		@include mq('tablet') {
+			margin-top: -2px;
+		}
 	}
 
 	.room-header-actions {

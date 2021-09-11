@@ -1,6 +1,6 @@
 <template>
 	<nav class="tab-nav">
-		<ul v-scrollable class="tab-nav__list">
+		<ul class="tab-nav__list">
 			<slot />
 		</ul>
 	</nav>

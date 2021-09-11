@@ -176,7 +176,8 @@
 			justify-content: center;
 			height: 125px;
 			img {
-				max-width: 100%;
+				max-width: 80%;
+				max-height: 80%;
 				height: auto;
 				margin: 0;
 			}

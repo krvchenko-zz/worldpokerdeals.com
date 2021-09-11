@@ -52,6 +52,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		@include mq('mobile') {
+			flex-flow: column;
+		}
 	}
 
 	.btn-room-action {
@@ -61,6 +64,13 @@
 			padding: 13px 70px 15px 70px;
 			&:after {
 				right: 6px;
+			}
+
+			@include mq('mobile') {
+				max-width: none;
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 20px;
 			}
 		}
 		&_connection {
@@ -73,6 +83,12 @@
 			&:hover {
 				border-color: #dddddd;
 				background: #dddddd;
+			}
+
+			@include mq('mobile') {
+				max-width: none;
+				width: 100%;
+				margin-left: 0;
 			}
 		}
 	}
