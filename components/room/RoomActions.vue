@@ -76,7 +76,7 @@
 		&_connection {
 			max-width: 212px;
 			margin-left: 14px;
-			padding: 12px 40px 14px 40px;
+			padding: 11px 40px 13px 40px;
 			border: 2px solid rgba(85, 85, 85, 0.4);
 			color: #555555;
 			background: transparent;

@@ -1295,6 +1295,9 @@ body {
 					display: none;
 				}
 			}
+			@include mq('tablet') {
+				margin-right: -20px;
+			}
 		}
 
 		.games {

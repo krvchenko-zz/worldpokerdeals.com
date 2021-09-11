@@ -99,6 +99,8 @@
 							>
 								<template v-if="index === 0">
 									<img
+										decoding="async"
+										loading="lazy"
 										class="room-screenshot__img"
 										:src="`${mediaUrl}/room-screenshot-medium/${item.filename}`"
 										:alt="item.alt"
@@ -106,6 +108,8 @@
 								</template>
 								<template v-else>
 									<img
+										decoding="async"
+										loading="lazy"
 										class="room-screenshot__img"
 										:src="`${mediaUrl}/room-screenshot-small/${item.filename}`"
 										:alt="item.alt"
@@ -196,7 +200,8 @@
 		</div>
 
 		<transition name="fade">
-			<room-header-sticky v-if="showSticky" />
+			<room-header-sticky v-if="!$device.isMobile && showSticky" />
+			<room-bottom-sticky v-if="$device.isMobile && showSticky" />
 		</transition>
 	</section>
 </template>
@@ -209,6 +214,7 @@
 	export default {
 		components: {
 			RoomHeaderSticky: () => import('~/components/room/RoomHeaderSticky'),
+			RoomBottomSticky: () => import('~/components/room/RoomBottomSticky'),
 		},
 
 		layout: 'basic',
