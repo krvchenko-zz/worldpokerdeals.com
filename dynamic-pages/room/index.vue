@@ -71,7 +71,6 @@
 					</faq-list>
 
 					<telegram-subscribe
-						v-if="!$device.isMobile"
 						label="Наш Телеграм-канал"
 						description="Новости покерных румов мы публикуем в нашем Телеграм-канале. Подпишись, чтобы не упускать EV."
 						btn-label="Подписаться"
