@@ -614,7 +614,7 @@
 		align-self: center;
 		max-width: 210px;
 		&__image {
-			// max-width: 100%;
+			max-width: 100%;
 			width: auto;
 			height: 60px;
 			display: block;

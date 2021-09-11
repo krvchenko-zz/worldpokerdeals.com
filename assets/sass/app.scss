@@ -1277,6 +1277,8 @@ body {
 			align-items: center;
 			display: flex;
 			justify-content: center;
+      overflow-x: auto;
+      @include hide-scroll();
 			&__item {
 				padding: 0;
 				margin: 0 16px 16px 0;
