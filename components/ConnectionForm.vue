@@ -34,7 +34,7 @@
 					<div class="col-6">
 						<form-input
 							v-model="form.name"
-							label="Имя пользователя"
+							label="Логин"
 							type="text"
 							name="name"
 							label-color="#636363"
@@ -103,7 +103,7 @@
 
 				<div class="connection-form-group">
 					<form-checkbox v-model="form.terms" label="Принимаю">
-						<a class="connection-form__link" href="#"
+						<a class="connection-form__link" href="/terms"
 							>условия передачи и хранения данных</a
 						>
 					</form-checkbox>
