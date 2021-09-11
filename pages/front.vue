@@ -113,6 +113,7 @@
 	}
 
 	.front-bottom {
+		overflow: hidden;
 		margin-bottom: -90px;
 	  padding-bottom: 90px;
 		width: 100%;

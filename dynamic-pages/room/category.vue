@@ -609,6 +609,7 @@
 			}
 			&__page-banners {
 				padding-left: 20px;
+				overflow: hidden;
 			}
 			&__aside {
 				&__promotions-list {
