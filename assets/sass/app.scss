@@ -1354,6 +1354,11 @@ body {
 			display: flex;
 			background: #fafafa;
 			border-radius: 4px;
+
+			@include mq('mobile') {
+				display: block;
+			}
+
 			&__category {
 				margin-bottom: 5px;
 				font-family: "Proxima Nova";
@@ -1388,11 +1393,20 @@ body {
 				&-wrap {
 					min-width: 150px;
 					margin: -40px 8px 0 -20px;
+					@include mq('mobile') {
+						margin-right: 0;
+						margin-bottom: 12px;
+					}
 				}
 			}
 			&__info {
 				margin-right: 30px;
 				flex-grow: 1;
+
+				@include mq('mobile') {
+					margin-right: 0;
+					margin-bottom: 12px;
+				}
 			}
 			&__actions {
 				flex: 0 0 160px;
