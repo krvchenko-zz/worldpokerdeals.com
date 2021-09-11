@@ -124,10 +124,10 @@
 
 							<author v-if="category.author" :author="category.author" />
 
-							<comments
+<!-- 							<comments
 								commentable_type="App\RoomCategory"
 								:commentable_id="category.id"
-							/>
+							/> -->
 						</template>
 					</page-article>
 				</div>
