@@ -79,6 +79,7 @@
     &__logo {
       margin-right: 20px;
       &-img {
+        width: 100%;
         max-width: 100%;
         height: auto;
       }
