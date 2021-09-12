@@ -79,10 +79,8 @@
     &__logo {
       margin-right: 20px;
       &-img {
-        height: auto;
-        width: auto;
         max-width: 100%;
-        max-height: 40px;
+        height: auto;
       }
     }
     &__actions {
