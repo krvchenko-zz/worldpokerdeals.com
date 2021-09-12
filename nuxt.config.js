@@ -35,10 +35,11 @@ export default {
 		'~plugins/vform',
 		'~plugins/axios',
 		'~plugins/element-ui',
+		'~/plugins/asyncComputed',
 		{ src: '~/plugins/glightbox', mode: 'client' },
-		{ src: '~/plugins/asyncComputed' },
 		{ src: '~/plugins/vue-carousel', mode: 'client' },
 		{ src: '~/plugins/vue-dragscroll', mode: 'client' },
+		{ src: '~/plugins/smoothscroll', mode: 'client' },
 	],
 
 	modules: [
