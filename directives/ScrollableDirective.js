@@ -18,6 +18,7 @@ export default {
 				itemsWidth = getItemsWidth(items),
 				toggleRight = document.querySelector('.scrollable__item_r'),
 				toggleLeft = document.querySelector('.scrollable__item_l'),
+				maxScrollRight = container.scrollWidth - container.clientWidth,
 				position = 0,
 				scrollTo = 0,
 				back = false,
@@ -50,20 +51,16 @@ export default {
 
 				toggleRight.addEventListener('click', function() {
 
-					if (position + 5 <= (items.length - 1)) {
+					if (position + 5 <= items.length - 1)
 						position = position + 5
-						toggleLeft.classList.remove('scrollable__item_hidden')
-					}
-
-					if (position + 5 >= (items.length - 1)) {
-						toggleRight.classList.add('scrollable__item_hidden')
-					}
+					else
+						position = items.length - 1
 
 					scrollTo = items[position].offsetLeft
 
 					container.scrollTo({
 						top: 0,
-						left: scrollTo,
+						left: scrollTo - 52,
 						behavior: 'smooth',
 					})
 
@@ -71,32 +68,40 @@ export default {
 
 				toggleLeft.addEventListener('click', function() {
 
-					if (position - 5 <= (items.length - 1)) {
+					if (position - 5 <= items.length && position >= 5)
 						position = position - 5
-					}
-
-					if (position <= 0) {
-						toggleLeft.classList.add('scrollable__item_hidden')
-						toggleRight.classList.remove('scrollable__item_hidden')
-					}
-
-					if (position > 0) {
-						toggleRight.classList.remove('scrollable__item_hidden')
-					}
-
-					if (position + 5 >= (items.length - 1)) {
-						toggleRight.classList.remove('scrollable__item_hidden')
-					}
+					else
+						position = 0
 
 					scrollTo = items[position].offsetLeft
 
 					container.scrollTo({
 						top: 0,
-						left: scrollTo,
+						left: scrollTo - 52,
 						behavior: 'smooth',
 					})
 				})
 			}
+
+			container.addEventListener('scroll', (e) => {
+
+				// TODO
+
+				for (var i = 0; i < items.length; i++) {
+					if (e.target.scrollLeft >= items[i].offsetLeft - 52) {
+						position = i
+					}
+				}
+
+				e.target.scrollLeft >= maxScrollRight ?
+					toggleRight.classList.add('scrollable__item_hidden') :
+					toggleRight.classList.remove('scrollable__item_hidden')
+
+				e.target.scrollLeft === 0 ?
+					toggleLeft.classList.add('scrollable__item_hidden') :
+					toggleLeft.classList.remove('scrollable__item_hidden')
+
+			})
 
 			container.addEventListener('mousedown', e => {
 				startX = e.pageX - container.offsetLeft
@@ -133,6 +138,7 @@ export default {
 		handler()
 		window.addEventListener('load', handler)
 		window.addEventListener('resize', handler)
+
 	},
 
 	// bind: (el, binding) => {},
