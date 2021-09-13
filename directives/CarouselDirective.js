@@ -1,8 +1,8 @@
 export default {
 	name: 'carousel',
 
-	inserted: (el, binding) => {
-		let getItemsWidth = function(items) {
+	inserted: (el, binding, vnode) => {
+		let getItemsWidth = (items) => {
 			let width = 0
 			for (var i = 0; i < items.length; i++) {
 				let margin = parseInt(getComputedStyle(items[i], null).marginRight)
@@ -11,7 +11,7 @@ export default {
 			return width
 		}
 
-		let handler = function() {
+		let handler = (e) => {
 			// Carousel
 			let elements = el.getElementsByClassName('gallery')
 
@@ -25,6 +25,7 @@ export default {
 					maxScrollRight = gallery.scrollWidth - gallery.clientWidth,
 					position = 0,
 					scrollTo = 0,
+					scrolled = 0,
 					//Touch
 					isDown = false,
 					startX,
@@ -45,6 +46,7 @@ export default {
 				if (itemsWidth > containerWidth) {
 
 					if (!toggleRight && !toggleLeft) {
+
 						toggleRight = document.createElement('button')
 						toggleLeft = document.createElement('button')
 
@@ -59,6 +61,7 @@ export default {
 						wrapper.appendChild(toggleRight)
 						wrapper.appendChild(toggleLeft)
 					}
+
 
 					if (scrollTo + containerWidth < itemsWidth) {
 						toggleRight.classList.remove('gallery__btn_hidden')
@@ -96,12 +99,14 @@ export default {
 
 					gallery.addEventListener('scroll', (e) => {
 
+						// TODO
+
 						for (var i = 0; i < items.length; i++) {
 							if (e.target.scrollLeft >= items[i].offsetLeft)
 								position = i
 						}
 
-						if (e.target.scrollLeft >= maxScrollRight || position + 1 >= items.length)
+						if (e.target.scrollLeft >= maxScrollRight)
 							toggleRight.classList.add('gallery__btn_hidden'),
 							position = items.length - 1
 						else
@@ -110,7 +115,6 @@ export default {
 						e.target.scrollLeft === 0 ?
 							toggleLeft.classList.add('gallery__btn_hidden') :
 							toggleLeft.classList.remove('gallery__btn_hidden')
-
 					})
 				}
 
@@ -142,7 +146,7 @@ export default {
 			}
 		}
 
-		let images = el.getElementsByClassName('gallery__item-img')
+		let images = el.querySelectorAll('.gallery img')
 
 		for (var i = 0; i < images.length; i++) {
 			images[i].addEventListener('load', handler)
@@ -150,7 +154,12 @@ export default {
 
 		window.addEventListener('load', handler)
 		window.addEventListener('resize', handler)
-		window.addEventListener('scroll', handler)
+
+		const lightbox = vnode.context.$glightbox({
+			touchNavigation: true,
+			loop: true,
+			selector: '.lightbox',
+		})
 	},
 
 	bind: (el, binding) => {},

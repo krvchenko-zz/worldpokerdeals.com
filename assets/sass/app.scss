@@ -1046,6 +1046,8 @@ body {
 			&-wrap {
 				position: relative;
 				margin-bottom: 25px;
+				display: inline-block;
+		    max-width: 100%;
 				&:after {
 					content: "";
 					display: block;

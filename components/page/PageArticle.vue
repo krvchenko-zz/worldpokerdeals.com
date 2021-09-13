@@ -116,23 +116,11 @@
 			},
 		},
 
+		mounted() {},
+
+		updated() {},
+
 		watch: {},
-
-		mounted() {
-			const lightbox = this.$glightbox({
-				touchNavigation: true,
-				loop: true,
-				selector: '.lightbox',
-			})
-		},
-
-		updated() {
-			const lightbox = this.$glightbox({
-				touchNavigation: true,
-				loop: true,
-				selector: '.lightbox',
-			})
-		},
 
 		methods: {},
 	}
