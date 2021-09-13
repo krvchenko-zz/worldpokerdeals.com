@@ -38,12 +38,10 @@
 			margin: 0;
 			border-radius: 4px;
 			display: flex;
-			overflow-x: scroll;
-			@include hide-scroll();
 			flex-basis: 100%;
 			flex-wrap: nowrap;
-			-webkit-overflow-scrolling: touch;
 			transition: transform 0.25s;
+			overflow-x: scroll;
 			@include hide-scroll();
 		}
 	}
