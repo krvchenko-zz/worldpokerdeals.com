@@ -21,7 +21,6 @@ export default {
 				maxScrollRight = container.scrollWidth - container.clientWidth,
 				position = 0,
 				scrollTo = 0,
-				back = false,
 				//Touch
 				isDown = false,
 				startX,
@@ -51,9 +50,8 @@ export default {
 
 				toggleRight.addEventListener('click', function() {
 
-					if (position + 5 <= items.length - 1)
-						position = position + 5
-					else
+					position + 5 <= items.length - 1 ?
+						position = position + 5 :
 						position = items.length - 1
 
 					scrollTo = items[position].offsetLeft
@@ -68,9 +66,8 @@ export default {
 
 				toggleLeft.addEventListener('click', function() {
 
-					if (position - 5 <= items.length && position >= 5)
-						position = position - 5
-					else
+					position - 5 <= items.length && position >= 5 ?
+						position = position - 5 :
 						position = 0
 
 					scrollTo = items[position].offsetLeft
@@ -85,16 +82,15 @@ export default {
 
 			container.addEventListener('scroll', (e) => {
 
-				// TODO
-
 				for (var i = 0; i < items.length; i++) {
-					if (e.target.scrollLeft >= items[i].offsetLeft - 52) {
+					if (e.target.scrollLeft >= items[i].offsetLeft - 52)
 						position = i
-					}
 				}
 
-				e.target.scrollLeft >= maxScrollRight ?
-					toggleRight.classList.add('scrollable__item_hidden') :
+				if (e.target.scrollLeft >= maxScrollRight)
+					toggleRight.classList.add('scrollable__item_hidden'),
+					position = items.length - 1
+				else
 					toggleRight.classList.remove('scrollable__item_hidden')
 
 				e.target.scrollLeft === 0 ?

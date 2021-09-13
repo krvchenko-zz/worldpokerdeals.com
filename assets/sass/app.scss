@@ -1096,13 +1096,22 @@ body {
 				margin-top: -32px;
 				border-radius: 50%;
 				top: 50%;
-				right: -16px;
 				display: block;
 				width: 32px;
 				height: 32px;
 				border: 1px solid #e9e9e9;
 				position: absolute;
 				background: #ffffff $ico-gallery-arrow no-repeat center;
+				&_next {
+					right: -16px;
+				}
+				&_prev {
+					left: -16px;
+					transform: rotate(180deg);
+				}
+				&_hidden {
+					display: none;
+				}
 			}
 		}
 

@@ -18,10 +18,11 @@ export default {
 			for (var i = 0; i < elements.length; i++) {
 				let gallery = elements[i],
 					wrapper = gallery.parentNode,
-					slides = gallery.children,
-					galleryWidth = gallery.offsetWidth,
-					galleryHeight = gallery.offsetHeight,
-					itemsWidth = getItemsWidth(slides),
+					items = gallery.children,
+					containerWidth = gallery.offsetWidth,
+					containerHeight = gallery.offsetHeight,
+					itemsWidth = getItemsWidth(items),
+					maxScrollRight = gallery.scrollWidth - gallery.clientWidth,
 					position = 0,
 					scrollTo = 0,
 					//Touch
@@ -36,33 +37,80 @@ export default {
 					wrapper.appendChild(gallery)
 				}
 
-				wrapper.style.height = `${galleryHeight}px`
+				let	toggleRight = wrapper.querySelector('.gallery__btn_next'),
+						toggleLeft = wrapper.querySelector('.gallery__btn_prev')
 
-				if (itemsWidth > galleryWidth) {
-					let toggleBtn = wrapper.querySelector('.gallery__btn')
+				wrapper.style.height = `${containerHeight}px`
 
-					if (!toggleBtn) {
-						toggleBtn = document.createElement('span')
-						toggleBtn.className = 'gallery__btn gallery__btn_next'
-						wrapper.appendChild(toggleBtn)
+				if (itemsWidth > containerWidth) {
+
+					if (!toggleRight && !toggleLeft) {
+						toggleRight = document.createElement('button')
+						toggleLeft = document.createElement('button')
+
+						toggleRight.classList.add('gallery__btn')
+						toggleRight.classList.add('gallery__btn_next')
+						toggleRight.classList.add('gallery__btn_hidden')
+
+						toggleLeft.classList.add('gallery__btn')
+						toggleLeft.classList.add('gallery__btn_prev')
+						toggleLeft.classList.add('gallery__btn_hidden')
+
+						wrapper.appendChild(toggleRight)
+						wrapper.appendChild(toggleLeft)
 					}
 
-					toggleBtn.addEventListener('click', function() {
-						if (scrollTo + galleryWidth < itemsWidth) {
-							let nextSlide = slides[position]
-							scrollTo +=
-								nextSlide.offsetWidth +
-								parseInt(getComputedStyle(nextSlide, null).marginRight)
-							position++
-						} else {
-							position = 0
-							scrollTo = 0
-						}
+					if (scrollTo + containerWidth < itemsWidth) {
+						toggleRight.classList.remove('gallery__btn_hidden')
+					}
+
+					toggleRight.addEventListener('click', () => {
+
+						position + 1 <= items.length - 1 ?
+							position = position + 1 :
+							position = items.length - 1
+
+						scrollTo = items[position].offsetLeft
+
 						gallery.scrollTo({
 							top: 0,
 							left: scrollTo,
 							behavior: 'smooth',
 						})
+					})
+
+					toggleLeft.addEventListener('click', () => {
+
+						position - 1 <= items.length && position >= 1 ?
+							position = position - 1 :
+							position = 0
+
+						scrollTo = items[position].offsetLeft
+
+						gallery.scrollTo({
+							top: 0,
+							left: scrollTo,
+							behavior: 'smooth',
+						})
+					})
+
+					gallery.addEventListener('scroll', (e) => {
+
+						for (var i = 0; i < items.length; i++) {
+							if (e.target.scrollLeft >= items[i].offsetLeft)
+								position = i
+						}
+
+						if (e.target.scrollLeft >= maxScrollRight || position + 1 >= items.length)
+							toggleRight.classList.add('gallery__btn_hidden'),
+							position = items.length - 1
+						else
+							toggleRight.classList.remove('gallery__btn_hidden')
+
+						e.target.scrollLeft === 0 ?
+							toggleLeft.classList.add('gallery__btn_hidden') :
+							toggleLeft.classList.remove('gallery__btn_hidden')
+
 					})
 				}
 
@@ -72,15 +120,18 @@ export default {
 					startX = e.pageX - gallery.offsetLeft
 					scrollLeft = gallery.scrollLeft
 				})
+
 				gallery.addEventListener('mouseleave', () => {
 					isDown = false
 					gallery.classList.remove('active')
 				})
+
 				gallery.addEventListener('mouseup', e => {
 					e.stopPropagation()
 					isDown = false
 					gallery.classList.remove('active')
 				})
+
 				gallery.addEventListener('mousemove', e => {
 					if (!isDown) return
 					e.preventDefault()
