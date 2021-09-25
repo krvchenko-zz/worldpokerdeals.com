@@ -298,12 +298,46 @@
 
 	@include mq('laptop') {
 		.bonus {
+			&__container {
+				@include paddings('tablet');
+			}
 			&__card-wrapper {
 				display: none;
+			}
+			&__info {
+				padding-left: 20px;
+				padding-right: 20px;
 			}
 			&__article {
 				padding-left: 0;
 				padding-right: 0;
+			}
+
+			.promotions-table {
+				margin-left: -20px;
+				margin-right: -20px;
+				width: calc(100% + 2 * 20px);
+			}
+			& .room-summary {
+				margin-left: -20px;
+				margin-right: -20px;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.bonus {
+			&__container {
+				@include paddings('mobile');
+			}
+			&__info-container {
+				margin-right: -20px;
+				margin-left: -20px;
+				width: calc(100% + 40px);
+
+				.toc {
+					width: 100%;
+				}
 			}
 		}
 	}

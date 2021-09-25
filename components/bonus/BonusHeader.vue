@@ -1,163 +1,160 @@
 <template>
 	<div class="bonus-header">
 		<div class="bonus-header__wrap">
-			<div class="row">
-				<div class="col">
-					<div class="bonus__summary">
-						<div v-if="promotion.exclusive" class="bonus__exclusive">
-							<svg-icon icon="bonus-exclusive" />
-						</div>
+			<div class="bonus-header__content">
+				<div class="bonus__summary">
+					<div v-if="promotion.exclusive" class="bonus__exclusive">
+						<svg-icon icon="bonus-exclusive" />
+					</div>
 
-						<div
-							class="bonus__category"
-							:style="{
-								color: promotion.category.label_color,
-							}"
-						>
-							{{ promotion.category.title }}
-						</div>
+					<div
+						class="bonus__category"
+						:style="{
+							color: promotion.category.label_color,
+						}"
+					>
+						{{ promotion.category.title }}
+					</div>
 
-						<h1 class="bonus__title">{{ promotion.heading }}</h1>
-						<div class="bonus-header__row">
-							<div class="bonus-header__col">
-								<div class="bonus-header__label">{{ $t('status') }}</div>
-								<div class="bonus-header__value">
-									<span
-										:class="[
-											'bonus__status',
-											promotion.active && 'bonus__status_active',
-										]"
-									>
-										<template v-if="promotion.active">{{
-											$t('active')
-										}}</template>
-										<template v-else>{{ $t('inactive') }}</template>
-									</span>
-									<span class="bonus__last-update">{{
-										$t('last_check_date', {
-											date: dateFormat(promotion.updated_at),
-										})
-									}}</span>
-								</div>
-							</div>
-
-							<div class="bonus-header__col bonus-header__col_max">
-								<div :class="['bonus__max']">
-									<div class="bonus-header__label">{{ $t('max_bonus') }}</div>
-									<div class="bonus-header__value">
-										{{ promotion.max_bonus_currency.symbol
-										}}{{ promotion.max_bonus }}
-									</div>
-								</div>
-							</div>
-
-							<div class="bonus-header__col">
+					<h1 class="bonus__title">{{ promotion.heading }}</h1>
+					<div class="bonus-header__row">
+						<div class="bonus-header__col">
+							<div class="bonus-header__label">{{ $t('status') }}</div>
+							<div class="bonus-header__value">
 								<span
-									:class="['bonus__code', codeHovered && 'bonus__code_hover']"
-									@mouseover="codeHovered = true"
-									@mouseleave="codeHovered = false"
+									:class="[
+										'bonus__status',
+										promotion.active && 'bonus__status_active',
+									]"
 								>
-									<span
-										:class="[
-											'bonus__code-label',
-											codeHovered && 'bonus__code-label_hover',
-										]"
-										>{{ $t('bonus_code') }}</span
-									>
-									<span class="bonus__code-value">{{ promotion.code }}</span>
+									<template v-if="promotion.active">{{
+										$t('active')
+									}}</template>
+									<template v-else>{{ $t('inactive') }}</template>
 								</span>
+								<span class="bonus__last-update">{{
+									$t('last_check_date', {
+										date: dateFormat(promotion.updated_at),
+									})
+								}}</span>
 							</div>
 						</div>
-						<div class="bonus-header__row">
-							<div class="bonus-header__col">
-								<div class="bonus__deposit">
-									<div class="bonus-header__label">{{ $t('deposit') }}</div>
-									<div class="bonus-header__value">
-										+{{ promotion.deposit_bonus }}%
-									</div>
-								</div>
-							</div>
 
-							<div class="bonus-header__col">
-								<div class="bonus__cashback">
-									<div class="bonus-header__label">
-										{{ $t('cashback_value') }}
-									</div>
-									<div class="bonus-header__value">
-										{{ promotion.cashback_value }}%
-									</div>
-								</div>
-							</div>
-
-							<div class="bonus-header__col">
-								<div class="bonus__min-deposit">
-									<div class="bonus-header__label">{{ $t('min_deposit') }}</div>
-									<div :class="['bonus-header__value']">
-										{{ promotion.min_deposit_currency.symbol
-										}}{{ promotion.min_deposit }}
-									</div>
+						<div class="bonus-header__col bonus-header__col_max">
+							<div :class="['bonus__max']">
+								<div class="bonus-header__label">{{ $t('max_bonus') }}</div>
+								<div class="bonus-header__value">
+									{{ promotion.max_bonus_currency.symbol
+									}}{{ promotion.max_bonus }}
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="bonus__geo">
-						<span
-							:class="{
-								bonus__avaliable: true,
-								[`bonus__avaliable_yes`]: !promotion.room.restricted,
-								[`bonus__avaliable_no`]: promotion.room.restricted,
-							}"
-						>
-							<svg-icon
-								class="bonus__geo-icon"
-								:width="16"
-								:height="16"
-								:icon="country.code"
-								prefix="flags/"
-							/><template v-if="promotion.room.restricted">{{
-								$t('room_geo_restricted', { country: country.from })
-							}}</template
-							><template v-else>{{
-								$t('room_geo_allowed', { country: country.from })
-							}}</template>
-						</span>
-					</div>
+						<div class="bonus-header__col">
+							<span
+								:class="['bonus__code', codeHovered && 'bonus__code_hover']"
+								@mouseover="codeHovered = true"
+								@mouseleave="codeHovered = false"
+							>
+								<span
+									:class="[
+										'bonus__code-label',
+										codeHovered && 'bonus__code-label_hover',
+									]"
+									>{{ $t('bonus_code') }}</span
+								>
+								<span class="bonus__code-value">{{ promotion.code }}</span>
+							</span>
+						</div>
 
-					<div class="bonus__actions">
-						<div class="row">
-							<div class="col">
-								<room-action-button
-									class="btn-block"
-									:slug="promotion.room.slug"
-									:icon="true"
-									type="download"
-									:label="$t('get_bonus')"
-								/>
+						<div class="bonus-header__col">
+							<div class="bonus__deposit">
+								<div class="bonus-header__label">{{ $t('deposit') }}</div>
+								<div class="bonus-header__value">
+									+{{ promotion.deposit_bonus }}%
+								</div>
 							</div>
-							<div class="col">
-								<room-action-button
-									class="btn-block"
-									:slug="promotion.room.slug"
-									:icon="true"
-									type="contacts"
-									:label="$t('manager_chat')"
-								/>
+						</div>
+
+						<div class="bonus-header__col">
+							<div class="bonus__cashback">
+								<div class="bonus-header__label">
+									{{ $t('cashback_value') }}
+								</div>
+								<div class="bonus-header__value">
+									{{ promotion.cashback_value }}%
+								</div>
+							</div>
+						</div>
+
+						<div class="bonus-header__col">
+							<div class="bonus__min-deposit">
+								<div class="bonus-header__label">{{ $t('min_deposit') }}</div>
+								<div :class="['bonus-header__value']">
+									{{ promotion.min_deposit_currency.symbol
+									}}{{ promotion.min_deposit }}
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-auto">
-					<bonus-room
-						:id="promotion.room.id"
-						:title="promotion.room.title"
-						:slug="promotion.room.slug"
-						:rating="promotion.room.rating"
-						:review="promotion.room.review"
-						:rates="promotion.room.rates"
-					/>
+				<div class="bonus__geo">
+					<span
+						:class="{
+							bonus__avaliable: true,
+							[`bonus__avaliable_yes`]: !promotion.room.restricted,
+							[`bonus__avaliable_no`]: promotion.room.restricted,
+						}"
+					>
+						<svg-icon
+							class="bonus__geo-icon"
+							:width="16"
+							:height="16"
+							:icon="country.code"
+							prefix="flags/"
+						/><template v-if="promotion.room.restricted">{{
+							$t('room_geo_restricted', { country: country.from })
+						}}</template
+						><template v-else>{{
+							$t('room_geo_allowed', { country: country.from })
+						}}</template>
+					</span>
 				</div>
+
+				<div class="bonus__actions">
+					<div class="row">
+						<div class="col col-md-6 col-12 col-sm-12">
+							<room-action-button
+								class="btn-block"
+								:slug="promotion.room.slug"
+								:icon="true"
+								type="download"
+								:label="$t('get_bonus')"
+							/>
+						</div>
+						<div class="col col-md-6 col-12 col-sm-12">
+							<room-action-button
+								class="btn-block"
+								:slug="promotion.room.slug"
+								:icon="true"
+								type="contacts"
+								:label="$t('manager_chat')"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bonus-header__card">
+				<bonus-room
+					:id="promotion.room.id"
+					:title="promotion.room.title"
+					:slug="promotion.room.slug"
+					:rating="promotion.room.rating"
+					:review="promotion.room.review"
+					:rates="promotion.room.rates"
+				/>
 			</div>
 		</div>
 	</div>
@@ -209,6 +206,7 @@
 	$ico-scissors: url('~assets/i/promotion/ico-scissors.svg?data');
 
 	.bonus-header {
+		width: 100%;
 		z-index: 2;
 		position: relative;
 		padding: 32px 28px;
@@ -220,25 +218,31 @@
 		);
 		box-shadow: 0px -20px 50px rgba(0, 0, 0, 0.25);
 		border-radius: 16px;
+		&__wrap {
+			display: grid;
+			grid-template-columns: 5fr 3fr;
+			column-gap: 28px;
+		}
 		&__row {
-			justify-content: space-between;
-			align-items: baseline;
-			display: flex;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
 			margin-bottom: 16px;
+			row-gap: 28px;
+			column-gap: 40px;
+			justify-items: baseline;
 			&:last-child {
 				margin: 0;
 			}
 		}
 
 		&__col {
-			margin-right: 70px;
-			width: calc(100% / 3);
+			&:first-child {
+				padding-top: 12px;
+			}
 			&:last-child {
 				margin-right: 0;
 			}
 			&_max {
-				padding: 12px 0;
-				// margin-top: -24px;
 			}
 		}
 
@@ -251,6 +255,7 @@
 			text-transform: uppercase;
 			font-feature-settings: 'tnum' on, 'lnum' on;
 			color: #777777;
+			white-space: nowrap;
 		}
 
 		&__value {
@@ -283,7 +288,7 @@
 		}
 
 		&__title {
-			margin-bottom: 12px;
+			margin-bottom: 24px;
 			font-family: 'Proxima Nova Th';
 			font-style: normal;
 			font-size: 32px;
@@ -424,6 +429,107 @@
 
 		&__min-deposit {
 			padding: 0 20px;
+		}
+	}
+
+	@include mq('desktop') {
+		.bonus-header {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+	}
+
+	@include mq('laptop') {
+		.bonus-header {
+			margin-left: 0;
+			padding-left: 20px;
+			padding-right: 20px;
+			padding-bottom: 28px;
+			&__wrap {
+				grid-template-columns: 7fr minmax(0, 4fr);
+				column-gap: 20px;
+			}
+			&__row {
+				grid-template-columns: repeat(2, 1fr);
+				row-gap: 16px;
+				align-items: center;
+			}
+			&__col {
+			}
+
+			.bonus-room {
+				min-width: 288px;
+				margin-top: -52px;
+			}
+
+			.btn-room-action {
+				padding: 12px 15px;
+			}
+		}
+
+		.bonus {
+			&__header {
+				margin-left: 0;
+				margin-right: 0;
+			}
+			&__deposit {
+				padding-left: 12px;
+			}
+			&__min-deposit {
+				padding: 0;
+				padding-left: 12px;
+			}
+			&__cashback {
+				padding: 0;
+			}
+		}
+	}
+
+	@media screen and (max-width: 860px) {
+		.bonus {
+			&__header {
+				margin-right: 62px;
+				width: calc(100% - 62px);
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.bonus-header {
+			&__wrap {
+				grid-template-columns: 1fr;
+			}
+
+			&__row {
+				justify-items: stretch;
+				column-gap: 16px;
+			}
+
+			&__card {
+				position: absolute;
+				bottom: -250px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			.bonus-room {
+				margin-top: 36px;
+			}
+		}
+
+		.bonus {
+			&__header {
+				margin-right: 0;
+				width: 100%;
+				padding: 24px 20px;
+				padding-bottom: 200px;
+				margin-bottom: 320px;
+			}
+			&__actions {
+				.btn-room-action_download {
+					margin-bottom: 20px;
+				}
+			}
 		}
 	}
 </style>
