@@ -345,6 +345,18 @@
 		margin-bottom: 20px !important;
 	}
 
+	@include mq('desktop') {
+		.promotion {
+			&__similar {
+				&__list {
+					display: grid;
+					grid-template-columns: repeat(auto-fill, minmax(288px, max-content));
+					column-gap: 20px;
+				}
+			}
+		}
+	}
+
 	@include mq('laptop') {
 		.promotion {
 			@include paddings('tablet');
