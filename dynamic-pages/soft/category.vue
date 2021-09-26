@@ -467,13 +467,6 @@
 	@include mq('tablet') {
 		.soft-category {
 			@include paddings('mobile');
-			grid-template-areas:
-				'header'
-				'filter-soft'
-				'soft-list'
-				'toc'
-				'article'
-				'aside';
 			&__banners {
 				margin-right: -20px;
 				width: calc(100% + 20px);
