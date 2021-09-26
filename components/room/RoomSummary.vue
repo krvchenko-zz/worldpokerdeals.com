@@ -539,4 +539,11 @@
 			}
 		}
 	}
+
+	@include mq('desktop') {
+		.room-summary {
+			margin-left: -24px;
+			margin-right: -24px;
+		}
+	}
 </style>

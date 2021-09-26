@@ -296,6 +296,24 @@
 		}
 	}
 
+	@include mq('desktop') {
+		.bonus {
+			&__info {
+				padding-left: 24px;
+				padding-right: 24px;
+			}
+			&__article {
+				padding-right: 104px;
+				padding-left: 104px;
+			}
+
+			& .room-summary {
+				margin-left: -24px;
+				margin-right: -24px;
+			}
+		}
+	}
+
 	@include mq('laptop') {
 		.bonus {
 			&__container {

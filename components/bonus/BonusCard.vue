@@ -312,4 +312,11 @@
 			}
 		}
 	}
+
+	@include mq('desktop') {
+		.bonus-card {
+			width: 182px;
+			margin-left: -102px;
+		}
+	}
 </style>
