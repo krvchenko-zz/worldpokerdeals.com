@@ -77,7 +77,7 @@
 						:total="total"
 						:from="from"
 						:to="to"
-						:load-more-width="$device.isDesktop ? 215 : 'auto'"
+						:load-more-width="$device.isDesktop ? 215 : false"
 						:showPages="false"
 						load-more-text="Показать еще румы"
 						total-text="покер-румов"
@@ -111,7 +111,7 @@
 						<template #footer>
 							<faq-list
 								v-if="category.faq && category.faq.mainEntity.length"
-								label="FAQ"
+								:label="$t('faq')"
 							>
 								<faq-item
 									v-for="(item, index) in category.faq.mainEntity"

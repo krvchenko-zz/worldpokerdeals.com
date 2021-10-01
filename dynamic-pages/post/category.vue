@@ -38,12 +38,13 @@
 		<pagination
 			v-if="posts"
 			:last="last_page"
-			:current="page"
+			:current="current_page || page"
 			:prev-url="prev_page_url"
 			:next-url="next_page_url"
 			:total="total"
 			:from="from"
 			:to="to"
+			:url="true"
 			load-more-text="Показать еще новости"
 			@next="handlePageNext"
 			@prev="handlePagePrev"
@@ -178,7 +179,7 @@
 						locale: this.locale,
 						sort: this.sort,
 						order: this.order,
-						page: this.page,
+						page: this.$route.params &&  this.$route.params.page ? this.$route.params.page : this.page,
 						per_page: this.per_page,
 						post_category_id: this.category_id,
 					},

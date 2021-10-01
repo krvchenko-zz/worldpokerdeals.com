@@ -51,6 +51,10 @@
 				:total="total"
 				:from="from"
 				:to="to"
+				:load-more-width="$device.isDesktop ? 215 : false"
+				:showPages="false"
+				load-more-text="Показать еще румы"
+				total-text="покер-румов"
 				@next="handlePageNext"
 				@prev="handlePagePrev"
 				@change="handlePageChange"
@@ -80,7 +84,7 @@
 			<page-article :text="tab.text">
 				<template #footer>
 					<!-- Faq -->
-					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" label="FAQ">
+					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" :label="$t('faq')">
 						<faq-item
 							v-for="(item, index) in tab.faq.mainEntity"
 							:key="index"
@@ -92,7 +96,7 @@
 					<!-- Author -->
 					<author v-if="tab.author" :author="tab.author" />
 					<!-- Comments -->
-					<comments commentable_type="App\Tab" :commentable_id="tab.id" />
+					<!-- <comments commentable_type="App\Tab" :commentable_id="tab.id" /> -->
 				</template>
 			</page-article>
 		</div>

@@ -168,7 +168,7 @@
   "all_poker_sites": "0 poker rooms | {n} poker room | All {n}  poker rooms | All {n} poker rooms",
   "access": "Access",
   "room_about": "About {room}",
-  "room_faq": "FAQ",
+  "faq": "FAQ",
   "room_reviews": "Reviews",
   "form": {
     "email": "E-mail",

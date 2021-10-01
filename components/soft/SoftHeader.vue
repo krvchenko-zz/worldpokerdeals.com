@@ -41,7 +41,15 @@
 			</div>
 		</div>
 
-		<div class="soft__summary" v-html="tab.summary"></div>
+		<common-text-spoiler
+			:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+			class="soft__summary"
+			:text="tab.summary"
+		>
+			<template v-slot:button>
+				<svg-icon icon="spoiler-sep" width="35" height="16" />
+			</template>
+		</common-text-spoiler>
 
 		<div v-if="soft.images.length" class="soft-screenshots">
 			<carousel

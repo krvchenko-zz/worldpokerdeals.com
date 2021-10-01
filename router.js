@@ -73,6 +73,11 @@ const routes = [
 		component: page('index.vue'),
 	},
 	{
+		path: '/:parent/page/:page?',
+		name: 'index.paged',
+		component: page('index.vue'),
+	},
+	{
 		path: '/rakeback-deals/:slug/download',
 		name: 'download',
 		component: page('download.vue'),

@@ -48,10 +48,6 @@
 				</a>
 			</nuxt-link>
 
-
-<!-- 			<div class="best-room__item" :style="{ backgroundColor: background }">
-
-			</div> -->
 			<div class="best-room__item" :style="{ backgroundColor: '#4E5262' }">
 				<div class="best-room__description">{{ $t('private_clubs_and_rake_stats_short') }}</div>
 				<div class="best-room__action">

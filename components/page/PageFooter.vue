@@ -78,7 +78,7 @@
 									name: 'index',
 									params: {
 										parent: 'rakeback-deals',
-										child: item.review.url,
+										child: item.review.slug,
 									},
 								}"
 							>

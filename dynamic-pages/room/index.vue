@@ -59,7 +59,7 @@
 					<faq-list
 						id="faq"
 						v-if="tab.faq && tab.faq.mainEntity.length"
-						label="FAQ"
+						:label="$t('faq')"
 					>
 						<faq-item
 							v-for="(item, index) in tab.faq.mainEntity"

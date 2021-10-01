@@ -93,7 +93,7 @@
 				<!-- Faq -->
 				<faq-list
 					v-if="category.faq && category.faq.mainEntity.length"
-					label="FAQ"
+					:label="$t('faq')"
 				>
 					<faq-item
 						v-for="(item, index) in category.faq.mainEntity"
@@ -108,10 +108,10 @@
 				<author v-if="category.author" :author="category.author" />
 
 				<!-- Comments -->
-				<comments
+<!-- 				<comments
 					commentable_type="App\SoftCategory"
 					:commentable_id="category.id"
-				/>
+				/> -->
 			</template>
 		</page-article>
 

@@ -29,7 +29,7 @@
 							<!-- Faq -->
 							<faq-list
 								v-if="rule.faq && rule.faq.mainEntity.length"
-								label="FAQ"
+								:label="$t('faq')"
 							>
 								<faq-item
 									v-for="(item, index) in rule.faq.mainEntity"
@@ -42,10 +42,10 @@
 							<!-- Author -->
 							<author v-if="rule.author" :author="rule.author" />
 							<!-- Comments -->
-							<comments
+<!-- 							<comments
 								commentable_type="App\PokerRule"
 								:commentable_id="rule.id"
-							/>
+							/> -->
 						</template>
 					</page-article>
 				</div>

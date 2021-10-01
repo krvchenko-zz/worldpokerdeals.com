@@ -43,7 +43,7 @@
 					</template>
 				</page-article>
 				<!-- Faq -->
-				<faq-list v-if="post.faq && post.faq.mainEntity.length" label="FAQ">
+				<faq-list v-if="post.faq && post.faq.mainEntity.length" :label="$t('faq')">
 					<faq-item
 						v-for="(item, index) in post.faq.mainEntity"
 						:key="index"
@@ -55,7 +55,7 @@
 				<!-- Author -->
 				<author v-if="post.user" :author="post.user" />
 				<!-- Comments -->
-				<comments commentable_type="App\Post" :commentable_id="post.id" />
+				<!-- <comments commentable_type="App\Post" :commentable_id="post.id" /> -->
 			</div>
 
 			<div class="article-container__aside-content">

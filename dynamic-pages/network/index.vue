@@ -78,7 +78,8 @@
 				:total="total"
 				:from="from"
 				:to="to"
-				:load-more-width="208"
+				:load-more-width="$device.isDesktop ? 215 : false"
+				:showPages="false"
 				load-more-text="Показать еще румы"
 				total-text="покер-румов"
 				@next="handlePageNext"
@@ -117,7 +118,7 @@
 				<!-- Faq -->
 				<faq-list
 					v-if="network.faq && network.faq.mainEntity.length"
-					label="FAQ"
+					:label="$t('faq')"
 				>
 					<faq-item
 						v-for="(item, index) in network.faq.mainEntity"
@@ -130,7 +131,7 @@
 				<!-- Author -->
 				<author v-if="network.user" :author="network.user" />
 				<!-- Comments -->
-				<comments commentable_type="App\Network" :commentable_id="network.id" />
+				<!-- <comments commentable_type="App\Network" :commentable_id="network.id" /> -->
 			</template>
 		</page-article>
 
