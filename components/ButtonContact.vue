@@ -10,6 +10,7 @@
 			[`btn-contact_${type}`]: true,
 		}"
 		:href="target"
+		target="_blank"
 	>
 		<slot />
 	</a>
