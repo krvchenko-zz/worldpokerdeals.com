@@ -61,6 +61,7 @@
 				:total="total"
 				:from="from"
 				:to="to"
+				:showPages="false"
 				@next="handlePageNext"
 				@prev="handlePagePrev"
 				@change="handlePageChange"
