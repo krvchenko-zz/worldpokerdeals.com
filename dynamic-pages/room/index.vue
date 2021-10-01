@@ -30,7 +30,7 @@
 						v-if="tab.faq && tab.faq.mainEntity.length"
 						:inline="inline"
 						anchor="faq"
-						:text="$t('room_faq')"
+						:text="$t('faq')"
 						:offset="anchorOffset"
 					>
 					</toc-item>
