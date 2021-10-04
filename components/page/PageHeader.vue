@@ -249,26 +249,7 @@
 
 					<lang-switcher />
 
-					<button v-if="user" :class="['user-dropdown']">
-						<img
-							v-if="avatar"
-							width="36px"
-							height="36px"
-							decoding="async"
-							class="user-dropdown__img"
-							loading="lazy"
-							:src="avatar"
-							:alt="user.full_name"
-						/>
-						<svg-icon
-							v-else
-							class="user-dropdown__img"
-							:width="36"
-							:height="36"
-							view-box="0 0 36 36"
-							icon="user-avatar"
-						/>
-					</button>
+					<user-dropdown v-if="user" />
 
 					<button
 						v-else
@@ -463,7 +444,6 @@
 	$ico-vip: url('~assets/i/layout/header/ico-vip.svg?data');
 	$ico-search: url('~assets/i/layout/header/ico-search-btn.svg?data');
 	$ico-search-close: url('~assets/i/layout/header/ico-search-close.svg?data');
-	$ico-arrow-down: url('~assets/i/layout/header/ico-arrow-down.svg?data');
 
 	.header {
 		position: sticky;
@@ -679,34 +659,6 @@
 			padding: 0;
 			opacity: 0.5;
 			background: $ico-search-close no-repeat center;
-		}
-	}
-
-	.user-dropdown {
-		position: relative;
-		margin-left: 32px;
-		padding: 0 15px 0 0;
-		background: transparent;
-		border: none;
-		border-radius: 50%;
-		display: flex;
-		&:after {
-			content: '';
-			width: 10px;
-			height: 6px;
-			display: block;
-			position: absolute;
-			right: 0px;
-			top: 17px;
-			background: $ico-arrow-down;
-		}
-		&__img {
-			border: 2px solid rgba(255, 255, 255, 0.1);
-			border-radius: 50%;
-		}
-		&:active,
-		&:focus {
-			outline: none;
 		}
 	}
 

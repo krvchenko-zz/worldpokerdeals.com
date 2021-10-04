@@ -1,5 +1,5 @@
 <template>
-	<component :is="component" />
+	<component v-if="promotion && promotion.type" :is="component" />
 </template>
 
 <script>
