@@ -107,16 +107,16 @@
 	import { mapGetters } from 'vuex'
 
 	export default {
-		// head () {
-		//   return {
-		//     title: this.post.meta_title,
-		//     titleTemplate: '%s',
-		//     meta: [
-		//       { name: 'description', content: this.post.meta_description },
-		//       { name: 'keywords', content: this.post.meta_keywords }
-		//     ],
-		//   }
-		// },
+		head () {
+		  return {
+		    title: 'Новости онлайн-покера | Обзоры индустрии от Worldpokerdeals.com',
+		    titleTemplate: '%s',
+		    meta: [
+		      { name: 'description', content: 'Новости покера в России, Украине, Беларуси, Китае, Европе и Америке ★ Подробные обзоры онлайн покер-румов и платежных систем ★ Новинки покерного софта ★ Легализация покера ★ Новости китайских румов и приложений ★ Ежедневные обновления блога' },
+		      { name: 'keywords', content: this.post.meta_keywords }
+		    ],
+		  }
+		},
 
 		components: {},
 
