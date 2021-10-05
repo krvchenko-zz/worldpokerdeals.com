@@ -34,12 +34,12 @@
 						:error="form.errors.has('password')"
 					>
 						<template #label>
-							<button
+							<span
 								class="auth-form__link auth-form__link_right"
 								@click.prevent="handleReset"
 							>
 								{{ $t('form.forgot_password') }}
-							</button>
+							</span>
 						</template>
 					</form-input>
 					<transition name="fade">
@@ -282,6 +282,7 @@
 			background: transparent;
 			padding: 0;
 			border: 0;
+			cursor: pointer;
 			&:focus {
 				outline: none;
 			}
