@@ -63,6 +63,12 @@
 		&:first-child {
 			margin-top: 0;
 		}
+		&_recent {
+			margin: 0;
+		}
+		&_related {
+			margin: 0;
+		}
 	}
 	.posts-title {
 		&_featured {

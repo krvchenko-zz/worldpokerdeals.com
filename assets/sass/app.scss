@@ -372,6 +372,11 @@ body {
 			&:last-child {
 				margin: 0;
 			}
+
+			img {
+				max-width: 100%;
+				height: auto!important;
+			}
 		}
 
 		a {

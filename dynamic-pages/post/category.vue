@@ -62,14 +62,14 @@
 				</div>
 				<div class="blog-subscribe__contacts">
 					<button-contact
-						icon
-						type="telegram"
-						href="https://t.me/worldpokerdealsRU"
-					/>
+						icon type="telegram"
+						target="_blank"
+						href="worldpokerdealsRU" />
 					<button-contact
 						icon
 						type="instagram"
-						href="instagram.com/worldpokerdeals"
+						target="_blank"
+						href="https://instagram.com/worldpokerdeals"
 					/>
 					<button-contact
 						icon
@@ -108,13 +108,16 @@
 
 	export default {
 		head () {
-		  return {
-		    title: 'Новости онлайн-покера | Обзоры индустрии от Worldpokerdeals.com',
-		    titleTemplate: '%s',
-		    meta: [
-		      { name: 'description', content: 'Новости покера в России, Украине, Беларуси, Китае, Европе и Америке ★ Подробные обзоры онлайн покер-румов и платежных систем ★ Новинки покерного софта ★ Легализация покера ★ Новости китайских румов и приложений ★ Ежедневные обновления блога' },
-		    ],
-		  }
+			return {
+				title: this.$route.params.page ? `${this.$t('blog_title')} | Page ${this.$route.params.page}` : this.$t('blog_title'),
+				titleTemplate: '%s',
+				meta: [
+					{ 
+						name: 'description',
+						content: this.$route.params.page ? `${this.$t('blog_description')} | Page ${this.$route.params.page}` : this.$t('blog_description')
+					},
+				],
+			}
 		},
 
 		components: {},
@@ -168,7 +171,7 @@
 			this.category_id = this.$route.query.category
 				? this.categories.filter(item => {
 						return item.slug === this.$route.query.category
-				  })[0].id
+					})[0].id
 				: null
 
 			await this.$axios
@@ -223,7 +226,7 @@
 					query && query.category
 						? this.categories.filter(item => {
 								return item.slug === query.category
-						  })[0].id
+							})[0].id
 						: this.category_id
 
 				$nuxt.$loading.start()

@@ -311,6 +311,7 @@
 				this.auth = false
 				this.register = false
 				this.reset = false
+				this.hideHeader = false
 				document.body.classList.remove('modal-open')
 			},
 		},

@@ -170,6 +170,10 @@
   "room_about": "About {room}",
   "faq": "FAQ",
   "room_reviews": "Reviews",
+  "blog_title": "Online poker news | Expert industry reviews by Worldpokerdeals.com",
+  "blog_description": "Global poker news from USA, China, Europe, Australia and Canada ★ Detailed reviews of online poker rooms, payments systems and e-wallets ★ Poker software news ★ Legalization of poker ★ News of Chinese poker rooms and applications ★ Daily blog updates",
+  "blog_keywords": "",
+  "page_number": " | Page {page}",
   "form": {
     "email": "E-mail",
     "password": "Password",
