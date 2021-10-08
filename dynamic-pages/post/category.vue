@@ -336,7 +336,7 @@
 		}
 		&__filter {
 			grid-area: filter;
-			overflow-x: scroll;
+			overflow: hidden;
 		}
 		&__news {
 			grid-area: news;
