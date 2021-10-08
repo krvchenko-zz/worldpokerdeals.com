@@ -465,4 +465,11 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.blog-subscribe {
+			margin-top: 40px;
+		}
+	}
+
 </style>
