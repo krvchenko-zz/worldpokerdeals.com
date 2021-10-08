@@ -511,8 +511,8 @@
 			grid-area: topics;
 		}
 		&__posts {
+			margin-top: 0!important;
 			grid-area: posts;
-			margin-bottom: 0;
 		}
 		&__network-list {
 			grid-area: network-list;
