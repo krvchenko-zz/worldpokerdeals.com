@@ -2,7 +2,7 @@
 	<div class="pagination">
 		<!-- More -->
 		<button
-			v-if="nextUrl"
+			v-if="nextUrl && showLoadMore"
 			:style="{
 				width: loadMoreWidth ? `${loadMoreWidth}px` : '100%'
 			}"
@@ -196,6 +196,11 @@
 			totalText: {
 				type: String,
 				default: '',
+			},
+
+			showLoadMore: {
+				type: Boolean,
+				default: true
 			},
 
 			loadMoreText: {

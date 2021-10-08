@@ -45,6 +45,7 @@
 			:from="from"
 			:to="to"
 			:url="true"
+			:show-load-more="false"
 			load-more-text="Показать еще новости"
 			@next="handlePageNext"
 			@prev="handlePagePrev"
