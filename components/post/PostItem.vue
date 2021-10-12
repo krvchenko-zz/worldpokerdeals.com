@@ -189,6 +189,7 @@
 		overflow: hidden;
 		&_size_m {
 			margin-bottom: 25px;
+			max-width: 326px;
 		}
 		&:last-child {
 			margin-bottom: 0;
