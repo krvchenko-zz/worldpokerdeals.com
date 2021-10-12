@@ -1,11 +1,21 @@
 <template>
 	<div class="common-text-spoiler">
-		<p v-show="shouldHide">
-			{{ visibleText }}
-			<span @click="showAllText" class="common-text-spoiler__button">
-				<slot name="button" />
-			</span>
-		</p>
+		<div v-show="shouldHide">
+			<p
+				class="common-text-spoiler__visible-text"
+				v-for="(text, index) in visibleNodes"
+				:key="text"
+			>
+				{{ text }}
+				<span
+					v-if="index === visibleNodes.length - 1"
+					@click="showAllText"
+					class="common-text-spoiler__button"
+				>
+					<slot name="button" />
+				</span>
+			</p>
+		</div>
 		<div v-show="!shouldHide" ref="container"></div>
 	</div>
 </template>
@@ -30,7 +40,7 @@
 
 		data: () => ({
 			shouldHide: false,
-			visibleText: '',
+			visibleNodes: [],
 		}),
 
 		computed: {},
@@ -54,7 +64,6 @@
 			},
 
 			breakOnWord(text, limit) {
-
 				const words = text.split(' ')
 
 				let sum = 0
@@ -64,7 +73,7 @@
 					sum += words[i].length
 
 					// limit minus number of spaces between words
-					if (sum > limit - words.length + 1) {
+					if (sum > limit - i) {
 						break
 					}
 
@@ -75,7 +84,6 @@
 			},
 
 			makeSpoiler() {
-
 				const parser = new DOMParser()
 				const doc = parser.parseFromString(this.text, 'text/html')
 				const children = doc.body.children
@@ -84,6 +92,7 @@
 				let sum = 0
 				let howManySymbolsIncludeFromLastChild = 0
 				this.shouldHide = false
+				this.visibleNodes = []
 
 				// text has several p tags
 				if (children.length) {
@@ -99,18 +108,16 @@
 						}
 					}
 
-					if (indexToWhichInclude !== null) {
-						this.visibleText = this.breakOnWord(
+					if (this.shouldHide) {
+						for (let i = 0; i < indexToWhichInclude; i++) {
+							this.visibleNodes.push(children[i].textContent)
+						}
+
+						const restOfText = this.breakOnWord(
 							children[indexToWhichInclude].textContent,
 							howManySymbolsIncludeFromLastChild
 						)
-
-						for (let i = indexToWhichInclude - 1; i >= 0; i--) {
-							this.$refs.container.insertAdjacentElement(
-								'afterbegin',
-								children[i]
-							)
-						}
+						this.visibleNodes.push(restOfText)
 					} else {
 						this.$refs.container.innerHTML = this.text
 					}
@@ -120,7 +127,7 @@
 					this.shouldHide = this.text.length > this.limit
 
 					if (this.shouldHide) {
-						this.visibleText = this.breakOnWord(this.text, this.limit)
+						this.visibleNodes.push(this.breakOnWord(this.text, this.limit))
 					} else {
 						this.$refs.container.innerHTML = this.text
 					}
@@ -132,6 +139,12 @@
 
 <style lang="scss">
 	.common-text-spoiler {
+		&__visible-text {
+			display: block;
+			&:last-child {
+				display: inline;
+			}
+		}
 		&__button {
 			margin-left: 8px;
 			cursor: pointer;
