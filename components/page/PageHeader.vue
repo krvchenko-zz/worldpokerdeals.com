@@ -756,6 +756,7 @@
 		.header-nav {
 			width: 100%;
 			height: 100vh;
+			overflow-y: scroll;
 			background: #2b2e3b;
 			max-width: 436px;
 			box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.5);
