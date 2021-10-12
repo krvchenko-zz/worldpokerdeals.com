@@ -21,7 +21,15 @@
 					class="network-header__meta"
 				>
 				</page-meta>
-				<div class="network__summary" v-html="network.summary"></div>
+				<common-text-spoiler
+					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+					class="network__summary"
+					:text="network.summary"
+				>
+					<template v-slot:button>
+						<svg-icon icon="spoiler-sep" width="35" height="16" />
+					</template>
+				</common-text-spoiler>
 			</div>
 
 			<room-top

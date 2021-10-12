@@ -79,7 +79,7 @@
 					<lazy-hydrate when-visible>
 						<faq-list
 							v-if="promotion.faq && promotion.faq.mainEntity.length"
-							label="FAQ"
+							:label="$t('faq')"
 						>
 							<faq-item
 								v-for="(item, index) in promotion.faq.mainEntity"
@@ -93,10 +93,10 @@
 
 					<author v-if="promotion.author" :author="promotion.author" />
 
-					<comments
+<!-- 					<comments
 						commentable_type="App\Promotion"
 						:commentable_id="promotion.id"
-					/>
+					/> -->
 				</template>
 			</page-article>
 

@@ -167,8 +167,12 @@
   "join_us": "¡Únete a nosotros!",
   "best_room": "Best room",
   "room_about": "About {room}",
-  "room_faq": "FAQ",
+  "faq": "FAQ",
   "room_reviews": "Reviews",
+  "blog_title": "Noticias de póker online | Reseñas confiables en Worldpokerdeals.com",
+  "blog_description": "Noticias de póker de USA, China, Europa, y Latinoamérica ★ Reseñas detalladas de salas de póker online, métodos de pago y e-wallets ★ Software de póker ★ Legalización del póker ★ Salas de póker Chinas ★ Blog actualizado a diario",
+  "blog_keywords": "",
+  "page_number": " | Page {page}",
   "form": {
     "email": "E-mail",
     "password": "Contraseña",

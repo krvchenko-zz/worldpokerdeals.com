@@ -3,7 +3,15 @@
 		<div class="games-header">
 			<breadcrumb-list :white="true" />
 			<h1 class="games__title">{{ category.title }}</h1>
-			<div class="games__summary" v-html="category.summary"></div>
+			<common-text-spoiler
+				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+				class="games__summary"
+				:text="category.summary"
+			>
+				<template v-slot:button>
+					<svg-icon icon="spoiler-sep" width="35" height="16" />
+				</template>
+			</common-text-spoiler>
 		</div>
 
 		<div class="games-list">
@@ -41,7 +49,7 @@
 						<!-- Faq -->
 						<faq-list
 							v-if="category.faq && category.faq.mainEntity.length"
-							label="FAQ"
+							:label="$t('faq')"
 						>
 							<faq-item
 								v-for="(item, index) in category.faq.mainEntity"
@@ -54,10 +62,10 @@
 						<!-- Author -->
 						<author v-if="category.author" :author="category.author" />
 						<!-- Comments -->
-						<comments
+<!-- 						<comments
 							commentable_type="App\PlatfofmCategory"
 							:commentable_id="category.id"
-						/>
+						/> -->
 					</template>
 				</page-article>
 			</div>

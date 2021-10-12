@@ -38,12 +38,14 @@
 		<pagination
 			v-if="posts"
 			:last="last_page"
-			:current="page"
+			:current="current_page || page"
 			:prev-url="prev_page_url"
 			:next-url="next_page_url"
 			:total="total"
 			:from="from"
 			:to="to"
+			:url="true"
+			:show-load-more="false"
 			load-more-text="Показать еще новости"
 			@next="handlePageNext"
 			@prev="handlePagePrev"
@@ -61,14 +63,14 @@
 				</div>
 				<div class="blog-subscribe__contacts">
 					<button-contact
-						icon
-						type="telegram"
-						href="https://t.me/worldpokerdealsRU"
-					/>
+						icon type="telegram"
+						target="_blank"
+						href="worldpokerdealsRU" />
 					<button-contact
 						icon
 						type="instagram"
-						href="instagram.com/worldpokerdeals"
+						target="_blank"
+						href="https://instagram.com/worldpokerdeals"
 					/>
 					<button-contact
 						icon
@@ -106,16 +108,18 @@
 	import { mapGetters } from 'vuex'
 
 	export default {
-		// head () {
-		//   return {
-		//     title: this.post.meta_title,
-		//     titleTemplate: '%s',
-		//     meta: [
-		//       { name: 'description', content: this.post.meta_description },
-		//       { name: 'keywords', content: this.post.meta_keywords }
-		//     ],
-		//   }
-		// },
+		head () {
+			return {
+				title: this.$route.params.page ? `${this.$t('blog_title')} | Page ${this.$route.params.page}` : this.$t('blog_title'),
+				titleTemplate: '%s',
+				meta: [
+					{ 
+						name: 'description',
+						content: this.$route.params.page ? `${this.$t('blog_description')} | Page ${this.$route.params.page}` : this.$t('blog_description')
+					},
+				],
+			}
+		},
 
 		components: {},
 
@@ -168,7 +172,7 @@
 			this.category_id = this.$route.query.category
 				? this.categories.filter(item => {
 						return item.slug === this.$route.query.category
-				  })[0].id
+					})[0].id
 				: null
 
 			await this.$axios
@@ -178,7 +182,7 @@
 						locale: this.locale,
 						sort: this.sort,
 						order: this.order,
-						page: this.page,
+						page: this.$route.params &&  this.$route.params.page ? this.$route.params.page : this.page,
 						per_page: this.per_page,
 						post_category_id: this.category_id,
 					},
@@ -223,7 +227,7 @@
 					query && query.category
 						? this.categories.filter(item => {
 								return item.slug === query.category
-						  })[0].id
+							})[0].id
 						: this.category_id
 
 				$nuxt.$loading.start()
@@ -333,7 +337,7 @@
 		}
 		&__filter {
 			grid-area: filter;
-			overflow-x: scroll;
+			overflow: hidden;
 		}
 		&__news {
 			grid-area: news;
@@ -461,4 +465,11 @@
 			}
 		}
 	}
+
+	@include mq('tablet') {
+		.blog-subscribe {
+			margin-top: 40px;
+		}
+	}
+
 </style>

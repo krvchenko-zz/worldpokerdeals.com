@@ -68,7 +68,31 @@
 		components: {},
 
 		layout: 'basic',
-		middleware: 'guest',
+
+		async middleware({ store, redirect, params, $axios }) {
+
+			if (store.getters['auth/check']) {
+				return redirect('/')
+			}
+
+			await $axios
+				.get('pages/register')
+				.then(response => {
+					store.commit('pages/FETCH_PAGE', { page: response.data })
+				})
+				.catch(error => {})
+		},
+
+		head() {
+			return {
+				title: this.page.meta_title,
+				titleTemplate: '%s',
+				meta: [
+					{ name: 'description', content: this.page.meta_description },
+					{ name: 'keywords', content: this.page.meta_keywords },
+				],
+			}
+		},
 
 		props: {},
 

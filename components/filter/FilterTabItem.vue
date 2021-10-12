@@ -70,6 +70,9 @@
 				display: block;
 				background: #cccccc;
 			}
+			&:last-child {
+				padding: 0;
+			}
 		}
 
 		&__label {

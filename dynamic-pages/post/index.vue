@@ -24,7 +24,11 @@
 					:text="post.text"
 					:title="post.title"
 					:image="post.image"
+					:author="post.user.full_name"
 					:summary="post.summary"
+					:created="post.created_at"
+					:updated="post.updated_at"
+					:meta="true"
 				>
 					<template #header>
 						<toc-list v-if="post.toc" class="post__header-toc">
@@ -43,7 +47,7 @@
 					</template>
 				</page-article>
 				<!-- Faq -->
-				<faq-list v-if="post.faq && post.faq.mainEntity.length" label="FAQ">
+				<faq-list v-if="post.faq && post.faq.mainEntity.length" :label="$t('faq')">
 					<faq-item
 						v-for="(item, index) in post.faq.mainEntity"
 						:key="index"
@@ -55,7 +59,7 @@
 				<!-- Author -->
 				<author v-if="post.user" :author="post.user" />
 				<!-- Comments -->
-				<comments commentable_type="App\Post" :commentable_id="post.id" />
+				<!-- <comments commentable_type="App\Post" :commentable_id="post.id" /> -->
 			</div>
 
 			<div class="article-container__aside-content">
@@ -76,7 +80,7 @@
 					/>
 				</post-list>
 
-				<post-list v-if="posts" :asRow="$device.isTablet">
+				<post-list v-if="posts" :asRow="$device.isTablet" class="posts_recent">
 					<post-item
 						v-for="(item, index) in posts"
 						:key="index"
@@ -97,6 +101,7 @@
 		<lazy-hydrate when-visible>
 			<post-list
 				v-if="related"
+				class="posts_related"
 				label="Похожие статьи"
 				:asRow="$device.isDesktopOrTablet"
 			>

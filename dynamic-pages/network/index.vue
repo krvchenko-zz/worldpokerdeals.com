@@ -13,40 +13,40 @@
 		</h2>
 
 		<div v-if="data.length" class="network__rooms network-rooms">
-			<div class="network-filters">
-				<div v-if="data.length" class="network-filters__info">
-					Показано {{ total }} из {{ overall }} покер-румов
-				</div>
 
-				<mobile-filter-button v-if="isTouch" :selected="selected.length || 0" />
+			<client-only>
+				<filter-header
+					class="network__filter-header"
+					:geo.sync="geo"
+					:sort.sync="sort"
+					:total.sync="total"
+					:overall.sync="overall"
+					:sort-options="sortOptions"
+					:selected="selected.length"
+					entity-label="покер-румов"
+					@update:sort="fetchItems"
+					@update:geo="fetchItems"
+				/>
 
-				<div v-if="data.length && !isTouch" class="network-filters__geo">
-					<geo-switcher
-						:value="country.code"
-						:geo.sync="geo"
-						@change:geo="fetchItems"
+				<filter-selected-list
+					v-if="selected.length"
+					class="network__filter-selected"
+				>
+					<filter-selected
+						v-for="(item, index) in selected"
+						:key="index"
+						:label="item.label"
+						:value="item.value"
+						:item-key="item.key"
 					/>
-				</div>
-			</div>
-
-			<filter-selected-list
-				v-if="selected.length && !isTouch"
-				class="network__selected-filters"
-			>
-				<filter-selected
-					v-for="item in selected"
-					:key="item.value"
-					:label="item.label"
-					:value="item.value"
-					:item-key="item.key"
-				/>
-				<filter-selected
-					:key="null"
-					label="Очистить фильтры"
-					:clear="true"
-					:value="null"
-				/>
-			</filter-selected-list>
+					<filter-selected
+						:key="null"
+						label="Очистить фильтры"
+						:clear="true"
+						:value="null"
+					/>
+				</filter-selected-list>
+			</client-only>
 
 			<div class="network__rooms__item">
 				<room
@@ -78,7 +78,8 @@
 				:total="total"
 				:from="from"
 				:to="to"
-				:load-more-width="208"
+				:load-more-width="$device.isDesktop ? 215 : false"
+				:showPages="false"
 				load-more-text="Показать еще румы"
 				total-text="покер-румов"
 				@next="handlePageNext"
@@ -117,7 +118,7 @@
 				<!-- Faq -->
 				<faq-list
 					v-if="network.faq && network.faq.mainEntity.length"
-					label="FAQ"
+					:label="$t('faq')"
 				>
 					<faq-item
 						v-for="(item, index) in network.faq.mainEntity"
@@ -130,31 +131,35 @@
 				<!-- Author -->
 				<author v-if="network.user" :author="network.user" />
 				<!-- Comments -->
-				<comments commentable_type="App\Network" :commentable_id="network.id" />
+				<!-- <comments commentable_type="App\Network" :commentable_id="network.id" /> -->
 			</template>
 		</page-article>
 
 		<div class="network__aside">
-			<div
-				v-if="filters"
-				class="filters__wrapper"
-				:class="{ 'filters__wrapper--opened': showFilter }"
-				@click.self="handleOutsideClick($event)"
-			>
-				<network-filters
-					:geo.sync="geo"
-					:kycs="filters.kycs"
-					:platforms="filters.platforms"
-					:tags="filters.tags"
-					:payments="filters.payments"
-					:types="filters.types"
-					:networks="filters.networks"
-					:licenses="filters.licenses"
-					:showGeo="data.length"
-					@change="handleFilterChange"
-					@change:geo="fetchItems"
-				/>
-			</div>
+			<client-only>
+				<div
+					v-if="filters"
+					class="filters__wrapper"
+					:class="{ 'filters__wrapper--opened': showFilter }"
+					@click.self="handleOutsideClick($event)"
+				>
+					<lazy-hydrate>
+						<network-filters
+							:kycs="filters.kycs"
+							:platforms="filters.platforms"
+							:tags="filters.tags"
+							:payments="filters.payments"
+							:types="filters.types"
+							:networks="filters.networks"
+							:licenses="filters.licenses"
+							:geo.sync="geo"
+							@update:sort="fetchItems"
+							@update:geo="fetchItems"
+							@change="handleFilterChange"
+						/>
+					</lazy-hydrate>
+				</div>
+			</client-only>
 
 			<topic-list v-if="network.topics.length" class="network__topics">
 				<topic-item
@@ -252,6 +257,16 @@
 			overall: 0,
 			selected: [],
 			showFilter: false,
+			sortOptions: [
+				{
+					label: 'Сначала лучшие',
+					value: 'rating',
+				},
+				{
+					label: 'Сначала новые',
+					value: 'created_at',
+				},
+			],
 		}),
 
 		head() {
@@ -279,7 +294,7 @@
 				pageable: 'pages/page',
 				network: 'networks/network',
 				rooms: 'rooms/rooms',
-				filters: 'networks/filters',
+				filters: 'rooms/filters',
 				related: 'networks/related',
 				posts: 'networks/posts',
 				isTouch: 'ui/isTouch',
@@ -330,40 +345,56 @@
 				})
 				.catch(e => {})
 
-			await this.$axios
-				.get('rooms/list', {
-					params: {
-						geo: this.geo,
-						per_page: this.per_page,
-						network_id: this.network.id,
-					},
-				})
-				.then(response => {
-					Object.keys(response.data).forEach(key => {
-						this[key] = response.data[key]
+				await this.$axios
+					.get(`rooms/list`, { params: { ...this.params, cached: true } })
+					.then(response => {
+						this.$store.commit('rooms/FETCH_ROOMS', {
+							rooms: response.data.data 
+						})
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters
+						})
+						Object.keys(response.data).forEach(key => {
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
+						})
 					})
-					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
-				})
-				.catch(e => {})
 
-			await this.$axios
-				.get(`/network/filters/list`, {
-					params: {
-						geo: this.geo,
-						network_id: this.network.id,
-					},
-				})
-				.then(response => {
-					this.$store.commit('networks/FETCH_FILTERS', {
-						filters: response.data,
-					})
-				})
+			// await this.$axios
+			// 	.get('rooms/list', {
+			// 		params: {
+			// 			geo: this.geo,
+			// 			per_page: this.per_page,
+			// 			network_id: this.network.id,
+			// 		},
+			// 	})
+			// 	.then(response => {
+			// 		Object.keys(response.data).forEach(key => {
+			// 			this[key] = response.data[key]
+			// 		})
+			// 		this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
+			// 	})
+			// 	.catch(e => {})
+
+			// await this.$axios
+			// 	.get(`/network/filters/list`, {
+			// 		params: {
+			// 			geo: this.geo,
+			// 			network_id: this.network.id,
+			// 		},
+			// 	})
+			// 	.then(response => {
+			// 		this.$store.commit('rooms/FETCH_FILTERS', {
+			// 			filters: response.data,
+			// 		})
+			// 	})
 		},
 
 		watch: {},
 
 		created() {
-			// this.geo = null
+			this.geo = this.country.code
 		},
 
 		methods: {
@@ -371,26 +402,18 @@
 				this.$nuxt.$loading.start()
 
 				await this.$axios
-					.get(`/network/filters/list`, {
-						params: {
-							geo: this.geo,
-							network_id: this.network.id,
-						},
-					})
-					.then(response => {
-						this.$store.commit('networks/FETCH_FILTERS', {
-							filters: response.data,
-						})
-					})
-
-				await this.$axios
 					.get(`rooms/list`, { params: this.params })
 					.then(response => {
 						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data,
+							rooms: response.data.data 
+						})
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters
 						})
 						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
 						})
 						this.loading = false
 						this.$nuxt.$loading.finish()
@@ -410,7 +433,6 @@
 			handlePageChange(number) {
 				this.page = number
 				this.fetchItems()
-				// history.replaceState({}, null, `${this.$route.path}/page/${number}`)
 			},
 
 			handleShowMore() {
@@ -510,8 +532,8 @@
 			grid-area: topics;
 		}
 		&__posts {
+			margin-top: 0!important;
 			grid-area: posts;
-			margin-bottom: 0;
 		}
 		&__network-list {
 			grid-area: network-list;

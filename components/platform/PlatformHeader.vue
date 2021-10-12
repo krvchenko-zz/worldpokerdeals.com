@@ -19,7 +19,15 @@
 			>
 			</page-meta>
 
-			<div class="platform__summary" v-html="platform.summary"></div>
+			<common-text-spoiler
+				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+				class="platform__summary"
+				:text="platform.summary"
+			>
+				<template v-slot:button>
+					<svg-icon icon="spoiler-sep" width="35" height="16" />
+				</template>
+			</common-text-spoiler>
 		</div>
 
 		<room-top

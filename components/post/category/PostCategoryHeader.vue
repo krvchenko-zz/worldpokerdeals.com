@@ -8,7 +8,7 @@
 			:height="68"
 		/>
 		<div>
-			<h1 class="post-category__title">Новости покера</h1>
+			<h1 class="post-category__title">Новости покера{{ $route.params.page ? $t('page_number', {page: $route.params.page}) : '' }}</h1>
 			<div class="post-category__summary">
 				Инсайды индустрии без поп-корна и еще какую-то небольшую <br />
 				подводку чтобы было в 2 строки

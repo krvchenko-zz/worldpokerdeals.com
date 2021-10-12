@@ -2,9 +2,9 @@
 	<div class="pagination">
 		<!-- More -->
 		<button
-			v-if="nextUrl"
+			v-if="nextUrl && showLoadMore"
 			:style="{
-				width: loadMoreWidth ? `${loadMoreWidth}px` : 'auto'
+				width: loadMoreWidth ? `${loadMoreWidth}px` : '100%'
 			}"
 			:class="['btn', 'btn-sm', 'btn-primary', 'btn-pagination_more']"
 			@click="handleShowMore"
@@ -17,16 +17,26 @@
 				<nuxt-link
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
 					:to="{
-						name: 'index',
+						name: url && current - 1 > 1 ? 'index.paged' : 'index',
 						params: {
 							parent: pageable.parent ? pageable.parent.slug : pageable.slug,
-							child: pageable.parent ? pageable.slug : null,
+							child: pageable.parent && (!url && current - 1 > 1) ? pageable.slug : null,
+							page: url && current - 1 > 1 ? current - 1 : null
 						},
-						query: current - 1 !== 1 ? { page: current - 1 } : {},
+						query: $route.query,
 					}"
 					custom
 				>
+					<a
+						v-if="url"
+						:class="['btn', 'btn-pagination', 'btn-pagination_prev']"
+						:href="href"
+						:disabled="!prevUrl"
+						@click="navigate"
+					>
+					</a>
 					<button
+						v-else
 						:class="['btn', 'btn-pagination', 'btn-pagination_prev']"
 						aria-label="Previous"
 						:disabled="!prevUrl"
@@ -46,27 +56,29 @@
 				<nuxt-link
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
 					:to="{
-						name: 'index',
+						name: url && item.number > 1 ? 'index.paged' : 'index',
 						params: {
 							parent: pageable.parent ? pageable.parent.slug : pageable.slug,
-							child: pageable.parent ? pageable.slug : null,
+							child: pageable.parent && (!url && item.number > 1) ? pageable.slug : null,
+							page: url && item.number > 1 ? item.number : null
 						},
-						query: item.number > 1 ? { page: item.number } : {},
+						query: $route.query,
 					}"
 					custom
 				>
-					<button
-						v-if="query"
+					<a
+						v-if="url"
 						:class="[
 							'btn',
 							'btn-pagination',
 							item.number === current && 'btn-pagination_active',
 						]"
+						:href="href"
 						:disabled="item.number === current"
 						@click="navigate"
 					>
 						{{ item.number }}
-					</button>
+					</a>
 					<button
 						v-else
 						:class="[
@@ -86,16 +98,27 @@
 				<nuxt-link
 					v-slot="{ href, route, navigate, isActive, isExactActive }"
 					:to="{
-						name: 'index',
+						name: url && current + 1 < last ? 'index.paged' : 'index',
 						params: {
 							parent: pageable.parent ? pageable.parent.slug : pageable.slug,
-							child: pageable.parent ? pageable.slug : null,
+							child: pageable.parent && (!url && current + 1 < last) ? pageable.slug : null,
+							page: url && current + 1 < last ? current + 1 : null
 						},
-						query: { page: current + 1 },
+						query: $route.query,
 					}"
 					custom
 				>
+					<a
+						v-if="url"
+						:class="['btn', 'btn-pagination', 'btn-pagination_next']"
+						aria-label="Next"
+						:href="href"
+						:disabled="!nextUrl"
+						@click="navigate"
+					>
+					</a>
 					<button
+						v-else
 						:class="['btn', 'btn-pagination', 'btn-pagination_next']"
 						aria-label="Next"
 						:disabled="!nextUrl"
@@ -140,6 +163,11 @@
 				default: false,
 			},
 
+			url: {
+				type: Boolean,
+				default: false,
+			},
+
 			prevUrl: {
 				type: String,
 				required: false,
@@ -168,6 +196,11 @@
 			totalText: {
 				type: String,
 				default: '',
+			},
+
+			showLoadMore: {
+				type: Boolean,
+				default: true
 			},
 
 			loadMoreText: {
@@ -379,6 +412,8 @@
 
 	@include mq('tablet') {
 		.pagination {
+			margin-bottom: 0;
+			padding: 0 15px;
 			flex-direction: row;
 			flex-wrap: wrap;
 			justify-content: center;

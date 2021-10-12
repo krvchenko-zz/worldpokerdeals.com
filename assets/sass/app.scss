@@ -372,6 +372,11 @@ body {
 			&:last-child {
 				margin: 0;
 			}
+
+			img {
+				max-width: 100%;
+				height: auto!important;
+			}
 		}
 
 		a {
@@ -389,12 +394,20 @@ body {
 		img[style*="float: left"],
 		img[style*="float:left"] {
 			margin: 0 28px 20px 0px;
+			@include mq('mobile') {
+				float: none!important;
+				display: block;
+			}
 		}
 
 		img[align="right"],
 		img[style*="float: right"],
 		img[style*="float:right"] {
 			margin: 0 0 20px 28px;
+			@include mq('mobile') {
+				float: none!important;
+				display: block;
+			}
 		}
 
 		figure {

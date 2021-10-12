@@ -8,7 +8,7 @@
 		</transition>
 
 		<nuxt />
-
+		
 		<lazy-hydrate when-visible>
 			<page-footer />
 		</lazy-hydrate>
@@ -249,6 +249,9 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<client-only v-if="!$device.isMobile" name="fade">
+			<page-top />
+		</client-only>
 	</div>
 </template>
 
@@ -308,6 +311,7 @@
 				this.auth = false
 				this.register = false
 				this.reset = false
+				this.hideHeader = false
 				document.body.classList.remove('modal-open')
 			},
 		},

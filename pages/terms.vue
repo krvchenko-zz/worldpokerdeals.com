@@ -75,6 +75,26 @@
 
 		layout: 'basic',
 
+		async middleware({ store, redirect, params, $axios }) {
+			await $axios
+				.get('pages/terms')
+				.then(response => {
+					store.commit('pages/FETCH_PAGE', { page: response.data })
+				})
+				.catch(error => {})
+		},
+
+		head() {
+			return {
+				title: this.page.meta_title,
+				titleTemplate: '%s',
+				meta: [
+					{ name: 'description', content: this.page.meta_description },
+					{ name: 'keywords', content: this.page.meta_keywords },
+				],
+			}
+		},
+
 		async middleware({ store, route, $axios }) {
 			await $axios
 				.get(`pages/${route.fullPath}`, {

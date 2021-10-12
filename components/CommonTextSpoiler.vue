@@ -54,6 +54,7 @@
 			},
 
 			breakOnWord(text, limit) {
+
 				const words = text.split(' ')
 
 				let sum = 0
@@ -74,6 +75,7 @@
 			},
 
 			makeSpoiler() {
+
 				const parser = new DOMParser()
 				const doc = parser.parseFromString(this.text, 'text/html')
 				const children = doc.body.children

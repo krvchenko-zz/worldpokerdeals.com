@@ -53,6 +53,10 @@
 				:total="total"
 				:from="from"
 				:to="to"
+				:load-more-width="$device.isDesktop ? 215 : false"
+				:showPages="false"
+				load-more-text="Показать еще румы"
+				total-text="покер-румов"
 				@next="handlePageNext"
 				@prev="handlePagePrev"
 				@change="handlePageChange"
@@ -84,7 +88,7 @@
 					<!-- Faq -->
 					<faq-list
 						v-if="platform.faq && platform.faq.mainEntity.length"
-						label="FAQ"
+						:label="$t('faq')"
 					>
 						<faq-item
 							v-for="(item, index) in platform.faq.mainEntity"
@@ -97,10 +101,7 @@
 					<!-- Author -->
 					<author v-if="platform.author" :author="platform.author" />
 					<!-- Comments -->
-					<comments
-						commentable_type="App\PlatformTranslation"
-						:commentable_id="pageable.pageable_id"
-					/>
+					<!-- <comments commentable_type="App\PlatformTranslation" :commentable_id="pageable.pageable_id" /> -->
 				</template>
 			</page-article>
 		</div>
