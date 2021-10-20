@@ -4,6 +4,28 @@
 		<soft-category-header class="soft-category__header" />
 
 		<div class="soft-category-top">
+
+			<client-only>
+				<filter-selected-list
+					v-if="selected.length"
+					class="soft__filter-selected"
+				>
+					<filter-selected
+						v-for="(item, index) in selected"
+						:key="index"
+						:label="item.label"
+						:value="item.value"
+						:item-key="item.key"
+					/>
+					<filter-selected
+						:key="null"
+						label="Очистить фильтры"
+						:clear="true"
+						:value="null"
+					/>
+				</filter-selected-list>
+			</client-only>
+
 			<div v-if="data.length" class="soft-category__info">
 				Показано {{ total }} из {{ overall }} програм для покера
 			</div>
@@ -383,7 +405,17 @@
 			margin-top: 28px;
 		}
 	}
+
+	.soft-category__info {
+		width: 100%;
+	}
+
+	.soft__filter-selected {
+		width: 100%;
+	}
+
 	.soft-category-top {
+		flex-direction: column;
 		grid-area: filter-soft;
 		margin-bottom: 38px;
 		display: flex;
