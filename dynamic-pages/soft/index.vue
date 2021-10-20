@@ -6,7 +6,7 @@
 
 		<div class="article-container">
 			<div class="article-container__toc">
-				<toc-list v-if="tab.toc">
+				<toc-list v-if="tab.toc && tab.toc.length">
 					<toc-item
 						v-for="(item, index) in tab.toc"
 						:key="index"

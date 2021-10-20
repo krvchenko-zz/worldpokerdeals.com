@@ -1,11 +1,30 @@
 <template>
 	<div
-		:class="['soft-item', hover && 'soft-item_hover']"
+		:class="[
+			'soft-item',
+			hover && 'soft-item_hover',
+			small && 'soft-item_s'
+		]"
 		@mouseleave="hover = false"
 		@mouseover="handleMouseOver"
 	>
-		<div :class="['soft-item__wrap', hover && 'soft-item__wrap_hover']">
-			<div class="soft-item__top">
+		<div :class="[
+			'soft-item__wrap',
+			hover && 'soft-item__wrap_hover',
+			small && 'soft-item__wrap_s'
+		]">
+
+			<div v-if="small" :class="['soft-item__img-wrap', small && 'soft-item__img-wrap_s']">
+				<img
+					:class="['soft-item__img', small && 'soft-item__img_s']"
+					decoding="async"
+					loading="lazy"
+					:src="img"
+					:alt="image.alt || `${title} logo`"
+				/>
+			</div>
+
+			<div v-else class="soft-item__top">
 				<div
 					v-if="discount && discount_value && available"
 					class="soft-item-discount"
@@ -18,7 +37,7 @@
 				</div>
 				<span v-if="!available" class="soft-item__unavailable"></span>
 				<div class="soft-item__title-wrap">
-					<span class="soft-item__category">{{ category }}</span>
+					<span :class="['soft-item__category', small && 'soft-item__category_s']">{{ category }}</span>
 					<span
 						:class="['soft-item__title', hover && 'soft-item__title_hover']"
 						>{{ title }}</span
@@ -36,18 +55,39 @@
 			</div>
 
 			<div
-				:class="['soft-item__info', hover && 'soft-item__info_hover']"
+				v-if="!small"
+				:class="[
+					'soft-item__info',
+					hover && 'soft-item__info_hover',
+				]"
 				v-html="short_description"
 			></div>
-			<div class="soft-item__price">{{ currency }}{{ price }}</div>
 
-			<div class="soft-item__actions">
+			<div
+				v-else
+				:class="[
+					'soft-item__info',
+					'soft-item__info_s',
+				]"
+			>
+				<div :class="['soft-item__category', 'soft-item__category_s']">{{ category }}</div>
+				<div :class="['soft-item__title', 'soft-item__title_s']">{{ title }}</div>
+				<div :class="['soft-item__summary']" v-html="short_description"></div>
+			</div>
+
+			<div v-if="!small" class="soft-item__price">{{ currency }}{{ price }}</div>
+
+			<div :class="[
+				'soft-item__actions',
+				small && 'soft-item__actions_s',
+			]">
 				<soft-action-button
 					:class="[
 						'soft-item__link',
 						!available && 'soft-item__link_disabled',
 						'soft-item__link_download',
 					]"
+					:id="id"
 					label="Скачать"
 					type="download"
 				/>
@@ -141,6 +181,11 @@
 				type: String,
 				required: true,
 			},
+
+			small: {
+				type: Boolean,
+				default: false,
+			},
 		},
 
 		data: () => ({
@@ -169,7 +214,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	@import '~assets/fonts/Discount/styles.css';
 
 	$ico-discount: url('~assets/i/ico-discount.svg?data');
@@ -178,6 +223,17 @@
 	.soft-item {
 		position: relative;
 		min-height: 281px;
+		&_s {
+			padding: 0;
+			margin: 30px 0 40px 0;
+			display: flex;
+			background: #fafafa;
+			border-radius: 4px;
+			min-height: inherit;
+			@include mq('mobile') {
+				display: block;
+			}
+		}
 		&__wrap {
 			z-index: 3;
 			height: 100%;
@@ -188,13 +244,14 @@
 			border: 1px solid #e9e9e9;
 			border-radius: 4px;
 			transition: box-shadow 0.3s ease-out, background 0.3s ease-out;
-
 			&_hover {
-				// top: 0;
-				// left: 0;
-				// position: absolute;
 				background: #fff;
 				box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+			}
+			&_s {
+				padding: 20px;
+				flex-direction: row;
+				height: auto;
 			}
 		}
 
@@ -214,6 +271,11 @@
 			text-transform: uppercase;
 			color: #999999;
 			opacity: 0.8;
+
+			&_s {
+				margin-bottom: 5px;
+				color: #555555;
+			}
 		}
 
 		&__title {
@@ -229,11 +291,28 @@
 			letter-spacing: -0.1px;
 			color: #222222;
 			&-wrap {
-				// flex-grow: 1;
+
 			}
 			&_hover {
-				// max-height: none;
+
 			}
+
+			&_s {
+				min-height: initial;
+				max-height: initial;
+				margin-bottom: 10px;
+				font-size: 18px;
+				line-height: 21px;
+				letter-spacing: -0.3px;
+				color: #243238;
+			}
+		}
+
+		&__summary {
+			font-family: "Proxima Nova";
+			font-size: 12px;
+			line-height: 14px;
+			color: #555555;
 		}
 
 		&__info {
@@ -268,6 +347,19 @@
 					display: none;
 				}
 			}
+			&_s {
+				margin-right: 30px;
+				flex-grow: 1;
+				max-height: initial;
+		    min-height: initial;
+				@include mq('mobile') {
+					margin-right: 0;
+					margin-bottom: 12px;
+				}
+				&:after {
+					display: none;
+				}
+			}
 		}
 
 		&__price {
@@ -281,14 +373,32 @@
 		}
 
 		&__img {
+			&_s {
+				max-width: 100%;
+				height: auto;
+				display: block;
+				margin: 0;
+			}
 			&-wrap {
 				margin: -43px -28px 0 auto;
+				&_s {
+					min-width: 150px;
+					margin: -40px 8px 0 -20px;
+					@include mq('mobile') {
+						margin-right: 0;
+						margin-bottom: 12px;
+					}
+				}
 			}
 		}
 
 		&__actions {
 			display: flex;
 			justify-content: space-between;
+			&_actions {
+				// flex-direction: column;
+				display: block;
+			}
 		}
 
 		&__link {

@@ -25,7 +25,8 @@
 
 			<div class="soft-actions">
 				<soft-action-button
-					v-if="soft.url"
+					:disabled="soft.available ? false : true"
+					:id="soft.id"
 					label="Скачать"
 					type="download"
 					:slug="soft.slug"
@@ -52,6 +53,9 @@
 		</common-text-spoiler>
 
 		<div v-if="soft.images.length" class="soft-screenshots">
+
+			<div class="soft-screenshots__label">Скриншоты</div>
+
 			<carousel
 				:navigation-enabled="true"
 				:pagination-enabled="true"
@@ -122,7 +126,7 @@
 			}),
 
 			img() {
-				return `${this.mediaUrl}/soft-card/${this.soft.image.filename}`
+				return `${this.mediaUrl}/soft-logo/${this.soft.image.filename}`
 			},
 
 			mediaUrl() {
@@ -192,21 +196,22 @@
 				grid-area: nav;
 				flex-basis: 100%;
 			}
+
+			&__category {
+				margin-bottom: 8px;
+				font-family: 'Proxima Nova';
+				font-weight: bold;
+				font-size: 14px;
+				line-height: 16px;
+				letter-spacing: 0.5px;
+				text-transform: uppercase;
+				color: #555555;
+			}
 		}
 
 		&-actions {
 			margin-bottom: 32px;
 			font-size: 0;
-		}
-		&__category {
-			margin-bottom: 8px;
-			font-family: 'Proxima Nova';
-			font-weight: bold;
-			font-size: 14px;
-			line-height: 16px;
-			letter-spacing: 0.5px;
-			text-transform: uppercase;
-			color: #555555;
 		}
 		&-price {
 			display: inline-block;
@@ -234,6 +239,16 @@
 		&-screenshots {
 			grid-area: slider;
 			width: 300px;
+
+			&__label {
+				margin-bottom: 20px;
+				font-family: Proxima Nova;
+				font-weight: bold;
+				font-size: 20px;
+				line-height: 24px;
+				color: #555555;
+			}
+
 			&__img {
 				width: 300px;
 				height: auto;

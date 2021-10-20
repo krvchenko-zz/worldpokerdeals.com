@@ -23,6 +23,10 @@
 		components: {},
 
 		props: {
+			id: {
+				type: [String, Number],
+			},
+
 			type: {
 				type: String,
 				default: 'download',
@@ -58,7 +62,7 @@
 
 		computed: {
 			to() {
-				return `${this.slug}/download`
+				return `/soft/${this.id}/download`
 			},
 		},
 
@@ -93,6 +97,12 @@
 			&:visited {
 				color: #ffffff;
 			}
+		}
+
+		&_disabled {
+			opacity: 0.5;
+	    pointer-events: none;
+	    cursor: not-allowed;
 		}
 	}
 </style>

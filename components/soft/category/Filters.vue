@@ -9,14 +9,17 @@
 
 		<div class="filter">
 			<filter-item :count="free.count">
+
 				<checkbox
-					v-model="selected.free"
-					label="Только бесплатный софт"
+					v-model="selected.free.value"
+					label="iТолько бесплатный софт"
 					:true-value="true"
 					:false-value="null"
 					@change="handleFilterChange"
 				/>
+
 			</filter-item>
+
 		</div>
 
 		<filter-dropdown
@@ -33,7 +36,7 @@
 			>
 				<checkbox
 					v-model="selected.categories"
-					:value="item.value"
+					:value="item"
 					:label="item.label"
 					@change="handleFilterChange"
 				/>
@@ -78,7 +81,10 @@
 			loading: false,
 			selected: {
 				categories: [],
-				free: null,
+				free: {
+					value: null,
+					label: 'Только бесплатный софт',
+				}
 			},
 		}),
 
@@ -91,32 +97,6 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 			}),
-
-			flatten() {
-				let items = []
-				Object.keys(this.selected).forEach(key => {
-					if (Array.isArray(this.selected[key]) && this.selected[key].length) {
-						for (let i = 0; i < this.selected[key].length; i++) {
-							const item = this[key].find(
-								el => el.value === this.selected[key][i]
-							)
-							items.push({ ...item, key })
-						}
-					}
-				})
-
-				return items
-			},
-
-			values() {
-				let items = {}
-				Object.keys(this.selected).forEach(key => {
-					if (Array.isArray(this.selected[key])) {
-						items[key] = this.selected[key]
-					}
-				})
-				return items
-			},
 		},
 
 		watch: {},

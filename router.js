@@ -83,6 +83,11 @@ const routes = [
 		component: page('download.vue'),
 	},
 	{
+		path: '/soft/:id/download',
+		name: 'soft',
+		component: page('soft.vue'),
+	},
+	{
 		path: '*',
 		name: '404',
 		component: page('404.vue'),

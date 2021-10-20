@@ -248,17 +248,7 @@
 					Object.keys(response.data).forEach(key => {
 						this[key] = response.data[key]
 					})
-				})
-
-			await this.$axios
-				.get(`/soft/filters/list`, {
-					params: {
-						geo: this.country.code,
-						room_category_id: this.category.id,
-					},
-				})
-				.then(response => {
-					this.$store.commit('soft/FETCH_FILTERS', { filters: response.data })
+					this.$store.commit('soft/FETCH_FILTERS', { filters: response.data.filters })
 				})
 		},
 
