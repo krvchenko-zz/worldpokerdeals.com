@@ -12,7 +12,7 @@
 
 				<checkbox
 					v-model="selected.free.value"
-					label="iТолько бесплатный софт"
+					label="Только бесплатный софт"
 					:true-value="true"
 					:false-value="null"
 					@change="handleFilterChange"
