@@ -88,10 +88,16 @@ export default {
 				}
 
 				if (e.target.scrollLeft >= maxScrollRight)
-					toggleRight.classList.add('scrollable__item_hidden'),
-					position = items.length - 1
+					toggleRight.classList.add('scrollable__item_hidden')
+					// position = items.length - 1
 				else
 					toggleRight.classList.remove('scrollable__item_hidden')
+
+				if (position === items.length - 1) {
+					position = position - 5 && e.target.scrollLeft >= maxScrollRight ? items.length - 1 : items.length
+				}
+
+				// console.log(position)
 
 				e.target.scrollLeft === 0 ?
 					toggleLeft.classList.add('scrollable__item_hidden') :
