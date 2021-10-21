@@ -66,6 +66,10 @@ export default {
 
 				toggleLeft.addEventListener('click', function() {
 
+					if (position - 5 <= items.length) {
+						position = 0
+					}
+
 					position - 5 <= items.length && position >= 5 ?
 						position = position - 5 :
 						position = 0
@@ -87,15 +91,16 @@ export default {
 						position = i
 				}
 
-				if (e.target.scrollLeft >= maxScrollRight)
-					toggleRight.classList.add('scrollable__item_hidden')
-					// position = items.length - 1
-				else
+				if (e.target.scrollLeft >= maxScrollRight) {
+					toggleRight.classList.add('scrollable__item_hidden'),
+					position = items.length - 1
+				} else {
 					toggleRight.classList.remove('scrollable__item_hidden')
-
-				if (position === items.length - 1) {
-					position = position - 5 && e.target.scrollLeft >= maxScrollRight ? items.length - 1 : items.length
 				}
+
+				// if (position === items.length - 1) {
+				// 	position = position - 5 && e.target.scrollLeft >= maxScrollRight ? items.length - 1 : items.length
+				// }
 
 				// console.log(position)
 

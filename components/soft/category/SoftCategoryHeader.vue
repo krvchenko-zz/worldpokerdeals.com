@@ -22,7 +22,7 @@
 
 		<!-- Navigation -->
 		<div class="soft-category-header__nav">
-			<nav-list>
+			<nav-list v-if="categories && categories.length">
 				<nav-item
 					v-for="(item, index) in categories"
 					:key="index"
