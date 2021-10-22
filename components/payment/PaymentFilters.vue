@@ -11,27 +11,39 @@
 			>
 				<checkbox
 					v-model="selected.types"
-					:value="item.value"
+					:value="item"
 					:label="item.label"
 					@change="handleFilterChange"
 				/>
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown :label="$t('payments')" icon="filter-payments">
+		<filter-dropdown
+			v-if="payments.length"
+			:label="$t('payment_methods')"
+			icon="filter-payments"
+			@open="$emit('filterOpen')"
+		>
 			<filter-item
 				v-for="(item, index) in payments"
-				v-if="payments.length"
 				:key="index"
 				:count="item.count"
-				:icon="`${item.slug}-color-square`"
 			>
 				<checkbox
 					v-model="selected.payments"
-					:value="item.value"
+					:value="item"
 					:label="item.label"
 					@change="handleFilterChange"
 				/>
+				<template #icon>
+					<svg-icon
+						class="filter-item__icon"
+						:icon="`${item.slug}-color`"
+						:width="28"
+						:height="28"
+						view-box="0 0 30 30"
+					/>
+				</template>
 			</filter-item>
 		</filter-dropdown>
 
@@ -44,7 +56,7 @@
 			>
 				<checkbox
 					v-model="selected.platforms"
-					:value="item.value"
+					:value="item"
 					:label="item.label"
 					@change="handleFilterChange"
 				/>
@@ -60,7 +72,7 @@
 			>
 				<checkbox
 					v-model="selected.licenses"
-					:value="item.value"
+					:value="item"
 					:label="item.label"
 					@change="handleFilterChange"
 				/>
@@ -94,7 +106,7 @@
 			>
 				<checkbox
 					v-model="selected.tags"
-					:value="item.value"
+					:value="item"
 					:label="item.label"
 					@change="handleFilterChange"
 				/>
@@ -105,9 +117,13 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import filterMixin from '~/mixins/filterMixin'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'PaymentFilters',
+
+		mixins: [filterMixin],
 
 		components: {},
 
@@ -153,10 +169,6 @@
 			},
 		}),
 
-		updated() {},
-
-		created() {},
-
 		computed: {
 			...mapGetters({
 				locale: 'lang/locale',
@@ -167,8 +179,15 @@
 		watch: {},
 
 		methods: {
-			handleFilterChange() {
-				this.$emit('change', this.selected)
+			onClick() {
+				eventBus.$emit('filter:toggle', null)
+			},
+			clearFilters() {
+				eventBus.$emit('selected:delete', {
+					clear: true,
+					key: null,
+					value: null,
+				})
 			},
 		},
 	}

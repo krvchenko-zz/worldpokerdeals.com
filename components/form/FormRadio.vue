@@ -8,6 +8,7 @@
 	>
 		<input
 			:disabled="disabled"
+			:required="required"
 			type="radio"
 			:name="name"
 			:value="value"
@@ -46,6 +47,11 @@
 			},
 
 			disabled: {
+				type: Boolean,
+				default: false,
+			},
+
+			required: {
 				type: Boolean,
 				default: false,
 			},

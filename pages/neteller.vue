@@ -10,6 +10,7 @@
 					<payments-button-action
 						type="neteller"
 						label="Регистрация в Neteller"
+						target="_blank"
 						url="https://ntupgrade.vip/wpdeals"
 					/>
 
@@ -25,7 +26,7 @@
 			<div class="neteller-body">
 				<div class="vip-payments-advantages vip-payments-advantages--neteller">
 					<h2 class="vip-payments-advantages__title">
-						В чем преимущества в получении
+						В чем преимущества получения
 						<span class="vip-payments-advantages__title--highlight"
 							>VIP&#8209;статуса от Neteller</span
 						>
@@ -270,7 +271,7 @@
 
 		data: () => ({
 			summary:
-				'Neteller старейший и один из самых популярных у игроков, кошельков для покера. Регистрируете счет в Neteller с WorldPokerDeals сегодня, чтобы получить VIP обслуживание, льготные условия для получения VIP статусов и множество других приятных бонусов.',
+				'Neteller - старейший и один из самых популярных у игроков, кошельков для покера. Регистрируете счет в Neteller с Worldpokerdeals сегодня, чтобы получить VIP-обслуживание, льготные условия для получения VIP-статусов и множество других приятных бонусов.',
 
 			manager: null,
 		}),
@@ -557,6 +558,12 @@
 			&__info {
 				text-align: left;
 			}
+		}
+	}
+
+	@media only screen and (max-width: 400px) {
+		.neteller-body {
+			margin-top: -250px;
 		}
 	}
 </style>

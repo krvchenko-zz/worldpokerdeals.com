@@ -10,6 +10,16 @@ export default {
 			return width
 		}
 
+		const closest = function(items, container, position) {
+			for (var i = position; i >= 0; i--) {
+				if (container.scrollLeft >= items[i].offsetLeft && position > 5) {
+					return i
+				}
+
+				return 0
+			}
+		}
+
 		const handler = function() {
 			let container = el,
 				parent = el.parentNode,
@@ -66,13 +76,15 @@ export default {
 
 				toggleLeft.addEventListener('click', function() {
 
-					if (position - 5 <= items.length) {
-						position = 0
-					}
-
 					position - 5 <= items.length && position >= 5 ?
 						position = position - 5 :
 						position = 0
+
+					if (container.scrollLeft < items[position].offsetLeft) {
+						position = closest(items, container, position)
+					}
+
+					position = closest(items, container, position)
 
 					scrollTo = items[position].offsetLeft
 
@@ -91,18 +103,11 @@ export default {
 						position = i
 				}
 
-				if (e.target.scrollLeft >= maxScrollRight) {
+				if (e.target.scrollLeft >= maxScrollRight)
 					toggleRight.classList.add('scrollable__item_hidden'),
 					position = items.length - 1
-				} else {
+				else
 					toggleRight.classList.remove('scrollable__item_hidden')
-				}
-
-				// if (position === items.length - 1) {
-				// 	position = position - 5 && e.target.scrollLeft >= maxScrollRight ? items.length - 1 : items.length
-				// }
-
-				// console.log(position)
 
 				e.target.scrollLeft === 0 ?
 					toggleLeft.classList.add('scrollable__item_hidden') :

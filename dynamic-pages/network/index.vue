@@ -360,35 +360,6 @@
 							}
 						})
 					})
-
-			// await this.$axios
-			// 	.get('rooms/list', {
-			// 		params: {
-			// 			geo: this.geo,
-			// 			per_page: this.per_page,
-			// 			network_id: this.network.id,
-			// 		},
-			// 	})
-			// 	.then(response => {
-			// 		Object.keys(response.data).forEach(key => {
-			// 			this[key] = response.data[key]
-			// 		})
-			// 		this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
-			// 	})
-			// 	.catch(e => {})
-
-			// await this.$axios
-			// 	.get(`/network/filters/list`, {
-			// 		params: {
-			// 			geo: this.geo,
-			// 			network_id: this.network.id,
-			// 		},
-			// 	})
-			// 	.then(response => {
-			// 		this.$store.commit('rooms/FETCH_FILTERS', {
-			// 			filters: response.data,
-			// 		})
-			// 	})
 		},
 
 		watch: {},

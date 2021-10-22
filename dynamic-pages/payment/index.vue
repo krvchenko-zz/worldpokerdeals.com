@@ -6,7 +6,7 @@
 
 		<div class="payment-content">
 			<div v-if="tab.show_rooms" class="payment-content__rooms payment-rooms">
-				<div class="payment-filters">
+<!-- 				<div class="payment-filters">
 					<div v-if="data.length" class="payment-filters__info">
 						Показано {{ total }} из {{ overall }} покер-румов
 					</div>
@@ -18,7 +18,41 @@
 							@change:geo="fetchItems"
 						/>
 					</div>
-				</div>
+				</div> -->
+
+				<client-only>
+					<filter-header
+						class="payment__filter-header"
+						:geo.sync="geo"
+						:sort.sync="sort"
+						:total.sync="total"
+						:overall.sync="overall"
+						:sort-options="sortOptions"
+						:selected="selected.length"
+						entity-label="покер-румов"
+						@update:sort="fetchItems"
+						@update:geo="fetchItems"
+					/>
+
+					<filter-selected-list
+						v-if="selected.length"
+						class="payment__filter-selected"
+					>
+						<filter-selected
+							v-for="(item, index) in selected"
+							:key="index"
+							:label="item.label"
+							:value="item.value"
+							:item-key="item.key"
+						/>
+						<filter-selected
+							:key="null"
+							label="Очистить фильтры"
+							:clear="true"
+							:value="null"
+						/>
+					</filter-selected-list>
+				</client-only>
 
 				<room
 					v-for="(item, index) in data"
@@ -62,7 +96,7 @@
 			</div>
 
 			<div class="payment-content__toc">
-				<toc-list v-if="tab.toc">
+				<toc-list v-if="tab.toc && tab.toc.length">
 					<template #default="{ inline }">
 						<toc-item
 							v-for="(item, index) in tab.toc"
@@ -200,6 +234,18 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			showFilter: false,
+			selected: [],
+			sortOptions: [
+				{
+					label: 'Сначала лучшие',
+					value: 'rating',
+				},
+				{
+					label: 'Сначала новые',
+					value: 'created_at',
+				},
+			],
 		}),
 
 		head() {
@@ -224,7 +270,7 @@
 				payment: 'payments/payment',
 				tab: 'payments/tab',
 				rooms: 'rooms/rooms',
-				filters: 'payments/filters',
+				filters: 'rooms/filters',
 				posts: 'payments/posts',
 				related: 'payments/related',
 			}),
@@ -267,36 +313,20 @@
 				})
 			})
 
-			await this.$axios
-				.get('rooms/list', {
-					params: {
-						geo: this.country.code,
-						per_page: this.per_page,
-						sort: 'rating',
-						order: 'desc',
-						payment_method_id: this.payment.id,
-					},
-				})
-				.then(response => {
-					Object.keys(response.data).forEach(key => {
-						this[key] = response.data[key]
-					})
-					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
-				})
-				.catch(e => {})
-
 			if (this.tab.show_rooms) {
 				await this.$axios
-					.get(`/payments/filters/list`, {
-						params: {
-							geo: this.country.code,
-							payment_method_id: this.payment.id,
-							ids: this.tab.list,
-						},
-					})
+					.get(`rooms/list`, { params: this.params })
 					.then(response => {
-						this.$store.commit('payments/FETCH_FILTERS', {
-							filters: response.data,
+						this.$store.commit('rooms/FETCH_ROOMS', {
+							rooms: response.data.data 
+						})
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters
+						})
+						Object.keys(response.data).forEach(key => {
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
 						})
 					})
 			}
@@ -313,27 +343,18 @@
 				this.$nuxt.$loading.start()
 
 				await this.$axios
-					.get(`/payments/filters/list`, {
-						params: {
-							geo: this.geo,
-							payment_method_id: this.payment.id,
-							ids: this.tab.list,
-						},
-					})
-					.then(response => {
-						this.$store.commit('payments/FETCH_FILTERS', {
-							filters: response.data,
-						})
-					})
-
-				await this.$axios
 					.get(`rooms/list`, { params: this.params })
 					.then(response => {
 						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data,
+							rooms: response.data.data 
+						})
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters
 						})
 						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
 						})
 						this.loading = false
 						this.$nuxt.$loading.finish()
@@ -367,8 +388,10 @@
 			},
 
 			handleFilterChange(selected) {
-				Object.keys(selected).forEach(key => {
-					this[key] = selected[key]
+				this.selected = selected.flatten
+
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
 				})
 				this.fetchItems()
 			},

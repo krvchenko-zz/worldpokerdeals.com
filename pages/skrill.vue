@@ -10,7 +10,8 @@
 					<payments-button-action
 						type="skrill"
 						label="Регистрация в Skrill"
-						url="https://ntupgrade.vip/wpdeals"
+						target="_blank"
+						url="https://skupgrade.vip/wpdeals"
 					/>
 
 					<payments-button-action
@@ -25,7 +26,7 @@
 			<div class="skrill-body">
 				<div class="vip-payments-advantages skrill-advantages">
 					<h2 class="vip-payments-advantages__title">
-						В чем преимущества в получении <br />
+						В чем преимущества получения <br />
 						<span class="vip-payments-advantages__title--highlight"
 							>VIP-статуса от Skrill</span
 						>
@@ -231,7 +232,7 @@
 								flat
 								:external="false"
 								type="default"
-								label="Присоедениться"
+								label="Присоединиться"
 								@click="handleJoinClick"
 							/>
 						</div>
@@ -244,7 +245,7 @@
 					Заполнить заявку на VIP-статус
 				</h2>
 				<div class="skrill-footer__info">
-					Заполните заявку на подключение к нашей VIP программе для Skrill, и
+					Заполните заявку на подключение к нашей VIP-программе для Skrill, и
 					получите лучшие условия обслуживания, а так же быстрый саппорт, в
 					который вы можете обратиться по любому вопросу.
 				</div>
@@ -289,7 +290,7 @@
 		},
 		layout: 'basic',
 
-		async middleware({ store, redirect, params, $axios }) {
+		async middleware({ app, store, redirect, params, $axios }) {
 			await $axios
 				.get('pages/vip-skrill')
 				.then(response => {
@@ -313,7 +314,7 @@
 
 		data: () => ({
 			summary:
-				'Skrill является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете Skrill с нами, то сможете получить VIP обслуживание, быстрый саппорт и много других полезных функций!',
+				'Skrill является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете Skrill с нами, то сможете получить VIP-обслуживание, быстрый саппорт и много других полезных функций!',
 
 			manager: null,
 		}),
@@ -584,6 +585,12 @@
 			&__info {
 				text-align: left;
 			}
+		}
+	}
+
+	@media only screen and (max-width: 400px) {
+		.skrill-body {
+			margin-top: -250px;
 		}
 	}
 </style>

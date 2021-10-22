@@ -10,7 +10,8 @@
 					<payments-button-action
 						type="ecopayz"
 						label="Регистрация в ecoPayz"
-						url="https://ntupgrade.vip/wpdeals"
+						target="_blank"
+						url="https://secure.ecopayz.com/Registration.aspx?_atc=WPD_"
 					/>
 
 					<payments-button-action
@@ -26,7 +27,7 @@
 				<div class="ecopayz-advantages">
 					<div class="ecopayz-advantages__header">
 						<h2 class="ecopayz-advantages__title">
-							В чем преимущества в получении
+							В чем преимущества полученя
 							<span class="ecopayz-advantages__title-highlight"
 								>VIP&#8209;статуса от ecoPayz</span
 							>
@@ -73,7 +74,7 @@
 								Мгновенное оформление статуса Gold за верификацию
 							</li>
 							<li class="ecopayz-list__item">
-								VIP статус за пополнение счета на €10 000
+								VIP-статус за пополнение счета на €10 000
 							</li>
 							<li class="ecopayz-list__item">Персональная поддержка</li>
 							<li class="ecopayz-list__item">
@@ -253,7 +254,7 @@
 
 		data: () => ({
 			summary:
-				'ecoPayz является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете ecoPayz с нами, то сможете получить VIP обслуживание, быстрый саппорт и много других полезных функций!',
+				'ecoPayz является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете ecoPayz с нами, то сможете получить VIP-обслуживание, быстрый саппорт и много других полезных функций!',
 
 			manager: null,
 		}),

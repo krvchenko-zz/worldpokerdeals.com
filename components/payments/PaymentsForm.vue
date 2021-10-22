@@ -12,11 +12,15 @@
 				<form-radio
 					v-for="(item, index) in account_options"
 					:key="index"
+					:required="true"
 					v-model="form.account_type"
 					:label="item.label"
 					:value="item.value"
 				/>
 			</form-radio-group>
+			<transition name="fade">
+				<has-error :form="form" field="account_type" />
+			</transition>
 		</div>
 
 		<div class="payments-form-group payments-form__credentials">
@@ -51,9 +55,9 @@
 					<has-error :form="form" field="account_id" />
 				</transition>
 				<a
-					v-if="type === 'skrill'"
-					href="#"
-					class="payments-form__link payments-form__credentials__id-link"
+					v-if="type === 'skrill' || type === 'neteller'"
+					href="/skrill_find_id.webp"
+					class="payments-form__link payments-form__credentials__id-link lightbox"
 					>Как узнать свой ID?</a
 				>
 			</div>
@@ -168,7 +172,7 @@
 							value: 'new',
 						},
 						{
-							label: 'ecoPayz по ссылке Weenax',
+							label: 'ecoPayz по ссылке WPD',
 							value: 'ref',
 						},
 						{
@@ -180,6 +184,12 @@
 			},
 		},
 
+		mounted() {
+			const lightbox = this.$glightbox({
+				selector: '.lightbox'
+			})
+		},
+
 		computed: {
 			...mapGetters({
 				auth: 'auth/check',
@@ -187,6 +197,7 @@
 		},
 
 		data: () => ({
+			lightbox: null,
 			form: new Form({
 				email: null,
 				account_type: null,
