@@ -170,7 +170,8 @@
 								flat
 								type="skrill"
 								label="Регистрация в Skrill"
-								url="https://ntupgrade.vip/wpdeals"
+								target="_blank"
+								url="https://skupgrade.vip/wpdeals"
 							/>
 						</div>
 					</div>
