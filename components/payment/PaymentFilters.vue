@@ -1,6 +1,13 @@
 <template>
 	<div class="filters">
-		<div class="filters__label">{{ $t('filters') }}</div>
+		<div class="filters__label">
+			{{ $t('filters') }}
+			<div class="filters__label__icon" @click="onClick">
+				<svg-icon icon="close" />
+			</div>
+		</div>
+
+		<filter-geo class="filters__geo" v-on="$listeners" :geo="geo" />
 
 		<filter-dropdown :label="$t('room_type')" icon="filter-room-type">
 			<filter-item
@@ -112,6 +119,12 @@
 				/>
 			</filter-item>
 		</filter-dropdown>
+
+		<div class="filters__actions">
+			<button class="filters__clear-button btn btn-block" @click="clearFilters">
+				Очистить фильтры
+			</button>
+		</div>
 	</div>
 </template>
 

@@ -131,17 +131,30 @@
 			</page-article>
 
 			<div class="payment-content__aside">
-				<payment-filters
-					v-if="tab.show_rooms && filters"
-					:geo="geo"
-					:kycs="filters.kycs"
-					:platforms="filters.platforms"
-					:tags="filters.tags"
-					:payments="filters.payments"
-					:types="filters.types"
-					:licenses="filters.licenses"
-					@change="handleFilterChange"
-				/>
+				<client-only>
+					<div
+						v-if="tab.show_rooms && filters"
+						class="filters__wrapper"
+						:class="{ 'filters__wrapper--opened': showFilter }"
+						@click.self="handleOutsideClick($event)"
+					>
+						<lazy-hydrate>
+							<payment-filters
+								:geo="geo"
+								:kycs="filters.kycs"
+								:platforms="filters.platforms"
+								:tags="filters.tags"
+								:payments="filters.payments"
+								:types="filters.types"
+								:licenses="filters.licenses"
+								:geo.sync="geo"
+								@update:sort="fetchItems"
+								@update:geo="fetchItems"
+								@change="handleFilterChange"
+							/>
+						</lazy-hydrate>
+					</div>
+				</client-only>
 
 				<room-top-list />
 
@@ -202,6 +215,7 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import LazyHydrate from 'vue-lazy-hydration'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'PaymentMethodPage',
@@ -338,6 +352,12 @@
 			this.geo = this.country.code
 		},
 
+		mounted() {
+			eventBus.$on('filter:toggle', () => {
+				this.toggleMobileFilter()
+			})
+		},
+
 		methods: {
 			async fetchItems() {
 				this.$nuxt.$loading.start()
@@ -394,6 +414,18 @@
 					this[key] = selected.values[key]
 				})
 				this.fetchItems()
+			},
+
+			toggleMobileFilter() {
+				document.body.classList.toggle('modal-open')
+				this.showFilter = !this.showFilter
+			},
+
+			handleOutsideClick(event) {
+				const filtersElement = document.querySelector('.filters')
+				if (this.showFilter && !filtersElement?.contains(event.target)) {
+					this.toggleMobileFilter()
+				}
 			},
 		},
 	}
