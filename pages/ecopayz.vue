@@ -27,7 +27,7 @@
 				<div class="ecopayz-advantages">
 					<div class="ecopayz-advantages__header">
 						<h2 class="ecopayz-advantages__title">
-							В чем преимущества полученя
+							В чем преимущества получения
 							<span class="ecopayz-advantages__title-highlight"
 								>VIP&#8209;статуса от ecoPayz</span
 							>

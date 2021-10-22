@@ -109,7 +109,7 @@
 
 		<div class="payments-form-group">
 			<form-checkbox v-model="form.terms" label="Принимаю">
-				<a class="payments-form__link" href="#"
+				<a class="payments-form__link" href="/terms"
 					>условия передачи и хранения данных</a
 				>
 			</form-checkbox>
