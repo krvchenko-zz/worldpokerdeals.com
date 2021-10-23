@@ -854,9 +854,9 @@
 		}
 	}
 
-	@media (max-width: 400px) {
-		.ecopayz-body {
-			margin-top: -200px;
-		}
-	}
+	// @media (max-width: 400px) {
+	// 	.ecopayz-body {
+	// 		margin-top: -200px;
+	// 	}
+	// }
 </style>

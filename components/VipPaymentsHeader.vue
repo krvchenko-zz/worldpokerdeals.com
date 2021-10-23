@@ -2,7 +2,15 @@
 	<div class="vip-payments-header" :class="classObject">
 		<div class="vip-payments-header__inner">
 			<h1 class="vip-payments-header__title">{{ title }}</h1>
-			<div class="vip-payments-header__summary">{{ summary }}</div>
+			<common-text-spoiler
+				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+				class="vip-payments-header__summary"
+				:text="summary"
+			>
+				<template v-slot:button>
+					<svg-icon icon="spoiler-sep" width="35" height="16" />
+				</template>
+			</common-text-spoiler>
 			<div class="vip-payments-header__buttons">
 				<slot name="buttons"></slot>
 			</div>

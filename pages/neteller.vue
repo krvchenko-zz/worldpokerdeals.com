@@ -125,7 +125,8 @@
 									class="neteller-card__item__icon"
 								/>
 								<div>
-									<b>Silver VIP</b> – за депозиты на сумму 6 000$ за квартал
+									<b>Silver VIP</b> – за депозиты на сумму 6 000$ за квартал <br>
+									<span class="neteller-notice"><span>* </span> Статус даётся один раз при выполнении условий</span>
 								</div>
 							</li>
 							<li class="neteller-card__item">
@@ -298,7 +299,7 @@
 						image: response.data.image
 							? {
 									filename: response.data.image.filename,
-							  }
+								}
 							: null,
 						name: response.data.name,
 						position: response.data.position,
@@ -337,6 +338,23 @@
 		max-width: 1440px;
 		&__logo {
 			max-width: 100%;
+		}
+
+		&-notice {
+			font-family: Proxima Nova;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 12px;
+			line-height: 18px;
+			color: #999999;
+
+			span {
+				font-size: 14px;
+		    font-weight: bold;
+		    vertical-align: middle;
+		    height: 18px;
+		    display: inline-block;
+			}
 		}
 
 		&-body {
@@ -558,12 +576,6 @@
 			&__info {
 				text-align: left;
 			}
-		}
-	}
-
-	@media only screen and (max-width: 400px) {
-		.neteller-body {
-			margin-top: -250px;
 		}
 	}
 </style>

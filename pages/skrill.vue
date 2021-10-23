@@ -226,6 +226,10 @@
 								</li>
 							</ul>
 
+							<div class="skrill-card__details">
+								<p><span>* </span> Статус даётся один раз при выполнении условий</p>
+							</div>
+
 							<payments-button-action
 								:style="{
 									background: '#FF4151',
@@ -586,12 +590,6 @@
 			&__info {
 				text-align: left;
 			}
-		}
-	}
-
-	@media only screen and (max-width: 400px) {
-		.skrill-body {
-			margin-top: -250px;
 		}
 	}
 </style>
