@@ -84,7 +84,10 @@
 			<page-article :text="tab.text">
 				<template #footer>
 					<!-- Faq -->
-					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" :label="$t('faq')">
+					<faq-list
+						v-if="tab.faq && tab.faq.mainEntity.length"
+						:label="$t('faq')"
+					>
 						<faq-item
 							v-for="(item, index) in tab.faq.mainEntity"
 							:key="index"
@@ -162,7 +165,7 @@
 		</lazy-hydrate>
 
 		<lazy-hydrate when-visible>
-			<div v-if="games.length" class="game__games-list games-list">
+			<div v-if="games.length" class="game__games-list">
 				<div class="block-title">Другие покерные игры</div>
 				<div class="game__games-list__list">
 					<game-item

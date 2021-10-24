@@ -138,21 +138,13 @@
 
 	@include mq('tablet') {
 		.game-item {
-			margin: 0 0 20px 0;
-			&:last-child {
-				margin: 0;
-			}
+			margin-bottom: 20px;
 			&__rooms {
 				white-space: nowrap;
 				width: min-content;
 				&:after {
 					left: calc(100% + 28px);
 				}
-			}
-			&__icon-wrap {
-				margin-top: 0;
-				top: 50%;
-				transform: translateY(-50%);
 			}
 		}
 	}
