@@ -1,106 +1,93 @@
 <template>
 	<section class="content content_restricted">
-		<div class="container-fluid">
-			<div class="restricted">
-				<div class="row">
-					<div class="col-2">
-						<img
-							decoding="async"
-							loading="lazy"
-							class="restricted__logo"
-							src="~assets/i/restricted-logo.png"
-							alt="Доступ в рум запрещён в вашем регионе по решению Роскомнадзора"
-						/>
-					</div>
+		<div class="restricted">
+			<div class="restricted__logo">
+				<img
+					decoding="async"
+					loading="lazy"
+					class="restricted__logo"
+					src="~assets/i/restricted-logo.png"
+					alt="Доступ в рум запрещён в вашем регионе по решению Роскомнадзора"
+				/>
+			</div>
 
-					<div class="col-5">
-						<h1 class="restricted__title">
-							Доступ в рум запрещён в вашем регионе по решению Роскомнадзора
-						</h1>
-						<div class="restricted__ip">
-							<svg-icon
-								:width="20"
-								:height="20"
-								:icon="country.code"
-								prefix="flags/"
-							/>
-							<span>{{ country.remote_addr }}</span>
+			<h1 class="restricted__title">
+				Доступ в рум запрещён в вашем регионе по решению Роскомнадзора
+			</h1>
+			<div class="restricted__ip">
+				<svg-icon
+					:width="20"
+					:height="20"
+					:icon="country.code"
+					prefix="flags/"
+				/>
+				<span>{{ country.remote_addr }}</span>
+			</div>
+			<div class="restricted__info">
+				<p>
+					Вам ограничен доступ к данной странице, потому как указанный выше IP
+					находится на территории Российской Федерации.
+				</p>
+				<p>
+					Согласно федеральному закону «О лотереях» от 07.03.2018 и федеральному
+					закону «О государственном регулировании деятельности по организации и
+					проведению азартных игр и о внесении изменений в некоторые
+					законодательные акты Российской Федерации» от 27.11.2017 N 358-ФЗ
+					интернет-провайдеры должны блокировать доступ в онлайн покер-румы на
+					территории РФ.
+				</p>
+				<p>
+					<b
+						>Запрашиваемый покер-рум недоступен для просмотра и скачивания в
+						России.</b
+					>
+				</p>
+			</div>
+			<!-- <contacts-form /> -->
+
+			<div class="restricted__manager">
+				<div v-if="manager" class="restricted-box">
+					<div class="restricted-box__wrap">
+						<div class="restricted-box__header">
+							<div class="restricted-box__icon">
+								<svg-icon icon="get-access" />
+							</div>
+							<h2 class="restricted-box__title">Нужен доступ?</h2>
+							<div class="restricted-box__info">
+								Есть решение – оставь свою электронную почту и получи доступ к
+								руму через 1 минуту
+							</div>
 						</div>
-						<div class="restricted__info">
-							<p>
-								Вам ограничен доступ к данной странице, потому как указанный
-								выше IP находится на территории Российской Федерации.
-							</p>
-							<p>
-								Согласно федеральному закону «О лотереях» от 07.03.2018 и
-								федеральному закону «О государственном регулировании
-								деятельности по организации и проведению азартных игр и о
-								внесении изменений в некоторые законодательные акты Российской
-								Федерации» от 27.11.2017 N 358-ФЗ интернет-провайдеры должны
-								блокировать доступ в онлайн покер-румы на территории РФ.
-							</p>
-							<p>
-								<b
-									>Запрашиваемый покер-рум недоступен для просмотра и скачивания
-									в России.</b
+
+						<div class="restricted-box__body">
+							<restricted-form />
+							<div class="restricted-box__messengers">
+								Или свяжитесь с нашим менеджером прямо сейчас в чате или
+								мессенджерах
+							</div>
+							<div class="restricted-box__buttons">
+								<button-contact style="padding: 0 32px;" size="md" type="chat"
+									>Начать чат</button-contact
 								>
-							</p>
-						</div>
-						<!-- <contacts-form /> -->
-					</div>
-					<div class="col-4">
-						<div v-if="manager" class="restricted-box">
-							<div class="restricted-box__wrap">
-								<div class="restricted-box__header">
-									<div class="restricted-box__icon">
-										<svg-icon icon="get-access" />
-									</div>
-									<h2 class="restricted-box__title">Нужен доступ?</h2>
-									<div class="restricted-box__info">
-										Есть решение – оставь свою электронную почту и получи доступ
-										к руму через 1 минуту
-									</div>
-								</div>
-
-								<div class="restricted-box__body">
-									<restricted-form />
-									<div class="restricted-box__messengers">
-										Или свяжитесь с нашим менеджером прямо сейчас в чате или
-										мессенджерах
-									</div>
-									<div class="restricted-box__buttons">
-										<button-contact
-											style="padding: 0 32px;"
-											size="md"
-											type="chat"
-											>Начать чат</button-contact
-										>
-										<button-contact
-											icon
-											size="md"
-											type="telegram"
-											:href="manager.telegram"
-										/>
-										<button-contact
-											icon
-											size="md"
-											type="skype"
-											:href="manager.skype"
-										/>
-										<button-contact
-											icon
-											size="md"
-											type="whatsapp"
-											:href="manager.whatsapp"
-										/>
-										<button-contact
-											icon
-											size="md"
-											type="fb"
-											:href="manager.fb"
-										/>
-									</div>
-								</div>
+								<button-contact
+									icon
+									size="md"
+									type="telegram"
+									:href="manager.telegram"
+								/>
+								<button-contact
+									icon
+									size="md"
+									type="skype"
+									:href="manager.skype"
+								/>
+								<button-contact
+									icon
+									size="md"
+									type="whatsapp"
+									:href="manager.whatsapp"
+								/>
+								<button-contact icon size="md" type="fb" :href="manager.fb" />
 							</div>
 						</div>
 					</div>
@@ -211,9 +198,24 @@
 	}
 
 	.restricted {
+		display: grid;
+		grid-template-columns: 1fr 5fr 4fr;
+		width: 100%;
+		max-width: 1440px;
+		padding-left: 118px;
+		padding-right: 118px;
+		grid-template-areas:
+			'logo title manager'
+			'logo ip manager'
+			'logo info manager';
+		column-gap: 28px;
 		position: relative;
 		background: $restricted-bg no-repeat left 12px;
+		&__manager {
+			grid-area: manager;
+		}
 		&__title {
+			grid-area: title;
 			margin: 34px 0 28px 0;
 			font-family: 'Proxima Nova Sb';
 			font-style: normal;
@@ -223,6 +225,7 @@
 		}
 
 		&__logo {
+			grid-area: logo;
 			float: right;
 			max-width: 100%;
 			height: auto;
@@ -230,6 +233,7 @@
 		}
 
 		&__info {
+			grid-area: info;
 			font-family: Proxima Nova;
 			font-size: 17px;
 			line-height: 21px;
@@ -243,6 +247,8 @@
 		}
 
 		&__ip {
+			grid-area: ip;
+			justify-self: baseline;
 			margin-bottom: 20px;
 			padding: 8px 12px;
 			font-family: 'Proxima Nova Sb';
@@ -329,6 +335,65 @@
 	.btn-contact_instagram {
 		&:before {
 			background-size: 30px auto;
+		}
+	}
+
+	@include mq('desktop') {
+		.restricted {
+			grid-column: 24px;
+			padding-left: 104px;
+			padding-right: 104px;
+		}
+	}
+
+	@include mq('laptop') {
+		.restricted {
+			grid-template-columns: 104px 20px 8fr 2fr;
+			column-gap: 0px;
+			@include paddings('tablet');
+			grid-template-areas:
+				'logo . title .'
+				'logo . ip .'
+				'logo . info .'
+				'. . manager .';
+			&__manager {
+				margin-top: 94px;
+			}
+		}
+
+		.content_restricted {
+			padding-top: 44px;
+		}
+	}
+
+	@include mq('tablet') {
+		.restricted {
+			grid-template-columns: 60px 1fr;
+			@include paddings('mobile');
+			grid-template-areas:
+				'logo title'
+				'ip ip'
+				'info info'
+				'manager manager';
+
+			&__title {
+				padding-left: 16px;
+				margin-top: 20px;
+				font-size: 28px;
+				line-height: 32px;
+			}
+
+			&-box {
+				&__buttons {
+					flex-wrap: wrap;
+					justify-content: center;
+					gap: 20px;
+
+					.btn-contact:first-child {
+						width: 100%;
+					}
+				}
+			}
 		}
 	}
 </style>

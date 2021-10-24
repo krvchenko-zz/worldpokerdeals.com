@@ -124,5 +124,27 @@
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		padding: 10px 28px;
+		white-space: nowrap;
+	}
+
+	@include mq('tablet') {
+		.restricted-form {
+			&-group {
+				&__wrap {
+					flex-direction: column;
+					.form-input_type_email {
+						margin-bottom: 16px;
+						.form-input__value {
+							border: 1px solid #c9c9c9;
+							border-radius: 4px;
+						}
+					}
+
+					.btn-restricted-form {
+						border-radius: 4px;
+					}
+				}
+			}
+		}
 	}
 </style>
