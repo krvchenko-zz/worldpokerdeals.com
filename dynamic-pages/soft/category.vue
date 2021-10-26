@@ -3,10 +3,7 @@
 		<!-- Header -->
 		<soft-category-header class="soft-category__header" />
 
-
 		<div class="soft-list" v-if="items && data.length">
-
-
 			<client-only>
 				<filter-header
 					class="platform__filter-header"
@@ -50,7 +47,6 @@
 					/>
 				</filter-selected-list>
 			</client-only>
-
 
 			<div class="soft-list__list">
 				<soft-item
@@ -128,7 +124,7 @@
 				<author v-if="category.author" :author="category.author" />
 
 				<!-- Comments -->
-<!-- 				<comments
+				<!-- 				<comments
 					commentable_type="App\SoftCategory"
 					:commentable_id="category.id"
 				/> -->
@@ -267,7 +263,9 @@
 					Object.keys(response.data).forEach(key => {
 						this[key] = response.data[key]
 					})
-					this.$store.commit('soft/FETCH_FILTERS', { filters: response.data.filters })
+					this.$store.commit('soft/FETCH_FILTERS', {
+						filters: response.data.filters,
+					})
 				})
 		},
 
@@ -389,6 +387,7 @@
 			'toc article aside'
 			'banners banners banners';
 		column-gap: 28px;
+		grid-template-rows: auto auto auto 1fr;
 	}
 	.soft-list {
 		grid-area: soft-list;
