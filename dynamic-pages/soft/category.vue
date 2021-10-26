@@ -6,7 +6,10 @@
 		<div class="soft-list" v-if="items && data.length">
 			<client-only>
 				<filter-header
-					class="platform__filter-header"
+					:style="{
+						marginBottom: '36px'
+					}"
+					:class="['platform__filter-header']"
 					:geo.sync="geo"
 					:sort.sync="sort"
 					:total.sync="total"

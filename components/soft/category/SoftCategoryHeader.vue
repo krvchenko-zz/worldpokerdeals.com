@@ -128,9 +128,9 @@
 			margin-left: -24px;
 			margin-right: -24px;
 			@include paddings('tablet');
-			&__nav {
-				margin-bottom: 0;
-			}
+			// &__nav {
+			// 	margin-bottom: 0;
+			// }
 		}
 	}
 
