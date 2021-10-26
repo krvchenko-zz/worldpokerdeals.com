@@ -4,22 +4,6 @@
 		<game-header class="game__header" />
 
 		<div v-if="tab.show_rooms" class="game-rooms">
-<!-- 			<div class="game-filters">
-				<div v-if="data.length" class="game-filters__info">
-					Показано {{ total }} из {{ overall }} покер-румов
-				</div>
-				<mobile-filter-button
-					v-if="showFilterButton"
-					:selected="selected.length || 0"
-				/>
-				<div v-if="data.length && !showFilterButton" class="game-filters__geo">
-					<geo-switcher
-						:value="country.code"
-						:geo.sync="geo"
-						@change:geo="fetchItems"
-					/>
-				</div>
-			</div> -->
 
 			<client-only>
 				<filter-header
@@ -386,6 +370,9 @@
 					.then(response => {
 						this.$store.commit('rooms/FETCH_ROOMS', {
 							rooms: response.data.data,
+						})
+						this.$store.commit('rooms/FETCH_BEST', {
+							best: response.data.data[0],
 						})
 						this.$store.commit('rooms/FETCH_FILTERS', {
 							filters: response.data.filters,
