@@ -61,6 +61,18 @@
 				<page-article :text="category.text">
 					<template #footer>
 						<!-- Author -->
+						<faq-list
+							v-if="category.faq && category.faq.mainEntity.length"
+							:label="$t('faq')"
+						>
+							<faq-item
+								v-for="(item, index) in category.faq.mainEntity"
+								:key="index"
+								:question="item.name"
+								:answer="item.acceptedAnswer.text"
+							>
+							</faq-item>
+						</faq-list>
 						<author v-if="category.author" :author="category.author" />
 						<!-- Comments -->
 <!-- 						<comments
