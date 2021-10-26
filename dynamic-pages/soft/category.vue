@@ -3,12 +3,37 @@
 		<!-- Header -->
 		<soft-category-header class="soft-category__header" />
 
-		<div class="soft-category-top">
+
+		<div class="soft-list" v-if="items && data.length">
+
 
 			<client-only>
+				<filter-header
+					class="platform__filter-header"
+					:geo.sync="geo"
+					:sort.sync="sort"
+					:total.sync="total"
+					:overall.sync="overall"
+					:show-geo="false"
+					:sort-options="[
+						{
+							label: 'По стоимости',
+							value: 'price',
+						},
+						{
+							label: 'Сначала новые',
+							value: 'created_at',
+						},
+					]"
+					:selected="selected.length"
+					entity-label="программ для покера"
+					@update:sort="fetchItems"
+					@update:geo="fetchItems"
+				/>
+
 				<filter-selected-list
 					v-if="selected.length"
-					class="soft__filter-selected"
+					class="platform__filter-selected"
 				>
 					<filter-selected
 						v-for="(item, index) in selected"
@@ -26,35 +51,7 @@
 				</filter-selected-list>
 			</client-only>
 
-			<div v-if="data.length" class="soft-category__info">
-				Показано {{ total }} из {{ overall }} програм для покера
-			</div>
 
-			<mobile-filter-button
-				v-if="isTouch"
-				:selected="selected.length || 0"
-				class="soft-category__filter-button"
-			/>
-
-			<div v-if="data.length && !isTouch" class="soft-category-top__sort">
-				<custom-select
-					:options="[
-						{
-							label: 'По стоимости',
-							value: 'price',
-						},
-						{
-							label: 'Сначала новые',
-							value: 'created_at',
-						},
-					]"
-					:default="'price'"
-					@input="handleSortChange"
-				/>
-			</div>
-		</div>
-
-		<div class="soft-list" v-if="items && data.length">
 			<div class="soft-list__list">
 				<soft-item
 					v-for="(item, index) in data"

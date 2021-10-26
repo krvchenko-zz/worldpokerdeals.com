@@ -8,7 +8,7 @@
 			}}
 		</div>
 
-		<filter-geo v-if="!isTouch" v-on="$listeners" :geo="geo" />
+		<filter-geo v-if="!isTouch && showGeo" v-on="$listeners" :geo="geo" />
 
 		<div class="filters-header__sort">
 			<el-select
@@ -81,6 +81,11 @@
 
 			selected: {
 				type: [String, Number],
+			},
+
+			showGeo: {
+				type: Boolean,
+				default: true,
 			},
 		},
 
