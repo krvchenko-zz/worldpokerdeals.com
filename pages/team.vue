@@ -210,13 +210,15 @@
 				<div>
 					<div class="team-numbers__title">Мы в цифрах</div>
 					<div class="team-numbers">
-						<div
-							v-for="(item, index) in numbers"
-							:key="index"
-							class="team-number"
-						>
-							<span class="team-number__value">{{ item.value }}</span>
-							<span class="team-number__label" v-html="item.label"></span>
+						<div class="team-numbers__wrap">
+							<div
+								v-for="(item, index) in numbers"
+								:key="index"
+								class="team-number"
+							>
+								<span class="team-number__value">{{ item.value }}</span>
+								<span class="team-number__label" v-html="item.label"></span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -534,19 +536,22 @@
 	}
 
 	.team-numbers {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		overflow-x: scroll;
-		@include hide-scroll();
 		@include paddings('desktop');
-		&:before {
-			content: '';
-			width: 100%;
-			position: absolute;
-			height: 1px;
-			background: #464b62;
-			top: 61px;
+		&__wrap {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			@include hide-scroll();
+			overflow-x: scroll;
+			&:before {
+				content: '';
+				width: 100%;
+				position: absolute;
+				height: 1px;
+				background: #464b62;
+				top: 61px;
+				left: 0;
+			}
 		}
 		&__title {
 			margin-bottom: 24px;
@@ -560,10 +565,19 @@
 	}
 
 	.team-number {
-		margin-right: 100px;
+		padding-right: 100px;
 		position: relative;
+		&:before {
+			content: '';
+			width: 100%;
+			position: absolute;
+			height: 1px;
+			background: #464b62;
+			top: 61px;
+			left: 0;
+		}
 		&:last-child {
-			margin: 0;
+			padding: 0;
 		}
 		&__value {
 			padding-bottom: 12px;
@@ -963,6 +977,8 @@
 		margin-bottom: -307px;
 		position: relative;
 		z-index: 1;
+		overflow-x: scroll;
+		@include hide-scroll();
 		&__img {
 			display: block;
 			width: auto;
@@ -1045,6 +1061,12 @@
 	@include mq('laptop') {
 		.team-top {
 			min-height: 400px;
+		}
+
+		.team-numbers {
+			&__wrap {
+				justify-content: flex-start;
+			}
 		}
 
 		.team-managers {
@@ -1228,12 +1250,6 @@
 		.team-features {
 			padding-top: 380px;
 			clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
-		}
-
-		.team-numbers {
-			overflow-x: auto;
-			justify-content: flex-start;
-			@include hide-scroll();
 		}
 	}
 </style>

@@ -180,11 +180,14 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'PlatformPage',
 
-		components: {},
+		components: {
+			LazyHydrate,
+		},
 
 		data: () => ({
 			loading: false,
