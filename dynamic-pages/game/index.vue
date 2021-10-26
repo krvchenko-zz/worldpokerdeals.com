@@ -4,7 +4,7 @@
 		<game-header class="game__header" />
 
 		<div v-if="tab.show_rooms" class="game-rooms">
-			<div class="game-filters">
+<!-- 			<div class="game-filters">
 				<div v-if="data.length" class="game-filters__info">
 					Показано {{ total }} из {{ overall }} покер-румов
 				</div>
@@ -19,7 +19,41 @@
 						@change:geo="fetchItems"
 					/>
 				</div>
-			</div>
+			</div> -->
+
+			<client-only>
+				<filter-header
+					class="payment__filter-header"
+					:geo.sync="geo"
+					:sort.sync="sort"
+					:total.sync="total"
+					:overall.sync="overall"
+					:sort-options="sortOptions"
+					:selected="selected.length"
+					entity-label="покер-румов"
+					@update:sort="fetchItems"
+					@update:geo="fetchItems"
+				/>
+
+				<filter-selected-list
+					v-if="selected.length"
+					class="payment__filter-selected"
+				>
+					<filter-selected
+						v-for="(item, index) in selected"
+						:key="index"
+						:label="item.label"
+						:value="item.value"
+						:item-key="item.key"
+					/>
+					<filter-selected
+						:key="null"
+						label="Очистить фильтры"
+						:clear="true"
+						:value="null"
+					/>
+				</filter-selected-list>
+			</client-only>
 
 			<div class="game-rooms__list">
 				<room
@@ -223,6 +257,16 @@
 			overall: 0,
 			selected: [],
 			showFilter: false,
+			sortOptions: [
+				{
+					label: 'Сначала лучшие',
+					value: 'rating',
+				},
+				{
+					label: 'Сначала новые',
+					value: 'created_at',
+				},
+			],
 		}),
 
 		head() {
@@ -250,7 +294,7 @@
 				rooms: 'rooms/rooms',
 				best: 'rooms/best',
 				posts: 'posts/posts',
-				filters: 'games/filters',
+				filters: 'rooms/filters',
 			}),
 
 			mediaUrl() {
@@ -303,31 +347,22 @@
 					},
 				})
 				.then(response => {
-					Object.keys(response.data).forEach(key => {
-						this[key] = response.data[key]
-					})
 					this.$store.commit('rooms/FETCH_ROOMS', {
 						rooms: response.data.data,
 					})
 					this.$store.commit('rooms/FETCH_BEST', {
 						best: response.data.data[0],
 					})
-				})
-				.catch(e => {})
-
-			await this.$axios
-				.get(`/games/filters/list`, {
-					params: {
-						geo: this.country.code,
-						game_id: this.game.id,
-						ids: this.tab.list,
-					},
-				})
-				.then(response => {
-					this.$store.commit('games/FETCH_FILTERS', {
-						filters: response.data,
+					this.$store.commit('rooms/FETCH_FILTERS', {
+						filters: response.data.filters,
+					})
+					Object.keys(response.data).forEach(key => {
+						if (key !== 'filters') {
+							this[key] = response.data[key]
+						}
 					})
 				})
+				.catch(e => {})
 		},
 
 		watch: {},
@@ -347,27 +382,18 @@
 				this.$nuxt.$loading.start()
 
 				await this.$axios
-					.get(`/games/filters/list`, {
-						params: {
-							geo: this.geo,
-							game_id: this.game.id,
-							ids: this.tab.list,
-						},
-					})
-					.then(response => {
-						this.$store.commit('games/FETCH_FILTERS', {
-							filters: response.data,
-						})
-					})
-
-				await this.$axios
 					.get(`rooms/list`, { params: this.params })
 					.then(response => {
 						this.$store.commit('rooms/FETCH_ROOMS', {
 							rooms: response.data.data,
 						})
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters,
+						})
 						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
 						})
 						this.loading = false
 						this.$nuxt.$loading.finish()

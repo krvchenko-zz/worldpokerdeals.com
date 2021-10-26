@@ -10,7 +10,7 @@
 						Хочешь стать нашим игроком или партнёром? Начинай играть в
 						покер-румах с нами и получи доступ к нашим <b>VIP-услугам</b>
 					</div>
-					<button class="btn btn-lg btn-yellow">Зарегистрироваться</button>
+					<a class="btn btn-lg btn-yellow" href="/register">Зарегистрироваться</a>
 				</div>
 
 				<div class="vip-body">
@@ -40,9 +40,7 @@
 
 				<div class="vip-footer">
 					<div class="vip-footer__actions">
-						<button class="btn btn-lg btn-yellow">
-							Зарегистрироваться
-						</button>
+						<a class="btn btn-lg btn-yellow" href="/register">Зарегистрироваться</a>
 					</div>
 					<div class="vip-footer__label">Мы в цифрах</div>
 					<div class="vip-features">
@@ -98,11 +96,6 @@
 					title: 'Личный <br> менеджер',
 					text: 'Решение вопросов с покер-румами напрямую',
 					icon: 'vip-manager',
-				},
-				{
-					title: 'Обмены Skrill, <br> Neteller и крипты',
-					text: 'Без комиссии и P2P между нашими игроками',
-					icon: 'vip-payments',
 				},
 				{
 					title: 'Бесплатные <br> HUD-ы и лейауты',
@@ -184,7 +177,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 27,
+						id: 502,
 					},
 				})
 				.then(response => {

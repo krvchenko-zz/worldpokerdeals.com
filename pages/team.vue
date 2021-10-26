@@ -242,19 +242,19 @@
 							icon
 							size="md"
 							type="telegram"
-							href="worldpokerdealsRU"
+							href="@kapitonoff"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="whatsapp"
-							:href="managers[0].whatsapp"
+							href="+66956396293"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="skype"
-							:href="managers[0].skype"
+							href="anton.wpd"
 						/>
 						<button-contact
 							icon
@@ -275,7 +275,7 @@
 							href="https://vk.com/worldpokerdeals"
 						/>
 					</div>
-					<button-contact block size="md" type="chat" style="max-width: 208px;"
+					<button-contact block size="md" type="chat" style="max-width: 208px; height: initial; width: initial;"
 						>Начать чат</button-contact
 					>
 				</div>
@@ -518,6 +518,7 @@
 
 		&__buttons {
 			display: flex;
+			flex-flow: wrap;
 		}
 		&__contacts {
 			grid-area: contacts;
@@ -536,6 +537,8 @@
 		position: relative;
 		display: flex;
 		justify-content: center;
+		overflow-x: scroll;
+		@include hide-scroll();
 		@include paddings('desktop');
 		&:before {
 			content: '';
@@ -574,6 +577,7 @@
 			letter-spacing: -1px;
 			font-feature-settings: 'salt' on;
 			color: #ffffff;
+			white-space: nowrap;
 			&:after {
 				content: '';
 				left: 0;

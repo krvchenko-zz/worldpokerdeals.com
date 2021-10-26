@@ -58,7 +58,7 @@
 				<div class="col">
 					<form-checkbox v-model="form.terms">
 						<span style="color: #CCCCCC;"
-							>С <a class="contacts-form__link" href="#">условиями</a> отправки
+							>С <a class="contacts-form__link" href="/terms">условиями</a> отправки
 							и обработки данных согласен</span
 						>
 					</form-checkbox>

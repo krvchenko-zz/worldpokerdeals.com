@@ -205,6 +205,13 @@ body {
 	&-yellow {
 		color: #20222E;
 		background: #E8B955;
+		&:active,
+		&:hover,
+		&:focus{
+			color: #20222E;
+			background: #E8B955;
+			text-decoration: none;
+		}
 	}
 
 	&-sm {

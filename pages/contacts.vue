@@ -34,7 +34,7 @@
 								type="whatsapp"
 								:href="manager.whatsapp"
 							/>
-							<button-contact icon size="md" type="fb" :href="manager.fb" />
+							<button-contact icon size="md" type="fb" :href="manager.facebook" />
 							<button-contact icon size="md" type="vk" :href="manager.vk" />
 							<button-contact
 								icon
@@ -103,7 +103,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 27,
+						id: 502,
 					},
 				})
 				.then(response => {
@@ -114,9 +114,9 @@
 						skype: response.data.skype,
 						whatsapp: response.data.whatsapp,
 						email: response.data.email,
-						fb: response.data.fb,
+						facebook: response.data.facebook,
 						vk: response.data.vk,
-						instagram: response.data.instagram,
+						instagram: 'https://www.instagram.com/worldpokerdeals/',
 					}
 				})
 		},

@@ -184,9 +184,10 @@
 					.post('/contacts')
 					.then(response => {
 						this.$emit('submit')
-						this.form.reset()
 					})
 					.catch(e => {})
+
+				this.form.reset()
 			},
 		},
 	}
