@@ -142,7 +142,7 @@
 
 		<div class="platform__posts">
 			<lazy-hydrate when-visible>
-				<post-list v-if="posts" label="Похожие статьи" asRow>
+				<post-list v-if="posts" :label="`Новости ${platform.title}`" asRow>
 					<post-item
 						v-for="(item, index) in posts"
 						:key="index"

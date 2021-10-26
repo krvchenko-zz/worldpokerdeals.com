@@ -242,7 +242,7 @@
 							icon
 							size="md"
 							type="telegram"
-							href="@kapitonoff"
+							href="kapitonoff"
 						/>
 						<button-contact
 							icon
