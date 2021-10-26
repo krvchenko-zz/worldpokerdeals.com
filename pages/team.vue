@@ -1229,8 +1229,10 @@
 			padding-top: 380px;
 			clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
 		}
+
 		.team-numbers {
 			overflow-x: auto;
+			justify-content: flex-start;
 			@include hide-scroll();
 		}
 	}

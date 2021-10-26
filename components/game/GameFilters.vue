@@ -77,16 +77,14 @@
 		<filter-dropdown :label="$t('verification')" icon="filter-kyc">
 			<filter-item
 				v-for="(item, index) in kycs"
-				v-if="kycs.length"
 				:key="index"
 				:count="item.count"
 			>
 				<checkbox
-					v-model="selected.kyc"
-					:value="item.value"
+					v-model="selected.kyc.value"
 					:label="item.label"
 					:true-value="1"
-					:false-value="0"
+					:false-value="null"
 					@change="handleFilterChange"
 				/>
 			</filter-item>
@@ -165,7 +163,10 @@
 		data: () => ({
 			loading: false,
 			selected: {
-				kyc: [],
+				kyc: {
+					value: null,
+					label: 'Верификация',
+				},
 				platforms: [],
 				tags: [],
 				payments: [],

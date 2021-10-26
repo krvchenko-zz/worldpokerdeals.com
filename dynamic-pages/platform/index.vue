@@ -4,25 +4,39 @@
 		<platform-header class="platform__header" />
 
 		<div class="platform-rooms">
-			<div class="platform-filters">
-				<div v-if="data.length" class="platform-filters__info">
-					Показано {{ total }} из {{ overall }} покер-румов
-				</div>
-
-				<mobile-filter-button
-					v-if="isTouch"
-					:selected="selected.length || 0"
-					class="platform__filter-button"
+			<client-only>
+				<filter-header
+					class="platform__filter-header"
+					:geo.sync="geo"
+					:sort.sync="sort"
+					:total.sync="total"
+					:overall.sync="overall"
+					:sort-options="sortOptions"
+					:selected="selected.length"
+					entity-label="покер-румов"
+					@update:sort="fetchItems"
+					@update:geo="fetchItems"
 				/>
 
-				<div v-if="data.length && !isTouch" class="platform-filters__geo">
-					<geo-switcher
-						:value="country.code"
-						:geo.sync="geo"
-						@change:geo="fetchItems"
+				<filter-selected-list
+					v-if="selected.length"
+					class="platform__filter-selected"
+				>
+					<filter-selected
+						v-for="(item, index) in selected"
+						:key="index"
+						:label="item.label"
+						:value="item.value"
+						:item-key="item.key"
 					/>
-				</div>
-			</div>
+					<filter-selected
+						:key="null"
+						label="Очистить фильтры"
+						:clear="true"
+						:value="null"
+					/>
+				</filter-selected-list>
+			</client-only>
 
 			<div class="platform__rooms-list">
 				<room
@@ -196,6 +210,16 @@
 			overall: 0,
 			selected: [],
 			showFilter: false,
+			sortOptions: [
+				{
+					label: 'Сначала лучшие',
+					value: 'rating',
+				},
+				{
+					label: 'Сначала новые',
+					value: 'created_at',
+				},
+			],
 		}),
 
 		head() {
@@ -220,7 +244,7 @@
 				platform: 'platforms/platform',
 				rooms: 'rooms/rooms',
 				best: 'rooms/best',
-				filters: 'platforms/filters',
+				filters: 'rooms/filters',
 				posts: 'platforms/posts',
 				isTouch: 'ui/isTouch',
 				isMobile: 'ui/isMobile',
@@ -276,28 +300,20 @@
 					},
 				})
 				.then(response => {
-					Object.keys(response.data).forEach(key => {
-						this[key] = response.data[key]
-					})
 					this.$store.commit('rooms/FETCH_ROOMS', { rooms: response.data.data })
 					this.$store.commit('rooms/FETCH_BEST', {
 						best: response.data.data[0],
 					})
-				})
-				.catch(e => {})
-
-			await this.$axios
-				.get(`/platforms/filters/list`, {
-					params: {
-						geo: this.country.code,
-						platform_id: this.platform.id,
-					},
-				})
-				.then(response => {
-					this.$store.commit('platforms/FETCH_FILTERS', {
-						filters: response.data,
+					this.$store.commit('rooms/FETCH_FILTERS', {
+						filters: response.data.filters
+					})
+					Object.keys(response.data).forEach(key => {
+						if (key !== 'filters') {
+							this[key] = response.data[key]
+						}
 					})
 				})
+				.catch(e => {})
 		},
 
 		watch: {},
@@ -317,23 +333,21 @@
 				this.$nuxt.$loading.start()
 
 				await this.$axios
-					.get(`/platforms/filters/list`, {
-						params: this.params,
-					})
-					.then(response => {
-						this.$store.commit('platforms/FETCH_FILTERS', {
-							filters: response.data,
-						})
-					})
-
-				await this.$axios
 					.get('rooms/list', { params: this.params })
 					.then(response => {
 						this.$store.commit('rooms/FETCH_ROOMS', {
 							rooms: response.data.data,
 						})
+						this.$store.commit('rooms/FETCH_BEST', {
+							best: response.data.data[0],
+						})
+						this.$store.commit('rooms/FETCH_FILTERS', {
+							filters: response.data.filters
+						})
 						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
 						})
 						this.loading = false
 						this.$nuxt.$loading.finish()

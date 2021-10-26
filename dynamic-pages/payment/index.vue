@@ -6,19 +6,6 @@
 
 		<div class="payment-content">
 			<div v-if="tab.show_rooms" class="payment-content__rooms payment-rooms">
-<!-- 				<div class="payment-filters">
-					<div v-if="data.length" class="payment-filters__info">
-						Показано {{ total }} из {{ overall }} покер-румов
-					</div>
-
-					<div v-if="data.length" class="payment-filters__geo">
-						<geo-switcher
-							:value="country.code"
-							:geo="geo"
-							@change:geo="fetchItems"
-						/>
-					</div>
-				</div> -->
 
 				<client-only>
 					<filter-header
