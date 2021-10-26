@@ -6,9 +6,6 @@
 		<div class="soft-list" v-if="items && data.length">
 			<client-only>
 				<filter-header
-					:style="{
-						marginBottom: '36px'
-					}"
 					:class="['platform__filter-header']"
 					:geo.sync="geo"
 					:sort.sync="sort"
@@ -402,6 +399,9 @@
 		}
 		&__pagination {
 			margin-top: 28px;
+		}
+		&__list {
+			margin-top: 36px;
 		}
 	}
 
