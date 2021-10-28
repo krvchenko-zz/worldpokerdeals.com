@@ -95,7 +95,7 @@
 	@include mq('tablet') {
 		.bonus-list {
 			margin-left: -20px;
-			margin-right: -21px;
+			margin-right: -20px;
 		}
 	}
 </style>
