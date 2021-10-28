@@ -503,6 +503,14 @@ body {
 					font-family: "Proxima Nova Sb";
 				}
 			}
+
+			&.gray {
+				li {
+					&::before {
+						background: #CCCCCC;
+					}
+				}
+			}
 		}
 
 		iframe {

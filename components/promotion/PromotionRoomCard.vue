@@ -49,23 +49,18 @@
 					>
 				</nuxt-link>
 
-				<nuxt-link
-					v-if="review"
-					v-slot="{ href, route, navigate }"
-					:to="`/rakeback-deals/${slug}/download`"
-				>
-					<a
-						:class="[
-							'btn',
-							'btn-block',
-							'promotion-room__link',
-							'promotion-room__link_download',
-						]"
-						:href="href"
-						@click="navigate"
-						>Учавствовать</a
-					>
-				</nuxt-link>
+				<room-action-button
+					label="Участвовать"
+					type="download"
+					:class="[
+						'btn',
+						'btn-block',
+						'promotion-room__link',
+						'promotion-room__link_download',
+					]"
+					:icon="false"
+					:slug="slug"
+				/>
 			</div>
 		</div>
 	</div>

@@ -108,6 +108,7 @@
 				:total="total"
 				:from="from"
 				:to="to"
+				:show-pages="false"
 				:load-more-width="208"
 				:load-more-text="
 					category.entity === 'promotion'
@@ -329,8 +330,13 @@
 					this.$store.commit('promotions/FETCH_ITEMS', {
 						items: response.data.data,
 					})
+					this.$store.commit('promotions/FETCH_FILTERS', {
+						filters: response.data.filters,
+					})
 					Object.keys(response.data).forEach(key => {
-						this[key] = response.data[key]
+						if (key !== 'filters') {
+							this[key] = response.data[key]
+						}
 					})
 				})
 
@@ -339,21 +345,6 @@
 					categories: response.data,
 				})
 			})
-
-			await this.$axios
-				.get(`/promotion/filters/list`, {
-					params: {
-						geo: this.country.code,
-						type: this.category.entity,
-						exclusive: null,
-						promotion_category_id: this.category.id,
-					},
-				})
-				.then(response => {
-					this.$store.commit('promotions/FETCH_FILTERS', {
-						filters: response.data,
-					})
-				})
 		},
 
 		watch: {},
@@ -393,25 +384,19 @@
 			async fetchItems() {
 				this.$nuxt.$loading.start()
 
-				// await this.$axios.get(`/promotion/filters/list`, {
-				//   params: {
-				//     geo: this.geo,
-				//     type: this.category.entity,
-				//     exclusive: this.exclusive,
-				//     promotion_category_id: this.category.id
-				//   }
-				// }).then((response) => {
-				//   this.$store.commit('promotions/FETCH_FILTERS', { filters: response.data })
-				// })
-
 				await this.$axios
 					.get(`promotion/list`, { params: this.params })
 					.then(response => {
 						this.$store.commit('promotions/FETCH_ITEMS', {
 							items: response.data.data,
 						})
+						this.$store.commit('promotions/FETCH_FILTERS', {
+							filters: response.data.filters,
+						})
 						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
+							if (key !== 'filters') {
+								this[key] = response.data[key]
+							}
 						})
 						this.$nuxt.$loading.finish()
 					})

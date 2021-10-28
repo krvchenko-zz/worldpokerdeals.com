@@ -57,7 +57,6 @@
 					<h3 class="block-title">
 						Участвующие румы
 					</h3>
-					<!-- <lazy-hydrate when-visible> -->
 					<lazy-room
 						v-for="(item, index) in promotion.rooms"
 						:id="item.id"
@@ -74,7 +73,6 @@
 						:review="item.review"
 						:small="true"
 					/>
-					<!-- </lazy-hydrate> -->
 
 					<lazy-hydrate when-visible>
 						<faq-list
