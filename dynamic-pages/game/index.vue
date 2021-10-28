@@ -215,6 +215,19 @@
 			LazyHydrate,
 		},
 
+		head() {
+			return {
+				title: this.tab.meta_title,
+				titleTemplate: '%s',
+				meta: [
+					{ name: 'description', content: this.tab.meta_description },
+					{ name: 'keywords', content: this.tab.meta_keywords },
+				],
+
+				script: [{ type: 'application/ld+json', json: this.tab.faq }],
+			}
+		},
+
 		data: () => ({
 			// loading: true,
 			loading: false,
@@ -252,19 +265,6 @@
 				},
 			],
 		}),
-
-		head() {
-			return {
-				title: this.game.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.game.meta_description },
-					{ name: 'keywords', content: this.game.meta_keywords },
-				],
-
-				script: [{ type: 'application/ld+json', json: this.tab.faq }],
-			}
-		},
 
 		computed: {
 			...mapGetters({
