@@ -1,6 +1,10 @@
 <template>
 	<div :class="['auth-form', modal && 'auth-form_modal']">
-		<div v-if="!modal" class="auth-form-header" v-html="$t('form.log_in_text')"></div>
+		<div
+			v-if="!modal"
+			class="auth-form-header"
+			v-html="$t('form.log_in_text')"
+		></div>
 
 		<div :class="['auth-form-body', modal && 'auth-form-body_modal']">
 			<form
@@ -68,7 +72,10 @@
 			</div>
 
 			<div v-if="modal" class="auth-form-social">
-				<div class="auth-form-social__label" v-html="$t('form.social_networks_text')"></div>
+				<div
+					class="auth-form-social__label"
+					v-html="$t('form.social_networks_text')"
+				></div>
 				<div class="auth-form-social__actions">
 					<form-social type="fb" style="margin-right: 10px;" />
 					<form-social type="vk" style="margin-left: 10px;" />
@@ -318,5 +325,15 @@
 		float: right;
 		width: 100%;
 		margin-top: -128px;
+	}
+
+	@include mq('tablet') {
+		.connection-auth {
+			float: initial;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: -40px;
+			margin-bottom: 40px;
+		}
 	}
 </style>

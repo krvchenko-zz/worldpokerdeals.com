@@ -71,7 +71,7 @@
 		watch: {},
 
 		mounted() {
-			console.log(this.$slots.header);
+			console.log(this.$slots.header)
 			document.body.classList.add('modal-open')
 		},
 
@@ -102,7 +102,7 @@
 		&__wrap {
 			max-height: calc(100% - 52px);
 			max-width: calc(100% - 52px);
-			overflow: scroll;
+			overflow-y: scroll;
 			margin: 26px;
 			position: fixed;
 			z-index: 9999;
@@ -207,6 +207,34 @@
 				&:after {
 					background: #ffffff;
 				}
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.modal {
+			--body-padding: 16px;
+			&__wrap {
+				max-width: calc(100% - 24px);
+				margin-left: 12px;
+				margin-right: 12px;
+				left: calc(50% - 12px);
+				overflow-x: hidden;
+			}
+
+			&-body {
+				padding-left: var(--body-padding);
+				padding-right: var(--body-padding);
+			}
+
+			&-header {
+				padding-left: var(--body-padding);
+				padding-right: var(--body-padding);
+			}
+
+			&__close {
+				top: -26px;
+				right: -13px;
 			}
 		}
 	}
