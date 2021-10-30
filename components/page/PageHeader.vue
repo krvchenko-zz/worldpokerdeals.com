@@ -258,7 +258,11 @@
 					>
 						{{ $t('sign_in') }}
 					</button>
-					<button class="header-buttons__login" @click="handleAuth">
+					<button
+						v-if="!user"
+						class="header-buttons__login"
+						@click="handleAuth"
+					>
 						<img :src="loginSrc" />
 					</button>
 				</div>

@@ -31,7 +31,7 @@
 
 				<!-- Username -->
 				<div class="connection-form-group row">
-					<div class="col-6">
+					<div class="col-12 col-sm-6">
 						<form-input
 							v-model="form.name"
 							label="Логин"
@@ -48,7 +48,7 @@
 						</transition>
 					</div>
 
-					<div class="col-6">
+					<div class="col-12 col-sm-6">
 						<form-input
 							v-model="form.email"
 							:disabled="!auth"
@@ -68,7 +68,7 @@
 
 				<!-- Username -->
 				<div class="connection-form-group row">
-					<div class="col-6">
+					<div class="col-12 col-sm-6">
 						<form-input
 							v-model="form.username"
 							:disabled="!auth"
@@ -84,7 +84,7 @@
 						</transition>
 					</div>
 
-					<div class="col-6">
+					<div class="col-12 col-sm-6">
 						<form-input
 							v-model="form.account_id"
 							:disabled="!auth"
@@ -237,5 +237,30 @@
 
 	.btn-connection-form {
 		padding: 15px 28px;
+	}
+
+	@include mq('tablet') {
+		.connection-form-wrap {
+			margin-right: 0;
+			.form-input_type_text {
+				margin-bottom: 24px;
+			}
+
+			.form-radio-group {
+				justify-content: center;
+			}
+		}
+
+		.connection-form-group {
+			.btn-connection-form {
+				display: block;
+				margin: 0 auto 24px;
+			}
+		}
+
+		.connection-form__info {
+			margin-left: 0;
+			max-width: 100%;
+		}
 	}
 </style>

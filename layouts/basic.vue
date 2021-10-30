@@ -8,7 +8,7 @@
 		</transition>
 
 		<nuxt />
-		
+
 		<lazy-hydrate when-visible>
 			<page-footer />
 		</lazy-hydrate>
@@ -88,25 +88,20 @@
 					</div>
 				</template>
 				<template #body>
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-7">
-								<lazy-connection-form @submit="handleConnectionForm" />
-							</div>
-							<div class="col-5">
-								<transition name="flip">
-									<lazy-auth-form
-										v-if="!user && auth"
-										class="connection-auth"
-									/>
-									<lazy-register-form
-										v-if="!user && register"
-										connection
-										class="connection-auth"
-									/>
-									<lazy-user-profile v-if="user" />
-								</transition>
-							</div>
+					<div class="modal-body__connection">
+						<div class="modal-body__credentials">
+							<lazy-connection-form @submit="handleConnectionForm" />
+						</div>
+						<div class="modal-body__auth">
+							<transition name="flip">
+								<lazy-auth-form v-if="!user && auth" class="connection-auth" />
+								<lazy-register-form
+									v-if="!user && register"
+									connection
+									class="connection-auth"
+								/>
+								<lazy-user-profile v-if="user" />
+							</transition>
 						</div>
 					</div>
 				</template>
@@ -407,5 +402,47 @@
 		flex-direction: column;
 		align-items: center;
 		padding-bottom: 90px;
+	}
+
+	.modal-body {
+		&__connection {
+			display: grid;
+			grid-template-columns: 7fr 5fr;
+			grid-template-areas: 'credentials auth';
+		}
+
+		&__credentials {
+			grid-area: credentials;
+		}
+
+		&__auth {
+			grid-area: auth;
+		}
+	}
+
+	@include mq('tablet') {
+		.modal-body {
+			&__connection {
+				grid-template-columns: 100%;
+				grid-template-areas:
+					'auth'
+					'credentials';
+			}
+
+			&__auth {
+				display: flex;
+				justify-content: center;
+				margin-bottom: 32px;
+			}
+		}
+
+		.modal-header {
+			&__icon {
+				min-width: 32px;
+			}
+			&__title {
+				font-size: 24px;
+			}
+		}
 	}
 </style>
