@@ -63,10 +63,7 @@
 							<h2 id="about" class="block-title block-title_lg">
 								О покер-руме {{ promotion.room.title }}
 							</h2>
-							<lazy-room-summary
-								:room="promotion.room"
-								:id="promotion.room.id"
-							/>
+							<lazy-room-summary :room="promotion.room" />
 							<lazy-hydrate when-visible>
 								<faq-list
 									v-if="promotion.faq && promotion.faq.mainEntity.length"

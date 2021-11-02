@@ -159,6 +159,7 @@
 		&__value {
 			height: 20px;
 			font-size: 0;
+			white-space: nowrap;
 			span {
 				&:first-child {
 					font-family: 'Proxima Nova';

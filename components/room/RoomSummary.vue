@@ -169,13 +169,8 @@
 						}"
 						:slug="room.slug"
 						:icon="true"
-						:disabled="
-							!room.available ||
-								room.blacklist ||
-								room.closed ||
-								room.types.some(type => type.id === 3)
-						"
-						class="room-header-actions__download"
+						:disabled="room.restricted"
+						:class="['btn-block', 'room-header-actions__download']"
 						type="download"
 						:label="$t('room_download')"
 					/>
@@ -205,7 +200,7 @@
 							padding: '7px 24px',
 							fontSize: '16px',
 						}"
-						class="btn-block"
+						:class="['btn-block']"
 						:slug="room.review.slug"
 						type="default"
 						:label="$t('room_review', { room: room.title })"
@@ -554,6 +549,11 @@
 	}
 
 	@include mq('tablet') {
+		.room-summary {
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+
 		.room-logo {
 			margin: 0 auto;
 			&__image {
