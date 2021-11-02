@@ -2,6 +2,8 @@
 	<span
 		:class="[
 			'bonus-code',
+			small && 'bonus-code_small',
+			big && 'bonus-code_big',
 			hover && 'bonus-code_hover',
 		]"
 		@mouseover="hover = true"
@@ -11,15 +13,22 @@
 		<span
 			:class="[
 				'bonus-code__label',
+				big && 'bonus-code__label_big',
 				hover && 'bonus-code__label bonus-code__label_hover',
 			]"
 			>{{ $t('bonus_code') }}</span
 		>
-		<span class="bonus-code__value" ref="code">{{ code }}</span>
+		<span
+			:class="[
+				'bonus-code__value',
+				big && 'bonus-code__value_big',
+			]"
+			ref="code">{{ code }}</span
+		>
 
 		<transition name="fade">
 			<span class="bonus-code-tooltip" v-if="copied">
-				<span class="bonus-code-tooltip__text">Бонус код скопирован!</span>
+				<span class="bonus-code-tooltip__text">Copied to the clipboard!</span>
 				<span class="bonus-code-tooltip__arrow"></span>
 			</span>
 		</transition>
@@ -38,7 +47,15 @@
 			code: {
 				type: String,
 				default: 'Не нужен',
-			}
+			},
+			small: {
+				type: Boolean,
+				default: false,
+			},
+			big: {
+				type: Boolean,
+				default: false,
+			},
 		},
 
 		data: () => ({
@@ -59,13 +76,11 @@
 		methods: {
 			copy() {
 				navigator.clipboard.writeText(this.code)
-
-				this.copied = true
-
 				this.showTooltip()
 			},
 
 			showTooltip() {
+				this.copied = true
 				setTimeout(() => {
 					this.copied = false
 				}, 600)
@@ -90,6 +105,19 @@
 		border: 1px dashed rgba(119, 119, 119, 0.5);
 		border-radius: 4px;
 		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+		&_small {
+			width: 100%;
+			margin: 0;
+		}
+		&_big {
+			padding: 11px 20px;
+			margin: 0;
+			min-width: 130px;
+			width: auto;
+			border-radius: 8px;
+			background: linear-gradient(0deg, #f6f6f6, #f6f6f6),
+									radial-gradient(179.3% 742.81% at 97.16% 5.47%, #f7f7f7 20.31%, #cccccc 100%);
+		}
 		&_hover {
 			border-color: #008be2;
 			&:before {
@@ -119,6 +147,12 @@
 			&__hover {
 				color: #008be2;
 			}
+			&_big {
+				margin-bottom: 4px;
+				font-size: 12px;
+				line-height: 14px;
+				letter-spacing: 0.5px;
+			}
 		}
 
 		&__value {
@@ -131,6 +165,13 @@
 			letter-spacing: 0.3px;
 			color: #555555;
 			text-transform: uppercase;
+			&_big {
+				font-size: 18px;
+				line-height: 20px;
+				letter-spacing: 0.5px;
+				color: #777777;
+				font-family: 'Proxima Nova Th';
+			}
 		}
 
 		&-tooltip {
@@ -138,7 +179,7 @@
 			position: absolute;
 			will-change: transform;
 			top: -46px;
-			left: 0px;
+			left: 50%;
 			background-color: rgba(0, 0, 0, .7);
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
@@ -148,6 +189,7 @@
 			z-index: 100;
 			-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, .3);
 			box-shadow: 2px 2px 3px rgba(0, 0, 0, .3);
+			transform: translateX(-50%);
 			&__text {
 				display: block;
 				color: #fff;
@@ -155,6 +197,7 @@
 				font-size: 12px;
 				line-height: 12px;
 				text-align: center;
+				white-space: nowrap;
 			}
 			&__arrow {
 				left: 50%;
@@ -188,6 +231,19 @@
 			padding-bottom: 4px;
 			padding-top: 4px;
 			height: 40px;
+			&_small {
+				width: auto;
+				min-width: 132px;
+				margin-bottom: 0;
+				margin-right: auto;
+				height: 40px;
+				padding-top: 4px;
+			}
+			&_big {
+				padding: 11px 20px;
+				min-width: auto;
+				height: auto;
+			}
 		}
 
 		@include mq('mobile') {

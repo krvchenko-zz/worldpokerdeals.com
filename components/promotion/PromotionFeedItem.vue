@@ -73,24 +73,12 @@
 			</span>
 
 			<div class="promotion-feed-item__actions">
-				<span
+
+				<bonus-code
 					v-if="type === 'bonus'"
-					:class="[
-						'promotion-feed-item__code',
-						codeHovered && 'promotion-feed-item__code--hover',
-					]"
-					@mouseover="codeHovered = true"
-					@mouseleave="codeHovered = false"
-				>
-					<span
-						:class="[
-							'promotion-feed-item__code-label',
-							codeHovered && 'promotion-feed-item__code-label--hover',
-						]"
-						>Бонус-код</span
-					>
-					<span class="promotion-feed-item__code-value">{{ code }}</span>
-				</span>
+					:code="code"
+					:small="true"
+				/>
 
 				<span
 					v-else-if="time_left || time_before"

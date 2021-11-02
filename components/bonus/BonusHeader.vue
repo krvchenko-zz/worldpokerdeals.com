@@ -51,20 +51,7 @@
 						</div>
 
 						<div class="bonus-header__col">
-							<span
-								:class="['bonus__code', codeHovered && 'bonus__code_hover']"
-								@mouseover="codeHovered = true"
-								@mouseleave="codeHovered = false"
-							>
-								<span
-									:class="[
-										'bonus__code-label',
-										codeHovered && 'bonus__code-label_hover',
-									]"
-									>{{ $t('bonus_code') }}</span
-								>
-								<span class="bonus__code-value">{{ promotion.code }}</span>
-							</span>
+							<bonus-code :code="promotion.code" :big="true" />
 						</div>
 
 						<div class="bonus-header__col">

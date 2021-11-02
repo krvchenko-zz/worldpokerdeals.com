@@ -44,23 +44,6 @@
 			</div>
 
 			<div class="bonus-item__buttons">
-<!-- 				<span
-					:class="[
-						'bonus-item__code',
-						codeHovered && 'bonus-item__code--hover',
-					]"
-					@mouseover="codeHovered = true"
-					@mouseleave="codeHovered = false"
-				>
-					<span
-						:class="[
-							'bonus-item__code-label',
-							codeHovered && 'bonus-item__code-label--hover',
-						]"
-						>{{ $t('bonus_code') }}</span
-					>
-					<span class="bonus-item__code-value">{{ code }}</span>
-				</span> -->
 
 				<bonus-code :code="code"/>
 
