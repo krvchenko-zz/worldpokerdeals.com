@@ -2,7 +2,7 @@
 	<div v-if="room" class="room-summary">
 		<div class="room-summary__header">
 			<div class="row align-items-center">
-				<div class="col-6">
+				<div class="col-12 col-md-6">
 					<div class="room-logo">
 						<img
 							decoding="async"
@@ -13,12 +13,10 @@
 						/>
 					</div>
 				</div>
-				<div class="col-6">
+				<div class="col-12 col-md-6">
 					<div class="room-scores-rating">
 						<span class="room-scores-rating__place">{{ room.rate }}</span>
-						<span class="room-scores-rating__label">{{
-							$t('rating_position')
-						}}</span>
+						<span class="room-scores-rating__label" v-html="$t('rating_position')"></span>
 						<room-rating :value="room.rating" />
 					</div>
 				</div>
@@ -27,7 +25,7 @@
 
 		<div class="room-summary__body">
 			<div class="row">
-				<div class="col-6">
+				<div class="col-12 col-sm-6">
 					<!-- Details -->
 					<div class="room-details">
 						<div class="room-details__heading">{{ $t('characteristics') }}</div>
@@ -169,14 +167,20 @@
 							padding: '9px 24px',
 							fontSize: '16px',
 						}"
-						class="btn-block"
 						:slug="room.slug"
-						:icon="false"
+						:icon="true"
+						:disabled="
+							!room.available ||
+								room.blacklist ||
+								room.closed ||
+								room.types.some(type => type.id === 3)
+						"
+						class="room-header-actions__download"
 						type="download"
 						:label="$t('room_download')"
 					/>
 				</div>
-				<div class="col-6">
+				<div class="col-12 col-sm-6">
 					<div class="room-scores">
 						<div class="room-scores__label-wrap">
 							<div class="room-scores__label">{{ $t('our_ratings') }}</div>
@@ -287,10 +291,12 @@
 	}
 
 	.room-logo {
+		max-width: 230px;
 		&__image {
 			max-width: 100%;
-			height: auto;
-			display: block;
+	    width: auto;
+	    height: 60px;
+	    display: block;
 		}
 	}
 
@@ -544,6 +550,23 @@
 		.room-summary {
 			margin-left: -24px;
 			margin-right: -24px;
+		}
+	}
+
+	@include mq('tablet') {
+		.room-logo {
+			margin: 0 auto;
+			&__image {
+				margin: 0 auto;
+			}
+		}
+
+		.room-scores {
+			margin-top: 32px;
+		}
+
+		.room-scores-rating {
+			margin-top: 20px;
 		}
 	}
 </style>
