@@ -68,6 +68,7 @@
 					type="download"
 					:label="$t('get')"
 					:slug="room.slug"
+					:disabled="room.restricted"
 				/>
 
 				<div v-if="hasPage" class="bonus-item__review">

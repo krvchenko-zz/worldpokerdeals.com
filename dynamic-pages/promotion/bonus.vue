@@ -5,12 +5,12 @@
 
 			<lazy-bonus-header class="bonus__header" />
 
-			<client-only>
+<!-- 			<client-only>
 				<lazy-bonus-current
 					v-if="promotions.length"
 					class="bonus__promotions"
 				/>
-			</client-only>
+			</client-only> -->
 
 			<div class="bonus__info-container">
 				<lazy-toc-list v-if="promotion.toc" :inline="true" :white="false">
@@ -134,8 +134,6 @@
 					</page-article>
 				</div>
 			</div>
-
-			<page-banners />
 		</div>
 	</div>
 </template>

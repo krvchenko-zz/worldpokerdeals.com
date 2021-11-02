@@ -63,15 +63,15 @@
 				/>
 
 				<room-top
-					v-if="category.promotion && category.entity === 'bonus'"
-					:id="category.promotion.room.id"
-					:title="category.promotion.room.title"
-					:slug="category.promotion.room.slug"
-					:restricted="category.promotion.room.restricted"
+					v-if="best && category.entity === 'bonus'"
+					:id="best.id"
+					:title="best.title"
+					:slug="best.slug"
+					:restricted="best.restricted"
 					:country="country"
-					:rating="category.promotion.room.rating"
-					:bonus="category.promotion.room.top_bonus"
-					:review="category.promotion.room.review"
+					:rating="best.rating"
+					:bonus="best.top_bonus"
+					:review="best.review"
 					label="Лучший бонус"
 				/>
 			</div>
@@ -99,6 +99,7 @@
 				country: 'location/country',
 				category: 'promotions/category',
 				pageable: 'pages/page',
+				best: 'rooms/best',
 				categories: 'promotions/categories',
 				isTouch: 'ui/isTouch',
 			}),

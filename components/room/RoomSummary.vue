@@ -181,7 +181,7 @@
 						<div class="room-scores__label-wrap">
 							<div class="room-scores__label">{{ $t('our_ratings') }}</div>
 							<span class="room-scores__info" @click="handleRatesModal">{{
-								$t('how_we_rate')
+								$t('how_we_rate.title')
 							}}</span>
 						</div>
 

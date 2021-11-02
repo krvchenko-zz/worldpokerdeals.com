@@ -45,13 +45,13 @@
 			display: grid;
 			grid-template-columns: 354px 116px 83px 1fr;
 			background: #f1efef;
+			position: sticky;
+			top: 80px;
+			z-index: 10;
 		}
 
 		&__label {
 			white-space: nowrap;
-			position: sticky;
-			top: 80px;
-			z-index: 10;
 			padding: 16px 20px 14px 20px;
 			display: table-cell;
 			font-family: 'Proxima Nova Sb';

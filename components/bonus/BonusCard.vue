@@ -55,10 +55,11 @@
 						lineHeight: '14px',
 					}"
 					class="btn-block"
-					:slug="review.slug"
+					:slug="slug"
 					:icon="false"
 					type="download"
 					:label="$t('room_download')"
+					:disabled="restricted"
 				/>
 			</div>
 
