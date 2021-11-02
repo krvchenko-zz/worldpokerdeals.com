@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="bonus-item__buttons">
-				<span
+<!-- 				<span
 					:class="[
 						'bonus-item__code',
 						codeHovered && 'bonus-item__code--hover',
@@ -60,7 +60,9 @@
 						>{{ $t('bonus_code') }}</span
 					>
 					<span class="bonus-item__code-value">{{ code }}</span>
-				</span>
+				</span> -->
+
+				<bonus-code :code="code"/>
 
 				<room-action-button
 					class="btn-get-bonus bonus-item__action bonus-item__get-button"
@@ -464,63 +466,6 @@
 			margin-left: 20px;
 		}
 
-		&__code {
-			width: 128px;
-			margin-right: 20px;
-			position: relative;
-			cursor: pointer;
-			display: block;
-			min-width: 130px;
-			padding: 8px 0 4px 0;
-			background: #fafafa;
-			border: 1px dashed rgba(119, 119, 119, 0.5);
-			border-radius: 4px;
-			transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
-			&--hover {
-				border-color: #008be2;
-
-				&:before {
-					content: '';
-					top: -12px;
-					left: 50%;
-					margin-left: -9px;
-					position: absolute;
-					width: 18px;
-					height: 12px;
-					display: block;
-					background: $ico-scissors no-repeat center;
-				}
-			}
-
-			&-label {
-				display: block;
-				text-align: center;
-				font-family: 'Proxima Nova Sb';
-				font-size: 10px;
-				line-height: 12px;
-				letter-spacing: 0.3px;
-				text-transform: uppercase;
-				color: #777777;
-				transition: background 0.1s ease, border-color 0.1s ease,
-					color 0.1s ease;
-				&--hover {
-					color: #008be2;
-				}
-			}
-
-			&-value {
-				display: block;
-				text-align: center;
-				font-family: 'Proxima Nova';
-				font-weight: bold;
-				font-size: 16px;
-				line-height: 20px;
-				letter-spacing: 0.3px;
-				color: #555555;
-				text-transform: uppercase;
-			}
-		}
-
 		&__terms {
 			margin-right: 40px;
 			padding-left: 26px;
@@ -659,11 +604,6 @@
 					display: inline-block;
 				}
 			}
-			&__code {
-				width: 100%;
-				margin-right: 0;
-				margin-bottom: 20px;
-			}
 			&__review {
 				&__button {
 					height: 42px;
@@ -695,14 +635,6 @@
 				height: 40px;
 				margin-left: 0;
 			}
-			& &__code {
-				min-width: 152px;
-				margin-right: 0px;
-				margin-bottom: 0;
-				padding-bottom: 4px;
-				padding-top: 4px;
-				height: 40px;
-			}
 			&__get-button {
 				min-width: 148px;
 				height: 40px;
@@ -728,9 +660,6 @@
 			}
 			&__buttons {
 				grid-template-columns: minmax(140px, 1fr) minmax(120px, 1fr) 40px;
-			}
-			& &__code {
-				min-width: 140px;
 			}
 			&__get-button {
 				min-width: 120px;
