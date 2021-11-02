@@ -331,11 +331,11 @@
 					this.$store.commit('promotions/FETCH_ITEMS', {
 						items: response.data.data,
 					})
-					this.$store.commit('rooms/FETCH_ITEMS', {
-						items: response.data.data,
-					})
 					this.$store.commit('rooms/FETCH_BEST', {
 						best: response.data.data[0].room,
+					})
+					this.$store.commit('promotions/FETCH_FILTERS', {
+						filters: response.data.filters,
 					})
 					Object.keys(response.data).forEach(key => {
 						if (key !== 'filters') {
