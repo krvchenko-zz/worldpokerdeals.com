@@ -467,6 +467,11 @@ body {
 					height: 9px;
 					background: $icon-check-list no-repeat center;
 				}
+
+				img {
+					max-width: 100%;
+					height: auto!important;
+				}
 			}
 		}
 
@@ -501,6 +506,10 @@ body {
 					font-size: 14px;
 					line-height: 21px;
 					font-family: "Proxima Nova Sb";
+				}
+				img {
+					max-width: 100%;
+					height: auto!important;
 				}
 			}
 
