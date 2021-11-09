@@ -1,5 +1,5 @@
 <template>
-	<div class="games">
+	<div v-if="category" class="games">
 		<div class="games-header">
 			<breadcrumb-list :white="true" />
 			<h1 class="games__title">{{ category.title }}</h1>

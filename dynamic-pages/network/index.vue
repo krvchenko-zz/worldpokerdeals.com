@@ -1,5 +1,5 @@
 <template>
-	<div class="network">
+	<div v-if="network" class="network">
 		<breadcrumb-list v-if="pageable" class="network__breadcrumbs" />
 
 		<network-header class="network__header" />
@@ -232,6 +232,17 @@
 			LazyHydrate,
 		},
 
+		head() {
+			return {
+				title: this.network ? this.network.meta_title : '',
+				titleTemplate: '%s',
+				meta: [
+					{ name: 'description', content: this.network ? this.network.meta_description: '' },
+					{ name: 'keywords', content: this.network ? this.network.meta_keywords: '' },
+				],
+			}
+		},
+
 		data: () => ({
 			loading: false,
 			per_page: 5,
@@ -268,17 +279,6 @@
 				},
 			],
 		}),
-
-		head() {
-			return {
-				title: this.network.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.network.meta_description },
-					{ name: 'keywords', content: this.network.meta_keywords },
-				],
-			}
-		},
 
 		mounted() {
 			eventBus.$on('filter:toggle', () => {

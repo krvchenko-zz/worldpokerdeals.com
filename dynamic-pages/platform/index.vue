@@ -1,5 +1,5 @@
 <template>
-	<div class="platform">
+	<div v-if="platform" class="platform">
 		<breadcrumb-list v-if="pageable" class="platform__breadcrumbs" />
 		<platform-header class="platform__header" />
 
@@ -189,6 +189,19 @@
 			LazyHydrate,
 		},
 
+		head() {
+			return {
+				title: this.platform ? this.platform.meta_title : '',
+				titleTemplate: '%s',
+				meta: [
+					{ name: 'description', content: this.platform ? this.platform.meta_description : '' },
+					{ name: 'keywords', content: this.platform ? this.platform.meta_keywords : '' },
+				],
+
+				script: [{ type: 'application/ld+json', json: this.platform ? this.platform.faq : '' }],
+			}
+		},
+
 		data: () => ({
 			loading: false,
 			per_page: 5,
@@ -224,19 +237,6 @@
 				},
 			],
 		}),
-
-		head() {
-			return {
-				title: this.platform.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.platform.meta_description },
-					{ name: 'keywords', content: this.platform.meta_keywords },
-				],
-
-				script: [{ type: 'application/ld+json', json: this.platform.faq }],
-			}
-		},
 
 		computed: {
 			...mapGetters({

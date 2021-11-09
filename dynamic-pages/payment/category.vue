@@ -1,5 +1,5 @@
 <template>
-	<div class="payments">
+	<div v-if="category" class="payments">
 		<div class="payments-header">
 			<div class="container-fluid">
 				<breadcrumb-list :white="true" />
@@ -99,11 +99,11 @@
 
 		head() {
 			return {
-				title: this.category.meta_title,
+				title: this.category ? this.category.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.category.meta_description },
-					{ name: 'keywords', content: this.category.meta_keywords },
+					{ name: 'description', content: this.category ? this.category.meta_description : '' },
+					{ name: 'keywords', content: this.category ? this.category.meta_keywords : '' },
 				],
 			}
 		},
