@@ -26,21 +26,22 @@
 				]"
 			>
 				<li
-					v-for="(value, name) in locales"
-					v-if="name !== locale"
-					:key="name"
+					v-for="(value, index) in locales"
+					v-if="index !== locale"
+					:key="index"
 					class="menu-lang-switcher__dropdown-item"
 				>
 					<a
 						:class="[
 							'menu-lang-switcher__dropdown-item__link',
-							`menu-lang-switcher__dropdown-item__link--${name}`,
+							`menu-lang-switcher__dropdown-item__link--${index}`,
 						]"
-						:href="
-							`https://${name !== 'en' ? name + '.' : ''}worldpokerdeals01.com`
-						"
+						:href="`https://${
+							index !== 'en' ?
+							index + '.' + host + $route.fullPath :
+							host + $route.fullPath}`"
 					>
-						{{ getLanguageName(name) }}
+						{{ getLanguageName(index) }}
 					</a>
 				</li>
 			</ul>
@@ -71,6 +72,10 @@
 				locale: 'lang/locale',
 				locales: 'lang/locales',
 			}),
+
+			host() {
+				return process.env.hostName
+			},
 		},
 
 		watch: {},

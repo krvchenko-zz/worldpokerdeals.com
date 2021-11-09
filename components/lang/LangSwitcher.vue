@@ -32,11 +32,10 @@
 							'lang-switcher-dropdown__link',
 							`lang-switcher-dropdown__link_${index}`,
 						]"
-						:href="
-							`https://${
-								index !== 'en' ? index + '.' : ''
-							}worldpokerdeals01.com`
-						"
+						:href="`https://${
+							index !== 'en' ?
+							index + '.' + host + $route.fullPath :
+							host + $route.fullPath}`"
 						><span>{{ item }}</span></a
 					>
 				</li>
@@ -69,9 +68,9 @@
 				locales: 'lang/locales',
 			}),
 
-			// host() {
-			//   return process.env.host
-			// }
+			host() {
+				return process.env.hostName
+			},
 		},
 
 		watch: {},

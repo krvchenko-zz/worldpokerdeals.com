@@ -4,6 +4,7 @@ export default {
 	env: {
 		apiUrl: process.env.API_URL,
 		mediaUrl: process.env.MEDIA_URL,
+		hostName: process.env.HOST_NAME,
 		appName: process.env.APP_NAME,
 		appLocale: process.env.APP_LOCALE,
 		appGeo: process.env.APP_GEO,
