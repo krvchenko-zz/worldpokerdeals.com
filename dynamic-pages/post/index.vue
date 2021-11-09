@@ -1,5 +1,5 @@
 <template>
-	<div class="post">
+	<div v-if="post" class="post">
 		<breadcrumb-list v-if="pageable" />
 
 		<div class="article-container post__news">
@@ -138,11 +138,11 @@
 		}),
 		head() {
 			return {
-				title: this.post.meta_title,
+				title: this.post ? this.post.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.post.meta_description },
-					{ name: 'keywords', content: this.post.meta_keywords },
+					{ name: 'description', content: this.post ? this.post.meta_description : '' },
+					{ name: 'keywords', content: this.post ? this.post.meta_keywords : '' },
 				],
 			}
 		},

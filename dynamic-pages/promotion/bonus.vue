@@ -1,5 +1,5 @@
 <template>
-	<div class="bonus">
+	<div v-if="promotion" class="bonus">
 		<div class="bonus__container">
 			<breadcrumb-list v-if="pageable" class="bonus__breadcrumbs" />
 
@@ -144,11 +144,11 @@
 		name: 'PromotionPage',
 		head() {
 			return {
-				title: this.promotion.meta_title,
+				title: this.promotion ? this.promotion.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.promotion.meta_description },
-					{ name: 'keywords', content: this.promotion.meta_keywords },
+					{ name: 'description', content: this.promotion ? this.promotion.meta_description : '' },
+					{ name: 'keywords', content: this.promotion ? this.promotion.meta_keywords : '' },
 				],
 			}
 		},

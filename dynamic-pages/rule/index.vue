@@ -1,5 +1,5 @@
 <template>
-	<div class="rule">
+	<div v-if="rule" class="rule">
 		<div class="container-fluid">
 			<breadcrumb-list v-if="pageable" />
 		</div>
@@ -106,14 +106,14 @@
 
 		head() {
 			return {
-				title: this.rule.meta_title,
+				title: this.rule ? this.rule.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.rule.meta_description },
-					{ name: 'keywords', content: this.rule.meta_keywords },
+					{ name: 'description', content: this.rule ? this.rule.meta_description : '' },
+					{ name: 'keywords', content: this.rule ? this.rule.meta_keywords : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.rule.faq }],
+				script: [{ type: 'application/ld+json', json: this.rule ? this.rule.faq : '' }],
 			}
 		},
 

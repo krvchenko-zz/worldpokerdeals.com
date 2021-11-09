@@ -1,5 +1,5 @@
 <template>
-	<div class="promotions-page">
+	<div v-if="category" class="promotions-page">
 		<div class="promotions">
 			<!-- Header -->
 			<promotion-category-header class="promotions__header" />
@@ -229,14 +229,14 @@
 
 		head() {
 			return {
-				title: this.category.meta_title,
+				title: this.category ? this.category.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.category.meta_description },
-					{ name: 'keywords', content: this.category.meta_keywords },
+					{ name: 'description', content: this.category ? this.category.meta_description : '' },
+					{ name: 'keywords', content: this.category ? this.category.meta_keywords : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.category.faq }],
+				script: [{ type: 'application/ld+json', json: this.category ? this.category.faq : '' }],
 			}
 		},
 

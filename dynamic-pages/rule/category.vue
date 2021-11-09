@@ -1,5 +1,5 @@
 <template>
-	<div class="rules">
+	<div v-if="category" class="rules">
 		<div class="rules-header">
 			<breadcrumb-list :white="true" />
 			<h1 class="rules__title">{{ category.title }}</h1>
@@ -102,11 +102,11 @@
 
 		head() {
 			return {
-				title: this.category.meta_title,
+				title: this.category ? this.category.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.category.meta_description },
-					{ name: 'keywords', content: this.category.meta_keywords },
+					{ name: 'description', content: this.category ? this.category.meta_description : '' },
+					{ name: 'keywords', content: this.category ? this.category.meta_keywords : '' },
 				],
 			}
 		},
