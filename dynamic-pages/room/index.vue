@@ -229,7 +229,7 @@
 
 		head() {
 			return {
-				title: this.tab.meta_title,
+				title: this.tab ? this.tab.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
 					{ name: 'description', content: this.tab ? this.tab.meta_description : '' },
