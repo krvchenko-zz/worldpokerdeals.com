@@ -217,14 +217,14 @@
 
 		head() {
 			return {
-				title: this.tab.meta_title,
+				title: this.tab ? this.tab.meta_title : '',
 				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.tab.meta_description },
-					{ name: 'keywords', content: this.tab.meta_keywords },
+					{ name: 'description', content: this.tab ? this.tab.meta_description : '' },
+					{ name: 'keywords', content: this.tab ? this.tab.meta_keywords : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.tab.faq }],
+				script: [{ type: 'application/ld+json', json: this.tab ? this.tab.faq : '' }],
 			}
 		},
 
