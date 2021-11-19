@@ -11,7 +11,8 @@
 			<a
 				style="font-weight: bold"
 				class="btn btn-block btn-green"
-				rel="nofollow"
+				rel="nofollow noopener"
+				target="_blank"
 				href="/contact-us"
 				>{{ $t('more') }}</a
 			>

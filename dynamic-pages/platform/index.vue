@@ -191,14 +191,11 @@
 
 		head() {
 			return {
-				title: this.platform ? this.platform.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.platform ? this.platform.meta_description : '' },
-					{ name: 'keywords', content: this.platform ? this.platform.meta_keywords : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.platform ? this.platform.faq : '' }],
+				link: [
+				],
 			}
 		},
 

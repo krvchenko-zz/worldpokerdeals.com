@@ -35,25 +35,25 @@
 								href="https://instagram.com/worldpokerdeals"
 								class="footer-social__link footer-social__link-instagram"
 								target="_blank"
-								rel="nofollow"
+								rel="nofollow noopener"
 							></a>
 							<a
 								href="https://twitter.com/worldpokerdeals"
 								class="footer-social__link footer-social__link-twitter"
 								target="_blank"
-								rel="nofollow"
+								rel="nofollow noopener"
 							></a>
 							<a
 								href="https://vk.com/worldpokerdeals"
 								class="footer-social__link footer-social__link-vk"
 								target="_blank"
-								rel="nofollow"
+								rel="nofollow noopener"
 							></a>
 							<a
 								href="https://www.facebook.com/worldpokerdealsRu"
 								class="footer-social__link footer-social__link-fb"
 								target="_blank"
-								rel="nofollow"
+								rel="nofollow noopener"
 							></a>
 						</div>
 					</div>
@@ -251,14 +251,14 @@
 						<a
 							id="GPWASeal"
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="https://certify.gpwa.org/verify/ru/worldpokerdeals.com/"
 						>
 							<img decoding="async" loading="lazy" src="/gpwa.svg" />
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="http://www.gamblersanonymous.org/ga/node/1"
 							target="_blank"
 						>
@@ -271,7 +271,7 @@
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="http://gaffg.com/webmasters/worldpokerdeals/"
 						>
 							<img
@@ -283,14 +283,14 @@
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="http://www.apcw.org/"
 						>
 							<img decoding="async" loading="lazy" alt="APCW" src="/apcw.svg" />
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"
 						>
 							<img
@@ -302,7 +302,7 @@
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"
 						>
 							<img
@@ -314,7 +314,7 @@
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="https://www.gamcare.org.uk/"
 						>
 							<img
@@ -326,7 +326,7 @@
 						</a>
 						<a
 							class="footer-awards__item"
-							rel="nofollow"
+							rel="nofollow noopener"
 							href="https://www.begambleaware.org/"
 						>
 							<img

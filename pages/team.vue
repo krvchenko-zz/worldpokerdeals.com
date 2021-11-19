@@ -245,36 +245,42 @@
 							size="md"
 							type="telegram"
 							href="kapitonoff"
+							rel="nofollow noopener"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="whatsapp"
 							href="+66956396293"
+							rel="nofollow noopener"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="skype"
 							href="anton.wpd"
+							rel="nofollow noopener"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="fb"
 							href="https://www.facebook.com/worldpokerdealsRu"
+							rel="nofollow noopener"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="instagram"
 							href="https://instagram.com/worldpokerdeals"
+							rel="nofollow noopener"
 						/>
 						<button-contact
 							icon
 							size="md"
 							type="vk"
 							href="https://vk.com/worldpokerdeals"
+							rel="nofollow noopener"
 						/>
 					</div>
 					<button-contact block size="md" type="chat" style="max-width: 208px; height: initial; width: initial;"
@@ -288,31 +294,12 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
+	import pageMixin from '~/mixins/pageMixin'
 
 	export default {
 		components: {},
 		layout: 'basic',
-
-		async middleware({ store, redirect, params, $axios }) {
-			await $axios
-				.get('pages/our-team')
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
+		mixins: [pageMixin],
 
 		props: {},
 
@@ -465,10 +452,6 @@
 		created() {},
 
 		computed: {
-			...mapGetters({
-				locale: 'lang/locale',
-				page: 'pages/page',
-			}),
 		},
 
 		watch: {},

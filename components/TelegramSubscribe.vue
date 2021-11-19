@@ -6,7 +6,7 @@
 			<a
 				class="telegram-subscribe__btn"
 				:href="url"
-				rel="nofollow"
+				rel="nofollow noopener"
 				target="_blank"
 				>{{ btnLabel }}</a
 			>

@@ -28,7 +28,7 @@
 						<room-advantage
 							type="white"
 							:label="$t('bonus')"
-							:value="room.bonus ? room.bonus.title : false"
+							:value="room.top_bonus ? room.top_bonus.title : false"
 							color="#eb5757"
 						/>
 						<room-advantage

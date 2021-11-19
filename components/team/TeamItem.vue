@@ -26,6 +26,7 @@
 					size="sm"
 					type="telegram"
 					:href="telegram"
+					rel="nofollow noopener"
 				/>
 				<button-contact
 					v-if="skype"
@@ -35,6 +36,7 @@
 					size="sm"
 					type="skype"
 					:href="skype"
+					rel="nofollow noopener"
 				/>
 				<button-contact
 					v-if="whatsapp"
@@ -44,6 +46,7 @@
 					size="sm"
 					type="whatsapp"
 					:href="whatsapp"
+					rel="nofollow noopener"
 				/>
 				<button-contact
 					v-if="facebook"
@@ -53,6 +56,7 @@
 					size="sm"
 					type="fb"
 					:href="facebook"
+					rel="nofollow noopener"
 				/>
 			</div>
 			<div class="team-item__locales">

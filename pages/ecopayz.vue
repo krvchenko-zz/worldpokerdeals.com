@@ -220,8 +220,7 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
-
+	import pageMixin from '~/mixins/pageMixin'
 	import Manager from '~/components/cards/Manager'
 
 	export default {
@@ -230,41 +229,18 @@
 		},
 		layout: 'basic',
 
-		async middleware({ store, redirect, params, $axios }) {
-			await $axios
-				.get('pages/vip-ecopayz')
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
+		mixins: [pageMixin],
 
 		metaInfo: {},
 
 		data: () => ({
 			summary:
 				'ecoPayz является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете ecoPayz с нами, то сможете получить VIP-обслуживание, быстрый саппорт и много других полезных функций!',
-
 			manager: null,
 		}),
 
 		computed: {
 			...mapGetters({
-				locale: 'lang/locale',
-				country: 'location/country',
-				geo: 'location/code',
-				page: 'pages/page',
 				topList: 'rooms/topList',
 			}),
 		},

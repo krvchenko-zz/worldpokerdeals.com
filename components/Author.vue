@@ -23,6 +23,7 @@
 					icon
 					size="xs"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="author.facebook ? author.facebook : $t('social.facebook')"
 				></button-contact>
 				<button-contact
@@ -30,6 +31,7 @@
 					icon
 					size="xs"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="author.vk ? author.vk : $t('social.vk')"
 				></button-contact>
 				<button-contact
@@ -37,6 +39,7 @@
 					icon
 					size="xs"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="author.twitter ? author.twitter : $t('social.twitter')"
 				></button-contact>
 				<button-contact
@@ -44,6 +47,7 @@
 					icon
 					size="xs"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="author.instagram ? author.instagram : 'https://instagram.com/worldpokerdeals'"
 				></button-contact>
 			</div>

@@ -22,6 +22,7 @@
 						class="game-search-banner__btn"
 						icon
 						target="_blank"
+						rel="nofollow noopener"
 						size="md"
 						type="telegram"
 						:href="$t('social.telegram')"
@@ -31,6 +32,7 @@
 						icon
 						size="md"
 						target="_blank"
+						rel="nofollow noopener"
 						type="skype"
 						:href="skype"
 					></button-contact>
@@ -39,6 +41,7 @@
 						icon
 						size="md"
 						target="_blank"
+						rel="nofollow noopener"
 						type="whatsapp"
 						:href="whatsapp"
 					></button-contact>
@@ -47,6 +50,7 @@
 						icon
 						size="md"
 						target="_blank"
+						rel="nofollow noopener"
 						type="email"
 						:href="email"
 					></button-contact>

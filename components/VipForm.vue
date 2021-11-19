@@ -24,6 +24,7 @@
 						size="md"
 						type="telegram"
 						:href="telegram"
+						rel="nofollow noopener"
 					></button-contact>
 					<button-contact
 						class="vip-form__btn"
@@ -31,6 +32,7 @@
 						size="md"
 						type="skype"
 						:href="skype"
+						rel="nofollow noopener"
 					></button-contact>
 					<button-contact
 						class="vip-form__btn"
@@ -38,6 +40,7 @@
 						size="md"
 						type="whatsapp"
 						:href="whatsapp"
+						rel="nofollow noopener"
 					></button-contact>
 					<button-contact
 						class="vip-form__btn"
@@ -45,6 +48,7 @@
 						size="md"
 						type="email"
 						:href="email"
+						rel="nofollow noopener"
 					></button-contact>
 				</div>
 			</div>

@@ -11,6 +11,7 @@
 			size="md"
 			type="telegram"
 			href="worldpokerdealsRU"
+			rel="nofollow noopener"
 			>Подписаться</button-contact
 		>
 	</div>

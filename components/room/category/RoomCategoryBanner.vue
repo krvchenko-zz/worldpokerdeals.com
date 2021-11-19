@@ -20,6 +20,7 @@
 					size="sm"
 					type="telegram"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="$t('social.telegram')"
 				></button-contact>
 				<button-contact
@@ -28,6 +29,7 @@
 					size="sm"
 					type="skype"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="skype"
 				></button-contact>
 				<button-contact
@@ -36,6 +38,7 @@
 					size="sm"
 					type="whatsapp"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="whatsapp"
 				></button-contact>
 				<button-contact
@@ -44,6 +47,7 @@
 					size="sm"
 					type="email"
 					target="_blank"
+					rel="nofollow noopener"
 					:href="email"
 				></button-contact>
 			</div>

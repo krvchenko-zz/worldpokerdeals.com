@@ -30,24 +30,32 @@
 					icon
 					size="md"
 					type="telegram"
+					target="_blank"
+					rel="nofollow noopener"
 					:href="telegram"
 				></button-contact>
 				<button-contact
 					icon
 					size="md"
 					type="skype"
+					target="_blank"
+					rel="nofollow noopener"
 					:href="skype"
 				></button-contact>
 				<button-contact
 					icon
 					size="md"
 					type="whatsapp"
+					target="_blank"
+					rel="nofollow noopener"
 					:href="whatsapp"
 				></button-contact>
 				<button-contact
 					icon
 					size="md"
 					type="email"
+					target="_blank"
+					rel="nofollow noopener"
 					:href="email"
 				></button-contact>
 			</div>

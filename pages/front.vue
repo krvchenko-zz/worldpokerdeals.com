@@ -28,9 +28,8 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
-
 	import LazyHydrate from 'vue-lazy-hydration'
+	import pageMixin from '~/mixins/pageMixin'
 
 	export default {
 		components: {
@@ -42,36 +41,17 @@
 			FrontPromotions: () => import('~/components/front/FrontPromotions'),
 			FrontClubs: () => import('~/components/front/FrontClubs'),
 		},
+
+		mixins: [pageMixin],
+
 		layout: 'basic',
 
-		async middleware({ store, redirect, params, $axios }) {
-			await $axios
-				.get('pages/front')
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
+		middleware: 'page',
 
 		data: () => ({}),
 
 		computed: {
 			...mapGetters({
-				locale: 'lang/locale',
-				country: 'location/country',
-				geo: 'location/code',
-				page: 'pages/page',
 				topList: 'rooms/topList',
 			}),
 		},

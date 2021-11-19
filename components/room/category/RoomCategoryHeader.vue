@@ -1,6 +1,6 @@
 <template>
 	<div
-		:class="['rooms-header', category.is_blacklist && 'rooms-header_blacklist']"
+		:class="['rooms-header', pageable.is_blacklist && 'rooms-header_blacklist']"
 	>
 		<breadcrumb-list
 			v-if="pageable"
@@ -11,20 +11,20 @@
 		<div class="rooms-header__about">
 			<div class="rooms-meta__wrap">
 				<svg-icon class="rooms-header__icon" :icon="category.icon" />
-				<h1 class="rooms__title">{{ category.title }}</h1>
+				<h1 class="rooms__title">{{ pageable.title }}</h1>
 				<page-meta
 					class="rooms-meta__meta"
 					:title="false"
-					:author="category.author.full_name"
-					:created="category.created_at"
-					:updated="category.updated_at"
+					:author="pageable.author.full_name"
+					:created="pageable.created_at"
+					:updated="pageable.updated_at"
 				>
 				</page-meta>
 			</div>
 			<common-text-spoiler
 				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 				class="rooms__summary"
-				:text="category.summary"
+				:text="pageable.summary"
 			>
 				<template v-slot:button>
 					<svg-icon icon="spoiler-sep" width="35" height="16" />

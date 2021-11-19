@@ -7,7 +7,7 @@
 			<div class="rooms__rooms-container">
 				<client-only>
 					<filter-header
-						v-if="!category.is_blacklist"
+						v-if="!pageable.is_blacklist"
 						class="rooms__filter-header"
 						:geo.sync="geo"
 						:sort.sync="sort"
@@ -21,7 +21,7 @@
 					/>
 
 					<filter-selected-list
-						v-if="selected.length &&!category.is_blacklist"
+						v-if="selected.length &&!pageable.is_blacklist"
 						class="rooms__filter-selected"
 					>
 						<filter-selected
@@ -91,10 +91,10 @@
 			</div>
 
 				<div class="rooms__toc">
-					<toc-list v-if="category.toc">
+					<toc-list v-if="pageable.toc">
 						<template #default="{ inline }">
 							<toc-item
-								v-for="(item, index) in category.toc"
+								v-for="(item, index) in pageable.toc"
 								:key="index"
 								:index="index"
 								:inline="inline"
@@ -107,14 +107,14 @@
 				</div>
 
 				<div class="rooms__info">
-					<page-article :title="false" :text="category.text">
+					<page-article :title="false" :text="pageable.text">
 						<template #footer>
 							<faq-list
-								v-if="category.faq && category.faq.mainEntity.length"
+								v-if="pageable.faq && pageable.faq.mainEntity.length"
 								:label="$t('faq')"
 							>
 								<faq-item
-									v-for="(item, index) in category.faq.mainEntity"
+									v-for="(item, index) in pageable.faq.mainEntity"
 									:key="index"
 									:question="item.name"
 									:answer="item.acceptedAnswer.text"
@@ -122,11 +122,11 @@
 								</faq-item>
 							</faq-list>
 
-							<author v-if="category.author" :author="category.author" />
+							<author v-if="pageable.author" :author="pageable.author" />
 
 <!-- 							<comments
 								commentable_type="App\RoomCategory"
-								:commentable_id="category.id"
+								:commentable_id="pageable.id"
 							/> -->
 						</template>
 					</page-article>
@@ -135,7 +135,7 @@
 			<div class="rooms__aside">
 				<client-only>
 					<div
-						v-if="filters && !category.is_blacklist"
+						v-if="filters && !pageable.is_blacklist"
 						class="rooms__aside__filter-wrapper"
 						:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
 						@click.self="handleOutsideClick($event)"
@@ -165,13 +165,13 @@
 					</div>
 				</client-only>
 
-					<div v-if="!category.is_blacklist" class="block-title">
+					<div v-if="!pageable.is_blacklist" class="block-title">
 						Последние акции
 					</div>
 
 					<div
 						class="rooms__aside__promotions-list"
-						v-if="promotions && !category.is_blacklist"
+						v-if="promotions && !pageable.is_blacklist"
 					>
 						<promotion-item
 							v-for="(item, index) in promotions"
@@ -191,9 +191,9 @@
 						></promotion-item>
 					</div>
 
-					<topic-list v-if="category.topics.length">
+					<topic-list v-if="pageable.topics.length">
 						<topic-item
-							v-for="(item, index) in category.topics"
+							v-for="(item, index) in pageable.topics"
 							:key="index"
 							:title="item.title"
 							:url="item.url"
@@ -225,14 +225,11 @@
 
 		head() {
 			return {
-				title: this.category ? this.category.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.category ? this.category.meta_description : '' },
-					{ name: 'keywords', content: this.category ? this.category.meta_keywords : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.category ? this.category.faq : '' }],
+				link: [
+				],
 			}
 		},
 

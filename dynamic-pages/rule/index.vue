@@ -106,14 +106,11 @@
 
 		head() {
 			return {
-				title: this.rule ? this.rule.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.rule ? this.rule.meta_description : '' },
-					{ name: 'keywords', content: this.rule ? this.rule.meta_keywords : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.rule ? this.rule.faq : '' }],
+				link: [
+				],
 			}
 		},
 

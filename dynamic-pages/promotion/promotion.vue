@@ -172,8 +172,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
-
 	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
@@ -190,14 +188,12 @@
 
 		head() {
 			return {
-				title: this.promotion ? this.promotion.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.promotion ? this.promotion.meta_description : '' },
-					{ name: 'keywords', content: this.promotion ? this.promotion.meta_keywords : '' },
+					{ hid: 'og:image', name: 'og:image', content: this.promotion ? this.img : '' },
 				],
 
-				script: [{ type: 'application/ld+json', json: this.promotion ? this.promotion.faq : '' }],
+				link: [
+				],
 			}
 		},
 

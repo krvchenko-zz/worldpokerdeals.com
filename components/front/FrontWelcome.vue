@@ -15,21 +15,25 @@
 					icon
 					type="fb"
 					target="_blank"
+					rel="nofollow noopener"
 					href="https://www.facebook.com/worldpokerdealsRu"
 				/>
 				<button-contact
 					icon type="telegram"
 					target="_blank"
+					rel="nofollow noopener"
 					href="worldpokerdealsRU" />
 				<button-contact
 					icon
 					type="instagram"
 					target="_blank"
+					rel="nofollow noopener"
 					href="https://instagram.com/worldpokerdeals"
 				/>
 				<button-contact
 					icon type="vk"
 					target="_blank"
+					rel="nofollow noopener"
 					href="https://vk.com/worldpokerdeals"
 				/>
 			</div>

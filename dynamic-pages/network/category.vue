@@ -30,11 +30,10 @@
 
 		head() {
 			return {
-				title: this.category ? this.category.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.category ? this.category.meta_description : '' },
-					{ name: 'keywords', content: this.category ? this.category.meta_keywords : '' },
+				],
+
+				link: [
 				],
 			}
 		},

@@ -21,31 +21,35 @@
 								size="md"
 								type="skype"
 								:href="manager.skype"
+								rel="nofollow noopener"
 							/>
 							<button-contact
 								icon
 								size="md"
 								type="telegram"
 								:href="manager.telegram"
+								rel="nofollow noopener"
 							/>
 							<button-contact
 								icon
 								size="md"
 								type="whatsapp"
 								:href="manager.whatsapp"
+								rel="nofollow noopener"
 							/>
-							<button-contact icon size="md" type="fb" :href="manager.facebook" />
-							<button-contact icon size="md" type="vk" :href="manager.vk" />
+							<button-contact icon size="md" type="fb" :href="manager.facebook" rel="nofollow noopener" />
+							<button-contact icon size="md" type="vk" :href="manager.vk" rel="nofollow noopener" />
 							<button-contact
 								icon
 								size="md"
 								type="instagram"
 								:href="manager.instagram"
+								rel="nofollow noopener"
 							/>
 						</div>
 						<div class="contacts-box__email">
 							<p>Электронная почта</p>
-							<a :href="`mailto:${manager.email}`">{{ manager.email }}</a>
+							<a :href="`mailto:${manager.email}`" rel="nofollow noopener">{{ manager.email }}</a>
 						</div>
 					</div>
 					<div class="contacts-box__chat">
@@ -67,31 +71,12 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
+	import pageMixin from '~/mixins/pageMixin'
 
 	export default {
 		components: {},
 		layout: 'basic',
-
-		async middleware({ store, redirect, params, $axios }) {
-			await $axios
-				.get('pages/contact-us')
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
+		mixins: [pageMixin],
 
 		props: {},
 
@@ -124,12 +109,19 @@
 		created() {},
 
 		computed: {
-			...mapGetters({
-				locale: 'lang/locale',
-				country: 'location/country',
-				geo: 'location/code',
-				page: 'pages/page',
-			}),
+			host() {
+				return process.env.hostName
+			},
+
+			url() {
+				let url = `https://${this.locale !== 'en' ? this.locale + '.' : ''}${this.host}${this.$route.path}`
+
+				return url.replace(/\/page\/(.*)/gi, '')
+			},
+
+			xDefault() {
+				return `https://ru.${this.host}${this.$route.path}`
+			},
 		},
 
 		watch: {},

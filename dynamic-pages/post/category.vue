@@ -65,21 +65,27 @@
 					<button-contact
 						icon type="telegram"
 						target="_blank"
+						rel="nofollow noopener"
 						href="worldpokerdealsRU" />
 					<button-contact
 						icon
 						type="instagram"
 						target="_blank"
+						rel="nofollow noopener"
 						href="https://instagram.com/worldpokerdeals"
 					/>
 					<button-contact
 						icon
 						type="fb"
+						target="_blank"
+						rel="nofollow noopener"
 						href="https://www.facebook.com/worldpokerdealsRu"
 					/>
 					<button-contact
 						icon
 						type="vk"
+						target="_blank"
+						rel="nofollow noopener"
 						href="https://vk.com/worldpokerdeals"
 					/>
 				</div>
@@ -110,12 +116,12 @@
 	export default {
 		head () {
 			return {
-				title: this.$route.params.page ? `${this.$t('blog_title')} | Page ${this.$route.params.page}` : this.$t('blog_title'),
-				titleTemplate: '%s',
+				title: this.$route.params.page ? `${this.pageable.meta_title} | Page ${this.$route.params.page}` : this.pageable.meta_title,
 				meta: [
-					{ 
+					{
+						hid: 'description',
 						name: 'description',
-						content: this.$route.params.page ? `${this.$t('blog_description')} | Page ${this.$route.params.page}` : this.$t('blog_description')
+						content: this.$route.params.page ? `${this.pageable.meta_description} | Page ${this.$route.params.page}` : this.pageable.meta_description
 					},
 				],
 			}

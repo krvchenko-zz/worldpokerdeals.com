@@ -9,7 +9,7 @@
 			<div class="front-telegram__info" v-html="$t('bumhunters_text')"></div>
 			<a
 				class="btn btn-block btn-green front-telegram__subscribe-button"
-				rel="nofollow"
+				rel="nofollow noopener"
 				href="https://t.me/worldpokerdealsRU"
 				target="_blank"
 				>{{ $t('subscribe') }}</a

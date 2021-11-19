@@ -234,11 +234,7 @@
 
 		head() {
 			return {
-				title: this.network ? this.network.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.network ? this.network.meta_description: '' },
-					{ name: 'keywords', content: this.network ? this.network.meta_keywords: '' },
 				],
 			}
 		},

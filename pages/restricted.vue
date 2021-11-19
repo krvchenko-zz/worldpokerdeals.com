@@ -99,31 +99,13 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
+	import pageMixin from '~/mixins/pageMixin'
 
 	export default {
 		components: {},
 		layout: 'basic',
 
-		async middleware({ store, redirect, params, $axios }) {
-			await $axios
-				.get('pages/restricted')
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
+		mixins: [pageMixin],
 
 		props: {},
 
@@ -157,12 +139,6 @@
 		created() {},
 
 		computed: {
-			...mapGetters({
-				locale: 'lang/locale',
-				country: 'location/country',
-				geo: 'location/code',
-				page: 'pages/page',
-			}),
 		},
 
 		watch: {},

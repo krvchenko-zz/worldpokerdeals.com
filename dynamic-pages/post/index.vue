@@ -125,7 +125,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
@@ -136,13 +135,11 @@
 		data: () => ({
 			loading: false,
 		}),
+
 		head() {
 			return {
-				title: this.post ? this.post.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.post ? this.post.meta_description : '' },
-					{ name: 'keywords', content: this.post ? this.post.meta_keywords : '' },
+					{ hid: 'og:image', name: 'og:image', content: this.post ? this.ogImage : '' },
 				],
 			}
 		},
@@ -159,8 +156,8 @@
 				related: 'posts/related',
 			}),
 
-			mediaUrl() {
-				return process.env.mediaUrl
+			ogImage() {
+				return `${process.env.mediaUrl}/article-large/${this.post.image.filename}`
 			},
 		},
 

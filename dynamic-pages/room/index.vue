@@ -208,7 +208,6 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
 	import eventBus from '~/utils/event-bus'
 
 	export default {
@@ -229,14 +228,9 @@
 
 		head() {
 			return {
-				title: this.tab ? this.tab.meta_title : '',
-				titleTemplate: '%s',
 				meta: [
-					{ name: 'description', content: this.tab ? this.tab.meta_description : '' },
-					{ name: 'keywords', content: this.tab ? this.tab.meta_keywords : '' },
+					{ hid: 'og:image', name: 'og:image', content: this.room ? this.ogImage : '' },
 				],
-
-				script: [{ type: 'application/ld+json', json: this.tab ? this.tab.faq : '' }],
 			}
 		},
 
@@ -254,6 +248,14 @@
 				pageable: 'pages/page',
 				reviews: 'reviews/reviews',
 			}),
+
+			ogImage() {
+				return `${this.mediaUrl}/room-og-image/${this.room.slug}.webp`
+			},
+
+			mediaUrl() {
+				return process.env.mediaUrl
+			},
 
 			screenshots() {
 				let items = []

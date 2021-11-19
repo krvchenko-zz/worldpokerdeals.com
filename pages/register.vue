@@ -40,15 +40,17 @@
 							size="md"
 							type="telegram"
 							:href="manager.telegram"
+							rel="nofollow noopener"
 						/>
-						<button-contact icon size="md" type="skype" :href="manager.skype" />
+						<button-contact icon size="md" type="skype" :href="manager.skype" rel="nofollow noopener" />
 						<button-contact
 							icon
 							size="md"
 							type="whatsapp"
 							:href="manager.whatsapp"
+							rel="nofollow noopener"
 						/>
-						<button-contact icon size="md" type="email" :href="manager.email" />
+						<button-contact icon size="md" type="email" :href="manager.email" rel="nofollow noopener" />
 					</div>
 				</div>
 			</div>
@@ -62,12 +64,14 @@
 
 <script>
 	import { mapGetters } from 'vuex'
-	import axios from 'axios'
+	import pageMixin from '~/mixins/pageMixin'
 
 	export default {
 		components: {},
 
 		layout: 'basic',
+
+		mixins: [pageMixin],
 
 		async middleware({ store, redirect, params, $axios }) {
 
@@ -81,17 +85,6 @@
 					store.commit('pages/FETCH_PAGE', { page: response.data })
 				})
 				.catch(error => {})
-		},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
 		},
 
 		props: {},
@@ -144,12 +137,6 @@
 		created() {},
 
 		computed: {
-			...mapGetters({
-				locale: 'lang/locale',
-				country: 'location/country',
-				geo: 'location/code',
-				page: 'pages/page',
-			}),
 		},
 
 		watch: {},

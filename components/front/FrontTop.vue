@@ -45,6 +45,7 @@
 					class="front-top-awards__item"
 					href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"
 					target="_blank"
+					rel="nofollow noopener"
 					draggable="false"
 				>
 					<img
@@ -60,6 +61,7 @@
 					class="front-top-awards__item"
 					href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"
 					target="_blank"
+					rel="nofollow noopener"
 					draggable="false"
 				>
 					<img
@@ -75,6 +77,7 @@
 					class="front-top-awards__item"
 					href="https://gaffg.com/webmasters/worldpokerdeals/"
 					target="_blank"
+					rel="nofollow noopener"
 					draggable="false"
 				>
 					<img
@@ -90,6 +93,7 @@
 					class="front-top-awards__item"
 					href="https://certify.gpwa.org/verify/ru/worldpokerdeals.com/"
 					target="_blank"
+					rel="nofollow noopener"
 					draggable="false"
 				>
 					<img
@@ -105,6 +109,7 @@
 					class="front-top-awards__item"
 					href="http://www.gamblersanonymous.org/ga/node/1"
 					target="_blank"
+					rel="nofollow noopener"
 					draggable="false"
 				>
 					<img
@@ -120,6 +125,7 @@
 					class="front-top-awards__item"
 					href="https://www.apcw.org/"
 					target="_blank"
+					rel="nofollow noopener"
 					draggable="false"
 				>
 					<img

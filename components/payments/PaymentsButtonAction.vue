@@ -2,6 +2,7 @@
 	<a
 		:href="url"
 		rel="nofollow noopener"
+		target="_blank"
 		:class="[
 			'btn',
 			'btn-block',

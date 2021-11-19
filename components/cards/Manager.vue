@@ -19,16 +19,16 @@
 			</div>
 			<div class="manager__messengers">
 				<button-contact size="sm" type="chat">Начать чат</button-contact>
-				<button-contact size="sm" type="telegram" :href="telegram"
+				<button-contact size="sm" type="telegram" :href="telegram" rel="nofollow noopener"
 					>Telegram</button-contact
 				>
-				<button-contact size="sm" type="skype" :href="skype"
+				<button-contact size="sm" type="skype" :href="skype" rel="nofollow noopener"
 					>Skype</button-contact
 				>
-				<button-contact size="sm" type="whatsapp" :href="whatsapp"
+				<button-contact size="sm" type="whatsapp" :href="whatsapp" rel="nofollow noopener"
 					>WhatsApp</button-contact
 				>
-				<button-contact size="sm" type="email" :href="email"
+				<button-contact size="sm" type="email" :href="email" rel="nofollow noopener"
 					>E-mail</button-contact
 				>
 			</div>
