@@ -103,7 +103,7 @@ export const actions = {
 			await this.$axios.post('/logout')
 		} catch (e) {}
 
-		Cookies.remove('token')
+		Cookies.remove('token', { domain: '.worldpokerdeals01.com', secure: true })
 
 		commit('LOGOUT')
 	},
