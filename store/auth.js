@@ -89,7 +89,7 @@ export const actions = {
 				})
 			})
 		} catch (e) {
-			Cookies.remove('token')
+			Cookies.remove('token', { domain: `.${process.env.HOST_NAME}`, secure: false })
 			commit('FETCH_USER_FAILURE')
 		}
 	},
@@ -103,7 +103,7 @@ export const actions = {
 			await this.$axios.post('/logout')
 		} catch (e) {}
 
-		Cookies.remove('token')
+		Cookies.remove('token', { domain: `.${process.env.HOST_NAME}`, secure: false })
 
 		commit('LOGOUT')
 	},
@@ -116,12 +116,12 @@ export const actions = {
 
 	setDisclaimer({ commit }, { disclaimer }) {
 		commit('SET_DISCLAIMER', { disclaimer })
-		Cookies.set('disclaimer', disclaimer, { expires: 365, domain: '.worldpokerdeals01.com' })
+		Cookies.set('disclaimer', disclaimer, { expires: 365, domain: `.${process.env.HOST_NAME}` })
 	},
 
 	setAge({ commit }, { age }) {
 		commit('SET_AGE', { age })
-		Cookies.set('age', age, { expires: 365, domain: '.worldpokerdeals01.com' })
+		Cookies.set('age', age, { expires: 365, domain: `.${process.env.HOST_NAME}` })
 	},
 
 	setCookie({ commit }, { cookie }) {
