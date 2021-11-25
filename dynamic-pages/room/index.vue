@@ -81,7 +81,7 @@
 			<div class="room__side-content article-container__aside-content">
 				<aside class="room-aside">
 					<div v-if="room.images.length" class="room-screenshots">
-						<div class="block-title" :style="{ marginTop: 0 }">Скриншоты</div>
+						<div class="block-title" :style="{ marginTop: 0 }">{{ $t('screenshots') }}</div>
 						<div class="room-screenshots__list">
 							<a
 								v-for="(item, index) in screenshots"
@@ -171,7 +171,7 @@
 		<div class="room__recommended-container">
 			<div class="room__recommended">
 				<div class="room__recommended__title block-title">
-					Похожие предложения
+					{{ $t('related_offers') }}
 				</div>
 				<room
 					v-for="(item, index) in related"

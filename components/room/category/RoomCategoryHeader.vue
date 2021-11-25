@@ -44,6 +44,7 @@
 				:rating="best.rating"
 				:bonus="best.top_bonus"
 				:review="best.review"
+				:label="$t('room_best')"
 			/>
 		</div>
 

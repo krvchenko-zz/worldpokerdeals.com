@@ -1,14 +1,9 @@
 {
-  "header": {
-    "search_form_placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo",
-    "btn_vip": "VIP-сервис",
-    "btn_telegram": "Telegram-канал",
-    "btn_telegram_href": "https://t-do.ru/worldpokerdealsRU"
-  },
   "room_geo_restricted": "No disponible en {country}!",
   "room_geo_allowed": "Disponible para jugadores de {country}!",
   "room_best": "Mejor sala de póker",
   "rooms_best": "Mejores salas de póker",
+  "best_rooms": "Mejores salas de póker",
   "rooms": "Salas de póker",
   "bonus": "Bono",
   "bonus_best": "Best bonus",
@@ -35,12 +30,6 @@
   "reply": "Responder",
   "comments": "Comentarios",
   "show_more": "Mostrar más",
-  "comment_unauthorized": {
-    "text": "Los usuarios no registrados no pueden dejar comentarios. Por favor,",
-    "log_in": "regístrate",
-    "or": "o",
-    "sign_in": "ingresa"
-  },
   "top_rooms": "Mejores salas",
   "for_country": "para {country}",
   "apps": "Apps",
@@ -107,8 +96,8 @@
   "let_us_help": "¡Déjanos ayudarte!",
   "assistance_text": "<p>¿Tienes algún problema configurando un software de póker? ¿Necesitas ayuda? Podemos ayudarte con cualquier tipo de inconveniente relacionado con póker.</p>",
   "start_chat": "Iniciar chat",
-  "room_blacklisted": "Lamentablemente este trato no está disponible. <b>{room}</b> está en nuestra <a href='/blacklist'>lista negra</a>.",
-  "room_closed": "Lamentablemente este trato no está disponible. <b>{room}</b> cerró a pesar de haber intentado varios cambios",
+  "room_blacklisted": "Lamentablemente este trato no está disponible.<br><b>{room}</b> está en nuestra <a href='/blacklist'>lista negra</a>.",
+  "room_closed": "Lamentablemente este trato no está disponible.<br><b>{room}</b> cerró a pesar de haber intentado varios cambios",
   "characteristics": "Características",
   "reviews_count": "Reseñas",
   "rating": "Rating",
@@ -119,33 +108,6 @@
   "rating_position": "Posición<br>en nuestro rating",
   "rating_excluded": "Excluida de <br> nuestro rating",
   "our_ratings": "Nuestras calificaciones",
-  "how_we_rate": {
-    "title": "¿Cómo calificamos?",
-    "reliability": {
-      "title": "Confiabilidad",
-      "text": "En este bloque validamos la licencia del operador y la reputación de esta (sí, no todas las licencias son igual de “útiles”) el certificado del generador de números aleatorio (RNG) o la ausencia del mismo, el procedimiento de verificación de identidad (KYC), año de fundación de la marca, información pública acerca de los propietarios y reseñas de los jugadores de nuestro sitio web y foros especializados."
-    },
-    "promotions": {
-      "title": "Bonos y promociones",
-      "text": "Las promociones son vitales para atraer y retener a los clientes. Y para los jugadores — un beneficio adicional como rakeback y bonos. Aquí consideramos la estructura de rake, el bono de depósito y las condiciones para liberarlo, además del valor neto del cashback. También evaluamos la periodicidad y alcance de las promociones."
-    },
-    "game_selection": {
-      "title": "Selección de juegos",
-      "text": "Para cualquier jugador es importante que la sala tenga acción regular en su juego y límites favoritos. En esta evaluación tenemos en cuenta el tráfico total de mesas de dinero del sitio, la cantidad de formatos ofrecidos en el lobby, stakes, y la cantidad y variedad de torneos MTT regulares. Un plus para la sala sería tener juegos como Omaha, Spins, póker rápido, short deck (6+) heads-up (HU)."
-    },
-    "casual_players": {
-      "title": "Jugadores casuales",
-      "text": "El póker no sería póker si no fuera por el elemento competitivo y la influencia de la habilidad en el resultado. Resaltamos el nivel de habilidad de las mesas en una clasificación independiente con base a los resultados de nuestro equipo (siempre probamos las salas de póker antes de añadirlas a nuestro portafolio) y las tasas de ganancias de nuestros jugadores. Además, tenemos en cuenta las normas de “ecología”, la actitud hacía jugadores profesionales, software de póker, HUD, trackers, mining, y bumhunt."
-    },
-    "software": {
-      "title": "Amabilidad del software",
-      "text": "Mientras que un jugador profesional puede adaptarse fácilmente a un software poco amigable, para los principiantes y jugadores casuales, la usabilidad del cliente es casi el principal factor de decisión. En esta sección probamos y evaluamos el cliente de PC y móvil, su estabilidad, y la compatibilidad entre distintas plataformas."
-    },
-    "withdrawal_speed": {
-      "title": "Depósitos y retiros",
-      "text": "Es fácil entender porque la posibilidad de depositar y retirar fácil y rápidamente simplemente haciendo clic en un par de botones es tan importante. Las mejores salas de póker crean los cajeros más cómodos para sus clientes. Un jugador que pueda procesar transacciones de dinero en cuestión de horas estará satisfecho y se mantendrá leal al operador. Verificamos la cantidad de monederos electrónicos (e-wallets) soportados, la velocidad de depósitos y retiros, comisiones en extracciones, y la disponibilidad de un cajero agente."
-    }
-  },
   "room_download": "Registro",
   "club_access": "Acceso a clubes",
   "manager_chat": "Contáctanos",
@@ -155,6 +117,8 @@
   "recommended_poker_rooms": "Salas de póker recomendadas",
   "vip_support": "Soporte",
   "vip_status": "VIP status",
+  "vip_statuses": "VIP statuses",
+  "vip_status_in": "VIP status in {title}",
   "contact_manager_via_messengers": "o contacta a {{ name }} a través de algún messenger",
   "general_info": "Información general",
   "founded_in": "Fundada en",
@@ -197,40 +161,22 @@
   "updated_at": "Última actualización",
   "open_acconut": "Crear una cuenta",
   "rooms_entity_label": "salas de póker",
-  "clear_filters": "Clear filters",
+  "clear_filters": "Очистить фильтры",
   "toc": "Contenido",
   "room_news": "{room} news",
   "entity_news": "Noticias de {entity}",
   "review_author": "Autor",
   "author_contacts": "Contacto del autor",
   "go_to_site": "Sign up",
-  "game_search_banner": {
-    "title": "¿Estás buscando la mejor acción?",
-    "text": "Asistencia personalizada para seleccionar la mejor opción entre 50+ salas y 30+ clubes"
-  },
-  "sort": {
-    "created_at": "Сначала новые",
-    "rating": "Сначала лучшие",
-    "exclusive": "Сначала эксклюзивные"
-  },
   "verification": "Verificación",
   "network_rooms": "Все покер-румы сети {title}",
   "other_networks": "Другие покерные сети",
   "blog_header": "Инсайды индустрии без поп-корна и еще какую-то небольшую подводку чтобы было в 2 строки",
   "all_posts": "Todas las entradas",
-  "blog_banner": {
-    "title": "¿Te gusta Worldpokerdeals?",
-    "text": "Únete a nuestros canales y conoce las mejores noticias de póker"
-  },
   "blog_important": "Importante",
   "from": "de",
   "blog_recent": "Últimas noticias",
   "subscribe": "Suscríbete",
-  "post_subscribe": {
-    "title": "Nuestro canal de Telegram",
-    "text": "Suscríbete a nuestro canal de Telegram y mantente actualizado",
-    "btn": "Suscríbete"
-  },
   "posts_related": "Похожие статьи",
   "promotions_entity_label": "promociones",
   "bonuses_entity_label": "Bono",
@@ -254,27 +200,121 @@
   "show_more_room_promotions": "Показать еще акции {room}",
   "hide": "Скрыть",
   "bonuses_related": "Похожие бонусы",
-  "telegram_subscribe": {
-    "title": "Nuestro canal de Telegram",
-    "text": "Publicamos todas las noticias de póker en nuestro canal de Telegram. Suscríbete para recibir más noticias EV+",
-    "btn": "Suscríbete"
+  "screenshots": "Capturas de pantalla",
+  "related_offers": "Похожие предложения",
+  "promotions": "Promociones",
+  "close": "Закрыть",
+  "connection_modal": {
+    "title": "Registra tu cuenta de {room} <br> en Worldpokerdeals!",
+    "text": "Participa en nuestras promociones privadas y conviértete <br> en un grinder verificado de WPD!",
+    "confirm_title": "Спасибо!",
+    "confirm_info": "Мы отправим уведомление с результатом привязки на электронную почту в течение 3х дней"
+  },
+  "blacklist_modal": {
+    "title": "¿Representante de la sala?",
+    "text": "¿Representas a la sala y piensas que no debería estar aquí? ¡Llena el formulario!"
   },
   "form": {
     "email": "E-mail",
     "password": "Contraseña",
+    "name": "Имя",
+    "room_representative": "Игрок/Представитель рума",
     "account_id": "ID Счета",
     "contact_type": "Способ связи",
     "comment": "Вопрос или комментарий",
+    "sex": "Пол",
+    "year": "Год рождения",
     "check_your_id": "Как узнать свой ID?",
-    "tos": "условия передачи и хранения данных",
-    "accept": "Принимаю",
-    "sign_in": "Ingresa",
-    "log_in_text": "Ingresa a Worldpokerdeals",
+    "how_to_contact": "Как связаться",
+    "tos": "nuestros términos y condiciones y política de privacidad",
+    "accept": "Acepta ",
+    "connection_info": "Para registrar tu cuenta, regístrate en WPD",
     "forgot_password": "¿Olvidaste la contraseña?",
     "social_networks_text": "Ingresar con",
-    "sign_up_text": "¿No tienes una cuenta? ¡Regístrate ahora!",
+    "sign_up_action": "¡Regístrate ahora!",
     "password_reset_text": "Re-establecer contraseña",
-    "password_email_text": "E-mail de tu cuenta"
+    "password_email_text": "E-mail de tu cuenta",
+    "username": "Имя пользователя",
+    "sign_in": "Войти в свой аккаунт",
+    "sign_in": "Ingresa",
+    "sign_in_text": "Ingresa a Worldpokerdeals",
+    "sign_in_action": "Войти в свой аккаунт",
+    "sign_up": "Зарегистрироваться",
+    "sign_up_title": "Регистрация нового <br> пользователя",
+    "sign_up_text": "¿No tienes una cuenta?",
+    "new_account": "Новый счет",
+    "old_account": "Старый",
+    "login": "Логин",
+    "room_email": "Email в руме",
+    "room_username": "Ник в руме",
+    "account_id": "ID аккаунта",
+    "connection_action": "Registra tu cuenta",
+    "connection_action_text": "Te actualizaremos sobre el resultado de tu registro en 3 días",
+    "connection_action_info": "Confirma tu cuenta luego de registrarte a través de nuestro enlace",
+    "message": "Mensaje",
+    "send": "Enviar"
+  },
+  "header": {
+    "search_form_placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo",
+    "btn_vip": "VIP-сервис",
+    "btn_telegram": "Telegram-канал",
+    "btn_telegram_href": "https://t-do.ru/worldpokerdealsRU"
+  },
+  "comment_unauthorized": {
+    "text": "Los usuarios no registrados no pueden dejar comentarios. Por favor,",
+    "log_in": "regístrate",
+    "or": "o",
+    "sign_in": "ingresa"
+  },
+  "how_we_rate": {
+    "title": "¿Cómo calificamos?",
+    "reliability": {
+      "title": "Confiabilidad",
+      "text": "En este bloque validamos la licencia del operador y la reputación de esta (sí, no todas las licencias son igual de “útiles”) el certificado del generador de números aleatorio (RNG) o la ausencia del mismo, el procedimiento de verificación de identidad (KYC), año de fundación de la marca, información pública acerca de los propietarios y reseñas de los jugadores de nuestro sitio web y foros especializados."
+    },
+    "promotions": {
+      "title": "Bonos y promociones",
+      "text": "Las promociones son vitales para atraer y retener a los clientes. Y para los jugadores — un beneficio adicional como rakeback y bonos. Aquí consideramos la estructura de rake, el bono de depósito y las condiciones para liberarlo, además del valor neto del cashback. También evaluamos la periodicidad y alcance de las promociones."
+    },
+    "game_selection": {
+      "title": "Selección de juegos",
+      "text": "Para cualquier jugador es importante que la sala tenga acción regular en su juego y límites favoritos. En esta evaluación tenemos en cuenta el tráfico total de mesas de dinero del sitio, la cantidad de formatos ofrecidos en el lobby, stakes, y la cantidad y variedad de torneos MTT regulares. Un plus para la sala sería tener juegos como Omaha, Spins, póker rápido, short deck (6+) heads-up (HU)."
+    },
+    "casual_players": {
+      "title": "Jugadores casuales",
+      "text": "El póker no sería póker si no fuera por el elemento competitivo y la influencia de la habilidad en el resultado. Resaltamos el nivel de habilidad de las mesas en una clasificación independiente con base a los resultados de nuestro equipo (siempre probamos las salas de póker antes de añadirlas a nuestro portafolio) y las tasas de ganancias de nuestros jugadores. Además, tenemos en cuenta las normas de “ecología”, la actitud hacía jugadores profesionales, software de póker, HUD, trackers, mining, y bumhunt."
+    },
+    "software": {
+      "title": "Amabilidad del software",
+      "text": "Mientras que un jugador profesional puede adaptarse fácilmente a un software poco amigable, para los principiantes y jugadores casuales, la usabilidad del cliente es casi el principal factor de decisión. En esta sección probamos y evaluamos el cliente de PC y móvil, su estabilidad, y la compatibilidad entre distintas plataformas."
+    },
+    "withdrawal_speed": {
+      "title": "Depósitos y retiros",
+      "text": "Es fácil entender porque la posibilidad de depositar y retirar fácil y rápidamente simplemente haciendo clic en un par de botones es tan importante. Las mejores salas de póker crean los cajeros más cómodos para sus clientes. Un jugador que pueda procesar transacciones de dinero en cuestión de horas estará satisfecho y se mantendrá leal al operador. Verificamos la cantidad de monederos electrónicos (e-wallets) soportados, la velocidad de depósitos y retiros, comisiones en extracciones, y la disponibilidad de un cajero agente."
+    }
+  },
+  "game_search_banner": {
+    "title": "¿Estás buscando la mejor acción?",
+    "text": "Asistencia personalizada para seleccionar la mejor opción entre 50+ salas y 30+ clubes"
+  },
+  "sort": {
+    "created_at": "Сначала новые",
+    "rating": "Сначала лучшие",
+    "exclusive": "Сначала эксклюзивные"
+  },
+  "blog_banner": {
+    "title": "¿Te gusta Worldpokerdeals?",
+    "text": "Únete a nuestros canales y conoce las mejores noticias de póker"
+  },
+  "post_subscribe": {
+    "title": "Nuestro canal de Telegram",
+    "text": "Suscríbete a nuestro canal de Telegram y mantente actualizado",
+    "btn": "Suscríbete"
+  },
+  "telegram_subscribe": {
+    "title": "Nuestro canal de Telegram",
+    "text": "Publicamos todas las noticias de póker en nuestro canal de Telegram. Suscríbete para recibir más noticias EV+",
+    "btn": "Suscríbete"
   },
   "search": {
     "rooms": "Покер-румы",

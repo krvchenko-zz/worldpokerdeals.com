@@ -1,9 +1,6 @@
 <template>
 	<div :class="['register-form', modal && 'register-form_modal']">
-		<div v-if="!modal" class="register-form-header">
-			Регистрация нового <br />
-			пользователя
-		</div>
+		<div v-if="!modal" class="register-form-header" v-html="$t('form.sign_up_title')"></div>
 
 		<div :class="['register-form-body', modal && 'register-form-body_modal']">
 			<form
@@ -15,7 +12,7 @@
 				<div class="register-form-group">
 					<form-input
 						v-model="form.username"
-						label="Имя пользователя"
+						:label="$t('form.username')"
 						type="text"
 						name="username"
 						:loading="form.busy"
@@ -30,7 +27,7 @@
 				<div class="register-form-group">
 					<form-input
 						v-model="form.email"
-						label="Электронная почта"
+						:label="$t('form.email')"
 						type="email"
 						name="email"
 						:loading="form.busy"
@@ -45,7 +42,7 @@
 				<div class="register-form-group">
 					<form-input
 						v-model="form.password"
-						label="Пароль"
+						:label="$t('form.password')"
 						type="password"
 						name="password"
 						:loading="form.busy"
@@ -60,7 +57,7 @@
 					v-if="!modal && !connection"
 					class="register-form-group register-form-group_flex"
 				>
-					<form-radio-group label="Пол" label-position="left">
+					<form-radio-group :label="$t('form.sex')" label-position="left">
 						<form-radio-button
 							v-model="form.sex"
 							name="sex"
@@ -78,9 +75,10 @@
 					</form-radio-group>
 					<form-select
 						v-model="form.birthday"
+						class="register-form__age"
 						name="year"
 						:options="years"
-						label="Год рождения"
+						:label="$t('form.year')"
 						label-position="left"
 					/>
 				</div>
@@ -88,7 +86,7 @@
 				<div class="register-form-group">
 					<form-submit-button
 						class="btn-block"
-						label="Зарегистрироваться"
+						:label="$t('form.sign_up_action')"
 						:loading="form.busy"
 					>
 					</form-submit-button>
@@ -106,7 +104,7 @@
 					:class="['register-form__link', modal && 'register-form__link_modal']"
 					@click.prevent="toggle"
 				>
-					Войти в свой аккаунт
+					{{ $t('form.sign_in_action') }}
 				</button>
 			</div>
 		</div>
@@ -319,6 +317,10 @@
 				font-size: 16px;
 				line-height: 16px;
 			}
+		}
+
+		&__age {
+			width: auto;
 		}
 	}
 

@@ -52,7 +52,7 @@
 				default: () => {
 					return [
 						{
-							label: 'Сначала новые',
+							label: 'sort.created_at',
 							value: 'created_at',
 						},
 					]

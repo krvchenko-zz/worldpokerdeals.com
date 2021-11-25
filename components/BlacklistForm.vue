@@ -10,7 +10,7 @@
 					<div class="col">
 						<form-input
 							v-model="form.name"
-							label="Имя"
+							:label="$t('form.name')"
 							type="text"
 							name="name"
 							label-color="#636363"
@@ -26,7 +26,7 @@
 					<div class="col">
 						<form-input
 							v-model="form.representative"
-							label="Игрок/Представитель рума"
+							:label="$t('form.room_representative')"
 							type="text"
 							name="representative"
 							label-color="#636363"
@@ -46,7 +46,7 @@
 					<div class="col">
 						<form-input
 							v-model="form.email"
-							label="Электронная почта"
+							:label="$t('form.email')"
 							type="email"
 							name="email"
 							label-color="#636363"
@@ -62,7 +62,7 @@
 					<div class="col">
 						<form-input
 							v-model="form.contact"
-							label="Как связаться"
+							:label="$t('form.how_to_contact')"
 							type="text"
 							name="contact"
 							label-color="#636363"
@@ -92,7 +92,7 @@
 					<div class="col-12">
 						<form-textarea
 							v-model="form.comment"
-							label="Сообщение"
+							:label="$t('form.message')"
 							name="comment"
 							label-color="#636363"
 							:required="true"
@@ -109,10 +109,8 @@
 			<div class="blacklist-form-group">
 				<div class="row">
 					<div class="col-12">
-						<form-checkbox v-model="form.terms" label="Принимаю">
-							<a class="blacklist-form__link" href="#"
-								>условия передачи и хранения данных</a
-							>
+						<form-checkbox v-model="form.terms" :label="$t('form.accept')">
+							<a class="blacklist-form__link" href="/terms">{{ $t('form.tos') }}</a>
 						</form-checkbox>
 					</div>
 				</div>
@@ -123,7 +121,7 @@
 					<div class="col-12">
 						<form-submit-button
 							class="btn-block"
-							label="Отправить"
+							:label="$t('form.send')"
 							:disabled="validate"
 							:loading="form.busy"
 						>

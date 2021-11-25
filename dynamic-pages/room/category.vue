@@ -15,7 +15,7 @@
 						:overall.sync="overall"
 						:sort-options="sortOptions"
 						:selected="selected.length"
-						entity-label="покер-румов"
+						:entity-label="$t('rooms_entity_label')"
 						@update:sort="fetchItems"
 						@update:geo="fetchItems"
 					/>
@@ -33,7 +33,7 @@
 						/>
 						<filter-selected
 							:key="null"
-							label="Очистить фильтры"
+							:label="$t('clear_filters')"
 							:clear="true"
 							:value="null"
 						/>
@@ -79,8 +79,8 @@
 						:to="to"
 						:load-more-width="$device.isDesktop ? 215 : false"
 						:showPages="false"
-						load-more-text="Показать еще румы"
-						total-text="покер-румов"
+						:load-more-text="$t('show_more')"
+						:total-text="$t('rooms_entity_label')"
 						@next="handlePageNext"
 						@prev="handlePagePrev"
 						@change="handlePageChange"
@@ -166,7 +166,7 @@
 				</client-only>
 
 					<div v-if="!pageable.is_blacklist" class="block-title">
-						Последние акции
+						{{ $t('promotion_recent') }}
 					</div>
 
 					<div
@@ -317,11 +317,11 @@
 			selected: [],
 			sortOptions: [
 				{
-					label: 'Сначала лучшие',
+					label: 'sort.rating',
 					value: 'rating',
 				},
 				{
-					label: 'Сначала новые',
+					label: 'sort.created_at',
 					value: 'created_at',
 				},
 			],

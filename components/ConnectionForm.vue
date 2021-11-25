@@ -12,29 +12,27 @@
 							v-model="form.account_type"
 							:disabled="!auth"
 							name="account_type"
-							label="Новый счет"
+							:label="$t('form.new_account')"
 							value="new"
 						/>
 						<form-radio-button
 							v-model="form.account_type"
 							:disabled="!auth"
 							name="account_type"
-							label="Старый"
+							:label="$t('form.old_account')"
 							value="old"
 						/>
 					</form-radio-group>
 				</div>
 
-				<div class="connection-form__desc">
-					Подтверди привязку нового аккаунта после регистрации по нашей ссылке
-				</div>
+				<div class="connection-form__desc">{{ $t('form.connection_action_info') }}</div>
 
 				<!-- Username -->
 				<div class="connection-form-group row">
 					<div class="col-12 col-sm-6">
 						<form-input
 							v-model="form.name"
-							label="Логин"
+							:label="$t('form.login')"
 							type="text"
 							name="name"
 							label-color="#636363"
@@ -52,7 +50,7 @@
 						<form-input
 							v-model="form.email"
 							:disabled="!auth"
-							label="Email в руме"
+							:label="$t('form.room_email')"
 							type="email"
 							name="email"
 							label-color="#636363"
@@ -72,7 +70,7 @@
 						<form-input
 							v-model="form.username"
 							:disabled="!auth"
-							label="Ник в руме"
+							:label="$t('form.room_username')"
 							type="text"
 							name="username"
 							label-color="#636363"
@@ -88,7 +86,7 @@
 						<form-input
 							v-model="form.account_id"
 							:disabled="!auth"
-							label="ID аккаунта"
+							:label="$t('form.account_id')"
 							type="text"
 							name="account_id"
 							label-color="#636363"
@@ -102,9 +100,9 @@
 				</div>
 
 				<div class="connection-form-group">
-					<form-checkbox v-model="form.terms" label="Принимаю">
+					<form-checkbox v-model="form.terms" :label="$t('form.accept')">
 						<a class="connection-form__link" href="/terms"
-							>условия передачи и хранения данных</a
+							>{{ $t('form.tos') }}</a
 						>
 					</form-checkbox>
 				</div>
@@ -113,14 +111,11 @@
 					<form-submit-button
 						:disabled="!auth || !form.terms || !form.name || !form.email"
 						class="btn-connection-form"
-						label="Привязать счет"
+						:label="$t('form.connection_action')"
 						:loading="form.busy"
 					>
 					</form-submit-button>
-					<div class="connection-form__info">
-						Мы отправим уведомление с результатом привязки на электронную почту
-						в течение 3х дней
-					</div>
+					<div class="connection-form__info">{{ $t('form.connection_action_text') }}</div>
 				</div>
 			</form>
 		</div>
@@ -132,22 +127,11 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import Form from 'vform'
-	import FormInput from '~/components/form/FormInput'
-	import FormRadioGroup from '~/components/form/FormRadioGroup'
-	import FormRadioButton from '~/components/form/FormRadioButton'
-	import FormCheckbox from '~/components/form/FormCheckbox'
-	import FormSubmitButton from '~/components/form/FormSubmitButton'
 
 	export default {
 		name: 'ConnectionForm',
 
-		components: {
-			FormInput,
-			FormRadioGroup,
-			FormRadioButton,
-			FormCheckbox,
-			FormSubmitButton,
-		},
+		components: {},
 
 		props: {},
 

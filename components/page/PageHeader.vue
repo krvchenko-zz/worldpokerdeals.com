@@ -213,7 +213,7 @@
 							type="text"
 							name="search"
 							autocomplete="off"
-							:placeholder="searchPlaceholder"
+							:placeholder="$t('search.placeholder')"
 							@focusin="handleFocusIn"
 							@keydown.esc="handleFocusOut"
 							@input="$e => (query = $e.target.value)"

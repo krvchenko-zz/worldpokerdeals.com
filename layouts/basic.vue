@@ -1,17 +1,19 @@
 <template>
 	<div class="page">
+		<!-- Disclaimer -->
 		<client-only>
 			<page-disclaimer v-if="!disclaimer" />
 		</client-only>
+		<!-- Header -->
 		<transition name="fade">
 			<page-header v-show="!hideHeader" />
 		</transition>
-
 		<nuxt />
-
+		<!-- Footer -->
 		<lazy-hydrate when-visible>
 			<page-footer />
 		</lazy-hydrate>
+		<!-- Black list modal -->
 		<transition name="fade">
 			<lazy-modal
 				v-if="blacklistModal"
@@ -38,7 +40,7 @@
 									lineHeight: '28px',
 									marginBottom: '4px',
 								}"
-								>Вы представитель рума {{ room.title }}?</span
+								>{{ $t('blacklist_modal.title') }}</span
 							>
 							<div
 								class="modal-header__description"
@@ -48,9 +50,8 @@
 									lineHeight: '20px',
 									fontFamily: 'Proxima Nova Sb',
 								}"
+								v-html="$t('blacklist_modal.text')"
 							>
-								Считаете, что этого не должно здесь быть? <br />
-								Заполните форму!
 							</div>
 						</div>
 					</div>
@@ -60,6 +61,7 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<!-- Connection modal -->
 		<transition name="fade">
 			<lazy-modal
 				v-if="connectionModal"
@@ -76,14 +78,8 @@
 							view-box="0 0 200 200"
 						/>
 						<div class="modal-header__info">
-							<span class="modal-header__title"
-								>Привяжи счет {{ room.title }} <br />
-								к Worldpokerdeals!</span
-							>
-							<div class="modal-header__description">
-								Участвуй в наших приватных промо и получи статус <br />
-								верифицированного игрока WPD!
-							</div>
+							<span class="modal-header__title" v-html="$t('connection_modal.title', {room: room.title})"></span>
+							<div class="modal-header__description" v-html="$t('connection_modal.text')"></div>
 						</div>
 					</div>
 				</template>
@@ -107,6 +103,7 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<!-- Complete modal -->
 		<transition name="fade">
 			<lazy-modal
 				v-if="completeModal"
@@ -133,7 +130,7 @@
 							color: '#FFFFFF',
 						}"
 					>
-						Спасибо!
+						{{ $t('connection_modal.confirm_title') }}
 					</div>
 				</template>
 				<template #body>
@@ -147,8 +144,7 @@
 							color: '#000000',
 						}"
 					>
-						Мы отправим уведомление с результатом привязки на электронную почту
-						в течение 3х дней
+						{{ $t('connection_modal.confirm_info') }}
 					</div>
 
 					<div
@@ -170,12 +166,13 @@
 							}"
 							@click="completeModalShow = false"
 						>
-							Закрыть
+							{{ $t('close') }}
 						</button>
 					</div>
 				</template>
 			</lazy-modal>
 		</transition>
+		<!-- How we rate modal -->
 		<transition name="fade">
 			<lazy-modal
 				v-if="ratesModal"
@@ -203,6 +200,7 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<!-- Auth modal -->
 		<transition name="fade">
 			<lazy-modal
 				v-if="authModal"
@@ -220,7 +218,7 @@
 							lineHeight: '28px',
 						}"
 						v-html="
-							auth ? $t('form.log_in_text') : $t('form.password_reset_text')
+							auth ? $t('form.sign_in_text') : $t('form.password_reset_text')
 						"
 					>
 					</span>
@@ -231,6 +229,7 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<!-- Age confirm modal -->
 		<transition name="fade">
 			<lazy-modal
 				v-if="age === 'false' || !age"
@@ -244,6 +243,7 @@
 				</template>
 			</lazy-modal>
 		</transition>
+		<!-- Go top -->
 		<client-only v-if="!$device.isMobile" name="fade">
 			<page-top />
 		</client-only>
@@ -253,14 +253,11 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
-	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'BasicLayout',
 
-		components: {
-			LazyHydrate,
-		},
+		components: {},
 
 		computed: {
 			...mapGetters({

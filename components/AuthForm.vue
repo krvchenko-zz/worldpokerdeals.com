@@ -3,7 +3,7 @@
 		<div
 			v-if="!modal"
 			class="auth-form-header"
-			v-html="$t('form.log_in_text')"
+			v-html="$t('form.sign_in_text')"
 		></div>
 
 		<div :class="['auth-form-body', modal && 'auth-form-body_modal']">
@@ -65,10 +65,7 @@
 		<div :class="['auth-form-footer', modal && 'auth-form-footer_modal']">
 			<div v-if="!modal" class="auth-form-warning">
 				<span class="auth-form-warning__icon">⚠️</span>
-				<span class="auth-form-warning__text"
-					>Чтобы привязать счет, нужно войти <br />
-					в аккаунт на нашем сайте</span
-				>
+				<span class="auth-form-warning__text">{{ $t('form.connection_info') }}</span>
 			</div>
 
 			<div v-if="modal" class="auth-form-social">
@@ -88,20 +85,20 @@
 					prefetch
 					:to="{ name: 'register' }"
 				>
-					Ещё нет аккаунта?
+					{{ $t('form.sign_up_text') }}
 					<a
 						v-if="modal"
 						:href="href"
 						:class="['auth-form__link', modal && 'auth-form__link_modal']"
 						@click="navigate"
-						>Зарегистрируйся</a
+						>{{ $t('form.sign_up_action') }}</a
 					>
 					<button
 						v-else
 						:class="['auth-form__link', modal && 'auth-form__link_modal']"
 						@click="toggle"
 					>
-						Зарегистрируйся
+						{{ $t('form.sign_up_action') }}
 					</button>
 				</nuxt-link>
 			</div>

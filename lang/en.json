@@ -1,14 +1,9 @@
 {
-  "header": {
-    "search_form_placeholder": "Find anything, GGpoker, for example",
-    "btn_vip": "VIP-сервис",
-    "btn_telegram": "Telegram-канал",
-    "btn_telegram_href": "https://t-do.ru/worldpokerdealsRU"
-  },
   "room_geo_restricted": "Unavailable in {country}!",
   "room_geo_allowed": "Available for players from {country}!",
   "room_best": "Best poker room",
   "rooms_best": "Best poker rooms",
+  "best_rooms": "Best poker rooms",
   "rooms": "Poker rooms",
   "bonus": "Bonus",
   "bonus_best": "Best bonus",
@@ -35,12 +30,6 @@
   "reply": "Reply",
   "comments": "Comments",
   "show_more": "Show more",
-  "comment_unauthorized": {
-    "text": "Unauthorized users can't leave comments. Please,",
-    "log_in": "sign in",
-    "or": "or",
-    "sign_in": "sign up"
-  },
   "filtered": "Filtered {total} from {overall} {entity}",
   "offers_for": "Offers for",
   "safe_access_to_clubs": "Safe access to clubs",
@@ -88,8 +77,8 @@
   "let_us_help": "Let us help!",
   "assistance_text": "Problems with setting up software or poker client? Need assistance? We can advice and help with all poker related issues.",
   "start_chat": "Start chat",
-  "room_blacklisted": "Unfortunately this deal is unavailable. <b>{room}</b> is in <a href='/blacklist'>our blacklist</a>.",
-  "room_closed": "Unfortunately this deal is unavailable. <b>{room}</b> was closed despite repeated rebrandings",
+  "room_blacklisted": "Unfortunately this deal is unavailable.<br/><b>{room}</b> is in <a href='/blacklist'>our blacklist</a>.",
+  "room_closed": "Unfortunately this deal is unavailable.<br/><b>{room}</b> was closed despite repeated rebrandings",
   "characteristics": "Characteristics",
   "reviews_count": "Reviews",
   "rating": "Rating",
@@ -100,33 +89,6 @@
   "rating_position": "Position<br>in our rating",
   "rating_excluded": "Excluded <br> from our rating",
   "our_ratings": "Our ratings",
-  "how_we_rate": {
-    "title": "How do we rate?",
-    "reliability": {
-      "title": "Reliability",
-      "text": "In this block, we check the operator's license and its reputation (yes, not all licenses are equally 'useful'), the random number generator (RNG) certificate (or lack of), the identity verification procedure (KYC), year of brand foundation, public information about the owners and player reviews from our website and specialized forums."
-    },
-    "promotions": {
-      "title": "Bonuses and promotions",
-      "text": "Promotions are vital for attracting and retaining customers. And for players — an additional benefit like rakeback and bonuses. Here we consider the rake structure, the deposit bonus and wagering terms, and net rakeback value. We also assess the regularity and scope of the promotions."
-    },
-    "game_selection": {
-      "title": "Game selection",
-      "text": "For any player is crucial that the room features regular action at his favorite game and at suitable stakes. In this assessment, we consider the total cash traffic of the site, the number of poker disciplines in the lobby, stakes, and the quantity and variety of regular MTT tournaments. A plus for the room will be offering games like Omaha, Spins, fast-fold poker, short deck (6+) heads-up (HU)."
-    },
-    "casual_players": {
-      "title": "Casual players",
-      "text": "Poker would not be poker if it were not for the competitive element and the influence of skill in the result. We highlight the weakness of the field in a separate rating based on the results of our team (we always test the poker sites ourselves before adding them to our portfolio) and the win rates of our players. Also, we consider the ecology rules, the attitude towards PRO players, poker software, HUD, poker trackers, mining, and bumhunt."
-    },
-    "software": {
-      "title": "Convenience of the software",
-      "text": "While a professional player may quickly adapt to inconvenient software, then for beginners and casual players, the usability of the client is almost the main decisive factor. In this section, we test and evaluate the PC and mobile client of the rooms, its stability, and the cross-platform compatibility."
-    },
-    "withdrawal_speed": {
-      "title": "Deposits and withdrawals",
-      "text": "It's easy to understand why the ability to quickly and conveniently deposit or withdraw any amount by simply clicking a few buttons is so essential. The best online poker rooms create the most comfortable cashier for their customers. A player who can process money transactions in a matter of hours remains satisfied with the service and loyal to the operator. We lock at the number of supported e-wallets, the speed and limits for withdrawing money, commissions on cashouts, and the availability of an agent's cashier."
-    }
-  },
   "sign_in": "Sign in",
   "room_download": "Sign up",
   "club_access": "Access to clubs",
@@ -137,6 +99,8 @@
   "recommended_poker_rooms": "Recommended poker rooms",
   "vip_support": "support",
   "vip_status": "VIP status",
+  "vip_statuses": "VIP statuses",
+  "vip_status_in": "VIP status in {title}",
   "contact_manager_via_messengers": "or contact {name} via messengers",
   "general_info": "General information",
   "founded_in": "Founded in",
@@ -204,32 +168,14 @@
   "review_author": "Author",
   "author_contacts": "Contacts",
   "go_to_site": "Sign up",
-  "game_search_banner": {
-    "title": "Looking for the best action?",
-    "text": "Personal assistance with choosing the best option from 50+ rooms and 30+ clubs"
-  },
-  "sort": {
-    "created_at": "Сначала новые",
-    "rating": "Сначала лучшие",
-    "exclusive": "Сначала эксклюзивные"
-  },
   "verification": "Verification",
   "network_rooms": "Все покер-румы сети {title}",
   "other_networks": "Другие покерные сети",
   "blog_header": "Инсайды индустрии без поп-корна и еще какую-то небольшую подводку чтобы было в 2 строки",
   "all_posts": "All posts",
-  "blog_banner": {
-    "title": "Like Worldpokerdeals?",
-    "text": "Join our channels and check out all the best poker news"
-  },
   "blog_important": "Important",
   "from": "from",
   "blog_recent": "Latest news",
-  "post_subscribe": {
-    "title": "Our Telegram Channel",
-    "text": "Subscribe to our Telegram Channel and stay tuned",
-    "btn": "Subscribe"
-  },
   "posts_related": "Похожие статьи",
   "promotions_entity_label": "promotions",
   "bonuses_entity_label": "bonuses",
@@ -253,27 +199,121 @@
   "show_more_room_promotions": "Показать еще акции {room}",
   "hide": "Скрыть",
   "bonuses_related": "Похожие бонусы",
-  "telegram_subscribe": {
-    "title": "Our Telegram Channel",
-    "text": "We post all poker news in our Telegram Channel. Stay tuned for more EV+ news",
-    "btn": "Subscribe"
+  "screenshots": "Screenshots",
+  "related_offers": "Похожие предложения",
+  "promotions": "Promotions",
+  "close": "Закрыть",
+  "connection_modal": {
+    "title": "Tag your {room} account <br> to Worldpokerdeals!",
+    "text": "Take part in our private promotions <br> and become a verified WPD-grinder!",
+    "confirm_title": "Спасибо!",
+    "confirm_info": "Мы отправим уведомление с результатом привязки на электронную почту в течение 3х дней"
+  },
+  "blacklist_modal": {
+    "title": "Room Representative?",
+    "text": "You are the representative of the poker room and think that, this should not be here? Fill the form!"
   },
   "form": {
     "email": "E-mail",
     "password": "Password",
+    "name": "Имя",
+    "room_representative": "Игрок/Представитель рума",
     "account_id": "ID Счета",
     "contact_type": "Способ связи",
     "comment": "Вопрос или комментарий",
+    "sex": "Пол",
+    "year": "Год рождения",
     "check_your_id": "Как узнать свой ID?",
-    "tos": "условия передачи и хранения данных",
-    "accept": "Принимаю",
-    "sign_in": "Sign in",
-    "log_in_text": "Sign in to Worldpokerdeals",
+    "how_to_contact": "Как связаться",
+    "tos": "our terms & conditions and privacy policy",
+    "accept": "Accept ",
+    "connection_info": "To tag your account, please sign in to WPD",
     "forgot_password": "Forgot password?",
     "social_networks_text": "Sign in via",
-    "sign_up_text": "Don't have an account? Sign up now!",
+    "sign_up_text": "Don't have an account?",
+    "sign_up_action": "Sign up now!",
     "password_reset_text": "Reset Password",
-    "password_email_text": "E-mail of your account"
+    "password_email_text": "E-mail of your account",
+    "username": "Имя пользователя",
+    "sign_in": "Войти в свой аккаунт",
+    "sign_in": "Sign in",
+    "sign_in_text": "Sign in to Worldpokerdeals",
+    "sign_in_action": "Войти в свой аккаунт",
+    "sign_up": "Зарегистрироваться",
+    "sign_up_title": "Регистрация нового <br> пользователя",
+    "new_account": "Новый счет",
+    "old_account": "Старый",
+    "login": "Логин",
+    "room_email": "Email в руме",
+    "room_username": "Ник в руме",
+    "account_id": "ID аккаунта",
+    "connection_action": "Tag your account",
+    "connection_action_text": "We'll inform you about your tracking results during 3 days",
+    "connection_action_info": "Confirm your account tracking after signing up via our link",
+    "message": "Сообщение",
+    "send": "Send"
+  },
+  "header": {
+    "search_form_placeholder": "Find anything, GGpoker, for example",
+    "btn_vip": "VIP-сервис",
+    "btn_telegram": "Telegram-канал",
+    "btn_telegram_href": "https://t-do.ru/worldpokerdealsRU"
+  },
+  "comment_unauthorized": {
+    "text": "Unauthorized users can't leave comments. Please,",
+    "log_in": "sign in",
+    "or": "or",
+    "sign_in": "sign up"
+  },
+  "how_we_rate": {
+    "title": "How do we rate?",
+    "reliability": {
+      "title": "Reliability",
+      "text": "In this block, we check the operator's license and its reputation (yes, not all licenses are equally 'useful'), the random number generator (RNG) certificate (or lack of), the identity verification procedure (KYC), year of brand foundation, public information about the owners and player reviews from our website and specialized forums."
+    },
+    "promotions": {
+      "title": "Bonuses and promotions",
+      "text": "Promotions are vital for attracting and retaining customers. And for players — an additional benefit like rakeback and bonuses. Here we consider the rake structure, the deposit bonus and wagering terms, and net rakeback value. We also assess the regularity and scope of the promotions."
+    },
+    "game_selection": {
+      "title": "Game selection",
+      "text": "For any player is crucial that the room features regular action at his favorite game and at suitable stakes. In this assessment, we consider the total cash traffic of the site, the number of poker disciplines in the lobby, stakes, and the quantity and variety of regular MTT tournaments. A plus for the room will be offering games like Omaha, Spins, fast-fold poker, short deck (6+) heads-up (HU)."
+    },
+    "casual_players": {
+      "title": "Casual players",
+      "text": "Poker would not be poker if it were not for the competitive element and the influence of skill in the result. We highlight the weakness of the field in a separate rating based on the results of our team (we always test the poker sites ourselves before adding them to our portfolio) and the win rates of our players. Also, we consider the ecology rules, the attitude towards PRO players, poker software, HUD, poker trackers, mining, and bumhunt."
+    },
+    "software": {
+      "title": "Convenience of the software",
+      "text": "While a professional player may quickly adapt to inconvenient software, then for beginners and casual players, the usability of the client is almost the main decisive factor. In this section, we test and evaluate the PC and mobile client of the rooms, its stability, and the cross-platform compatibility."
+    },
+    "withdrawal_speed": {
+      "title": "Deposits and withdrawals",
+      "text": "It's easy to understand why the ability to quickly and conveniently deposit or withdraw any amount by simply clicking a few buttons is so essential. The best online poker rooms create the most comfortable cashier for their customers. A player who can process money transactions in a matter of hours remains satisfied with the service and loyal to the operator. We lock at the number of supported e-wallets, the speed and limits for withdrawing money, commissions on cashouts, and the availability of an agent's cashier."
+    }
+  },
+  "game_search_banner": {
+    "title": "Looking for the best action?",
+    "text": "Personal assistance with choosing the best option from 50+ rooms and 30+ clubs"
+  },
+  "sort": {
+    "created_at": "Сначала новые",
+    "rating": "Сначала лучшие",
+    "exclusive": "Сначала эксклюзивные"
+  },
+  "blog_banner": {
+    "title": "Like Worldpokerdeals?",
+    "text": "Join our channels and check out all the best poker news"
+  },
+  "post_subscribe": {
+    "title": "Our Telegram Channel",
+    "text": "Subscribe to our Telegram Channel and stay tuned",
+    "btn": "Subscribe"
+  },
+  "telegram_subscribe": {
+    "title": "Our Telegram Channel",
+    "text": "We post all poker news in our Telegram Channel. Stay tuned for more EV+ news",
+    "btn": "Subscribe"
   },
   "search": {
     "rooms": "Покер-румы",
