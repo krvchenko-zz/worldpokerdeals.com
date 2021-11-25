@@ -10,13 +10,10 @@
 			class="game-search-banner__img"
 		/>
 		<div class="game-search-banner__wrap">
-			<div class="game-search-banner__title">Ищешь лучшую игру?</div>
-			<div class="game-search-banner__info">
-				Индивидуально <b>подберем рум</b> под лимиты и тип игры из
-				<b>50+ комнат и 30+ приватных клубов</b>
-			</div>
+			<div class="game-search-banner__title">{{ $t('game_search_banner.title') }}</div>
+			<div class="game-search-banner__info" v-html="$t('game_search_banner.text')"></div>
 			<div class="game-search-banner__actions">
-				<button-contact block size="md" type="chat">Начать чат</button-contact>
+				<button-contact block size="md" type="chat">{{ $t('start_chat') }}</button-contact>
 				<div class="game-search-banner__messengers">
 					<button-contact
 						class="game-search-banner__btn"

@@ -66,6 +66,7 @@
 				:rating="rooms[0].rating"
 				:bonus="rooms[0].top_bonus"
 				:review="rooms[0].review"
+				:label="$t('room_best')"
 				class="payment__top-room"
 			/>
 		</div>

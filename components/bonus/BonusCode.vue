@@ -23,9 +23,8 @@
 				'bonus-code__value',
 				big && 'bonus-code__value_big',
 			]"
-			ref="code">{{ code }}</span
+			ref="code">{{!code || code === '' ? 'Не нужен' : code }}</span
 		>
-
 		<transition name="fade">
 			<span class="bonus-code-tooltip" v-if="copied">
 				<span class="bonus-code-tooltip__text">Copied to the clipboard!</span>

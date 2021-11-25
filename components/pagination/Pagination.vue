@@ -128,7 +128,7 @@
 			</li>
 		</ul>
 		<div class="pagination-info">
-			{{ from }}–{{ to }} из {{ total }} {{ totalText }}
+			{{ from }}–{{ to }} {{ $t('from') }} {{ total }} {{ totalText }}
 		</div>
 	</div>
 </template>

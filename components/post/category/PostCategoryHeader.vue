@@ -8,11 +8,8 @@
 			:height="68"
 		/>
 		<div>
-			<h1 class="post-category__title">Новости покера{{ $route.params.page ? $t('page_number', {page: $route.params.page}) : '' }}</h1>
-			<div class="post-category__summary">
-				Инсайды индустрии без поп-корна и еще какую-то небольшую <br />
-				подводку чтобы было в 2 строки
-			</div>
+			<h1 class="post-category__title">{{ $t('poker_news') }}{{ $route.params.page ? $t('page_number', {page: $route.params.page}) : '' }}</h1>
+			<div class="post-category__summary" v-html="$t('blog_header')"></div>
 		</div>
 	</div>
 </template>

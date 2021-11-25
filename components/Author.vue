@@ -10,13 +10,13 @@
 		</div>
 
 		<div class="author-info">
-			<div class="author-info__label">Автор обзора</div>
+			<div class="author-info__label">{{ $t('review_author') }}</div>
 			<div class="author-info__name">{{ author.full_name }}</div>
 			<div class="author-info__summary"></div>
 		</div>
 
 		<div class="author-contacts">
-			<div class="author-contacts__label">Контакты автора</div>
+			<div class="author-contacts__label">{{ $t('author_contacts') }}</div>
 			<div class="author-contacts-links">
 				<button-contact
 					type="fb"

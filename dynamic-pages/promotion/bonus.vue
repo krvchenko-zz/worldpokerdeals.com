@@ -27,7 +27,7 @@
 						</lazy-toc-item>
 						<lazy-toc-item
 							:inline="inline"
-							:text="`О покер-руме ${promotion.room.title}`"
+							:text="$t('room_about', {room: promotion.room.title})"
 							anchor="about"
 						>
 						</lazy-toc-item>
@@ -61,7 +61,7 @@
 					>
 						<template v-slot:footer>
 							<h2 id="about" class="block-title block-title_lg">
-								О покер-руме {{ promotion.room.title }}
+								{{ $t('room_about', {room: promotion.room.title}) }}
 							</h2>
 							<lazy-room-summary :room="promotion.room" />
 							<lazy-hydrate when-visible>
@@ -80,12 +80,7 @@
 							</lazy-hydrate>
 
 							<lazy-hydrate when-visible>
-								<lazy-telegram-subscribe
-									label="Наш Телеграм-канал"
-									description="Новости покерных румов мы публикуем в нашем Телеграм-канале. Подпишись, чтобы не упускать EV."
-									btn-label="Подписаться"
-									url="https://t-do.ru/worldpokerdealsRU"
-								/>
+								<lazy-telegram-subscribe />
 							</lazy-hydrate>
 
 							<author v-if="promotion.author" :author="promotion.author" />
@@ -95,8 +90,8 @@
 								:commentable_id="promotion.id"
 							/> -->
 
-							<h2 class="block-title">
-								Похожие бонусы
+							<h2 v-if="related && related.length" class="block-title">
+								{{ $t('bonuses_related') }}
 							</h2>
 							<lazy-hydrate when-visible>
 								<table

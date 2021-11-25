@@ -65,7 +65,7 @@
 			<div class="article-container__aside-content">
 				<room-top-list />
 
-				<post-list label="Это важно" featured :asRow="$device.isTablet">
+				<post-list :label="$t('blog_important')" featured :asRow="$device.isTablet">
 					<post-item
 						v-for="item in important"
 						:key="item.id"
@@ -102,7 +102,7 @@
 			<post-list
 				v-if="related"
 				class="posts_related"
-				label="Похожие статьи"
+				:label="$t('posts_related')"
 				:asRow="$device.isDesktopOrTablet"
 			>
 				<post-item

@@ -28,15 +28,15 @@
 
 			<span v-if="type === 'bonus'" class="promotion-feed-item__params">
 				<span class="promotion-feed-item__cashback">
-					<span class="promotion-feed-item__params-label">Кешбэк</span>
+					<span class="promotion-feed-item__params-label">{{ $t('cashback') }}</span>
 					{{ cashback_value }}%
 				</span>
 				<span class="promotion-feed-item__deposit">
-					<span class="promotion-feed-item__params-label">К депозиту</span>
+					<span class="promotion-feed-item__params-label">{{ $t('deposit') }}</span>
 					+{{ deposit_bonus }}%
 				</span>
 				<span class="promotion-feed-item__max">
-					<span class="promotion-feed-item__params-label">Макс бонус</span>
+					<span class="promotion-feed-item__params-label">{{ $t('max_bonus') }}</span>
 					<template v-if="max_bonus_currency">{{
 						max_bonus_currency.symbol
 					}}</template>
@@ -46,7 +46,7 @@
 
 			<span v-else class="promotion-feed-item__params">
 				<span class="promotion-feed-item__prize">
-					<span class="promotion-feed-item__params-label">Призовой фонд</span>
+					<span class="promotion-feed-item__params-label">{{ $t('prize_pool') }}</span>
 					{{ formatMoney(prize) }}
 					<template v-if="currency">{{ currency.symbol }}</template>
 				</span>
@@ -55,18 +55,18 @@
 					v-if="permanent && regularity"
 					class="promotion-feed-item__regularity"
 				>
-					<span class="promotion-feed-item__params-label">Регулярная</span>
+					<span class="promotion-feed-item__params-label">{{ $t('permanent') }}</span>
 					{{ regularity }}
 				</span>
 
 				<template v-else>
 					<span class="promotion-feed-item__start">
-						<span class="promotion-feed-item__params-label">Начало</span>
+						<span class="promotion-feed-item__params-label">{{ $t('time_start') }}</span>
 						{{ dateFormat(start) }}
 					</span>
 
 					<span class="promotion-feed-item__end">
-						<span class="promotion-feed-item__params-label">Окончание</span>
+						<span class="promotion-feed-item__params-label">{{ $t('time_end') }}</span>
 						{{ dateFormat(end) }}
 					</span>
 				</template>
@@ -85,8 +85,8 @@
 					class="promotion-feed-item__countdown"
 				>
 					<span class="promotion-feed-item__countdown-label">
-						<template v-if="time_left">До окончания</template>
-						<template v-if="time_before">До начала</template>
+						<template v-if="time_left">{{ $t('time_left') }}</template>
+						<template v-if="time_before">{{ $t('time_before') }}</template>
 					</span>
 					<countdown v-if="time_left" :days="time_left.days" :live="true" />
 					<countdown v-if="time_before" :days="time_before.days" />
@@ -97,7 +97,7 @@
 						class="btn-get-promotion"
 						:icon="false"
 						type="download"
-						:label="type === 'promotion' ? 'Участвовать' : 'Получить'"
+						:label="type === 'promotion' ? $t('get_in') : $t('get')"
 						:slug="room.slug"
 					/>
 
@@ -137,7 +137,7 @@
 				@click="terms ? (showTerms = !showTerms) : (showTerms = false)"
 			>
 				<i class="promotion-feed-item__terms-icon"></i>
-				<span>Подробнее</span>
+				<span>{{ $t('more') }}</span>
 			</span>
 
 			<span
@@ -153,10 +153,12 @@
 					:icon="country.code"
 					prefix="flags/"
 				/>
-				<span v-if="room.restricted"
-					>Недоступен игрокам из {{ country.from }}!</span
-				>
-				<span v-else>Доступен игрокам из {{ country.from }}</span>
+				<span v-if="room.restricted">{{
+					$t('room_geo_restricted', { country: country.from })
+				}}</span>
+				<span v-else>{{
+					$t('room_geo_allowed', { country: country.from })
+				}}</span>
 			</span>
 		</div>
 

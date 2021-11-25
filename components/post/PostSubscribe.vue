@@ -1,10 +1,10 @@
 <template>
 	<div class="post-subscribe">
 		<div class="block-title post-subscribe__title">
-			Наш Телеграм-канал
+			{{ $t('post_subscribe.title') }}
 		</div>
 		<div class="post-subscribe__text">
-			Подпишись на наш Телеграм-канал, чтобы не пропускать новые материалы
+			{{ $t('post_subscribe.text') }}
 		</div>
 		<button-contact
 			class="post-subscribe__btn"
@@ -12,7 +12,7 @@
 			type="telegram"
 			href="worldpokerdealsRU"
 			rel="nofollow noopener"
-			>Подписаться</button-contact
+			>{{ $t('post_subscribe.btn') }}</button-contact
 		>
 	</div>
 </template>

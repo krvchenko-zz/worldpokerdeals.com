@@ -4,7 +4,7 @@
 
 		<filter-tab-list class="post-category__filter">
 			<filter-tab-item
-				label="Все посты"
+				:label="$t('all_posts')"
 				:value="null"
 				:active="category_id === null"
 				@click="handleFilter"
@@ -46,7 +46,7 @@
 			:to="to"
 			:url="true"
 			:show-load-more="false"
-			load-more-text="Показать еще новости"
+			:load-more-text="$t('show_more')"
 			@next="handlePageNext"
 			@prev="handlePagePrev"
 			@change="handlePageChange"
@@ -57,10 +57,8 @@
 
 		<div v-if="important" class="post-category__aside aside">
 			<div class="blog-subscribe">
-				<div class="blog-subscribe__title">Нравится Worldpokerdeals?</div>
-				<div class="blog-subscribe__text">
-					Подпишись на наши каналы, чтобы не пропускать новые статьи
-				</div>
+				<div class="blog-subscribe__title">{{ $t('blog_banner.title') }}</div>
+				<div class="blog-subscribe__text">{{ $t('blog_banner.text') }}</div>
 				<div class="blog-subscribe__contacts">
 					<button-contact
 						icon type="telegram"
@@ -90,7 +88,7 @@
 					/>
 				</div>
 			</div>
-			<post-list label="Это важно" featured>
+			<post-list :label="$t('blog_important')" featured>
 				<post-item
 					v-for="item in important"
 					:key="item.id"

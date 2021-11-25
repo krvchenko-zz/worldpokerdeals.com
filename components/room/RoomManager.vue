@@ -16,7 +16,7 @@
 		<div class="manager-card__actions">
 			<div
 				class="manager-card__features"
-				v-html="manager_info ? manager_info : manager_info_default"
+				v-html="manager_info ? manager_info : $t('manager_info')"
 			></div>
 
 			<button-contact block size="md" type="chat">{{
@@ -110,16 +110,7 @@
 			},
 		},
 
-		data: () => ({
-			manager_info_default: [
-				'<ul>',
-				'<li>Поможем с доступом</li>',
-				'<li>Предложим сделку</li>',
-				'<li>Подарим софт</li>',
-				'<li>Защитим интересы</li>',
-				'</ul>',
-			].join(''),
-		}),
+		data: () => ({}),
 
 		computed: {
 			src() {

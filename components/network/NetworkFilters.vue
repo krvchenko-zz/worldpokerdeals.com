@@ -121,7 +121,7 @@
 			>
 				<checkbox
 					v-model="selected.kyc.value"
-					:label="item.label"
+					:label="$t(item.label)"
 					:true-value="1"
 					:false-value="null"
 					@change="handleFilterChange"
@@ -151,7 +151,7 @@
 
 		<div class="filters__actions">
 			<button class="filters__clear-button btn btn-block" @click="clearFilters">
-				Очистить фильтры
+				{{ $t('clear_filters') }}
 			</button>
 		</div>
 	</div>
@@ -178,7 +178,7 @@
 			selected: {
 				kyc: {
 					value: null,
-					label: 'Верификация',
+					label: 'verificacion',
 				},
 				platforms: [],
 				tags: [],

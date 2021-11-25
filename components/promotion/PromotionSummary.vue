@@ -2,18 +2,18 @@
 	<div class="promotion-summary">
 		<div class="row">
 			<div class="col-4">
-				<div class="promotion-summary__label">Статус акции</div>
+				<div class="promotion-summary__label">{{ $t('status') }}</div>
 				<div class="promotion-summary__status">
-					<template v-if="active">Активная</template>
-					<template v-else>Неактивная</template>
+					<template v-if="active">{{ $t('active') }}</template>
+					<template v-else>{{ $t('inactive') }}</template>
 				</div>
 			</div>
 			<div class="col-4">
-				<div class="promotion-summary__label">Тип</div>
+				<div class="promotion-summary__label">{{ $t('type') }}</div>
 				<div class="promotion-summary__type">{{ type }}</div>
 			</div>
 			<div class="col-4">
-				<div class="promotion-summary__label">Призовой фонд</div>
+				<div class="promotion-summary__label">{{ $t('prize_pool') }}</div>
 				<div class="promotion-summary__prize">
 					{{ currency }}{{ formatMoney(prize) }}
 				</div>
@@ -21,7 +21,7 @@
 		</div>
 		<div class="row">
 			<div class="col-4">
-				<div class="promotion-summary__label">Регулярная</div>
+				<div class="promotion-summary__label">{{ $t('permanent') }}</div>
 				<div
 					:class="{
 						'promotion-summary__permanent': true,
@@ -31,7 +31,7 @@
 				></div>
 			</div>
 			<div class="col-4">
-				<div class="promotion-summary__label">Эксклюзивная</div>
+				<div class="promotion-summary__label">{{ $t('exclusive') }}</div>
 				<div
 					:class="{
 						'promotion-summary__exclusive': true,
@@ -42,9 +42,9 @@
 			</div>
 			<div class="col-4">
 				<div class="promotion-summary__label">
-					<template v-if="time_left">До окончания</template>
-					<template v-if="time_before">До начала</template>
-					<template v-if="regularity">Регулярность</template>
+					<template v-if="time_left">{{ $t('time_left') }}</template>
+					<template v-if="time_before">{{ $t('time_before') }}</template>
+					<template v-if="regularity">{{ $t('regularity') }}</template>
 				</div>
 				<div
 					v-if="time_left || time_before"

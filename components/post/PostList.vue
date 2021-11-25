@@ -12,7 +12,7 @@
 					'posts-title__label',
 					featured && 'posts-title__label_featured',
 				]"
-				>{{ label }}</span
+				>{{ $t(label) }}</span
 			>
 		</div>
 		<div class="posts__list" :class="{ 'posts__list--row': asRow }">
@@ -35,7 +35,7 @@
 
 			label: {
 				type: String,
-				default: 'Последние новости',
+				default: 'blog_recent',
 			},
 
 			featured: {

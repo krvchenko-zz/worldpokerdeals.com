@@ -44,7 +44,7 @@
 					featured && 'promotion-item__prize_featured',
 				]"
 			>
-				<div class="promotion-item__prize-label">Призовой фонд</div>
+				<div class="promotion-item__prize-label">{{ $t('prize_pool') }}</div>
 				<div class="promotion-item__prize-value">
 					{{ formatMoney(prize) }} {{ currency }}
 				</div>
@@ -435,6 +435,7 @@
 				margin-bottom: 12px;
 			}
 			&-label {
+				margin: -23px 10px 0 10px;
 				z-index: 2;
 				display: inline-block;
 				position: relative;
@@ -451,7 +452,7 @@
 				clip-path: polygon(0 0%, 100% 8%, 96% 100%, 4% 100%);
 			}
 			&-value {
-				margin-top: -23px;
+				margin: -23px 10px 0 10px;
 				z-index: 1;
 				min-width: 200px;
 				display: inline-block;

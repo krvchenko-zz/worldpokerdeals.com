@@ -1,7 +1,7 @@
 <template>
 	<nav :class="['toc', inline && 'toc_inline', white && 'toc_white']">
 		<div v-if="!inline" class="toc__label" @click="toggleDropdown">
-			Содержание
+			{{ $t('toc') }}
 			<svg-icon
 				:class="{ 'toc__arrow--opened': !shouldBeHidden }"
 				class="toc__arrow"

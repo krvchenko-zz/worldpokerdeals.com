@@ -10,7 +10,7 @@
 		>
 			<a :class="['network-payment__wrap']" :href="href" @click="navigate">
 				<div v-if="vip" class="network-payment__vip-wrap">
-					<span class="network-payment__vip">VIP-статус</span>
+					<span class="network-payment__vip">{{ $t('vip_status') }}</span>
 				</div>
 				<div class="network-payment__icon-wrap">
 					<svg-icon
@@ -31,7 +31,7 @@
 
 <script>
 	export default {
-		name: 'NetworkItem',
+		name: 'PaymentItem',
 
 		components: {},
 

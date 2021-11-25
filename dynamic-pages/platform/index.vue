@@ -13,7 +13,7 @@
 					:overall.sync="overall"
 					:sort-options="sortOptions"
 					:selected="selected.length"
-					entity-label="покер-румов"
+					:entity-label="$t('rooms_entity_label')"
 					@update:sort="fetchItems"
 					@update:geo="fetchItems"
 				/>
@@ -31,7 +31,7 @@
 					/>
 					<filter-selected
 						:key="null"
-						label="Очистить фильтры"
+						:label="$t('clear_filters')"
 						:clear="true"
 						:value="null"
 					/>
@@ -69,8 +69,8 @@
 				:to="to"
 				:load-more-width="$device.isDesktop ? 215 : false"
 				:showPages="false"
-				load-more-text="Показать еще румы"
-				total-text="покер-румов"
+				:load-more-text="$t('show_more')"
+				:total-text="$t('rooms_entity_label')"
 				@next="handlePageNext"
 				@prev="handlePagePrev"
 				@change="handlePageChange"
@@ -156,7 +156,7 @@
 
 		<div class="platform__posts">
 			<lazy-hydrate when-visible>
-				<post-list v-if="posts" :label="`Новости ${platform.title}`" asRow>
+				<post-list v-if="posts" :label="$t('entity_news', {entity: platform.title})" asRow>
 					<post-item
 						v-for="(item, index) in posts"
 						:key="index"
@@ -225,11 +225,11 @@
 			showFilter: false,
 			sortOptions: [
 				{
-					label: 'Сначала лучшие',
+					label: 'sort.rating',
 					value: 'rating',
 				},
 				{
-					label: 'Сначала новые',
+					label: 'sort.created_at',
 					value: 'created_at',
 				},
 			],

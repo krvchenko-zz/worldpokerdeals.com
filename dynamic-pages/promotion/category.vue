@@ -24,7 +24,11 @@
 							:total.sync="total"
 							:overall.sync="overall"
 							:sort-options="sortOptions"
-							entity-label="акций"
+							:entity-label="
+								category.entity === 'promotion' ?
+								$t('promotions_entity_label') :
+								$t('bonuses_entity_label')
+							"
 							@update:sort="fetchItems"
 							@update:geo="fetchItems"
 						/>
@@ -39,7 +43,7 @@
 							/>
 							<filter-selected
 								:key="null"
-								label="Очистить фильтры"
+								:label="$t('clear_filters')"
 								:clear="true"
 								:value="null"
 							/>
@@ -111,12 +115,12 @@
 					:to="to"
 					:show-pages="false"
 					:load-more-width="208"
-					:load-more-text="
-						category.entity === 'promotion'
-							? 'Показать еще акции'
-							: 'Показать еще бонусы'
+					:load-more-text="$t('show_more')"
+					:total-text="
+						category.entity === 'promotion' ?
+						$t('promotions_entity_label') :
+						$t('bonuses_entity_label')
 					"
-					total-text="акций"
 					@next="handlePageNext"
 					@prev="handlePagePrev"
 					@change="handlePageChange"
@@ -298,11 +302,11 @@
 			selected: [],
 			sortOptions: [
 				{
-					label: 'Сначала новые',
+					label: 'sort.created_at',
 					value: 'created_at',
 				},
 				{
-					label: 'Сначала эксклюзивные',
+					label: 'sort.exclusive',
 					value: 'exclusive',
 				},
 			],

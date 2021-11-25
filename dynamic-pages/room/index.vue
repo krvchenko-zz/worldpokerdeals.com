@@ -70,12 +70,7 @@
 						</faq-item>
 					</faq-list>
 
-					<telegram-subscribe
-						label="Наш Телеграм-канал"
-						description="Новости покерных румов мы публикуем в нашем Телеграм-канале. Подпишись, чтобы не упускать EV."
-						btn-label="Подписаться"
-						url="https://t-do.ru/worldpokerdealsRU"
-					/>
+					<telegram-subscribe />
 
 					<author v-if="tab.author" :author="tab.author" />
 

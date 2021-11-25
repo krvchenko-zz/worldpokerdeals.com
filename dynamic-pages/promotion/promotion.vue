@@ -55,7 +55,7 @@
 
 				<template #footer>
 					<h3 class="block-title">
-						Участвующие румы
+						{{ $t('promotion_rooms') }}
 					</h3>
 					<lazy-room
 						v-for="(item, index) in promotion.rooms"
@@ -100,7 +100,7 @@
 
 			<div class="promotion__aside article-container__aside-content">
 				<lazy-room-top-list />
-				<h3 class="block-title">Последние акции</h3>
+				<h3 class="block-title">{{ $t('promotion_recent') }}</h3>
 				<lazy-hydrate when-visible>
 					<lazy-promotion-list>
 						<lazy-promotion-item
@@ -140,7 +140,7 @@
 
 		<div class="promotion__similar">
 			<h2 class="block-title" :style="{ margin: '0 0 20px 0' }">
-				Похожие акции
+				{{ $t('promotion_related') }}
 			</h2>
 			<lazy-hydrate when-visible>
 				<lazy-promotion-list class="promotion__similar__list">

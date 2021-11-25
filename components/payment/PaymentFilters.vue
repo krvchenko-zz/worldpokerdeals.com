@@ -122,7 +122,7 @@
 
 		<div class="filters__actions">
 			<button class="filters__clear-button btn btn-block" @click="clearFilters">
-				Очистить фильтры
+				{{ $t('clear_filters') }}
 			</button>
 		</div>
 	</div>

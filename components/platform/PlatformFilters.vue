@@ -9,7 +9,7 @@
 
 		<filter-geo class="filters__geo" v-on="$listeners" :geo="geo" />
 
-		<filter-dropdown label="Тип рума" icon="filter-room-type">
+		<filter-dropdown :label="$t('room_type')" icon="filter-room-type">
 			<filter-item
 				v-for="(item, index) in types"
 				v-if="types.length"
@@ -25,7 +25,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Платежки" icon="filter-payments">
+		<filter-dropdown :label="$t('payment_methods')" icon="filter-payments">
 			<filter-item
 				v-for="(item, index) in payments"
 				v-if="payments.length"
@@ -51,7 +51,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Лицензии" icon="filter-licenses">
+		<filter-dropdown :label="$t('licenses')" icon="filter-licenses">
 			<filter-item
 				v-for="(item, index) in licenses"
 				v-if="licenses.length"
@@ -67,7 +67,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Верицикация" icon="filter-kyc">
+		<filter-dropdown :label="$t('verification')" icon="filter-kyc">
 			<filter-item
 				v-for="(item, index) in kycs"
 				:key="index"
@@ -83,7 +83,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Особенности рума" icon="filter-room-features">
+		<filter-dropdown :label="$t('room_features')" icon="filter-room-features">
 			<filter-item
 				v-for="(item, index) in tags"
 				v-if="tags.length"
@@ -101,7 +101,7 @@
 
 		<div class="filters__actions">
 			<button class="filters__clear-button btn btn-block" @click="clearFilters">
-				Очистить фильтры
+				{{ $t('clear_filters') }}
 			</button>
 		</div>
 	</div>

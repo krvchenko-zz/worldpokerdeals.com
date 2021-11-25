@@ -72,7 +72,7 @@
 					:rating="best.rating"
 					:bonus="best.top_bonus"
 					:review="best.review"
-					label="Лучший бонус"
+					:label="$t('bonus_best')"
 				/>
 			</div>
 		</div>

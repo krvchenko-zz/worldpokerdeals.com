@@ -6,10 +6,10 @@
 
 		<h2
 			v-if="data.length"
-			:id="urlLit(`Все покер-румы сети ${network.title}`)"
+			:id="urlLit($t('network_rooms', {title: network.title}))"
 			class="network__rooms-title network-rooms__title"
 		>
-			Все покер-румы сети {{ network.title }}
+			{{ $t('network_rooms', {title: network.title}) }}
 		</h2>
 
 		<div v-if="data.length" class="network__rooms network-rooms">
@@ -23,7 +23,7 @@
 					:overall.sync="overall"
 					:sort-options="sortOptions"
 					:selected="selected.length"
-					entity-label="покер-румов"
+					:entity-label="$t('rooms_entity_label')"
 					@update:sort="fetchItems"
 					@update:geo="fetchItems"
 				/>
@@ -41,7 +41,7 @@
 					/>
 					<filter-selected
 						:key="null"
-						label="Очистить фильтры"
+						:label="$t('clear_filters')"
 						:clear="true"
 						:value="null"
 					/>
@@ -80,8 +80,8 @@
 				:to="to"
 				:load-more-width="$device.isDesktop ? 215 : false"
 				:showPages="false"
-				load-more-text="Показать еще румы"
-				total-text="покер-румов"
+				:load-more-text="$t('load_more')"
+				:total-text="$t('rooms_entity_label')"
 				@next="handlePageNext"
 				@prev="handlePagePrev"
 				@change="handlePageChange"
@@ -95,8 +95,8 @@
 				<template #default="{ inline }">
 					<toc-item
 						:inline="inline"
-						:anchor="urlLit(`Все покер-румы сети ${network.title}`)"
-						:text="`Все покер-румы сети ${network.title}`"
+						:anchor="urlLit($t('network_rooms', {title: network.title}))"
+						:text="$t('network_rooms', {title: network.title})"
 					>
 					</toc-item>
 					<toc-item
@@ -178,7 +178,7 @@
 		<lazy-hydrate when-visible>
 			<post-list
 				v-if="posts && posts.length"
-				:label="`Новости ${network.title}`"
+				:label="$t('entity_news', {entity: network.title})"
 				class="network__posts"
 				asRow
 			>
@@ -200,7 +200,7 @@
 		<lazy-hydrate when-visible>
 			<network-list
 				v-if="related"
-				label="Другие покерные сети"
+				:label="$t('other_networks')"
 				class="network__network-list"
 			>
 				<div class="network__network-list__list">
@@ -266,11 +266,11 @@
 			showFilter: false,
 			sortOptions: [
 				{
-					label: 'Сначала лучшие',
+					label: 'sort.rating',
 					value: 'rating',
 				},
 				{
-					label: 'Сначала новые',
+					label: 'sort.created_at',
 					value: 'created_at',
 				},
 			],

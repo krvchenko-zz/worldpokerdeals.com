@@ -83,7 +83,11 @@
 					return false
 				}
 				this.loading = true
-				await this.$axios.get('countries').then(response => {
+				await this.$axios.get('countries', {
+					params: {
+						locale: this.locale,
+					}
+				}).then(response => {
 					this.countries = response.data.map(item => {
 						return {
 							value: item.code,

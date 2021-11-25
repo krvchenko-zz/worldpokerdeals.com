@@ -23,9 +23,9 @@
 			</div>
 
 			<dl class="promotion-room__details">
-				<dt class="promotion-room__dt">Бонус</dt>
+				<dt class="promotion-room__dt">{{ $t('bonus') }}</dt>
 				<dd class="promotion-room__dd">{{ bonus || 'n/a' }}</dd>
-				<dt class="promotion-room__dt">Рейкбек</dt>
+				<dt class="promotion-room__dt">{{ $t('rakeback') }}</dt>
 				<dd class="promotion-room__dd">{{ rakeback }}</dd>
 			</dl>
 
@@ -45,12 +45,12 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>Обзор</a
+						>{{ $t('review') }}</a
 					>
 				</nuxt-link>
 
 				<room-action-button
-					label="Участвовать"
+					:label="$t('get_in')"
 					type="download"
 					:class="[
 						'btn',

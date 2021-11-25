@@ -22,7 +22,7 @@
 					/>
 				</div>
 				<div class="platform-item__title">{{ title }}</div>
-				<div class="platform-item__rooms">{{ rooms }} покер-румов</div>
+				<div class="platform-item__rooms">{{ $tc('rooms_count', rooms) }}</div>
 			</a>
 		</nuxt-link>
 	</div>

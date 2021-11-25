@@ -24,7 +24,7 @@
 				<el-option
 					v-for="(item, index) in sortOptions"
 					:key="index"
-					:label="item.label"
+					:label="$t(item.label)"
 					:value="item.value"
 				/>
 			</el-select>

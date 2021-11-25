@@ -38,15 +38,13 @@
 
 		<div v-if="fetch && next_page_url" class="promotions-more">
 			<button class="btn promotions__more" @click.prevent="handleLoadMore">
-				<!-- Все акции {{ room.title }} <span>{{ total - per_page }}</span> -->
-				Показать еще акции {{ room.title }}
+				{{ $t('show_more_room_promotions', { room: room.title } ) }}
 			</button>
 		</div>
 
 		<div v-if="fetch && !next_page_url && total > 2" class="promotions-more">
 			<button class="btn promotions__more" @click.prevent="handleHide">
-				<!-- Скрыть <span>{{ total - 1 }}</span> -->
-				Скрыть
+				{{ $t('hide') }}
 			</button>
 		</div>
 	</div>

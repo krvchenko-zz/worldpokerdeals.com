@@ -1,14 +1,14 @@
 <template>
 	<div class="telegram-subscribe">
 		<div class="telegram-subscribe__wrap">
-			<div class="telegram-subscribe__label">{{ label }}</div>
-			<div class="telegram-subscribe__description">{{ description }}</div>
+			<div class="telegram-subscribe__label">{{ $t('telegram_subscribe.title') }}</div>
+			<div class="telegram-subscribe__description">{{ $t('telegram_subscribe.text') }}</div>
 			<a
 				class="telegram-subscribe__btn"
 				:href="url"
 				rel="nofollow noopener"
 				target="_blank"
-				>{{ btnLabel }}</a
+				>{{ $t('telegram_subscribe.btn') }}</a
 			>
 		</div>
 		<div class="telegram-subscribe__img">
@@ -43,7 +43,7 @@
 			},
 			url: {
 				type: String,
-				default: '#',
+				default: 'https://t-do.ru/worldpokerdealsRU',
 			},
 		},
 

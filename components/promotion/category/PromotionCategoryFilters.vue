@@ -13,7 +13,7 @@
 			<filter-item :count="exclusive.count">
 				<checkbox
 					v-model="selected.exclusive.value"
-					label="Только эксклюзивные"
+					:label="$t('exclusive_only')"
 					:true-value="1"
 					:false-value="null"
 					@change="handleFilterChange"
@@ -23,7 +23,7 @@
 
 		<filter-dropdown
 			v-if="category.is_general"
-			:label="category.entity === 'promotion' ? 'Тип акции' : 'Тип бонуса'"
+			:label="category.entity === 'promotion' ? $t('promotion_type') : $t('bonus_type')"
 			icon="filter-promotion-category"
 			:opened="true"
 		>
@@ -44,7 +44,7 @@
 
 		<filter-dropdown
 			v-if="category.entity === 'promotion'"
-			label="По дисциплинам"
+			:label="$t('by_games')"
 			icon="filter-discipline"
 		>
 			<filter-item
@@ -64,7 +64,7 @@
 
 		<filter-dropdown
 			v-if="category.entity === 'promotion'"
-			label="Формат игры"
+			:label="$t('game_types')"
 			icon="filter-game"
 		>
 			<filter-item
@@ -84,7 +84,7 @@
 
 		<filter-dropdown
 			v-if="category.entity === 'promotion'"
-			label="Лимиты"
+			:label="$t('stakes')"
 			icon="filter-limit"
 		>
 			<filter-item
@@ -102,7 +102,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Покер-румы" icon="filter-room">
+		<filter-dropdown :label="$t('rooms')" icon="filter-room">
 			<filter-item
 				v-for="(item, index) in rooms"
 				v-if="rooms.length"
@@ -119,7 +119,7 @@
 			</filter-item>
 		</filter-dropdown>
 
-		<filter-dropdown label="Сети" icon="filter-network">
+		<filter-dropdown :label="$t('poker_networks')" icon="filter-network">
 			<filter-item
 				v-for="(item, index) in networks"
 				v-if="networks.length"
@@ -138,7 +138,7 @@
 
 		<div class="filters__actions">
 			<button class="filters__clear-button btn btn-block" @click="clearFilters">
-				Очистить фильтры
+				{{ $t('clear_filters') }}
 			</button>
 		</div>
 	</div>
