@@ -164,6 +164,7 @@
 		},
 
 		async fetch() {
+
 			await this.$axios
 				.get('/posts/categories/list', { params: {} })
 				.then(response => {
@@ -196,8 +197,6 @@
 					Object.keys(response.data).forEach(key => {
 						this[key] = response.data[key]
 					})
-					this.loading = false
-					this.$nuxt.$loading.finish()
 				})
 				.catch(e => {})
 
@@ -215,8 +214,6 @@
 					this.$store.commit('posts/FETCH_IMPORTANT', {
 						important: response.data.data,
 					})
-					this.loading = false
-					this.$nuxt.$loading.finish()
 				})
 				.catch(e => {})
 		},

@@ -103,7 +103,7 @@
 		</div>
 		<div :class="['top-rooms__list', `top-rooms__list_${type}`]">
 			<room-top-item
-				v-for="item in menu ? items : rooms"
+				v-for="item in items"
 				:key="item.id"
 				:title="item.title"
 				:slug="item.slug"
@@ -194,12 +194,14 @@
 			showApps: false,
 			items: [],
 		}),
-
+		
 		mounted() {},
 
 		created() {
 			this.items = this.rooms
 		},
+
+		updated() {},
 
 		computed: {
 			...mapGetters({
@@ -227,7 +229,8 @@
 						},
 					})
 					.then(response => {
-						this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
+						this.items = response.data
+						// this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
 						$nuxt.$loading.finish()
 					})
 			},
@@ -245,7 +248,8 @@
 						},
 					})
 					.then(response => {
-						this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
+						this.items = response.data
+						// this.$store.commit('rooms/FETCH_TOP_LIST', { list: response.data })
 						$nuxt.$loading.finish()
 					})
 			},

@@ -2,9 +2,9 @@
 	<section :class="['content']">
 		<div class="skrill">
 			<vip-payments-header
-				title="VIP-статус Skrill"
 				type="skrill"
-				:summary="summary"
+				:title="$t('vip_skrill.title')"
+				:summary="$t('vip_skrill.description')"
 			>
 				<template #buttons>
 					<payments-button-action
@@ -45,9 +45,7 @@
 								class="vip-payments-advantages__icon"
 								icon="skrill-advantages"
 							/>
-							<span class="vip-payments-advantages__label"
-								><b>Льготные преимущества</b> использования Skrill</span
-							>
+							<span class="vip-payments-advantages__label" v-html="$t('vip_skrill.advantages')[0]"></span>
 						</div>
 						<div class="vip-payments-advantages__list-item">
 							<svg-icon
@@ -56,10 +54,7 @@
 								class="vip-payments-advantages__icon"
 								icon="skrill-support"
 							/>
-							<span class="vip-payments-advantages__label"
-								><b>Поддержка на русском языке</b> по email, Skype, Telegram и в
-								соцсетях</span
-							>
+							<span class="vip-payments-advantages__label" v-html="$t('vip_skrill.advantages')[1]"></span>
 						</div>
 						<div class="vip-payments-advantages__list-item">
 							<svg-icon
@@ -68,9 +63,7 @@
 								class="vip-payments-advantages__icon"
 								icon="skrill-verify"
 							/>
-							<span class="vip-payments-advantages__label"
-								><b>Верификация</b> за 24 часа</span
-							>
+							<span class="vip-payments-advantages__label" v-html="$t('vip_skrill.advantages')[2]"></span>
 						</div>
 
 						<div class="vip-payments-advantages__list-item">
@@ -80,9 +73,7 @@
 								class="vip-payments-advantages__icon"
 								icon="skrill-rakeback"
 							/>
-							<span class="vip-payments-advantages__label"
-								><b>1,5% рейкбэка</b> в любом покер-руме на 3 месяца</span
-							>
+							<span class="vip-payments-advantages__label" v-html="$t('vip_skrill.advantages')[3]"></span>
 						</div>
 						<div class="vip-payments-advantages__list-item">
 							<svg-icon
@@ -91,9 +82,7 @@
 								class="vip-payments-advantages__icon"
 								icon="skrill-limits"
 							/>
-							<span class="vip-payments-advantages__label"
-								><b>Увеличение лимитов</b></span
-							>
+							<span class="vip-payments-advantages__label" v-html="$t('vip_skrill.advantages')[4]"></span>
 						</div>
 						<div class="vip-payments-advantages__list-item">
 							<svg-icon
@@ -102,9 +91,7 @@
 								class="vip-payments-advantages__icon"
 								icon="skrill-arbitrage"
 							/>
-							<span class="vip-payments-advantages__label"
-								>Помощь в решении спорных вопросов за 24 часа</span
-							>
+							<span class="vip-payments-advantages__label" v-html="$t('vip_skrill.advantages')[5]"></span>
 						</div>
 					</div>
 				</div>

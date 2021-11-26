@@ -43,7 +43,7 @@
 			NotFound: () => import('~/pages/404'),
 		},
 
-		async middleware({ store, redirect, params, $axios }) {
+		async middleware({ store, redirect, params, $axios, app }) {
 
 			const country = store.getters['location/country']
 
