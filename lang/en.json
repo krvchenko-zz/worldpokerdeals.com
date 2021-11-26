@@ -203,6 +203,10 @@
   "related_offers": "Похожие предложения",
   "promotions": "Promotions",
   "close": "Закрыть",
+  "soft_entity_label": "software",
+  "discount": "Скидка",
+  "price": "Стоимость",
+  "soft_related": "Похожий софт",
   "connection_modal": {
     "title": "Tag your {room} account <br> to Worldpokerdeals!",
     "text": "Take part in our private promotions <br> and become a verified WPD-grinder!",
@@ -299,7 +303,8 @@
   "sort": {
     "created_at": "Сначала новые",
     "rating": "Сначала лучшие",
-    "exclusive": "Сначала эксклюзивные"
+    "exclusive": "Сначала эксклюзивные",
+    "price": "По стоимости"
   },
   "blog_banner": {
     "title": "Like Worldpokerdeals?",

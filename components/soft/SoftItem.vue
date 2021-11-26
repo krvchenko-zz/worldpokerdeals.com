@@ -33,7 +33,7 @@
 						<span class="soft-item-discount__val">{{ discount_value }}</span>
 						<span class="soft-item-discount__percent">%</span>
 					</span>
-					<span class="soft-item-discount__label">Скидка</span>
+					<span class="soft-item-discount__label">{{ $t('discount') }}</span>
 				</div>
 				<span v-if="!available" class="soft-item__unavailable"></span>
 				<div class="soft-item__title-wrap">
@@ -84,11 +84,11 @@
 				<soft-action-button
 					:class="[
 						'soft-item__link',
-						!available && 'soft-item__link_disabled',
 						'soft-item__link_download',
+						!available && 'soft-item__link_disabled',
 					]"
 					:id="id"
-					label="Скачать"
+					:label="$t('download')"
 					type="download"
 				/>
 				<nuxt-link
@@ -104,13 +104,13 @@
 					<a
 						:class="[
 							'btn',
-							'soft-item__link',
 							'btn-default',
+							'soft-item__link',
 							'soft-item__link_review',
 						]"
 						:href="href"
 						@click="navigate"
-						>Детали</a
+						>{{ $t('details') }}</a
 					>
 				</nuxt-link>
 			</div>

@@ -204,6 +204,10 @@
   "related_offers": "Похожие предложения",
   "promotions": "Promociones",
   "close": "Закрыть",
+  "soft_entity_label": "software",
+  "discount": "Скидка",
+  "price": "Стоимость",
+  "soft_related": "Похожий софт",
   "connection_modal": {
     "title": "Registra tu cuenta de {room} <br> en Worldpokerdeals!",
     "text": "Participa en nuestras promociones privadas y conviértete <br> en un grinder verificado de WPD!",
@@ -300,7 +304,8 @@
   "sort": {
     "created_at": "Сначала новые",
     "rating": "Сначала лучшие",
-    "exclusive": "Сначала эксклюзивные"
+    "exclusive": "Сначала эксклюзивные",
+    "price": "По стоимости"
   },
   "blog_banner": {
     "title": "¿Te gusta Worldpokerdeals?",

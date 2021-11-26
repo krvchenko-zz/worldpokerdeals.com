@@ -12,18 +12,9 @@
 					:total.sync="total"
 					:overall.sync="overall"
 					:show-geo="false"
-					:sort-options="[
-						{
-							label: 'По стоимости',
-							value: 'price',
-						},
-						{
-							label: 'Сначала новые',
-							value: 'created_at',
-						},
-					]"
+					:sort-options="sortOptions"
 					:selected="selected.length"
-					entity-label="программ для покера"
+					:entity-label="$t('soft_entity_label')"
 					@update:sort="fetchItems"
 					@update:geo="fetchItems"
 				/>
@@ -41,7 +32,7 @@
 					/>
 					<filter-selected
 						:key="null"
-						label="Очистить фильтры"
+						:label="$t('clear_filters')"
 						:clear="true"
 						:value="null"
 					/>
@@ -69,21 +60,22 @@
 
 			<pagination
 				v-if="data.length"
+				class="soft-list__pagination"
 				:last="last_page"
-				:current="page"
+				:current="parseInt(page) || current_page"
 				:prev-url="prev_page_url"
 				:next-url="next_page_url"
 				:total="total"
 				:from="from"
 				:to="to"
-				:showPages="false"
+				:show-pages="false"
+				:total-text="$t('soft_entity_label')"
+				:load-more-text="$t('show_more')"
 				@next="handlePageNext"
 				@prev="handlePagePrev"
 				@change="handlePageChange"
 				@more="handleShowMore"
-				class="soft-list__pagination"
-			>
-			</pagination>
+			/>
 		</div>
 
 		<!-- Toc -->
@@ -238,20 +230,33 @@
 			overall: 0,
 			selected: [],
 			showFilter: false,
+			sortOptions: [
+				{
+					label: 'sort.price',
+					value: 'price',
+				},
+				{
+					label: 'sort.created_at',
+					value: 'created_at',
+				},
+			],
 		}),
 
 		async fetch() {
 			await this.$axios
-				.get(`soft/category/${this.pageable.slug}`)
+				.get(`soft/category/${this.pageable.slug}`, {
+					params: {
+						locale: this.locale,
+					}
+				})
 				.then(response => {
-					this.$store.commit('soft/FETCH_CATEGORY', { category: response.data })
+					this.$store.commit('soft/FETCH_CATEGORY', { 
+						category: response.data.category
+					})
+					this.$store.commit('soft/FETCH_CATEGORIES', {
+						categories: response.data.categories
+					})
 				})
-
-			await this.$axios.get(`soft/category/list`).then(response => {
-				this.$store.commit('soft/FETCH_CATEGORIES', {
-					categories: response.data,
-				})
-			})
 
 			await this.$axios
 				.get(`soft/list`, { params: this.params })
@@ -281,8 +286,6 @@
 		methods: {
 			async fetchItems() {
 				this.$nuxt.$loading.start()
-
-				console.log(this.params)
 
 				await this.$axios
 					.get(`soft/list`, { params: this.params })

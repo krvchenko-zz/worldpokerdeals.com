@@ -253,11 +253,14 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'BasicLayout',
 
-		components: {},
+		components: {
+			LazyHydrate
+		},
 
 		computed: {
 			...mapGetters({

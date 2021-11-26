@@ -31,7 +31,7 @@
 					:class="['btn btn-block btn-soft btn-soft__review']"
 					:href="href"
 					@click="navigate"
-					>Детали</a
+					>{{ $t('details') }}</a
 				>
 			</router-link>
 			<router-link
@@ -43,7 +43,7 @@
 					:href="href"
 					@click="navigate"
 				>
-					<span class="btn-soft__download-label">Скачать</span>
+					<span class="btn-soft__download-label">{{ $('downloads') }}</span>
 					<span class="btn-soft__download-price"
 						>{{ currency.symbol }}{{ price }}</span
 					>

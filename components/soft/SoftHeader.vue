@@ -27,13 +27,13 @@
 				<soft-action-button
 					:disabled="soft.available ? false : true"
 					:id="soft.id"
-					label="Скачать"
+					:label="$t('download')"
 					type="download"
 					:slug="soft.slug"
 					:icon="true"
 				/>
 				<div class="soft-price">
-					<span class="soft-price__label">Стоимость</span>
+					<span class="soft-price__label">{{ $t('price') }}</span>
 					<span class="soft-price__value">
 						<template v-if="soft.currency">{{ soft.currency.symbol }}</template
 						>{{ soft.price }}
@@ -54,7 +54,7 @@
 
 		<div v-if="soft.images.length" class="soft-screenshots">
 
-			<div class="soft-screenshots__label">Скриншоты</div>
+			<div class="soft-screenshots__label">{{ $t('screenshots') }}</div>
 
 			<carousel
 				:navigation-enabled="true"

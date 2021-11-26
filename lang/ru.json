@@ -208,6 +208,11 @@
   "screenshots": "Скриншоты",
   "related_offers": "Похожие предложения",
   "close": "Закрыть",
+  "soft_entity_label": "программ для покера",
+  "details": "Детали",
+  "discount": "Скидка",
+  "price": "Стоимость",
+  "soft_related": "Похожий софт",
   "connection_modal": {
     "title": "Привяжи счет {room} <br> к Worldpokerdeals!",
     "text": "Участвуй в наших приватных промо и получи статус <br> верифицированного игрока WPD!",
@@ -304,7 +309,8 @@
   "sort": {
     "created_at": "Сначала новые",
     "rating": "Сначала лучшие",
-    "exclusive": "Сначала эксклюзивные"
+    "exclusive": "Сначала эксклюзивные",
+    "price": "По стоимости"
   },
   "blog_banner": {
     "title": "Нравится Worldpokerdeals?",

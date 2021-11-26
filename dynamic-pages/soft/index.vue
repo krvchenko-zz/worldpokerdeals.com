@@ -76,7 +76,7 @@
 		<lazy-hydrate when-visible>
 			<post-list
 				v-if="posts && posts.length"
-				:label="`Новости`"
+				:label="$t('news')"
 				class="soft__news-wrapper"
 			>
 				<div class="soft__news">
@@ -99,7 +99,7 @@
 		<lazy-hydrate when-visible>
 			<soft-list
 				v-if="related && related.length"
-				label="Похожий софт"
+				:label="$t('soft_related')"
 				class="soft__soft-list-wrapper"
 			>
 				<div class="soft__similar-soft">
