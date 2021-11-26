@@ -11,6 +11,7 @@
 								:width="42"
 								:height="42"
 								:icon="room.slug"
+								:image="true"
 							/>
 							<span class="room-header-sticky-logo__title">{{
 								room.title

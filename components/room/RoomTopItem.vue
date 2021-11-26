@@ -18,6 +18,7 @@
 					:icon="slug"
 					:width="type === 'menu' ? 40 : 44"
 					:height="type === 'menu' ? 40 : 44"
+					:image="true"
 					view-box="0 0 200 200"
 				/>
 			</div>
@@ -50,6 +51,7 @@
 						:icon="slug"
 						:width="40"
 						:height="40"
+						:image="true"
 						view-box="0 0 200 200"
 					/>
 				</div>

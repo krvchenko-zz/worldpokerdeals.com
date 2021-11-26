@@ -7,6 +7,7 @@
 					:icon="parent ? parent.slug : room.slug"
 					:width="42"
 					:height="42"
+					:image="true"
 					view-box="0 0 200 200"
 				/>
 			</div>
@@ -390,6 +391,7 @@
 		&__icon {
 			width: 100%;
 			height: auto;
+			border-radius: 4px;
 		}
 		&__icon-wrapper {
 			grid-area: icon;

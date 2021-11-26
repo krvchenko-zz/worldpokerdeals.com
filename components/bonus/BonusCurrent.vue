@@ -30,6 +30,7 @@
 								:width="46"
 								:height="46"
 								:icon="promotion.room.slug"
+								:image="true"
 								view-box="0 0 200 200"
 							/>
 							<div class="bonus-current__wrap">

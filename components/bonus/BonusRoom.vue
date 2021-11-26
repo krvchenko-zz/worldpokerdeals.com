@@ -7,6 +7,7 @@
 					:icon="slug"
 					:width="88"
 					:height="88"
+					:image="true"
 					view-box="0 0 200 200"
 				/>
 				<div class="bonus-room__info">

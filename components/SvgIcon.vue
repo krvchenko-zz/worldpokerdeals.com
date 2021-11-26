@@ -2,6 +2,7 @@
 	<client-only>
 		<lazy-hydrate when-visible>
 			<component
+				v-if="!image"
 				:is="component"
 				v-svg="{
 					width: width,
@@ -13,6 +14,16 @@
 				}"
 				class="svg-icon"
 			/>
+			<img 
+				v-else
+				:src="require(`../assets/icons/${prefix}${icon}.svg`)"
+				:width="width"
+				:height="height"
+				:alt="icon"
+				decoding="async"
+				loading="lazy"
+				class="svg-icon"
+			>
 		</lazy-hydrate>
 	</client-only>
 </template>
@@ -59,6 +70,10 @@
 			viewBox: {
 				type: String,
 			},
+			image: {
+				type: Boolean,
+				default: false,
+			}
 		},
 
 		data: () => ({

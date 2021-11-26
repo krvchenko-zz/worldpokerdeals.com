@@ -8,6 +8,7 @@
 					:icon="room.slug"
 					:width="42"
 					:height="42"
+					:image="true"
 					view-box="0 0 200 200"
 				/>
 			</div>

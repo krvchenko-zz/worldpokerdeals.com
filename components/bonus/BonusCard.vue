@@ -6,6 +6,7 @@
 				:icon="slug"
 				:width="76"
 				:height="76"
+				:image="true"
 				view-box="0 0 200 200"
 			/>
 			<div class="bonus-card__info">
