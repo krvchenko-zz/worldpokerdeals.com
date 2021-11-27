@@ -48,7 +48,7 @@ export default {
 		},
 
 		xDefault() {
-			return `https://ru.${this.host}${this.$route.path}`
+			return `https://${this.host}${this.$route.path}`
 		},
 	},
 
