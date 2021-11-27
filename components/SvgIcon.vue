@@ -16,7 +16,7 @@
 			/>
 			<img 
 				v-else
-				:src="require(`../assets/icons/${prefix}${icon}.svg`)"
+				:src="src"
 				:width="width"
 				:height="height"
 				:alt="icon"
@@ -84,20 +84,36 @@
 		asyncComputed: {
 			component: {
 				get() {
+					if (this.image) {
+						return null
+					}
 					return () =>
 						import(
 							/* webpackChunkName: "icons" */
-							/* webpackMode: "lazy-once" */
-							/* webpackPrefetch: 0 */
+							/* webpackMode: "lazy" */
 							`~/assets/icons/${this.prefix}${this.icon}.svg?inline`
 						).catch(e => {
 						})
 				},
 				watch: ['icon'],
 			},
-		},
 
-		watch: {},
+			src() {
+				if (!this.image) {
+					return null
+				}
+
+				let src = null
+
+				try {
+					src = require(`../assets/icons/${this.prefix}${this.icon}.svg`)
+				} catch (e) {
+					return null
+				}
+
+				return src
+			}
+		},
 
 		mounted() {},
 

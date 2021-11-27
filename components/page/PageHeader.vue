@@ -27,6 +27,7 @@
 						:height="24"
 						prefix="flags/"
 						:icon="country.code"
+						:image="true"
 					/>
 				</div>
 

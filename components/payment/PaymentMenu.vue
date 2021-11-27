@@ -25,6 +25,7 @@
 							:icon="`${item.icon}-color`"
 							:width="32"
 							:height="32"
+							:image="true"
 							view-box="0 0 30 30"
 						/>
 						<span

@@ -21,6 +21,7 @@
 							<svg-icon
 								class="best-room__geo-flag"
 								prefix="flags/"
+								:image="true"
 								:icon="country.code"
 								:width="20"
 								:height="20"

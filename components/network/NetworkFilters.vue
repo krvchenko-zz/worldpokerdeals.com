@@ -52,6 +52,7 @@
 						:icon="`${item.slug}-color`"
 						:width="28"
 						:height="28"
+						:image="true"
 						view-box="0 0 30 30"
 					/>
 				</template>
@@ -79,9 +80,10 @@
 				<template #icon>
 					<svg-icon
 						class="filter-item__icon"
-						:icon="`${item.slug}-square`"
+						:icon="`${item.icon}-square`"
 						:width="28"
 						:height="28"
+						:image="true"
 						view-box="0 0 40 40"
 					/>
 				</template>

@@ -7,6 +7,7 @@
 					:icon="network.url"
 					:width="$device.isMobile ? 120 : 136"
 					:height="$device.isMobile ? 120 : 136"
+					:image="true"
 					view-box="0 0 200 200"
 				/>
 			</div>

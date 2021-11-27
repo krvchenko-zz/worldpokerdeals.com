@@ -9,7 +9,7 @@
 				<template #buttons>
 					<payments-button-action
 						type="skrill"
-						label="Регистрация в Skrill"
+						:label="$t('vip_skrill.register')"
 						target="_blank"
 						url="https://skupgrade.vip/wpdeals"
 					/>
@@ -17,7 +17,7 @@
 					<payments-button-action
 						:external="false"
 						type="default"
-						label="Получить VIP"
+						:label="$t('vip_skrill.vip')"
 						@click="handleJoinClick"
 					/>
 				</template>
@@ -25,12 +25,7 @@
 
 			<div class="skrill-body">
 				<div class="vip-payments-advantages skrill-advantages">
-					<h2 class="vip-payments-advantages__title">
-						В чем преимущества получения <br />
-						<span class="vip-payments-advantages__title--highlight"
-							>VIP-статуса от Skrill</span
-						>
-					</h2>
+					<h2 class="vip-payments-advantages__title" v-html="$t('vip_skrill.advantages_title')"></h2>
 
 					<svg-icon
 						class="vip-payments-advantages__logo skrill__logo"
@@ -99,11 +94,10 @@
 				<div class="skrill-info">
 					<div class="skrill-card">
 						<h3 class="skrill-card__title skrill-card__title_new">
-							Хочу открыть счёт. Что получу?
+							{{ $t('vip_skrill.features')[0]['title'] }}
 						</h3>
 						<div class="skrill-card__info">
-							Если вы еще не зарегистрировались в Skrill, то регистрируйтесь с
-							нами и получайте эксклюзивные бонусы
+							{{ $t('vip_skrill.features')[0]['description'] }}
 						</div>
 						<div class="skrill-card__footer">
 							<ul class="skrill-card__list">
@@ -114,10 +108,7 @@
 										class="skrill-card__icon"
 										icon="skrill-cards"
 									/>
-									<span class="skrill-card__item"
-										><b>Две карты Skrill Prepaid MasterCard</b> бесплатно (для
-										VIP Silver +)</span
-									>
+									<span class="skrill-card__item" v-html="$t('vip_skrill.features')[0]['items'][0]"></span>
 								</li>
 
 								<li class="skrill-card__list-item">
@@ -127,10 +118,7 @@
 										class="skrill-card__icon"
 										icon="skrill-comission"
 									/>
-									<span class="skrill-card__item"
-										><b>0% комиссия</b> за переводы клиентов внутри системы и
-										вывод на банковский счет</span
-									>
+									<span class="skrill-card__item" v-html="$t('vip_skrill.features')[0]['items'][1]"></span>
 								</li>
 
 								<li class="skrill-card__list-item">
@@ -140,23 +128,20 @@
 										class="skrill-card__icon"
 										icon="skrill-tech-support"
 									/>
-									<span class="skrill-card__item"
-										><b>Техподдержка</b> на русском языке</span
-									>
+									<span class="skrill-card__item" v-html="$t('vip_skrill.features')[0]['items'][2]"></span>
 								</li>
 							</ul>
 
 							<div class="skrill-card__details">
 								<p>
-									<span>* </span> Актуально только для пользователей из стран
-									SEPA
+									<span>* </span> {{ $t('vip_skrill.features')[0]['sepa'] }}
 								</p>
-								<p><span>** </span> Вывод на VISA 7,5% для всех статусов</p>
+								<p><span>** </span> {{ $t('vip_skrill.features')[0]['visa'] }}</p>
 							</div>
 							<payments-button-action
 								flat
 								type="skrill"
-								label="Регистрация в Skrill"
+								:label="$t('vip_skrill.register')"
 								target="_blank"
 								url="https://skupgrade.vip/wpdeals"
 							/>
@@ -165,12 +150,10 @@
 
 					<div class="skrill-card">
 						<h3 class="skrill-card__title">
-							Уже есть счёт. Чем порадуете?
+							{{ $t('vip_skrill.features')[1]['title'] }}
 						</h3>
 						<div class="skrill-card__info">
-							Если у вас уже есть аккаунт в Skrill, то просто присоединяйтесь к
-							нашей программе лояльности и получайте бонусы и условия, которые
-							мы предоставляем
+							{{ $t('vip_skrill.features')[1]['description'] }}
 						</div>
 
 						<div class="skrill-card__footer">
@@ -182,10 +165,7 @@
 										class="skrill-card__icon"
 										icon="skrill-silver-vip"
 									/>
-									<span class="skrill-card__item"
-										><b>Silver VIP – от 5 000 евро</b> депозитов за
-										квартал</span
-									>
+									<span class="skrill-card__item" v-html="$t('vip_skrill.features')[1]['items'][0]"></span>
 								</li>
 
 								<li class="skrill-card__list-item">
@@ -195,9 +175,7 @@
 										class="skrill-card__icon"
 										icon="skrill-increased-limits"
 									/>
-									<span class="skrill-card__item"
-										><b>Повышенные лимиты</b></span
-									>
+									<span class="skrill-card__item" v-html="$t('vip_skrill.features')[1]['items'][1]"></span>
 								</li>
 
 								<li class="skrill-card__list-item">
@@ -207,14 +185,12 @@
 										class="skrill-card__icon"
 										icon="skrill-vip-tech-support"
 									/>
-									<span class="skrill-card__item"
-										><b>Техподдержка</b> на русском языке</span
-									>
+									<span class="skrill-card__item" v-html="$t('vip_skrill.features')[1]['items'][2]"></span>
 								</li>
 							</ul>
 
 							<div class="skrill-card__details">
-								<p><span>* </span> Статус даётся один раз при выполнении условий</p>
+								<p><span>* </span> {{ $t('vip_skrill.features')[1]['info'] }}</p>
 							</div>
 
 							<payments-button-action
@@ -224,7 +200,7 @@
 								flat
 								:external="false"
 								type="default"
-								label="Присоединиться"
+								:label="$t('vip_skrill.join')"
 								@click="handleJoinClick"
 							/>
 						</div>
@@ -233,14 +209,8 @@
 			</div>
 
 			<div id="skrill-footer" class="skrill-footer">
-				<h2 class="skrill-footer__title">
-					Заполнить заявку на VIP-статус
-				</h2>
-				<div class="skrill-footer__info">
-					Заполните заявку на подключение к нашей VIP-программе для Skrill, и
-					получите лучшие условия обслуживания, а так же быстрый саппорт, в
-					который вы можете обратиться по любому вопросу.
-				</div>
+				<h2 class="skrill-footer__title">{{ $t('vip_skrill.form_title') }}</h2>
+				<div class="skrill-footer__info">{{ $t('vip_skrill.form_text') }}</div>
 
 				<payments-form
 					class="skrill-footer__payment"
@@ -261,8 +231,8 @@
 						:skype="manager.skype"
 						:whatsapp="manager.whatsapp"
 						:email="manager.email"
-						label="Остались вопросы? Напишите нам"
-						description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса Skrill"
+						:label="$t('vip_skrill.manager_title')"
+						:description="$t('vip_skrill.manager_info')"
 					/>
 				</div>
 			</div>

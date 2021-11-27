@@ -875,7 +875,7 @@
 		align-items: center;
 		flex-flow: wrap;
 		flex-grow: 1;
-		justify-content: start;
+		justify-content: flex-start;
 	}
 
 	.room-parameters {

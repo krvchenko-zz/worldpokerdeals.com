@@ -48,6 +48,7 @@
 						:icon="`${item.slug}-color`"
 						:width="28"
 						:height="28"
+						:image="true"
 						view-box="0 0 30 30"
 					/>
 				</template>

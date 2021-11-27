@@ -5,6 +5,7 @@
 				:icon="game.icon"
 				:width="136"
 				:height="136"
+				:image="true"
 				view-box="0 0 200 200"
 			/>
 		</div>

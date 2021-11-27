@@ -18,6 +18,7 @@
 						:icon="icon"
 						:width="88"
 						:height="88"
+						:image="true"
 					/>
 				</div>
 				<div class="network-payment__title">{{ title }}</div>

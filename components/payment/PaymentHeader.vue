@@ -6,6 +6,7 @@
 					:icon="payment.icon"
 					:width="136"
 					:height="136"
+					:image="true"
 					view-box="0 0 88 88"
 				/>
 			</div>

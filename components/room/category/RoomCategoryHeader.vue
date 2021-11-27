@@ -10,7 +10,13 @@
 
 		<div class="rooms-header__about">
 			<div class="rooms-meta__wrap">
-				<svg-icon class="rooms-header__icon" :icon="category.icon" />
+				<svg-icon 
+					class="rooms-header__icon"
+					width="90px"
+					height="auto"
+					:image="true"
+					:icon="category.icon"
+				/>
 				<h1 class="rooms__title">{{ pageable.title }}</h1>
 				<page-meta
 					class="rooms-meta__meta"

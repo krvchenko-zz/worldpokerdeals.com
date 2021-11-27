@@ -18,6 +18,7 @@
 						:icon="icon"
 						:width="88"
 						:height="88"
+						:image="true"
 						view-box="0 0 88 88"
 					/>
 				</div>

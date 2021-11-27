@@ -182,6 +182,7 @@
 <style lang="scss">
 	$ico-room-front-summary: url('~assets/i/ico-room-front-summary.svg?data');
 	.room-front {
+		min-width: 260px;
 		margin: 0 14px;
 		border: 1px solid #e9e9e9;
 		background: #fafafa;

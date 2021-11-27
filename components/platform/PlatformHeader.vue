@@ -5,6 +5,7 @@
 				:icon="`${platform.icon}-large`"
 				:width="136"
 				:height="136"
+				:image="true"
 				view-box="0 0 88 88"
 			/>
 		</div>
