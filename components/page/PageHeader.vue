@@ -61,7 +61,7 @@
 								}"
 								@click="onMenuItemClick($event, 'rooms')"
 							>
-								<a class="header-nav__link" href="/rakeback-deals"
+								<a class="header-nav__link" href="/rakeback-deals/best-poker-rooms-2020"
 									>{{ $t('menu.rooms') }}
 									<img
 										class="header-nav__arrow"
