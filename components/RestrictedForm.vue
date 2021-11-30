@@ -9,7 +9,7 @@
 				<form-input
 					v-model="form.email"
 					class="restricted-form__input"
-					placeholder="Электронная почта"
+					:placeholder="$t('form.email')"
 					type="email"
 					name="email"
 					label-color="#636363"
@@ -20,7 +20,7 @@
 				<form-submit-button
 					:disabled="!form.email"
 					class="btn-restricted-form"
-					label="Получить доступ"
+					:label="$t('form.get_access')"
 					:loading="form.busy"
 				>
 				</form-submit-button>

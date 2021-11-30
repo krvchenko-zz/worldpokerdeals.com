@@ -2,14 +2,14 @@
 	<section :class="['content']">
 		<div class="neteller">
 			<vip-payments-header
-				title="VIP-статус Neteller"
+				:title="$t('vip_neteller.title')"
 				type="neteller"
-				:summary="summary"
+				:summary="$t('vip_neteller.description')"
 			>
 				<template #buttons>
 					<payments-button-action
 						type="neteller"
-						label="Регистрация в Neteller"
+						:label="$t('vip_neteller.register')"
 						target="_blank"
 						url="https://ntupgrade.vip/wpdeals"
 					/>
@@ -17,7 +17,7 @@
 					<payments-button-action
 						:external="false"
 						type="default"
-						label="Получить VIP"
+						:label="$t('vip_neteller.vip')"
 						@click="handleJoinClick"
 					/>
 				</template>
@@ -25,12 +25,7 @@
 
 			<div class="neteller-body">
 				<div class="vip-payments-advantages vip-payments-advantages--neteller">
-					<h2 class="vip-payments-advantages__title">
-						В чем преимущества получения
-						<span class="vip-payments-advantages__title--highlight"
-							>VIP&#8209;статуса от Neteller</span
-						>
-					</h2>
+					<h2 class="vip-payments-advantages__title" v-html="$t('vip_neteller.advantages_title')"></h2>
 
 					<svg-icon
 						class="vip-payments-advantages__logo neteller__logo"
@@ -50,10 +45,7 @@
 								class="vip-payments-advantages__icon"
 								icon="neteller-comission"
 							/>
-							<span
-								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
-								><b>Сниженные комиссии</b> на транзакции</span
-							>
+							<span class="vip-payments-advantages__label vip-payments-advantages__label--neteller" v-html="$t('vip_neteller.advantages')[0]"></span>
 						</div>
 
 						<div
@@ -65,10 +57,7 @@
 								class="vip-payments-advantages__icon"
 								icon="neteller-verify"
 							/>
-							<span
-								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
-								><b>Ускоренная верификация счета</b></span
-							>
+							<span class="vip-payments-advantages__label vip-payments-advantages__label--neteller" v-html="$t('vip_neteller.advantages')[1]"></span>
 						</div>
 
 						<div
@@ -80,10 +69,7 @@
 								class="vip-payments-advantages__icon"
 								icon="neteller-limits"
 							/>
-							<span
-								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
-								><b>Повышенные лимиты</b></span
-							>
+							<span class="vip-payments-advantages__label vip-payments-advantages__label--neteller" v-html="$t('vip_neteller.advantages')[2]"></span>
 						</div>
 
 						<div
@@ -95,10 +81,7 @@
 								class="vip-payments-advantages__icon"
 								icon="neteller-rakeback"
 							/>
-							<span
-								class="vip-payments-advantages__label vip-payments-advantages__label--neteller"
-								><b>Рейкбек +1,5%</b>в любом покер-руме на 3 месяца</span
-							>
+							<span class="vip-payments-advantages__label vip-payments-advantages__label--neteller" v-html="$t('vip_neteller.advantages')[3]"></span>
 						</div>
 					</div>
 				</div>
@@ -117,7 +100,7 @@
 									icon="neteller-plus"
 									class="neteller-card__item__icon"
 								/>
-								<div>Верификации счета NETELLER <b>за 24 часа</b></div>
+								<div v-html="$t('vip_neteller.features')[0]['items'][0]"></div>
 							</li>
 							<li class="neteller-card__item">
 								<svg-icon
@@ -125,8 +108,8 @@
 									class="neteller-card__item__icon"
 								/>
 								<div>
-									<b>Silver VIP</b> – за депозиты на сумму 6 000$ за квартал <br>
-									<span class="neteller-notice"><span>* </span> Статус даётся один раз при выполнении условий</span>
+									<span v-html="$t('vip_neteller.features')[0]['items'][1]"></span>  <br>
+									<span class="neteller-notice"><span>* </span> {{ $t('vip_neteller.features')[0]['info']}}</span>
 								</div>
 							</li>
 							<li class="neteller-card__item">
@@ -134,66 +117,62 @@
 									icon="neteller-plus"
 									class="neteller-card__item__icon"
 								/>
-								<div>
-									<b>Эксклюзивный статус Bronze Pro VIP</b> (после верификации)
-								</div>
+								<div v-html="$t('vip_neteller.features')[0]['items'][2]"></div>
 							</li>
 							<li class="neteller-card__item">
 								<svg-icon
 									icon="neteller-plus"
 									class="neteller-card__item__icon"
 								/>
-								Персональная поддержка по всем вопросам в режиме реального
-								времени
+								<span v-html="$t('vip_neteller.features')[0]['items'][3]"></span>
 							</li>
 							<li class="neteller-card__item">
 								<svg-icon
 									icon="neteller-plus"
 									class="neteller-card__item__icon"
 								/>
-								Решение нестандартных задач: ввод/вывод больших сумм, переводы в
-								другие платежные системы и т.д.
+								<span v-html="$t('vip_neteller.features')[0]['items'][4]"></span>
 							</li>
 						</ul>
 					</div>
 
 					<div class="neteller-card">
-						<h3 class="neteller-card__title">Обычный клиент</h3>
+						<h3 class="neteller-card__title">{{ $t('vip_neteller.features')[1]['title'] }}</h3>
 						<ul class="neteller-card__list">
 							<li class="neteller-card__item neteller-card__item--common-user">
 								<svg-icon
 									icon="neteller-plus"
 									class="neteller-card__item__icon"
 								/>
-								Верификация счета с срок от 3 дней
+								<span v-html="$t('vip_neteller.features')[1]['items'][0]"></span>
 							</li>
 							<li class="neteller-card__item neteller-card__item--common-user">
 								<svg-icon
 									icon="neteller-plus"
 									class="neteller-card__item__icon"
 								/>
-								Silver VIP – за депозиты на сумму 15 000$ за квартал
+								<span v-html="$t('vip_neteller.features')[1]['items'][1]"></span>
 							</li>
 							<li class="neteller-card__item neteller-card__item--common-user">
 								<svg-icon
 									icon="neteller-minus"
 									class="neteller-card__item__icon"
 								/>
-								Нет
+								<span v-html="$t('vip_neteller.features')[1]['items'][2]"></span>
 							</li>
 							<li class="neteller-card__item neteller-card__item--common-user">
 								<svg-icon
 									icon="neteller-minus"
 									class="neteller-card__item__icon"
 								/>
-								Нет
+								<span v-html="$t('vip_neteller.features')[1]['items'][3]"></span>
 							</li>
 							<li class="neteller-card__item neteller-card__item--common-user">
 								<svg-icon
 									icon="neteller-minus"
 									class="neteller-card__item__icon"
 								/>
-								Нет
+								<span v-html="$t('vip_neteller.features')[1]['items'][4]"></span>
 							</li>
 						</ul>
 					</div>
@@ -201,14 +180,8 @@
 			</div>
 
 			<div id="neteller-footer" class="neteller-footer">
-				<h2 class="neteller-footer__title">
-					Заполнить заявку на VIP-статус
-				</h2>
-				<div class="neteller-footer__info">
-					Заполните заявку на подключение к нашей VIP программе для Skrill, и
-					получите лучшие условия обслуживания, а так же быстрый саппорт, в
-					который вы можете обратиться по любому вопросу.
-				</div>
+				<h2 class="neteller-footer__title">{{ $t('vip_neteller.form_title') }}</h2>
+				<div class="neteller-footer__info">{{ $t('vip_neteller.form_text') }}</div>
 
 				<payments-form
 					class="neteller-footer__payment"
@@ -228,8 +201,8 @@
 					:skype="manager.skype"
 					:whatsapp="manager.whatsapp"
 					:email="manager.email"
-					label="Остались вопросы? Напишите нам"
-					description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса Skrill"
+					:label="$t('vip_neteller.manager_title')"
+					:description="$t('vip_neteller.manager_info')"
 				/>
 			</div>
 		</div>
@@ -252,15 +225,13 @@
 		mixins: [pageMixin],
 
 		data: () => ({
-			summary:
-				'Neteller - старейший и один из самых популярных у игроков, кошельков для покера. Регистрируете счет в Neteller с Worldpokerdeals сегодня, чтобы получить VIP-обслуживание, льготные условия для получения VIP-статусов и множество других приятных бонусов.',
-
 			manager: null,
 		}),
 
 		computed: {
 			...mapGetters({
 				topList: 'rooms/topList',
+				locale: 'lang/locale',
 			}),
 		},
 
@@ -268,7 +239,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 502,
+						id: this.locale === 'es' ? 664 : 502,
 					},
 				})
 				.then(response => {

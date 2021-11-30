@@ -265,6 +265,7 @@
 		computed: {
 			...mapGetters({
 				topList: 'rooms/topList',
+				locale: 'lang/locale',
 			}),
 		},
 
@@ -272,7 +273,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 502,
+						id: this.locale === 'es' ? 664 : 502,
 					},
 				})
 				.then(response => {

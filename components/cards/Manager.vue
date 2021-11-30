@@ -18,7 +18,7 @@
 				<span v-if="status" class="manager__badge_green">онлайн</span>
 			</div>
 			<div class="manager__messengers">
-				<button-contact size="sm" type="chat">Начать чат</button-contact>
+				<button-contact size="sm" type="chat">{{ $t('start_chat') }}</button-contact>
 				<button-contact size="sm" type="telegram" :href="telegram" rel="nofollow noopener"
 					>Telegram</button-contact
 				>

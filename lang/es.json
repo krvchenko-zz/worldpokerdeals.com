@@ -161,7 +161,7 @@
   "updated_at": "Última actualización",
   "open_acconut": "Crear una cuenta",
   "rooms_entity_label": "salas de póker",
-  "clear_filters": "Очистить фильтры",
+  "clear_filters": "Limpiar filtros",
   "toc": "Contenido",
   "room_news": "{room} news",
   "entity_news": "Noticias de {entity}",
@@ -169,50 +169,50 @@
   "author_contacts": "Contacto del autor",
   "go_to_site": "Sign up",
   "verification": "Verificación",
-  "network_rooms": "Все покер-румы сети {title}",
-  "other_networks": "Другие покерные сети",
+  "network_rooms": "Todas las salas de {title}",
+  "other_networks": "Otras redes de póker",
   "blog_header": "Инсайды индустрии без поп-корна и еще какую-то небольшую подводку чтобы было в 2 строки",
   "all_posts": "Todas las entradas",
   "blog_important": "Importante",
   "from": "de",
   "blog_recent": "Últimas noticias",
   "subscribe": "Suscríbete",
-  "posts_related": "Похожие статьи",
+  "posts_related": "Entradas relacionadas",
   "promotions_entity_label": "promociones",
   "bonuses_entity_label": "Bono",
   "exclusive_only": "Exclusive",
   "promotion_type": "Promotion type",
   "bonus_type": "Bonus type",
   "type": "Tipo",
-  "time_left": "До окончания",
-  "time_before": "До начала",
+  "time_left": "Termina en",
+  "time_before": "Empieza en",
   "time_start": "Начало",
   "time_end": "Окончание",
-  "regularity": "Регулярность",
-  "permanent": "Регулярная",
+  "regularity": "Periodicidad",
+  "permanent": "Regular",
   "exclusive": "Exclusive",
-  "promotions_related": "Похожие акции",
-  "promotion_rooms": "Участвующие румы",
+  "promotions_related": "Promociones relacionadas",
+  "promotion_rooms": "Salas",
   "promotion_recent": "Últimas promociones",
-  "promotion_related": "Похожие акции",
+  "promotion_related": "Promociones relacionadas",
   "get_in": "Участвовать",
   "manager_info": "<ul><li>Ayuda con el acceso</li><li>Ofrecemos el mejor trato</li><li>Damos software gratuito</li><li>Protegemos tus intereses</li></ul>",
-  "show_more_room_promotions": "Показать еще акции {room}",
-  "hide": "Скрыть",
-  "bonuses_related": "Похожие бонусы",
+  "show_more_room_promotions": "Mostrar más promociones { room }",
+  "hide": "Ocultar",
+  "bonuses_related": "Bonos relacionados",
   "screenshots": "Capturas de pantalla",
-  "related_offers": "Похожие предложения",
+  "related_offers": "Ofertas relacionadas",
   "promotions": "Promociones",
-  "close": "Закрыть",
+  "close": "Close",
   "soft_entity_label": "software",
-  "discount": "Скидка",
-  "price": "Стоимость",
-  "soft_related": "Похожий софт",
+  "discount": "Descuento",
+  "price": "Precio",
+  "soft_related": "Software relacionado",
   "connection_modal": {
     "title": "Registra tu cuenta de {room} <br> en Worldpokerdeals!",
     "text": "Participa en nuestras promociones privadas y conviértete <br> en un grinder verificado de WPD!",
     "confirm_title": "Спасибо!",
-    "confirm_info": "Мы отправим уведомление с результатом привязки на электронную почту в течение 3х дней"
+    "confirm_info": "Te actualizaremos sobre el resultado de tu registro en 3 días"
   },
   "blacklist_modal": {
     "title": "¿Representante de la sala?",
@@ -221,15 +221,15 @@
   "form": {
     "email": "E-mail",
     "password": "Contraseña",
-    "name": "Имя",
-    "room_representative": "Игрок/Представитель рума",
+    "name": "Nombre de usuario",
+    "room_representative": "Jugador/Representante de la sala",
     "account_id": "ID Счета",
     "contact_type": "Способ связи",
     "comment": "Вопрос или комментарий",
     "sex": "Пол",
-    "year": "Год рождения",
-    "check_your_id": "Как узнать свой ID?",
-    "how_to_contact": "Как связаться",
+    "year": "Fecha de nacimiento",
+    "check_your_id": "Cómo encontrar tu ID",
+    "how_to_contact": "Contacto",
     "tos": "nuestros términos y condiciones y política de privacidad",
     "accept": "Acepta ",
     "connection_info": "Para registrar tu cuenta, regístrate en WPD",
@@ -238,25 +238,28 @@
     "sign_up_action": "¡Regístrate ahora!",
     "password_reset_text": "Re-establecer contraseña",
     "password_email_text": "E-mail de tu cuenta",
-    "username": "Имя пользователя",
-    "sign_in": "Войти в свой аккаунт",
+    "username": "Nombre de usuario",
+    "sign_in": "Ingresar",
     "sign_in": "Ingresa",
     "sign_in_text": "Ingresa a Worldpokerdeals",
-    "sign_in_action": "Войти в свой аккаунт",
-    "sign_up": "Зарегистрироваться",
-    "sign_up_title": "Регистрация нового <br> пользователя",
+    "sign_in_action": "Ingresar",
+    "sign_up": "Registro",
+    "sign_up_title": "Crear nueva <br> cuenta",
     "sign_up_text": "¿No tienes una cuenta?",
-    "new_account": "Новый счет",
-    "old_account": "Старый",
-    "login": "Логин",
-    "room_email": "Email в руме",
-    "room_username": "Ник в руме",
-    "account_id": "ID аккаунта",
+    "new_account": "Cuenta nueva",
+    "old_account": "Cuenta existente",
+    "ref_account": "ecoPayz по ссылке WPD",
+    "login": "Usuario",
+    "room_email": "E-mail",
+    "room_username": "Nickname",
+    "account_id": "ID de cuenta",
     "connection_action": "Registra tu cuenta",
     "connection_action_text": "Te actualizaremos sobre el resultado de tu registro en 3 días",
     "connection_action_info": "Confirma tu cuenta luego de registrarte a través de nuestro enlace",
     "message": "Mensaje",
-    "send": "Enviar"
+    "send": "Enviar",
+    "join": "Join",
+    "get_access": "Получить доступ"
   },
   "header": {
     "search_form_placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo",
@@ -302,10 +305,10 @@
     "text": "Asistencia personalizada para seleccionar la mejor opción entre 50+ salas y 30+ clubes"
   },
   "sort": {
-    "created_at": "Сначала новые",
-    "rating": "Сначала лучшие",
+    "created_at": "Nuevas",
+    "rating": "Mejores",
     "exclusive": "Сначала эксклюзивные",
-    "price": "По стоимости"
+    "price": "Por precio"
   },
   "blog_banner": {
     "title": "¿Te gusta Worldpokerdeals?",
@@ -322,9 +325,9 @@
     "btn": "Suscríbete"
   },
   "search": {
-    "rooms": "Покер-румы",
+    "rooms": "Salas de póker",
     "networks": "Покерные сети",
-    "posts": "Покерные новости",
+    "posts": "Redes de póker",
     "placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo"
   },
   "age_confirm": {
@@ -360,5 +363,217 @@
     "facebook": "https://www.facebook.com/wpdes",
     "twitter": "https://twitter.com/eswpdcom",
     "telegram": "wpdespanol"
+  },
+  "vip_skrill": {
+    "title": "VIP Skrill",
+    "description": "Skrill es uno de los procesadores de pago más populares para jugadores de póker online. Es seguro y fácil de utilizar. Si creas tu cuenta de Skrill con nosotros tendrás acceso a servicios VIP, soporte dedicado, y muchos otros beneficios",
+    "register": "Registro en Skrill",
+    "vip": "Obtén VIP",
+    "join": "Join",
+    "manager_title": "¿Tienes preguntas? Contáctanos",
+    "manager_info": "Contacta a nuestro manager en cualquier messenger y obtén Skrill VIP",
+    "form_title": "Llena el formulario",
+    "form_text": "Llena el formulario para convertirte en usuario VIP de Skrill y obtener el mejor servicio al cliente con ayuda rápida con problemas",
+    "advantages_title": "Beneficios del <span class='vip-payments-advantages__title--highlight'>estatus VIP en Skrill</span>",
+    "advantages": [
+      "<b>Beneficios</b> de utilizar Skrill",
+      "<b>Soporte</b> vía Skype, Telegram, y E-mail",
+      "<b>Verificación</b> en 24 horas",
+      "<b>1.5% rakeback</b> extra en cualquier sala de póker por 3 meses",
+      "<b>Incremento de límites</b>",
+      "Ayuda para solucionar problemas complejos"
+    ],
+    "features": [
+      {
+        "title": "Quiero crear una cuenta. ¿Qué obtendré?",
+        "description": "Si aún no tienes una cuenta en Skrill, regístrate a través de WPD y obtén bonos exclusivos",
+        "sepa": "solo para países SEPA",
+        "visa": "comisión del 7.5% para retiros de VISA en todos los niveles",
+        "items": [
+          "<b>2 tarjetas Skrill MasterCard prepago</b> (para VIP Silver+)",
+          "<b>0% en comisiones</b> para transferencias internas y retiros a cuentas bancarias",
+          "<b>Soporte VIP</b>"
+        ]
+      },
+      {
+        "title": "Ya tengo una cuenta. ¿Qué me pueden ofrecer?",
+        "description": "Si ya tienes una cuenta de Skrill, puedes unirte a nuestro programa y recibir nuestros bonos y todos los otros beneficios",
+        "info": "Статус даётся один раз при выполнении условий",
+        "items": [
+          "<b>VIP Silver por depósitos de €5000</b> trimestrales",
+          "<b>Incremento de límites</b>",
+          "<b>Soporte VIP</b>"
+        ]
+      }
+    ]
+  },
+  "vip_neteller": {
+    "title": "Neteller VIP",
+    "description": "Neteller es uno de los más antiguos y populares métodos de pago para el juego online. Crea tu cuenta de Neteller con Worldpokerdeals ya y obtén acceso a servicio VIP, requisitos inferiores para obtener niveles VIP, y muchos otros bonos",
+    "register": "Registro en Neteller",
+    "vip": "Obtén VIP",
+    "manager_title": "¿Tienes preguntas? Contáctanos",
+    "manager_info": "Contacta a nuestro manager en cualquier messenger y obtén Neteller VIP",
+    "form_title": "Llena el formulario",
+    "form_text": "Llena el formulario para convertirte en usuario VIP de Neteller y obtener el mejor servicio al cliente con ayuda rápida con problemas",
+    "advantages_title": "Beneficios del <span class='vip-payments-advantages__title--highlight'>estatus VIP en Neteller</span>",
+    "advantages": [
+      "<b>Comisiones más bajas</b>",
+      "<b>Prioridad en verificación de la cuenta</b>",
+      "<b>Incremento de límites</b>",
+      "<b>+1.5% de rakeback</b> en cualquier sala de póker por 3 meses"
+    ],
+    "features": [
+      {
+        "title": "",
+        "info": "Статус даётся один раз при выполнении условий",
+        "items": [
+          "Verificación de cuenta <b>en 24 horas</b>",
+          "<b>VIP Silver</b> por depósitos de $6,000 durante 3 meses",
+          "<b>Estatus VIP exclusivo Bronze PRO</b> (luego de verificación)",
+          "Soporte personalizado en tiempo real",
+          "Soporte con solicitudes poco comunes: transferencias de dinero a otros sistemas, ayuda con depósitos y retiros de grandes sumas de dinero, etc."
+        ]
+      },
+      {
+        "title": "Cuenta regular",
+        "items": [
+          "Verificación de cuenta en 3 días",
+          "VIP Silver por depósitos de $15,000 durante 3 meses",
+          "No",
+          "No",
+          "No"
+        ]
+      }
+    ]
+  },
+  "vip_ecopayz": {
+    "title": "ecoPayz VIP",
+    "register": "Registro en ecoPayz",
+    "vip": "Obtén VIP",
+    "manager_title": "¿Tienes preguntas? Contáctanos",
+    "manager_info": "Contacta a nuestro manager en cualquier messenger y obtén ecoPayz VIP",
+    "form_title": "Llena el formulario",
+    "form_text": "Llena el formulario para convertirte en usuario VIP de ecoPayz y obtener el mejor servicio al cliente con ayuda rápida con problemas",
+    "advantages_title": "Beneficios del <span class='vip-payments-advantages__title--highlight'>estatus VIP en ecoPayz</span>",
+    "description": "ecoPayz es uno de los procesadores de pago más populares para jugadores de póker online. Es seguro y fácil de utilizar. Si creas tu cuenta de ecoPayz con nosotros tendrás acceso a servicios VIP, soporte dedicado, y muchos otros beneficios",
+    "advantages": [
+      "<b>Estatus GOLD</b> por verificación",
+      "<b>1.5% rakeback extra</b> en cualquier sala de póker por 3 meses"
+    ],
+    "benefits": [
+      "Estatus GOLD instantáneo luego de verificar la cuenta",
+      "Cuentas ilimitadas en hasta 45 divisas",
+      "Soporte personalizado",
+      "Estatus VIP por depositar €10,000",
+      "Límites de transacción incrementados",
+      "0% de comisión en transferencias P2P",
+      "Soporte personal",
+      "Depósitos gratuitos vía cuenta bancaria",
+      "Comisión de tarjetas de crédito entre 1,69%-2,90%",
+      "Estatus GOLD",
+      "1.5% rakeback extra en cualquier sala de póker por 3 meses"
+    ],
+    "features_title": "Comparación de las condiciones de estatus VIP",
+    "features": [
+      {
+        "title": "Cliente de <br>Worldpokerdeals",
+        "items": [
+          "Verifica tu cuenta",
+          "Deposita €10,000"
+        ]
+      },
+      {
+        "title": "Cliente regular",
+        "items": [
+          "Verifica tu cuenta",
+          "Verifica tu tarjeta de crédito",
+          "Deposita €5,000 o €2,500 con tarjeta de crédito",
+          "Mantener estatus Silver Eco por 30 días",
+          "Gasta o deposita €25,000 (o equivalente)",
+          "Mantener estatus Platinum por 30 días",
+          "Gasta o deposita €250,000 (o equivalente)"
+        ]
+      }
+    ]
+  },
+  "vip_service": {
+    "title": "Servicio<span></span>VIP",
+    "brand": "de Worldpokerdeals",
+    "extra": "Decisiones EV+ para jugadores desde el 2015",
+    "description": "¿Quieres ser nuestro jugador o socio? Solo juega en nuestras salas de póker y obtén acceso al <b>servicio VIP</b>",
+    "register": "¡Regístrate ahora",
+    "form_title": "¿Tienes preguntas?",
+    "form_text": "Contáctanos para discutir tu caso en particular",
+    "form_contacts": "o déjanos tus datos y te contactaremos al instante",
+    "features": [
+      {
+        "title": "Mánager personal",
+        "text": "Solución de problemas directamente con la sala"
+      },
+      {
+        "title": "Layouts y HUDs gratuitos",
+        "text": "Ahorra hasta $500 por año"
+      },
+      {
+        "title": "Historiales de manos gratuitos",
+        "text": "Redes principales, hasta NL/PLO600"
+      },
+      {
+        "title": "Carreras de rake privadas",
+        "text": "+$30k por mes solo para nuestros jugadores"
+      },
+      {
+        "title": "Acceso a clubes privados",
+        "text": "Tratos EV+ en PokerBros y PPPoker"
+      },
+      {
+        "title": "Salas de USA, Israel, China, e Italia",
+        "text": "Acceso seguro a los sitios más blandos"
+      },
+      {
+        "title": "Niveles VIP en monederos electrónicos",
+        "text": "Incremento de límites inmediato, cashback y soporte"
+      },
+      {
+        "title": "Programa de Referidos y Sub-Afiliado",
+        "text": "Trae a tus amigos y gana una comisión vitalicia"
+      },
+      {
+        "title": "Asesoría sobre cripto e impuestos",
+        "text": "Soluciones financieras seguras para jugadores"
+      },
+      {
+        "title": "Ayuda para huir del invierno en Tailandia, Bali, Turquía, México, Colombia",
+        "text": "Rakeback en bahts tailandeses y asistencia con visa"
+      }
+    ]
+  },
+  "contacts": {
+    "title": "Contáctanos para obtener detalles acerca de tratos secretas y ofertas especiales. ¡Contestamos al instante!",
+    "contacts": "Nuestros messengers y redes sociales"
+  },
+  "restricted": {
+    "title": "Доступ в рум запрещён в вашем регионе по решению Роскомнадзора",
+    "description": "<p>Вам ограничен доступ к данной странице, потому как указанный выше IP находится на территории Российской Федерации.</p><p>Согласно федеральному закону «О лотереях» от 07.03.2018 и федеральному закону «О государственном регулировании деятельности по организации и проведению азартных игр и о внесении изменений в некоторые законодательные акты Российской Федерации» от 27.11.2017 N 358-ФЗ интернет-провайдеры должны блокировать доступ в онлайн покер-румы на территории РФ.</p><p><b>Запрашиваемый покер-рум недоступен для просмотра и скачивания в России.</b></p>",
+    "form_title": "Нужен доступ?",
+    "form_text": "Есть решение – оставь свою электронную почту и получи доступ к руму через 1 минуту",
+    "form_contacts": "Или свяжитесь с нашим менеджером прямо сейчас в чате или мессенджерах"
+  },
+  "register": {
+    "title": "Регистрируйся и получи доступ ко всем закрытым разделам сайта",
+    "info": "Ваша личная информация является строго конфиденциальной и никогда не будет передана кому-либо. Гарантируем.",
+    "form_title": "Сложности с регистрацией? Остались вопросы? Напишите нашему менеджеру",
+    "items": [
+      {
+        "text": "Доступ в закрытые азиатские клубы, статистику рейка, бесплатные хендхистори и приватные офферы"
+      },
+      {
+        "text": "Еженедельная рассылка с секретными предложениями только для зарегистрированных игроков"
+      },
+      {
+        "text": "А также другие ништяки ерименят пость срачнос тродактигает водгото ваютно струменицы! Мени, вать кния."
+      }
+    ]
   }
 }

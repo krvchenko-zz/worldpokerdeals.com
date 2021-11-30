@@ -7,7 +7,7 @@
 		<div class="contacts-form__contacts contacts-form-group">
 			<form-input
 				v-model="form.name"
-				placeholder="Ваше Имя"
+				:placeholder="$t('form.name')"
 				type="text"
 				name="name"
 				label-color="#636363"
@@ -21,7 +21,7 @@
 
 			<form-input
 				v-model="form.email"
-				placeholder="Электронная почта"
+				:placeholder="$t('form.email')"
 				type="email"
 				name="email"
 				label-color="#636363"
@@ -39,7 +39,7 @@
 				<div class="col">
 					<form-textarea
 						v-model="form.message"
-						placeholder="Сообщение или вопрос"
+						:placeholder="$t('form.comment')"
 						name="message"
 						label-color="#636363"
 						:required="true"
@@ -56,10 +56,9 @@
 		<div class="contacts-form-group">
 			<div class="row">
 				<div class="col">
-					<form-checkbox v-model="form.terms">
-						<span style="color: #CCCCCC;"
-							>С <a class="contacts-form__link" href="/terms">условиями</a> отправки
-							и обработки данных согласен</span
+					<form-checkbox v-model="form.terms" :label="$t('form.accept')">
+						<a class="payments-form__link" href="/terms"
+							>{{ $t('form.tos') }}</a
 						>
 					</form-checkbox>
 				</div>
@@ -70,7 +69,7 @@
 			<form-submit-button
 				:disabled="!form.terms || !form.email || !form.name || !form.message"
 				class="btn-block btn-contacts-form"
-				label="Отправить"
+				:label="$t('form.send')"
 				:loading="form.busy"
 			>
 			</form-submit-button>

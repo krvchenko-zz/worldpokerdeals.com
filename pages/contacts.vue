@@ -2,19 +2,14 @@
 	<section class="content content_contacts">
 		<div class="contacts">
 			<div class="contacts__form">
-				<h1 class="contacts__title">
-					Свяжись с нами, чтобы узнать о закрытых сделках и секретных румах.
-					Отвечаем сразу!
-				</h1>
+				<h1 class="contacts__title">{{ $t('contacts.title') }}</h1>
 				<contacts-form />
 			</div>
 
 			<div class="contacts__social">
 				<div v-if="manager" class="contacts-box">
 					<div class="contacts-box__wrap">
-						<h2 class="contacts-box__title">
-							Наши месседжеры и социальные сети
-						</h2>
+						<h2 class="contacts-box__title">{{ $t('contacts.contacts') }}</h2>
 						<div class="contacts-box__buttons">
 							<button-contact
 								icon
@@ -48,7 +43,7 @@
 							/>
 						</div>
 						<div class="contacts-box__email">
-							<p>Электронная почта</p>
+							<p>{{ $t('form.email') }}</p>
 							<a :href="`mailto:${manager.email}`" rel="nofollow noopener">{{ manager.email }}</a>
 						</div>
 					</div>
@@ -60,7 +55,7 @@
 							}"
 							size="md"
 							type="chat"
-							>Начать чат</button-contact
+							>{{ $t('start_chat') }}</button-contact
 						>
 					</div>
 				</div>

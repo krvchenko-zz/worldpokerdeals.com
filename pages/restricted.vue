@@ -7,13 +7,11 @@
 					loading="lazy"
 					class="restricted__logo"
 					src="~assets/i/restricted-logo.png"
-					alt="Доступ в рум запрещён в вашем регионе по решению Роскомнадзора"
+					:alt="$t('restricted.title')"
 				/>
 			</div>
 
-			<h1 class="restricted__title">
-				Доступ в рум запрещён в вашем регионе по решению Роскомнадзора
-			</h1>
+			<h1 class="restricted__title">{{ $t('restricted.title') }}</h1>
 			<div class="restricted__ip">
 				<svg-icon
 					:width="20"
@@ -23,26 +21,7 @@
 				/>
 				<span>{{ country.remote_addr }}</span>
 			</div>
-			<div class="restricted__info">
-				<p>
-					Вам ограничен доступ к данной странице, потому как указанный выше IP
-					находится на территории Российской Федерации.
-				</p>
-				<p>
-					Согласно федеральному закону «О лотереях» от 07.03.2018 и федеральному
-					закону «О государственном регулировании деятельности по организации и
-					проведению азартных игр и о внесении изменений в некоторые
-					законодательные акты Российской Федерации» от 27.11.2017 N 358-ФЗ
-					интернет-провайдеры должны блокировать доступ в онлайн покер-румы на
-					территории РФ.
-				</p>
-				<p>
-					<b
-						>Запрашиваемый покер-рум недоступен для просмотра и скачивания в
-						России.</b
-					>
-				</p>
-			</div>
+			<div class="restricted__info" v-html="$t('restricted.description')"></div>
 			<!-- <contacts-form /> -->
 
 			<div class="restricted__manager">
@@ -52,22 +31,16 @@
 							<div class="restricted-box__icon">
 								<svg-icon icon="get-access" />
 							</div>
-							<h2 class="restricted-box__title">Нужен доступ?</h2>
-							<div class="restricted-box__info">
-								Есть решение – оставь свою электронную почту и получи доступ к
-								руму через 1 минуту
-							</div>
+							<h2 class="restricted-box__title">{{ $t('restricted.form_title') }}</h2>
+							<div class="restricted-box__info">{{ $t('restricted.form_text') }}</div>
 						</div>
 
 						<div class="restricted-box__body">
 							<restricted-form />
-							<div class="restricted-box__messengers">
-								Или свяжитесь с нашим менеджером прямо сейчас в чате или
-								мессенджерах
-							</div>
+							<div class="restricted-box__messengers">{{ $t('restricted.form_contacts') }}</div>
 							<div class="restricted-box__buttons">
 								<button-contact style="padding: 0 32px;" size="md" type="chat"
-									>Начать чат</button-contact
+									>{{ $t('start_chat') }}</button-contact
 								>
 								<button-contact
 									icon

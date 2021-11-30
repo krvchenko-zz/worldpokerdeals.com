@@ -169,49 +169,49 @@
   "author_contacts": "Contacts",
   "go_to_site": "Sign up",
   "verification": "Verification",
-  "network_rooms": "Все покер-румы сети {title}",
-  "other_networks": "Другие покерные сети",
+  "network_rooms": "All rooms of {title}",
+  "other_networks": "Other poker networks",
   "blog_header": "Инсайды индустрии без поп-корна и еще какую-то небольшую подводку чтобы было в 2 строки",
   "all_posts": "All posts",
   "blog_important": "Important",
   "from": "from",
   "blog_recent": "Latest news",
-  "posts_related": "Похожие статьи",
+  "posts_related": "Related posts",
   "promotions_entity_label": "promotions",
   "bonuses_entity_label": "bonuses",
   "exclusive_only": "Exclusive",
   "promotion_type": "Promotion type",
   "bonus_type": "Bonus type",
   "type": "Type",
-  "time_left": "До окончания",
-  "time_before": "До начала",
+  "time_left": "Ends on",
+  "time_before": "Starts on",
   "time_start": "Начало",
   "time_end": "Окончание",
-  "regularity": "Регулярность",
-  "permanent": "Регулярная",
+  "regularity": "Regularity",
+  "permanent": "Regular",
   "exclusive": "Exclusive",
-  "promotions_related": "Похожие акции",
-  "promotion_rooms": "Участвующие румы",
+  "promotions_related": "Related promotions",
+  "promotion_rooms": "Rooms ",
   "promotion_recent": "Latest promotions",
-  "promotion_related": "Похожие акции",
-  "get_in": "Участвовать",
+  "promotion_related": "Related promotions",
+  "get_in": "Sign in",
   "manager_info": "<ul><li>Help with accessing</li><li>Offer the best deal</li><li>Provide free software</li><li>Protect your interests</li></ul>",
-  "show_more_room_promotions": "Показать еще акции {room}",
-  "hide": "Скрыть",
-  "bonuses_related": "Похожие бонусы",
+  "show_more_room_promotions": "Show more promotions { room }",
+  "hide": "Hide",
+  "bonuses_related": "Related bonuses",
   "screenshots": "Screenshots",
-  "related_offers": "Похожие предложения",
+  "related_offers": "Related offers",
   "promotions": "Promotions",
   "close": "Закрыть",
   "soft_entity_label": "software",
-  "discount": "Скидка",
-  "price": "Стоимость",
-  "soft_related": "Похожий софт",
+  "discount": "Discount",
+  "price": "Price",
+  "soft_related": "Related software",
   "connection_modal": {
     "title": "Tag your {room} account <br> to Worldpokerdeals!",
     "text": "Take part in our private promotions <br> and become a verified WPD-grinder!",
     "confirm_title": "Спасибо!",
-    "confirm_info": "Мы отправим уведомление с результатом привязки на электронную почту в течение 3х дней"
+    "confirm_info": "We'll inform you about your tracking results during 3 days"
   },
   "blacklist_modal": {
     "title": "Room Representative?",
@@ -220,15 +220,15 @@
   "form": {
     "email": "E-mail",
     "password": "Password",
-    "name": "Имя",
-    "room_representative": "Игрок/Представитель рума",
+    "name": "Name",
+    "room_representative": "Player/Room representative",
     "account_id": "ID Счета",
     "contact_type": "Способ связи",
     "comment": "Вопрос или комментарий",
     "sex": "Пол",
-    "year": "Год рождения",
-    "check_your_id": "Как узнать свой ID?",
-    "how_to_contact": "Как связаться",
+    "year": "Date of birth",
+    "check_your_id": "How to find your ID?",
+    "how_to_contact": "Your contacts",
     "tos": "our terms & conditions and privacy policy",
     "accept": "Accept ",
     "connection_info": "To tag your account, please sign in to WPD",
@@ -238,24 +238,26 @@
     "sign_up_action": "Sign up now!",
     "password_reset_text": "Reset Password",
     "password_email_text": "E-mail of your account",
-    "username": "Имя пользователя",
-    "sign_in": "Войти в свой аккаунт",
+    "username": "Username",
     "sign_in": "Sign in",
     "sign_in_text": "Sign in to Worldpokerdeals",
-    "sign_in_action": "Войти в свой аккаунт",
-    "sign_up": "Зарегистрироваться",
-    "sign_up_title": "Регистрация нового <br> пользователя",
-    "new_account": "Новый счет",
-    "old_account": "Старый",
-    "login": "Логин",
-    "room_email": "Email в руме",
-    "room_username": "Ник в руме",
-    "account_id": "ID аккаунта",
+    "sign_in_action": "Sign in",
+    "sign_up": "Sign up",
+    "sign_up_title": "Create new <br> account",
+    "new_account": "New account",
+    "old_account": "Existing account",
+    "ref_account": "Старый",
+    "login": "Username",
+    "room_email": "Account E-mail",
+    "room_username": "Nickname",
+    "account_id": "Nickname",
     "connection_action": "Tag your account",
     "connection_action_text": "We'll inform you about your tracking results during 3 days",
     "connection_action_info": "Confirm your account tracking after signing up via our link",
-    "message": "Сообщение",
-    "send": "Send"
+    "message": "Message",
+    "send": "Send",
+    "join": "Join",
+    "get_access": "Получить доступ"
   },
   "header": {
     "search_form_placeholder": "Find anything, GGpoker, for example",
@@ -301,10 +303,10 @@
     "text": "Personal assistance with choosing the best option from 50+ rooms and 30+ clubs"
   },
   "sort": {
-    "created_at": "Сначала новые",
-    "rating": "Сначала лучшие",
+    "created_at": "Newest",
+    "rating": "Best",
     "exclusive": "Сначала эксклюзивные",
-    "price": "По стоимости"
+    "price": "By price"
   },
   "blog_banner": {
     "title": "Like Worldpokerdeals?",
@@ -321,9 +323,9 @@
     "btn": "Subscribe"
   },
   "search": {
-    "rooms": "Покер-румы",
-    "networks": "Покерные сети",
-    "posts": "Покерные новости",
+    "rooms": "Poker rooms",
+    "networks": "Poker networks",
+    "posts": "Poker news",
     "placeholder": "Find anything, GGpoker, for example"
   },
   "age_confirm": {
@@ -359,5 +361,300 @@
     "facebook": "https://www.facebook.com/worldpokerdealsRu",
     "twitter": "https://twitter.com/worldpokerdeals",
     "telegram": "wpdenglish"
+  },
+  "vip_skrill": {
+    "title": "VIP Skrill",
+    "description": "Skrill is one of the most popular payment systems for online poker players. It's safe and easy to use. If you create your Skrill account via us you will get VIP service, on time support and many other features.",
+    "register": "Skrill sign up",
+    "vip": "Get VIP",
+    "join": "Join",
+    "manager_title": "Still have questions? Contact us",
+    "manager_info": "Contact our manager in any messenger and get VIP Skrill",
+    "form_title": "Fill the form",
+    "form_text": "Fill the form to become a VIP Skrill member and get the best service and fast support with any issues",
+    "advantages_title": "Benefits of getting Skrill VIP-status",
+    "advantages": [
+      "<b>Benefits</b> of using Skrill",
+      "<b>Support</b> via Skype, Telegram and E-mail",
+      "<b>Verification</b> in 24 hours",
+      "<b>1.5% extra rakeback</b> in any poker room for 3 months",
+      "<b>Limits increase</b>",
+      "Help in solving disputes within 24 hours"
+    ],
+    "features": [
+      {
+        "title": "I want to create an account. What will I get?",
+        "description": "If you don't have a Skrill account yet, sign up via WPD and get exclusive bonuses",
+        "sepa": "for customers from SEPA countries only",
+        "visa": "7.5% fee for VISA withdrawals for all statuses",
+        "items": [
+          "<b>2 free prepaid Skrill MasterCards</b> (for VIP Silver +)",
+          "<b>0% fee</b> for inter-account transfers and withdrawals to bank account",
+          "<b>VIP support</b>"
+        ]
+      },
+      {
+        "title": "I already have an account. What can you offer?",
+        "description": "If you already have a Skrill account, just join our program, receive our bonuses and all other benefits",
+        "info": "Статус даётся один раз при выполнении условий",
+        "items": [
+          "<b>VIP Silver for 5000 EUR</b> deposits/quarter",
+          "<b>Increased limits</b>",
+          "<b>VIP support</b>"
+        ]
+      }
+    ]
+  },
+  "vip_neteller": {
+    "title": "Neteller VIP",
+    "description": "Neteller is the oldest and one of the most popular payment methods for online gambling. Create your Neteller account via Worldpokerdeals today and get access to VIP services, lower requirements for earning VIP statuses and many other bonuses",
+    "register": "Neteller sign up",
+    "vip": "Get VIP",
+    "manager_title": "Still have questions? Contact us",
+    "manager_info": "Contact our manager in any messenger and get VIP Neteller",
+    "form_title": "Fill the form",
+    "form_text": "Fill the form to become a VIP Neteller member and get the best service and fast support with any issues",
+    "advantages_title": "Benefits of <span class='vip-payments-advantages__title--highlight'>Neteller VIP-status</span>",
+    "advantages": [
+      "<b>Lower transaction fees</b>",
+      "<b>Prioritized account verification</b>",
+      "<b>Increased limits</b>",
+      "<b>+1.5% Rakeback</b> in any poker room for 3 months"
+    ],
+    "features": [
+      {
+        "title": "",
+        "info": "Статус даётся один раз при выполнении условий",
+        "items": [
+          "Account verification <b>in 24 hours</b>",
+          "<b>VIP Silver</b> for $6000 deposits during 3 months",
+          "<b>Exclusive Bronze Pro VIP status</b> (after verification)",
+          "Personal real-time support",
+          "Dealing with non-standard requests: money transfers to other systems, help with deposits and withdrawals of large amounts of money etc."
+        ]
+      },
+      {
+        "title": "Regular account",
+        "items": [
+          "Account verification for 3+ days",
+          "VIP Silver for $15000 deposits during 3 months",
+          "No",
+          "No",
+          "No"
+        ]
+      }
+    ]
+  },
+  "vip_ecopayz": {
+    "title": "ecoPayz VIP",
+    "description": "EcoPayz is one of the most popular payment systems for online poker players. It's safe and easy to use. If you create your EcoPayz account via is you will be able to get VIP service, on time support and many other features.",
+    "register": "ecoPayz sign up",
+    "vip": "Get VIP",
+    "manager_title": "Still have questions? Contact us",
+    "manager_info": "Contact our manager in any messenger and get VIP ecoPayz",
+    "form_title": "Fill the form",
+    "form_text": "Fill the form to become a VIP ecoPayz member and get the best service and fast support with any issues",
+    "advantages_title": "Benefits of <span class='vip-payments-advantages__title--highlight'>ecoPayz VIP-status</span>",
+    "advantages": [
+      "<b>GOLD status</b> for verification",
+      "<b>1.5% extra rakeback</b> in any poker room for 3 months"
+    ],
+    "benefits": [
+      "Instant GOLD status after account verification",
+      "Unlimited accounts in up to 45 currencies",
+      "Personal support",
+      "VIP-status for €10 000 in deposits",
+      "Increased transaction limits",
+      "0% fee for P2P transfers",
+      "Personal support",
+      "Free deposits via bank transfer",
+      "1,69%-2,90% fees for credit card deposits",
+      "GOLD status",
+      "1.5% extra rakeback in any poker room for 3 months"
+    ],
+    "features_title": "Comparison of VIP-statuses conditions",
+    "features": [
+      {
+        "title": "Worldpokerdeals <br> customer",
+        "items": [
+          "Complete your account verification",
+          "Deposit €10 000"
+        ]
+      },
+      {
+        "title": "Regular customer",
+        "items": [
+          "Complete your account verification",
+          "Verify your credit card",
+          "Deposit €5000 or €2500 via credit card",
+          "Keep SIlver Eco status for 30 days",
+          "Spend or deposit € 25 000 (or equivalent)",
+          "Keep Platinum status for 30 days",
+          "Spend or deposit € 250 000 (or equivalent)"
+        ]
+      }
+    ]
+  },
+  "vip_service": {
+    "title": "VIP<span></span>Service",
+    "brand": "by Worldpokerdeals",
+    "extra": "EV decisions for players from 2015",
+    "description": "Want to become our player or partner? Just play in our poker rooms and get access to our <b>VIP service</b>",
+    "register": "Sign up",
+    "form_title": "Have questions?",
+    "form_text": "Contact us to discuss your personal conditions",
+    "form_contacts": "or leave your contacts and we'll reach you asap",
+    "features": [
+      {
+        "title": "Personal manager",
+        "text": "Solving problems directly with rooms"
+      },
+      {
+        "title": "Free HUDs and layouts",
+        "text": "Save up to $500/year"
+      },
+      {
+        "title": "Free hand histories",
+        "text": "Major networks, up to NL/PLO600"
+      },
+      {
+        "title": "Private rake races",
+        "text": "$30k+ per month only for our players"
+      },
+      {
+        "title": "Access to private clubs",
+        "text": "EV+ deals in Pokerbros and PPPoker"
+      },
+      {
+        "title": "American, Israeli, and Italian rooms",
+        "text": "Safe access and fishiest fields"
+      },
+      {
+        "title": "VIP statuses for e-wallets",
+        "text": "Immediate levels increase, cashback and support"
+      },
+      {
+        "title": "TAF and Sub-affiliate",
+        "text": "Bring your friends and earn a lifetime share"
+      },
+      {
+        "title": "Consultation about taxes and crypto",
+        "text": "Safe financial solutions for players"
+      },
+      {
+        "title": "Help with wintering in Thailand, Bali, Turkey",
+        "text": "Rakeback in Thai bahts and visa assistance"
+      }
+    ]
+  },
+  "our_team": {
+    "title": "Who are we?",
+    "cite": "<b>After 6 years as a professional heads up cash player, I understood how important choosing the right game is and I was always in search of the softest rooms with less competition from my Holdem Manager brothers</b>",
+    "cite_name": "Rodion Longa",
+    "cite_longa": "Longa is here - head and responsible for everything happening on Worldpokerdeals",
+    "history_title": "История Worldpokerdeals",
+    "form_title": "Have questions? Contact us",
+    "form_contacts": "Our reach us via social",
+    "text": [
+      "We are a team of poker players and managers registered in the UK under the brand name BOSSLIKE GAMING LP living and traveling around the world - South-Eastern Asia United States, Europe, Ukraine, Russia and South America searching for new emotions and good action",
+      "Our story began in 2014 as a personal blog and a small self-made website with few Asian poker rooms",
+      "That's how the idea was born. The objective of creating a service which allows to play in amateur games with full setup of necessary things: money transactions, software, free HHs, guarantees, VPN's and the most important - World's best support for players",
+      "Since then, we have come a long way: our team has grown, new networks, deals and offers were added. In 2017 we entered the US and Lat. American markets. In 2019 we won 2 nominations at iGB Awards in London: as Best Poker Website and Best Non-English Affiliate Website",
+      "Today we offer the widest setup of networks and rooms; VIP-services for grinders and the only trustable and safe service for playing in poker apps and private clubs."
+    ],
+    "history": [
+      {
+        "title": "Регистрация домена",
+        "text": "Был зарегистрирован домен worldpokerdeals.com"
+      },
+      {
+        "title": "Начало авторского блога",
+        "text": "Первые посты и размещение нескольких азиатских румов"
+      },
+      {
+        "title": "Первая версия сайта",
+        "text": "Мно всех полят вате применить ко дейсть колять отменивнению в контекс"
+      },
+      {
+        "title": "Набирается команда Worldpokerdeals",
+        "text": ""
+      },
+      {
+        "title": "Выход на рынки Америки, Латинской Америки и Европы",
+        "text": "Мно всех полят вате применить ко дейсть колять отменивнению в контекс"
+      },
+      {
+        "title": "Нументные вать и вывать и свода веровто",
+        "text": "Мнострабойте веримень прогладется блицы можется срачновает аботы зате полько ствия"
+      },
+      {
+        "title": "Запуск собственной партнерской программы",
+        "text": "Мно всех полят вате применить ко дейсть колять отменивнению в контекс"
+      },
+      {
+        "title": "Получение премии на iGB Awards",
+        "text": "Премия в номинациях лучший покерный сайт и лучший зарубежный аффилейт"
+      },
+      {
+        "title": "Обновление структуры и дизайна сайта",
+        "text": ""
+      },
+      {
+        "title": "Пережили пандемию COVID-19",
+        "text": "Премия в номинациях лучший покерный сайт и лучший зарубежный аффилейт"
+      },
+      {
+        "title": "Организация первого покерного турнира на марсе",
+        "text": ""
+      }
+    ],
+    "principles": {
+      "title": "Our principles",
+      "items": [
+        {
+          "title": "Giving Value",
+          "text": "Our goal is to provide the world's best conditions for our players and partners"
+        },
+        {
+          "title": "Not hiding our faces",
+          "text": "The reliability of a poker affiliate mostly depends on the public image of its team We have real and experienced people behind our service"
+        },
+        {
+          "title": "Having fun",
+          "text": "We do our job with pleasure because we earn by helping others to earn"
+        },
+        {
+          "title": "Living actively",
+          "text": "We enjoy working, but we also like to live a full life: practicing sports, playing videogames, hosting techno parties and of course — traveling"
+        }
+      ]
+    }
+  },
+  "contacts": {
+    "title": "Contact us to get details about secret deals and offers. We reply immediately!",
+    "contacts": "Our messengers and social media"
+  },
+  "restricted": {
+    "title": "Доступ в рум запрещён в вашем регионе по решению Роскомнадзора",
+    "description": "<p>Вам ограничен доступ к данной странице, потому как указанный выше IP находится на территории Российской Федерации.</p><p>Согласно федеральному закону «О лотереях» от 07.03.2018 и федеральному закону «О государственном регулировании деятельности по организации и проведению азартных игр и о внесении изменений в некоторые законодательные акты Российской Федерации» от 27.11.2017 N 358-ФЗ интернет-провайдеры должны блокировать доступ в онлайн покер-румы на территории РФ.</p><p><b>Запрашиваемый покер-рум недоступен для просмотра и скачивания в России.</b></p>",
+    "form_title": "Нужен доступ?",
+    "form_text": "Есть решение – оставь свою электронную почту и получи доступ к руму через 1 минуту",
+    "form_contacts": "Или свяжитесь с нашим менеджером прямо сейчас в чате или мессенджерах"
+  },
+  "register": {
+    "title": "Регистрируйся и получи доступ ко всем закрытым разделам сайта",
+    "info": "Ваша личная информация является строго конфиденциальной и никогда не будет передана кому-либо. Гарантируем.",
+    "form_title": "Сложности с регистрацией? Остались вопросы? Напишите нашему менеджеру",
+    "items": [
+      {
+        "text": "Доступ в закрытые азиатские клубы, статистику рейка, бесплатные хендхистори и приватные офферы"
+      },
+      {
+        "text": "Еженедельная рассылка с секретными предложениями только для зарегистрированных игроков"
+      },
+      {
+        "text": "А также другие ништяки ерименят пость срачнос тродактигает водгото ваютно струменицы! Мени, вать кния."
+      }
+    ]
   }
 }

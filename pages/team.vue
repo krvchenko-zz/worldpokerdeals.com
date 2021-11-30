@@ -4,7 +4,7 @@
 			<div class="team-top"></div>
 
 			<div class="team-managers">
-				<h1 class="team-managers__title">Наша команда</h1>
+				<h1 class="team-managers__title">{{ $t('menu.our_team') }}</h1>
 				<!-- <team-list> -->
 				<div class="team-managers__list">
 					<team-item
@@ -27,91 +27,26 @@
 
 			<article class="team-about">
 				<div class="team-about__text">
-					<h2 class="team-about__title">Кто мы такие?</h2>
-					<div class="team-about__summary">
-						Мы — компания креативных покерных игроков и менеджеров,
-						зарегистрированная в Великобритании под брендом "BOSSLIKE GAMING
-						LP", расселенная и путешествующая по всему миру — Юго-Восточной
-						Азии, Америке, Европе, Украине, России и даже Южной Америке в
-						поисках крутых эмоций и хорошей игры.
-					</div>
-					<p>
-						Наш проект начался в 2014 году, как авторский блог и небольшой
-						самодельный сайт с несколькими азиатскими покер-румами.
-					</p>
+					<h2 class="team-about__title">{{ $t('our_team.title') }}</h2>
+					<div class="team-about__summary" v-html="$t('our_team.text.0')"></div>
+					<p v-html="$t('our_team.text.1')"></p>
 					<blockquote class="blockquote blockquote_img">
 						<div class="blockquote__img">
 							<img
 								src="https://media.worldpokerdeals01.com/images/manager-small/d89efd0343de59bb68cec06e721343a0.jpg"
 							/>
 						</div>
-						<p class="blockquote__author">Родион Лонга:</p>
-						<p>
-							<b
-								>«Отыграв в Heads Up Cash профессионально на протяжении 6 лет, я
-								всегда понимал влияние гейм-селекта на винрейт и находился в
-								поиске «мягких» румов с невысокой конкуренцией со стороны
-								собратьев по Холдем Менеджеру»</b
-							>
-						</p>
+						<p class="blockquote__author">{{ $t('our_team.cite_name') }}</p>
+						<p v-html="$t('our_team.cite')"></p>
 					</blockquote>
-					<p>
-						Это породило идею — создать проект, который даст возможность катать
-						в наиболее «лояльных» составах, получая весь «пакет» по доступу и
-						сопровождению игры: финансовые операции, необходимый софт,
-						бесплатный майнинг, гарантии на депозиты, VPN-сервисы, а главное —
-						<b>лучший саппорт доступный на рынке покерных аффилейтов.</b>
-					</p>
+					<p v-html="$t('our_team.text.2')"></p>
 					<div class="team-about-sep">
 						<span class="team-about-sep__item"></span>
 						<span class="team-about-sep__item"></span>
 						<span class="team-about-sep__item"></span>
 					</div>
-					<p>
-						С тех пор мы прошли долгий путь: росла наша команда, добавлялись
-						новые сети, сделки, условия. В 2017 мы
-						<b>вышли на рынки Америки, Латинской Америки и Европы.</b>В 2019
-						году <b>получили две премии на церемонии iGB Awards в Лондоне</b>,
-						как лучший покерный сайт и лучший зарубежный аффилейт.
-					</p>
-					<p>
-						На сегодняшний день мы, без скромности, предлагаем самый широкий
-						<nuxt-link
-							v-slot="{ href, route, navigate, isActive, isExactActive }"
-							prefetch
-							:to="{
-								name: 'index',
-								params: { parent: 'online-poker-networks' },
-							}"
-						>
-							<a :href="href" @click="navigate">выбор сетей</a>,
-						</nuxt-link>
-						<nuxt-link
-							v-slot="{ href, route, navigate, isActive, isExactActive }"
-							prefetch
-							:to="{
-								name: 'index',
-								params: {
-									parent: 'rakeback-deals',
-									child: 'best-poker-rooms-2020',
-								},
-							}"
-						>
-							<a :href="href" @click="navigate">румов</a>,
-						</nuxt-link>
-						<nuxt-link
-							v-slot="{ href, route, navigate, isActive, isExactActive }"
-							prefetch
-							:to="{ name: 'vip' }"
-						>
-							<a :href="href" @click="navigate">VIP-сервис</a>
-						</nuxt-link>
-						для фулл-тайм игроков, и самое главное —
-						<b
-							>единственный трастовый сервис для игры в приложениях и частных
-							клубах.</b
-						>
-					</p>
+					<p v-html="$t('our_team.text.3')"></p>
+					<p v-html="$t('our_team.text.4')"></p>
 				</div>
 
 				<div class="team-about__picture team-picture">
@@ -126,14 +61,11 @@
 						class="team-picture__blockquote"
 						cite="http://example.com/facts"
 					>
-						<p>
-							Лонга на связи — главный и ответственный за все, что происходит на
-							Worldpokerdeals
-						</p>
+						<p v-html="$t('our_team.cite_longa')"></p>
 					</blockquote>
 				</div>
 				<div class="team-about__history team-history">
-					<h2 class="team-history__label">История Worldpokerdeals</h2>
+					<h2 class="team-history__label">{{ $t('our_team.history_title') }}</h2>
 					<ul class="team-history__list">
 						<li
 							v-for="(item, index) in history"
@@ -186,7 +118,7 @@
 			</div>
 
 			<div class="team-features">
-				<div class="team-features__title">Наши принципы</div>
+				<div class="team-features__title">{{ $t('our_team.principles.title') }}</div>
 				<div class="team-feature__list">
 					<div
 						class="team-feature"
@@ -201,14 +133,14 @@
 							alt="our team"
 						/>
 						<div class="team-feature__wrap">
-							<div class="team-feature__title" v-html="item.title"></div>
-							<div class="team-feature__text">{{ item.text }}</div>
+							<div class="team-feature__title" v-html="$t(item.title)"></div>
+							<div class="team-feature__text">{{ $t(item.text) }}</div>
 						</div>
 					</div>
 				</div>
 
 				<div>
-					<div class="team-numbers__title">Мы в цифрах</div>
+					<div class="team-numbers__title">{{ $t('our_numbers') }}</div>
 					<div class="team-numbers">
 						<div class="team-numbers__wrap">
 							<div
@@ -217,7 +149,7 @@
 								class="team-number"
 							>
 								<span class="team-number__value">{{ item.value }}</span>
-								<span class="team-number__label" v-html="item.label"></span>
+								<span class="team-number__label" v-html="$t(item.label)"></span>
 							</div>
 						</div>
 					</div>
@@ -226,16 +158,13 @@
 
 			<div class="team-contacts">
 				<div class="team-contacts__title">
-					Остались вопросы? Напишите нам
+					{{ $t('our_team.form_title') }}
 				</div>
 
 				<contacts-form class="team-contacts__contacts" style="margin: 0;" />
 
 				<div class="team-contacts__social">
-					<div class="team-contacts__info">
-						Или свяжитесь с нами в социальных<br />сетях, мессенджерах или
-						онлайн чате
-					</div>
+					<div class="team-contacts__info" v-html="$t('our_team.form_contacts')"></div>
 					<div
 						v-if="managers && managers.length"
 						class="team-contacts__buttons"
@@ -284,7 +213,7 @@
 						/>
 					</div>
 					<button-contact block size="md" type="chat" style="max-width: 208px; height: initial; width: initial;"
-						>Начать чат</button-contact
+						>{{ $t('start_chat') }}</button-contact
 					>
 				</div>
 			</div>
@@ -373,50 +302,46 @@
 
 			features: [
 				{
-					title: 'Давать<br>велью',
-					text:
-						'Наша цель — обеспечивать игроков и партнёров лучшими условиями, чем они могли бы получить в любом другом месте',
+					title: 'our_team.principles.items.0.title',
+					text: 'our_team.principles.items.0.text',
 				},
 				{
-					title: 'Не прятать<br>лиц',
-					text:
-						'Надежность аффилейта во многом определяется публичностью его команды. За нашим сервисом всегда стоят реальные люди с большим покерным бэкграундом',
+					title: 'our_team.principles.items.1.title',
+					text: 'our_team.principles.items.1.text',
 				},
 				{
-					title: 'Получать<br>фан',
-					text:
-						'Мы занимаемся своей работой с удовольствием, потому что наживаем на том, что помогаем наживать другим',
+					title: 'our_team.principles.items.2.title',
+					text: 'our_team.principles.items.2.text',
 				},
 				{
-					title: 'Жить<br>активно',
-					text:
-						'Мы любим работать, но еще больше обожаем отдыхать: заниматься спортом, играть в мафию, устраивать техно-вечеринки и, конечно, путешествовать',
+					title: 'our_team.principles.items.3.title',
+					text: 'our_team.principles.items.3.text',
 				},
 			],
 
 			numbers: [
 				{
-					label: 'Лет на <br> рынке',
+					label: 'our_numbers_years',
 					value: '7',
 				},
 				{
-					label: 'Покерныx <br> румов',
+					label: 'our_numbers_rooms',
 					value: '150',
 				},
 				{
-					label: 'Клубов',
+					label: 'our_numbers_clubs',
 					value: '26',
 				},
 				{
-					label: 'Партнеров',
+					label: 'our_numbers_partners',
 					value: '70',
 				},
 				{
-					label: 'Активныx <br> игроков',
+					label: 'our_numbers_active',
 					value: '10 000',
 				},
 				{
-					label: 'Аффилейт-менеджеров <br> в команде',
+					label: 'our_numbers_managers',
 					value: '10',
 				},
 			],

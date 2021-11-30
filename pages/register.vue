@@ -2,9 +2,7 @@
 	<section class="content content_register">
 		<div class="register">
 			<div class="register__content">
-				<h1 class="register__title">
-					Регистрируйся и получи доступ ко всем закрытым разделам сайта
-				</h1>
+				<h1 class="register__title">{{ $t('register.title') }}</h1>
 				<ul class="register-list">
 					<li
 						v-for="(item, index) in features"
@@ -12,20 +10,14 @@
 						class="register-list__item"
 					>
 						<svg-icon class="register-list__icon" :icon="item.icon" />
-						<span class="register-list__title">{{ item.title }}</span>
+						<span class="register-list__title">{{ $t(item.title) }}</span>
 					</li>
 				</ul>
 
-				<div class="register__info">
-					Ваша личная информация является строго конфиденциальной и никогда не
-					будет передана кому-либо. Гарантируем.
-				</div>
+				<div class="register__info">{{ $t('register.info') }}</div>
 
 				<div class="register-info">
-					<p>
-						Сложности с регистрацией? Остались вопросы? Напишите нашему
-						менеджеру
-					</p>
+					<p>{{ $t('register.form_title') }}</p>
 					<div class="register-info__buttons">
 						<button-contact
 							size="md"
@@ -33,7 +25,7 @@
 							:style="{
 								padding: '0 40px',
 							}"
-							>Начать чат</button-contact
+							>{{ $t('start_chat') }}</button-contact
 						>
 						<button-contact
 							icon
@@ -95,18 +87,15 @@
 			features: [
 				{
 					icon: 'register-access',
-					title:
-						'Доступ в закрытые азиатские клубы, статистику рейка, бесплатные хендхистори и приватные офферы',
+					title: 'register.items.0.text',
 				},
 				{
 					icon: 'register-news',
-					title:
-						'Еженедельная рассылка с секретными предложениями только для зарегистрированных игроков',
+					title: 'register.items.1.text',
 				},
 				{
 					icon: 'register-other',
-					title:
-						'А также другие ништяки ерименят пость срачнос тродактигает водгото ваютно струменицы! Мени, вать кния.',
+					title: 'register.items.2.text',
 				},
 			],
 		}),
@@ -115,7 +104,6 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						// id: 27,
 						id: 502,
 					},
 				})

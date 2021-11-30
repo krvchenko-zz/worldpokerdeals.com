@@ -14,7 +14,7 @@
 					:key="index"
 					:required="true"
 					v-model="form.account_type"
-					:label="item.label"
+					:label="$t(item.label)"
 					:value="item.value"
 				/>
 			</form-radio-group>
@@ -27,7 +27,7 @@
 			<div class="payments-form__credentials__email">
 				<form-input
 					v-model="form.email"
-					placeholder="Электронная почта"
+					:placeholder="$t('form.email')"
 					type="email"
 					name="email"
 					label-color="#636363"
@@ -43,7 +43,7 @@
 			<div class="payments-form__credentials__account-id">
 				<form-input
 					v-model="form.account_id"
-					placeholder="ID Счета"
+					:placeholder="$t('form.account_id')"
 					type="text"
 					name="account_id"
 					label-color="#636363"
@@ -58,7 +58,7 @@
 					v-if="type === 'skrill' || type === 'neteller'"
 					href="/skrill_find_id.webp"
 					class="payments-form__link payments-form__credentials__id-link lightbox"
-					>Как узнать свой ID?</a
+					>{{ $t('form.check_your_id') }}</a
 				>
 			</div>
 
@@ -78,7 +78,7 @@
 							class="payments-form__credentials__select"
 							v-model="form.contact_type"
 							:options="contact_options"
-							placeholder="Способ связи"
+							:placeholder="$t('form.contact_type')"
 							name="contact_type"
 							label-color="#636363"
 							:loading="form.busy"
@@ -95,7 +95,7 @@
 		<div class="payments-form-group">
 			<form-textarea
 				v-model="form.comment"
-				placeholder="Вопрос или комментарий"
+				:placeholder="$t('form.comment')"
 				name="comment"
 				label-color="#636363"
 				:required="true"
@@ -108,9 +108,9 @@
 		</div>
 
 		<div class="payments-form-group">
-			<form-checkbox v-model="form.terms" label="Принимаю">
+			<form-checkbox v-model="form.terms" :label="$t('form.accept')">
 				<a class="payments-form__link" href="/terms"
-					>условия передачи и хранения данных</a
+					>{{ $t('form.tos') }}</a
 				>
 			</form-checkbox>
 		</div>
@@ -119,7 +119,7 @@
 			<form-submit-button
 				:disabled="!form.terms || !form.account_id || !form.contact"
 				class="btn-payments-form"
-				label="Присоединиться"
+				:label="$t('form.join')"
 				:loading="form.busy"
 			>
 			</form-submit-button>
@@ -168,15 +168,15 @@
 				default: () => {
 					return [
 						{
-							label: 'Создал счет',
+							label: 'form.new_account',
 							value: 'new',
 						},
 						{
-							label: 'ecoPayz по ссылке WPD',
+							label: 'form.ref_account',
 							value: 'ref',
 						},
 						{
-							label: 'Уже был счет',
+							label: 'form.old_account',
 							value: 'old',
 						},
 					]

@@ -3,14 +3,11 @@
 		<div class="vip">
 			<div class="vip__inner">
 				<div class="vip-header">
-					<h1 class="vip__title">VIP<span></span>Сервис</h1>
-					<div class="vip__brand">От Worldpokerdeals</div>
-					<div class="vip__extra">+EV решения для игроков с 2015 года</div>
-					<div class="vip__description">
-						Хочешь стать нашим игроком или партнёром? Начинай играть в
-						покер-румах с нами и получи доступ к нашим <b>VIP-услугам</b>
-					</div>
-					<a class="btn btn-lg btn-yellow" href="/register">Зарегистрироваться</a>
+					<h1 class="vip__title" v-html="$t('vip_service.title')"></h1>
+					<div class="vip__brand">{{ $t('vip_service.brand') }}</div>
+					<div class="vip__extra">{{ $t('vip_service.extra') }}</div>
+					<div class="vip__description" v-html="$t('vip_service.description')"></div>
+					<a class="btn btn-lg btn-yellow" href="/register">{{ $t('vip_service.register') }}</a>
 				</div>
 
 				<div class="vip-body">
@@ -19,9 +16,9 @@
 							<div class="vip-item">
 								<div class="vip-item__wrap">
 									<svg-icon class="vip-item__icon" :icon="item.icon" />
-									<span class="vip-item__title" v-html="item.title"></span>
+									<span class="vip-item__title" v-html="$t(item.title)"></span>
 								</div>
-								<span class="vip-item__text">{{ item.text }}</span>
+								<span class="vip-item__text">{{ $t(item.text) }}</span>
 							</div>
 						</div>
 					</div>
@@ -40,9 +37,9 @@
 
 				<div class="vip-footer">
 					<div class="vip-footer__actions">
-						<a class="btn btn-lg btn-yellow" href="/register">Зарегистрироваться</a>
+						<a class="btn btn-lg btn-yellow" href="/register">{{ $t('vip_service.register') }}</a>
 					</div>
-					<div class="vip-footer__label">Мы в цифрах</div>
+					<div class="vip-footer__label">{{ $t('our_numbers') }}</div>
 					<div class="vip-features">
 						<div
 							v-for="(item, index) in features"
@@ -50,7 +47,7 @@
 							class="vip-feature"
 						>
 							<span class="vip-feature__value">{{ item.value }}</span>
-							<span class="vip-feature__label" v-html="item.label"></span>
+							<span class="vip-feature__label" v-html="$t(item.label)"></span>
 						</div>
 					</div>
 				</div>
@@ -75,81 +72,80 @@
 			manager: null,
 			services: [
 				{
-					title: 'Личный <br> менеджер',
-					text: 'Решение вопросов с покер-румами напрямую',
+					title: 'vip_service.features.0.title',
+					text: 'vip_service.features.0.text',
 					icon: 'vip-manager',
 				},
 				{
-					title: 'Бесплатные <br> HUD-ы и лейауты',
-					text: 'Экономия до 500$ в год',
+					title: 'vip_service.features.1.title',
+					text: 'vip_service.features.1.text',
 					icon: 'vip-layouts',
 				},
 				{
-					title: 'Бесплатные <br> истории рук',
-					text: 'Все лимиты во всех сетях до NL/PL 600$',
+					title: 'vip_service.features.2.title',
+					text: 'vip_service.features.2.text',
 					icon: 'vip-mining',
 				},
 				{
-					title: 'Приватные <br> рейк-гонки',
-					text: '30K+ в месяц только для наших игроков',
+					title: 'vip_service.features.3.title',
+					text: 'vip_service.features.3.text',
 					icon: 'vip-races',
 				},
 				{
-					title: 'Доступ в закрытые <br> клубы',
-					text: 'Самые выгодные клубы в PokerBros, PPPoker вне паблика',
+					title: 'vip_service.features.4.title',
+					text: 'vip_service.features.4.text',
 					icon: 'vip-clubs',
 				},
 				{
-					title: 'Комнаты <br> из Америки, <br> Израиля и Италии',
-					text: 'Безопасный доступ в самые рыбные игры',
+					title: 'vip_service.features.5.title',
+					text: 'vip_service.features.5.text',
 					icon: 'vip-fish',
 				},
 				{
-					title: 'Премиум-статусы <br> в платежках',
-					text: 'Моментальные вип-уровни, кешбек и поддержка',
+					title: 'vip_service.features.6.title',
+					text: 'vip_service.features.6.text',
 					icon: 'vip-premium',
 				},
 				{
-					title: 'Партнерка <br> и саб-аффилиат',
-					text: 'Приводи друзей, получай пожизненный процент',
+					title: 'vip_service.features.7.title',
+					text: 'vip_service.features.7.text',
 					icon: 'vip-affiliate',
 				},
 				{
-					title: 'Консалтинг по <br> налогам и крипте',
-					text: 'Безопасные финансовые решения для игроков',
+					title: 'vip_service.features.8.title',
+					text: 'vip_service.features.8.text',
 					icon: 'vip-consulting',
 				},
 				{
-					title: 'Помощь <br> с переездом на <br> зимовку',
-					text:
-						'Таиланд, Бали, Турция. Рейкбек в Тайских Батах и помощь с визами',
+					title: 'vip_service.features.9.title',
+					text: 'vip_service.features.9.text',
 					icon: 'vip-transfer',
 				},
 			],
 
 			features: [
 				{
-					label: 'Лет на <br> рынке',
+					label: 'our_numbers_years',
 					value: '7',
 				},
 				{
-					label: 'Покерныx <br> румов',
+					label: 'our_numbers_rooms',
 					value: '150',
 				},
 				{
-					label: 'Клубов',
+					label: 'our_numbers_clubs',
 					value: '26',
 				},
 				{
-					label: 'Партнеров',
+					label: 'our_numbers_partners',
 					value: '70',
 				},
 				{
-					label: 'Активныx <br> игроков',
+					label: 'our_numbers_active',
 					value: '10 000',
 				},
 				{
-					label: 'Аффилейт-менеджеров <br> в команде',
+					label: 'our_numbers_managers',
 					value: '10',
 				},
 			],
@@ -159,7 +155,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 502,
+						id: this.locale === 'es' ? 664 : 502,
 					},
 				})
 				.then(response => {
@@ -183,6 +179,9 @@
 		created() {},
 
 		computed: {
+			...mapGetters({
+				locale: 'lang/locale' 
+			})
 		},
 
 		watch: {},

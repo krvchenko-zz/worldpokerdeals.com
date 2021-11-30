@@ -2,14 +2,14 @@
 	<section :class="['content', 'content_ecopayz']">
 		<div class="ecopayz">
 			<vip-payments-header
-				title="VIP-статус ecoPayz"
+				:title="$t('vip_ecopayz.title')"
 				type="ecopayz"
-				:summary="summary"
+				:summary="$t('vip_ecopayz.description')"
 			>
 				<template #buttons>
 					<payments-button-action
 						type="ecopayz"
-						label="Регистрация в ecoPayz"
+						:label="$t('vip_ecopayz.register')"
 						target="_blank"
 						url="https://secure.ecopayz.com/Registration.aspx?_atc=WPD_"
 					/>
@@ -17,7 +17,7 @@
 					<payments-button-action
 						:external="false"
 						type="default"
-						label="Получить VIP"
+						:label="$t('vip_ecopayz.vip')"
 						@click="handleJoinClick"
 					/>
 				</template>
@@ -26,12 +26,7 @@
 			<div class="ecopayz-body">
 				<div class="ecopayz-advantages">
 					<div class="ecopayz-advantages__header">
-						<h2 class="ecopayz-advantages__title">
-							В чем преимущества получения
-							<span class="ecopayz-advantages__title-highlight"
-								>VIP&#8209;статуса от ecoPayz</span
-							>
-						</h2>
+						<h2 class="ecopayz-advantages__title" v-html="$t('vip_ecopayz.advantages_title')"></h2>
 
 						<svg-icon
 							class="ecopayz__logo ecopayz-advantages__header-logo"
@@ -48,9 +43,7 @@
 								class="ecopayz-advantages__icon"
 								icon="ecopayz-gold"
 							/>
-							<span class="ecopayz-advantages__label"
-								><b>Статус GOLD</b> после верификации</span
-							>
+							<span class="ecopayz-advantages__label" v-html="$t('vip_ecopayz.advantages')[0]"></span>
 						</div>
 						<div class="ecopayz-advantages__col">
 							<svg-icon
@@ -59,9 +52,7 @@
 								class="ecopayz-advantages__icon"
 								icon="ecopayz-rakeback"
 							/>
-							<span class="ecopayz-advantages__label"
-								><b>1,5% рейкбэка</b> в любом покер-руме на 3 месяца</span
-							>
+							<span class="ecopayz-advantages__label" v-html="$t('vip_ecopayz.advantages')[1]"></span>
 						</div>
 					</div>
 
@@ -71,27 +62,27 @@
 						</div>
 						<ul class="ecopayz-list">
 							<li class="ecopayz-list__item">
-								Мгновенное оформление статуса Gold за верификацию
+								{{ $t('vip_ecopayz.benefits')[0] }}
 							</li>
 							<li class="ecopayz-list__item">
-								VIP-статус за пополнение счета на €10 000
+								{{ $t('vip_ecopayz.benefits')[1] }}
 							</li>
-							<li class="ecopayz-list__item">Персональная поддержка</li>
+							<li class="ecopayz-list__item">{{ $t('vip_ecopayz.benefits')[2] }}</li>
 							<li class="ecopayz-list__item">
-								Безлимитное количество счетов в 45 валютах
-							</li>
-							<li class="ecopayz-list__item">
-								Повышенные лимиты на транзакции
+								{{ $t('vip_ecopayz.benefits')[3] }}
 							</li>
 							<li class="ecopayz-list__item">
-								Бесплатное пополнение через банк в России и Украине
-							</li>
-							<li class="ecopayz-list__item">Персональная поддержка</li>
-							<li class="ecopayz-list__item">
-								Переводы внутри системы — 0%
+								{{ $t('vip_ecopayz.benefits')[4] }}
 							</li>
 							<li class="ecopayz-list__item">
-								Пополнение счета банковской картой – от 1,69% до 2,90%
+								{{ $t('vip_ecopayz.benefits')[5] }}
+							</li>
+							<li class="ecopayz-list__item">{{ $t('vip_ecopayz.benefits')[6] }}</li>
+							<li class="ecopayz-list__item">
+								{{ $t('vip_ecopayz.benefits')[7] }}
+							</li>
+							<li class="ecopayz-list__item">
+								{{ $t('vip_ecopayz.benefits')[8] }}
 							</li>
 						</ul>
 					</div>
@@ -102,10 +93,10 @@
 								loading="lazy"
 								decoding="async"
 								src="~assets/i/ecopayz-gold-img.png"
-								alt="Статус GOLD"
+								:alt="$t('vip_ecopayz.benefits')[9]"
 							/>
 							<figcaption class="ecopayz-advantages-footer__caption">
-								Статус GOLD
+								{{ $t('vip_ecopayz.benefits')[9] }}
 							</figcaption>
 						</figure>
 						<figure class="ecopayz-advantages-footer__item">
@@ -113,10 +104,10 @@
 								loading="lazy"
 								decoding="async"
 								src="~assets/i/ecopayz-rakeback-img.png"
-								alt="1,5% рейкбэка в любом покер-руме на 3 месяца"
+								:alt="$t('vip_ecopayz.benefits')[10]"
 							/>
 							<figcaption class="ecopayz-advantages-footer__caption">
-								1,5% рейкбэка в любом покер-руме на 3 месяца
+								{{ $t('vip_ecopayz.benefits')[10] }}
 							</figcaption>
 						</figure>
 					</div>
@@ -124,55 +115,51 @@
 
 				<div class="ecopayz-info">
 					<div class="ecopayz-info__title">
-						Сравнение условий получения статусов
+						{{ $t('vip_ecopayz.features_title') }}
 					</div>
 
 					<table class="ecopayz-table">
 						<thead>
 							<tr>
-								<th class="ecopayz-table__status">Статус</th>
-								<th class="ecopayz-table__header-wpd">
-									Клиент <br />
-									WorldPokerDeals
-								</th>
-								<th class="ecopayz-table__header-common">Обычный клиент</th>
+								<th class="ecopayz-table__status">{{ $t('status') }}</th>
+								<th class="ecopayz-table__header-wpd" v-html="$t('vip_ecopayz.features')[0]['title']"></th>
+								<th class="ecopayz-table__header-common" v-html="$t('vip_ecopayz.features')[1]['title']"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Gold</td>
-								<td>Пройти верификацию личности и адреса</td>
+								<td v-html="$t('vip_ecopayz.features')[0]['items'][0]"></td>
 								<td>
 									<ul class="ecopayz-table-list">
 										<li class="ecopayz-table-list__item">
-											Пройти верификацию личности и адреса
+											{{ $t('vip_ecopayz.features')[1]['items'][0] }}
 										</li>
 										<li class="ecopayz-table-list__item">
-											Верифицировать банковскую карту
+											{{ $t('vip_ecopayz.features')[1]['items'][1] }}
 										</li>
 										<li class="ecopayz-table-list__item">
-											Внести депозит на €5 000 или €2 500 с кредитной карты
+											{{ $t('vip_ecopayz.features')[1]['items'][2] }}
 										</li>
 										<li class="ecopayz-table-list__item">
-											Иметь Silver ecoAccount в течение 30 дней
+											{{ $t('vip_ecopayz.features')[1]['items'][3] }}
 										</li>
 										<li class="ecopayz-table-list__item">
-											Совершить покупки на € 25 000 (или эквивалентную сумму в
-											валюте)
+											{{ $t('vip_ecopayz.features')[1]['items'][4] }}
 										</li>
 									</ul>
 								</td>
 							</tr>
 							<tr>
 								<td>VIP</td>
-								<td>Пополнить счет на €10 000</td>
+								<td v-html="$t('vip_ecopayz.features')[0]['items'][1]"></td>
 								<td>
 									<ul class="ecopayz-table-list">
 										<li class="ecopayz-table-list__item">
-											Владеть Platinum статусом в течение 30 дней
+											{{ $t('vip_ecopayz.features')[1]['items'][5] }}
 										</li>
 										<li class="ecopayz-table-list__item">
-											Совершить покупки (сделать депозиты) на €25 0000
+											{{ $t('vip_ecopayz.features')[1]['items'][6] }}
 										</li>
 									</ul>
 								</td>
@@ -183,14 +170,8 @@
 			</div>
 
 			<div id="ecopayz-footer" class="ecopayz-footer">
-				<h2 class="ecopayz-footer__title">
-					Заполнить заявку на VIP-статус
-				</h2>
-				<div class="ecopayz-footer__info">
-					Заполните заявку на подключение к нашей VIP программе для ecoPayz, и
-					получите лучшие условия обслуживания, а так же быстрый саппорт, в
-					который вы можете обратиться по любому вопросу.
-				</div>
+				<h2 class="ecopayz-footer__title">{{ $t('vip_ecopayz.form_title') }}</h2>
+				<div class="ecopayz-footer__info">{{ $t('vip_ecopayz.form_text') }}</div>
 
 				<payments-form
 					class="ecopayz-footer__payment"
@@ -210,8 +191,8 @@
 					:skype="manager.skype"
 					:whatsapp="manager.whatsapp"
 					:email="manager.email"
-					label="Остались вопросы? Напишите нам"
-					description="Напиши в любом из мессенджеров нашему менеджеру для получения VIP-статуса ecoPayz"
+					:label="$t('vip_ecopayz.manager_title')"
+					:description="$t('vip_ecopayz.manager_info')"
 				/>
 			</div>
 		</div>
@@ -234,14 +215,13 @@
 		metaInfo: {},
 
 		data: () => ({
-			summary:
-				'ecoPayz является одним из самых популярных кошельков для игроков в покер. Он удобный и безопасный. А если вы зарегистрируете ecoPayz с нами, то сможете получить VIP-обслуживание, быстрый саппорт и много других полезных функций!',
 			manager: null,
 		}),
 
 		computed: {
 			...mapGetters({
 				topList: 'rooms/topList',
+				locale: 'lang/locale',
 			}),
 		},
 
@@ -249,7 +229,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 502,
+						id: this.locale === 'es' ? 664 : 502,
 					},
 				})
 				.then(response => {

@@ -2,7 +2,7 @@
 	<div class="vip-form">
 		<div class="vip-form__info">
 			<div class="vip-form__label">
-				<b>Есть вопрос?</b>Свяжись с нами для обсуждения персональных условий
+				<b>{{ $t('vip_service.form_title') }}</b>{{ $t('vip_service.form_text') }}
 			</div>
 			<div class="vip-form__img-wrap">
 				<img
@@ -16,7 +16,7 @@
 			<div class="vip-form__name">{{ name }}</div>
 			<div class="vip-form__position">{{ position }}</div>
 			<div class="vip-form__actions">
-				<button-contact block size="md" type="chat">Начать чат</button-contact>
+				<button-contact block size="md" type="chat">{{ $t('start_chat') }}</button-contact>
 				<div class="vip-form__messengers">
 					<button-contact
 						class="vip-form__btn"
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="vip-form__footer">
-			<div class="vip-form__footer-label">или оставь свои контакты</div>
+			<div class="vip-form__footer-label">{{ $t('vip_service.form_contacts') }}</div>
 			<form @submit.prevent="submit" @keydown="form.onKeydown($event)">
 				<div class="vip-form-group">
 					<div class="vip-form-group__wrap">
