@@ -2,7 +2,7 @@
 	<nuxt-link
 		v-slot="{ href, route, navigate, isActive, isExactActive }"
 		prefetch
-		:to="{ name: 'index', params: route }"
+		:to="slug ? { name: 'index', params: route } : {name: 'front'}"
 	>
 		<li
 			:class="['breadcrumb-item', last && 'breadcrumb-item_current']"

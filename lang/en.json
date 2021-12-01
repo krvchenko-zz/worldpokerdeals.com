@@ -100,7 +100,7 @@
   "vip_support": "support",
   "vip_status": "VIP status",
   "vip_statuses": "VIP statuses",
-  "vip_status_in": "VIP status in {title}",
+  "vip_status_in": "VIP {title}",
   "contact_manager_via_messengers": "or contact {name} via messengers",
   "general_info": "General information",
   "founded_in": "Founded in",
@@ -185,8 +185,8 @@
   "type": "Type",
   "time_left": "Ends on",
   "time_before": "Starts on",
-  "time_start": "Начало",
-  "time_end": "Окончание",
+  "time_start": "Start",
+  "time_end": "End",
   "regularity": "Regularity",
   "permanent": "Regular",
   "exclusive": "Exclusive",
@@ -222,10 +222,10 @@
     "password": "Password",
     "name": "Name",
     "room_representative": "Player/Room representative",
-    "account_id": "ID Счета",
-    "contact_type": "Способ связи",
-    "comment": "Вопрос или комментарий",
-    "sex": "Пол",
+    "account_id": "Account ID",
+    "contact_type": "Contacts",
+    "comment": "Question or comment",
+    "sex": "Sex",
     "year": "Date of birth",
     "check_your_id": "How to find your ID?",
     "how_to_contact": "Your contacts",
@@ -246,7 +246,7 @@
     "sign_up_title": "Create new <br> account",
     "new_account": "New account",
     "old_account": "Existing account",
-    "ref_account": "Старый",
+    "ref_account": "Old",
     "login": "Username",
     "room_email": "Account E-mail",
     "room_username": "Nickname",
@@ -257,7 +257,7 @@
     "message": "Message",
     "send": "Send",
     "join": "Join",
-    "get_access": "Получить доступ"
+    "get_access": "Get access"
   },
   "header": {
     "search_form_placeholder": "Find anything, GGpoker, for example",
@@ -305,7 +305,7 @@
   "sort": {
     "created_at": "Newest",
     "rating": "Best",
-    "exclusive": "Сначала эксклюзивные",
+    "exclusive": "Exclusive first",
     "price": "By price"
   },
   "blog_banner": {
@@ -344,6 +344,8 @@
     "payments": "Deposit Methods"
   },
   "menu": {
+    "best_rooms": "Best poker rooms: 2021 Rating",
+    "main": "Main page",
     "rooms": "Poker rooms",
     "news": "News",
     "promotions": "Promotions",
@@ -396,7 +398,7 @@
       {
         "title": "I already have an account. What can you offer?",
         "description": "If you already have a Skrill account, just join our program, receive our bonuses and all other benefits",
-        "info": "Статус даётся один раз при выполнении условий",
+        "info": "Status will be applied only once after all requirements are fullfilled",
         "items": [
           "<b>VIP Silver for 5000 EUR</b> deposits/quarter",
           "<b>Increased limits</b>",
@@ -642,18 +644,18 @@
     "form_contacts": "Или свяжитесь с нашим менеджером прямо сейчас в чате или мессенджерах"
   },
   "register": {
-    "title": "Регистрируйся и получи доступ ко всем закрытым разделам сайта",
-    "info": "Ваша личная информация является строго конфиденциальной и никогда не будет передана кому-либо. Гарантируем.",
-    "form_title": "Сложности с регистрацией? Остались вопросы? Напишите нашему менеджеру",
+    "title": "Sign up and get access to all WPD features",
+    "info": "Your personal data is confidential and won't be shared by us with anyone. Guaranteed",
+    "form_title": "Problems with registration? Have any questions? Contact us",
     "items": [
       {
-        "text": "Доступ в закрытые азиатские клубы, статистику рейка, бесплатные хендхистори и приватные офферы"
+        "text": "Access  to private asian clubs, rake stats, free hand histories and special deals"
       },
       {
-        "text": "Еженедельная рассылка с секретными предложениями только для зарегистрированных игроков"
+        "text": "Weekly newsletter with secret offers for registered players only"
       },
       {
-        "text": "А также другие ништяки ерименят пость срачнос тродактигает водгото ваютно струменицы! Мени, вать кния."
+        "text": "And WPD customer service is the best in the world*<br><span style='color: #777777'>*</span> <small style='color: #777777'>based on WPD customer service self-opinion</small>"
       }
     ]
   }

@@ -33,7 +33,7 @@
 								'payment-menu__title',
 								item.hovered && 'payment-menu__title_hover',
 							]"
-							>{{ item.title }}</span
+							>{{ $t('vip_status_in', {title: item.title}) }}</span
 						>
 					</a>
 				</li>
@@ -53,19 +53,19 @@
 		data: () => ({
 			items: [
 				{
-					title: 'VIP-статус в Skrill',
+					title: 'Skrill',
 					icon: 'skrill',
 					slug: 'skrill',
 					hovered: false,
 				},
 				{
-					title: 'VIP-статус в Neteller',
+					title: 'Neteller',
 					icon: 'neteller',
 					slug: 'neteller',
 					hovered: false,
 				},
 				{
-					title: 'VIP-статус в ecoPayz',
+					title: 'ecoPayz',
 					icon: 'ecopayz',
 					slug: 'ecopayz',
 					hovered: false,

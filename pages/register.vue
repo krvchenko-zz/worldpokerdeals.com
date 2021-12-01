@@ -10,7 +10,7 @@
 						class="register-list__item"
 					>
 						<svg-icon class="register-list__icon" :icon="item.icon" />
-						<span class="register-list__title">{{ $t(item.title) }}</span>
+						<span class="register-list__title" v-html="$t(item.title)"></span>
 					</li>
 				</ul>
 

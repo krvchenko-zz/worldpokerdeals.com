@@ -1,6 +1,32 @@
 <template>
 	<section v-if="room" class="room">
-		<breadcrumb-list v-if="pageable" :white="false" />
+
+		<breadcrumb-list
+			v-if="pageable"
+			:white="false"
+			:auto="false"
+		>
+			<breadcrumb-item
+				slug="best-poker-rooms-2020"
+				:title="$t('menu.best_rooms')"
+				:index="1"
+				:parent="{
+					slug: 'rakeback-deals'
+				}"
+				:last="false"
+				:white="false"
+			></breadcrumb-item>
+			<breadcrumb-item
+				:slug="pageable.slug"
+				:title="pageable.title"
+				:index="2"
+				:parent="{
+					slug: 'rakeback-deals'
+				}"
+				:last="true"
+				:white="false"
+			></breadcrumb-item>
+		</breadcrumb-list>
 
 		<room-header ref="roomHeader" />
 

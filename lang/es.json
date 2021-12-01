@@ -118,7 +118,7 @@
   "vip_support": "Soporte",
   "vip_status": "VIP status",
   "vip_statuses": "VIP statuses",
-  "vip_status_in": "VIP status in {title}",
+  "vip_status_in": "VIP {title}",
   "contact_manager_via_messengers": "o contacta a {{ name }} a través de algún messenger",
   "general_info": "Información general",
   "founded_in": "Fundada en",
@@ -346,6 +346,8 @@
     "payments": "Deposit Methods"
   },
   "menu": {
+    "best_rooms": "Mejores salas de póker en línea 2021",
+    "main": "Pagina principal",
     "rooms": "Salas de póker",
     "news": "Noticias",
     "promotions": "Promotions",

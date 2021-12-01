@@ -6,14 +6,16 @@
 	>
 		<breadcrumb-item
 			:slug="null"
-			title="Главная"
+			:title="$t('menu.main')"
 			:index="0"
 			:parent="null"
 			:last="false"
 			:white="white"
 		></breadcrumb-item>
 
+		<slot />
 		<breadcrumb-item
+			v-if="auto"
 			v-for="(item, index) in items"
 			:key="item.id"
 			:slug="item.slug"
@@ -38,6 +40,11 @@
 			white: {
 				type: Boolean,
 				default: false,
+			},
+
+			auto: {
+				type: Boolean,
+				default: true,
 			},
 		},
 

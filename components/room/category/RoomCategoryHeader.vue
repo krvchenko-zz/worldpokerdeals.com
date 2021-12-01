@@ -5,8 +5,31 @@
 		<breadcrumb-list
 			v-if="pageable"
 			:white="true"
+			:auto="false"
 			class="rooms-header__breadcrumbs"
-		/>
+		>
+			<breadcrumb-item
+				v-if="pageable.slug !== 'best-poker-rooms-2020'"
+				slug="best-poker-rooms-2020"
+				:title="$t('menu.best_rooms')"
+				:index="1"
+				:parent="{
+					slug: 'rakeback-deals'
+				}"
+				:last="pageable.slug !== 'best-poker-rooms-2020' ? false : true"
+				:white="true"
+			></breadcrumb-item>
+			<breadcrumb-item
+				:slug="pageable.slug"
+				:title="pageable.title"
+				:index="pageable.slug !== 'best-poker-rooms-2020' ? 2 : 1"
+				:parent="{
+					slug: 'rakeback-deals'
+				}"
+				:last="true"
+				:white="true"
+			></breadcrumb-item>
+		</breadcrumb-list>
 
 		<div class="rooms-header__about">
 			<div class="rooms-meta__wrap">
