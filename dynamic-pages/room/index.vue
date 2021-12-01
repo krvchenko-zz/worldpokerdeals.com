@@ -2,7 +2,7 @@
 	<section v-if="room" class="room">
 
 		<breadcrumb-list
-			v-if="pageable"
+			v-if="page"
 			:white="false"
 			:auto="false"
 		>
@@ -17,8 +17,8 @@
 				:white="false"
 			></breadcrumb-item>
 			<breadcrumb-item
-				:slug="pageable.slug"
-				:title="pageable.title"
+				:slug="page.slug"
+				:title="page.title"
 				:index="2"
 				:parent="{
 					slug: 'rakeback-deals'
@@ -31,19 +31,19 @@
 		<room-header ref="roomHeader" />
 
 		<div class="article-container">
-			<toc-list v-if="tab.toc" class="room__toc article-container__toc">
+			<toc-list v-if="page.toc" class="room__toc article-container__toc">
 				<template #default="{ inline }">
 					<toc-item
 						:inline="inline"
-						:anchor="urlLit(tab.title)"
+						:anchor="urlLit(page.title)"
 						:text="
-							tab.is_review ? $t('room_about', { room: room.title }) : tab.title
+							page.is_review ? $t('room_about', { room: room.title }) : page.title
 						"
 						:offset="anchorOffset"
 					>
 					</toc-item>
 					<toc-item
-						v-for="(item, index) in tab.toc"
+						v-for="(item, index) in page.toc"
 						:key="index"
 						:index="index"
 						:inline="inline"
@@ -53,7 +53,7 @@
 					>
 					</toc-item>
 					<toc-item
-						v-if="tab.faq && tab.faq.mainEntity.length"
+						v-if="page.faq && page.faq.mainEntity.length"
 						:inline="inline"
 						anchor="faq"
 						:text="$t('faq')"
@@ -73,22 +73,22 @@
 			<page-article
 				v-if="!$fetchState.pending"
 				class="room__content article-container__article"
-				:title-id="urlLit(tab.title)"
-				:title="tab.title"
-				:text="tab.text"
-				:author="tab.author.full_name"
-				:created="tab.created_at"
-				:updated="tab.updated_at"
+				:title-id="urlLit(page.title)"
+				:title="page.title"
+				:text="page.text"
+				:author="page.author.full_name"
+				:created="page.created_at"
+				:updated="page.updated_at"
 				:meta="true"
 			>
 				<template #footer>
 					<faq-list
 						id="faq"
-						v-if="tab.faq && tab.faq.mainEntity.length"
+						v-if="page.faq && page.faq.mainEntity.length"
 						:label="$t('faq')"
 					>
 						<faq-item
-							v-for="(item, index) in tab.faq.mainEntity"
+							v-for="(item, index) in page.faq.mainEntity"
 							:key="index"
 							:question="item.name"
 							:answer="item.acceptedAnswer.text"
@@ -98,7 +98,7 @@
 
 					<telegram-subscribe />
 
-					<author v-if="tab.author" :author="tab.author" />
+					<author v-if="page.author" :author="page.author" />
 
 					<!-- <reviews id="reviews" :room_id="room.id" :reviews="reviews" /> -->
 				</template>
@@ -262,11 +262,10 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 				geo: 'location/code',
-				tab: 'rooms/tab',
 				related: 'rooms/related',
 				country: 'location/country',
 				user: 'auth/user',
-				pageable: 'pages/page',
+				page: 'pages/page',
 				reviews: 'reviews/reviews',
 			}),
 
@@ -309,7 +308,7 @@
 
 		async fetch() {
 			await this.$axios
-				.get(`rooms/${this.pageable.slug}`, {
+				.get(`rooms/${this.page.slug}`, {
 					params: {
 						country_id: this.country.id,
 						locale: this.locale,
@@ -317,7 +316,6 @@
 				})
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOM', { room: response.data.room })
-					this.$store.commit('rooms/FETCH_TAB', { tab: response.data.tab })
 					this.$store.commit('rooms/FETCH_RELATED', {
 						related: response.data.related,
 					})
