@@ -24,14 +24,15 @@
 <script>
 	export default {
 		data: () => ({
-			loading: false
+			loading: true
 		}),
 		methods: {
 			start() {
-				this.loading = true
+				// this.loading = true
 			},
 			finish() {
-				setTimeout(() => this.loading = false, 1000)
+				this.loading = false
+				// setTimeout(() => this.loading = false, 500)
 			},
 		}
 	}

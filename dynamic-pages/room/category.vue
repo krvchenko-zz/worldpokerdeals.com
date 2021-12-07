@@ -283,7 +283,7 @@
 		},
 
 		data: () => ({
-			loading: false,
+			loading: true,
 			per_page: 10,
 			page: 1,
 			sort: 'rating',
@@ -360,11 +360,21 @@
 							this[key] = response.data[key]
 						}
 					})
+
+					this.loading = false
 				})
 		},
 
 		watch: {
 			'$route.query': 'fetchItems',
+			loading:  {
+				handler(val) {
+					this.$nuxt.$loading.finish()
+					// if (value) {
+					// 	
+					// }
+				}
+			},
 		},
 
 		created() {
