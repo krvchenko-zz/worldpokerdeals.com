@@ -186,8 +186,8 @@
   "type": "Tipo",
   "time_left": "Termina en",
   "time_before": "Empieza en",
-  "time_start": "Начало",
-  "time_end": "Окончание",
+  "time_start": "Inicio",
+  "time_end": "Fin",
   "regularity": "Periodicidad",
   "permanent": "Regular",
   "exclusive": "Exclusive",
@@ -223,10 +223,10 @@
     "password": "Contraseña",
     "name": "Nombre de usuario",
     "room_representative": "Jugador/Representante de la sala",
-    "account_id": "ID Счета",
-    "contact_type": "Способ связи",
-    "comment": "Вопрос или комментарий",
-    "sex": "Пол",
+    "account_id": "ID de cuenta",
+    "contact_type": "Contactos",
+    "comment": "Pregunta o comentario",
+    "sex": "Genero",
     "year": "Fecha de nacimiento",
     "check_your_id": "Cómo encontrar tu ID",
     "how_to_contact": "Contacto",
@@ -248,7 +248,7 @@
     "sign_up_text": "¿No tienes una cuenta?",
     "new_account": "Cuenta nueva",
     "old_account": "Cuenta existente",
-    "ref_account": "ecoPayz по ссылке WPD",
+    "ref_account": "ecoPayz vía WPD",
     "login": "Usuario",
     "room_email": "E-mail",
     "room_username": "Nickname",
@@ -259,7 +259,7 @@
     "message": "Mensaje",
     "send": "Enviar",
     "join": "Join",
-    "get_access": "Получить доступ"
+    "get_access": "Obtener acceso"
   },
   "header": {
     "search_form_placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo",
@@ -307,7 +307,7 @@
   "sort": {
     "created_at": "Nuevas",
     "rating": "Mejores",
-    "exclusive": "Сначала эксклюзивные",
+    "exclusive": "Exclusivos primero",
     "price": "Por precio"
   },
   "blog_banner": {
@@ -326,7 +326,7 @@
   },
   "search": {
     "rooms": "Salas de póker",
-    "networks": "Покерные сети",
+    "networks": "Redes de póker",
     "posts": "Redes de póker",
     "placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo"
   },
@@ -371,7 +371,7 @@
     "description": "Skrill es uno de los procesadores de pago más populares para jugadores de póker online. Es seguro y fácil de utilizar. Si creas tu cuenta de Skrill con nosotros tendrás acceso a servicios VIP, soporte dedicado, y muchos otros beneficios",
     "register": "Registro en Skrill",
     "vip": "Obtén VIP",
-    "join": "Join",
+    "join": "Unirse",
     "manager_title": "¿Tienes preguntas? Contáctanos",
     "manager_info": "Contacta a nuestro manager en cualquier messenger y obtén Skrill VIP",
     "form_title": "Llena el formulario",
@@ -400,7 +400,7 @@
       {
         "title": "Ya tengo una cuenta. ¿Qué me pueden ofrecer?",
         "description": "Si ya tienes una cuenta de Skrill, puedes unirte a nuestro programa y recibir nuestros bonos y todos los otros beneficios",
-        "info": "Статус даётся один раз при выполнении условий",
+        "info": "El estatus será aplicado una vez se cumplan todos los requisitos",
         "items": [
           "<b>VIP Silver por depósitos de €5000</b> trimestrales",
           "<b>Incremento de límites</b>",
@@ -428,7 +428,7 @@
     "features": [
       {
         "title": "",
-        "info": "Статус даётся один раз при выполнении условий",
+        "info": "El estatus será aplicado una vez se cumplan todos los requisitos",
         "items": [
           "Verificación de cuenta <b>en 24 horas</b>",
           "<b>VIP Silver</b> por depósitos de $6,000 durante 3 meses",
@@ -556,25 +556,25 @@
     "contacts": "Nuestros messengers y redes sociales"
   },
   "restricted": {
-    "title": "Доступ в рум запрещён в вашем регионе по решению Роскомнадзора",
-    "description": "<p>Вам ограничен доступ к данной странице, потому как указанный выше IP находится на территории Российской Федерации.</p><p>Согласно федеральному закону «О лотереях» от 07.03.2018 и федеральному закону «О государственном регулировании деятельности по организации и проведению азартных игр и о внесении изменений в некоторые законодательные акты Российской Федерации» от 27.11.2017 N 358-ФЗ интернет-провайдеры должны блокировать доступ в онлайн покер-румы на территории РФ.</p><p><b>Запрашиваемый покер-рум недоступен для просмотра и скачивания в России.</b></p>",
-    "form_title": "Нужен доступ?",
-    "form_text": "Есть решение – оставь свою электронную почту и получи доступ к руму через 1 минуту",
-    "form_contacts": "Или свяжитесь с нашим менеджером прямо сейчас в чате или мессенджерах"
+    "title": "El acceso a esta sala no está permitido en tu región",
+    "description": "<p>El acceso a esta página está restringido debido a que tu IP está registrada en un país prohibido</p><p>De acuerdo con las leyes locales todos los proveedores de Internet deben restringir el acceso a esta página desde tu país</p>",
+    "form_title": "¿Requieres acceso?",
+    "form_text": "Tenemos una solución — deja tu correo electrónico y obtén acceso en 1 minuto",
+    "form_contacts": "O contáctanos a través del chat en vivo o messengers ahora mismo"
   },
   "register": {
-    "title": "Регистрируйся и получи доступ ко всем закрытым разделам сайта",
-    "info": "Ваша личная информация является строго конфиденциальной и никогда не будет передана кому-либо. Гарантируем.",
-    "form_title": "Сложности с регистрацией? Остались вопросы? Напишите нашему менеджеру",
+    "title": "Regístrate y obtén acceso a todas las características de WPD",
+    "info": "Tu información personal es confidencial y no será compartida con nadie. Lo garantizamos",
+    "form_title": "¿Problemas con el registro? ¿Tienes alguna pregunta? Contáctanos",
     "items": [
       {
-        "text": "Доступ в закрытые азиатские клубы, статистику рейка, бесплатные хендхистори и приватные офферы"
+        "text": "Acceso a clubes asiáticos privados, estadísticas de rake, historiales de manos gratuitos, y tratos especiales"
       },
       {
-        "text": "Еженедельная рассылка с секретными предложениями только для зарегистрированных игроков"
+        "text": "Boletín semanal con ofertas secretas solo para jugadores registrados"
       },
       {
-        "text": "А также другие ништяки ерименят пость срачнос тродактигает водгото ваютно струменицы! Мени, вать кния."
+        "text": "WPD tiene el mejor servicio al cliente del mundo*<br><span style='color: #777777'>*</span> <small style='color: #777777'>con base a la autoevaluación de nuestro equipo de servicio al cliente</small>"
       }
     ]
   }
