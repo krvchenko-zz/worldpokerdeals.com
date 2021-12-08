@@ -23,26 +23,19 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
 
 	export default {
-		data: () => ({
-			// loading: true
-		}),
-		computed: {
-			...mapGetters({
-				loading: 'pages/loading',
-			}),
-		},
-		methods: {
-			start() {
-				// this.loading = true
-			},
-			finish() {
-				// this.loading = false
-				// setTimeout(() => this.loading = false, 500)
-			},
-		}
+    data: () => ({
+      loading: false
+    }),
+    methods: {
+      start() {
+        this.loading = true
+      },
+      finish() {
+        this.loading = false
+      }
+    }
 	}
 </script>
 
