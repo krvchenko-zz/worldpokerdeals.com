@@ -67,7 +67,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	.page-nav {
 		&__item {
 			background: #f1efef;

@@ -26,7 +26,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	$ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
 
 	.page-nav {
