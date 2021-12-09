@@ -8,7 +8,7 @@
 				rounded
 				:width="20"
 				:height="20"
-				view-box="0 0 200 200"
+				:image="true"
 			/>
 			<span class="room-network__title">{{ room.network.title }}</span>
 		</div>
@@ -125,6 +125,7 @@
 								<span class="room-detail__license">
 									<svg-icon
 										:icon="item.icon"
+										:image="true"
 										prefix="flags/"
 										width="20"
 										height="20"
@@ -197,7 +198,13 @@
 										'room-platform': true,
 									}"
 								>
-									<svg-icon opacity="1" :icon="item.icon" />
+									<svg-icon
+										opacity="1"
+										:width="20"
+										:height="20"
+										:icon="item.icon"
+										:image="true"
+									/>
 								</li>
 							</transition-group>
 						</ul>
