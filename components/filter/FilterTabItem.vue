@@ -47,7 +47,7 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	.filter-tabs {
 		&__item {
 			position: relative;

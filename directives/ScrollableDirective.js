@@ -2,6 +2,7 @@ export default {
 	name: 'scrollable',
 
 	inserted: (el, binding) => {
+
 		const getItemsWidth = function(items) {
 			let width = 0
 			for (var i = 0; i < items.length; i++) {
