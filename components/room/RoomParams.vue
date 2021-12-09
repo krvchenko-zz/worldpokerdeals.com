@@ -43,9 +43,10 @@
 							<span class="room-param__license">
 								<svg-icon
 									:icon="item.icon"
+									:image="true"
 									prefix="flags/"
-									width="20"
-									height="20"
+									width="20px"
+									height="20px"
 								/>
 								<span>{{ item.title }}</span>
 							</span>

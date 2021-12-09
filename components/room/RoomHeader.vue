@@ -6,8 +6,8 @@
 				class="room-network__icon"
 				:icon="room.network.url"
 				rounded
-				:width="20"
-				:height="20"
+				width="20px"
+				height="20px"
 				:image="true"
 			/>
 			<span class="room-network__title">{{ room.network.title }}</span>
@@ -127,8 +127,8 @@
 										:icon="item.icon"
 										:image="true"
 										prefix="flags/"
-										width="20"
-										height="20"
+										width="20px"
+										height="20px"
 									/>
 									<span>{{ item.title }}</span>
 								</span>
@@ -200,8 +200,8 @@
 								>
 									<svg-icon
 										opacity="1"
-										:width="20"
-										:height="20"
+										width="20px"
+										height="20px"
 										:icon="item.icon"
 										:image="true"
 									/>
@@ -219,9 +219,10 @@
 								'room-header__geo',
 								room.restricted && 'room-header__geo_disabled',
 							]"
-							:width="20"
-							:height="20"
+							width="20px"
+							height="20px"
 							:icon="country.code"
+							:image="true"
 							prefix="flags/"
 						/>
 						<span v-if="!room.restricted" class="room-header__locale">{{

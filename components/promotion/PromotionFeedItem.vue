@@ -149,9 +149,10 @@
 				}"
 			>
 				<svg-icon
-					:width="16"
-					:height="16"
+					width="16px"
+					height="16px"
 					:icon="country.code"
+					:image="true"
 					prefix="flags/"
 				/>
 				<span v-if="room.restricted">{{

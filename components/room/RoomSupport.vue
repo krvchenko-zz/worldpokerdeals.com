@@ -13,9 +13,10 @@
 						:key="index"
 						class="room-param__language"
 						:icon="item.code.toUpperCase()"
+						:image="true"
 						prefix="flags/"
-						width="20"
-						height="20"
+						width="20px"
+						height="20px"
 					/>
 				</div>
 			</div>
