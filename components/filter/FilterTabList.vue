@@ -32,7 +32,7 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 	$ico-scrollable: url('~assets/i/ico-scrollable.svg?data');
 
