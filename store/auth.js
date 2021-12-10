@@ -59,7 +59,7 @@ export const mutations = {
 export const actions = {
 	saveToken({ commit, dispatch }, { token, remember }) {
 		commit('SET_TOKEN', token)
-		Cookies.set('token', token, { expires: remember ? 365 : null })
+		Cookies.set('token', token, { expires: 365, domain: '.worldpokerdeals01.com' })
 	},
 
 	async fetchUser({ commit }) {
