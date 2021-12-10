@@ -5,9 +5,9 @@
 			<svg-icon
 				class="room-network__icon"
 				:icon="room.network.url"
-				rounded
 				width="20px"
 				height="20px"
+				rounded
 				:image="true"
 			/>
 			<span class="room-network__title">{{ room.network.title }}</span>
