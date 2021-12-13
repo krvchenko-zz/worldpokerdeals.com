@@ -56,6 +56,29 @@
 					:tags="item.tags"
 					:review="item.review"
 				/>
+
+				<room
+					v-for="(item, index) in data"
+					v-if="data.length"
+					:id="item.id"
+					:key="index"
+					:title="item.title"
+					:slug="item.slug"
+					:rating="item.rating"
+					:rakeback="item.rakeback"
+					:bonus="item.bonus"
+					:background="item.background"
+					:restricted="item.restricted"
+					:available="item.available"
+					:blacklist="item.blacklist"
+					:summary="item.summary"
+					:claim_amount="item.claim_amount"
+					:claim_currency="item.claim_currency"
+					:image="item.image"
+					:network="item.network"
+					:tags="item.tags"
+					:review="item.review"
+				/>
 			</div>
 
 			<pagination
