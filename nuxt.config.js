@@ -35,9 +35,9 @@ export default {
 
 	plugins: [
 		'~directives',
+		'~plugins/axios',
 		'~plugins/i18n',
 		'~plugins/vform',
-		'~plugins/axios',
 		'~plugins/element-ui',
 		'~/plugins/asyncComputed',
 		{ src: '~/plugins/glightbox', mode: 'client' },

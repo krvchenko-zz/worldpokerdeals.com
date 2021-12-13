@@ -68,6 +68,39 @@ const routes = [
 		component: page('404.vue'),
 	},
 	{
+		path: '/my',
+		name: 'my',
+		component: page('my/index.vue'),
+		redirect: { name: 'my.info' },
+		children: [
+			{
+				path: 'info',
+				name: 'my.info',
+				component: page('my/info.vue')
+			},
+			{
+				path: 'connections',
+				name: 'my.connections',
+				component: page('my/connections.vue')
+			},
+			{
+				path: 'payments',
+				name: 'my.payments',
+				component: page('my/payments/index.vue'),
+			},
+			{
+				path: 'payments/add',
+				name: 'my.payments.add',
+				component: page('my/payments/add.vue')
+			},
+			{
+				path: 'password',
+				name: 'my.password',
+				component: page('my/password.vue')
+			},
+		]
+	},
+	{
 		path: '/:parent/:child?',
 		name: 'index',
 		component: page('index.vue'),

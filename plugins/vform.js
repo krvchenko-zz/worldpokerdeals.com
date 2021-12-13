@@ -5,6 +5,11 @@ Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component(AlertSuccess.name, AlertSuccess)
 
-export default ({ $axios }) => {
+export default ({store, $axios }) => {
+
+	const token = store.getters['auth/token']
+
+	if (token) $axios.setToken(token, 'Bearer')
+
 	Form.axios = $axios
 }

@@ -7,6 +7,7 @@ export const state = () => ({
 	age: false,
 	cookie: false,
 	disclaimer: false,
+	paymentInfo: null
 })
 
 // getters
@@ -17,6 +18,7 @@ export const getters = {
 	age: state => state.age,
 	cookie: state => state.cookie,
 	disclaimer: state => state.disclaimer,
+	paymentInfo: state => state.paymentInfo,
 }
 
 // mutations
@@ -42,6 +44,14 @@ export const mutations = {
 		state.user = user
 	},
 
+	UPDATE_PAYMENT_INFO(state, paymentInfo) {
+		state.paymentInfo = paymentInfo
+	},
+
+	FETCH__PAYMENT_INFO(state, paymentInfo) {
+		state.paymentInfo = paymentInfo
+	},
+
 	SET_DISCLAIMER(state, { disclaimer }) {
 		state.disclaimer = disclaimer
 	},
@@ -59,34 +69,13 @@ export const mutations = {
 export const actions = {
 	saveToken({ commit, dispatch }, { token, remember }) {
 		commit('SET_TOKEN', token)
-		Cookies.set('token', token, { expires: 365, domain: '.worldpokerdeals01.com' })
+		Cookies.set('token', token, { expires: 365 })
 	},
 
 	async fetchUser({ commit }) {
 		try {
 			await this.$axios.get('user').then(response => {
-				commit('FETCH_USER_SUCCESS', {
-					id: response.data.id,
-					username: response.data.username,
-					email: response.data.email,
-					birthday: response.data.birthday,
-					full_name: response.data.full_name,
-					name: response.data.name,
-					second_name: response.data.second_name,
-					country: response.data.country
-						? {
-								title: response.data.country.title,
-						  }
-						: null,
-					image: response.data.image
-						? {
-								filename: response.data.image.filename,
-						  }
-						: null,
-					connections: response.data.connections.map(item => ({
-						id: item.id,
-					})),
-				})
+				commit('FETCH_USER_SUCCESS', response.data)
 			})
 		} catch (e) {
 			Cookies.remove('token')
@@ -96,6 +85,10 @@ export const actions = {
 
 	updateUser({ commit }, payload) {
 		commit('UPDATE_USER', payload)
+	},
+
+	updatePaymentInfo({ commit }, payload) {
+		commit('UPDATE_PAYMENT_INFO', payload)
 	},
 
 	async logout({ commit }) {

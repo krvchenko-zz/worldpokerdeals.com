@@ -227,6 +227,7 @@
     "email": "Электронная почта",
     "username": "Имя пользователя",
     "name": "Имя",
+    "second_name": "Фамилия",
     "room_representative": "Игрок/Представитель рума",
     "password": "Пароль",
     "account_id": "ID Счета",
@@ -264,7 +265,10 @@
     "message": "Сообщение",
     "send": "Отправить",
     "join": "Присоединиться",
-    "get_access": "Получить доступ"
+    "get_access": "Получить доступ",
+    "save": "Сохранить",
+    "payment_details": "Реквизиты",
+    "add": "Добавить"
   },
   "header": {
     "search_form_placeholder": "Найти что-угодно, например: GGPoker",
