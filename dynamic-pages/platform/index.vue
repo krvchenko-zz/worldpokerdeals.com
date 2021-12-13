@@ -51,6 +51,7 @@
 					:bonus="item.bonus"
 					:background="item.background"
 					:image="item.image"
+					:available="item.available"
 					:restricted="item.restricted"
 					:network="item.network"
 					:tags="item.tags"
