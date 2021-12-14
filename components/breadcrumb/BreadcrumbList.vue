@@ -58,7 +58,7 @@
 			}),
 
 			items() {
-				return this.flatten(this.pageable)
+				return this.pageable ? this.flatten(this.pageable) : null
 			},
 		},
 

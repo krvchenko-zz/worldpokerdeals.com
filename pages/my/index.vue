@@ -1,5 +1,20 @@
 <template>
- <div class="content content_my">
+	<div class="content content_my">
+		<div class="container-fluid">
+			<breadcrumb-list
+				:white="false"
+				:auto="false"
+			>
+			<breadcrumb-item
+				:slug="null"
+				:title="$t($route.name)"
+				:index="1"
+				:parent="null"
+				:last="true"
+				:white="false"
+			></breadcrumb-item>
+			</breadcrumb-list>
+		</div>
 	 <div class="container-fluid">
 		<div class="row">
 			<div class="col-3">
