@@ -116,7 +116,11 @@
 		methods: {
 			async action() {
 				this.form
-					.patch(`/user`)
+					.patch(`/user`, {
+						params: {
+							user_id: this.user.id
+						}
+					})
 					.then(response => {
 						const user = response.data
 						this.$store.dispatch('auth/updateUser', user)
