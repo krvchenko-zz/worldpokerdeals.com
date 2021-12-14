@@ -257,7 +257,26 @@
     "message": "Message",
     "send": "Send",
     "join": "Join",
-    "get_access": "Get access"
+    "get_access": "Get access",
+    "save": "Save",
+    "add": "Add",
+    "delete": "Delete",
+    "edit": "Edit",
+    "payment_details": "Add payment method details",
+    "identity_data": "Details",
+    "actions": "Actions",
+    "choose_payment": "Select payment method",
+    "available_methods": "Available payment methods",
+    "country": "Country",
+    "add_room": "Add poker room",
+    "payment_methods": "Payment methods",
+    "wallet": "Wallet",
+    "rooms_connected": "Tracked usernames",
+    "room_name": "Poker room",
+    "date": "Дата",
+    "old_password": "Old password",
+    "new_password": "New password",
+    "new_password_confirm": "Confirm new password"
   },
   "header": {
     "search_form_placeholder": "Find anything, GGpoker, for example",
@@ -356,7 +375,11 @@
     "cookie": "Cookie Policy",
     "our_team": "Our team",
     "contact_us": "Contact us",
-    "vip_service": "VIP-service"
+    "vip_service": "VIP-service",
+    "my_account": "My account",
+    "affiliate_dashboard": "Affiliate dashboard",
+    "partner_dashboard": "Partner dashboard",
+    "logout": "Log out"
   },
   "social": {
     "vk": "https://vk.com/worldpokerdeals",

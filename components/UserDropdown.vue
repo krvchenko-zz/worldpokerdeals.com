@@ -32,20 +32,20 @@
 						prefetch
 						:to="{ name: 'my.info' }"
 					>
-						<a :class="['user-dropdown-list__link']" :href="href" @click="navigate"><span>Мой аккаунт</span></a>
+						<a :class="['user-dropdown-list__link']" :href="href" @click="navigate"><span>{{ $t('menu.my_account') }}</span></a>
 					</nuxt-link>
 				</li>
 
 				<li v-if="checkAffiliate" class="user-dropdown-list__item">
-					<a :class="['user-dropdown-list__link']" href="https://affiliate.worldpokerdeals01.com"><span>Кабинет аффилейта</span></a>
+					<a :class="['user-dropdown-list__link']" href="https://affiliate.worldpokerdeals01.com"><span>{{ $t('menu.affiliate_dashboard') }}</span></a>
 				</li>
 
 				<li v-if="checkPartner" class="user-dropdown-list__item">
-					<a :class="['user-dropdown-list__link']" href="https://partner.worldpokerdeals01.com"><span>Кабинет партнера</span></a>
+					<a :class="['user-dropdown-list__link']" href="https://partner.worldpokerdeals01.com"><span>{{ $t('menu.partner_dashboard') }}</span></a>
 				</li>
 
 				<li class="user-dropdown-list__item">
-					<a @click.prevent="handleLogOut" :class="['user-dropdown-list__link']" href="#"><span>Выйти</span></a>
+					<a @click.prevent="handleLogOut" :class="['user-dropdown-list__link']" href="#"><span>{{ $t('menu.logout') }}</span></a>
 				</li>
 
 			</ul>

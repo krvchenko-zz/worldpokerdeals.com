@@ -259,7 +259,26 @@
     "message": "Mensaje",
     "send": "Enviar",
     "join": "Join",
-    "get_access": "Obtener acceso"
+    "get_access": "Obtener acceso",
+    "save": "Guardas cambios",
+    "add": "Añadir",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "payment_details": "Añadir detalles al método de pago",
+    "identity_data": "Detalles",
+    "actions": "Acciones",
+    "choose_payment": "Seleccionar método de pago",
+    "available_methods": "Métodos de pago disponibles",
+    "country": "País",
+    "add_room": "Añadir sala de póker",
+    "payment_methods": "Método de pago",
+    "wallet": "Billetera",
+    "rooms_connected": "Nombres de usuario registrados",
+    "room_name": "Sala de póker",
+    "date": "Fecha de solicitud",
+    "old_password": "Contraseña anterior",
+    "new_password": "Nueva contraseña",
+    "new_password_confirm": "Confirma tu nueva contraseña"
   },
   "header": {
     "search_form_placeholder": "Encontrar cualquier cosa, GGPoker, por ejemplo",
@@ -358,7 +377,11 @@
     "cookie": "Cookie Policy",
     "our_team": "Nuestro equipo",
     "contact_us": "Contactos",
-    "vip_service": "Servicio VIP"
+    "vip_service": "Servicio VIP",
+    "my_account": "Mi cuenta",
+    "affiliate_dashboard": "Affiliate dashboard",
+    "partner_dashboard": "Partner dashboard",
+    "logout": "Salir"
   },
   "social": {
     "vk": "https://vk.com/worldpokerdeals",

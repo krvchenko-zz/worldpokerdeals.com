@@ -389,7 +389,11 @@
     "cookie": "Политика использования файлов cookie",
     "our_team": "Наша команда",
     "contact_us": "Написать нам",
-    "vip_service": "VIP-Сервис"
+    "vip_service": "VIP-Сервис",
+    "my_account": "Мой аккаунт",
+    "affiliate_dashboard": "Кабинет аффилейта",
+    "partner_dashboard": "Кабинет партнера",
+    "logout": "Выйти"
   },
   "social": {
     "vk": "https://vk.com/worldpokerdeals",
