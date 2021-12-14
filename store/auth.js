@@ -68,6 +68,10 @@ export const mutations = {
 		state.connections = connections
 	},
 
+	UPDATE_CONNECTIONS(state, connections) {
+		state.connections = connections
+	},
+
 	SET_DISCLAIMER(state, { disclaimer }) {
 		state.disclaimer = disclaimer
 	},
@@ -109,6 +113,10 @@ export const actions = {
 
 	updatePaymentInfos({ commit }, payload) {
 		commit('UPDATE_PAYMENT_INFOS', payload)
+	},
+
+	updateConnections({ commit }, payload) {
+		commit('UPDATE_CONNECTIONS', payload)
 	},
 
 	async logout({ commit }) {

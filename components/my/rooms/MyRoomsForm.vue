@@ -231,7 +231,7 @@
 					}
 				})
 				.then(response => {
-					this.$store.commit('auth/FETCH_CONNECTIONS', response.data)
+					this.$store.dispatch('auth/updateConnections', response.data)
 				})
 			},
 		},
