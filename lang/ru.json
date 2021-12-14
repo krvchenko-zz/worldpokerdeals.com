@@ -267,8 +267,24 @@
     "join": "Присоединиться",
     "get_access": "Получить доступ",
     "save": "Сохранить",
-    "payment_details": "Реквизиты",
-    "add": "Добавить"
+    "add": "Добавить",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "payment_details": "Укажите платежную информацию",
+    "identity_data": "Идентификационные данные",
+    "actions": "Действия",
+    "choose_payment": "Выберите метод платежа",
+    "available_methods": "Доступные методы",
+    "country": "Страна",
+    "add_room": "Добавить рум",
+    "payment_methods": "Платежные системы",
+    "wallet": "Кошелек",
+    "rooms_connected": "Подключенные румы",
+    "room_name": "Название рума",
+    "date": "Дата",
+    "old_password": "Старый пароль",
+    "new_password": "Новый пароль",
+    "new_password_confirm": "Новый пароль еще раз"
   },
   "header": {
     "search_form_placeholder": "Найти что-угодно, например: GGPoker",
@@ -353,6 +369,12 @@
     "networks": "Сети",
     "soft": "Программы для покера",
     "payments": "Платёжки"
+  },
+  "my": {
+    "info": "Персональная информация",
+    "connections": "Покер-румы",
+    "payments": "Платежная информация",
+    "password": "Сменить пароль"
   },
   "menu": {
     "best_rooms": "Лучшие покер-румы",

@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<my-payments-form />
-
-		<my-payments-table v-if="user.payment_infos && user.payment_infos.length" />
+		
+		<my-payments-table v-if="paymentInfos && paymentInfos.length" />
 	</div>
 </template>
 
@@ -18,13 +18,12 @@
 		data: () => ({}),
 
 		async fetch() {
-			await this.$axios.get('user', {
+			await this.$axios.get('/my/paymentinfo', {
 				params: {
-					locale: this.locale,
-					with: ['connections', 'paymentInfos.currency', 'paymentInfos.method'],
+					user_id: this.user.id,
 				}
 			}).then(response => {
-				this.$store.dispatch('auth/updateUser', response.data)
+				this.$store.dispatch('auth/updatePaymentInfos', response.data)
 			})
 		},
 
@@ -33,6 +32,7 @@
 		computed: {
 			...mapGetters({
 				user: 'auth/user',
+				paymentInfos: 'auth/paymentInfos',
 			})
 		},
 

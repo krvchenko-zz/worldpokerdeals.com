@@ -1,6 +1,8 @@
 <template>
 	<div>
 		<my-rooms-form />
+
+		<my-rooms-table v-if="connections && connections.length" />
 	</div>
 </template>
 
@@ -18,11 +20,20 @@
 		}),
 
 		async fetch() { 
-			await this.$axios.get('/my/connections/rooms', {
-			}).then(response => {
+			await this.$axios.get('/my/connections/rooms')
+			.then(response => {
 				this.$store.commit('rooms/FETCH_ROOMS', {
 					rooms: response.data 
 				})
+			})
+
+			await this.$axios.get('/my/connections', {
+				params: {
+					user_id: this.user.id
+				}
+			})
+			.then(response => {
+				this.$store.commit('auth/FETCH_CONNECTIONS', response.data)
 			})
 		},
 
@@ -30,7 +41,9 @@
 
 		computed: {
 			...mapGetters({
-				rooms: 'rooms/rooms'
+				rooms: 'rooms/rooms',
+				user: 'auth/user',
+				connections: 'auth/connections'
 			})
 		},
 

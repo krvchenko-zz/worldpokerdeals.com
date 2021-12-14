@@ -7,7 +7,9 @@ export const state = () => ({
 	age: false,
 	cookie: false,
 	disclaimer: false,
-	paymentInfo: null
+	paymentInfo: null,
+	paymentInfos: null,
+	connections: null
 })
 
 // getters
@@ -19,6 +21,8 @@ export const getters = {
 	cookie: state => state.cookie,
 	disclaimer: state => state.disclaimer,
 	paymentInfo: state => state.paymentInfo,
+	paymentInfos: state => state.paymentInfos,
+	connections: state => state.connections
 }
 
 // mutations
@@ -48,8 +52,20 @@ export const mutations = {
 		state.paymentInfo = paymentInfo
 	},
 
-	FETCH__PAYMENT_INFO(state, paymentInfo) {
+	FETCH_PAYMENT_INFO(state, paymentInfo) {
 		state.paymentInfo = paymentInfo
+	},
+
+	UPDATE_PAYMENT_INFOS(state, paymentInfos) {
+		state.paymentInfos = paymentInfos
+	},
+
+	FETCH_PAYMENT_INFOS(state, paymentInfos) {
+		state.paymentInfos = paymentInfos
+	},
+
+	FETCH_CONNECTIONS(state, connections) {
+		state.connections = connections
 	},
 
 	SET_DISCLAIMER(state, { disclaimer }) {
@@ -89,6 +105,10 @@ export const actions = {
 
 	updatePaymentInfo({ commit }, payload) {
 		commit('UPDATE_PAYMENT_INFO', payload)
+	},
+
+	updatePaymentInfos({ commit }, payload) {
+		commit('UPDATE_PAYMENT_INFOS', payload)
 	},
 
 	async logout({ commit }) {

@@ -25,9 +25,29 @@
 					'user-dropdown-list',
 				]"
 			>
+
+				<li class="user-dropdown-list__item">
+					<nuxt-link
+						v-slot="{ href, route, navigate, isActive, isExactActive }"
+						prefetch
+						:to="{ name: 'my.info' }"
+					>
+						<a :class="['user-dropdown-list__link']" :href="href" @click="navigate"><span>Мой аккаунт</span></a>
+					</nuxt-link>
+				</li>
+
+				<li v-if="checkAffiliate" class="user-dropdown-list__item">
+					<a :class="['user-dropdown-list__link']" href="https://affiliate.worldpokerdeals01.com"><span>Кабинет аффилейта</span></a>
+				</li>
+
+				<li v-if="checkPartner" class="user-dropdown-list__item">
+					<a :class="['user-dropdown-list__link']" href="https://partner.worldpokerdeals01.com"><span>Кабинет партнера</span></a>
+				</li>
+
 				<li class="user-dropdown-list__item">
 					<a @click.prevent="handleLogOut" :class="['user-dropdown-list__link']" href="#"><span>Выйти</span></a>
 				</li>
+
 			</ul>
 		</transition>
 	</button>
@@ -64,6 +84,14 @@
 				return this.user.image
 					? `${this.mediaUrl}/user-icon/${this.user.image.filename}`
 					: null
+			},
+
+			checkAffiliate() {
+				return this.user.roles.findIndex(item => item.code === 'affiliate');
+			},
+
+			checkPartner() {
+				return this.user.roles.findIndex(item => item.code === 'referer');
 			},
 		},
 
@@ -137,6 +165,7 @@
 			align-items: center;
 			color: #999999;
 			background: #2f323f;
+			white-space: nowrap;
 			span {
 				opacity: 0.8;
 				color: #ffffff;

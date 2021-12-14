@@ -1,48 +1,46 @@
 <template>
-	<div class="payments-card">
-		<div class="payments-card__header">{{ $t('form.available_methods') }}</div>
+	<div class="connections-card">
+		<div class="connections-card__header">{{ $t('form.rooms_connected') }}</div>
 
-		<div class="payments-card__body">
+		<div class="connections-card__body">
 
 
-			<div class="payments-card__table-wrap">
-				<table class="payments-card__table">
+			<div class="connections-card__table-wrap">
+				<table class="connections-card__table">
 					<thead>
 						<tr>
-							<th></th>
+							<th>{{ $t('form.room_name') }}</th>
 							<th>{{ $t('form.identity_data') }}</th>
-							<th>{{ $t('form.actions') }}</th>
+							<th>{{ $t('form.date') }}</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item, index) in paymentInfos" :key="index">
+						<tr v-for="(item, index) in connections" :key="index">
 							<td>
-								<svg-icon
-									:icon="`${item.method.icon}-color`"
-									:width="24"
-									:height="24"
-									:image="true"
-									view-box="0 0 30 30"
-								/>
-								<span class="payments-card__table-method">{{ item.method.title }}</span>
+								<span class="connections-card__room-logo" :style="{
+									background: item.room.background
+								}">
+									<img 
+										class="connections-card__room-img"
+										:src="`${mediaUrl}/room-card/${item.room.image.filename}`"
+										:alt="item.room.title"
+									/>
+								</span>
+								<span class="connections-card__table-method">{{ item.room.title }}</span>
 							</td>
-							<td>{{ item.email }}{{ item.card }}{{ item.account }}</td>
 							<td>
-								<a class="payments-card__table-link" href="#" @click.prevent="remove(item.id)">{{ $t('form.delete') }}</a>
-								<br>
-								<nuxt-link
-									v-slot="{ href, route, navigate, isActive, isExactActive }"
-									prefetch
-									:to="{ name: 'my.payments.edit', params: {id: item.id} }"
-								>
-									<a class="payments-card__table-link" :href="href" @click="navigate">{{ $t('form.edit') }}</a>
-								</nuxt-link>
+								<span :class="[
+									'connections-card__status',
+									item.status === 0 && 'connections-card__status_new',
+									item.status === 1 && 'connections-card__status_confirmed',
+									item.status === 2 && 'connections-card__status_canceled'
+								]">{{ item.username }}</span>
 							</td>
+							<td>{{ dateFormat(item.created_at) }}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 </template>
@@ -51,7 +49,7 @@
 	import { mapGetters } from 'vuex'
 
 	export default {
-		name: 'MyPaymentsTable',
+		name: 'MyRoomsTable',
 
 		components: {},
 
@@ -67,31 +65,37 @@
 			...mapGetters({
 				user: 'auth/user',
 				locale: 'lang/locale',
-				paymentInfos: 'auth/paymentInfos'
+				connections: 'auth/connections'
 			}),
+			img() {
+				return `${this.mediaUrl}/room-card/${this.image.filename}`
+			},
+			mediaUrl() {
+				return process.env.mediaUrl
+			},
 		},
 
 		watch: {},
 
 		methods: {
-			async remove(id) {
-				await this.$axios.delete(`/my/paymentinfo/${id}`)
-				.then(response => {})
+			dateFormat(timestamp) {
+				var t = timestamp.split(/[- :]/);
 
-				await this.$axios.get('/my/paymentinfo', {
-					params: {
-						user_id: this.user.id,
-					}
-				}).then(response => {
-					this.$store.dispatch('auth/updatePaymentInfos', response.data)
-				})
-			}
+				let date = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]),
+					d = date.getDate(),
+					m = date.getMonth() + 1,
+					y = date.getFullYear()
+
+				return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
+			},
 		},
 	}
 </script>
 
 <style lang="scss">
-	.payments-card {
+	$ico-yes: url('~assets/i/ico-yes.svg?data');
+	$ico-no: url('~assets/i/ico-no.svg?data');
+	.connections-card {
 		margin-top: 32px;
 		overflow: hidden;
 		background: linear-gradient(0deg, #fafafa, #fafafa);
@@ -109,8 +113,70 @@
 			padding-bottom: 28px;
 		}
 
+		&__room-logo {
+			position: relative;
+			display: inline-block;
+			height: 50px;
+			width: 100px;
+			vertical-align: middle;
+			margin: -15px 10px -15px -20px;
+		}
+
+		&__room-img {
+			position: absolute;
+			top: 0;
+			margin: auto;
+			right: 0;
+			max-width: 80%;
+			max-height: 80%;
+			bottom: 0;
+			left: 0;
+		}
+
+		&__status {
+			position: relative;
+			display: inline-block;
+			min-height: 20px;
+			padding-left: 30px;
+			line-height: 20px;
+			&:before {
+				border-radius: 50%;
+				content: '';
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			&_new {
+				&:before {
+					background: #f39c12;
+				}
+				&:after {
+					border-radius: 50%;
+					content: '';
+					width: 14px;
+					height: 14px;
+					position: absolute;
+					left: 3px;
+					top: 3px;
+					background: #ffffff;
+				}
+			}
+			&_confirmed {
+				&:before {
+					background: #55bf4f $ico-yes no-repeat center;
+				}
+			}
+			&_canceled {
+				&:before {
+					background: #f31112 $ico-no no-repeat center;
+				}
+			}
+		}
+
 		&__table {
-			// width: 100%;
+			min-width: 100%;
 			table-layout: fixed;
 			&:last-child {
 				margin-bottom: 0;
@@ -133,6 +199,7 @@
 			tr {
 				td,
 				th {
+					position: relative;
 					padding: 15px 20px;
 					border: 1px solid #e9e9e9;
 					color: #222222;
@@ -162,7 +229,7 @@
 						letter-spacing: 0.5px;
 						text-transform: uppercase;
 						background: #e9e9e9;
-				    font-size: 12px;
+						font-size: 12px;
 						&:nth-child(3) {
 							width: 20%;
 						}

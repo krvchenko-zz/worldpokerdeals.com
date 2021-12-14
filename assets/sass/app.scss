@@ -110,6 +110,14 @@ body {
 	display: none;
 }
 
+.el-select {
+	.el-input {
+		&__inner {
+			border: 1px solid #c9c9c9;
+		}
+	}
+}
+
 .flip-enter, .flip-leave {
 	transform: rotateY(180deg);
 	opacity: 0;

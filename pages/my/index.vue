@@ -8,7 +8,7 @@
 						v-for="(item, index) in navs"
 						:key="index"
 						:name="item.name"
-						:title="item.title"
+						:title="$t(item.name)"
 					/>
 				</my-nav-list>
 			</div>
@@ -37,19 +37,15 @@
 			navs: [
 				{
 					name: 'my.info',
-					title: 'Персональная информация'
 				},
 				{
 					name: 'my.connections',
-					title: 'Покер-румы'
 				},
 				{
 					name: 'my.payments',
-					title: 'Платежная информация'
 				},
 				{
 					name: 'my.password',
-					title: 'Сменить пароль'
 				},
 			],
 		}),

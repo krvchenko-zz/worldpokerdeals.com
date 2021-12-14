@@ -7,46 +7,30 @@
 				@submit.prevent="action"
 				@keydown="form.onKeydown($event)"
 			>
-
-
 				<div class="connections-form-group">
-					<label class="form-input__label" style="color: rgb(34, 34, 34);">Добавить рум</label>
+					<label class="form-input__label">{{ $t('form.add_room') }}</label>
 					<el-select
 						class="el-select-room"
 						v-model="form.room_id"
 						:loading="loading"
 						filterable
 						reserve-keyword
-						@change="action"
 					>
-<!-- 						<template slot="prefix">
-							<svg-icon :width="24" height="24" prefix="flags/" :icon="user.country.code" />
-						</template> -->
 						<el-option
 							v-for="item in rooms"
 							:key="item.id"
 							:value="item.id"
 							:label="item.title"
 						>
-<!-- 							<span style="float: left; margin-right: 12px;">
-								<svg-icon
-									:width="30"
-									height="30"
-									:image="true"
-									:icon="item.slug"
-								/>
-							</span> -->
 							<span>{{ item.title }}</span>
 						</el-option>
 					</el-select>
 				</div>
 
-
-				<!-- Username -->
 				<div class="connections-form-group">
 					<form-input
 						v-model="form.username"
-						label="Username в руме"
+						:label="$t('form.room_username')"
 						type="text"
 						name="username"
 						:loading="form.busy"
@@ -58,28 +42,13 @@
 				</div>
 
 				<div class="connections-form-group">
-					<form-input
-						v-model="form.username"
-						label="Username в руме"
-						type="text"
-						name="username"
-						:loading="form.busy"
-						:error="form.errors.has('username')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="username" />
-					</transition>
-				</div>
-
-				<div class="connections-form-group">
-					<label class="form-input__label" style="color: rgb(34, 34, 34);">Платежные системы</label>
+					<label class="form-input__label">{{ $t('form.payment_methods') }}</label>
 					<el-select
 						class="el-select-room"
 						v-model="form.method"
 						:loading="loading"
 						filterable
 						reserve-keyword
-						@change="action"
 					>
 						<el-option
 							v-for="item in methods"
@@ -98,7 +67,7 @@
 						<div class="connections-form-group">
 							<form-input
 								v-model="form.payment_email"
-								label="Кошелек"
+								:label="$t('form.wallet')"
 								type="text"
 								name="payment_email"
 								:loading="form.busy"
@@ -123,7 +92,6 @@
 							></el-option>
 						</el-select>
 					</div>
-
 				</div>
 
 				<div class="connections-form-group">
@@ -140,7 +108,6 @@
 					</transition>
 				</div>
 
-				<!-- Email -->
 				<div class="connections-form-group">
 					<form-input
 						v-model="form.email"
@@ -180,8 +147,6 @@
 
 		components: {},
 
-		middleware: 'auth',
-
 		props: {
 
 		},
@@ -191,7 +156,8 @@
 				locale: 'lang/locale',
 				country: 'location/country',
 				user: 'auth/user',
-				rooms: 'rooms/rooms'
+				rooms: 'rooms/rooms',
+				connections: 'auth/connections'
 			}),
 		},
 
@@ -226,6 +192,7 @@
 				payment_currency: 0,
 				skype: null,
 				email: null,
+				locale: 'en'
 			}),
 		}),
 
@@ -236,7 +203,15 @@
 				handler(data) {
 					this.form.user_id = data.id
 				}
-			}
+			},
+
+			locale: {
+				immediate: true,
+				deep: true,
+				handler(val) {
+					this.form.locale = val
+				}
+			},
 		},
 
 
@@ -244,14 +219,20 @@
 
 			async action() {
 				this.form
-					.patch(`/user/${this.user.id}`)
+					.post(`/my/connections`)
 					.then(response => {
-
-						const user = response.data
-
-						this.$store.dispatch('auth/updateUser', user)
+						this.form.reset()
 					})
 					.catch(e => {})
+
+				await this.$axios.get('/my/connections', {
+					params: {
+						user_id: this.user.id
+					}
+				})
+				.then(response => {
+					this.$store.commit('auth/FETCH_CONNECTIONS', response.data)
+				})
 			},
 		},
 	}

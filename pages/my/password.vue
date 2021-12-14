@@ -1,5 +1,5 @@
 <template>
- <div class="hello">ksdjfkjfksdj</div>
+  <my-password-form />
 </template>
 
 <script>
@@ -8,9 +8,6 @@
   export default {
     components: {},
     layout: 'basic',
-    // mixins: [pageMixin],
-
-    // middleware: 'auth',
 
     props: {},
 

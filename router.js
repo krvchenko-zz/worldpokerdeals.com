@@ -94,6 +94,11 @@ const routes = [
 				component: page('my/payments/add.vue')
 			},
 			{
+				path: 'payments/:id/edit',
+				name: 'my.payments.edit',
+				component: page('my/payments/edit.vue')
+			},
+			{
 				path: 'password',
 				name: 'my.password',
 				component: page('my/password.vue')

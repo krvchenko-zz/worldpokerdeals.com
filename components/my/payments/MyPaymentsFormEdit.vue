@@ -15,6 +15,7 @@
 						:loading="loading"
 						filterable
 						reserve-keyword
+						disabled
 						popper-class="el-poper-payments"
 					>
 						<template slot="prefix">
@@ -121,7 +122,7 @@
 	import eventBus from '~/utils/event-bus'
 
 	export default {
-		name: 'MyPaymentsFormAdd',
+		name: 'MyPaymentsFormEdit',
 
 		components: {},
 
@@ -138,8 +139,7 @@
 		computed: {
 			...mapGetters({
 				user: 'auth/user',
-				paymentInfo: 'auth/paymentInfo',
-				paymentInfos: 'auth/paymentInfos'
+				paymentInfo: 'auth/paymentInfo'
 			}),
 
 			method() {
@@ -163,11 +163,13 @@
 		}),
 
 		watch: {
-			user: {
+			paymentInfo: {
 				immediate: true,
 				deep: true,
 				handler(data) {
-					this.form.user_id = data.id
+					this.form.keys().forEach(key => {
+						this.form[key] = data[key]
+					})
 				}
 			},
 		},
@@ -177,19 +179,14 @@
 		methods: {
 			async action() {
 				this.form
-					.post('/my/paymentinfo')
+					.patch(`/my/paymentinfo/${this.paymentInfo.id}`)
 					.then(response => {
-						this.$store.dispatch('auth/updatePaymentInfo', response.data)
-					}).catch(e => {})
 
-					await this.$axios.get('/my/paymentinfo', {
-						params: {
-							user_id: this.user.id,
-						}
-					}).then(response => {
-						this.$store.dispatch('auth/updatePaymentInfos', response.data)
+						this.$store.dispatch('auth/updatePaymentInfo', response.data)
+
 						this.$router.push({ path : '/my/payments' });
 					})
+					.catch(e => {})
 			},
 		},
 	}

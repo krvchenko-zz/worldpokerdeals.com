@@ -4,7 +4,7 @@
 		:disabled="disabled"
 		:class="[
 			'btn',
-			'btn-lg',
+			`btn-${size}`,
 			'form-submit',
 			loading && 'form-submit_loading',
 			disabled && 'form-submit_disabled',
@@ -30,6 +30,11 @@
 			label: {
 				type: String,
 				default: '',
+			},
+
+			size: {
+				type: String,
+				default: 'lg',
 			},
 
 			disabled: {

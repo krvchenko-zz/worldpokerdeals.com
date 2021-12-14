@@ -7,69 +7,27 @@
 				@submit.prevent="action"
 				@keydown="form.onKeydown($event)"
 			>
-				<!-- Username -->
+
+				<!-- Old Password -->
 				<div class="register-form-group">
 					<form-input
-						v-model="form.username"
-						:label="$t('form.username')"
-						type="text"
-						name="username"
+						v-model="form.old_password"
+						:label="$t('form.old_password')"
+						type="password"
+						name="old_password"
 						:loading="form.busy"
-						:error="form.errors.has('username')"
+						:error="form.errors.has('old_password')"
 					/>
 					<transition name="fade">
-						<has-error :form="form" field="username" />
+						<has-error :form="form" field="old_password" />
 					</transition>
 				</div>
 
-				<!-- Email -->
+				<!-- Old Password -->
 				<div class="register-form-group">
-					<form-input
-						v-model="form.email"
-						:label="$t('form.email')"
-						type="email"
-						name="email"
-						:loading="form.busy"
-						:error="form.errors.has('email')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="email" />
-					</transition>
-				</div>
-
-				<div class="register-form-group">
-					<form-input
-						v-model="form.name"
-						:label="$t('form.name')"
-						type="text"
-						name="name"
-						:loading="form.busy"
-						:error="form.errors.has('name')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="name" />
-					</transition>
-				</div>
-
-				<div class="register-form-group">
-					<form-input
-						v-model="form.second_name"
-						:label="$t('form.second_name')"
-						type="text"
-						name="second_name"
-						:loading="form.busy"
-						:error="form.errors.has('second_name')"
-					/>
-					<transition name="fade">
-						<has-error :form="form" field="second_name" />
-					</transition>
-				</div>
-
-				<!-- Password -->
-<!-- 				<div class="register-form-group">
 					<form-input
 						v-model="form.password"
-						:label="$t('form.password')"
+						:label="$t('form.new_password')"
 						type="password"
 						name="password"
 						:loading="form.busy"
@@ -78,67 +36,21 @@
 					<transition name="fade">
 						<has-error :form="form" field="password" />
 					</transition>
-				</div> -->
-
-				<div class="register-form-group">
-					<label class="form-input__label">{{ $t('form.country') }}</label>
-					<el-select
-						class="el-select-geo"
-						v-model="form.country_id"
-						:loading="loading"
-						filterable
-						reserve-keyword
-						popper-class="el-poper-geo"
-						@focus="fetchCountries"
-						@change="action"
-					>
-						<template slot="prefix">
-							<svg-icon :width="24" height="24" prefix="flags/" :icon="user.country.code" />
-						</template>
-						<el-option
-							v-for="item in countries"
-							:key="item.value"
-							:value="item.value"
-							:label="item.label"
-						>
-							<span style="float: left; margin-right: 12px;">
-								<svg-icon
-									:width="24"
-									height="24"
-									prefix="flags/"
-									:icon="item.code"
-								/>
-							</span>
-							<span>{{ item.label }}</span>
-						</el-option>
-					</el-select>
 				</div>
 
-				<div class="register-form-group register-form-group_flex">
-					<form-radio-group :label="$t('form.sex')" label-position="left">
-						<form-radio-button
-							v-model="form.sex"
-							name="sex"
-							icon="male"
-							size="sm"
-							:value="0"
-						/>
-						<form-radio-button
-							v-model="form.sex"
-							name="sex"
-							icon="female"
-							size="sm"
-							:value="1"
-						/>
-					</form-radio-group>
-					<form-select
-						v-model="form.birthday"
-						class="register-form__age"
-						name="year"
-						:options="years"
-						:label="$t('form.year')"
-						label-position="left"
+				<!-- Old Password -->
+				<div class="register-form-group">
+					<form-input
+						v-model="form.password_confirmation"
+						:label="$t('form.new_password_confirm')"
+						type="password"
+						name="password_confirmation"
+						:loading="form.busy"
+						:error="form.errors.has('password_confirmation')"
 					/>
+					<transition name="fade">
+						<has-error :form="form" field="password_confirmation" />
+					</transition>
 				</div>
 
 				<div class="register-form-group">
@@ -162,7 +74,7 @@
 	import eventBus from '~/utils/event-bus'
 
 	export default {
-		name: 'MyInfoForm',
+		name: 'MyPasswordForm',
 
 		components: {},
 
@@ -172,34 +84,16 @@
 
 		computed: {
 			...mapGetters({
-				country: 'location/country',
 				user: 'auth/user',
 			}),
-
-			years() {
-				const now = new Date().getUTCFullYear()
-				const years = Array(now - (now - 100))
-					.fill('')
-					.map((v, idx) => ({
-						label: now - idx,
-						value: `${now-idx}-01-01 00:00:00`,
-					}))
-
-				return years
-			},
 		},
 
 		data: () => ({
 			loading: false,
-			countries: [],
 			form: new Form({
-				username: '',
-				email: '',
-				name: '',
-				second_name: '',
-				sex: null,
-				country_id: null,
-				birthday: 1970,
+				old_password: null,
+				password: null,
+				password_confirmation: null,
 			}),
 		}),
 
@@ -216,43 +110,15 @@
 		},
 
 		mounted() {
-			this.countries.push({
-				label: this.user.country.title,
-				value: this.user.country.id,
-				code: this.user.country.code
-			})
+			
 		},
 
 		methods: {
-
-			async fetchCountries() {
-				if (this.countries.length > 1) {
-					return false
-				}
-				this.loading = true
-				await this.$axios.get('countries', {
-					params: {
-						locale: this.locale,
-					}
-				}).then(response => {
-					this.countries = response.data.map(item => {
-						return {
-							value: item.id,
-							label: item.title,
-							code: item.code,
-						}
-					})
-					this.loading = false
-				})
-			},
-
 			async action() {
 				this.form
-					.patch(`/user/${this.user.id}`)
+					.patch(`/user`)
 					.then(response => {
-
 						const user = response.data
-
 						this.$store.dispatch('auth/updateUser', user)
 					})
 					.catch(e => {})
