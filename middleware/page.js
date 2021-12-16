@@ -1,4 +1,4 @@
-export default async ({ app, store, params, redirect, route, $axios }) => {
+export default async ({ app, res, store, params, redirect, route, $axios }) => {
 
 	const country = store.getters['location/country']
 
@@ -17,5 +17,7 @@ export default async ({ app, store, params, redirect, route, $axios }) => {
 		.then(response => {
 			store.commit('pages/FETCH_PAGE', { page: response.data })
 		})
-		.catch(error => {})
+		.catch(error => {
+			res.statusCode = 404
+		})
 }

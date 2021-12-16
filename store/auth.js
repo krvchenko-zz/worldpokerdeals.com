@@ -90,7 +90,7 @@ export const mutations = {
 export const actions = {
 	saveToken({ commit, dispatch }, { token, remember }) {
 		commit('SET_TOKEN', token)
-		Cookies.set('token', token, { expires: 365 })
+		Cookies.set('token', token, { expires: 365, domain: '.worldpokerdeals01.com' })
 	},
 
 	async fetchUser({ commit }) {
@@ -129,7 +129,7 @@ export const actions = {
 			await this.$axios.post('/logout')
 		} catch (e) {}
 
-		Cookies.remove('token', { domain: '.worldpokerdeals01.com' })
+		Cookies.remove('token', { path: '', domain: '.worldpokerdeals01.com' })
 
 		commit('LOGOUT')
 	},

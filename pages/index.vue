@@ -43,7 +43,7 @@
 			NotFound: () => import('~/pages/404'),
 		},
 
-		async middleware({ store, redirect, params, $axios, app }) {
+		async middleware({ res, app, store, redirect, params, $axios  }) {
 
 			const country = store.getters['location/country']
 
@@ -62,7 +62,9 @@
 				.then(response => {
 					store.commit('pages/FETCH_PAGE', { page: response.data })
 				})
-				.catch(error => {})
+				.catch(error => {
+					res.statusCode = 404
+				})
 		},
 
 		layout: 'basic',

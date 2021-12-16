@@ -29,6 +29,10 @@
 		components: {},
 		layout: 'basic',
 
+		async middleware({ res }) {
+			res.statusCode = 404
+		},
+
 		props: {},
 
 		data: () => ({}),
