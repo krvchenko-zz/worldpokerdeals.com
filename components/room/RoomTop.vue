@@ -62,6 +62,7 @@
 					:label="$t('go_to_site')"
 					:icon="false"
 					:slug="slug"
+					:url="url"
 				/>
 			</div>
 
@@ -116,6 +117,10 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: String,
 			},
 
 			rating: {

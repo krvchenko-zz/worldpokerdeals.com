@@ -1,11 +1,11 @@
 <template>
 	<nuxt-link v-slot="{ href, route, navigate }" :to="to" custom>
 		<button
-			:disabled="disabled"
+			:disabled="disabled || !url || url === ''"
 			:class="[
 				'btn',
 				'btn-room-action',
-				disabled && 'btn-room-action_disabled',
+				disabled || !url || url === '' && 'btn-room-action_disabled',
 				`btn-room-action_${type}`,
 				icon && `btn-room-action_${type}-icon`,
 			]"
@@ -46,6 +46,11 @@
 			},
 
 			slug: {
+				type: String,
+				default: '',
+			},
+
+			url: {
 				type: String,
 				default: '',
 			},

@@ -258,9 +258,10 @@
 			},
 
 			handleFilter(id, slug) {
+
 				if (slug) {
 					return this.$router.push({
-						path: this.$route.path,
+						path: '/blog',
 						query: slug ? { category: slug } : {},
 					})
 				}

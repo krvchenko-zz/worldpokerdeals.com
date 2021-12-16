@@ -62,6 +62,7 @@
 				:style="{ top: 0 }"
 				:title="rooms[0].title"
 				:slug="rooms[0].slug"
+				:url="rooms[0].url"
 				:restricted="rooms[0].restricted"
 				:country="country"
 				:rating="rooms[0].rating"

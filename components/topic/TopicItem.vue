@@ -10,7 +10,7 @@
 				}}</a>
 			</nuxt-link>
 
-			<div class="topic-item__meta">
+<!-- 			<div class="topic-item__meta">
 				<div v-if="author" class="topic-item__author">
 					<img
 						decoding="async"
@@ -25,7 +25,7 @@
 				</div>
 
 				<span class="topic-item__date">{{ dateFormat(created) }}</span>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>

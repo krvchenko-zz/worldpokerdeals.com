@@ -13,18 +13,30 @@
 		components: {},
 		layout: 'basic',
 
+		async middleware({ store, redirect, $axios }) {
+
+			const user = store.getters['auth/user']
+
+			await $axios.get('/my/paymentinfo', {
+				params: {
+					user_id: user.id,
+				}
+			}).then(response => {
+				store.dispatch('auth/fetchPaymentInfos', response.data)
+				$nuxt.$loading.finish()
+			})
+
+			if (!store.getters['auth/checkPaymentInfos']) {
+				return redirect('/my/payments/add')
+			}
+		},
+
 		props: {},
 
 		data: () => ({}),
 
 		async fetch() {
-			await this.$axios.get('/my/paymentinfo', {
-				params: {
-					user_id: this.user.id,
-				}
-			}).then(response => {
-				this.$store.dispatch('auth/updatePaymentInfos', response.data)
-			})
+
 		},
 
 		created() {},

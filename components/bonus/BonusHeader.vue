@@ -115,6 +115,7 @@
 							<room-action-button
 								class="btn-block"
 								:slug="promotion.room.slug"
+								:url="promotion.room.url"
 								:icon="true"
 								type="download"
 								:disabled="promotion.room.restricted"
@@ -125,6 +126,7 @@
 							<room-action-button
 								class="btn-block"
 								:slug="promotion.room.slug"
+								:url="promotion.room.url"
 								:icon="true"
 								type="contacts"
 								:label="$t('manager_chat')"
@@ -139,6 +141,7 @@
 					:id="promotion.room.id"
 					:title="promotion.room.title"
 					:slug="promotion.room.slug"
+					:url="promotion.room.url"
 					:rating="promotion.room.rating"
 					:review="promotion.room.review"
 					:rates="promotion.room.rates"

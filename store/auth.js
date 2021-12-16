@@ -8,7 +8,7 @@ export const state = () => ({
 	cookie: false,
 	disclaimer: false,
 	paymentInfo: null,
-	paymentInfos: null,
+	paymentInfos: [],
 	connections: null
 })
 
@@ -22,7 +22,8 @@ export const getters = {
 	disclaimer: state => state.disclaimer,
 	paymentInfo: state => state.paymentInfo,
 	paymentInfos: state => state.paymentInfos,
-	connections: state => state.connections
+	connections: state => state.connections,
+	checkPaymentInfos: state => state.paymentInfos.length
 }
 
 // mutations
@@ -113,6 +114,10 @@ export const actions = {
 
 	updatePaymentInfos({ commit }, payload) {
 		commit('UPDATE_PAYMENT_INFOS', payload)
+	},
+
+	fetchPaymentInfos({ commit }, payload) {
+		commit('FETCH_PAYMENT_INFOS', payload)
 	},
 
 	updateConnections({ commit }, payload) {

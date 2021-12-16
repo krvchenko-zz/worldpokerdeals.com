@@ -158,6 +158,7 @@
 					]"
 					:icon="false"
 					:disabled="!available"
+					:url="url"
 					:slug="slug"
 				/>
 
@@ -197,6 +198,9 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+			url: {
+				type: String,
 			},
 			rating: {
 				type: [String, Number],

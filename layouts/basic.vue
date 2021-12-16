@@ -2,7 +2,7 @@
 	<div class="page">
 		<!-- Disclaimer -->
 		<client-only>
-			<page-disclaimer v-if="!disclaimer" />
+			<page-disclaimer v-if="!disclaimer && locale === 'ru'" />
 		</client-only>
 		<!-- Header -->
 		<transition name="fade">

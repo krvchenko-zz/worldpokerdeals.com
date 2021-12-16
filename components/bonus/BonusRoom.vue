@@ -79,6 +79,10 @@
 				required: true,
 			},
 
+			url: {
+				type: String,
+			},
+
 			rating: {
 				type: [String, Number],
 				required: true,

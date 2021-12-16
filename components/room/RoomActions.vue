@@ -2,12 +2,14 @@
 	<div>
 		<room-action-button
 			:slug="room.slug"
+			:url="room.url"
 			:icon="true"
 			type="download"
 			:label="$t('room_download')"
 		/>
 		<room-action-button
 			:slug="room.slug"
+			:url="room.url"
 			:icon="true"
 			type="connection"
 			:label="$t('tag_account')"

@@ -42,7 +42,6 @@
 	export default {
 		components: {},
 		layout: 'basic',
-		// mixins: [pageMixin],
 
 		middleware: 'auth',
 

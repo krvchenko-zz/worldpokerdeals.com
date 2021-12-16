@@ -68,6 +68,7 @@
 				:id="best.id"
 				:title="best.title"
 				:slug="best.slug"
+				:url="best.url"
 				:restricted="best.restricted"
 				:country="country"
 				:rating="best.rating"
