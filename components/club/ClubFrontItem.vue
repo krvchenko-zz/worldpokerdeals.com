@@ -73,9 +73,15 @@
 				<span class="club-front-item__prop-label">{{ $t('club_id') }}</span>
 				<span
 					class="club-front-item__prop club-front-item__prop_id"
-					@click="handleCopy"
-					>{{ club_id }}</span
-				>
+					@click="handleCopy">
+						{{ club_id }}
+						<transition name="fade">
+							<span class="club-front-item-tooltip" v-if="copied">
+								<span class="club-front-item-tooltip__text">Copied to the clipboard!</span>
+								<span class="club-front-item-tooltip__arrow"></span>
+							</span>
+						</transition>
+					</span>
 			</div>
 
 			<div style="margin-bottom: 12px;" class="club-front-item__prop-wrap">
@@ -221,6 +227,7 @@
 
 		data: () => ({
 			toggled: false,
+			copied: false,
 		}),
 
 		created() {},
@@ -245,6 +252,14 @@
 		methods: {
 			handleCopy() {
 				navigator.clipboard.writeText(this.club_id)
+				this.showTooltip()
+			},
+
+			showTooltip() {
+				this.copied = true
+				setTimeout(() => {
+					this.copied = false
+				}, 600)
 			},
 		},
 	}
@@ -263,6 +278,49 @@
 		}
 		&:hover {
 			box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+		}
+		&-tooltip {
+			display: block;
+			position: absolute;
+			will-change: transform;
+			top: -35px;
+			left: 50%;
+			background-color: rgba(0, 0, 0, .7);
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			max-width: 320px;
+			padding: 6px 10px;
+			border-radius: 3px;
+			z-index: 100;
+			-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, .3);
+			box-shadow: 2px 2px 3px rgba(0, 0, 0, .3);
+			transform: translateX(-50%);
+			&__text {
+				display: block;
+				color: #fff;
+				font-family: 'Proxima Nova Sb';
+				font-size: 12px;
+				line-height: 12px;
+				text-align: center;
+				white-space: nowrap;
+			}
+			&__arrow {
+				left: 50%;
+				transform: translateX(-50%);
+				content: "";
+				width: 0;
+				height: 0;
+				border-style: solid;
+				position: absolute;
+				border-width: 5px 5px 0 5px;
+				border-top-color: rgba(0, 0, 0, .7);
+				border-bottom-color: transparent!important;
+				border-left-color: transparent!important;
+				border-right-color: transparent!important;
+				bottom: -5px;
+				margin-top: 0;
+				margin-bottom: 0;
+			}
 		}
 		&__header {
 			border-top-left-radius: 4px;
@@ -313,6 +371,7 @@
 			line-height: 16px;
 			font-feature-settings: 'tnum' on, 'lnum' on;
 			color: #243238;
+			position: relative;
 			&-label {
 				width: 50%;
 				font-family: 'Proxima Nova';

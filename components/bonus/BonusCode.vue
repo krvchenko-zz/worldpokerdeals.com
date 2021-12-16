@@ -4,7 +4,8 @@
 			'bonus-code',
 			small && 'bonus-code_small',
 			big && 'bonus-code_big',
-			hover && 'bonus-code_hover',
+			(hover && !isDisabled) && 'bonus-code_hover',
+			isDisabled && 'bonus-code_disabled',
 		]"
 		@mouseover="hover = true"
 		@mouseleave="hover = false"
@@ -68,12 +69,16 @@
 
 		computed: {
 			...mapGetters({}),
+			isDisabled() {
+				return !this.code || this.code === ''
+			},
 		},
 
 		watch: {},
 
 		methods: {
 			copy() {
+				if (this.isDisabled) return
 				navigator.clipboard.writeText(this.code)
 				this.showTooltip()
 			},
@@ -130,6 +135,10 @@
 				display: block;
 				background: $ico-scissors no-repeat center;
 			}
+		}
+
+		&_disabled {
+			cursor: not-allowed;
 		}
 
 		&__label {

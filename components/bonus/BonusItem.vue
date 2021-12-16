@@ -236,10 +236,6 @@
 				locales: 'lang/locales',
 				country: 'location/country',
 			}),
-
-			url() {
-				return `/promotions/${this.slug}`
-			},
 		},
 
 		methods: {},
