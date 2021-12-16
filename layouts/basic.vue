@@ -247,6 +247,10 @@
 		<client-only v-if="!$device.isMobile" name="fade">
 			<page-top />
 		</client-only>
+		<!-- Cookie Policy -->
+		<client-only>
+			<cookie-policy v-if="(cookie === 'false' || !cookie) && locale !== 'ru'" />
+		</client-only>
 	</div>
 </template>
 
@@ -272,6 +276,7 @@
 				disclaimer: 'auth/disclaimer',
 				topList: 'rooms/topList',
 				age: 'auth/age',
+				cookie: 'auth/cookie',
 				isMobile: 'ui/isMobile',
 				isTablet: 'ui/isTablet',
 			}),
@@ -373,7 +378,7 @@
 			})
 
 			this.setScreenSize()
-			window.addEventListener('resize', () => {
+				window.addEventListener('resize', () => {
 				this.setScreenSize()
 			})
 		},

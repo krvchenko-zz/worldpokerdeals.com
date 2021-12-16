@@ -129,7 +129,7 @@ export const actions = {
 			await this.$axios.post('/logout')
 		} catch (e) {}
 
-		Cookies.remove('token', { path: '', domain: '.worldpokerdeals01.com' })
+		Cookies.remove('token', { domain: '.worldpokerdeals01.com' })
 
 		commit('LOGOUT')
 	},
@@ -152,6 +152,6 @@ export const actions = {
 
 	setCookie({ commit }, { cookie }) {
 		commit('SET_COOKIE', { cookie })
-		Cookies.set('cookie', cookie, { expires: 365 })
+		Cookies.set('cookie', cookie, { expires: 365, domain: '.worldpokerdeals01.com' })
 	},
 }
