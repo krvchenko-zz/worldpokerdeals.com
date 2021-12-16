@@ -100,6 +100,7 @@
 						type="download"
 						:label="type === 'promotion' ? $t('get_in') : $t('get')"
 						:slug="room.slug"
+						:url="room.url"
 					/>
 
 					<nuxt-link
@@ -206,6 +207,18 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: [String, Boolean, Number],
+			},
+
+			available: {
+				type: [Number, Boolean],
+			},
+
+			closed: {
+				type: [Number, Boolean],
 			},
 
 			created: {
@@ -317,10 +330,6 @@
 				country: 'location/country',
 				parent: 'rooms/room',
 			}),
-
-			url() {
-				return `/promotions/${this.slug}`
-			},
 		},
 
 		methods: {

@@ -57,10 +57,10 @@
 					}"
 					class="btn-block"
 					:slug="slug"
+					:url="url"
 					:icon="false"
 					type="download"
 					:label="$t('room_download')"
-					:disabled="restricted"
 				/>
 			</div>
 
@@ -95,7 +95,7 @@
 	import Rating from '~/components/Rating'
 
 	export default {
-		name: 'TopRoom',
+		name: 'BonusCard',
 
 		components: {
 			Rating,
@@ -115,6 +115,18 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: [String, Boolean, Number],
+			},
+
+			available: {
+				type: [Number, Boolean],
+			},
+
+			closed: {
+				type: [Number, Boolean],
 			},
 
 			rating: {

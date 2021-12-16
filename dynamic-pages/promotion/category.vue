@@ -85,6 +85,7 @@
 							:key="index"
 							:title="item.title"
 							:slug="item.slug"
+							:url="item.url"
 							:created="item.created_at"
 							:code="item.code"
 							:terms="item.terms"

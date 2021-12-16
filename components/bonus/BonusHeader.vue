@@ -118,7 +118,6 @@
 								:url="promotion.room.url"
 								:icon="true"
 								type="download"
-								:disabled="promotion.room.restricted"
 								:label="$t('get_bonus')"
 							/>
 						</div>

@@ -263,6 +263,7 @@
 		<div class="room-header-actions">
 			<room-action-button
 				:slug="room.slug"
+				:url="room.url"
 				:icon="true"
 				:disabled="
 					!room.available ||

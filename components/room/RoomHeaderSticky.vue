@@ -68,6 +68,7 @@
 								lineHeight: '16px',
 							}"
 							:slug="room.slug"
+							:url="room.url"
 							:icon="false"
 							:disabled="!room.available || room.closed || room.blacklist"
 							type="download"

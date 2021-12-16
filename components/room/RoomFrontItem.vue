@@ -67,7 +67,9 @@
 							'btn-block',
 							'room-front__link',
 							'room-front__link_download',
+							isDisabled && 'room-front__link_disabled',
 						]"
+						:disabled="isDisabled"
 						@click="handleDownload"
 					>
 						{{ $t('room_download') }}
@@ -100,6 +102,18 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: [String, Boolean, Number],
+			},
+
+			available: {
+				type: [Number, Boolean],
+			},
+
+			closed: {
+				type: [Number, Boolean],
 			},
 
 			summary: {
@@ -156,6 +170,10 @@
 
 			mediaUrl() {
 				return process.env.mediaUrl
+			},
+
+			isDisabled() {
+				return !this.available || this.closed || !this.url || this.url === ''
 			},
 
 			...mapGetters({
@@ -360,6 +378,11 @@
 					color: #ffffff;
 					background: #ee3c4b;
 				}
+			}
+
+			&_disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
 			}
 		}
 

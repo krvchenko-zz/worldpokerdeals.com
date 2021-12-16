@@ -168,8 +168,8 @@
 							fontSize: '16px',
 						}"
 						:slug="room.slug"
+						:url="room.url"
 						:icon="true"
-						:disabled="room.restricted"
 						:class="['btn-block', 'room-header-actions__download']"
 						type="download"
 						:label="$t('room_download')"
@@ -195,7 +195,33 @@
 						</div>
 					</div>
 
-					<room-action-button
+					<nuxt-link
+						v-if="room.review"
+						v-slot="{ href, route, navigate }"
+						:to="{
+							name: 'index',
+							params: { parent: 'rakeback-deals', child: room.review.slug },
+						}"
+					>
+						<a
+							:class="[
+								'btn',
+								'btn-room-action',
+								'btn-room-action_default',
+								'btn-room-action_default-icon',
+								'btn-block',
+							]"
+							:style="{
+								padding: '7px 24px',
+								fontSize: '16px',
+							}"
+							:href="href"
+							@click="navigate"
+							>{{ $t('room_review', { room: room.title }) }}</a
+						>
+					</nuxt-link>
+
+<!-- 					<room-action-button
 						:style="{
 							padding: '7px 24px',
 							fontSize: '16px',
@@ -204,7 +230,7 @@
 						:slug="room.review.slug"
 						type="default"
 						:label="$t('room_review', { room: room.title })"
-					/>
+					/> -->
 				</div>
 			</div>
 		</div>

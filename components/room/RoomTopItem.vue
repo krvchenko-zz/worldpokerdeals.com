@@ -85,7 +85,12 @@
 
 				<nuxt-link v-slot="{ href, route, navigate }" :to="{ name: 'front' }">
 					<button
-						:class="['top-rooms__item-link', 'top-rooms__item-link_download']"
+						:class="[
+							'top-rooms__item-link',
+							'top-rooms__item-link_download',
+							isDisabled && 'top-rooms__item-link_disabled',
+						]"
+						:disabled="isDisabled"
 						@click="handleDownload"
 					>
 						{{ $t('access') }}
@@ -128,6 +133,18 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: [String, Boolean, Number],
+			},
+
+			available: {
+				type: [Number, Boolean],
+			},
+
+			closed: {
+				type: [Number, Boolean],
 			},
 
 			rakeback: {
@@ -189,6 +206,10 @@
 			...mapGetters({
 				country: 'location/country',
 			}),
+
+			isDisabled() {
+				return !this.available || this.closed || !this.url || this.url === ''
+			},
 		},
 
 		watch: {},
@@ -476,6 +497,11 @@
 					border-color: #ee3c4b;
 					background: #ee3c4b;
 				}
+			}
+
+			&_disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
 			}
 		}
 

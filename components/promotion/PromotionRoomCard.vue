@@ -51,6 +51,7 @@
 
 				<room-action-button
 					:label="$t('get_in')"
+					:url="url"
 					type="download"
 					:class="[
 						'btn',
@@ -91,6 +92,18 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: [String, Boolean, Number],
+			},
+
+			available: {
+				type: [Number, Boolean],
+			},
+
+			closed: {
+				type: [Number, Boolean],
 			},
 
 			rating: {

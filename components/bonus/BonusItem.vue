@@ -54,7 +54,7 @@
 					type="download"
 					:label="$t('get')"
 					:slug="room.slug"
-					:disabled="room.restricted"
+					:url="room.url"
 				/>
 
 				<div v-if="hasPage" class="bonus-item__review">
@@ -141,6 +141,18 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: [String, Boolean, Number],
+			},
+
+			available: {
+				type: [Number, Boolean],
+			},
+
+			closed: {
+				type: [Number, Boolean],
 			},
 
 			created: {
