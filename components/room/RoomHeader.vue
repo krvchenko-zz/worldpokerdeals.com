@@ -268,8 +268,7 @@
 				:disabled="
 					!room.available ||
 						room.blacklist ||
-						room.closed ||
-						room.types.some(type => type.id === 3)
+						room.closed
 				"
 				class="room-header-actions__download"
 				type="download"
@@ -326,7 +325,7 @@
 
 		<div
 			v-if="
-				(room.restricted || !room.available || room.blacklist || room.closed) &&
+				(!room.available || room.blacklist || room.closed) &&
 					recomended.length
 			"
 			:class="[

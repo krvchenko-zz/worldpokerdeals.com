@@ -205,6 +205,7 @@
 					:key="index"
 					:title="item.title"
 					:slug="item.slug"
+					:url="item.url"
 					:rating="item.rating"
 					:rakeback="item.rakeback"
 					:bonus="item.bonus"

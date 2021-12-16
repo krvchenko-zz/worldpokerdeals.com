@@ -62,7 +62,7 @@
 				<!-- <comments commentable_type="App\Post" :commentable_id="post.id" /> -->
 			</div>
 
-			<div class="article-container__aside-content">
+			<aside class="article-container__aside-content">
 				<room-top-list />
 
 				<post-list :label="$t('blog_important')" featured :asRow="$device.isTablet">
@@ -95,7 +95,7 @@
 						:asCard="$device.isMobile"
 					></post-item>
 				</post-list>
-			</div>
+			</aside>
 		</div>
 
 		<lazy-hydrate when-visible>
