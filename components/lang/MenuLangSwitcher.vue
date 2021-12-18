@@ -25,25 +25,63 @@
 					isOpen && 'menu-lang-switcher__dropdown--opened',
 				]"
 			>
-				<li
-					v-for="(value, index) in locales"
-					v-if="index !== locale"
-					:key="index"
-					class="menu-lang-switcher__dropdown-item"
-				>
-					<a
-						:class="[
-							'menu-lang-switcher__dropdown-item__link',
-							`menu-lang-switcher__dropdown-item__link--${index}`,
-						]"
-						:href="`https://${
-							index !== 'en' ?
-							index + '.' + host + $route.fullPath :
-							host + $route.fullPath}`"
+				<template v-if="$route.params.parent === 'blog'">
+
+					<li
+						v-for="(item, index) in locales"
+						v-if="index !== locale"
+						:key="index"
+						class="menu-lang-switcher__dropdown-item"
 					>
-						{{ getLanguageName(index) }}
-					</a>
-				</li>
+						<a
+							v-if="translations.length && translations.some(item => {
+								return item.locale === index
+							})"
+							:class="[
+								'menu-lang-switcher__dropdown-item__link',
+								`menu-lang-switcher__dropdown-item__link--${index}`,
+							]"
+							:href="`https://${
+								index !== 'en' ?
+								index + '.' + host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug :
+								host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug}`"
+							><span>{{ getLanguageName(index) }}</span></a
+						>
+
+						<a
+							v-else
+							:class="[
+								'menu-lang-switcher__dropdown-item__link',
+								`menu-lang-switcher__dropdown-item__link--${index}`,
+							]"
+							:href="`https://${index !== 'en' ? index + '.' + host : host}`"
+							><span>{{ getLanguageName(index) }}</span></a
+						>
+					</li>
+
+				</template>
+
+				<template v-else>
+					<li
+						v-for="(value, index) in locales"
+						v-if="index !== locale"
+						:key="index"
+						class="menu-lang-switcher__dropdown-item"
+					>
+						<a
+							:class="[
+								'menu-lang-switcher__dropdown-item__link',
+								`menu-lang-switcher__dropdown-item__link--${index}`,
+							]"
+							:href="`https://${
+								index !== 'en' ?
+								index + '.' + host + $route.fullPath :
+								host + $route.fullPath}`"
+						>
+							{{ getLanguageName(index) }}
+						</a>
+					</li>
+				</template>
 			</ul>
 		</transition>
 	</div>
@@ -71,10 +109,15 @@
 			...mapGetters({
 				locale: 'lang/locale',
 				locales: 'lang/locales',
+				page: 'pages/page',
 			}),
 
 			host() {
 				return process.env.hostName
+			},
+
+			translations() {
+				return this.page.translations
 			},
 		},
 

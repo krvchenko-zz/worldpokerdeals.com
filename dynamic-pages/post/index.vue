@@ -161,7 +161,6 @@
 			canocical() {
 				let value = [
 					{ rel: 'canonical', href: this.pageable ? this.url : '' },
-					// { rel: 'alternate', hreflang: 'x-default', href: this.pageable ? this.xDefault : '' },
 					{ rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : '' },
 				]
 

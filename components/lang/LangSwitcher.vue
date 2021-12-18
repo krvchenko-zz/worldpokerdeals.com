@@ -21,59 +21,62 @@
 					active && 'lang-switcher-dropdown_active',
 				]"
 			>
-				<li
-					v-if="$route.params.parent === 'blog' && translations.length && item.locale !== locale"
-					v-for="(item, index) in translations"
-					:key="index"
-					class="lang-switcher-dropdown__item"
-				>
-					<a
-						:class="[
-							'lang-switcher-dropdown__link',
-							`lang-switcher-dropdown__link_${item.locale}`,
-						]"
-						:href="`https://${
-							item.locale !== 'en' ?
-							item.locale + '.' + host + '/blog/' + item.slug :
-							host + '/blog/' + item.slug}`"
-						><span>{{ locales[item.locale] }}</span></a
-					>
-				</li>
+				<template v-if="$route.params.parent === 'blog'">
 
-				<li
-					v-if="$route.params.parent === 'blog' && !translations.length && index !== locale"
-					v-for="(item, index) in locales"
-					:key="index"
-					class="lang-switcher-dropdown__item"
-				>
-					<a
-						:class="[
-							'lang-switcher-dropdown__link',
-							`lang-switcher-dropdown__link_${index}`,
-						]"
-						:href="`https://${index !== 'en' ? index + '.' + host : host}`"
-						><span>{{ item }}</span></a
+					<li
+						v-for="(item, index) in locales"
+						v-if="index !== locale"
+						:key="index"
+						class="lang-switcher-dropdown__item"
 					>
-				</li>
+						<a
+							v-if="translations.length && translations.some(item => {
+								return item.locale === index
+							})"
+							:class="[
+								'lang-switcher-dropdown__link',
+								`lang-switcher-dropdown__link_${index}`,
+							]"
+							:href="`https://${
+								index !== 'en' ?
+								index + '.' + host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug :
+								host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug}`"
+							><span>{{ item }}</span></a
+						>
 
-				<li
-					v-for="(item, index) in locales"
-					v-if="$route.params.parent !== 'blog' && index !== locale"
-					:key="index"
-					class="lang-switcher-dropdown__item"
-				>
-					<a
-						:class="[
-							'lang-switcher-dropdown__link',
-							`lang-switcher-dropdown__link_${index}`,
-						]"
-						:href="`https://${
-							index !== 'en' ?
-							index + '.' + host + $route.fullPath :
-							host + $route.fullPath}`"
-						><span>{{ item }}</span></a
+						<a
+							v-else
+							:class="[
+								'lang-switcher-dropdown__link',
+								`lang-switcher-dropdown__link_${index}`,
+							]"
+							:href="`https://${index !== 'en' ? index + '.' + host : host}`"
+							><span>{{ item }}</span></a
+						>
+					</li>
+
+				</template>
+
+				<template v-else>
+					<li
+						v-for="(item, index) in locales"
+						v-if="index !== locale"
+						:key="index"
+						class="lang-switcher-dropdown__item"
 					>
-				</li>
+						<a
+							:class="[
+								'lang-switcher-dropdown__link',
+								`lang-switcher-dropdown__link_${index}`,
+							]"
+							:href="`https://${
+								index !== 'en' ?
+								index + '.' + host + $route.fullPath :
+								host + $route.fullPath}`"
+							><span>{{ item }}</span></a
+						>
+					</li>
+				</template>
 			</ul>
 		</transition>
 	</div>
@@ -210,7 +213,8 @@
 		margin: 0;
 		padding: 0;
 		list-style: none;
-		border: 1px solid rgba(204, 204, 204, 0.1);
+		// border: 1px solid rgba(204, 204, 204, 0.1);
+		overflow: hidden;
 		border-radius: 4px;
 		box-shadow: 0px 15px 40px;
 
