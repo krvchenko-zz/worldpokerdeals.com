@@ -141,6 +141,8 @@
 				meta: [
 					{ hid: 'og:image', name: 'og:image', content: this.post ? this.ogImage : '' },
 				],
+
+				link: this.canocical,
 			}
 		},
 
@@ -155,6 +157,46 @@
 				important: 'posts/important',
 				related: 'posts/related',
 			}),
+
+			canocical() {
+				let value = [
+					{ rel: 'canonical', href: this.pageable ? this.url : '' },
+					// { rel: 'alternate', hreflang: 'x-default', href: this.pageable ? this.xDefault : '' },
+					{ rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : '' },
+				]
+
+				let translations = this.pageable.translations
+
+				if (translations.length) {
+
+					for (var i = 0; i < translations.length; i++) {
+						let locale = translations[i].locale,
+								item = {
+									rel: 'alternate',
+									hreflang: locale,
+									href: `https://${locale !== 'en' ? locale + '.' : ''}${this.host}/blog/${translations[i].slug}`,
+								}
+
+						value.push(item)
+					}
+				}
+
+				return value
+			},
+
+			xDefault() {
+				return `https://${this.host}${this.$route.path}`
+			},
+
+			url() {
+				let url = `https://${this.locale !== 'en' ? this.locale + '.' : ''}${this.host}${this.$route.path}`
+
+				return url.replace(/\/page\/(.*)/gi, '')
+			},
+
+			host() {
+				return process.env.hostName
+			},
 
 			ogImage() {
 				return `${process.env.mediaUrl}/article-large/${this.post.image.filename}`

@@ -84,13 +84,13 @@
 					{ name: 'og:url', content: this.url },
 				],
 
-				link: [
+				link: this.$route.params.parent !== 'blog' && this.$route.params.child ? [
 					{ rel: 'canonical', href: this.pageable ? this.url : '' },
 					{ rel: 'alternate', hreflang: 'x-default', href: this.pageable ? this.xDefault : '' },
 					{ rel: 'alternate', hreflang: 'ru', href: this.pageable ? `https://ru.${this.host}${this.$route.path}` : '' },
 					{ rel: 'alternate', hreflang: 'en', href: this.pageable ? `https://${this.host}${this.$route.path}` : ''},
 					{ rel: 'alternate', hreflang: 'es', href: this.pageable ? `https://es.${this.host}${this.$route.path}` : '' },
-				],
+				]: [],
 
 				script: [{ type: 'application/ld+json', json: this.pageable ? this.pageable.faq : '' }],
 			}

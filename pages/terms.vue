@@ -75,15 +75,6 @@
 
 		layout: 'basic',
 
-		async middleware({ store, redirect, params, $axios }) {
-			await $axios
-				.get('pages/terms')
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
-
 		head() {
 			return {
 				title: this.page.meta_title,
@@ -132,18 +123,7 @@
 			loading: false,
 		}),
 
-		async fetch() {
-			await this.$axios
-				.get(`pages/${this.$route.fullPath}`, {
-					params: {
-						locale: this.locale,
-					},
-				})
-				.then(response => {
-					this.$store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
+		async fetch() {},
 
 		watch: {},
 

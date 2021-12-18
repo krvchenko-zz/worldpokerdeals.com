@@ -22,8 +22,43 @@
 				]"
 			>
 				<li
+					v-if="$route.params.parent === 'blog' && translations.length && item.locale !== locale"
+					v-for="(item, index) in translations"
+					:key="index"
+					class="lang-switcher-dropdown__item"
+				>
+					<a
+						:class="[
+							'lang-switcher-dropdown__link',
+							`lang-switcher-dropdown__link_${item.locale}`,
+						]"
+						:href="`https://${
+							item.locale !== 'en' ?
+							item.locale + '.' + host + '/blog/' + item.slug :
+							host + '/blog/' + item.slug}`"
+						><span>{{ locales[item.locale] }}</span></a
+					>
+				</li>
+
+				<li
+					v-if="$route.params.parent === 'blog' && !translations.length && index !== locale"
 					v-for="(item, index) in locales"
-					v-if="index !== locale"
+					:key="index"
+					class="lang-switcher-dropdown__item"
+				>
+					<a
+						:class="[
+							'lang-switcher-dropdown__link',
+							`lang-switcher-dropdown__link_${index}`,
+						]"
+						:href="`https://${index !== 'en' ? index + '.' + host : host}`"
+						><span>{{ item }}</span></a
+					>
+				</li>
+
+				<li
+					v-for="(item, index) in locales"
+					v-if="$route.params.parent !== 'blog' && index !== locale"
 					:key="index"
 					class="lang-switcher-dropdown__item"
 				>
@@ -66,10 +101,15 @@
 			...mapGetters({
 				locale: 'lang/locale',
 				locales: 'lang/locales',
+				page: 'pages/page',
 			}),
 
 			host() {
 				return process.env.hostName
+			},
+
+			translations() {
+				return this.page.translations
 			},
 		},
 

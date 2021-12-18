@@ -7,7 +7,7 @@
 				:label="$t('all_posts')"
 				:value="null"
 				:active="category_id === null"
-				@click="handleFilter"
+				@click="handleFilter(null)"
 			/>
 			<filter-tab-item
 				v-for="item in categories"
@@ -269,10 +269,9 @@
 				this.category_id = null
 
 				this.$router.push({
-					path: 'blog',
+					path: '/blog',
 					query: null,
 				})
-				// this.fetchItems()
 			},
 
 			handlePageNext() {
