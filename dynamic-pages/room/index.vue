@@ -151,7 +151,7 @@
 						:currencies="room.currencies"
 						:min_deposit="room.min_deposit"
 						:max_deposit="room.max_deposit"
-						:games="[...room.disciplines, ...room.games]"
+						:games="room.game_types.filter(item => {return item.type === 'game' || item.type === 'discipline'})"
 					/>
 
 					<room-support
@@ -308,11 +308,12 @@
 		},
 
 		async fetch() {
+
 			await this.$axios
 				.get(`rooms/${this.page.slug}`, {
 					params: {
 						country_id: this.country.id,
-						locale: this.locale,
+						locale: this.locale
 					},
 				})
 				.then(response => {

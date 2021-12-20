@@ -360,11 +360,11 @@
 				<tab-item
 					v-for="(item, index) in room.tabs"
 					:key="index"
+					:name="item.name"
 					:params="{
 						parent: 'rakeback-deals',
 						child: item.slug,
 					}"
-					:name="item.name"
 				>
 				</tab-item>
 			</tab-list>
