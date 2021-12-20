@@ -13,11 +13,11 @@
 			</div>
 
 			<div class="network-header__content">
-				<h1 class="network__title">{{ network.heading }}</h1>
+				<h1 class="network__title">{{ pageable.heading }}</h1>
 				<page-meta
-					:author="network.user ? network.user.full_name : null"
-					:created="network.created_at"
-					:updated="network.updated_at"
+					:author="pageable.user ? pageable.user.full_name : null"
+					:created="pageable.created_at"
+					:updated="pageable.updated_at"
 					:dark="true"
 					class="network-header__meta"
 				>
@@ -25,7 +25,7 @@
 				<common-text-spoiler
 					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 					class="network__summary"
-					:text="network.summary"
+					:text="pageable.summary"
 				>
 					<template v-slot:button>
 						<svg-icon icon="spoiler-sep" width="35" height="16" />

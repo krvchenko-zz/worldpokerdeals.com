@@ -159,7 +159,7 @@
 					return 'Promotion'
 				else if (type === 'App\\Post')
 					return 'Post'
-				else if (type === 'App\\NetworkTranslation')
+				else if (type === 'App\\Network')
 					return 'Network'
 				else if (type === 'App\\PlatformTranslation')
 					return 'Platform'

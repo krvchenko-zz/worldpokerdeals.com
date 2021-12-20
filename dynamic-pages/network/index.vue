@@ -92,16 +92,16 @@
 		</div>
 
 		<div class="network__toc">
-			<toc-list v-if="network.toc && network.toc.length">
+			<toc-list v-if="pageable.toc && pageable.toc.length">
 				<template #default="{ inline }">
 					<toc-item
 						:inline="inline"
-						:anchor="urlLit($t('network_rooms', {title: network.title}))"
-						:text="$t('network_rooms', {title: network.title})"
+						:anchor="urlLit($t('network_rooms', {title: pageable.title}))"
+						:text="$t('network_rooms', {title: pageable.title})"
 					>
 					</toc-item>
 					<toc-item
-						v-for="(item, index) in network.toc"
+						v-for="(item, index) in pageable.toc"
 						:key="index"
 						:index="index"
 						:inline="inline"
@@ -114,15 +114,15 @@
 		</div>
 
 		<!-- Article -->
-		<page-article :text="network.text" class="network__article">
+		<page-article :text="pageable.text" class="network__article">
 			<template #footer>
 				<!-- Faq -->
 				<faq-list
-					v-if="network.faq && network.faq.mainEntity.length"
+					v-if="pageable.faq && pageable.faq.mainEntity.length"
 					:label="$t('faq')"
 				>
 					<faq-item
-						v-for="(item, index) in network.faq.mainEntity"
+						v-for="(item, index) in pageable.faq.mainEntity"
 						:key="index"
 						:question="item.name"
 						:answer="item.acceptedAnswer.text"
@@ -130,7 +130,7 @@
 					</faq-item>
 				</faq-list>
 				<!-- Author -->
-				<author v-if="network.user" :author="network.user" />
+				<author v-if="pageable.user" :author="pageable.user" />
 				<!-- Comments -->
 				<!-- <comments commentable_type="App\Network" :commentable_id="network.id" /> -->
 			</template>
@@ -162,9 +162,9 @@
 				</div>
 			</client-only>
 
-			<topic-list v-if="network.topics.length" class="network__topics">
+			<topic-list v-if="pageable.topics.length" class="network__topics">
 				<topic-item
-					v-for="(item, index) in network.topics"
+					v-for="(item, index) in pageable.topics"
 					:key="index"
 					:title="item.title"
 					:url="item.url"
@@ -179,7 +179,7 @@
 		<lazy-hydrate when-visible>
 			<post-list
 				v-if="posts && posts.length"
-				:label="$t('entity_news', {entity: network.title})"
+				:label="$t('entity_news', {entity: pageable.title})"
 				class="network__posts"
 				asRow
 			>
