@@ -34,7 +34,7 @@
 						class="menu-lang-switcher__dropdown-item"
 					>
 						<a
-							v-if="translations.length && translations.some(item => {
+							v-if="page.translations.length && page.translations.some(item => {
 								return item.locale === index
 							})"
 							:class="[
@@ -114,10 +114,6 @@
 
 			host() {
 				return process.env.hostName
-			},
-
-			translations() {
-				return this.page.translations
 			},
 		},
 
