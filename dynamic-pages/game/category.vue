@@ -1,13 +1,13 @@
 <template>
-	<div v-if="category" class="games">
+	<div class="games">
 		<div class="games-header">
 			<breadcrumb-list :white="true" />
-			<h1 class="games__title">{{ category.title }}</h1>
+			<h1 class="games__title">{{ pageable.title }}</h1>
 			
 			<common-text-spoiler
 				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 				class="games__summary"
-				:text="category.summary"
+				:text="pageable.summary"
 			>
 				<template v-slot:button>
 					<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -33,18 +33,18 @@
 				:key="item.slug"
 				:title="item.name || item.title"
 				:icon="item.icon"
-				:rooms="item.rooms"
-				:page="item.page"
+				:rooms="item.rooms_count"
+				:page="item.review"
 			>
 			</game-item>
 		</div>
 
 		<div class="article-container">
 			<div class="article-container__toc">
-				<toc-list v-if="category.toc && category.toc.length">
+				<toc-list v-if="pageable.toc && pageable.toc.length">
 					<template #default="{ inline }">
 						<toc-item
-							v-for="(item, index) in category.toc"
+							v-for="(item, index) in pageable.toc"
 							:key="index"
 							:index="index"
 							:inline="inline"
@@ -58,22 +58,22 @@
 
 			<div class="article-container__article">
 				<!-- Article -->
-				<page-article :text="category.text">
+				<page-article :text="pageable.text">
 					<template #footer>
 						<!-- Author -->
 						<faq-list
-							v-if="category.faq && category.faq.mainEntity.length"
+							v-if="pageable.faq && pageable.faq.mainEntity.length"
 							:label="$t('faq')"
 						>
 							<faq-item
-								v-for="(item, index) in category.faq.mainEntity"
+								v-for="(item, index) in pageable.faq.mainEntity"
 								:key="index"
 								:question="item.name"
 								:answer="item.acceptedAnswer.text"
 							>
 							</faq-item>
 						</faq-list>
-						<author v-if="category.author" :author="category.author" />
+						<author v-if="pageable.author" :author="pageable.author" />
 						<!-- Comments -->
 <!-- 						<comments
 							commentable_type="App\GameCategory"
@@ -98,9 +98,9 @@
 						:categories="item.categories"
 					></post-item>
 				</post-list>
-				<topic-list v-if="category.topics && category.topics.length">
+				<topic-list v-if="pageable.topics && pageable.topics.length">
 					<topic-item
-						v-for="(item, index) in category.topics"
+						v-for="(item, index) in pageable.topics"
 						:key="index"
 						:title="item.title"
 						:url="item.url"
@@ -140,7 +140,6 @@
 				country: 'location/country',
 				user: 'auth/user',
 				pageable: 'pages/page',
-				category: 'games/category',
 				games: 'games/games',
 				posts: 'posts/posts',
 			}),
@@ -167,30 +166,14 @@
 
 		async fetch() {
 			await this.$axios
-				.get(`games/category/${this.pageable.slug}`)
-				.then(response => {
-					this.$store.commit('games/FETCH_CATEGORY', {
-						category: response.data,
-					})
-				})
-				.then()
-
-			await this.$axios
 				.get('games/list', {
 					params: {
 						type: this.type,
+						locale: this.locale,
 					},
 				})
 				.then(response => {
-					this.$store.commit('games/FETCH_GAMES', {
-						games: response.data.map(item => ({
-							title: item.title,
-							name: item.name,
-							icon: item.icon,
-							page: item.page,
-							rooms: item.rooms_count,
-						})),
-					})
+					this.$store.commit('games/FETCH_GAMES', { games: response.data })
 				})
 
 			await this.$axios

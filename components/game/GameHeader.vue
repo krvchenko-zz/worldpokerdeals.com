@@ -11,11 +11,11 @@
 		</div>
 
 		<div class="game-header__content">
-			<h1 class="game__title">{{ tab.title }}</h1>
+			<h1 class="game__title">{{ pageable.title }}</h1>
 			<page-meta
-				:author="tab.author ? tab.author.full_name : ''"
-				:created="tab.created_at"
-				:updated="tab.updated_at"
+				:author="pageable.author ? pageable.author.full_name : ''"
+				:created="pageable.created_at"
+				:updated="pageable.updated_at"
 				:dark="true"
 			>
 			</page-meta>
@@ -23,7 +23,7 @@
 			<common-text-spoiler
 				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 				class="game__summary"
-				:text="tab.summary"
+				:text="pageable.summary"
 			>
 				<template v-slot:button>
 					<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -51,8 +51,8 @@
 					v-for="(item, index) in game.tabs"
 					:key="index"
 					:params="{
-						parent: item.page.parent ? item.page.parent.slug : item.page.slug,
-						child: item.page.parent ? item.page.slug : null,
+						parent: item.parent ? item.parent.slug : item.slug,
+						child: item.parent ? item.slug : null,
 					}"
 					:name="item.name"
 				>
@@ -84,7 +84,6 @@
 		computed: {
 			...mapGetters({
 				game: 'games/game',
-				tab: 'games/tab',
 				pageable: 'pages/page',
 				best: 'rooms/best',
 				country: 'location/country',

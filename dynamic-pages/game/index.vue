@@ -3,7 +3,7 @@
 		<breadcrumb-list v-if="pageable" class="game__breadcrumbs" />
 		<game-header class="game__header" />
 
-		<div v-if="tab.show_rooms" class="game-rooms">
+		<div v-if="pageable.show_rooms" class="game-rooms">
 
 			<client-only>
 				<filter-header
@@ -84,10 +84,10 @@
 		</div>
 
 		<div class="game__toc">
-			<toc-list v-if="tab.toc && tab.toc.length">
+			<toc-list v-if="pageable.toc && pageable.toc.length">
 				<template #default="{ inline }">
 					<toc-item
-						v-for="(item, index) in tab.toc"
+						v-for="(item, index) in pageable.toc"
 						:key="index"
 						:index="index"
 						:inline="inline"
@@ -101,15 +101,15 @@
 
 		<div class="game__article">
 			<!-- Article -->
-			<page-article :text="tab.text">
+			<page-article :text="pageable.text">
 				<template #footer>
 					<!-- Faq -->
 					<faq-list
-						v-if="tab.faq && tab.faq.mainEntity.length"
+						v-if="pageable.faq && pageable.faq.mainEntity.length"
 						:label="$t('faq')"
 					>
 						<faq-item
-							v-for="(item, index) in tab.faq.mainEntity"
+							v-for="(item, index) in pageable.faq.mainEntity"
 							:key="index"
 							:question="item.name"
 							:answer="item.acceptedAnswer.text"
@@ -117,7 +117,7 @@
 						</faq-item>
 					</faq-list>
 					<!-- Author -->
-					<author v-if="tab.author" :author="tab.author" />
+					<author v-if="pageable.author" :author="pageable.author" />
 					<!-- Comments -->
 					<!-- <comments commentable_type="App\Tab" :commentable_id="tab.id" /> -->
 				</template>
@@ -132,7 +132,7 @@
 			>
 				<game-filters
 					class="game__filter"
-					v-if="tab.show_rooms && filters"
+					v-if="pageable.show_rooms && filters"
 					:geo.sync="geo"
 					:kycs="filters.kycs"
 					:platforms="filters.platforms"
@@ -148,9 +148,9 @@
 
 			<room-top-list />
 
-			<topic-list v-if="tab.topics && tab.topics.length">
+			<topic-list v-if="pageable.topics && pageable.topics.length">
 				<topic-item
-					v-for="(item, index) in tab.topics"
+					v-for="(item, index) in pageable.topics"
 					:key="index"
 					:title="item.title"
 					:url="item.url"
@@ -195,7 +195,7 @@
 						:title="item.title"
 						:icon="item.icon"
 						:rooms="item.rooms_count"
-						:page="item.page"
+						:page="item.review"
 					>
 					</game-item>
 				</div>
@@ -273,7 +273,6 @@
 				pageable: 'pages/page',
 				game: 'games/game',
 				games: 'games/games',
-				tab: 'games/tab',
 				rooms: 'rooms/rooms',
 				best: 'rooms/best',
 				posts: 'posts/posts',
@@ -311,7 +310,6 @@
 		async fetch() {
 			await this.$axios.get(`games/${this.pageable.slug}`).then(response => {
 				this.$store.commit('games/FETCH_GAME', { game: response.data.game })
-				this.$store.commit('games/FETCH_TAB', { tab: response.data.tab })
 				this.$store.commit('posts/FETCH_POSTS', { posts: response.data.posts })
 				this.$store.commit('games/FETCH_GAMES', {
 					games: response.data.related,

@@ -185,7 +185,7 @@
 					return 'Room'
 				else if (type === 'App\\PaymentMethod')
 					return 'PaymentMethod'
-				else if (type === 'App\\Tab' && parentType === 'App\\GameCategory')
+				else if (type === 'App\\Game')
 					return 'Game'
 				else if (type === 'App\\Tab' && parentType === 'App\\SoftCategory')
 					return 'Soft'
