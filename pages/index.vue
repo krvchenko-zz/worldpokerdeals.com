@@ -84,13 +84,13 @@
 					{ name: 'og:url', content: this.url },
 				],
 
-				link: this.$route.params.parent !== 'blog' && this.$route.params.child ? [
+				link: [
 					{ rel: 'canonical', href: this.pageable ? this.url : '' },
 					{ rel: 'alternate', hreflang: 'x-default', href: this.pageable ? this.xDefault : '' },
 					{ rel: 'alternate', hreflang: 'ru', href: this.pageable ? `https://ru.${this.host}${this.$route.path}` : '' },
 					{ rel: 'alternate', hreflang: 'en', href: this.pageable ? `https://${this.host}${this.$route.path}` : ''},
 					{ rel: 'alternate', hreflang: 'es', href: this.pageable ? `https://es.${this.host}${this.$route.path}` : '' },
-				]: [],
+				],
 
 				script: [{ type: 'application/ld+json', json: this.pageable ? this.pageable.faq : '' }],
 			}
@@ -157,7 +157,7 @@
 					return 'RoomCategory'
 				else if (type === 'App\\PostCategory')
 					return 'PostCategory'
-				else if (type === 'App\\Tab' && parentType === 'App\\RoomCategory')
+				else if (type === 'App\\Room')
 					return 'Room'
 				else if (type === 'App\\Tab' && parentType === 'App\\PaymentMethodCategory')
 					return 'PaymentMethod'

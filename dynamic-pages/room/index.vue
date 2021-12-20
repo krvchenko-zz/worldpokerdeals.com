@@ -322,22 +322,6 @@
 					})
 				})
 				.catch(e => {})
-
-			await this.$axios
-				.get('reviews/list', {
-					params: {
-						per_page: 5,
-						sort: 'created_at',
-						order: 'desc',
-						room_id: this.room.id,
-					},
-				})
-				.then(response => {
-					this.$store.commit('reviews/FETCH_REVIEWS', {
-						reviews: response.data,
-					})
-				})
-				.catch(e => {})
 		},
 
 		mounted() {
