@@ -183,7 +183,7 @@
 					return 'PostCategory'
 				else if (type === 'App\\Room')
 					return 'Room'
-				else if (type === 'App\\Tab' && parentType === 'App\\PaymentMethodCategory')
+				else if (type === 'App\\PaymentMethod')
 					return 'PaymentMethod'
 				else if (type === 'App\\Tab' && parentType === 'App\\GameCategory')
 					return 'Game'

@@ -12,11 +12,11 @@
 			</div>
 
 			<div class="payment__content">
-				<h1 class="payment__title">{{ tab.title }}</h1>
+				<h1 class="payment__title">{{ page.title }}</h1>
 				<page-meta
-					:author="tab.author ? tab.author.full_name : ''"
-					:created="tab.created_at"
-					:updated="tab.updated_at"
+					:author="page.author ? page.author.full_name : ''"
+					:created="page.created_at"
+					:updated="page.updated_at"
 					:dark="true"
 					class="payment__meta"
 				>
@@ -48,7 +48,7 @@
 				<common-text-spoiler
 					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 					class="payment__summary"
-					:text="tab.summary"
+					:text="page.summary"
 				>
 					<template v-slot:button>
 						<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -78,8 +78,8 @@
 					v-for="(item, index) in payment.tabs"
 					:key="index"
 					:params="{
-						parent: item.page.parent ? item.page.parent.slug : item.page.slug,
-						child: item.page.parent ? item.page.slug : null,
+						parent: item.parent ? item.parent.slug : item.slug,
+						child: item.parent ? item.slug : null,
 					}"
 					:name="item.name"
 				>
@@ -106,12 +106,11 @@
 		computed: {
 			...mapGetters({
 				payment: 'payments/payment',
-				pageable: 'pages/page',
 				topList: 'rooms/topList',
 				country: 'location/country',
 				payment: 'payments/payment',
 				rooms: 'rooms/rooms',
-				tab: 'payments/tab',
+				page: 'pages/page',
 			}),
 		},
 

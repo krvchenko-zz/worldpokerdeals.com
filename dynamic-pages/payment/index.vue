@@ -5,7 +5,7 @@
 		<payment-header />
 
 		<div class="payment-content">
-			<div v-if="tab.show_rooms" class="payment-content__rooms payment-rooms">
+			<div v-if="pageable.show_rooms" class="payment-content__rooms payment-rooms">
 
 				<client-only>
 					<filter-header
@@ -84,10 +84,10 @@
 			</div>
 
 			<div class="payment-content__toc">
-				<toc-list v-if="tab.toc && tab.toc.length">
+				<toc-list v-if="pageable.toc && pageable.toc.length">
 					<template #default="{ inline }">
 						<toc-item
-							v-for="(item, index) in tab.toc"
+							v-for="(item, index) in pageable.toc"
 							:key="index"
 							:index="index"
 							:inline="inline"
@@ -99,12 +99,12 @@
 				</toc-list>
 			</div>
 
-			<page-article :text="tab.text" class="payment-content__article">
+			<page-article :text="pageable.text" class="payment-content__article">
 				<template #footer>
 					<!-- Faq -->
-					<faq-list v-if="tab.faq && tab.faq.mainEntity.length" :label="$t('faq')">
+					<faq-list v-if="pageable.faq && pageable.faq.mainEntity.length" :label="$t('faq')">
 						<faq-item
-							v-for="(item, index) in tab.faq.mainEntity"
+							v-for="(item, index) in pageable.faq.mainEntity"
 							:key="index"
 							:question="item.name"
 							:answer="item.acceptedAnswer.text"
@@ -112,7 +112,7 @@
 						</faq-item>
 					</faq-list>
 					<!-- Author -->
-					<author v-if="tab.author" :author="tab.author" />
+					<author v-if="pageable.author" :author="pageable.author" />
 					<!-- Comments -->
 					<!-- <comments commentable_type="App\Tab" :commentable_id="tab.id" /> -->
 				</template>
@@ -121,7 +121,7 @@
 			<div class="payment-content__aside">
 				<client-only>
 					<div
-						v-if="tab.show_rooms && filters"
+						v-if="pageable.show_rooms && filters"
 						class="filters__wrapper"
 						:class="{ 'filters__wrapper--opened': showFilter }"
 						@click.self="handleOutsideClick($event)"
@@ -146,9 +146,9 @@
 
 				<room-top-list />
 
-				<topic-list v-if="tab.topics && tab.topics.length">
+				<topic-list v-if="pageable.topics && pageable.topics.length">
 					<topic-item
-						v-for="(item, index) in tab.topics"
+						v-for="(item, index) in pageable.topics"
 						:key="index"
 						:title="item.title"
 						:url="item.url"
@@ -192,7 +192,7 @@
 					:icon="item.icon"
 					:rooms="item.rooms_count"
 					:vip="item.vip_status"
-					:page="item.page"
+					:page="item.review"
 				>
 				</payment-item>
 			</payment-list>
@@ -267,7 +267,6 @@
 				user: 'auth/user',
 				pageable: 'pages/page',
 				payment: 'payments/payment',
-				tab: 'payments/tab',
 				rooms: 'rooms/rooms',
 				filters: 'rooms/filters',
 				posts: 'payments/posts',
@@ -303,7 +302,6 @@
 				this.$store.commit('payments/FETCH_PAYMENT', {
 					payment: response.data.payment,
 				})
-				this.$store.commit('payments/FETCH_TAB', { tab: response.data.tab })
 				this.$store.commit('payments/FETCH_POSTS', {
 					posts: response.data.posts,
 				})
@@ -312,7 +310,7 @@
 				})
 			})
 
-			if (this.tab.show_rooms) {
+			if (this.pageable.show_rooms) {
 				await this.$axios
 					.get(`rooms/list`, { params: this.params })
 					.then(response => {

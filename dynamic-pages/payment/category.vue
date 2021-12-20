@@ -138,7 +138,7 @@
 						icon: item.icon,
 						vip_status: item.vip_status,
 						rooms: item.rooms_count,
-						page: item.page,
+						page: item.review,
 					})),
 				})
 			})
