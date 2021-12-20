@@ -43,8 +43,8 @@
 							]"
 							:href="`https://${
 								index !== 'en' ?
-								index + '.' + host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '' ) + mapPages(index).slug :
-								host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '' ) + mapPages(index).slug}`"
+								index + '.' + host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '/' ) + mapPages(index).slug :
+								host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '/' ) + mapPages(index).slug}`"
 							><span>{{ getLanguageName(index) }}</span></a
 						>
 
