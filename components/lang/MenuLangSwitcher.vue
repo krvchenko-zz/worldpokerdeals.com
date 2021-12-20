@@ -25,7 +25,7 @@
 					isOpen && 'menu-lang-switcher__dropdown--opened',
 				]"
 			>
-				<template v-if="$route.params.parent === 'blog'">
+				<template>
 
 					<li
 						v-for="(item, index) in locales"
@@ -43,8 +43,8 @@
 							]"
 							:href="`https://${
 								index !== 'en' ?
-								index + '.' + host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug :
-								host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug}`"
+								index + '.' + host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '' ) + mapPages(index).slug :
+								host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '' ) + mapPages(index).slug}`"
 							><span>{{ getLanguageName(index) }}</span></a
 						>
 
@@ -61,7 +61,7 @@
 
 				</template>
 
-				<template v-else>
+<!-- 				<template v-else>
 					<li
 						v-for="(value, index) in locales"
 						v-if="index !== locale"
@@ -81,7 +81,7 @@
 							{{ getLanguageName(index) }}
 						</a>
 					</li>
-				</template>
+				</template> -->
 			</ul>
 		</transition>
 	</div>
@@ -129,6 +129,9 @@
 				if (locale === 'ru') return 'Русский'
 				if (locale === 'es') return 'Spanish'
 			},
+			mapPages(locale) {
+				return this.page.translations.filter(item => { return item.locale === locale })[0]
+			}
 		},
 	}
 </script>

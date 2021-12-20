@@ -119,12 +119,17 @@
 			canocical() {
 				let value = [
 					{ rel: 'canonical', href: this.pageable ? this.url : '' },
-					{ rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : '' },
 				]
 
-				let translations = this.pageable.translations
+				const translations = this.pageable ? this.pageable.translations : null
 
 				if (translations && translations.length) {
+
+					value.push({
+						rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : ''
+					})
+
+					value.push({ rel: 'alternate', href: `https://${this.host}${this.$route.path}`, hreflang: 'x-default' })
 
 					for (var i = 0; i < translations.length; i++) {
 						let locale = translations[i].locale,

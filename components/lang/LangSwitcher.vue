@@ -21,7 +21,7 @@
 					active && 'lang-switcher-dropdown_active',
 				]"
 			>
-				<template v-if="$route.params.parent === 'blog'">
+				<template>
 
 					<li
 						v-for="(item, index) in locales"
@@ -30,7 +30,7 @@
 						class="lang-switcher-dropdown__item"
 					>
 						<a
-							v-if="translations.length && translations.some(item => {
+							v-if="page.translations.length && page.translations.some(item => {
 								return item.locale === index
 							})"
 							:class="[
@@ -39,8 +39,8 @@
 							]"
 							:href="`https://${
 								index !== 'en' ?
-								index + '.' + host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug :
-								host + '/blog/' + translations.filter(item => { return item.locale === index })[0].slug}`"
+								index + '.' + host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '' ) + mapPages(index).slug :
+								host + ( mapPages(index).parent ? '/' + mapPages(index).parent.slug + '/' : '' ) + mapPages(index).slug}`"
 							><span>{{ item }}</span></a
 						>
 
@@ -57,7 +57,7 @@
 
 				</template>
 
-				<template v-else>
+<!-- 				<template v-else>
 					<li
 						v-for="(item, index) in locales"
 						v-if="index !== locale"
@@ -76,7 +76,7 @@
 							><span>{{ item }}</span></a
 						>
 					</li>
-				</template>
+				</template> -->
 			</ul>
 		</transition>
 	</div>
@@ -110,15 +110,15 @@
 			host() {
 				return process.env.hostName
 			},
-
-			translations() {
-				return this.page.translations
-			},
 		},
 
 		watch: {},
 
-		methods: {},
+		methods: {
+			mapPages(locale) {
+				return this.page.translations.filter(item => { return item.locale === locale })[0]
+			}
+		},
 	}
 </script>
 
