@@ -84,13 +84,7 @@
 					{ name: 'og:url', content: this.url },
 				],
 
-				link: [
-					{ rel: 'canonical', href: this.pageable ? this.url : '' },
-					{ rel: 'alternate', hreflang: 'x-default', href: this.pageable ? this.xDefault : '' },
-					{ rel: 'alternate', hreflang: 'ru', href: this.pageable ? `https://ru.${this.host}${this.$route.path}` : '' },
-					{ rel: 'alternate', hreflang: 'en', href: this.pageable ? `https://${this.host}${this.$route.path}` : ''},
-					{ rel: 'alternate', hreflang: 'es', href: this.pageable ? `https://es.${this.host}${this.$route.path}` : '' },
-				],
+				link: this.canocical,
 
 				script: [{ type: 'application/ld+json', json: this.pageable ? this.pageable.faq : '' }],
 			}
@@ -120,6 +114,31 @@
 
 			xDefault() {
 				return `https://${this.host}${this.$route.path}`
+			},
+
+			canocical() {
+				let value = [
+					{ rel: 'canonical', href: this.pageable ? this.url : '' },
+					{ rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : '' },
+				]
+
+				let translations = this.pageable.translations
+
+				if (translations && translations.length) {
+
+					for (var i = 0; i < translations.length; i++) {
+						let locale = translations[i].locale,
+								item = {
+									rel: 'alternate',
+									hreflang: locale,
+									href: `https://${locale !== 'en' ? locale + '.' : ''}${this.host}/${translations[i].parent ? translations[i].parent.slug : ''}/${translations[i].slug}`,
+								}
+
+						value.push(item)
+					}
+				}
+
+				return value
 			},
 
 			page() {
