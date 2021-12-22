@@ -187,7 +187,7 @@
 					return 'PaymentMethod'
 				else if (type === 'App\\Game')
 					return 'Game'
-				else if (type === 'App\\Tab' && parentType === 'App\\SoftCategory')
+				else if (type === 'App\\Soft')
 					return 'Soft'
 			},
 		},

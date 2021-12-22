@@ -1,14 +1,14 @@
 <template>
-	<div v-if="tab" class="soft">
+	<div v-if="pageable" class="soft">
 		<breadcrumb-list v-if="pageable" />
 
 		<soft-header />
 
 		<div class="article-container">
 			<div class="article-container__toc">
-				<toc-list v-if="tab.toc && tab.toc.length">
+				<toc-list v-if="pageable.toc && pageable.toc.length">
 					<toc-item
-						v-for="(item, index) in tab.toc"
+						v-for="(item, index) in pageable.toc"
 						:key="index"
 						:index="index"
 						:anchor="item.anchor_id"
@@ -20,12 +20,12 @@
 
 			<div class="article-container__article">
 				<!-- Article -->
-				<page-article :text="tab.text">
+				<page-article :text="pageable.text">
 					<template #footer>
 						<!-- Faq -->
-						<faq-list v-if="tab.faq && tab.faq.mainEntity.length" :label="$t('faq')">
+						<faq-list v-if="pageable.faq && pageable.faq.mainEntity.length" :label="$t('faq')">
 							<faq-item
-								v-for="(item, index) in tab.faq.mainEntity"
+								v-for="(item, index) in pageable.faq.mainEntity"
 								:key="index"
 								:question="item.name"
 								:answer="item.acceptedAnswer.text"
@@ -33,9 +33,9 @@
 							</faq-item>
 						</faq-list>
 						<!-- Author -->
-						<author v-if="tab.author" :author="tab.author" />
+						<author v-if="pageable.author" :author="pageable.author" />
 						<!-- Comments -->
-						<!-- <comments commentable_type="App\Tab" :commentable_id="tab.id" /> -->
+						<!-- <comments commentable_type="App\Tab" :commentable_id="pageable.id" /> -->
 					</template>
 				</page-article>
 			</div>
@@ -58,9 +58,9 @@
 					/>
 				</post-list>
 
-				<topic-list v-if="tab.topics.length">
+				<topic-list v-if="pageable.topics.length">
 					<topic-item
-						v-for="(item, index) in tab.topics"
+						v-for="(item, index) in pageable.topics"
 						:key="index"
 						:title="item.title"
 						:url="item.url"
@@ -159,7 +159,6 @@
 				user: 'auth/user',
 				pageable: 'pages/page',
 				soft: 'soft/soft',
-				tab: 'soft/tab',
 				related: 'soft/related',
 				posts: 'soft/posts',
 				recent: 'soft/recent',
@@ -173,7 +172,6 @@
 		async fetch() {
 			await this.$axios.get(`soft/${this.pageable.slug}`).then(response => {
 				this.$store.commit('soft/FETCH_SOFT', { soft: response.data.soft })
-				this.$store.commit('soft/FETCH_TAB', { tab: response.data.tab })
 				this.$store.commit('soft/FETCH_RELATED', {
 					related: response.data.related,
 				})

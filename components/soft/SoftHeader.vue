@@ -14,11 +14,11 @@
 			<div v-if="soft.category" class="soft-header__category">
 				{{ soft.category.title }}
 			</div>
-			<h1 class="soft__title">{{ tab.title }}</h1>
+			<h1 class="soft__title">{{ pageable.title }}</h1>
 			<page-meta
-				:author="tab.author ? tab.author.full_name : ''"
-				:created="tab.created_at"
-				:updated="tab.updated_at"
+				:author="pageable.author ? pageable.author.full_name : ''"
+				:created="pageable.created_at"
+				:updated="pageable.updated_at"
 				:dark="true"
 			>
 			</page-meta>
@@ -45,7 +45,7 @@
 		<common-text-spoiler
 			:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 			class="soft__summary"
-			:text="tab.summary"
+			:text="pageable.summary"
 		>
 			<template v-slot:button>
 				<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -122,7 +122,6 @@
 			...mapGetters({
 				pageable: 'pages/page',
 				soft: 'soft/soft',
-				tab: 'soft/tab',
 			}),
 
 			img() {

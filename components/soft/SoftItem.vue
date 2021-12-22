@@ -96,8 +96,8 @@
 					:to="{
 						name: 'index',
 						params: {
-							parent: review.page.parent.slug,
-							child: review.page.slug,
+							parent: review.parent.slug,
+							child: review.slug,
 						},
 					}"
 				>
