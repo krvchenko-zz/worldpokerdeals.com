@@ -161,7 +161,7 @@
 					return 'Post'
 				else if (type === 'App\\Network')
 					return 'Network'
-				else if (type === 'App\\PlatformTranslation')
+				else if (type === 'App\\Platform')
 					return 'Platform'
 				else if (type === 'App\\NetworkCategory')
 					return 'NetworkCategory'

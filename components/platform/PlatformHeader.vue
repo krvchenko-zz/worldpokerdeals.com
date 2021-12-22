@@ -11,11 +11,11 @@
 		</div>
 
 		<div class="platform-header__content">
-			<h1 class="platform__title">{{ platform.heading }}</h1>
+			<h1 class="platform__title">{{ page.heading }}</h1>
 			<page-meta
-				:author="platform.author ? platform.author.full_name : ''"
-				:created="platform.created_at"
-				:updated="platform.updated_at"
+				:author="page.author ? page.author.full_name : ''"
+				:created="page.created_at"
+				:updated="page.updated_at"
 				:dark="true"
 			>
 			</page-meta>
@@ -23,7 +23,7 @@
 			<common-text-spoiler
 				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 				class="platform__summary"
-				:text="platform.summary"
+				:text="page.summary"
 			>
 				<template v-slot:button>
 					<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -70,7 +70,7 @@
 		computed: {
 			...mapGetters({
 				platform: 'platforms/platform',
-				pageable: 'pages/page',
+				page: 'pages/page',
 				best: 'rooms/best',
 				country: 'location/country',
 			}),

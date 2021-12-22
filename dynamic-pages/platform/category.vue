@@ -20,7 +20,7 @@
 				:key="item.slug"
 				:title="item.title"
 				:icon="`${item.icon}-large`"
-				:rooms="item.rooms"
+				:rooms="item.rooms_count"
 				:page="item.page"
 			>
 			</platform-item>
@@ -142,50 +142,16 @@
 				.get(`platforms/category/${this.pageable.slug}`)
 				.then(response => {
 					this.$store.commit('platforms/FETCH_CATEGORY', {
-						category: {
-							id: response.data.id,
-							title: response.data.title,
-							summary: response.data.summary,
-							toc: response.data.toc,
-							faq: response.data.faq,
-							text: response.data.text,
-							topics: response.data.topics.map(this.mapTopics),
-							meta_title: response.data.meta_title,
-							meta_description: response.data.meta_description,
-							meta_keywords: response.data.meta_keywords,
-							author: response.data.author
-								? {
-										username: response.data.author.username,
-										full_name: response.data.author.full_name,
-										image: response.data.author.image
-											? {
-													filename: response.data.author.image.filename,
-											  }
-											: null,
-								  }
-								: null,
-						},
+						category: response.data.category,
+					})
+
+					this.$store.commit('platforms/FETCH_PLATFORMS', {
+						platforms: response.data.platforms
 					})
 				})
-				.then()
+				.catch(e => {
 
-			await this.$axios.get('platforms/list').then(response => {
-				this.$store.commit('platforms/FETCH_PLATFORMS', {
-					platforms: response.data.map(item => ({
-						title: item.heading,
-						icon: item.icon,
-						page: {
-							slug: item.page.slug,
-							parent: item.page.parent
-								? {
-										slug: item.page.parent.slug,
-								  }
-								: null,
-						},
-						rooms: item.rooms_count,
-					})),
 				})
-			})
 
 			await this.$axios
 				.get('posts/list', {

@@ -19,7 +19,7 @@
 			v-for="(item, index) in items"
 			:key="item.id"
 			:slug="item.slug"
-			:title="item.title || item.slug"
+			:title="item.title || item.heading || item.slug"
 			:index="index"
 			:parent="item.parent"
 			:last="index === Object.keys(items).length - 1"

@@ -86,10 +86,10 @@
 		</div>
 
 		<div class="platform__toc">
-			<toc-list v-if="platform.toc">
+			<toc-list v-if="pageable.toc">
 				<template #default="{ inline }">
 					<toc-item
-						v-for="(item, index) in platform.toc"
+						v-for="(item, index) in pageable.toc"
 						:key="index"
 						:index="index"
 						:inline="inline"
@@ -103,15 +103,15 @@
 
 		<div class="platform__article">
 			<!-- Article -->
-			<page-article :text="platform.text">
+			<page-article :text="pageable.text">
 				<template #footer>
 					<!-- Faq -->
 					<faq-list
-						v-if="platform.faq && platform.faq.mainEntity.length"
+						v-if="pageable.faq && pageable.faq.mainEntity.length"
 						:label="$t('faq')"
 					>
 						<faq-item
-							v-for="(item, index) in platform.faq.mainEntity"
+							v-for="(item, index) in pageable.faq.mainEntity"
 							:key="index"
 							:question="item.name"
 							:answer="item.acceptedAnswer.text"
@@ -119,7 +119,7 @@
 						</faq-item>
 					</faq-list>
 					<!-- Author -->
-					<author v-if="platform.author" :author="platform.author" />
+					<author v-if="pageable.author" :author="pageable.author" />
 					<!-- Comments -->
 					<!-- <comments commentable_type="App\PlatformTranslation" :commentable_id="pageable.pageable_id" /> -->
 				</template>
@@ -148,9 +148,9 @@
 
 			<room-top-list />
 
-			<topic-list v-if="platform.topics && platform.topics.length">
+			<topic-list v-if="pageable.topics && pageable.topics.length">
 				<topic-item
-					v-for="(item, index) in platform.topics"
+					v-for="(item, index) in pageable.topics"
 					:key="index"
 					:title="item.title"
 					:url="item.url"
