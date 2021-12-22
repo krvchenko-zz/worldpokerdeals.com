@@ -7,11 +7,11 @@
 				<svg-icon :icon="category.icon" />
 			</i>
 			<div class="soft-category-header__text-wrapper">
-				<h1 class="soft-category__title">{{ category.title }}</h1>
+				<h1 class="soft-category__title">{{ pageable.title }}</h1>
 				<common-text-spoiler
 					:limit="$device.isMobileOrTablet ? 100 : 600"
 					class="soft-category__summary"
-					:text="category.summary"
+					:text="pageable.summary"
 				>
 					<template v-slot:button>
 						<svg-icon icon="spoiler-sep" width="35" height="16" />

@@ -1,5 +1,5 @@
 <template>
-	<div v-if="category" class="soft-category">
+	<div v-if="pageable" class="soft-category">
 		<!-- Header -->
 		<soft-category-header class="soft-category__header" />
 
@@ -80,10 +80,10 @@
 
 		<!-- Toc -->
 		<div class="soft-category__toc">
-			<toc-list v-if="category.toc && category.toc.length">
+			<toc-list v-if="pageable.toc && pageable.toc.length">
 				<template #default="{ inline }">
 					<toc-item
-						v-for="(item, index) in category.toc"
+						v-for="(item, index) in pageable.toc"
 						:key="index"
 						:index="index"
 						:inline="inline"
@@ -96,15 +96,15 @@
 		</div>
 
 		<!-- Article -->
-		<page-article :text="category.text" class="soft-category__article">
+		<page-article :text="pageable.text" class="soft-category__article">
 			<template #footer>
 				<!-- Faq -->
 				<faq-list
-					v-if="category.faq && category.faq.mainEntity.length"
+					v-if="pageable.faq && pageable.faq.mainEntity.length"
 					:label="$t('faq')"
 				>
 					<faq-item
-						v-for="(item, index) in category.faq.mainEntity"
+						v-for="(item, index) in pageable.faq.mainEntity"
 						:key="index"
 						:question="item.name"
 						:answer="item.acceptedAnswer.text"
@@ -113,7 +113,7 @@
 				</faq-list>
 
 				<!-- Author -->
-				<author v-if="category.author" :author="category.author" />
+				<author v-if="pageable.author" :author="pageable.author" />
 
 				<!-- Comments -->
 				<!-- 				<comments
@@ -141,9 +141,9 @@
 
 			<room-top-list />
 
-			<topic-list v-if="category.topics.length">
+			<topic-list v-if="pageable.topics.length">
 				<topic-item
-					v-for="(item, index) in category.topics"
+					v-for="(item, index) in pageable.topics"
 					:key="index"
 					:title="item.title"
 					:url="item.url"

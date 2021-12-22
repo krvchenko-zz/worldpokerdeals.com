@@ -2,7 +2,7 @@
 	<div v-if="pageable" class="soft">
 		<breadcrumb-list v-if="pageable" />
 
-		<soft-header />
+		<soft-header v-if="soft" />
 
 		<div class="article-container">
 			<div class="article-container__toc">
