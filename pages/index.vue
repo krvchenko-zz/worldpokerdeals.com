@@ -117,8 +117,15 @@
 			},
 
 			canocical() {
+				// let value = [
+				// 	{ rel: 'canonical', href: this.pageable ? this.url : '' },
+				// ]
+
 				let value = [
-					{ rel: 'canonical', href: this.pageable ? this.url : '' },
+					{
+						rel: 'canonical',
+						href: `https://${this.locale !== 'en' ? this.locale + '.' : ''}${this.host}${this.$route.path}`
+					},
 				]
 
 				const translations = this.pageable ? this.pageable.translations : null
