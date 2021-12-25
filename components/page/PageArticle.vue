@@ -38,16 +38,16 @@
 
 <script>
 	import VRuntimeTemplate from 'v-runtime-template'
-	import Soft from '~/components/cards/Soft'
 	import Manager from '~/components/cards/Manager'
+	import Soft from '~/components/cards/Soft'
 
 	export default {
 		name: 'PageArticle',
 
 		components: {
 			VRuntimeTemplate,
-			Soft,
 			Manager,
+			Soft
 		},
 
 		props: {

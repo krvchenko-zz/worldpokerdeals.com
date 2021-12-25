@@ -32,8 +32,8 @@
 					:to="{
 						name: 'index',
 						params: {
-							parent: review.parent.slug,
-							child: review.slug,
+							parent: review.parent ? review.parent.slug : review.slug,
+							child: review.parent ? review.slug : null,
 						},
 					}"
 				>
@@ -46,7 +46,7 @@
 						]"
 						:href="href"
 						@click="navigate"
-						>Детали</a
+						>{{ $t('details') }}</a
 					>
 				</nuxt-link>
 				<nuxt-link v-slot="{ href, route, navigate }" :to="to">
@@ -61,7 +61,7 @@
 					]"
 					v-on="{ click: handleClick }"
 				>
-					<span class="btn-soft__download-label">Скачать</span>
+					<span class="btn-soft__download-label">{{ $t('download') }}</span>
 					<span class="btn-soft__download-price">{{ currency }}{{ price }}</span>
 				</button>
 				</nuxt-link>
