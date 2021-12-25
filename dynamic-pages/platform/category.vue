@@ -1,12 +1,12 @@
 <template>
-	<div v-if="category" class="games">
-		<div class="games-header">
+	<div v-if="category" class="platforms">
+		<div class="platforms-header">
 			<breadcrumb-list :white="true" />
-			<h1 class="games__title">{{ category.title }}</h1>
+			<h1 class="platforms__title">{{ pageable.title }}</h1>
 			<common-text-spoiler
 				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
-				class="games__summary"
-				:text="category.summary"
+				class="platforms__summary"
+				:text="pageable.summary"
 			>
 				<template v-slot:button>
 					<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -14,7 +14,7 @@
 			</common-text-spoiler>
 		</div>
 
-		<div class="games-list">
+		<div class="platforms-list">
 			<platform-item
 				v-for="item in platforms"
 				:key="item.slug"
@@ -28,10 +28,10 @@
 
 		<div class="article-container">
 			<div class="article-container__toc">
-				<toc-list v-if="category.toc">
+				<toc-list v-if="pageable.toc">
 					<template #default="{ inline }">
 						<toc-item
-							v-for="(item, index) in category.toc"
+							v-for="(item, index) in pageable.toc"
 							:key="index"
 							:index="index"
 							:inline="inline"
@@ -44,15 +44,15 @@
 			</div>
 
 			<div class="article-container__article">
-				<page-article :text="category.text">
+				<page-article :text="pageable.text">
 					<template #footer>
 						<!-- Faq -->
 						<faq-list
-							v-if="category.faq && category.faq.mainEntity.length"
+							v-if="pageable.faq && pageable.faq.mainEntity.length"
 							:label="$t('faq')"
 						>
 							<faq-item
-								v-for="(item, index) in category.faq.mainEntity"
+								v-for="(item, index) in pageable.faq.mainEntity"
 								:key="index"
 								:question="item.name"
 								:answer="item.acceptedAnswer.text"
@@ -60,7 +60,7 @@
 							</faq-item>
 						</faq-list>
 						<!-- Author -->
-						<author v-if="category.author" :author="category.author" />
+						<author v-if="pageable.author" :author="pageable.author" />
 						<!-- Comments -->
 <!-- 						<comments
 							commentable_type="App\PlatfofmCategory"
@@ -72,9 +72,9 @@
 
 			<div class="article-container__aside-content">
 				<room-top-list />
-				<topic-list v-if="category.topics && category.topics.length">
+				<topic-list v-if="pageable.topics && pageable.topics.length">
 					<topic-item
-						v-for="(item, index) in category.topics"
+						v-for="(item, index) in pageable.topics"
 						:key="index"
 						:title="item.title"
 						:url="item.url"
@@ -217,9 +217,9 @@
 </script>
 
 <style lang="scss">
-	$games-bg: url('~assets/i/mobile-poker-bg.jpg');
+	$platforms-bg: url('~assets/i/mobile-poker-bg.jpg');
 
-	.games-header {
+	.platforms-header {
 		display: flex;
 		flex-direction: column;
 		margin-left: -26px;
@@ -228,23 +228,23 @@
 		margin-bottom: 32px;
 		padding-bottom: 32px;
 		// background: radial-gradient(96.88% 66.11% at 57.43% 2.13%, #BA2B2B 0%, #5A0101 100%);
-		background: $games-bg no-repeat center;
+		background: $platforms-bg no-repeat center;
 		background-size: cover;
 	}
 
-	.games-list {
+	.platforms-list {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		column-gap: 28px;
 		margin-bottom: 20px;
 	}
 
-	.games {
+	.platforms {
 		max-width: 1440px;
 		width: 100%;
 		@include paddings('desktop');
 	}
-	.games__title {
+	.platforms__title {
 		text-align: center;
 		margin: 0 0 16px 0;
 		font-family: Proxima Nova;
@@ -254,7 +254,7 @@
 		color: #ffffff;
 	}
 
-	.games__summary {
+	.platforms__summary {
 		font-family: Proxima Nova;
 		font-size: 18px;
 		line-height: 24px;
@@ -264,35 +264,35 @@
 	}
 
 	@include mq('laptop') {
-		.games {
+		.platforms {
 			@include paddings('tablet');
 		}
 
-		.games-header {
+		.platforms-header {
 			margin-left: -24px;
 			margin-right: -24px;
 			@include paddings('tablet');
 		}
 
-		.games-list {
+		.platforms-list {
 			grid-template-columns: repeat(2, 1fr);
 			column-gap: 20px;
 		}
 	}
 
 	@include mq('tablet') {
-		.games {
+		.platforms {
 			@include paddings('mobile');
 		}
 
-		.games-header {
+		.platforms-header {
 			margin-left: -20px;
 			margin-right: -20px;
 			@include paddings('mobile');
 			margin-bottom: 24px;
 		}
 
-		.games-list {
+		.platforms-list {
 			grid-template-columns: 1fr;
 			margin-bottom: 8px;
 		}

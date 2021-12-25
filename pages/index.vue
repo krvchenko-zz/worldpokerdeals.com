@@ -132,13 +132,13 @@
 
 				if (translations && translations.length) {
 
-					value.push({
-						rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : ''
-					})
-
 					if (this.pageable.pageable_type !== 'App\\Post') {
 						value.push({ rel: 'alternate', href: `https://${this.host}${this.$route.path}`, hreflang: 'x-default' })
 					}
+
+					value.push({
+						rel: 'alternate', hreflang: this.pageable.locale, href: this.pageable ? `https://${this.pageable.locale !== 'en' ? this.pageable.locale + '.' : ''}${this.host}${this.$route.path}` : ''
+					})
 
 					for (var i = 0; i < translations.length; i++) {
 						let locale = translations[i].locale,

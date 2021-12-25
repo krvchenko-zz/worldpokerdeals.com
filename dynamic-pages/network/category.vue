@@ -3,7 +3,7 @@
 		<div class="networks-header">
 			<div class="container-fluid">
 				<breadcrumb-list :white="true" />
-				<h1 class="networks__title">{{ category.title }}</h1>
+				<h1 class="networks__title">{{ pageable.title }}</h1>
 			</div>
 		</div>
 		<div class="networks__list">

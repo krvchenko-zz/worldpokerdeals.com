@@ -3,11 +3,11 @@
 		<div class="payments-header">
 			<div class="container-fluid">
 				<breadcrumb-list :white="true" />
-				<h1 class="payments__title">{{ category.title }}</h1>
+				<h1 class="payments__title">{{ pageable.title }}</h1>
 				<common-text-spoiler
 					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 					class="payments__summary"
-					:text="category.summary"
+					:text="pageable.summary"
 				>
 					<template v-slot:button>
 						<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -31,10 +31,10 @@
 
 		<div class="payments__article-container article-container">
 			<div class="article-container__toc">
-				<toc-list v-if="category.toc">
+				<toc-list v-if="pageable.toc">
 					<template #default="{ inline }">
 						<toc-item
-							v-for="(item, index) in category.toc"
+							v-for="(item, index) in pageable.toc"
 							:key="index"
 							:index="index"
 							:inline="inline"
@@ -47,15 +47,15 @@
 			</div>
 
 			<!-- Article -->
-			<page-article :text="category.text" class="article-container__article">
+			<page-article :text="pageable.text" class="article-container__article">
 				<template #footer>
 					<!-- Faq -->
 					<faq-list
-						v-if="category.faq && category.faq.mainEntity.length"
+						v-if="pageable.faq && pageable.faq.mainEntity.length"
 						:label="$t('faq')"
 					>
 						<faq-item
-							v-for="(item, index) in category.faq.mainEntity"
+							v-for="(item, index) in pageable.faq.mainEntity"
 							:key="index"
 							:question="item.name"
 							:answer="item.acceptedAnswer.text"
@@ -63,7 +63,7 @@
 						</faq-item>
 					</faq-list>
 					<!-- Author -->
-					<author v-if="category.author" :author="category.author" />
+					<author v-if="pageable.author" :author="pageable.author" />
 					<!-- Comments -->
 <!-- 					<comments
 						commentable_type="App\PaymentMethodCategory"
@@ -74,9 +74,9 @@
 
 			<div class="article-container__aside">
 				<room-top-list />
-				<topic-list v-if="category.topics">
+				<topic-list v-if="pageable.topics">
 					<topic-item
-						v-for="(item, index) in category.topics"
+						v-for="(item, index) in pageable.topics"
 						:key="index"
 						:title="item.title"
 						:url="item.url"
