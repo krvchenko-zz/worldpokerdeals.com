@@ -136,7 +136,7 @@
 								item = {
 									rel: 'alternate',
 									hreflang: locale,
-									href: `https://${locale !== 'en' ? locale + '.' : ''}${this.host}/${translations[i].parent ? translations[i].parent.slug : ''}/${translations[i].slug}`,
+									href: `https://${locale !== 'en' ? locale + '.' : ''}${this.host}${translations[i].parent ? '/' : ''}${translations[i].parent ? translations[i].parent.slug : ''}/${translations[i].slug}`,
 								}
 
 						value.push(item)
