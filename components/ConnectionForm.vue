@@ -9,7 +9,7 @@
 				<div class="connection-form-group">
 					<form-radio-group>
 						<form-radio-button
-							v-model="form.account_type"
+							v-model="form.type"
 							:disabled="!auth"
 							name="account_type"
 							:label="$t('form.new_account')"
@@ -100,7 +100,7 @@
 				</div>
 
 				<div class="connection-form-group">
-					<form-checkbox v-model="form.terms" :label="$t('form.accept')">
+					<form-checkbox v-model="terms" :label="$t('form.accept')">
 						<a class="connection-form__link" href="/terms"
 							>{{ $t('form.tos') }}</a
 						>
@@ -109,7 +109,7 @@
 
 				<div class="connection-form-group">
 					<form-submit-button
-						:disabled="!auth || !form.terms || !form.name || !form.email"
+						:disabled="!auth || !terms || !form.name || !form.email"
 						class="btn-connection-form"
 						:label="$t('form.connection_action')"
 						:loading="form.busy"
@@ -140,41 +140,36 @@
 				auth: 'auth/check',
 				user: 'auth/user',
 				room: 'rooms/room',
+				locale: 'lang/locale',
 			}),
 		},
 
 		data: () => ({
+			terms: false,
 			form: new Form({
-				account_type: 'new',
+				type: 'new',
 				name: null,
 				username: '',
 				account_id: '',
+				locale: null,
 				email: null,
-				terms: false,
 				user_id: null,
 				room_id: null
 			}),
 		}),
 
-		watch: {
-			user: {
-				immidiate: true,
-				deep: true,
-				handler(data) {
-					if (data) {
-						this.form.user_id = data.id
-					}
-				}
-			},
-			room: {
-				immidiate: true,
-				deep: true,
-				handler(data) {
-					if (data) {
-						this.form.room_id = data.id
-					}
-				}
-			},
+		mounted() {
+			if (this.user) {
+				this.form.user_id = this.user.id
+			}
+
+			if (this.room) {
+				this.form.room_id = this.room.id
+			}
+
+			if (this.locale) {
+				this.form.locale = this.locale
+			}
 		},
 
 		methods: {

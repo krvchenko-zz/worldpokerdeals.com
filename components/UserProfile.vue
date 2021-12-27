@@ -52,7 +52,7 @@
 			<div class="user-profile-row">
 				<span class="user-profile-row__label">Привязанных счетов</span>
 				<span class="user-profile-row__sep"></span>
-				<span class="user-profile-row__val">{{ user.connections.length }}</span>
+				<span class="user-profile-row__val">{{ user.connections ? user.connections.length : 0 }}</span>
 			</div>
 		</div>
 	</div>
