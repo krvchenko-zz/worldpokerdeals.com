@@ -138,6 +138,8 @@
 		computed: {
 			...mapGetters({
 				auth: 'auth/check',
+				user: 'auth/user',
+				room: 'rooms/room',
 			}),
 		},
 
@@ -149,8 +151,31 @@
 				account_id: '',
 				email: null,
 				terms: false,
+				user_id: null,
+				room_id: null
 			}),
 		}),
+
+		watch: {
+			user: {
+				immidiate: true,
+				deep: true,
+				handler(data) {
+					if (data) {
+						this.form.user_id = data.id
+					}
+				}
+			},
+			room: {
+				immidiate: true,
+				deep: true,
+				handler(data) {
+					if (data) {
+						this.form.room_id = data.id
+					}
+				}
+			},
+		},
 
 		methods: {
 			async action() {
