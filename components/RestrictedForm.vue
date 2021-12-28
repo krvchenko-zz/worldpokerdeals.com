@@ -37,7 +37,7 @@
 	import Form from 'vform'
 
 	export default {
-		name: 'ContactsForm',
+		name: 'RestrictedForm',
 
 		components: {},
 
@@ -45,12 +45,16 @@
 			...mapGetters({
 				auth: 'auth/check',
 				user: 'auth/user',
+				room: 'rooms/room',
 			}),
 		},
 
 		data: () => ({
 			form: new Form({
 				email: null,
+				room_id: null,
+				user_id: null,
+				type: 'restricted'
 			}),
 		}),
 
@@ -59,13 +63,27 @@
 				immediate: true,
 				deep: true,
 				handler(data) {
-					if (this.auth) {
-						this.form.keys().forEach(key => {
-							this.form[key] = data[key]
-						})
-					}
 				},
 			},
+
+			room: {
+				immediate: true,
+				deep: true,
+				handler(data) {
+				},
+			},
+		},
+
+		mounted() {
+			if (this.room) {
+				this.form.room_id = this.room.id
+			}
+
+			if (this.auth) {
+				this.form.email = this.user.email
+				this.form.name = this.user.username
+				this.form.user_id = this.user.id
+			}
 		},
 
 		methods: {

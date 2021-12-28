@@ -47,7 +47,7 @@
 
 			const country = store.getters['location/country']
 
-			if (country.code === 'RU' && params.child && params.child.match(/^.+-(download$)/, 'gm')) {
+			if (country.code === 'TH' && params.child && params.child.match(/^.+-(download$)/, 'gm')) {
 				return redirect('/restricted')
 			}
 

@@ -56,7 +56,7 @@
 		<div class="contacts-form-group">
 			<div class="row">
 				<div class="col">
-					<form-checkbox v-model="form.terms" :label="$t('form.accept')">
+					<form-checkbox v-model="terms" :label="$t('form.accept')">
 						<a class="payments-form__link" href="/terms"
 							>{{ $t('form.tos') }}</a
 						>
@@ -67,7 +67,7 @@
 
 		<div class="contacts-form-group">
 			<form-submit-button
-				:disabled="!form.terms || !form.email || !form.name || !form.message"
+				:disabled="!terms || !form.email || !form.name || !form.message"
 				class="btn-block btn-contacts-form"
 				:label="$t('form.send')"
 				:loading="form.busy"
@@ -94,11 +94,13 @@
 		},
 
 		data: () => ({
+			terms: false,
 			form: new Form({
 				email: null,
 				name: null,
 				message: '',
-				terms: false,
+				user_id: null,
+				type: 'default',
 			}),
 		}),
 
@@ -107,22 +109,27 @@
 				immediate: true,
 				deep: true,
 				handler(data) {
-					if (this.auth) {
-						this.form.keys().forEach(key => {
-							this.form[key] = data[key]
-						})
-					}
 				},
 			},
 		},
 
+		mounted() {
+			if (this.auth) {
+				this.form.email = this.user.email
+				this.form.name = this.user.username
+				this.form.user_id = this.user.id
+			}
+		},
+
 		methods: {
 			async submit() {
+				this.$nuxt.$loading.start()
 				this.form
 					.post('/contacts')
 					.then(response => {
 						this.$emit('submit')
 						this.form.reset()
+						this.$nuxt.$loading.finish()
 					})
 					.catch(e => {})
 			},

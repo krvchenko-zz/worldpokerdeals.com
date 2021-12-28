@@ -60,7 +60,8 @@
 				<div class="vip-form-group">
 					<div class="vip-form-group__wrap">
 						<form-input
-							v-model="form.contact"
+							v-if="contact_type === 'email'"
+							v-model="form.email"
 							class="form-input_vip"
 							placeholder=""
 							type="text"
@@ -72,13 +73,44 @@
 						>
 							<template #prefix>
 								<el-select
-									v-model="form.contact_type"
+									v-model="contact_type"
 									class="el-select_vip"
 									placeholder="Select"
 									popper-class="el-poper-vip"
 								>
 									<template slot="prefix">
-										<svg-icon :icon="form.contact_type" />
+										<svg-icon :icon="contact_type" />
+									</template>
+									<el-option
+										v-for="(item, index) in contact_options"
+										:key="index"
+										:label="item.label"
+										:value="item.value"
+									></el-option>
+								</el-select>
+							</template>
+						</form-input>
+						<form-input
+							v-if="contact_type === 'skype'"
+							v-model="form.skype"
+							class="form-input_vip"
+							placeholder=""
+							type="text"
+							name="skype"
+							label-color="#636363"
+							:required="true"
+							:loading="form.busy"
+							:error="form.errors.has('skype')"
+						>
+							<template #prefix>
+								<el-select
+									v-model="contact_type"
+									class="el-select_vip"
+									placeholder="Select"
+									popper-class="el-poper-vip"
+								>
+									<template slot="prefix">
+										<svg-icon :icon="contact_type" />
 									</template>
 									<el-option
 										v-for="(item, index) in contact_options"
@@ -102,6 +134,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 	import Form from 'vform'
 
 	export default {
@@ -161,14 +194,21 @@
 					value: 'email',
 				},
 			],
+			contact_type: 'skype',
 			form: new Form({
+				user_id: null,
 				email: null,
-				contact: null,
-				contact_type: 'skype',
+				skype: null,
+				type: 'vip',
 			}),
 		}),
 
 		computed: {
+			...mapGetters({
+				auth: 'auth/check',
+				user: 'auth/user',
+			}),
+
 			src() {
 				return `${this.mediaUrl}/manager-small/${this.image.filename}`
 			},
@@ -178,9 +218,23 @@
 			},
 		},
 
-		watch: {},
-
-		created() {},
+		watch: {
+			contact_type: {
+				immediate: true,
+				deep: true,
+				handler(data) {
+					if (this.contact_type === 'email') {
+						this.form.email = this.form.email
+						this.form.skype = null
+					}
+					
+					if (this.contact_type === 'skype') {
+						this.form.skype = this.form.skype
+						this.form.email = null
+					}
+				},
+			},
+		},
 
 		methods: {
 			async submit() {
