@@ -50,7 +50,6 @@
   "access": "Acceso",
   "filtered": "{total} filtradas de {overall} {entity}",
   "offers_for": "Ofertas para",
-  "safe_access_to_clubs": "Acceso seguro a clubes",
   "more": "Más",
   "sign_in": "Ingresa",
   "clubs_in_apps": "Clubes en apps",
@@ -69,7 +68,6 @@
   "all_promotions": "Todas las promociones",
   "poker_rooms": "Salas de póker",
   "all_poker_rooms": "Todas las salas de Póker",
-  "wpd_front_disclaimer": "Worldpokerdeals paga rakeback, organiza carreras de rake y freerolls, y publica códigos de bono para todas las redes de póker: iPoker, Winning, Chico, IDN, GGNetwork, además de fields cerrados: Salas de póker italianas, francesas, indias, chinas, garantizando acceso seguro y todo el software necesario: convertidores de manos, layouts gratuitos, historiales de manos, y trackers",
   "bumhunters": "<b>Canal de Telegram</b><br>«Fetiche de Pescado»",
   "bumhunters_text": "Revista electrónica secreta para quienes eligen los mejores juegos",
   "subscribe": "Suscribirse",
@@ -78,7 +76,7 @@
   "choose_poker_room": "Seleccionar sala de póker",
   "contact_us": "Contáctanos",
   "our_awards": "Nuestros premios y sellos de confianza de la comunidad del juego",
-  "wpd_front_rodion": "<h3>¡Hola, regulares!</h3><p>Mi nombre es Rodion Longa. Soy un ex-jugador profesional de póker, entrenador, y ahora líder de Worldpokerdeals.com, un grupo de afiliados con sede en Tailandia. Desde hace 8 años vivo en el sudeste asiático suministrando soluciones de juego completas y tratos únicos para profesionales del póker.En este sitio nuestro equipo gestiona las mejores ofertas en las mejores redes de póquer, incluyendo rakeback y protegiendo los intereses de los jugadores en la industria.Bienvenido, y nunca dudes en contactar a nuestro equipo o contáctame directamente en Facebook</p>",
+  "wpd_front_rodion": "<h3>¡Hola, regulares!</h3><p>Mi nombre es Rodion Longa. En el pasado fui jugador profesional de póker. Ahora soy un hombre de familia y soy el propietario de este sitio web.</p><p>Durante 8 años Worldpokerdeals ha ayudado a jugadores de póker a encontrar las mejores salas y maximizar las ganancias del juego.</p><p>Me enorgullece tener la reputación de brindar el mejor servicio para jugadores. Ganamos ayudándote a ganar.</p>",
   "more_about_us": "Acerca de nosotros",
   "filters": "Filtros",
   "payment_methods": "Métodos de pago",
@@ -97,7 +95,7 @@
   "assistance_text": "<p>¿Tienes algún problema configurando un software de póker? ¿Necesitas ayuda? Podemos ayudarte con cualquier tipo de inconveniente relacionado con póker.</p>",
   "start_chat": "Iniciar chat",
   "room_blacklisted": "Lamentablemente este trato no está disponible.<br><b>{room}</b> está en nuestra <a href='/blacklist'>lista negra</a>.",
-  "room_closed": "Lamentablemente este trato no está disponible.<br><b>{room}</b> cerró a pesar de haber intentado varios cambios",
+  "room_closed": "Lamentablemente este trato no está disponible.<br><b>{room}</b> cerró o paró el trato.",
   "characteristics": "Características",
   "reviews_count": "Reseñas",
   "rating": "Rating",
@@ -171,7 +169,7 @@
   "verification": "Verificación",
   "network_rooms": "Todas las salas de {title}",
   "other_networks": "Otras redes de póker",
-  "blog_header": "Инсайды индустрии без поп-корна и еще какую-то небольшую подводку чтобы было в 2 строки",
+  "blog_header": "Conocimiento de la industria, análisis profesionales, entrevistas con jugadores top, y guías de supervivencia para póker online",
   "all_posts": "Todas las entradas",
   "blog_important": "Importante",
   "from": "de",
@@ -356,13 +354,34 @@
     "no": "No"
   },
   "page_banners": {
-    "rooms": "Mejores salas",
-    "deals": "Rakeback deals",
-    "games": "Games",
-    "mobile": "Mobile poker",
-    "networks": "Redes de póker",
-    "soft": "Poker software",
-    "payments": "Deposit Methods"
+    "rooms": {
+      "title": "Mejores salas",
+      "text": ""
+    },
+    "deals": {
+      "title": "Rakeback deals",
+      "text": ""
+    },
+    "games": {
+      "title": "Juegos",
+      "text": "Reglas y distintos formatos de juegos de póker"
+    },
+    "mobile": {
+      "title": "Póker móvil",
+      "text": "¿Cuáles son las mejores salas para jugar desde tu móvil?"
+    },
+    "networks": {
+      "title": "Redes de póker",
+      "text": "Catálogo de todas las redes de póker"
+    },
+    "soft": {
+      "title": "Software de póker",
+      "text": "Todo lo que necesitas para mejorar la calidad y comodidad de tu rutina diaria"
+    },
+    "payments": {
+      "title": "Métodos de depósito",
+      "text": "Monederos confiables para jugadores"
+    }
   },
   "menu": {
     "best_rooms": "Mejores salas de póker",
@@ -600,5 +619,11 @@
         "text": "WPD tiene el mejor servicio al cliente del mundo*<br><span style='color: #777777'>*</span> <small style='color: #777777'>con base a la autoevaluación de nuestro equipo de servicio al cliente</small>"
       }
     ]
+  },
+  "front": {
+    "rooms": "Excelente cobertura de salas de póker, una característica única y de vieja data de WPD que aún nos acompaña. Worldpokerdeals tiene literalmente una reseña de todas las salas de póker que merecen tu atención. Gemas ocultas, tratos de rakeback y análisis de tráfico - todo lo que un profesional de póker necesita",
+    "clubs": "No solo brindamos acceso a todos los mejores clubes, sino que también tenemos &quot;servicio especial de Asistencia&quot; para nuestros jugadores. Solo tienes que preocuparte por jugar. Nosotros nos encargamos del resto",
+    "clubs_access_title": "Acceso seguro a clubes",
+    "clubs_access_text": "¡Conoce las cavernas más profundas del mundo del póker online!"
   }
 }

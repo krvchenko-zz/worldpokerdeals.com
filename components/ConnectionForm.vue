@@ -172,6 +172,24 @@
 			}
 		},
 
+		watch: {
+			user: {
+				deep: true,
+				immediate: true,
+				handler(data) {
+					if (data) this.form.user_id = data.id
+				},
+			},
+
+			room: {
+				deep: true,
+				immediate: true,
+				handler(data) {
+					if (data) this.form.room_id = data.id
+				},
+			},
+		},
+
 		methods: {
 			async action() {
 				this.form

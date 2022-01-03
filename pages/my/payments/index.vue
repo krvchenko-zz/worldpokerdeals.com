@@ -23,7 +23,6 @@
 				}
 			}).then(response => {
 				store.dispatch('auth/fetchPaymentInfos', response.data)
-				$nuxt.$loading.finish()
 			})
 
 			if (!store.getters['auth/checkPaymentInfos']) {

@@ -32,7 +32,6 @@
   "show_more": "Show more",
   "filtered": "Filtered {total} from {overall} {entity}",
   "offers_for": "Offers for",
-  "safe_access_to_clubs": "Safe access to clubs",
   "more": "More",
   "clubs_in_apps": "Clubs in apps",
   "our_numbers": "Our numbers",
@@ -50,7 +49,6 @@
   "all_promotions": "All promotions",
   "poker_rooms": "Poker rooms",
   "all_poker_rooms": "All poker rooms",
-  "wpd_front_disclaimer": "Worldpokerdeals pays rakeback, hosts rake races and freerolls, and publishes bonus codes for all poker networks: iPoker, Winning, Chico, IDN, GGNetwork, Dollaro and also closed poker fields: Italian, French, Indian, Canadian, Chinese poker rooms, providing safe access and all poker software: hand converters, free layouts, hand histories and tracking managers.",
   "bumhunters": "«Natural born bumhunters»<br><b>Telegram-channel</b>",
   "bumhunters_text": "Undergound e-magazine for those who choose the weakest games",
   "subscribe": "Subscribe",
@@ -59,7 +57,7 @@
   "choose_poker_room": "Choose poker room",
   "contact_us": "Contact us",
   "our_awards": "Our awards and badges of trust from the gambling community",
-  "wpd_front_rodion": "<h3>What is up, regular!</h3><p>My name is Rodion Longa. I am a former pro-player, coach and these days - a Head of Worldpokerdeals.com an affiliate group based in Thailand.<p>For the last 8 years I have been living in South Asia - providing complex game solutions and unique setups for poker professionals.</p><p>At this site our team collects the best offers at the most loyal poker networks, offers rakeback and represents player's interests in online poker industry. Welcome and never hesitate to contact our crew or get in touch with me directly via Facebook.<p>",
+  "wpd_front_rodion": "<h3>What is up, regular!</h3><p>My name is Rodion Longa. I used to be a professional player, and now I am a family man and the site owner.</p><p>For 8 years, Worldpokerdeals has been helping poker players to find the best rooms and maximizing profits from the game.</p><p>My pride is a reputation for offering the best service for poker professionals. We earn by helping you earn.</p>",
   "more_about_us": "More about us",
   "filters": "Filters",
   "payment_methods": "Payment methods",
@@ -78,7 +76,7 @@
   "assistance_text": "Problems with setting up software or poker client? Need assistance? We can advice and help with all poker related issues.",
   "start_chat": "Start chat",
   "room_blacklisted": "Unfortunately this deal is unavailable.<br/><b>{room}</b> is in <a href='/blacklist'>our blacklist</a>.",
-  "room_closed": "Unfortunately this deal is unavailable.<br/><b>{room}</b> was closed despite repeated rebrandings",
+  "room_closed": "Unfortunately, the deal is unavailable.<br/><b>{room}</b> is closed or stopped the deal",
   "characteristics": "Characteristics",
   "reviews_count": "Reviews",
   "rating": "Rating",
@@ -171,7 +169,7 @@
   "verification": "Verification",
   "network_rooms": "All rooms of {title}",
   "other_networks": "Other poker networks",
-  "blog_header": "Инсайды индустрии без поп-корна и еще какую-то небольшую подводку чтобы было в 2 строки",
+  "blog_header": "Industry insiders, professional analysis, interviews with top players, and online poker survival guides",
   "all_posts": "All posts",
   "blog_important": "Important",
   "from": "from",
@@ -354,13 +352,34 @@
     "no": "No"
   },
   "page_banners": {
-    "rooms": "Best poker sites",
-    "deals": "Rakeback deals",
-    "games": "Games",
-    "mobile": "Mobile poker",
-    "networks": "Online poker networks",
-    "soft": "Poker software",
-    "payments": "Deposit Methods"
+    "rooms": {
+      "title": "Best poker sites",
+      "text": ""
+    },
+    "deals": {
+      "title": "Rakeback deals",
+      "text": ""
+    },
+    "games": {
+      "title": "Games",
+      "text": "Rules and varieties of poker games"
+    },
+    "mobile": {
+      "title": "Mobile poker",
+      "text": "Which rooms are better for playing on your phone?"
+    },
+    "networks": {
+      "title": "Online poker networks",
+      "text": "Catalog of all poker networks"
+    },
+    "soft": {
+      "title": "Poker software",
+      "text": "Everything you need to improve quality and the comfort of your daily routine"
+    },
+    "payments": {
+      "title": "Deposit Methods",
+      "text": "Trusted e-wallets for players"
+    }
   },
   "menu": {
     "best_rooms": "Best poker rooms",
@@ -681,5 +700,11 @@
         "text": "And WPD customer service is the best in the world*<br><span style='color: #777777'>*</span> <small style='color: #777777'>based on WPD customer service self-opinion</small>"
       }
     ]
+  },
+  "front": {
+    "rooms": "Top coverage of poker rooms, a long-standing WPD signature feature is still with us. Worldpokerdeals has reviews of literally all poker sites that deserve your attention. Hidden gems, rakeback deals and traffic analysis - everything that a professional poker player needs.",
+    "clubs": "We can boast of not only the largest portfolio of available clubs, but also a top &quot;Concierge service&quot; for players. You have to care only about your game, and trust us the rest.",
+    "clubs_access_title": "Safe access to clubs",
+    "clubs_access_text": "Find out how deep is the rabbit hole of underground poker!"
   }
 }

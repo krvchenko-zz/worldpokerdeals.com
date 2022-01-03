@@ -1,15 +1,14 @@
 <template>
-	<div :class="['register-form']">
+	<div :class="['password-form']">
 
-		<div :class="['register-form-body']">
+		<div :class="['password-form-body']">
 			<form
 				class="form"
 				@submit.prevent="action"
 				@keydown="form.onKeydown($event)"
 			>
-
 				<!-- Old Password -->
-				<div class="register-form-group">
+				<div class="password-form-group">
 					<form-input
 						v-model="form.old_password"
 						:label="$t('form.old_password')"
@@ -24,7 +23,7 @@
 				</div>
 
 				<!-- Old Password -->
-				<div class="register-form-group">
+				<div class="password-form-group">
 					<form-input
 						v-model="form.password"
 						:label="$t('form.new_password')"
@@ -39,7 +38,7 @@
 				</div>
 
 				<!-- Old Password -->
-				<div class="register-form-group">
+				<div class="password-form-group">
 					<form-input
 						v-model="form.password_confirmation"
 						:label="$t('form.new_password_confirm')"
@@ -53,7 +52,7 @@
 					</transition>
 				</div>
 
-				<div class="register-form-group">
+				<div class="password-form-group">
 					<form-submit-button
 						class="btn-block"
 						:label="$t('form.save')"
@@ -64,7 +63,7 @@
 			</form>
 		</div>
 
-		<div :class="['register-form-footer']"></div>
+		<div :class="['password-form-footer']"></div>
 	</div>
 </template>
 
@@ -132,8 +131,8 @@
 </script>
 
 <style lang="scss">
-	$ico-register-form: url('~assets/i/ico-register-form.svg?data');
-	.register-form {
+	$ico-password-form: url('~assets/i/ico-register-form.svg?data');
+	.password-form {
 		overflow: hidden;
 		background: linear-gradient(0deg, #fafafa, #fafafa);
 		box-sizing: border-box;
@@ -183,7 +182,7 @@
 				width: 48px;
 				height: 44px;
 				display: block;
-				background: $ico-register-form no-repeat center;
+				background: $ico-password-form no-repeat center;
 				background-size: contain;
 			}
 		}

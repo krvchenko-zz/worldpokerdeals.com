@@ -63,6 +63,11 @@ const routes = [
 		component: page('privacy.vue'),
 	},
 	{
+		path: '/auth/reset/:token',
+		name: 'reset',
+		component: page('auth/reset.vue'),
+	},
+	{
 		path: '/404',
 		name: '404',
 		component: page('404.vue'),

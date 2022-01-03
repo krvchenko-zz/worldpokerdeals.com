@@ -19,7 +19,7 @@
 			<div class="front-rooms__details">
 				<text-spoiler
 					class="text-spoiler_front"
-					:text="$t('wpd_front_disclaimer')"
+					:text="$t('front.rooms')"
 					:limit="$device.isMobile ? 50 : 300"
 				/>
 			</div>
@@ -99,8 +99,6 @@
 
 		data: () => ({
 			category_id: null,
-			text:
-				'Worldpokerdeals выплачивает рейкбек, проводит рейк-гонки, публикует бонус-коды и проводит фрироллы во всех покерных сетях, включая iPoker, MPN, Winning, Chico, Bodog, Hive, IDN, GG, Dollaro, а также во всех закрытых резервациях: Итальянских, Французских, Индийских, Китайских рыбных покер-румах, обеспечивая безопасный доступ',
 		}),
 
 		created() {},

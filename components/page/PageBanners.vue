@@ -13,7 +13,7 @@
 				:key="index"
 				:page="item.page"
 				:title="$t(item.title)"
-				:text="item.text"
+				:text="$t(item.text)"
 				:image="item.image"
 				:background="item.background"
 			/>
@@ -59,8 +59,8 @@
 								},
 							},
 							locales: ['en', 'es'],
-							title: 'page_banners.rooms',
-							text: 'Неримени продактивам та файлойна добна',
+							title: 'page_banners.rooms.title',
+							text: 'page_banners.rooms.text',
 							image: 'img-page-banner-games.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #F53D3D 0%, #7C0000 78.75%)',
@@ -71,8 +71,8 @@
 								parent: null,
 							},
 							locales: ['ru'],
-							title: 'page_banners.games',
-							text: 'Неримени продактивам та файлойна добна докумет еницы',
+							title: 'page_banners.games.title',
+							text: 'page_banners.games.text',
 							image: 'img-page-banner-games.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #F53D3D 0%, #7C0000 78.75%)',
@@ -82,8 +82,8 @@
 								slug: 'mobile-poker',
 							},
 							locales: ['ru'],
-							title: 'page_banners.mobile',
-							text: 'Ать вы с инты, к любым сроку их полни дежност',
+							title: 'page_banners.mobile.title',
+							text: 'page_banners.mobile.text',
 							image: 'img-page-banner-mobile.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #1BB46B 0%, #097E46 78.75%)',
@@ -93,8 +93,8 @@
 								slug: 'rakeback-deals',
 							},
 							locales: ['en', 'es'],
-							title: 'page_banners.deals',
-							text: 'Ать вы с инты, к любым сроку их полни дежност',
+							title: 'page_banners.deals.title',
+							text: 'page_banners.deals.text',
 							image: 'img-page-banner-mobile.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #1BB46B 0%, #097E46 78.75%)',
@@ -104,8 +104,8 @@
 								slug: 'online-poker-networks',
 							},
 							locales: ['ru', 'en', 'es'],
-							title: 'page_banners.networks',
-							text: 'Неримени продактивам та файлойна добна докумет еницы',
+							title: 'page_banners.networks.title',
+							text: 'page_banners.networks.text',
 							image: 'img-page-banner-networks.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #4C66E0 0%, #0D279D 78.75%)',
@@ -115,8 +115,8 @@
 								slug: 'soft',
 							},
 							locales: ['ru', 'en', 'es'],
-							title: 'page_banners.soft',
-							text: 'Ать вы с инты, к любым сроку их полни дежност',
+							title: 'page_banners.soft.title',
+							text: 'page_banners.soft.text',
 							image: 'img-page-banner-soft.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #9260D1 0%, #4C0C9E 78.75%)',
@@ -126,8 +126,8 @@
 								slug: 'online-poker-payments',
 							},
 							locales: ['ru', 'en', 'es'],
-							title: 'page_banners.payments',
-							text: 'Интному интерок умериме ненитель. Их элемы нение ствия',
+							title: 'page_banners.payments.title',
+							text: 'page_banners.payments.text',
 							image: 'img-page-banner-payments.png',
 							background:
 								'radial-gradient(83.54% 115.31% at 83.54% 0%, #F5D703 0%, #BD5B00 78.75%)',
