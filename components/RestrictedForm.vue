@@ -46,6 +46,7 @@
 				auth: 'auth/check',
 				user: 'auth/user',
 				room: 'rooms/room',
+				country: 'location/country',
 			}),
 		},
 
@@ -54,6 +55,7 @@
 				email: null,
 				room_id: null,
 				user_id: null,
+				country_id: null,
 				type: 'restricted'
 			}),
 		}),
@@ -77,6 +79,10 @@
 		mounted() {
 			if (this.room) {
 				this.form.room_id = this.room.id
+			}
+
+			if (this.country) {
+				this.form.country_id = this.country.id
 			}
 
 			if (this.auth) {
