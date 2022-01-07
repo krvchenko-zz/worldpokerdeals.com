@@ -68,6 +68,11 @@ const routes = [
 		component: page('auth/reset.vue'),
 	},
 	{
+		path: '/auth/verify/:token',
+		name: 'verify',
+		component: page('auth/verify.vue'),
+	},
+	{
 		path: '/404',
 		name: '404',
 		component: page('404.vue'),
