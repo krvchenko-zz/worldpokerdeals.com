@@ -8,6 +8,8 @@ export default {
 		appName: process.env.APP_NAME,
 		appLocale: process.env.APP_LOCALE,
 		appGeo: process.env.APP_GEO,
+		recaptchaPublic: process.env.RECAPTCHA_PUBLIC,
+		recaptchaSecret: process.env.RECAPTCHA_SECRET
 	},
 
 	head: {

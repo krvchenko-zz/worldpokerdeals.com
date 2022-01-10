@@ -67,8 +67,10 @@
 
 		<div class="contacts-form-group">
 			<form-submit-button
-				:disabled="!terms || !form.email || !form.name || !form.message"
+				id="submit"
 				class="btn-block btn-contacts-form"
+				:disabled="!terms || !form.email || !form.name || !form.message"
+				:data-sitekey="token"
 				:label="$t('form.send')"
 				:loading="form.busy"
 			>
@@ -84,6 +86,14 @@
 	export default {
 		name: 'ContactsForm',
 
+		head() {
+			return {
+				script: [
+					{src: 'https://www.google.com/recaptcha/api.js', async: true, defer: true }
+				],
+			}
+		},
+
 		components: {},
 
 		computed: {
@@ -91,6 +101,10 @@
 				auth: 'auth/check',
 				user: 'auth/user',
 			}),
+
+			token () {
+				return process.env.recaptchaPublic
+			},
 		},
 
 		data: () => ({
@@ -123,7 +137,15 @@
 
 		methods: {
 			async submit() {
+				grecaptcha.render('submit', {
+					'sitekey' : this.token,
+					'callback' : this.send
+				});
+			},
+
+			async send() {
 				this.$nuxt.$loading.start()
+
 				this.form
 					.post('/contacts')
 					.then(response => {
