@@ -10,7 +10,7 @@
 				<div class="reset-form-group">
 					<form-input
 						v-model="form.email"
-						label="Электронная почта при регистрации"
+						:label="$t('form.password_email_text')"
 						type="email"
 						name="email"
 						:loading="form.busy"
@@ -24,7 +24,7 @@
 				<div class="reset-form-group">
 					<form-submit-button
 						class="btn-block"
-						label="Восстановить пароль"
+						:label="$t('form.send')"
 						:loading="form.busy"
 					>
 					</form-submit-button>
@@ -39,13 +39,14 @@
 					prefetch
 					:to="{ name: 'register' }"
 				>
-					Ещё нет аккаунта?
-					<button
+					{{ $t('form.sign_up_text') }}
+					<a
+						v-if="modal"
+						:href="href"
 						:class="['auth-form__link', modal && 'auth-form__link_modal']"
 						@click="navigate"
+						>{{ $t('form.sign_up_action') }}</a
 					>
-						Зарегистрируйся
-					</button>
 				</nuxt-link>
 			</div>
 		</div>
@@ -101,6 +102,7 @@
 					.post('auth/reset')
 					.then(response => {
 						eventBus.$emit('authModal:show', false)
+						eventBus.$emit('reset:show', false)
 					})
 					.catch(e => {})
 			},

@@ -81,7 +81,7 @@
 							</template>
 						</form-input>
 						<transition name="fade">
-							<has-error :form="form" field="contact_type" />
+							<has-error :form="form" field="contact" />
 						</transition>
 					</div>
 				</div>
@@ -91,16 +91,16 @@
 				<div class="row">
 					<div class="col-12">
 						<form-textarea
-							v-model="form.comment"
+							v-model="form.message"
 							:label="$t('form.message')"
-							name="comment"
+							name="message"
 							label-color="#636363"
 							:required="true"
 							:loading="form.busy"
-							:error="form.errors.has('comment')"
+							:error="form.errors.has('message')"
 						/>
 						<transition name="fade">
-							<has-error :form="form" field="comment" />
+							<has-error :form="form" field="message" />
 						</transition>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 			<div class="blacklist-form-group">
 				<div class="row">
 					<div class="col-12">
-						<form-checkbox v-model="form.terms" :label="$t('form.accept')">
+						<form-checkbox v-model="terms" :label="$t('form.accept')">
 							<a class="blacklist-form__link" href="/terms">{{ $t('form.tos') }}</a>
 						</form-checkbox>
 					</div>
@@ -138,6 +138,7 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import Form from 'vform'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'BlacklistForm',
@@ -172,21 +173,22 @@
 					!this.form.email ||
 					!this.form.name ||
 					!this.form.representative ||
-					!this.form.comment ||
-					!this.form.terms
+					!this.form.message ||
+					!this.terms
 				)
 			},
 		},
 
 		data: () => ({
+			terms: false,
 			form: new Form({
 				email: null,
 				name: null,
 				representative: null,
 				contact_type: 'skype',
 				contact: null,
-				comment: '',
-				terms: false,
+				type: 'blacklist',
+				message: '',
 				'g-recaptcha-response': null
 			}),
 		}),
@@ -200,15 +202,15 @@
 				this.$nuxt.$loading.start()
 
 				this.form
-					.post('/blacklist')
+					.post('/contacts')
 					.then(response => {
-						if (response.data.submited) {
-							this.$emit('submit')
-							this.form.reset()
-							this.$nuxt.$loading.finish()
-						}
+						this.form.reset()
+						this.$emit('submit')
+						eventBus.$emit('blacklistModal:show', false)
+						this.$nuxt.$loading.finish()
 					})
 					.catch(e => {})
+
 			},
 		},
 	}

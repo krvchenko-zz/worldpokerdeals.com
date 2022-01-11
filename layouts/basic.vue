@@ -40,7 +40,7 @@
 									lineHeight: '28px',
 									marginBottom: '4px',
 								}"
-								>{{ $t('blacklist_modal.title') }}</span
+								>{{ $t('blacklist_modal.title', {room: room.title}) }}</span
 							>
 							<div
 								class="modal-header__description"
@@ -327,6 +327,7 @@
 					this.connectionModal = true
 					this.auth = true
 				}
+
 				if (data.type === 'blacklist') {
 					this.blacklistModal = true
 				}
@@ -375,6 +376,15 @@
 				if (event) {
 					document.body.classList.remove('modal-open')
 				}
+			})
+
+			eventBus.$on('connectionModal:show', event => {
+				this.connectionModal = event
+			})
+
+			eventBus.$on('blacklistModal:show', event => {
+				console.log(event);
+				this.blacklistModal = event
 			})
 
 			this.setScreenSize()

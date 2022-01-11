@@ -129,6 +129,7 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import Form from 'vform'
+	import eventBus from '~/utils/event-bus'
 
 	export default {
 		name: 'ConnectionForm',
@@ -205,8 +206,9 @@
 					.post('connections/create')
 					.then(response => {
 						if (response.data.submited) {
-							this.$emit('submit')
 							this.form.reset()
+							this.$emit('submit')
+							eventBus.$emit('connectionModal:show', false)
 							this.$nuxt.$loading.finish()
 						}
 					})
