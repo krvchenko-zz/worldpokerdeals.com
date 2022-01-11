@@ -55,6 +55,14 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/style-resources',
 		['cookie-universal-nuxt', { alias: 'cookiz' }],
+		[
+			'@nuxtjs/recaptcha', {
+				hideBadge: true,
+				siteKey: process.env.RECAPTCHA_PUBLIC,
+				version: 2,
+				size: 'invisible'
+			}
+		],
 	],
 
 	styleResources: {
