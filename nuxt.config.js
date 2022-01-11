@@ -57,9 +57,10 @@ export default {
 		['cookie-universal-nuxt', { alias: 'cookiz' }],
 		[
 			'@nuxtjs/recaptcha', {
-				hideBadge: true,
+				hideBadge: false,
 				siteKey: process.env.RECAPTCHA_PUBLIC,
 				version: 2,
+				language: 'ru',
 				size: 'invisible'
 			}
 		],
