@@ -107,6 +107,8 @@
 					</form-checkbox>
 				</div>
 
+				<recaptcha />
+
 				<div class="connection-form-group">
 					<form-submit-button
 						:disabled="!auth || !terms || !form.name || !form.email"
@@ -154,7 +156,8 @@
 				locale: null,
 				email: null,
 				user_id: null,
-				room_id: null
+				room_id: null,
+				'g-recaptcha-response': null
 			}),
 		}),
 
@@ -192,11 +195,19 @@
 
 		methods: {
 			async action() {
+				const token = await this.$recaptcha.getResponse()
+
+				this.form['g-recaptcha-response'] = token
+
+				this.$nuxt.$loading.start()
+
 				this.form
 					.post('connections/create')
 					.then(response => {
 						if (response.data.submited) {
 							this.$emit('submit')
+							this.form.reset()
+							this.$nuxt.$loading.finish()
 						}
 					})
 					.catch(e => {})

@@ -121,6 +121,7 @@
 								</el-select>
 							</template>
 						</form-input>
+						<recaptcha />
 						<form-submit-button icon class="btn-vip-form" :loading="form.busy">
 						</form-submit-button>
 						<transition name="fade">
@@ -200,6 +201,7 @@
 				email: null,
 				skype: null,
 				type: 'vip',
+				'g-recaptcha-response': null
 			}),
 		}),
 
@@ -238,10 +240,18 @@
 
 		methods: {
 			async submit() {
+
+				const token = await this.$recaptcha.getResponse()
+
+				this.form['g-recaptcha-response'] = token
+
+				this.$nuxt.$loading.start()
+
 				this.form
 					.post('/contacts')
 					.then(response => {
 						this.$emit('submit')
+						this.$nuxt.$loading.finish()
 					})
 					.catch(e => {})
 

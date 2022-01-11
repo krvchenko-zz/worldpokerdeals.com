@@ -116,6 +116,8 @@
 				</div>
 			</div>
 
+			<recaptcha />
+
 			<div class="blacklist-form-group">
 				<div class="row">
 					<div class="col-12">
@@ -185,16 +187,25 @@
 				contact: null,
 				comment: '',
 				terms: false,
+				'g-recaptcha-response': null
 			}),
 		}),
 
 		methods: {
 			async submit() {
+				const token = await this.$recaptcha.getResponse()
+
+				this.form['g-recaptcha-response'] = token
+
+				this.$nuxt.$loading.start()
+
 				this.form
 					.post('/blacklist')
 					.then(response => {
 						if (response.data.submited) {
 							this.$emit('submit')
+							this.form.reset()
+							this.$nuxt.$loading.finish()
 						}
 					})
 					.catch(e => {})

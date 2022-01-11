@@ -126,11 +126,12 @@
 
 		methods: {
 			async submit() {
-				this.$nuxt.$loading.start()
 
 				const token = await this.$recaptcha.getResponse()
 
 				this.form['g-recaptcha-response'] = token
+				
+				this.$nuxt.$loading.start()
 
 				this.form
 					.post('/contacts')

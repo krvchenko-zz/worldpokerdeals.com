@@ -17,6 +17,7 @@
 					:loading="form.busy"
 					:error="form.errors.has('email')"
 				/>
+				<recaptcha />
 				<form-submit-button
 					:disabled="!form.email"
 					class="btn-restricted-form"
@@ -56,7 +57,8 @@
 				room_id: null,
 				user_id: null,
 				country_id: null,
-				type: 'restricted'
+				type: 'restricted',
+				'g-recaptcha-response': null
 			}),
 		}),
 
@@ -94,11 +96,18 @@
 
 		methods: {
 			async submit() {
+				const token = await this.$recaptcha.getResponse()
+
+				this.form['g-recaptcha-response'] = token
+
+				this.$nuxt.$loading.start()
+
 				this.form
 					.post('/contacts')
 					.then(response => {
 						this.$emit('submit')
 						this.form.reset()
+						this.$nuxt.$loading.finish()
 					})
 					.catch(e => {})
 			},
