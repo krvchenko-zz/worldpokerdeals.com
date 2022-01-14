@@ -55,23 +55,20 @@
 					>
 				</nuxt-link>
 
-				<nuxt-link
-					v-if="review"
-					v-slot="{ href, route, navigate }"
-					:to="`/rakeback-deals/${slug}/play`"
-				>
-					<a
-						:class="[
-							'btn',
-							'btn-block',
-							'room-recomended__link',
-							'room-recomended__link_download',
-						]"
-						:href="href"
-						@click="navigate"
-						>{{ $t('room_download') }}</a
-					>
-				</nuxt-link>
+				<room-action-button
+					v-if="!blacklist"
+					:label="$t('room_download')"
+					type="download"
+					:class="[
+						'btn-block',
+						'room-recomended__link',
+						'room-recomended__link_download',
+					]"
+					:icon="false"
+					:disabled="!available"
+					:url="url"
+					:slug="slug"
+				/>
 			</div>
 		</div>
 	</div>
@@ -99,6 +96,15 @@
 			slug: {
 				type: String,
 				required: true,
+			},
+
+			url: {
+				type: String,
+			},
+
+			available: {
+				type: Boolean,
+				default: true,
 			},
 
 			summary: {

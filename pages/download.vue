@@ -6,7 +6,7 @@
 			const country = store.getters['location/country']
 
 			if (country.code === 'RU') {
-				return redirect('/restricted')
+				return redirect(`/restricted/${params.slug}`)
 			}
 
 			const { data } = await $axios.get(`/rooms/url/${params.slug}`)

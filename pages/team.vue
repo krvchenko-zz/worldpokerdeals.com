@@ -92,7 +92,7 @@
 									item.big && 'team-history__title_big',
 									item.inactive && 'team-history__title_inactive',
 								]"
-								>{{ item.title }}</span
+								>{{ $t(item.title) }}</span
 							>
 							<span
 								:class="[
@@ -100,7 +100,7 @@
 									item.big && 'team-history__text_big',
 									item.inactive && 'team-history__text_inactive',
 								]"
-								>{{ item.text }}</span
+								>{{ $t(item.text) }}</span
 							>
 						</li>
 					</ul>
@@ -237,65 +237,59 @@
 			history: [
 				{
 					year: '2014',
-					title: 'Регистрация домена',
-					text: 'Был зарегистрирован домен worldpokerdeals.com',
+					title: 'our_team.history.0.title',
+					text: 'our_team.history.0.text',
 				},
 				{
 					year: null,
-					title: 'Начало авторского блога',
-					text: 'Первые посты и размещение нескольких азиатских румов',
+					title: 'our_team.history.1.title',
+					text: 'our_team.history.1.text',
 				},
 				{
 					year: '2015',
-					title: 'Первая версия сайта',
-					text:
-						'Мно всех полят вате применить ко дейсть колять отменивнению в контекс',
+					title: 'our_team.history.2.title',
+					text: 'our_team.history.2.text',
 				},
 				{
 					year: '2016',
-					title: 'Набирается команда Worldpokerdeals',
-					text: null,
+					title: 'our_team.history.3.title',
+					text: 'our_team.history.3.text',
 				},
 				{
 					year: '2017',
 					big: true,
-					title: 'Выход на рынки Америки, Латинской Америки и Европы',
-					text:
-						'Мно всех полят вате применить ко дейсть колять отменивнению в контекс',
+					title: 'our_team.history.4.title',
+					text: 'our_team.history.4.text',
 				},
 				{
 					year: null,
-					title: 'Нументные вать и вывать и свода веровто',
-					text:
-						'Мнострабойте веримень прогладется блицы можется срачновает аботы зате полько ствия',
+					title: 'our_team.history.5.title',
+					text: 'our_team.history.5.text',
 				},
 				{
 					year: '2018',
-					title: 'Запуск собственной партнерской программы',
-					text:
-						'Мно всех полят вате применить ко дейсть колять отменивнению в контекс',
+					title: 'our_team.history.6.title',
+					text: 'our_team.history.6.text',
 				},
 				{
 					year: '2019',
-					title: 'Получение премии на iGB Awards',
-					text:
-						'Премия в номинациях лучший покерный сайт и лучший зарубежный аффилейт',
+					title: 'our_team.history.7.title',
+					text: 'our_team.history.7.text',
 				},
 				{
-					year: null,
-					title: 'Обновление структуры и дизайна сайта',
-					text: null,
+					year: '2021',
+					title: 'our_team.history.8.title',
+					text: 'our_team.history.8.text',
 				},
 				{
-					year: '2020',
-					title: 'Пережили пандемию COVID-19',
-					text:
-						'Премия в номинациях лучший покерный сайт и лучший зарубежный аффилейт',
+					year: '2022',
+					title: 'our_team.history.9.title',
+					text: 'our_team.history.9.text',
 				},
 				{
 					year: '2030',
-					title: 'Организация первого покерного турнира на марсе',
-					text: null,
+					title: 'our_team.history.10.title',
+					text: 'our_team.history.10.text',
 					inactive: true,
 				},
 			],
@@ -753,7 +747,7 @@
 			&:before {
 				content: '';
 				top: 3px;
-				left: 81px;
+				left: 79px;
 				position: absolute;
 				height: 10px;
 				width: 10px;
@@ -768,7 +762,7 @@
 				&:before {
 					content: '';
 					top: 3px;
-					left: 79px;
+					left: 77px;
 					position: absolute;
 					height: 14px;
 					width: 14px;

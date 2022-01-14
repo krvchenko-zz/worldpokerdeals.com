@@ -242,6 +242,7 @@
 
 				<div class="header-buttons">
 					<a
+						v-if="country.code !== 'RU'"
 						href="/vip"
 						class="btn btn-vip"
 						title="VIP-сервис"
@@ -356,6 +357,7 @@
 				.get('/menu/list', {
 					params: {
 						locale: this.locale,
+						geo: this.country.code,
 					},
 				})
 				.then(

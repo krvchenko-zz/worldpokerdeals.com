@@ -38,7 +38,7 @@ const routes = [
 		component: page('team.vue'),
 	},
 	{
-		path: '/restricted',
+		path: '/restricted/:slug',
 		name: 'restricted',
 		component: page('restricted.vue'),
 	},
@@ -128,6 +128,11 @@ const routes = [
 	{
 		path: '/rakeback-deals/:slug/download',
 		name: 'download',
+		component: page('download.vue'),
+	},
+	{
+		path: '/rakeback-deals/:slug/play',
+		name: 'play',
 		component: page('download.vue'),
 	},
 	{

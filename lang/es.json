@@ -593,6 +593,89 @@
       }
     ]
   },
+  "our_team": {
+    "title": "¿Quienes somos?",
+    "cite": "<b>Luego de 6 años como jugador profesional de heads up entendí la importancia de la selección de los juegos y siempre estaba buscando las salas más blandas con menos competencia de los colegas con Holdem Manager</b>",
+    "cite_name": "Rodion Longa",
+    "cite_longa": "Longa aquí — líder y responsable de todo lo que ocurre en Worldpokerdeals",
+    "history_title": "Historia de Worldpokerdeals",
+    "form_title": "¿Tienes preguntas? Contáctanos",
+    "form_contacts": "Contáctanos a través de nuestras redes",
+    "text": [
+      "Somos un equipo de jugadores de póker y mánagers registrados en el Reino Unido como BOSSLIKE GAMING LP que vivimos y viajamos alrededor del mundo — sudeste asiático, Estados Unidos, Europa, Ucrania, Rusia, América Latina, buscando nuevas emociones y la mejor acción",
+      "Nuestra historia empezó en el 2014 como un blog personal y un pequeño sitio hecho a pulso con algunas salas asiáticas",
+      "Así nació la idea. El objetivo era crear un servicio que permitiera jugar contra jugadores amateur con todo lo necesario: transacciones de dinero, software, historiales de manos, garantías, VPN, y lo más importante — el mejor soporte del mundo para jugadores",
+      "Desde entonces hemos recorrido un largo camino: nuestro equipo ha crecido, llegaron nuevas redes y añadimos nuevos tratos y ofertas. En el 2017 ingresamos al mercado de USA y Latinoamérica En el 2019 ganamos dos nominaciones en los premios iGB en Londres: Mejor Sitio web de Póker y Mejor Witio web de Afiliados de Habla no Inglesa",
+      "Hoy tenemos la oferta más completa de <a href='/online-poker-networks'>redes</a> y <a href='/rakeback-deals/best-poker-rooms-2020'>salas</a>, <a href='/vip'>servicios VIP</a> para grinders y el único servicio confiable y seguro para jugar en apps de póker y clubes privados"
+    ],
+    "history": [
+      {
+        "title": "Registro del dominio",
+        "text": "El nombre Worldpokerdeals fue registrado"
+      },
+      {
+        "title": "Inicio del blog personal de Longa",
+        "text": "Primeras entradas y algunos tratos en salas asiáticas"
+      },
+      {
+        "title": "Primera versión de la página web",
+        "text": "Un hobby se convierte en un negocio permanente"
+      },
+      {
+        "title": "Inicio del equipo de WPD",
+        "text": ""
+      },
+      {
+        "title": "Lanzamiento en los mercados de América, Latinoamérica, y Europa",
+        "text": "Lanzamiento de la versión en inglés de WPD"
+      },
+      {
+        "title": "Expansión global",
+        "text": "Lanzamiento de la versión en español de WPD"
+      },
+      {
+        "title": "Nuestro propio programa de afiliados",
+        "text": "Panel de afiliados y referidores"
+      },
+      {
+        "title": "Premio iGB Awards",
+        "text": "Mejor sitio de póker y mejor afiliado de habla no inglesa"
+      },
+      {
+        "title": "Nueva versión de WPD",
+        "text": ""
+      },
+      {
+        "title": "Sobrevivimos a la pandemia del COVID-19",
+        "text": "Nos hicimos más fuertes y seguimos creciendo"
+      },
+      {
+        "title": "Primer torneo de la historia en Marte",
+        "text": ""
+      }
+    ],
+    "principles": {
+      "title": "Nuestros principios",
+      "items": [
+        {
+          "title": "Dar valor",
+          "text": "Nuestra meta es brindar las mejores condiciones a nivel global para nuestros jugadores y socios"
+        },
+        {
+          "title": "No ocultamos nuestros rostros",
+          "text": "La confiabilidad en un afiliado de póker depende de que tan reconocido sea su equipo Tenemos personas reales y con experiencia trabajando para ti"
+        },
+        {
+          "title": "Divertirnos",
+          "text": "Hacemos nuestro trabajo y lo disfrutamos pues ganamos ayudando a otros a ganar"
+        },
+        {
+          "title": "Vivir activamente",
+          "text": "Disfrutamos el trabajo, pero también vivimos una vida plena: practicamos deportes, jugamos videojuegos, hacemos fiestas electrónicas, y, por supuesto, viajamos"
+        }
+      ]
+    }
+  },
   "contacts": {
     "title": "Contáctanos para obtener detalles acerca de tratos secretas y ofertas especiales. ¡Contestamos al instante!",
     "contacts": "Nuestros messengers y redes sociales"

@@ -22,7 +22,6 @@
 				<span>{{ country.remote_addr }}</span>
 			</div>
 			<div class="restricted__info" v-html="$t('restricted.description')"></div>
-			<!-- <contacts-form /> -->
 
 			<div class="restricted__manager">
 				<div v-if="manager" class="restricted-box">
@@ -89,6 +88,12 @@
 
 		async fetch() {
 			await this.$axios
+				.get(`/rooms/url/${this.$route.params.slug}`)
+				.then(response => {
+					this.$store.commit('rooms/FETCH_ROOM', { room: response.data })
+				})
+
+			await this.$axios
 				.get('/managers', {
 					params: {
 						id: 27,
@@ -112,6 +117,9 @@
 		created() {},
 
 		computed: {
+			...mapGetters({
+				room: 'rooms/room',
+			})
 		},
 
 		watch: {},

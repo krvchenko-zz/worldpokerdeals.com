@@ -344,6 +344,8 @@
 					:key="index"
 					:title="item.title"
 					:slug="item.slug"
+					:url="item.url"
+					:available="item.available"
 					:rating="item.rating"
 					:rakeback="item.rakeback"
 					:bonus="item.bonus"
