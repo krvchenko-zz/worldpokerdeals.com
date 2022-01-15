@@ -40,7 +40,7 @@
 				</page-article>
 			</div>
 
-			<div class="article-container__aside-content">
+			<aside class="article-container__aside-content">
 				<room-top-list />
 
 				<post-list>
@@ -70,7 +70,7 @@
 				</topic-list>
 
 				<game-search-banner />
-			</div>
+			</aside>
 		</div>
 
 		<lazy-hydrate when-visible>

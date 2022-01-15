@@ -34,8 +34,8 @@
 					:updated="page.updated_at"
 				/>
 
-				<div v-if="locale === ('en' || 'es')" class="article-container__aside">
-					<h3 class="block-title">Дополнительно</h3>
+				<div v-if="locale === 'en' || locale === 'es'" class="article-container__aside">
+					<h3 class="block-title">{{ $t('extra') }}</h3>
 					<ul class="terms-extra">
 						<nuxt-link
 							v-slot="{ href, isActive, isExactActive, navigate }"
@@ -44,7 +44,7 @@
 						>
 							<li v-if="!isExactActive" class="terms-extra__item">
 								<a class="terms-extra__link" :href="href" @click="navigate"
-									>Пользовательское соглашение</a
+									>{{ $t('menu.terms') }}</a
 								>
 							</li>
 						</nuxt-link>
@@ -55,7 +55,7 @@
 						>
 							<li v-if="!isExactActive" class="terms-extra__item">
 								<a class="terms-extra__link" :href="href" @click="navigate"
-									>Политика приватности</a
+									>{{ $t('menu.privacy') }}</a
 								>
 							</li>
 						</nuxt-link>
@@ -67,7 +67,7 @@
 						>
 							<li v-if="!isExactActive" class="terms-extra__item">
 								<a class="terms-extra__link" :href="href" @click="navigate"
-									>Политика куки-файлов</a
+									>{{ $t('menu.cookie') }}</a
 								>
 							</li>
 						</nuxt-link>

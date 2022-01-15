@@ -118,7 +118,7 @@
 				</template>
 			</page-article>
 
-			<div class="payment-content__aside">
+			<aside class="payment-content__aside">
 				<client-only>
 					<div
 						v-if="pageable.show_rooms && filters"
@@ -158,7 +158,7 @@
 				</topic-list>
 
 				<game-search-banner />
-			</div>
+			</aside>
 		</div>
 
 		<lazy-hydrate when-visible>

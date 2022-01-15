@@ -136,7 +136,7 @@
 			</template>
 		</page-article>
 
-		<div class="network__aside">
+		<aside class="network__aside">
 			<client-only>
 				<div
 					v-if="filters"
@@ -174,7 +174,7 @@
 			</topic-list>
 
 			<game-search-banner />
-		</div>
+		</aside>
 
 		<lazy-hydrate when-visible>
 			<post-list

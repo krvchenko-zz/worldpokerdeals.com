@@ -142,6 +142,7 @@
 	}
 
 	.promotions {
+		display: block;
 		margin-bottom: 32px;
 		&__more {
 			padding: 6px 15px;

@@ -126,7 +126,7 @@
 			</page-article>
 		</div>
 
-		<div class="platform__aside">
+		<aside class="platform__aside">
 			<div
 				v-if="filters"
 				class="filters__wrapper"
@@ -158,7 +158,7 @@
 					:created="item.created_at"
 				/>
 			</topic-list>
-		</div>
+		</aside>
 
 		<div class="platform__posts">
 			<lazy-hydrate when-visible>

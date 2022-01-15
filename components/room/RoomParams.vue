@@ -13,7 +13,7 @@
 				<span class="room-param__sep"></span>
 				<div class="room-param__value">
 					<nuxt-link
-						v-if="network.published"
+						v-if="network.page && network.page.published"
 						v-slot="{ href, route, navigate, isActive, isExactActive }"
 						prefetch
 						:to="{

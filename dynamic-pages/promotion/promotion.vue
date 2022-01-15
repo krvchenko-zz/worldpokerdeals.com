@@ -104,7 +104,7 @@
 				</template>
 			</page-article>
 
-			<div class="promotion__aside article-container__aside-content">
+			<aside class="promotion__aside article-container__aside-content">
 				<lazy-room-top-list />
 				<h3 class="block-title">{{ $t('promotion_recent') }}</h3>
 				<lazy-hydrate when-visible>
@@ -141,7 +141,7 @@
 						:image="promotion.manager.image"
 					/>
 				</lazy-hydrate>
-			</div>
+			</aside>
 		</div>
 
 		<div class="promotion__similar">

@@ -55,7 +55,7 @@
 		>
 		</pagination>
 
-		<div v-if="important" class="post-category__aside aside">
+		<aside v-if="important" class="post-category__aside aside">
 			<div class="blog-subscribe">
 				<div class="blog-subscribe__title">{{ $t('blog_banner.title') }}</div>
 				<div class="blog-subscribe__text">{{ $t('blog_banner.text') }}</div>
@@ -104,7 +104,7 @@
 			</post-list>
 
 			<front-telegram />
-		</div>
+		</aside>
 	</div>
 </template>
 

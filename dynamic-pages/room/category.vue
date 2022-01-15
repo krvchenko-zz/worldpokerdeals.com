@@ -133,7 +133,7 @@
 					</page-article>
 				</div>
 
-			<div class="rooms__aside">
+			<aside class="rooms__aside">
 				<client-only>
 					<div
 						v-if="filters && !pageable.is_blacklist"
@@ -204,7 +204,7 @@
 					</topic-list>
 
 					<game-search-banner />
-			</div>
+			</aside>
 		</div>
 			<div class="rooms__page-banners">
 				<page-banners />

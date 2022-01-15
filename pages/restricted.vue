@@ -38,28 +38,41 @@
 							<restricted-form />
 							<div class="restricted-box__messengers">{{ $t('restricted.form_contacts') }}</div>
 							<div class="restricted-box__buttons">
-								<button-contact style="padding: 0 32px;" size="md" type="chat"
-									>{{ $t('start_chat') }}</button-contact
+								<button-contact
+									style="padding: 0 32px;"
+									size="md"
+									type="chat"
 								>
+									{{ $t('start_chat') }}
+								</button-contact>
 								<button-contact
 									icon
 									size="md"
 									type="telegram"
+									rel="nofollow noopener"
 									:href="manager.telegram"
 								/>
 								<button-contact
 									icon
 									size="md"
 									type="skype"
+									rel="nofollow noopener"
 									:href="manager.skype"
 								/>
 								<button-contact
 									icon
 									size="md"
 									type="whatsapp"
+									rel="nofollow noopener"
 									:href="manager.whatsapp"
 								/>
-								<button-contact icon size="md" type="fb" :href="manager.fb" />
+								<button-contact
+									icon
+									size="md"
+									type="fb"
+									rel="nofollow noopener"
+									:href="manager.fb"
+								/>
 							</div>
 						</div>
 					</div>
@@ -96,7 +109,7 @@
 			await this.$axios
 				.get('/managers', {
 					params: {
-						id: 27,
+						id: 502,
 					},
 				})
 				.then(response => {
@@ -107,7 +120,7 @@
 						skype: response.data.skype,
 						whatsapp: response.data.whatsapp,
 						email: response.data.email,
-						fb: response.data.fb,
+						fb: response.data.facebook,
 						vk: response.data.vk,
 						instagram: response.data.instagram,
 					}

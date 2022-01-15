@@ -124,7 +124,7 @@
 			</page-article>
 		</div>
 
-		<div class="game__aside">
+		<aside class="game__aside">
 			<div
 				class="game__filter-wrapper"
 				:class="{ 'game__filter-wrapper--opened': showFilter }"
@@ -160,7 +160,7 @@
 			</topic-list>
 
 			<game-search-banner />
-		</div>
+		</aside>
 
 		<lazy-hydrate when-visible>
 			<post-list

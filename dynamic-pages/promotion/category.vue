@@ -179,7 +179,7 @@
 				</page-article>
 			</div>
 
-			<div class="promotions__aside">
+			<aside class="promotions__aside">
 				<client-only>
 					<div
 						v-if="filters"
@@ -215,7 +215,7 @@
 				</topic-list>
 
 				<game-search-banner />
-			</div>
+			</aside>
 		</div>
 
 		<page-banners v-if="category.entity === 'bonus'" class="promotions__page-banners" />

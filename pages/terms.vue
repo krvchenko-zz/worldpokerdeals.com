@@ -34,8 +34,8 @@
 					:updated="page.updated_at"
 				/>
 
-				<div v-if="locale === ('en' || 'es')" class="article-container__aside">
-					<h3 class="block-title">Дополнительно</h3>
+				<div v-if="locale === 'en' || locale === 'es'" class="article-container__aside">
+					<h3 class="block-title">{{ $t('extra') }}</h3>
 					<ul class="terms-extra">
 						<li class="terms-extra__item">
 							<nuxt-link
@@ -44,7 +44,7 @@
 								:to="{ name: 'privacy' }"
 							>
 								<a class="terms-extra__link" :href="href" @click="navigate"
-									>Политика приватности</a
+									>{{ $t('menu.privacy') }}</a
 								>
 							</nuxt-link>
 						</li>
@@ -56,7 +56,7 @@
 								:to="{ name: 'privacy', hash: '#cookies' }"
 							>
 								<a class="terms-extra__link" :href="href" @click="navigate"
-									>Политика куки-файлов</a
+									>{{ $t('menu.cookie') }}</a
 								>
 							</nuxt-link>
 						</li>
@@ -69,46 +69,16 @@
 
 <script>
 	import { mapGetters } from 'vuex'
+	import pageMixin from '~/mixins/pageMixin'
 
 	export default {
 		name: 'Terms',
 
 		layout: 'basic',
 
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
-
-		async middleware({ store, route, $axios }) {
-			await $axios
-				.get(`pages/${route.fullPath}`, {
-					params: {},
-				})
-				.then(response => {
-					store.commit('pages/FETCH_PAGE', { page: response.data })
-				})
-				.catch(error => {})
-		},
+		mixins: [pageMixin],
 
 		components: {},
-
-		head() {
-			return {
-				title: this.page.meta_title,
-				titleTemplate: '%s',
-				meta: [
-					{ name: 'description', content: this.page.meta_description },
-					{ name: 'keywords', content: this.page.meta_keywords },
-				],
-			}
-		},
 
 		computed: {
 			...mapGetters({

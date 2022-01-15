@@ -1,16 +1,10 @@
 export default async ({ app, res, store, params, redirect, route, $axios }) => {
 
-	const country = store.getters['location/country']
-
-	if (country.code === 'RU' && params.child && params.child.match(/^.+-(download$)/, 'gm')) {
-		return redirect('/restricted')
-	}
-
-	let url = route.path = '/' ? 'pages/front' : `pages/${params.parent}`
-
-	if (params.child) {
-		url += `/${params.child}`
-	}
+	let url = route.name === 'front' ?
+						'pages/front' :
+						route.name === 'restricted' ?
+						'pages/restricted':
+						`pages${route.path}`
 
 	await $axios
 		.get(url)

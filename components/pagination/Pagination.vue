@@ -31,6 +31,7 @@
 						v-if="url"
 						:class="['btn', 'btn-pagination', 'btn-pagination_prev']"
 						:href="href"
+						title="Previous"
 						:disabled="!prevUrl"
 						@click="navigate"
 					>
@@ -112,6 +113,7 @@
 						v-if="url"
 						:class="['btn', 'btn-pagination', 'btn-pagination_next']"
 						aria-label="Next"
+						title="Next"
 						:href="href"
 						:disabled="!nextUrl"
 						@click="navigate"

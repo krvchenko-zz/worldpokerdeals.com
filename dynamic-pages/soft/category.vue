@@ -123,7 +123,7 @@
 			</template>
 		</page-article>
 
-		<div class="soft-category__aside">
+		<aside class="soft-category__aside">
 			<div
 				v-if="filters"
 				class="filters__wrapper"
@@ -153,7 +153,7 @@
 			</topic-list>
 
 			<game-search-banner />
-		</div>
+		</aside>
 
 		<page-banners class="soft-category__banners" />
 	</div>
