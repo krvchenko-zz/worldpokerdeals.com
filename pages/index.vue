@@ -47,8 +47,9 @@
 
 			const country = store.getters['location/country']
 
-			if (country.code === 'RU' && params.child && params.child.match(/^.+-(download$)/, 'gm')) {
-				return redirect('/restricted')
+			if (country.code === 'TH' && params.child && params.child.match(/^.+-(download$)/, 'gm')) {
+				let room = store.getters['rooms/room']
+				return redirect(`/restricted/${room.slug}`)
 			}
 
 			let url = `pages/${params.parent}`
