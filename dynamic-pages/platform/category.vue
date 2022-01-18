@@ -1,5 +1,5 @@
 <template>
-	<div v-if="category" class="platforms">
+	<div class="platforms">
 		<div class="platforms-header">
 			<breadcrumb-list :white="true" />
 			<h1 class="platforms__title">{{ pageable.title }}</h1>
@@ -16,8 +16,8 @@
 
 		<div class="platforms-list">
 			<platform-item
-				v-for="item in platforms"
-				:key="item.slug"
+				v-for="(item, index) in platforms"
+				:key="index"
 				:title="item.title"
 				:icon="`${item.icon}-large`"
 				:rooms="item.rooms_count"
@@ -127,7 +127,6 @@
 				country: 'location/country',
 				user: 'auth/user',
 				pageable: 'pages/page',
-				category: 'platforms/category',
 				platforms: 'platforms/platforms',
 				posts: 'posts/posts',
 			}),
@@ -138,21 +137,11 @@
 		}),
 
 		async fetch() {
-			await this.$axios
-				.get(`platforms/category/${this.pageable.slug}`)
-				.then(response => {
-					this.$store.commit('platforms/FETCH_CATEGORY', {
-						category: response.data.category,
-					})
-
-					this.$store.commit('platforms/FETCH_PLATFORMS', {
-						platforms: response.data.platforms
-					})
+			await this.$axios.get('platforms/list').then(response => {
+				this.$store.commit('platforms/FETCH_PLATFORMS', {
+					platforms: response.data,
 				})
-				.catch(e => {
-
-				})
-
+			})
 			await this.$axios
 				.get('posts/list', {
 					params: {

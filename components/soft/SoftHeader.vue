@@ -69,8 +69,9 @@
 			>
 				<slide v-for="(item, index) in soft.images" :key="index">
 					<a
+						@click.prevent="handleLightboxClick(index)"
 						:href="`${mediaUrl}/gallery-large/${item.filename}`"
-						class="soft-screenshots__item lightbox"
+						class="soft-screenshots__item"
 					>
 						<img
 							class="soft-screenshots__img"
@@ -116,7 +117,11 @@
 
 		created() {},
 
-		mounted() {},
+		mounted() {
+			// const lightbox = this.$glightbox({
+			// 	selector: '.lightbox'
+			// })
+		},
 
 		computed: {
 			...mapGetters({
@@ -131,11 +136,33 @@
 			mediaUrl() {
 				return process.env.mediaUrl
 			},
+
+			slides () {
+				let items = []
+
+				for (let i = 0; i < this.soft.images.length; i++) {
+					items.push({
+						href : `${this.mediaUrl}/gallery-large/${this.soft.images[i].filename}`,
+						type : 'image',
+						title : this.soft.images[i].alt,
+					})
+				}
+
+				return items
+			},
 		},
 
 		watch: {},
 
 		methods: {
+			handleLightboxClick(index) {
+				const lightbox = this.$glightbox({
+					elements: this.slides,
+					startAt: index
+				})
+				lightbox.open();
+			},
+
 			dateFormat(timestamp) {
 				let date = new Date(timestamp),
 					d = date.getDate(),

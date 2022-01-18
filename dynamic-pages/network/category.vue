@@ -1,5 +1,5 @@
 <template>
-	<div v-if="category" class="networks">
+	<div class="networks">
 		<div class="networks-header">
 			<div class="container-fluid">
 				<breadcrumb-list :white="true" />
@@ -44,7 +44,6 @@
 				country: 'location/country',
 				user: 'auth/user',
 				pageable: 'pages/page',
-				category: 'networks/category',
 				networks: 'networks/networks',
 			}),
 		},
@@ -54,14 +53,6 @@
 		}),
 
 		async fetch() {
-			await this.$axios
-				.get(`network/category/${this.pageable.slug}`)
-				.then(response => {
-					this.$store.commit('networks/FETCH_CATEGORY', {
-						category: response.data,
-					})
-				})
-
 			await this.$axios.get('network/list').then(response => {
 				this.$store.commit('networks/FETCH_NETWORKS', {
 					networks: response.data.map(item => ({

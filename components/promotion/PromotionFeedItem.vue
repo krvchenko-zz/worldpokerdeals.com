@@ -141,8 +141,7 @@
 				<i class="promotion-feed-item__terms-icon"></i>
 				<span>{{ $t('more') }}</span>
 			</span>
-
-			<span
+<!-- 			<span
 				:class="{
 					'promotion-feed-item__avaliable': true,
 					[`promotion-feed-item__avaliable_yes`]: !room.restricted,
@@ -162,7 +161,7 @@
 				<span v-else>{{
 					$t('room_geo_allowed', { country: country.from })
 				}}</span>
-			</span>
+			</span> -->
 		</div>
 
 		<div

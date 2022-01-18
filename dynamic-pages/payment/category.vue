@@ -1,5 +1,5 @@
 <template>
-	<div v-if="category" class="payments">
+	<div class="payments">
 		<div class="payments-header">
 			<div class="container-fluid">
 				<breadcrumb-list :white="true" />
@@ -74,7 +74,7 @@
 
 			<div class="article-container__aside">
 				<room-top-list />
-				<topic-list v-if="pageable.topics">
+				<topic-list v-if="pageable.topics && pageable.topics.length">
 					<topic-item
 						v-for="(item, index) in pageable.topics"
 						:key="index"
@@ -97,16 +97,6 @@
 
 		components: {},
 
-		head() {
-			return {
-				meta: [
-				],
-
-				link: [
-				],
-			}
-		},
-
 		computed: {
 			...mapGetters({
 				locale: 'lang/locale',
@@ -123,14 +113,6 @@
 		}),
 
 		async fetch() {
-			await this.$axios
-				.get(`payments/category/${this.pageable.slug}`)
-				.then(response => {
-					this.$store.commit('payments/FETCH_CATEGORY', {
-						category: response.data,
-					})
-				})
-
 			await this.$axios.get('payments/list').then(response => {
 				this.$store.commit('payments/FETCH_PAYMENTS', {
 					payments: response.data.map(item => ({
