@@ -20,18 +20,18 @@
 					icon="bonus-category"
 				/>
 
-				<h1 class="promotions__title">{{ category.title }}</h1>
+				<h1 class="promotions__title">{{ pageable.title }}</h1>
 				<page-meta
-					:author="category.author ? category.author.full_name : null"
-					:created="category.created_at"
-					:updated="category.updated_at"
+					:author="pageable.author ? pageable.author.full_name : null"
+					:created="pageable.created_at"
+					:updated="pageable.updated_at"
 					class="promotions-header__meta"
 				/>
 
 				<common-text-spoiler
 					:limit="isTouch ? 100 : 600"
 					class="promotions__summary"
-					:text="category.summary"
+					:text="pageable.summary"
 				>
 					<template v-slot:button>
 						<svg-icon icon="spoiler-sep" width="35" height="16" />
@@ -42,10 +42,10 @@
 				<promotion-item
 					v-if="category.promotion && category.entity === 'promotion'"
 					:image="category.promotion.image"
-					:title="category.promotion.title"
+					:title="category.promotion.page.title"
 					:summary="category.promotion.summary"
 					:page="category.promotion.page"
-					:author="category.promotion.author"
+					:author="category.promotion.page.author"
 					:created="category.promotion.created_at"
 					:category="category.promotion.category"
 					:time_left="category.promotion.time_left"

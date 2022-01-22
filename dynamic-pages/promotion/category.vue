@@ -58,11 +58,11 @@
 							v-for="(item, index) in data"
 							:key="index"
 							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
+							:title="item.page.title"
+							:summary="item.page.summary"
 							:page="item.page"
-							:author="item.user"
-							:created="item.created_at"
+							:author="item.page.author"
+							:created="item.page.created_at"
 							:category="item.category"
 							:time_left="item.time_left"
 							:time_before="item.time_before"
@@ -83,10 +83,10 @@
 						<bonus-item
 							v-for="(item, index) in data"
 							:key="index"
-							:title="item.title"
-							:slug="item.slug"
+							:title="item.page.title"
+							:slug="item.page.slug"
 							:url="item.url"
-							:created="item.created_at"
+							:created="item.page.created_at"
 							:code="item.code"
 							:terms="item.terms"
 							:room="item.room"
@@ -132,10 +132,10 @@
 
 				<!-- Toc -->
 				<div class="promotions__toc">
-					<toc-list v-if="category.toc && category.toc.length">
+					<toc-list v-if="pageable.toc && pageable.toc.length">
 						<template #default="{ inline }">
 							<toc-item
-								v-for="(item, index) in category.toc"
+								v-for="(item, index) in pageable.toc"
 								:key="index"
 								:index="index"
 								:inline="inline"
@@ -150,20 +150,20 @@
 				<!-- Article -->
 				<page-article
 					:meta="false"
-					:text="category.text"
-					:author="category.author ? category.author.full_name : null"
-					:created="category.created_at"
-					:updated="category.updated_at"
+					:text="pageable.text"
+					:author="pageable.author ? pageable.author.full_name : null"
+					:created="pageable.created_at"
+					:updated="pageable.updated_at"
 					class="promotions__article"
 				>
 					<template #footer>
 						<!-- Faq -->
 						<faq-list
-							v-if="category.faq && category.faq.mainEntity.length"
+							v-if="pageable.faq && pageable.faq.mainEntity.length"
 							:label="$t('faq')"
 						>
 							<faq-item
-								v-for="(item, index) in category.faq.mainEntity"
+								v-for="(item, index) in pageable.faq.mainEntity"
 								:key="index"
 								:question="item.name"
 								:answer="item.acceptedAnswer.text"
@@ -172,7 +172,7 @@
 						</faq-list>
 
 						<!-- Author -->
-						<author v-if="category.author" :author="category.author" />
+						<author v-if="pageable.author" :author="pageable.author" />
 
 						<!-- Comments -->
 					</template>
@@ -203,9 +203,9 @@
 				</client-only>
 				<room-top-list v-if="category.entity === 'promotion'" />
 
-				<topic-list v-if="category.topics.length">
+				<topic-list v-if="pageable.topics.length">
 					<topic-item
-						v-for="(item, index) in category.topics"
+						v-for="(item, index) in pageable.topics"
 						:key="index"
 						:title="item.title"
 						:url="item.url"

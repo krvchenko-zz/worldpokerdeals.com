@@ -13,10 +13,10 @@
 			</client-only> -->
 
 			<div class="bonus__info-container">
-				<lazy-toc-list v-if="promotion.toc" :inline="true" :white="false">
+				<lazy-toc-list v-if="pageable.toc" :inline="true" :white="false">
 					<template v-slot="{ inline, white }">
 						<lazy-toc-item
-							v-for="(item, index) in promotion.toc"
+							v-for="(item, index) in pageable.toc"
 							:key="index"
 							:index="index"
 							:inline="inline"
@@ -46,7 +46,7 @@
 							:restricted="promotion.room.restricted"
 							:country="country"
 							:rating="promotion.room.rating"
-							:bonus="promotion.title"
+							:bonus="pageable.title"
 							:review="promotion.room.review"
 							:bonus_category_label="promotion.category.label_color"
 							:bonus_category="promotion.category.title"
@@ -55,10 +55,10 @@
 
 					<page-article
 						:title="false"
-						:author="promotion.author.full_name"
-						:created="promotion.created_at"
-						:updated="promotion.updated_at"
-						:text="promotion.text"
+						:author="pageable.author.full_name"
+						:created="pageable.created_at"
+						:updated="pageable.updated_at"
+						:text="pageable.text"
 						:meta="true"
 						class="bonus__article"
 					>
@@ -69,11 +69,11 @@
 							<lazy-room-summary :room="promotion.room" />
 							<lazy-hydrate when-visible>
 								<faq-list
-									v-if="promotion.faq && promotion.faq.mainEntity.length"
+									v-if="pageable.faq && pageable.faq.mainEntity.length"
 									:label="$t('faq')"
 								>
 									<faq-item
-										v-for="(item, index) in promotion.faq.mainEntity"
+										v-for="(item, index) in pageable.faq.mainEntity"
 										:key="index"
 										:question="item.name"
 										:answer="item.acceptedAnswer.text"
@@ -86,7 +86,7 @@
 								<lazy-telegram-subscribe />
 							</lazy-hydrate>
 
-							<author v-if="promotion.author" :author="promotion.author" />
+							<author v-if="pageable.author" :author="pageable.author" />
 
 <!-- 							<comments
 								commentable_type="App\Promotion"
@@ -107,9 +107,9 @@
 									<lazy-promotion-feed-item
 										v-for="(item, index) in related"
 										:key="index"
-										:title="item.title"
-										:slug="item.slug"
-										:created="item.created_at"
+										:title="item.page.title"
+										:slug="item.page.slug"
+										:created="item.page.created_at"
 										:code="item.code"
 										:terms="item.terms"
 										:room="item.room"

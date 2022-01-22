@@ -83,7 +83,7 @@
 		},
 
 		data: () => ({
-			per_page: 3,
+			per_page: 1,
 			total: null,
 			next_page_url: null,
 		}),

@@ -181,7 +181,7 @@
 							:title="item.title"
 							:summary="item.summary"
 							:page="item.page"
-							:author="item.author"
+							:author="item.page.author"
 							:created="item.created_at"
 							:category="item.category"
 							:time_left="item.time_left"

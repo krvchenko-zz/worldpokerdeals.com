@@ -16,7 +16,7 @@
 						{{ promotion.category.title }}
 					</div>
 
-					<h1 class="bonus__title">{{ promotion.heading }}</h1>
+					<h1 class="bonus__title">{{ pageable.heading }}</h1>
 					<div class="bonus-header__row">
 						<div class="bonus-header__col">
 							<div class="bonus-header__label">{{ $t('status') }}</div>
@@ -34,7 +34,7 @@
 								</span>
 								<span class="bonus__last-update">{{
 									$t('last_check_date', {
-										date: dateFormat(promotion.updated_at),
+										date: dateFormat(pageable.updated_at),
 									})
 								}}</span>
 							</div>

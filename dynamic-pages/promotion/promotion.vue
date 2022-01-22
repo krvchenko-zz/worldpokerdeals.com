@@ -21,11 +21,11 @@
 			/>
 
 			<page-article
-				:title="promotion.title"
-				:author="promotion.author.full_name"
-				:created="promotion.created_at"
-				:updated="promotion.updated_at"
-				:text="promotion.text"
+				:title="pageable.title"
+				:author="pageable.author.full_name"
+				:created="pageable.created_at"
+				:updated="pageable.updated_at"
+				:text="pageable.text"
 				:meta="true"
 				class="promotion__article article-container__article"
 			>
@@ -38,7 +38,7 @@
 							width="742px"
 							height="234px"
 							:src="img"
-							:alt="promotion.image.alt || promotion.title"
+							:alt="promotion.image.alt || pageable.title"
 						/>
 					</div>
 					<lazy-promotion-summary
@@ -82,11 +82,11 @@
 
 					<lazy-hydrate when-visible>
 						<faq-list
-							v-if="promotion.faq && promotion.faq.mainEntity.length"
+							v-if="pageable.faq && pageable.faq.mainEntity.length"
 							:label="$t('faq')"
 						>
 							<faq-item
-								v-for="(item, index) in promotion.faq.mainEntity"
+								v-for="(item, index) in pageable.faq.mainEntity"
 								:key="index"
 								:question="item.name"
 								:answer="item.acceptedAnswer.text"
@@ -95,7 +95,7 @@
 						</faq-list>
 					</lazy-hydrate>
 
-					<author v-if="promotion.author" :author="promotion.author" />
+					<author v-if="pageable.author" :author="pageable.author" />
 
 <!-- 					<comments
 						commentable_type="App\Promotion"
@@ -113,11 +113,11 @@
 							v-for="(item, index) in promotions"
 							:key="index"
 							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
+							:title="item.page.title"
+							:summary="item.page.summary"
 							:page="item.page"
-							:author="item.author"
-							:created="item.created_at"
+							:author="item.page.author"
+							:created="item.page.created_at"
 							:category="item.category"
 							:time_left="item.time_left"
 							:time_before="item.time_before"
@@ -144,7 +144,7 @@
 			</aside>
 		</div>
 
-		<div class="promotion__similar">
+		<div v-if="related && related.length" class="promotion__similar">
 			<h2 class="block-title" :style="{ margin: '0 0 20px 0' }">
 				{{ $t('promotion_related') }}
 			</h2>
@@ -154,11 +154,11 @@
 						v-for="(item, index) in related"
 						:key="index"
 						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
+						:title="item.page.title"
+						:summary="item.page.summary"
 						:page="item.page"
-						:author="item.author"
-						:created="item.created_at"
+						:author="item.page.author"
+						:created="item.page.created_at"
 						:category="item.category"
 						:time_left="item.time_left"
 						:time_before="item.time_before"
