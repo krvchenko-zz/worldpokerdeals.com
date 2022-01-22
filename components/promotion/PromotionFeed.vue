@@ -136,7 +136,7 @@
 
 <style scoped lang="scss">
 	.promotions-table {
-		border: 1px solid #e9e9e9;
+		// border: 1px solid #e9e9e9;
 		margin: 28px 0 32px 0;
 		margin-bottom: 20px !important;
 	}

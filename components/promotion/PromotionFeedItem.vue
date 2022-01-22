@@ -385,6 +385,8 @@
 		}
 
 		&__content {
+			border-left: 1px solid #e9e9e9;
+			border-right: 1px solid #e9e9e9;
 			display: grid;
 			gap: 16px;
 			padding: 20px;
