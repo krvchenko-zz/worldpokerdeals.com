@@ -57,9 +57,7 @@
 					>
 				</nuxt-link>
 
-				<nuxt-link v-if="!categories.some(category => {
-					return category.is_clubs || category.is_blacklist
-				})"
+				<nuxt-link v-if="!isClub && !isBlacklist"
 				v-slot="{ href, route, navigate }" :to="{ name: 'front' }">
 					<button
 						:class="[
@@ -113,6 +111,14 @@
 			},
 
 			closed: {
+				type: [Number, Boolean],
+			},
+
+			isClub: {
+				type: [Number, Boolean],
+			},
+
+			isBlacklist: {
 				type: [Number, Boolean],
 			},
 

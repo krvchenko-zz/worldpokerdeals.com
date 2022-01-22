@@ -68,6 +68,8 @@
 								:url="item.url"
 								:closed="item.closed"
 								:available="item.available"
+								:isClub="item.is_club"
+								:isBlacklist="item.is_blacklist"
 								:summary="item.description_short"
 								:rating="item.rating"
 								:rakeback="item.rakeback"
@@ -76,7 +78,6 @@
 								:image="item.image"
 								:network="item.network"
 								:review="item.review"
-								:categories="item.categories"
 							/>
 						</slide>
 					</carousel>
