@@ -1,6 +1,6 @@
 <template>
-	<div v-if="network" class="network">
-		<breadcrumb-list v-if="pageable" class="network__breadcrumbs" />
+	<div class="network">
+		<breadcrumb-list class="network__breadcrumbs" />
 
 		<network-header class="network__header" />
 

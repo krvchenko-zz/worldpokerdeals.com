@@ -1,5 +1,5 @@
 <template>
-	<div v-if="category" class="rooms">
+	<div class="rooms">
 		<!-- Header -->
 		<room-category-header />
 
@@ -240,7 +240,7 @@
 				country: 'location/country',
 				user: 'auth/user',
 				pageable: 'pages/page',
-				category: 'rooms/category',
+				// category: 'rooms/category',
 				rooms: 'rooms/rooms',
 				best: 'rooms/best',
 				filters: 'rooms/filters',
@@ -256,7 +256,7 @@
 					query: this.query,
 					locale: this.locale,
 					geo: this.geo,
-					room_category_id: this.category.id,
+					room_category_id: this.pageable.pageable.id,
 					types: this.types,
 					payments: this.payments,
 					platforms: this.platforms,
@@ -333,9 +333,9 @@
 			await this.$axios
 				.get(`rooms/category/${this.pageable.slug}`)
 				.then(response => {
-					this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
-						category: response.data.item,
-					})
+					// this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
+					// 	category: response.data.item,
+					// })
 					this.$store.commit('promotions/FETCH_ITEMS', {
 						items: response.data.promotions,
 					})

@@ -1,6 +1,6 @@
 <template>
 	<div class="game">
-		<breadcrumb-list v-if="pageable" class="game__breadcrumbs" />
+		<breadcrumb-list class="game__breadcrumbs" />
 		<game-header class="game__header" />
 
 		<div v-if="pageable.show_rooms" class="game-rooms">

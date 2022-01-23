@@ -1,6 +1,6 @@
 <template>
-	<div v-if="pageable" class="post">
-		<breadcrumb-list v-if="pageable" />
+	<div class="post">
+		<breadcrumb-list />
 
 		<div class="article-container post__news">
 			<toc-list v-if="pageable.toc" class="article-container__toc post__aside-toc">
