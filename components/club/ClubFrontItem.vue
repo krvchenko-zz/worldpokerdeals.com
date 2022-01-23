@@ -113,6 +113,7 @@
 					<svg-icon
 						:icon="item.icon"
 						:title="item.title"
+						:image="true"
 						:width="30"
 						:height="30"
 					/>
@@ -129,6 +130,7 @@
 					<svg-icon
 						:icon="item.icon"
 						:title="item.title"
+						:image="true"
 						:width="30"
 						:height="30"
 					/>

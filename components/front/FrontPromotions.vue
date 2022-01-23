@@ -34,7 +34,10 @@
 					:key="index"
 					class="promotion-features__item"
 				>
-					<svg-icon :icon="item.icon" />
+					<svg-icon
+						:icon="item.icon"
+						:image="true"
+					/>
 					<div class="promotion-features__wrap">
 						<div class="promotion-features__value">{{ item.value }}</div>
 						<div class="promotion-features__label">{{ item.label }}</div>

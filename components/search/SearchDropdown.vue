@@ -39,11 +39,12 @@
 											:alt="item.title"
 										/>
 										<svg-icon
-											class="search-dropdown__item-icon"
 											v-else
+											class="search-dropdown__item-icon"
 											:icon="item.icon"
 											:width="28"
 											:height="28"
+											:image="true"
 											viewBox="0 0 200 200"
 										/>
 									</span>

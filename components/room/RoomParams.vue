@@ -144,6 +144,7 @@
 						class="room-param__game"
 						remove-clip-path
 						:icon="`${item.icon_small}`"
+						:image="true"
 						:width="30"
 						:height="30"
 					/>

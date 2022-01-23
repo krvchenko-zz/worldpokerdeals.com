@@ -4,13 +4,18 @@
 
 		<div class="soft-category-header__wrap">
 			<i v-if="category.icon" class="soft-category-header__icon">
-				<svg-icon :icon="category.icon" />
+				<svg-icon
+					:icon="category.icon"
+					:width="68"
+					:height="68"
+					:image="true"
+				/>
 			</i>
 			<div class="soft-category-header__text-wrapper">
 				<h1 class="soft-category__title">{{ pageable.title }}</h1>
 				<common-text-spoiler
-					:limit="$device.isMobileOrTablet ? 100 : 600"
 					class="soft-category__summary"
+					:limit="$device.isMobileOrTablet ? 100 : 600"
 					:text="pageable.summary"
 				>
 					<template v-slot:button>

@@ -16,7 +16,7 @@
 						<svg-icon
 							class="footer__geo"
 							prefix="flags/"
-							:geo="country.code"
+							:icon="country.code"
 							:image="true"
 							:width="24"
 							:height="24"

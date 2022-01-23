@@ -5,8 +5,8 @@
 			<svg-icon
 				class="room-network__icon"
 				:icon="room.network.url"
-				width="20px"
-				height="20px"
+				:width="20"
+				:height="20"
 				rounded
 				:image="true"
 			/>
@@ -155,6 +155,7 @@
 								<svg-icon
 									:icon="`${item.slug}-white`"
 									:remove-clip-path="true"
+									:image="true"
 								/>
 							</li>
 							<template v-if="room.payment_methods.length > 3">
@@ -168,6 +169,7 @@
 									<svg-icon
 										:icon="`${item.slug}-white`"
 										:remove-clip-path="true"
+										:image="true"
 									/>
 								</li>
 								<li
@@ -200,8 +202,8 @@
 								>
 									<svg-icon
 										opacity="1"
-										width="20px"
-										height="20px"
+										:width="20"
+										:height="20"
 										:icon="item.icon"
 										:image="true"
 									/>

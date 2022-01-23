@@ -27,6 +27,7 @@
 						:key="index"
 						class="club-item__feature"
 						:icon="`${item.icon_small}`"
+						:image="true"
 						:width="24"
 						:height="24"
 					/>

@@ -7,7 +7,12 @@
 			]"
 			@click="handleToggle"
 		>
-			<svg-icon v-if="icon" class="filter-dropdown__icon" :icon="icon" />
+			<svg-icon
+				v-if="icon"
+				class="filter-dropdown__icon"
+				:icon="icon"
+				:image="true"
+			/>
 			<span class="filter-dropdown__label">{{ label }}</span>
 		</div>
 

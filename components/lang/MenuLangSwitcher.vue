@@ -58,30 +58,7 @@
 							><span>{{ getLanguageName(index) }}</span></a
 						>
 					</li>
-
 				</template>
-
-<!-- 				<template v-else>
-					<li
-						v-for="(value, index) in locales"
-						v-if="index !== locale"
-						:key="index"
-						class="menu-lang-switcher__dropdown-item"
-					>
-						<a
-							:class="[
-								'menu-lang-switcher__dropdown-item__link',
-								`menu-lang-switcher__dropdown-item__link--${index}`,
-							]"
-							:href="`https://${
-								index !== 'en' ?
-								index + '.' + host + $route.fullPath :
-								host + $route.fullPath}`"
-						>
-							{{ getLanguageName(index) }}
-						</a>
-					</li>
-				</template> -->
 			</ul>
 		</transition>
 	</div>

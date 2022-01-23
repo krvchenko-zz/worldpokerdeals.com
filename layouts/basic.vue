@@ -8,6 +8,7 @@
 		<transition name="fade">
 			<page-header v-show="!hideHeader" />
 		</transition>
+		<!-- Page -->
 		<nuxt />
 		<!-- Footer -->
 		<lazy-hydrate when-visible>
@@ -75,6 +76,7 @@
 							:width="76"
 							:height="76"
 							:icon="room.slug"
+							:image="true"
 							view-box="0 0 200 200"
 						/>
 						<div class="modal-header__info">

@@ -9,7 +9,6 @@
 					title
 				}}</a>
 			</nuxt-link>
-
 <!-- 			<div class="topic-item__meta">
 				<div v-if="author" class="topic-item__author">
 					<img

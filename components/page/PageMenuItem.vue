@@ -23,6 +23,8 @@
 						isExactActive && 'page-menu__icon_active',
 					]"
 					:icon="icon"
+					:width="20"
+					:height="20"
 					:opacity="isExactActive ? 1 : 0.7"
 				/>
 				<span

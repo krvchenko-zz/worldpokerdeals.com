@@ -12,12 +12,19 @@
 					v-if="category.entity === 'promotion'"
 					class="promotions-header__icon"
 					icon="promotion-category"
+					:image="true"
+					:width="68"
+					:height="68"
 				/>
 
 				<svg-icon
 					v-else
 					class="promotions-header__icon"
 					icon="bonus-category"
+					:image="true"
+					:width="70"
+					:height="68"
+
 				/>
 
 				<h1 class="promotions__title">{{ pageable.title }}</h1>

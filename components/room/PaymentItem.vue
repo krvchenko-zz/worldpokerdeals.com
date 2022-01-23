@@ -9,6 +9,7 @@
 				v-if="icon"
 				class="payment-item__icon"
 				:icon="`${icon}-white`"
+				:image="true"
 				@ready="show = true"
 			/>
 		</li>

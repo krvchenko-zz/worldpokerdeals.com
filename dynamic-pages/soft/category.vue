@@ -53,7 +53,7 @@
 					:discount_value="item.discount_value"
 					:price="item.price"
 					:image="item.image"
-					:category="item.category.title"
+					:category="item.category.page.name"
 					:currency="item.currency ? item.currency.symbol : ''"
 				/>
 			</div>

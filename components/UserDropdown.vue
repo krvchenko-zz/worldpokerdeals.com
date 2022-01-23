@@ -15,6 +15,7 @@
 			class="user-dropdown__img"
 			:width="36"
 			:height="36"
+			:image="true"
 			view-box="0 0 36 36"
 			icon="user-avatar"
 		/>

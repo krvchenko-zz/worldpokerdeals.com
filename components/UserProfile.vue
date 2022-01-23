@@ -23,6 +23,7 @@
 					class="user-profile__icon"
 					:width="68"
 					:height="68"
+					:image="true"
 					view-box="0 0 36 36"
 					icon="user-avatar"
 				/>

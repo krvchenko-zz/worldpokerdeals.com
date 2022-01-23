@@ -101,6 +101,7 @@
 										<svg-icon
 											:icon="`${item.icon}-white`"
 											:remove-clip-path="true"
+											:image="true"
 										/>
 									</li>
 									<template v-if="room.payment_methods.length > 2">
@@ -114,6 +115,7 @@
 											<svg-icon
 												:icon="`${item.icon}-white`"
 												:remove-clip-path="true"
+												:image="true"
 											/>
 										</li>
 										<li
@@ -143,7 +145,13 @@
 											'room-platform': true,
 										}"
 									>
-										<svg-icon opacity="1" :icon="item.icon" />
+										<svg-icon
+											opacity="1"
+											:icon="item.icon"
+											:image="true"
+											:width="20"
+											:height="20"
+										/>
 									</li>
 								</ul>
 							</div>
