@@ -26,11 +26,11 @@
 				:medium="true"
 				:style="{ marginBottom: '28px' }"
 				:image="item.image"
-				:title="item.title"
-				:summary="item.summary"
-				:slug="item.slug"
-				:author="item.user"
-				:created="item.created_at"
+				:title="item.page.title"
+				:summary="item.page.summary"
+				:slug="item.page.slug"
+				:author="item.page.author"
+				:created="item.page.created_at"
 				:categories="item.categories"
 			/>
 		</div>
@@ -94,11 +94,11 @@
 					:key="item.id"
 					:medium="false"
 					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
+					:title="item.page.title"
+					:summary="item.page.summary"
+					:slug="item.page.slug"
+					:author="item.page.author"
+					:created="item.page.created_at"
 					:categories="item.categories"
 				/>
 			</post-list>
@@ -148,8 +148,6 @@
 
 		created() {},
 
-		// fetchOnServer: false,
-
 		computed: {
 			...mapGetters({
 				locale: 'lang/locale',
@@ -169,7 +167,10 @@
 				.get('/posts/categories/list', { params: {} })
 				.then(response => {
 					this.$store.commit('posts/FETCH_CATEGORIES', {
-						categories: response.data,
+						categories: response.data.items,
+					})
+					this.$store.commit('posts/FETCH_IMPORTANT', {
+						important: response.data.important,
 					})
 				})
 				.catch(e => {})
@@ -196,23 +197,6 @@
 					this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data })
 					Object.keys(response.data).forEach(key => {
 						this[key] = response.data[key]
-					})
-				})
-				.catch(e => {})
-
-			await this.$axios
-				.get('/posts/list', {
-					params: {
-						top: 1,
-						locale: this.locale,
-						sort: this.sort,
-						order: this.order,
-						per_page: 5,
-					},
-				})
-				.then(response => {
-					this.$store.commit('posts/FETCH_IMPORTANT', {
-						important: response.data.data,
 					})
 				})
 				.catch(e => {})
@@ -297,26 +281,6 @@
 			handleSortChange(order) {
 				this.sort = order
 				this.fetchItems()
-			},
-
-			mapPosts(item) {
-				return {
-					image: {
-						filename: item.image.filename,
-						alt: item.image.alt,
-					},
-					title: item.title,
-					summary: item.summary,
-					slug: item.slug,
-					user: {
-						image: {
-							filename: item.image.filename,
-							alt: item.image.alt,
-						},
-						full_name: item.user.full_name,
-					},
-					created_at: item.created_at,
-				}
 			},
 		},
 	}

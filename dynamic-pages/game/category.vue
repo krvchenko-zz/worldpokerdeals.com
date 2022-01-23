@@ -90,11 +90,11 @@
 						v-for="(item, index) in posts"
 						:key="index"
 						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
+						:title="item.page.title"
+						:summary="item.page.summary"
+						:slug="item.page.slug"
+						:author="item.page.author"
+						:created="item.page.created_at"
 						:categories="item.categories"
 					></post-item>
 				</post-list>
@@ -187,18 +187,7 @@
 				})
 				.then(response => {
 					this.$store.commit('posts/FETCH_POSTS', {
-						posts: response.data.data.map(item => ({
-							image: item.image,
-							title: item.title,
-							summary: item.summary,
-							slug: item.slug,
-							user: {
-								image: item.user.image,
-								full_name: item.user.full_name,
-							},
-							created_at: item.created_at,
-							categories: item.categories,
-						})),
+						posts: response.data.data,
 					})
 				})
 		},

@@ -169,11 +169,11 @@
 							v-for="(item, index) in room.posts"
 							:key="index"
 							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
-							:slug="item.slug"
-							:author="item.user"
-							:created="item.created_at"
+							:title="item.page.title"
+							:summary="item.page.summary"
+							:slug="item.page.slug"
+							:author="item.page.author"
+							:created="item.page.created_at"
 							:categories="item.categories"
 						></post-item>
 					</post-list>

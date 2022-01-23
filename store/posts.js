@@ -4,6 +4,7 @@ export const state = () => ({
 	posts: null,
 	important: null,
 	related: null,
+	recent: null,
 	categories: null,
 })
 
@@ -13,6 +14,7 @@ export const getters = {
 	posts: state => state.posts,
 	important: state => state.important,
 	related: state => state.related,
+	recent: state => state.recent,
 	categories: state => state.categories,
 }
 
@@ -32,6 +34,10 @@ export const mutations = {
 
 	FETCH_RELATED(state, { related }) {
 		state.related = related
+	},
+
+	FETCH_RECENT(state, { recent }) {
+		state.recent = recent
 	},
 
 	FETCH_CATEGORIES(state, { categories }) {

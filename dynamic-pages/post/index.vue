@@ -1,12 +1,12 @@
 <template>
-	<div v-if="post" class="post">
+	<div v-if="pageable" class="post">
 		<breadcrumb-list v-if="pageable" />
 
 		<div class="article-container post__news">
-			<toc-list v-if="post.toc" class="article-container__toc post__aside-toc">
+			<toc-list v-if="pageable.toc" class="article-container__toc post__aside-toc">
 				<template #default="{ inline }">
 					<toc-item
-						v-for="(item, index) in post.toc"
+						v-for="(item, index) in pageable.toc"
 						:key="index"
 						:index="index"
 						:inline="inline"
@@ -21,20 +21,20 @@
 			<div class="poker-rule__wrap article-container__article">
 				<!-- Article -->
 				<page-article
-					:text="post.text"
-					:title="post.title"
+					:text="pageable.text"
+					:title="pageable.title"
 					:image="post.image"
-					:author="post.user.full_name"
-					:summary="post.summary"
-					:created="post.created_at"
-					:updated="post.updated_at"
+					:author="pageable.author.full_name"
+					:summary="pageable.summary"
+					:created="pageable.created_at"
+					:updated="pageable.updated_at"
 					:meta="true"
 				>
 					<template #header>
-						<toc-list v-if="post.toc" class="post__header-toc">
+						<toc-list v-if="pageable.toc" class="post__header-toc">
 							<template #default="{ inline }">
 								<toc-item
-									v-for="(item, index) in post.toc"
+									v-for="(item, index) in pageable.toc"
 									:key="index"
 									:index="index"
 									:inline="inline"
@@ -47,9 +47,9 @@
 					</template>
 				</page-article>
 				<!-- Faq -->
-				<faq-list v-if="post.faq && post.faq.mainEntity.length" :label="$t('faq')">
+				<faq-list v-if="pageable.faq && pageable.faq.mainEntity.length" :label="$t('faq')">
 					<faq-item
-						v-for="(item, index) in post.faq.mainEntity"
+						v-for="(item, index) in pageable.faq.mainEntity"
 						:key="index"
 						:question="item.name"
 						:answer="item.acceptedAnswer.text"
@@ -57,7 +57,7 @@
 					</faq-item>
 				</faq-list>
 				<!-- Author -->
-				<author v-if="post.user" :author="post.user" />
+				<author v-if="pageable.author" :author="pageable.author" />
 				<!-- Comments -->
 				<!-- <comments commentable_type="App\Post" :commentable_id="post.id" /> -->
 			</div>
@@ -71,25 +71,25 @@
 						:key="item.id"
 						:medium="false"
 						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
+						:title="item.page.title"
+						:summary="item.page.summary"
+						:slug="item.page.slug"
+						:author="item.page.author"
+						:created="item.page.created_at"
 						:categories="item.categories"
 					/>
 				</post-list>
 
-				<post-list v-if="posts" :asRow="$device.isTablet" class="posts_recent">
+				<post-list v-if="recent" :asRow="$device.isTablet" class="posts_recent">
 					<post-item
-						v-for="(item, index) in posts"
+						v-for="(item, index) in recent"
 						:key="index"
 						:image="item.image"
-						:title="item.title"
-						:summary="item.summary"
-						:slug="item.slug"
-						:author="item.user"
-						:created="item.created_at"
+						:title="item.page.title"
+						:summary="item.page.summary"
+						:slug="item.page.slug"
+						:author="item.page.author"
+						:created="item.page.created_at"
 						:categories="item.categories"
 						:medium="true"
 						:asCard="$device.isMobile"
@@ -109,11 +109,11 @@
 					v-for="(item, index) in related"
 					:key="index"
 					:image="item.image"
-					:title="item.title"
-					:summary="item.summary"
-					:slug="item.slug"
-					:author="item.user"
-					:created="item.created_at"
+					:title="item.page.title"
+					:summary="item.page.summary"
+					:slug="item.page.slug"
+					:author="item.page.author"
+					:created="item.page.created_at"
 					:categories="item.categories"
 					:medium="true"
 					:asCard="$device.isMobile"
@@ -154,6 +154,7 @@
 				posts: 'posts/posts',
 				important: 'posts/important',
 				related: 'posts/related',
+				recent: 'posts/recent',
 			}),
 
 			ogImage() {
@@ -169,88 +170,26 @@
 					},
 				})
 				.then(response => {
-					this.$store.commit('posts/FETCH_POST', { post: response.data.item })
+					this.$store.commit('posts/FETCH_POST', {
+						post: response.data.item
+					})
 					this.$store.commit('posts/FETCH_RELATED', {
 						related: response.data.related,
 					})
-				})
-
-			await this.$axios
-				.get('posts/list', {
-					params: {
-						locale: this.locale,
-						per_page: 3,
-						order: 'created_at',
-						sort: 'desc',
-					},
-				})
-				.then(response => {
-					this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data })
-				})
-
-			await this.$axios
-				.get('/posts/list', {
-					params: {
-						top: 1,
-						locale: this.locale,
-						sort: 'desc',
-						order: 'created_at',
-						per_page: 4,
-					},
-				})
-				.then(response => {
-					this.$store.commit('posts/FETCH_IMPORTANT', {
-						important: response.data.data,
+					this.$store.commit('posts/FETCH_RECENT', {
+						recent: response.data.recent
 					})
-					this.loading = false
-					this.$nuxt.$loading.finish()
+					this.$store.commit('posts/FETCH_IMPORTANT', {
+						important: response.data.important,
+					})
 				})
-				.catch(e => {})
 		},
 
 		watch: {},
 
 		created() {},
 
-		methods: {
-			mapPosts(item) {
-				return {
-					image: {
-						filename: item.image.filename,
-						alt: item.image.alt,
-					},
-					title: item.title,
-					summary: item.summary,
-					slug: item.slug,
-					categories: item.categories,
-					user: {
-						image: {
-							filename: item.image.filename,
-							alt: item.image.alt,
-						},
-						full_name: item.user.full_name,
-					},
-					created_at: item.created_at,
-				}
-			},
-
-			mapTopics(item) {
-				return {
-					title: item.title,
-					url: item.url,
-					created_at: item.created_at,
-					author: {
-						username: item.author.username,
-						full_name: item.author.full_name,
-						image: item.author.image
-							? {
-									filename: item.author.image.filename,
-							  }
-							: null,
-					},
-				}
-			},
-		},
+		methods: {},
 	}
 </script>
 

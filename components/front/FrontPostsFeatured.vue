@@ -26,9 +26,9 @@
 						<slide v-for="(item, index) in items" :key="index">
 							<post-featured-item
 								:image="item.image"
-								:title="item.title"
-								:summary="item.summary"
-								:slug="item.slug"
+								:title="item.page.title"
+								:summary="item.page.summary"
+								:slug="item.page.slug"
 								:categories="item.categories"
 							/>
 						</slide>
