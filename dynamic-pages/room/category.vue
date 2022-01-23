@@ -224,23 +224,12 @@
 			LazyHydrate,
 		},
 
-		head() {
-			return {
-				meta: [
-				],
-
-				link: [
-				],
-			}
-		},
-
 		computed: {
 			...mapGetters({
 				locale: 'lang/locale',
 				country: 'location/country',
 				user: 'auth/user',
 				pageable: 'pages/page',
-				// category: 'rooms/category',
 				rooms: 'rooms/rooms',
 				best: 'rooms/best',
 				filters: 'rooms/filters',
@@ -333,9 +322,6 @@
 			await this.$axios
 				.get(`rooms/category/${this.pageable.slug}`)
 				.then(response => {
-					// this.$store.commit('rooms/FETCH_ROOM_CATEGORY', {
-					// 	category: response.data.item,
-					// })
 					this.$store.commit('promotions/FETCH_ITEMS', {
 						items: response.data.promotions,
 					})

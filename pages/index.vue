@@ -11,6 +11,8 @@
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
 
+	import RoomCategory from '~/dynamic-pages/room/category'
+
 	export default {
 		components: {
 			Promotion: () => import('~/dynamic-pages/promotion/index'),
@@ -20,7 +22,8 @@
 			NetworkCategory: () => import('~/dynamic-pages/network/category'),
 
 			Room: () => import('~/dynamic-pages/room/index'),
-			RoomCategory: () => import('~/dynamic-pages/room/category'),
+			// RoomCategory: () => import('~/dynamic-pages/room/category'),
+			RoomCategory,
 
 			PaymentMethod: () => import('~/dynamic-pages/payment/index'),
 			PaymentMethodCategory: () => import('~/dynamic-pages/payment/category'),

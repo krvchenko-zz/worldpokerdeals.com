@@ -3,7 +3,6 @@
 		:class="['rooms-header', page.is_blacklist && 'rooms-header_blacklist']"
 	>
 		<breadcrumb-list
-			v-if="page"
 			:white="true"
 			:auto="false"
 			class="rooms-header__breadcrumbs"
