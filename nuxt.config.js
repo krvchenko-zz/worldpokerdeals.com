@@ -23,7 +23,7 @@ export default {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
-	loading: { color: '#2E87C8', throttle: 60, height: '3px' },
+	loading: { color: '#2E87C8', throttle: 180, height: '3px' },
 
 	// loading: '~/components/LoadingBar.vue',
 
