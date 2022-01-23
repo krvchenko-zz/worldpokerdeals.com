@@ -97,28 +97,11 @@
 				},
 				watch: ['icon'],
 			},
-
-			// src() {
-			// 	if (!this.image) {
-			// 		return null
-			// 	}
-
-			// 	let src = null
-
-			// 	try {
-			// 		src = require(`../assets/icons/${this.prefix}${this.icon}.svg`)
-			// 	} catch (e) {
-			// 		return null
-			// 	}
-
-			// 	return src
-			// }
 		},
 
 		computed: {
 			src() {
 				if (!this.image) return null
-
 				return `${process.env.mediaHost}/assets/icons/${this.prefix}${this.icon}.svg`
 			}
 		},

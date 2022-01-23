@@ -13,34 +13,91 @@
 
 	export default {
 		components: {
-			Promotion: () => import('~/dynamic-pages/promotion/index'),
-			PromotionCategory: () => import('~/dynamic-pages/promotion/category'),
+			Promotion: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/promotion/index'
+			),
+			PromotionCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/promotion/category'
+			),
 
-			Network: () => import('~/dynamic-pages/network/index'),
-			NetworkCategory: () => import('~/dynamic-pages/network/category'),
+			Network: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/network/index'
+			),
+			NetworkCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/network/category'
+			),
 
-			Room: () => import('~/dynamic-pages/room/index'),
-			RoomCategory: () => import('~/dynamic-pages/room/category'),
+			Room: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/room/index'
+			),
+			RoomCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/room/category'
+			),
 
-			PaymentMethod: () => import('~/dynamic-pages/payment/index'),
-			PaymentMethodCategory: () => import('~/dynamic-pages/payment/category'),
+			PaymentMethod: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/payment/index'
+			),
+			PaymentMethodCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/payment/category'
+			),
 
-			Soft: () => import('~/dynamic-pages/soft/index'),
-			SoftCategory: () => import('~/dynamic-pages/soft/category'),
+			Soft: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/soft/index'
+			),
+			SoftCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/soft/category'
+			),
 
-			Game: () => import('~/dynamic-pages/game/index'),
-			GameCategory: () => import('~/dynamic-pages/game/category'),
+			Game: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/game/index'
+			),
+			GameCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/game/category'
+			),
 
-			Platform: () => import('~/dynamic-pages/platform/index'),
-			PlatformCategory: () => import('~/dynamic-pages/platform/category'),
+			Platform: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/platform/index'
+			),
+			PlatformCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/platform/category'
+			),
 
-			PokerRule: () => import('~/dynamic-pages/rule/index'),
-			PokerRuleCategory: () => import('~/dynamic-pages/rule/category'),
+			PokerRule: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/rule/index'
+			),
+			PokerRuleCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/rule/category'
+			),
 
-			Post: () => import('~/dynamic-pages/post/index'),
-			PostCategory: () => import('~/dynamic-pages/post/category'),
+			Post: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/post/index'
+			),
+			PostCategory: () => import(
+				/* webpackPrefetch: true */
+				'~/dynamic-pages/post/category'
+			),
 
-			NotFound: () => import('~/pages/404'),
+			NotFound: () => import(
+				/* webpackPrefetch: true */
+				'~/pages/404'
+			),
 		},
 
 		async middleware({ res, app, store, redirect, params, $axios  }) {
