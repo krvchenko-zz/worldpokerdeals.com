@@ -40,7 +40,7 @@
 					</filter-selected-list>
 				</client-only>
 
-				<div class="rooms-list">
+				<div v-if="items && items.length" class="rooms-list">
 					<template v-for="(item, index) in items">
 						<room
 							v-if="!item.banner"
@@ -69,7 +69,6 @@
 					</template>
 
 					<pagination
-						v-if="rooms.length"
 						:query="true"
 						:last="last_page"
 						:current="parseInt(page) || current_page"
@@ -264,11 +263,15 @@
 			},
 
 			items() {
-				return [
-					...this.rooms.slice(0, this.total >= 10 ? 5 : this.rooms.length / 2),
-					{ banner: true },
-					...this.rooms.slice(this.total >= 10 ? 5 : this.rooms.length / 2, this.rooms.length),
-				]
+				if (this.rooms) {
+					return [
+						...this.rooms.slice(0, this.total >= 10 ? 5 : this.rooms.length / 2),
+						{ banner: true },
+						...this.rooms.slice(this.total >= 10 ? 5 : this.rooms.length / 2, this.rooms.length),
+					]
+				}
+
+				return []
 			},
 		},
 
