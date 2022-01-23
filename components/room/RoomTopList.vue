@@ -16,6 +16,7 @@
 							`top-rooms-header__flag_${type}`,
 						]"
 						:icon="country.code"
+						:image="true"
 						prefix="flags/"
 						:width="24"
 						:height="24"
@@ -79,6 +80,7 @@
 				<svg-icon
 					:class="['top-rooms-header__flag', `top-rooms-header__flag_${type}`]"
 					:icon="country.code"
+					:image="true"
 					prefix="flags/"
 					:width="24"
 					:height="24"

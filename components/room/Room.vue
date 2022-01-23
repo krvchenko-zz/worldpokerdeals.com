@@ -64,6 +64,7 @@
 						:width="16"
 						:height="16"
 						:icon="country.code"
+						:image="true"
 						prefix="flags/"
 					/><template v-if="restricted">{{
 						$t('room_geo_restricted', { country: country.from })

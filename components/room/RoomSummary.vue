@@ -74,6 +74,7 @@
 								>
 									<svg-icon
 										:icon="item.icon"
+										:image="true"
 										prefix="flags/"
 										width="20"
 										height="20"
@@ -156,6 +157,7 @@
 									:width="20"
 									:height="20"
 									:icon="country.code"
+									:image="true"
 									prefix="flags/"
 								/>
 								<span class="room-detail__locale">{{ country.title }}</span>

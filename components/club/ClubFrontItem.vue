@@ -17,6 +17,7 @@
 						class="club-front-item__room-icon"
 						view-box="0 0 200 200"
 						:icon="room.slug"
+						:image="true"
 						:width="16"
 						:height="16"
 					/>
@@ -62,6 +63,7 @@
 						<svg-icon
 							prefix="flags/"
 							:icon="country.code"
+							:image="true"
 							:width="16"
 							:height="16"
 						/>

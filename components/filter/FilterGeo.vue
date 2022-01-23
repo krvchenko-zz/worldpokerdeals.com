@@ -17,7 +17,13 @@
 			@clear="handleGeoClear"
 		>
 			<template slot="prefix">
-				<svg-icon :width="24" height="24" prefix="flags/" :icon="geo" />
+				<svg-icon
+					prefix="flags/"
+					:width="24"
+					:height="24"
+					:icon="geo"
+					:image="true"
+				/>
 			</template>
 			<el-option
 				v-for="item in countries"
@@ -27,10 +33,11 @@
 			>
 				<span style="float: left; margin-right: 12px;">
 					<svg-icon
-						:width="24"
-						height="24"
 						prefix="flags/"
+						:width="24"
+						:height="24"
 						:icon="item.value"
+						:image="true"
 					/>
 				</span>
 				<span>{{ item.label }}</span>

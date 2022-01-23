@@ -35,7 +35,7 @@
 				<svg-icon 
 					class="rooms-header__icon"
 					width="90px"
-					height="auto"
+					height="68px"
 					:image="true"
 					:icon="page.pageable.icon"
 				/>

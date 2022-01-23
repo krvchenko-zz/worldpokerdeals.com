@@ -105,6 +105,7 @@
 					:width="16"
 					:height="16"
 					:icon="country.code"
+					:image="true"
 					prefix="flags/"
 				/>
 				<span v-if="room.restricted">{{

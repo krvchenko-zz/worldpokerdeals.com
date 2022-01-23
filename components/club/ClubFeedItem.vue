@@ -83,8 +83,9 @@
 						<svg-icon
 							prefix="flags/"
 							:icon="country.code"
+							:image="true"
 							:width="16"
-							height="16"
+							:height="16"
 						/>
 					</span>
 				</div>
