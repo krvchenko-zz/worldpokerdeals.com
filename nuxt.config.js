@@ -4,6 +4,7 @@ export default {
 	env: {
 		apiUrl: process.env.API_URL,
 		mediaUrl: process.env.MEDIA_URL,
+		mediaHost: process.env.MEDIA_HOST,
 		hostName: process.env.HOST_NAME,
 		appName: process.env.APP_NAME,
 		appLocale: process.env.APP_LOCALE,
@@ -23,7 +24,7 @@ export default {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
-	loading: { color: '#2E87C8', throttle: 180, height: '3px' },
+	loading: { color: '#2E87C8', throttle: 120, height: '3px' },
 
 	// loading: '~/components/LoadingBar.vue',
 
