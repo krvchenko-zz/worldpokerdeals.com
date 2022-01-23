@@ -15,8 +15,8 @@
 						:icon="item.code.toUpperCase()"
 						:image="true"
 						prefix="flags/"
-						width="20px"
-						height="20px"
+						:width="20"
+						:height="20"
 					/>
 				</div>
 			</div>

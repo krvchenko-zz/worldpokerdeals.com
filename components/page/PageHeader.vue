@@ -313,10 +313,6 @@
 				menu: 'menu/items',
 			}),
 
-			geoSrc() {
-				return require(`~/assets/i/flags/${this.country.code}.svg?data`)
-			},
-
 			loginSrc() {
 				return require('~/assets/icons/ico-login.svg?data')
 			},

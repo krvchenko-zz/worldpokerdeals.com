@@ -42,11 +42,11 @@
 						<span v-for="(item, index) in licenses" :key="index">
 							<span class="room-param__license">
 								<svg-icon
+									prefix="flags/"
 									:icon="item.icon"
 									:image="true"
-									prefix="flags/"
-									width="20px"
-									height="20px"
+									:width="20"
+									:height="20"
 								/>
 								<span>{{ item.title }}</span>
 							</span>

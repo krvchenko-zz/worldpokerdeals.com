@@ -17,6 +17,7 @@
 					:width="20"
 					:height="20"
 					:icon="country.code"
+					:image="true"
 					prefix="flags/"
 				/>
 				<span>{{ country.remote_addr }}</span>

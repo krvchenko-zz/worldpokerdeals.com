@@ -127,8 +127,8 @@
 										:icon="item.icon"
 										:image="true"
 										prefix="flags/"
-										width="20px"
-										height="20px"
+										:width="20"
+										:height="20"
 									/>
 									<span>{{ item.title }}</span>
 								</span>

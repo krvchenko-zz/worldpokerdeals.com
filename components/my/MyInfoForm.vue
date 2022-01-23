@@ -93,7 +93,13 @@
 						@change="action"
 					>
 						<template slot="prefix">
-							<svg-icon :width="24" height="24" prefix="flags/" :icon="user.country.code" />
+							<svg-icon
+								prefix="flags/"
+								:width="24"
+								:height="24"
+								:icon="user.country.code"
+								:image="true"
+							/>
 						</template>
 						<el-option
 							v-for="item in countries"
@@ -103,10 +109,11 @@
 						>
 							<span style="float: left; margin-right: 12px;">
 								<svg-icon
-									:width="24"
-									height="24"
 									prefix="flags/"
+									:width="24"
+									:height="24"
 									:icon="item.code"
+									:image="true"
 								/>
 							</span>
 							<span>{{ item.label }}</span>

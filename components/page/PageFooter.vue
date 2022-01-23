@@ -17,6 +17,7 @@
 							class="footer__geo"
 							prefix="flags/"
 							:geo="country.code"
+							:image="true"
 							:width="24"
 							:height="24"
 						/>
@@ -371,16 +372,13 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import axios from 'axios'
-	import SvgIcon from '../SvgIcon.vue'
 
 	export default {
 		name: 'PageFooter',
 
 		components: {},
 
-		props: {
-			SvgIcon,
-		},
+		props: {},
 
 		data: () => ({
 			info:
