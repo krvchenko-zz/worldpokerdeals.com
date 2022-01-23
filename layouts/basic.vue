@@ -266,6 +266,12 @@
 			LazyHydrate
 		},
 
+		head() {
+			return {
+				
+			}
+		},
+
 		computed: {
 			...mapGetters({
 				locale: 'lang/locale',
