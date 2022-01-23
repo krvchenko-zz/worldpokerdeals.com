@@ -90,7 +90,7 @@
 					return () =>
 						import(
 							/* webpackChunkName: "icons" */
-							/* webpackPrefetch: true */
+							/* webpackMode: "lazy-once" */
 							`~/assets/icons/${this.prefix}${this.icon}.svg?inline`
 						).catch(e => {
 						})
