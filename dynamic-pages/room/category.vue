@@ -16,8 +16,8 @@
 						:sort-options="sortOptions"
 						:selected="selected.length"
 						:entity-label="$t('rooms_entity_label')"
-						@update:sort="fetchItems"
-						@update:geo="fetchItems"
+						@update:sort="handleFilterChange"
+						@update:geo="handleFilterChange"
 					/>
 
 					<filter-selected-list
@@ -40,12 +40,15 @@
 					</filter-selected-list>
 				</client-only>
 
-				<div v-if="items && items.length" class="rooms-list">
+				<div v-if="$fetchState.pending" class="rooms-list">
+					<skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
+				</div>
+				<div v-else class="rooms-list">
 					<template v-for="(item, index) in items">
 						<room
 							v-if="!item.banner"
-							:id="item.id"
 							:key="index"
+							:id="item.id"
 							:title="item.title"
 							:slug="item.slug"
 							:url="item.url"
@@ -140,26 +143,26 @@
 						@click.self="handleOutsideClick($event)"
 					>
 						<LazyHydrate when-visible>
-						<room-category-filters
-							class="rooms__aside__filter"
-							:kycs="filters.kycs"
-							:platforms="filters.platforms"
-							:tags="filters.tags"
-							:payments="filters.payments"
-							:types="filters.types"
-							:networks="filters.networks"
-							:licenses="filters.licenses"
-							:limits="filters.limits"
-							:disciplines="filters.disciplines"
-							:games="filters.games"
-							:huds="filters.huds"
-							:certificates="filters.certificates"
-							:geo.sync="geo"
-							@update:sort="fetchItems"
-							@update:geo="fetchItems"
-							@change="handleFilterChange"
-							@filterOpen="handleFilterOpen"
-						/>
+							<room-category-filters
+								class="rooms__aside__filter"
+								:kycs="filters.kycs"
+								:platforms="filters.platforms"
+								:tags="filters.tags"
+								:payments="filters.payments"
+								:types="filters.types"
+								:networks="filters.networks"
+								:licenses="filters.licenses"
+								:limits="filters.limits"
+								:disciplines="filters.disciplines"
+								:games="filters.games"
+								:huds="filters.huds"
+								:certificates="filters.certificates"
+								:geo.sync="geo"
+								@update:sort="handleFilterChange"
+								@update:geo="handleFilterChange"
+								@change="handleFilterChange"
+								@filterOpen="handleFilterOpen"
+							/>
 						</LazyHydrate>
 					</div>
 				</client-only>
@@ -243,7 +246,6 @@
 					query: this.query,
 					locale: this.locale,
 					geo: this.geo,
-					cached: this.cached,
 					room_category_id: this.pageable.pageable.id,
 					types: this.types,
 					payments: this.payments,
@@ -256,7 +258,6 @@
 					games: this.games,
 					networks: this.networks,
 					certificates: this.certificates,
-					categories: this.categories,
 					hud: this.hud,
 					kyc: this.kyc,
 					selected: this.selected
@@ -294,7 +295,6 @@
 			games: [],
 			networks: [],
 			certificates: [],
-			categories: [],
 			hud: [],
 			kyc: null,
 			ids: null,
@@ -324,6 +324,7 @@
 		}),
 
 		async fetch() {
+
 			await this.$axios
 				.get(`rooms/list`, { params: { ...this.params } })
 				.then(response => {
@@ -377,64 +378,63 @@
 			handleFilterChange(selected) {
 				this.$nuxt.$loading.start()
 
-				this.selected = selected.flatten
+				if (this.selected) {
+					this.selected = selected.flatten
 
-				this.cached = null
-
-				Object.keys(selected.values).forEach(key => {
-					this[key] = selected.values[key]
-				})
+					Object.keys(selected.values).forEach(key => {
+						this[key] = selected.values[key]
+					})
+				}
 
 				this.$fetch()
 			},
 
-			async fetchItems(query) {
-				this.$nuxt.$loading.start()
+			// async fetchItems(query) {
+			// 	this.$nuxt.$loading.start()
 
-				await this.$axios
-					.get(`rooms/list`, { params: this.params })
-					.then(response => {
-						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data,
-						})
+			// 	await this.$axios
+			// 		.get(`rooms/list`, { params: this.params })
+			// 		.then(response => {
+			// 			this.$store.commit('rooms/FETCH_ROOMS', {
+			// 				rooms: response.data.data,
+			// 			})
 
-						this.$store.commit('rooms/FETCH_FILTERS', {
-							filters: response.data.filters
-						})
+			// 			this.$store.commit('rooms/FETCH_FILTERS', {
+			// 				filters: response.data.filters
+			// 			})
 
-						Object.keys(response.data).forEach(key => {
-							if (key !== 'data' && key !== 'filters') {
-								this[key] = response.data[key]
-							}
-						})
+			// 			Object.keys(response.data).forEach(key => {
+			// 				if (key !== 'data' && key !== 'filters') {
+			// 					this[key] = response.data[key]
+			// 				}
+			// 			})
 
-						this.$nuxt.$loading.finish()
-					})
-			},
+			// 			this.$nuxt.$loading.finish()
+			// 		})
+			// },
 
 			handlePageNext() {
+				this.$nuxt.$loading.start()
 				this.page = parseInt(this.current_page) + 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePagePrev() {
+				this.$nuxt.$loading.start()
 				this.page = parseInt(this.current_page) - 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePageChange(number) {
+				this.$nuxt.$loading.start()
 				this.page = parseInt(number)
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handleShowMore() {
+				this.$nuxt.$loading.start()
 				this.per_page = parseInt(this.per_page) + 6
-				this.fetchItems()
-			},
-
-			handleSortChange(order) {
-				this.sort = order
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handleFilterOpen() {},
