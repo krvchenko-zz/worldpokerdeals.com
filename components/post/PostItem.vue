@@ -56,6 +56,7 @@
 		<div :class="['post-item__author', medium && 'post-item__author_size_m']">
 			<span>
 				<img
+					v-if="avatar"
 					decoding="async"
 					width="24px"
 					height="24px"
@@ -136,7 +137,7 @@
 			},
 
 			avatar() {
-				return `${this.mediaUrl}/user-square/${this.author.image.filename}`
+				return this.author && this.author.image ? `${this.mediaUrl}/user-square/${this.author.image.filename}` : null
 			},
 
 			src() {

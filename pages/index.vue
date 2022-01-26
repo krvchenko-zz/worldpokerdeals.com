@@ -14,88 +14,69 @@
 	export default {
 		components: {
 			Promotion: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/promotion/index'
 			),
 			PromotionCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/promotion/category'
 			),
 
 			Network: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/network/index'
 			),
 			NetworkCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/network/category'
 			),
 
 			Room: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/room/index'
 			),
 			RoomCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/room/category'
 			),
 
 			PaymentMethod: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/payment/index'
 			),
 			PaymentMethodCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/payment/category'
 			),
 
 			Soft: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/soft/index'
 			),
 			SoftCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/soft/category'
 			),
 
 			Game: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/game/index'
 			),
 			GameCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/game/category'
 			),
 
 			Platform: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/platform/index'
 			),
 			PlatformCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/platform/category'
 			),
 
 			PokerRule: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/rule/index'
 			),
 			PokerRuleCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/rule/category'
 			),
 
 			Post: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/post/index'
 			),
 			PostCategory: () => import(
-				/* webpackPrefetch: true */
 				'~/dynamic-pages/post/category'
 			),
 
 			NotFound: () => import(
-				/* webpackPrefetch: true */
 				'~/pages/404'
 			),
 		},

@@ -29,6 +29,12 @@
 
 		components: {},
 
+		// head() {
+		// 	return {
+		// 		script: [{ type: 'text/javascript', async: true, src: `//code.jivosite.com/script/widget/${this.widgetId}` }],
+		// 	}
+		// },
+
 		props: {
 			type: {
 				type: String,
@@ -89,6 +95,10 @@
 			...mapGetters({
 				country: 'location/country',
 			}),
+
+			widgetId() {
+				return 'vhip3pLTcP'
+			}
 		},
 
 		watch: {},
@@ -102,6 +112,14 @@
 					title: this.title,
 					slug: this.slug,
 				}
+
+				if (this.type === 'contacts') {
+
+					console.log(this.$meta().inject({}))
+
+					// jivo_api.open()
+				}
+
 				this.$emit('click', data)
 				eventBus.$emit('roomAction:click', data)
 			},
@@ -113,6 +131,33 @@
 				})
 				return window.open(route.href, '_blank')
 			},
+
+			// loadJivoSite () {
+			// 	let d = document,
+			// 			w = window
+			// 	if (d.readyState=='complete') {
+			// 		this.l()
+			// 	} else {
+			// 		if (w.attachEvent) {
+			// 			w.attachEvent('onload', this.l)
+			// 		} else {
+			// 			w.addEventListener('load', this.l, false)
+			// 		}
+			// 	}
+			// },
+
+			// l() {
+			// 	let s = document.createElement('script')
+			// 	s.type = 'text/javascript'
+			// 	s.async = true
+			// 	s.src = `//code.jivosite.com/script/widget/${this.widgetId}`
+			// 	let ss = document.getElementsByTagName('script')[0]
+			// 	ss.parentNode.insertBefore(s, ss);
+
+			// 	setTimeout(() => {
+			// 		jivo_api.open()
+			// 	}, 500)
+			// }
 		},
 	}
 </script>

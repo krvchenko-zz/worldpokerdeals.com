@@ -1,6 +1,6 @@
 <template>
 	<div class="author">
-		<div class="author-avatar">
+		<div v-if="avatar" class="author-avatar">
 			<img
 				class="author-avatar__img"
 				:src="avatar"
@@ -71,7 +71,7 @@
 
 		computed: {
 			avatar() {
-				return `${this.mediaUrl}/manager-small/${this.author.image.filename}`
+				return this.author && this.author.image ? `${this.mediaUrl}/user-square/${this.author.image.filename}` : null
 			},
 			mediaUrl() {
 				return process.env.mediaUrl
