@@ -119,13 +119,13 @@
 							type: 'text/javascript',
 							async: true,
 							src: `//code.jivosite.com/script/widget/${this.$t('jivosite')}`
+						},{
+							type: 'text/javascript',
+							innerHTML: 'function jivo_onLoadCallback() { jivo_api.open() }'
 						}],
 					})
 
-					setTimeout(() => {
-						jivo_api.open()
-						this.loading = false
-					}, 1200)
+					setTimeout(() => this.loading = false, 1000)
 				}
 
 				this.$emit('click', data)
