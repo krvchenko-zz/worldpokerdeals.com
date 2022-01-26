@@ -64,7 +64,6 @@
 							:tags="item.tags"
 							:review="item.review"
 						/>
-
 						<room-category-banner v-else :key="index" />
 					</template>
 
@@ -244,6 +243,7 @@
 					query: this.query,
 					locale: this.locale,
 					geo: this.geo,
+					cached: this.cached,
 					room_category_id: this.pageable.pageable.id,
 					types: this.types,
 					payments: this.payments,
@@ -307,6 +307,7 @@
 			last_page: null,
 			total: 0,
 			overall: 0,
+			cached: true,
 			countries: [],
 			selected: [],
 			sortOptions: [
@@ -324,18 +325,7 @@
 
 		async fetch() {
 			await this.$axios
-				.get(`rooms/category/${this.pageable.slug}`)
-				.then(response => {
-					this.$store.commit('promotions/FETCH_ITEMS', {
-						items: response.data.promotions,
-					})
-					this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
-						categories: response.data.categories,
-					})
-				})
-
-			await this.$axios
-				.get(`rooms/list`, { params: { ...this.params, cached: true } })
+				.get(`rooms/list`, { params: { ...this.params } })
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOMS', {
 						rooms: response.data.data 
@@ -346,17 +336,18 @@
 					this.$store.commit('rooms/FETCH_FILTERS', {
 						filters: response.data.filters
 					})
+					this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
+						categories: response.data.categories,
+					})
+					this.$store.commit('promotions/FETCH_ITEMS', {
+						items: response.data.promotions,
+					})
 					Object.keys(response.data).forEach(key => {
 						if (key !== 'data' && key !== 'filters') {
 							this[key] = response.data[key]
 						}
 					})
-					this.$nuxt.$loading.finish()
 				})
-		},
-
-		watch: {
-			'$route.query': 'fetchItems',
 		},
 
 		created() {
@@ -384,24 +375,21 @@
 			},
 
 			handleFilterChange(selected) {
-
-				// this.$nuxt.$loading.start()
+				this.$nuxt.$loading.start()
 
 				this.selected = selected.flatten
+
+				this.cached = null
 
 				Object.keys(selected.values).forEach(key => {
 					this[key] = selected.values[key]
 				})
-				// this.$fetch()
-				this.fetchItems()
+
+				this.$fetch()
 			},
 
 			async fetchItems(query) {
 				this.$nuxt.$loading.start()
-
-				if (query) {
-					this.page = query.page
-				}
 
 				await this.$axios
 					.get(`rooms/list`, { params: this.params })

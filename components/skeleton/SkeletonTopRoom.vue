@@ -83,7 +83,6 @@
 		&__footer {
 			font-size: 0;
 			text-align: center;
-			// max-height: 178px;
 		}
 		&__icon {
 			flex: 0 0 88px;
@@ -95,20 +94,6 @@
 			padding-left: 24px;
 			flex-grow: 1;
 			font-size: 0;
-		}
-		&__title {
-			margin-bottom: 12px;
-			font-family: Proxima Nova;
-			font-style: normal;
-			font-weight: bold;
-			font-size: 21px;
-			line-height: 22px;
-			letter-spacing: -0.1px;
-			color: #222222;
-		}
-		&__rating {
-			justify-content: normal;
-			margin-bottom: 8px;
 		}
 
 		&__label {
@@ -155,32 +140,6 @@
 			}
 		}
 
-		&__review {
-			padding: 4px 12px;
-			background: #ffffff;
-			border: 1px solid rgba(204, 204, 204, 0.7);
-			box-sizing: border-box;
-			border-radius: 3px;
-			font-family: Proxima Nova;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 12px;
-			line-height: 14px;
-			color: #777777;
-			&:hover,
-			&:active,
-			&:focus {
-				color: #555555;
-				background: rgba(204, 204, 204, 0.7);
-			}
-		}
-
-		&__download {
-			padding: 12px 24px;
-			font-size: 16px;
-			line-height: 16px;
-		}
-
 		&__footer {
 			z-index: 2;
 			position: relative;
@@ -190,52 +149,9 @@
 			background: #ffffff;
 		}
 
-		&__geo {
-			margin-top: 10px;
-			&-icon {
-				margin-right: 10px;
-			}
-		}
-
-		&__avaliable {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-family: 'Proxima Nova';
-			font-size: 12px;
-			line-height: 16px;
-			color: #777777;
-		}
-
 		&-bonus {
 			text-align: center;
 			font-size: 0;
-			&__category {
-				margin-bottom: 12px;
-				display: inline-block;
-				border: 1px solid #ffffff;
-				border-radius: 20px;
-				padding: 3px 8px 1px 8px;
-				font-family: Proxima Nova;
-				font-weight: bold;
-				font-size: 11px;
-				line-height: 14px;
-				letter-spacing: 0.5px;
-				color: #fafafa;
-				text-transform: uppercase;
-			}
-
-			&__title {
-				margin-bottom: 12px;
-				text-align: center;
-				font-family: Proxima Nova;
-				font-style: normal;
-				font-weight: bold;
-				font-size: 20px;
-				line-height: 24px;
-				text-align: center;
-				color: #222222;
-			}
 
 			&__icon {
 				top: -20px;
@@ -252,29 +168,29 @@
 		}
 	}
 
-	@include mq('desktop') {
-		.skeleton-top-room {
-			&__header {
-				padding: 28px 20px 36px;
-			}
-			&__icon {
-				left: 20px;
-			}
-			&__info {
-				padding-left: 104px;
-			}
-			&__footer {
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-		}
-	}
+	// @include mq('desktop') {
+	// 	.skeleton-top-room {
+	// 		&__header {
+	// 			padding: 28px 20px 36px;
+	// 		}
+	// 		&__icon {
+	// 			left: 20px;
+	// 		}
+	// 		&__info {
+	// 			padding-left: 104px;
+	// 		}
+	// 		&__footer {
+	// 			padding-left: 20px;
+	// 			padding-right: 20px;
+	// 		}
+	// 	}
+	// }
 
-	@include mq('laptop') {
-		.skeleton-top-room {
-			&__header {
-				padding: 28px 20px;
-			}
-		}
-	}
+	// @include mq('laptop') {
+	// 	.skeleton-top-room {
+	// 		&__header {
+	// 			padding: 28px 20px;
+	// 		}
+	// 	}
+	// }
 </style>

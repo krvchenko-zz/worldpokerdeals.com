@@ -118,6 +118,7 @@
 		}
 
 		&__name {
+			padding-left: 16px;
 			white-space: nowrap;
 			font-family: 'Proxima Nova Sb';
 			font-style: normal;
@@ -130,7 +131,7 @@
 		}
 
 		&__icon {
-			margin-right: 16px;
+			// margin-right: 16px;
 		}
 	}
 </style>

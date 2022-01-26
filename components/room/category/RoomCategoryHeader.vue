@@ -171,6 +171,7 @@
 				display: flex;
 				padding-top: 32px;
 				justify-content: center;
+				min-height: 350px;
 			}
 
 			&__nav {
