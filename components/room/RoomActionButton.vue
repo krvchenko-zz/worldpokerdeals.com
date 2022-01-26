@@ -8,6 +8,7 @@
 				type === 'download' && (disabled || !url || url === '') && 'btn-room-action_disabled',
 				`btn-room-action_${type}`,
 				icon && `btn-room-action_${type}-icon`,
+				loading && 'btn-room-action_loading'
 			]"
 			v-on="
 				shouldNavigate
@@ -23,17 +24,13 @@
 <script>
 	import eventBus from '~/utils/event-bus'
 	import { mapGetters } from 'vuex'
+	import VueMeta from 'vue-meta'
+	const { generate } = VueMeta
 
 	export default {
 		name: 'RoomActionButton',
 
 		components: {},
-
-		// head() {
-		// 	return {
-		// 		script: [{ type: 'text/javascript', async: true, src: `//code.jivosite.com/script/widget/${this.widgetId}` }],
-		// 	}
-		// },
 
 		props: {
 			type: {
@@ -77,7 +74,9 @@
 			},
 		},
 
-		data: () => ({}),
+		data: () => ({
+			loading: false,
+		}),
 
 		computed: {
 			to() {
@@ -95,10 +94,6 @@
 			...mapGetters({
 				country: 'location/country',
 			}),
-
-			widgetId() {
-				return 'vhip3pLTcP'
-			}
 		},
 
 		watch: {},
@@ -115,9 +110,22 @@
 
 				if (this.type === 'contacts') {
 
-					console.log(this.$meta().inject({}))
+					this.loading = true
 
-					// jivo_api.open()
+					const { set } = this.$meta().addApp('jivosite')
+
+					set({
+						script: [{
+							type: 'text/javascript',
+							async: true,
+							src: `//code.jivosite.com/script/widget/${this.$t('jivosite')}`
+						}],
+					})
+
+					setTimeout(() => {
+						jivo_api.open()
+						this.loading = false
+					}, 1200)
 				}
 
 				this.$emit('click', data)
@@ -131,33 +139,6 @@
 				})
 				return window.open(route.href, '_blank')
 			},
-
-			// loadJivoSite () {
-			// 	let d = document,
-			// 			w = window
-			// 	if (d.readyState=='complete') {
-			// 		this.l()
-			// 	} else {
-			// 		if (w.attachEvent) {
-			// 			w.attachEvent('onload', this.l)
-			// 		} else {
-			// 			w.addEventListener('load', this.l, false)
-			// 		}
-			// 	}
-			// },
-
-			// l() {
-			// 	let s = document.createElement('script')
-			// 	s.type = 'text/javascript'
-			// 	s.async = true
-			// 	s.src = `//code.jivosite.com/script/widget/${this.widgetId}`
-			// 	let ss = document.getElementsByTagName('script')[0]
-			// 	ss.parentNode.insertBefore(s, ss);
-
-			// 	setTimeout(() => {
-			// 		jivo_api.open()
-			// 	}, 500)
-			// }
 		},
 	}
 </script>
@@ -165,6 +146,7 @@
 <style lang="scss">
 	$ico-btn-chat: url('~assets/i/room/ico-btn-chat.svg?data');
 	$ico-btn-action: url('~assets/i/room/ico-btn-action.svg?data');
+	$ico-btn-loading: url('~assets/i/ico-btn-loading.svg?data');
 
 	.btn-room-action {
 		margin: 0;
@@ -174,6 +156,7 @@
 		font-size: 18px;
 		line-height: 22px;
 		white-space: nowrap;
+		transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
 		&_download {
 			padding: 13px 24px 13px 24px;
 			border: 0;
@@ -235,6 +218,16 @@
 					background-repeat: no-repeat;
 					background-position: right center;
 				}
+			}
+		}
+
+		&_loading {
+			transition: none;
+			color: transparent;
+			background: #70ac30 $ico-btn-loading no-repeat center!important;
+			&:hover {
+				color: transparent;
+				background: #70ac30 $ico-btn-loading no-repeat center!important;
 			}
 		}
 

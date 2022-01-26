@@ -65,6 +65,14 @@
 					:alt="author.full_name"
 					loading="lazy"
 				/>
+				<svg-icon
+					v-else
+					class="post-item__author-pic"
+					:width="24"
+					:height="24"
+					:image="true"
+					icon="user-avatar"
+				/>
 				<span class="post-item__author-name">{{ author.full_name }}</span>
 			</span>
 			<span v-if="!medium" class="post-item__sep">·</span>
@@ -308,6 +316,10 @@
 				font-size: 12px;
 				line-height: 16px;
 				color: #999999;
+			}
+
+			span {
+				white-space: nowrap;
 			}
 		}
 	}

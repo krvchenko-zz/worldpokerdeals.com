@@ -4,6 +4,7 @@
 			btn: true,
 			'btn-block': block,
 			'btn-contact': true,
+			'btn-contact_loading': loading,
 			'btn-contact_icon': icon,
 			'btn-contact_dark': dark,
 			[`btn-contact_${size}`]: true,
@@ -11,6 +12,7 @@
 		}"
 		:href="target"
 		target="_blank"
+		v-on="{ click: type === 'chat' ? handleChat : handleClick }"
 	>
 		<slot />
 	</a>
@@ -50,7 +52,9 @@
 			},
 		},
 
-		data: () => ({}),
+		data: () => ({
+			loading: false,
+		}),
 
 		computed: {
 			target() {
@@ -72,7 +76,30 @@
 
 		created() {},
 
-		methods: {},
+		methods: {
+			handleClick() {
+				return window.open(this.target, '_blank')
+			},
+			handleChat($event) {
+				$event.preventDefault()
+				this.loading = true
+
+				const { set } = this.$meta().addApp('jivosite')
+
+				set({
+					script: [{
+						type: 'text/javascript',
+						async: true,
+						src: `//code.jivosite.com/script/widget/${this.$t('jivosite')}`
+					}],
+				})
+
+				setTimeout(() => {
+					jivo_api.open()
+					this.loading = false
+				}, 1200)
+			}
+		},
 	}
 </script>
 

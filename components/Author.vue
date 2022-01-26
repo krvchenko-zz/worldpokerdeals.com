@@ -1,11 +1,20 @@
 <template>
 	<div class="author">
-		<div v-if="avatar" class="author-avatar">
+		<div class="author-avatar">
 			<img
+				v-if="avatar"
 				class="author-avatar__img"
 				:src="avatar"
 				:alt="author.full_name"
 				loading="lazy"
+			/>
+			<svg-icon
+				v-else
+				class="author-avatar__img"
+				:width="66"
+				:height="66"
+				:image="true"
+				icon="user-avatar"
 			/>
 		</div>
 
@@ -71,7 +80,7 @@
 
 		computed: {
 			avatar() {
-				return this.author && this.author.image ? `${this.mediaUrl}/user-square/${this.author.image.filename}` : null
+				return this.author && this.author.image ? `${this.mediaUrl}/manager-small/${this.author.image.filename}` : null
 			},
 			mediaUrl() {
 				return process.env.mediaUrl

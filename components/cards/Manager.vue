@@ -15,7 +15,7 @@
 		<div class="manager__info">
 			<div class="manager__name">
 				{{ name }}
-				<span v-if="status" class="manager__badge_green">онлайн</span>
+				<span v-if="status" class="manager__badge_green">online</span>
 			</div>
 			<div class="manager__messengers">
 				<button-contact size="sm" type="chat">{{ $t('start_chat') }}</button-contact>
