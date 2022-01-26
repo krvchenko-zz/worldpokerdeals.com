@@ -1,7 +1,7 @@
 <template>
 	<div class="rooms">
 		<!-- Header -->
-		<room-category-header />
+		<room-category-header :loading="$fetchState.pending" />
 
 		<div class="rooms__catalog">
 			<div class="rooms__rooms-container">
@@ -259,6 +259,7 @@
 					categories: this.categories,
 					hud: this.hud,
 					kyc: this.kyc,
+					selected: this.selected
 				}
 			},
 
@@ -350,6 +351,7 @@
 							this[key] = response.data[key]
 						}
 					})
+					this.$nuxt.$loading.finish()
 				})
 		},
 
@@ -382,11 +384,15 @@
 			},
 
 			handleFilterChange(selected) {
+
+				// this.$nuxt.$loading.start()
+
 				this.selected = selected.flatten
 
 				Object.keys(selected.values).forEach(key => {
 					this[key] = selected.values[key]
 				})
+				// this.$fetch()
 				this.fetchItems()
 			},
 

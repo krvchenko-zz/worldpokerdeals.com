@@ -62,8 +62,8 @@
 
 		<div class="rooms-header__bonus">
 			<room-top
+				v-if="best && !loading"
 				class="game-header__room-top"
-				v-if="best"
 				:id="best.id"
 				:title="best.title"
 				:slug="best.slug"
@@ -73,6 +73,11 @@
 				:rating="best.rating"
 				:bonus="best.top_bonus"
 				:review="best.review"
+				:label="$t('room_best')"
+			/>
+			<skeleton-top-room
+				v-else
+				class="game-header__room-top"
 				:label="$t('room_best')"
 			/>
 		</div>
@@ -97,7 +102,12 @@
 	export default {
 		components: {},
 
-		props: {},
+		props: {
+			loading: {
+				type: [Boolean, Number],
+				default: true,
+			}
+		},
 
 		data: () => ({}),
 

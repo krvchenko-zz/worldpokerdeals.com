@@ -22,7 +22,7 @@
     "bootstrap": "^4.4.1",
     "cookie-universal-nuxt": "^2.1.4",
     "dotenv": "^8.2.0",
-    "element-ui": "^2.13.2",
+    "element-ui": "^2.15.7",
     "fs": "0.0.1-security",
     "glightbox": "^3.0.6",
     "jquery": "^3.4.1",
