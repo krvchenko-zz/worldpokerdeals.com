@@ -172,8 +172,8 @@
 					</div>
 
 					<div
-						class="rooms__aside__promotions-list"
 						v-if="promotions && !pageable.is_blacklist"
+						class="rooms__aside__promotions-list"
 					>
 						<promotion-item
 							v-for="(item, index) in promotions"
@@ -578,8 +578,8 @@
 		}
 
 		.room-list {
-			margin-left: -25px;
-			margin-right: -24px;
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 	}
 
@@ -604,7 +604,7 @@
 			}
 		}
 		.rooms-list {
-			margin-left: -21px;
+			margin-left: -20px;
 			margin-right: -20px;
 		}
 	}

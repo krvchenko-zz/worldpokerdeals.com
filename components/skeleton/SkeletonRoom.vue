@@ -11,7 +11,7 @@
 				<div :class="['skeleton-room-item__wrap']">
 					<div :class="['skeleton-room-item__top']">
 						<el-skeleton-item variant="p" style="width: 50%; height: 24px; margin-right: 5px;" />
-						<el-skeleton-item variant="p" style="width: 40%; height: 24px; border-radius: 50px;" />
+						<el-skeleton-item class="skeleton-room-item__network" variant="p" style="width: 40%; height: 24px; border-radius: 50px;" />
 					</div>
 
 					<div class="skeleton-room-item__geo">
@@ -55,8 +55,8 @@
 					</dl>
 
 					<div class="skeleton-room-item__actions">
-						<el-skeleton-item variant="p" style="width: 100%; height: 40px; margin-bottom: 10px;" />
-						<el-skeleton-item variant="p" style="width: 100%; height: 40px;" />
+						<el-skeleton-item class="skeleton-room-item__review" variant="p" style="width: 100%; height: 40px;" />
+						<el-skeleton-item class="skeleton-room-item__download" variant="p" style="width: 100%; height: 40px;" />
 					</div>
 				</div>
 			</div>
@@ -132,6 +132,10 @@
 				padding-right: 20px;
 			}
 		}
+
+		&__review {
+			margin-bottom: 10px;
+		}
 		&__top {
 			grid-area: title;
 			display: flex;
@@ -206,15 +210,12 @@
 				padding-right: 0;
 				width: 100%;
 			}
-			&__link {
-				margin-bottom: 0;
-			}
-			&__link_review {
-				margin-bottom: 0;
+			&__review {
 				margin-right: 20px;
+				margin-bottom: 0;
 				max-width: 267px;
 			}
-			&__link_download {
+			&__download {
 				max-width: 207px;
 			}
 		}

@@ -130,8 +130,8 @@
 
 	@include mq('tablet') {
 		.page-nav {
-			margin-left: -24px;
-			margin-right: -24px;
+			margin-left: -20px;
+			margin-right: -20px;
 		}
 	}
 

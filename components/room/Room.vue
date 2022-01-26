@@ -723,7 +723,7 @@
 			&__geo {
 				margin-bottom: 0;
 			}
-			& .rating {
+			&.rating {
 				display: grid;
 				grid-template-columns: 1fr;
 				row-gap: 12px;
