@@ -27,14 +27,15 @@
 					:src="img"
 					:alt="image.alt || `${title} logo`"
 				/>
-				<img
+				<svg-icon
 					v-if="blacklist"
+					:image="true"
 					class="room-item__blacklist"
 					decoding="async"
 					loading="lazy"
 					width="103px"
 					height="96px"
-					src="~assets/icons/ico-blacklist-label.svg"
+					icon="ico-blacklist-label"
 					alt="Blacklist label"
 				/>
 			</a>
@@ -294,6 +295,9 @@
 			},
 			mediaUrl() {
 				return process.env.mediaUrl
+			},
+			mediaHost() {
+				return process.env.mediaHost
 			},
 		},
 		watch: {},

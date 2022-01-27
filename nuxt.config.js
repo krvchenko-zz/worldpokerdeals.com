@@ -97,6 +97,12 @@ export default {
 
 	build: {
 		extractCSS: true,
+		// analyze: true,
+		splitChunks: {
+			layouts: false,
+			pages: false,
+			commons: false
+		},
 		babel: {
 			presets: ['@nuxt/babel-preset-app'],
 			plugins: [
