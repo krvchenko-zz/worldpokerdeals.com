@@ -60,27 +60,29 @@
 			</common-text-spoiler>
 		</div>
 
-		<div class="rooms-header__bonus">
-			<room-top
-				v-if="best && !loading"
-				class="game-header__room-top"
-				:id="best.id"
-				:title="best.title"
-				:slug="best.slug"
-				:url="best.url"
-				:restricted="best.restricted"
-				:country="country"
-				:rating="best.rating"
-				:bonus="best.top_bonus"
-				:review="best.review"
-				:label="$t('room_best')"
-			/>
-			<skeleton-top-room
-				v-else
-				class="game-header__room-top"
-				:label="$t('room_best')"
-			/>
-		</div>
+		<lazy-hydrate class="rooms-header__bonus" when-visible>
+			<template>
+				<lazy-room-top
+					v-if="best && !loading"
+					class="game-header__room-top"
+					:id="best.id"
+					:title="best.title"
+					:slug="best.slug"
+					:url="best.url"
+					:restricted="best.restricted"
+					:country="country"
+					:rating="best.rating"
+					:bonus="best.top_bonus"
+					:review="best.review"
+					:label="$t('room_best')"
+				/>
+				<lazy-skeleton-top-room
+					v-else
+					class="game-header__room-top"
+					:label="$t('room_best')"
+				/>
+			</template>
+		</lazy-hydrate>
 
 		<div class="rooms-header__nav">
 			<nav-list>

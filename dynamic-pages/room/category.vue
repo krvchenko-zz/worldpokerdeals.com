@@ -41,11 +41,11 @@
 				</client-only>
 
 				<div v-if="$fetchState.pending" class="rooms-list">
-					<skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
+					<lazy-skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
 				</div>
 				<div v-else class="rooms-list">
 					<template v-for="(item, index) in items">
-						<room
+						<lazy-room
 							v-if="!item.banner"
 							:key="index"
 							:id="item.id"
@@ -67,28 +67,29 @@
 							:tags="item.tags"
 							:review="item.review"
 						/>
-						<room-category-banner v-else :key="index" />
+						<lazy-room-category-banner v-else :key="index" />
 					</template>
 
-					<pagination
-						:query="true"
-						:last="last_page"
-						:current="parseInt(page) || current_page"
-						:prev-url="prev_page_url"
-						:next-url="next_page_url"
-						:total="total"
-						:from="from"
-						:to="to"
-						:load-more-width="$device.isDesktop ? 215 : false"
-						:showPages="false"
-						:load-more-text="$t('show_more')"
-						:total-text="$t('rooms_entity_label')"
-						@next="handlePageNext"
-						@prev="handlePagePrev"
-						@change="handlePageChange"
-						@more="handleShowMore"
-					>
-					</pagination>
+					<lazy-hydrate when-visible>
+						<lazy-pagination
+							:query="true"
+							:last="last_page"
+							:current="parseInt(page) || current_page"
+							:prev-url="prev_page_url"
+							:next-url="next_page_url"
+							:total="total"
+							:from="from"
+							:to="to"
+							:load-more-width="$device.isDesktop ? 215 : false"
+							:showPages="false"
+							:load-more-text="$t('show_more')"
+							:total-text="$t('rooms_entity_label')"
+							@next="handlePageNext"
+							@prev="handlePagePrev"
+							@change="handlePageChange"
+							@more="handleShowMore"
+						/>
+					</lazy-hydrate>
 				</div>
 			</div>
 
