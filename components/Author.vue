@@ -4,6 +4,8 @@
 			<img
 				v-if="avatar"
 				class="author-avatar__img"
+				width="70px"
+				height="70px"
 				:src="avatar"
 				:alt="author.full_name"
 				loading="lazy"

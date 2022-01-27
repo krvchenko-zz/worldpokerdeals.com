@@ -34,6 +34,8 @@
 							class="best-room__img"
 							decoding="async"
 							loading="lazy"
+							width="168px"
+							height="60px"
 							:src="img"
 							:alt="image.alt || `${title} logo`"
 						/>
@@ -193,8 +195,8 @@
 		}
 
 		&__img {
-			height: 40px;
-			width: auto;
+			height: auto;
+			max-width: 140px;
 		}
 	}
 

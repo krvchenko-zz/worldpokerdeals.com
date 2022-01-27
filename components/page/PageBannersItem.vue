@@ -9,6 +9,8 @@
 			class="page-banner__img"
 			decoding="async"
 			loading="lazy"
+			width="198px"
+			height="200px"
 			:src="require(`~/assets/i/${image}`)"
 			alt="title"
 		/>

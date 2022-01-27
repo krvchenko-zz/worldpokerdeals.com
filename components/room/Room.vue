@@ -22,8 +22,8 @@
 					]"
 					decoding="async"
 					loading="lazy"
-					width="300px"
-					height="86px"
+					width="168px"
+					height="60px"
 					:src="img"
 					:alt="image.alt || `${title} logo`"
 				/>

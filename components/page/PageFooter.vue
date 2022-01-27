@@ -255,7 +255,14 @@
 							rel="nofollow noopener"
 							href="https://certify.gpwa.org/verify/ru/worldpokerdeals.com/"
 						>
-							<img decoding="async" loading="lazy" alt="GPWA" src="/gpwa.svg" />
+							<img
+								width="110px"
+								height="42px"
+								decoding="async"
+								loading="lazy"
+								alt="GPWA"
+								src="/gpwa.svg"
+							/>
 						</a>
 						<a
 							class="footer-awards__item"
@@ -266,6 +273,8 @@
 							<img
 								decoding="async"
 								loading="lazy"
+								width="95px"
+								height="42px"
 								alt="Gamblers Anonymous"
 								src="/gamblers-anonymous.svg"
 							/>
@@ -278,6 +287,8 @@
 							<img
 								decoding="async"
 								loading="lazy"
+								width="95px"
+								height="42px"
 								alt="GAFFG"
 								src="/gaffg.svg"
 							/>
@@ -287,7 +298,14 @@
 							rel="nofollow noopener"
 							href="http://www.apcw.org/"
 						>
-							<img decoding="async" loading="lazy" alt="APCW" src="/apcw.svg" />
+							<img
+								decoding="async"
+								loading="lazy"
+								width="95px"
+								height="42px"
+								alt="APCW"
+								src="/apcw.svg"
+							/>
 						</a>
 						<a
 							class="footer-awards__item"
@@ -297,6 +315,8 @@
 							<img
 								decoding="async"
 								loading="lazy"
+								width="150px"
+								height="42px"
 								alt="iGB Awards Shortlisted"
 								src="/igb-best-affiliate.svg"
 							/>
@@ -309,6 +329,8 @@
 							<img
 								decoding="async"
 								loading="lazy"
+								width="118px"
+								height="42px"
 								alt="iGB Awards Shortlisted"
 								src="/igb-best-poker-website.svg"
 							/>
@@ -321,6 +343,8 @@
 							<img
 								decoding="async"
 								loading="lazy"
+								width="81px"
+								height="42px"
 								alt="Problem Gambling Support"
 								src="/gamcare.svg"
 							/>
@@ -333,6 +357,8 @@
 							<img
 								decoding="async"
 								loading="lazy"
+								width="69px"
+								height="42px"
 								alt="Be Gamble Aware"
 								src="/begambleaware.svg"
 							/>
