@@ -16,6 +16,7 @@
 			/>
 			<img 
 				v-else
+				ref="img"
 				:src="src"
 				:width="width"
 				:height="height"
@@ -35,6 +36,13 @@
 		components: {
 			LazyHydrate,
 		},
+
+		// return new Promise((resolve,reject) => {
+		// 		let img = new Image()
+		// 		img.onload = () => resolve({ height: img.height, width: img.width })
+		// 		img.onerror = reject
+		// 		img.src = src
+		// })
 
 		props: {
 			icon: {
@@ -103,10 +111,8 @@
 			src() {
 				if (!this.image) return null
 				return `${process.env.mediaHost}/assets/icons/${this.prefix}${this.icon}.svg`
-			}
+			},
 		},
-
-		mounted() {},
 
 		methods: {},
 	}

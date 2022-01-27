@@ -22,6 +22,8 @@
 					]"
 					decoding="async"
 					loading="lazy"
+					width="300px"
+					height="86px"
 					:src="img"
 					:alt="image.alt || `${title} logo`"
 				/>
@@ -356,6 +358,7 @@
 			display: block;
 			max-width: 80%;
 			max-height: 80%;
+			height: auto!important;
 			&_s {
 				margin: 0;
 			}

@@ -51,6 +51,10 @@ export default {
 		middleware: ['locale', 'location', 'check-auth'],
 	},
 
+	// serverMiddleware: {
+	// 	'/_ipx': '~/server/middleware/ipx.js'
+	// },
+
 	css: [{ src: '~assets/sass/app.scss', lang: 'scss' }],
 
 	components: true,
@@ -74,6 +78,7 @@ export default {
 		'@nuxtjs/device',
 		'@nuxtjs/axios',
 		'@nuxtjs/style-resources',
+		// '@nuxt/image',
 		['cookie-universal-nuxt', { alias: 'cookiz' }],
 		[
 			'@nuxtjs/recaptcha', {
@@ -85,6 +90,10 @@ export default {
 			}
 		],
 	],
+
+	// image: {
+	// 	domains: ['media.worldpokerdeals01.com'],
+	// },
 
 	styleResources: {
 		scss: ['~assets/sass/_mixins.scss'],
