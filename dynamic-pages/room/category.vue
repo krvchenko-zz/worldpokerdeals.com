@@ -328,6 +328,9 @@
 			await this.$axios
 				.get(`rooms/list`, { params: { ...this.params } })
 				.then(response => {
+					this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
+						categories: response.data.categories,
+					})
 					this.$store.commit('rooms/FETCH_ROOMS', {
 						rooms: response.data.data 
 					})
@@ -337,14 +340,11 @@
 					this.$store.commit('rooms/FETCH_FILTERS', {
 						filters: response.data.filters
 					})
-					this.$store.commit('rooms/FETCH_ROOM_CATEGORIES', {
-						categories: response.data.categories,
-					})
 					this.$store.commit('promotions/FETCH_ITEMS', {
 						items: response.data.promotions,
 					})
 					Object.keys(response.data).forEach(key => {
-						if (key !== 'data' && key !== 'filters') {
+						if (key !== 'data' && key !== 'filters' && key !== 'promotions') {
 							this[key] = response.data[key]
 						}
 					})
@@ -388,30 +388,6 @@
 
 				this.$fetch()
 			},
-
-			// async fetchItems(query) {
-			// 	this.$nuxt.$loading.start()
-
-			// 	await this.$axios
-			// 		.get(`rooms/list`, { params: this.params })
-			// 		.then(response => {
-			// 			this.$store.commit('rooms/FETCH_ROOMS', {
-			// 				rooms: response.data.data,
-			// 			})
-
-			// 			this.$store.commit('rooms/FETCH_FILTERS', {
-			// 				filters: response.data.filters
-			// 			})
-
-			// 			Object.keys(response.data).forEach(key => {
-			// 				if (key !== 'data' && key !== 'filters') {
-			// 					this[key] = response.data[key]
-			// 				}
-			// 			})
-
-			// 			this.$nuxt.$loading.finish()
-			// 		})
-			// },
 
 			handleGeoChange() {
 				this.$nuxt.$loading.start()

@@ -24,22 +24,22 @@ export default {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
-	loading: { color: '#2E87C8', throttle: 60, height: '3px' },
+	loading: { color: '#2E87C8', throttle: 0, height: '3px' },
 
 	pageTransition: {
-		// name: 'page',
-		// mode: 'out-in',
-		name: '',
-		mode: '',
+		name: 'page',
+		mode: 'out-in',
+		// name: '',
+		// mode: '',
 		beforeEnter (el) {
 		}
 	},
 
 	layoutTransition: {
-		// name: 'layout',
-		// mode: 'out-in',
-		name: '',
-		mode: '',
+		name: 'layout',
+		mode: 'out-in',
+		// name: '',
+		// mode: '',
 		beforeEnter (el) {
 		}
 	},

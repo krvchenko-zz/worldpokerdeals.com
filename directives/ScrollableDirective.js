@@ -1,7 +1,7 @@
 export default {
 	name: 'scrollable',
 
-	inserted: (el, binding) => {
+	update: (el, binding) => {
 
 		const getItemsWidth = function(items) {
 			let width = 0
@@ -151,7 +151,6 @@ export default {
 		handler()
 		window.addEventListener('load', handler)
 		window.addEventListener('resize', handler)
-
 	},
 
 	// bind: (el, binding) => {},
