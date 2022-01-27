@@ -49,6 +49,7 @@ export default {
 
 	router: {
 		middleware: ['locale', 'location', 'check-auth'],
+		prefetchLinks: false
 	},
 
 	css: [{ src: '~assets/sass/app.scss', lang: 'scss' }],
@@ -98,11 +99,11 @@ export default {
 	build: {
 		extractCSS: true,
 		// analyze: true,
-		splitChunks: {
-			layouts: false,
-			pages: false,
-			commons: false
-		},
+		// splitChunks: {
+		// 	layouts: false,
+		// 	pages: true,
+		// 	commons: false
+		// },
 		babel: {
 			presets: ['@nuxt/babel-preset-app'],
 			plugins: [
