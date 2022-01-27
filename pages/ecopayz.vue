@@ -31,7 +31,9 @@
 						<svg-icon
 							class="ecopayz__logo ecopayz-advantages__header-logo"
 							icon="ecopayz-logo"
-							view-box="0 0 305 72"
+							:image="true"
+							:width="305"
+							:height="72"
 						/>
 					</div>
 
@@ -40,6 +42,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="ecopayz-advantages__icon"
 								icon="ecopayz-gold"
 							/>
@@ -49,6 +52,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="ecopayz-advantages__icon"
 								icon="ecopayz-rakeback"
 							/>

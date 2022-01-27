@@ -112,7 +112,7 @@
 					class="team-slides__img"
 					decoding="async"
 					loading="lazy"
-					src="~assets/i/about-slides.png"
+					:src="`${mediaHost}/images/about-slides.webp`"
 					alt="our team"
 				/>
 			</div>
@@ -371,6 +371,9 @@
 		created() {},
 
 		computed: {
+			mediaHost() {
+				return process.env.mediaHost
+			},
 		},
 
 		watch: {},

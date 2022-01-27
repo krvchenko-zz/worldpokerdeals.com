@@ -30,7 +30,9 @@
 					<svg-icon
 						class="vip-payments-advantages__logo neteller__logo"
 						icon="neteller-logo"
-						view-box="0 0 295 50"
+						:image="true"
+						:width="295"
+						:height="50"
 					/>
 
 					<div
@@ -42,6 +44,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="neteller-comission"
 							/>
@@ -54,6 +57,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="neteller-verify"
 							/>
@@ -66,6 +70,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="neteller-limits"
 							/>
@@ -78,6 +83,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="neteller-rakeback"
 							/>
@@ -98,6 +104,7 @@
 							<li class="neteller-card__item">
 								<svg-icon
 									icon="neteller-plus"
+									:image="true"
 									class="neteller-card__item__icon"
 								/>
 								<div v-html="$t('vip_neteller.features')[0]['items'][0]"></div>

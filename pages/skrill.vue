@@ -30,6 +30,9 @@
 					<svg-icon
 						class="vip-payments-advantages__logo skrill__logo"
 						icon="skrill-logo"
+						:image="true"
+						width="211px"
+						height="72px"
 					/>
 
 					<div class="vip-payments-advantages__list">
@@ -37,6 +40,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="skrill-advantages"
 							/>
@@ -46,6 +50,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="skrill-support"
 							/>
@@ -55,6 +60,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="skrill-verify"
 							/>
@@ -65,6 +71,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="skrill-rakeback"
 							/>
@@ -74,6 +81,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="skrill-limits"
 							/>
@@ -83,6 +91,7 @@
 							<svg-icon
 								:width="50"
 								:height="50"
+								:image="true"
 								class="vip-payments-advantages__icon"
 								icon="skrill-arbitrage"
 							/>
@@ -105,6 +114,7 @@
 									<svg-icon
 										:width="50"
 										:height="50"
+										:image="true"
 										class="skrill-card__icon"
 										icon="skrill-cards"
 									/>
@@ -115,6 +125,7 @@
 									<svg-icon
 										:width="50"
 										:height="50"
+										:image="true"
 										class="skrill-card__icon"
 										icon="skrill-comission"
 									/>
@@ -125,6 +136,7 @@
 									<svg-icon
 										:width="50"
 										:height="50"
+										:image="true"
 										class="skrill-card__icon"
 										icon="skrill-tech-support"
 									/>
@@ -162,6 +174,7 @@
 									<svg-icon
 										:width="50"
 										:height="50"
+										:image="true"
 										class="skrill-card__icon"
 										icon="skrill-silver-vip"
 									/>
@@ -172,6 +185,7 @@
 									<svg-icon
 										:width="50"
 										:height="50"
+										:image="true"
 										class="skrill-card__icon"
 										icon="skrill-increased-limits"
 									/>
@@ -182,6 +196,7 @@
 									<svg-icon
 										:width="50"
 										:height="50"
+										:image="true"
 										class="skrill-card__icon"
 										icon="skrill-vip-tech-support"
 									/>

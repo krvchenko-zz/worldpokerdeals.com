@@ -15,7 +15,13 @@
 						<div v-for="(item, index) in services" :key="index">
 							<div class="vip-item">
 								<div class="vip-item__wrap">
-									<svg-icon class="vip-item__icon" :icon="item.icon" />
+									<svg-icon
+										class="vip-item__icon"
+										:icon="item.icon"
+										:image="true"
+										:width="80"
+										:height="72"
+									/>
 									<span class="vip-item__title" v-html="$t(item.title)"></span>
 								</div>
 								<span class="vip-item__text">{{ $t(item.text) }}</span>
@@ -327,6 +333,7 @@
 			}
 
 			&__icon {
+				height: auto;
 				right: 0;
 				top: -8px;
 				position: absolute;

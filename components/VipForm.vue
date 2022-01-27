@@ -9,6 +9,8 @@
 					class="vip-form__img"
 					:src="src"
 					:alt="name"
+					width="72px"
+					height="72px"
 					decoding="async"
 					loading="lazy"
 				/>
@@ -79,7 +81,7 @@
 									popper-class="el-poper-vip"
 								>
 									<template slot="prefix">
-										<svg-icon :icon="contact_type" />
+										<svg-icon :icon="contact_type" :image="true" />
 									</template>
 									<el-option
 										v-for="(item, index) in contact_options"
@@ -110,7 +112,7 @@
 									popper-class="el-poper-vip"
 								>
 									<template slot="prefix">
-										<svg-icon :icon="contact_type" />
+										<svg-icon :icon="contact_type" :image="true" />
 									</template>
 									<el-option
 										v-for="(item, index) in contact_options"
