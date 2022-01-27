@@ -7,6 +7,8 @@
 			<img
 				decoding="async"
 				loading="lazy"
+				width="64px"
+				height="64px"
 				class="manager__img"
 				:src="avatar"
 				:alt="name"

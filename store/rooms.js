@@ -1,6 +1,4 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
-import querystring from 'querystring'
 
 // state
 export const state = () => ({

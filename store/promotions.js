@@ -1,8 +1,4 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
-import querystring from 'querystring'
-
-const token = Cookies.get('token')
 
 // state
 export const state = () => ({

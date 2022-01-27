@@ -246,6 +246,7 @@
 					query: this.query,
 					locale: this.locale,
 					geo: this.geo,
+					cached: this.cached,
 					room_category_id: this.pageable.pageable.id,
 					types: this.types,
 					payments: this.payments,
@@ -281,9 +282,12 @@
 			loading: false,
 			per_page: 10,
 			page: 1,
+			from: 0,
+			to: 0,
 			sort: 'rating',
 			order: 'desc',
 			geo: null,
+			cached: true,
 			types: [],
 			payments: [],
 			platforms: [],
@@ -299,15 +303,12 @@
 			kyc: null,
 			ids: null,
 			data: [],
-			from: 0,
-			to: 0,
 			next_page_url: null,
 			prev_page_url: null,
 			current_page: null,
 			last_page: null,
 			total: 0,
 			overall: 0,
-			cached: true,
 			countries: [],
 			selected: [],
 			sortOptions: [
@@ -376,8 +377,8 @@
 			},
 
 			handleFilterChange(selected) {
+				this.cached = null
 				this.$nuxt.$loading.start()
-
 				if (this.selected) {
 					this.selected = selected.flatten
 
@@ -390,34 +391,40 @@
 			},
 
 			handleGeoChange() {
+				this.cached = null
 				this.$nuxt.$loading.start()
 				this.$fetch()
 			},
 
 			handleSortChange() {
+				this.cached = null
 				this.$nuxt.$loading.start()
 				this.$fetch()
 			},
 
 			handlePageNext() {
+				this.cached = null
 				this.$nuxt.$loading.start()
 				this.page = parseInt(this.current_page) + 1
 				this.$fetch()
 			},
 
 			handlePagePrev() {
+				this.cached = null
 				this.$nuxt.$loading.start()
 				this.page = parseInt(this.current_page) - 1
 				this.$fetch()
 			},
 
 			handlePageChange(number) {
+				this.cached = null
 				this.$nuxt.$loading.start()
 				this.page = parseInt(number)
 				this.$fetch()
 			},
 
 			handleShowMore() {
+				this.cached = null
 				this.$nuxt.$loading.start()
 				this.per_page = parseInt(this.per_page) + 6
 				this.$fetch()

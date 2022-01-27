@@ -69,7 +69,7 @@ export default {
 		{ src: '~/plugins/glightbox', mode: 'client' },
 		{ src: '~/plugins/vue-carousel', mode: 'client' },
 		{ src: '~/plugins/vue-dragscroll', mode: 'client' },
-		{ src: '~/plugins/smoothscroll', mode: 'client' },
+		// { src: '~/plugins/smoothscroll', mode: 'client' },
 	],
 
 	modules: [
@@ -79,7 +79,6 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/style-resources',
 		// '@nuxt/image',
-		['cookie-universal-nuxt', { alias: 'cookiz' }],
 		[
 			'@nuxtjs/recaptcha', {
 				hideBadge: true,
