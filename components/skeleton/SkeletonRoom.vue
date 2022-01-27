@@ -34,8 +34,8 @@
 
 					<div :class="['skeleton-room-item__rating']">
 						<div class="rating">
-							<el-skeleton-item class="rating__stars" variant="p" style="width: 76px; height: 12px;" />
-							<el-skeleton-item class="rating__digit" variant="p" style="width: 20%; height: 14px;" />
+							<el-skeleton-item variant="p" style="width: 76px; height: 12px;" />
+							<el-skeleton-item variant="p" style="width: 20%; height: 14px;" />
 						</div>
 					</div>
 
@@ -244,9 +244,6 @@
 			&__actions {
 				padding-top: 0;
 			}
-			&__rating {
-				height: 100%;
-			}
 			&__geo {
 				margin-bottom: 0;
 			}
@@ -257,17 +254,6 @@
 				justify-content: center;
 				align-items: baseline;
 				height: 100%;
-				&__digit {
-					display: flex;
-					justify-content: flex-end;
-				}
-				&__stars {
-					flex: 0;
-					margin-top: auto;
-					margin-bottom: auto;
-					margin-right: 0;
-					margin-left: auto;
-				}
 			}
 		}
 	}

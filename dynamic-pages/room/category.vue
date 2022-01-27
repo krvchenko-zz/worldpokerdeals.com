@@ -16,8 +16,8 @@
 						:sort-options="sortOptions"
 						:selected="selected.length"
 						:entity-label="$t('rooms_entity_label')"
-						@update:sort="handleFilterChange"
-						@update:geo="handleFilterChange"
+						@update:sort="handleSortChange"
+						@update:geo="handleGeoChange"
 					/>
 
 					<filter-selected-list
@@ -158,8 +158,8 @@
 								:huds="filters.huds"
 								:certificates="filters.certificates"
 								:geo.sync="geo"
-								@update:sort="handleFilterChange"
-								@update:geo="handleFilterChange"
+								@update:sort="handleSortChange"
+								@update:geo="handleGeoChange"
 								@change="handleFilterChange"
 								@filterOpen="handleFilterOpen"
 							/>
@@ -412,6 +412,16 @@
 			// 			this.$nuxt.$loading.finish()
 			// 		})
 			// },
+
+			handleGeoChange() {
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handleSortChange() {
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
 
 			handlePageNext() {
 				this.$nuxt.$loading.start()
