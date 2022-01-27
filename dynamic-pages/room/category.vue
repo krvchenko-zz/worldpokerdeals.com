@@ -92,47 +92,42 @@
 				</div>
 			</div>
 
-				<div class="rooms__toc">
-					<toc-list v-if="pageable.toc">
-						<template #default="{ inline }">
-							<toc-item
-								v-for="(item, index) in pageable.toc"
+			<div class="rooms__toc">
+				<toc-list v-if="pageable.toc">
+					<template #default="{ inline }">
+						<toc-item
+							v-for="(item, index) in pageable.toc"
+							:key="index"
+							:index="index"
+							:inline="inline"
+							:anchor="item.anchor_id"
+							:text="item.text"
+						>
+						</toc-item>
+					</template>
+				</toc-list>
+			</div>
+
+			<div class="rooms__info">
+				<page-article :title="false" :text="pageable.text">
+					<template #footer>
+						<faq-list
+							v-if="pageable.faq && pageable.faq.mainEntity.length"
+							:label="$t('faq')"
+						>
+							<faq-item
+								v-for="(item, index) in pageable.faq.mainEntity"
 								:key="index"
-								:index="index"
-								:inline="inline"
-								:anchor="item.anchor_id"
-								:text="item.text"
+								:question="item.name"
+								:answer="item.acceptedAnswer.text"
 							>
-							</toc-item>
-						</template>
-					</toc-list>
-				</div>
+							</faq-item>
+						</faq-list>
 
-				<div class="rooms__info">
-					<page-article :title="false" :text="pageable.text">
-						<template #footer>
-							<faq-list
-								v-if="pageable.faq && pageable.faq.mainEntity.length"
-								:label="$t('faq')"
-							>
-								<faq-item
-									v-for="(item, index) in pageable.faq.mainEntity"
-									:key="index"
-									:question="item.name"
-									:answer="item.acceptedAnswer.text"
-								>
-								</faq-item>
-							</faq-list>
-
-							<author v-if="pageable.author" :author="pageable.author" />
-
-<!-- 							<comments
-								commentable_type="App\RoomCategory"
-								:commentable_id="pageable.id"
-							/> -->
-						</template>
-					</page-article>
-				</div>
+						<author v-if="pageable.author" :author="pageable.author" />
+					</template>
+				</page-article>
+			</div>
 
 			<aside class="rooms__aside">
 				<client-only>
@@ -142,7 +137,7 @@
 						:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
 						@click.self="handleOutsideClick($event)"
 					>
-						<LazyHydrate when-visible>
+						<lazy-hydrate when-visible>
 							<room-category-filters
 								class="rooms__aside__filter"
 								:kycs="filters.kycs"
@@ -163,38 +158,37 @@
 								@change="handleFilterChange"
 								@filterOpen="handleFilterOpen"
 							/>
-						</LazyHydrate>
+						</lazy-hydrate>
 					</div>
 				</client-only>
 
-					<div v-if="!pageable.is_blacklist" class="block-title">
-						{{ $t('promotion_recent') }}
-					</div>
+				<template v-if="promotions && !pageable.is_blacklist">
+					<div class="block-title">{{ $t('promotion_recent') }}</div>
+					<lazy-hydrate when-visible>
+						<div class="rooms__aside__promotions-list">
+							<lazy-promotion-item
+								v-for="(item, index) in promotions"
+								:key="index"
+								:image="item.image"
+								:title="item.title"
+								:summary="item.summary"
+								:page="item.page"
+								:author="item.page.author"
+								:created="item.created_at"
+								:category="item.category"
+								:time_left="item.time_left"
+								:time_before="item.time_before"
+								:prize="item.prize"
+								:currency="item.currency ? item.currency.symbol : '$'"
+								:exclusive="item.exclusive"
+							/>
+						</div>
+					</lazy-hydrate>
+				</template>
 
-					<div
-						v-if="promotions && !pageable.is_blacklist"
-						class="rooms__aside__promotions-list"
-					>
-						<promotion-item
-							v-for="(item, index) in promotions"
-							:key="index"
-							:image="item.image"
-							:title="item.title"
-							:summary="item.summary"
-							:page="item.page"
-							:author="item.page.author"
-							:created="item.created_at"
-							:category="item.category"
-							:time_left="item.time_left"
-							:time_before="item.time_before"
-							:prize="item.prize"
-							:currency="item.currency ? item.currency.symbol : '$'"
-							:exclusive="item.exclusive"
-						></promotion-item>
-					</div>
-
-					<topic-list v-if="pageable.topics.length">
-						<topic-item
+				<lazy-hydrate when-visible>
+					<topic-list v-if="pageable.topics && pageable.topics.length">
+						<lazy-topic-item
 							v-for="(item, index) in pageable.topics"
 							:key="index"
 							:title="item.title"
@@ -203,8 +197,12 @@
 							:created="item.created_at"
 						/>
 					</topic-list>
+				</lazy-hydrate>
 
-					<game-search-banner />
+				<lazy-hydrate when-visible>
+					<lazy-game-search-banner />
+				</lazy-hydrate>
+
 			</aside>
 		</div>
 			<div class="rooms__page-banners">
