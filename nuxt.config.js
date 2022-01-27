@@ -89,13 +89,13 @@ export default {
 		scss: ['~assets/sass/_mixins.scss'],
 	},
 
-	render: {
-		bundleRenderer: {
-			shouldPreload: (file, type) => {
-				return ['script', 'style', 'font'].includes(type)
-			}
-		}
-	},
+	// render: {
+	// 	bundleRenderer: {
+	// 		shouldPreload: (file, type) => {
+	// 			return ['script', 'style', 'font'].includes(type)
+	// 		}
+	// 	}
+	// },
 
 	axios: {
 		baseURL: process.env.apiUrl,

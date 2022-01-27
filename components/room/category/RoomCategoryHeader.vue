@@ -102,6 +102,14 @@
 	export default {
 		components: {},
 
+		head() {
+			return {
+				link: [
+					{rel: 'preload', href: require(`~/assets/i/rooms-bg.jpg`), as: 'image'}
+				],
+			}
+		},
+
 		props: {
 			loading: {
 				type: [Boolean, Number],
