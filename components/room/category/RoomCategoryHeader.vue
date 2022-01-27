@@ -105,7 +105,7 @@
 		head() {
 			return {
 				link: [
-					{rel: 'preload', href: require(`~/assets/i/rooms-bg.jpg`), as: 'image'}
+					{rel: 'preload', href: require(`~/assets/i/rooms-bg.webp`), as: 'image'}
 				],
 			}
 		},
@@ -139,7 +139,7 @@
 </script>
 
 <style lang="scss">
-	$rooms-bg: url('~assets/i/rooms-bg.jpg');
+	$rooms-bg: url('~assets/i/rooms-bg.webp');
 	.rooms {
 		&-header {
 			max-width: 1440px;
