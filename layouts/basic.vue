@@ -272,6 +272,7 @@
 			return {
 				link: [
 					{rel: 'preconnect', href: process.env.apiHost},
+					{rel: 'dns-prefetch', href: process.env.apiHost},
 				],
 			}
 		},
