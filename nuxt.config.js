@@ -88,7 +88,20 @@ export default {
 				size: 'invisible'
 			}
 		],
+		[
+			'nuxt-compress',
+			{
+				gzip: {
+					threshold: 8192,
+				},
+				brotli: {
+					threshold: 8192,
+				},
+			},
+		],
 	],
+
+	buildModules: ['nuxt-compress'],
 
 	// image: {
 	// 	domains: ['media.worldpokerdeals01.com'],
