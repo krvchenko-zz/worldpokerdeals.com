@@ -51,10 +51,6 @@ export default {
 		middleware: ['locale', 'location', 'check-auth'],
 	},
 
-	// serverMiddleware: {
-	// 	'/_ipx': '~/server/middleware/ipx.js'
-	// },
-
 	css: [{ src: '~assets/sass/app.scss', lang: 'scss' }],
 
 	components: true,
@@ -88,36 +84,11 @@ export default {
 				size: 'invisible'
 			}
 		],
-		[
-			'nuxt-compress',
-			{
-				gzip: {
-					threshold: 8192,
-				},
-				brotli: {
-					threshold: 8192,
-				},
-			},
-		],
 	],
-
-	buildModules: ['nuxt-compress'],
-
-	// image: {
-	// 	domains: ['media.worldpokerdeals01.com'],
-	// },
 
 	styleResources: {
 		scss: ['~assets/sass/_mixins.scss'],
 	},
-
-	// render: {
-	// 	bundleRenderer: {
-	// 		shouldPreload: (file, type) => {
-	// 			return ['script', 'style', 'font'].includes(type)
-	// 		}
-	// 	}
-	// },
 
 	axios: {
 		baseURL: process.env.apiUrl,
