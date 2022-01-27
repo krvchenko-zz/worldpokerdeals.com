@@ -268,6 +268,14 @@
 			LazyHydrate
 		},
 
+		head() {
+			return {
+				link: [
+					{rel: 'preconnect', href: process.env.apiHost},
+				],
+			}
+		},
+
 		computed: {
 			...mapGetters({
 				locale: 'lang/locale',

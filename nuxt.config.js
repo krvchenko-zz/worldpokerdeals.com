@@ -3,6 +3,7 @@ require('dotenv').config()
 export default {
 	env: {
 		apiUrl: process.env.API_URL,
+		apiHost: process.env.API_HOST,
 		mediaUrl: process.env.MEDIA_URL,
 		mediaHost: process.env.MEDIA_HOST,
 		hostName: process.env.HOST_NAME,
