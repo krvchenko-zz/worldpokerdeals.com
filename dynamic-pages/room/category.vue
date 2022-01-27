@@ -130,37 +130,37 @@
 			</div>
 
 			<aside class="rooms__aside">
-				<client-only>
-					<div
-						v-if="filters && !pageable.is_blacklist"
-						class="rooms__aside__filter-wrapper"
-						:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
-						@click.self="handleOutsideClick($event)"
-					>
-						<lazy-hydrate when-visible>
-							<room-category-filters
-								class="rooms__aside__filter"
-								:kycs="filters.kycs"
-								:platforms="filters.platforms"
-								:tags="filters.tags"
-								:payments="filters.payments"
-								:types="filters.types"
-								:networks="filters.networks"
-								:licenses="filters.licenses"
-								:limits="filters.limits"
-								:disciplines="filters.disciplines"
-								:games="filters.games"
-								:huds="filters.huds"
-								:certificates="filters.certificates"
-								:geo.sync="geo"
-								@update:sort="handleSortChange"
-								@update:geo="handleGeoChange"
-								@change="handleFilterChange"
-								@filterOpen="handleFilterOpen"
-							/>
-						</lazy-hydrate>
-					</div>
-				</client-only>
+				<!-- <client-only> -->
+				<div
+					v-if="filters && !pageable.is_blacklist"
+					class="rooms__aside__filter-wrapper"
+					:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
+					@click.self="handleOutsideClick($event)"
+				>
+					<lazy-hydrate when-visible>
+						<room-category-filters
+							class="rooms__aside__filter"
+							:kycs="filters.kycs"
+							:platforms="filters.platforms"
+							:tags="filters.tags"
+							:payments="filters.payments"
+							:types="filters.types"
+							:networks="filters.networks"
+							:licenses="filters.licenses"
+							:limits="filters.limits"
+							:disciplines="filters.disciplines"
+							:games="filters.games"
+							:huds="filters.huds"
+							:certificates="filters.certificates"
+							:geo.sync="geo"
+							@update:sort="handleSortChange"
+							@update:geo="handleGeoChange"
+							@change="handleFilterChange"
+							@filterOpen="handleFilterOpen"
+						/>
+					</lazy-hydrate>
+				</div>
+				<!-- </client-only> -->
 
 				<template v-if="promotions && !pageable.is_blacklist">
 					<div class="block-title">{{ $t('promotion_recent') }}</div>
@@ -205,9 +205,11 @@
 
 			</aside>
 		</div>
-			<div class="rooms__page-banners">
-				<page-banners />
-			</div>
+		<div class="rooms__page-banners">
+			<lazy-hydrate when-visible>
+				<lazy-page-banners />
+			</lazy-hydrate>
+		</div>
 	</div>
 </template>
 
