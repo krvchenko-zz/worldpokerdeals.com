@@ -65,10 +65,6 @@
 						<div class="footer-rooms__label">{{ $t('rooms_best') }}</div>
 						<ul
 							class="footer-rooms__list"
-							@dragscrollstart="isDraggingTopRooms = true"
-							@dragscrollend="isDraggingTopRooms = false"
-							:class="{ 'disable-dragging': isDraggingTopRooms }"
-							v-dragscroll
 						>
 							<nuxt-link
 								v-for="(item, index) in topList"
@@ -368,7 +364,6 @@
 
 				<div class="footer-links__wrapper">
 					<div class="footer-links">
-						<!-- <a class="footer-links__link" href="#"><span>Дисклеймер</span></a> -->
 						<a class="footer-links__link" href="/terms"
 							><span>{{ $t('menu.terms') }}</span></a
 						>
@@ -424,13 +419,6 @@
 				menu: 'menu/items',
 				locale: 'lang/locale',
 			}),
-		},
-
-		async fetch() {
-			// await this.$axios.get('/menu/list').then((response) => {
-			//   this.$store.commit('menu/FETCH_ITEMS', { items: response.data })
-			// }, (e) => {
-			// })
 		},
 
 		watch: {},

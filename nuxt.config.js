@@ -65,7 +65,7 @@ export default {
 		'~/plugins/asyncComputed',
 		{ src: '~/plugins/glightbox', mode: 'client' },
 		{ src: '~/plugins/vue-carousel', mode: 'client' },
-		{ src: '~/plugins/vue-dragscroll', mode: 'client' },
+		// { src: '~/plugins/vue-dragscroll', mode: 'client' },
 		// { src: '~/plugins/smoothscroll', mode: 'client' },
 	],
 
@@ -99,11 +99,11 @@ export default {
 	build: {
 		extractCSS: true,
 		// analyze: true,
-		// splitChunks: {
-		// 	layouts: false,
-		// 	pages: true,
-		// 	commons: false
-		// },
+		splitChunks: {
+			layouts: false,
+			pages: false,
+			commons: false
+		},
 		babel: {
 			presets: ['@nuxt/babel-preset-app'],
 			plugins: [

@@ -62,13 +62,6 @@
 				'~/dynamic-pages/platform/category'
 			),
 
-			PokerRule: () => import(
-				'~/dynamic-pages/rule/index'
-			),
-			PokerRuleCategory: () => import(
-				'~/dynamic-pages/rule/category'
-			),
-
 			Post: () => import(
 				'~/dynamic-pages/post/index'
 			),
@@ -156,10 +149,6 @@
 			},
 
 			canocical() {
-				// let value = [
-				// 	{ rel: 'canonical', href: this.pageable ? this.url : '' },
-				// ]
-
 				let value = [
 					{
 						rel: 'canonical',
@@ -217,10 +206,6 @@
 					return 'PlatformCategory'
 				else if (type === 'App\\PaymentMethodCategory')
 					return 'PaymentMethodCategory'
-				else if (type === 'App\\PokerRuleCategory')
-					return 'PokerRuleCategory'
-				else if (type === 'App\\PokerRule')
-					return 'PokerRule'
 				else if (type === 'App\\GameCategory')
 					return 'GameCategory'
 				else if (type === 'App\\SoftCategory')

@@ -1,11 +1,5 @@
 <template>
-	<div
-		class="page-banners"
-		@dragscrollstart="isDragging = true"
-		@dragscrollend="isDragging = false"
-		v-dragscroll
-		:class="{ 'disable-dragging': isDragging }"
-	>
+	<div class="page-banners">
 		<div class="page-banners__wrap">
 			<page-banners-item
 				v-if="item.page"
@@ -179,8 +173,8 @@
 			overflow-x: scroll;
 			@include hide-scroll();
 			cursor: grab;
-			margin-right: -24px;
-			width: calc(100% + 24px);
+			margin-right: -20px;
+			width: calc(100% + 20px);
 			&_front {
 				@include paddings('laptop');
 			}
