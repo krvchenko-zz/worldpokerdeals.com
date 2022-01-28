@@ -34,13 +34,7 @@
 			<p class="front-top__awards-title">
 				{{ $t('our_awards') }}
 			</p>
-			<div
-				class="front-top-awards"
-				@dragscrollstart="isDragging = true"
-				@dragscrollend="isDragging = false"
-				:class="{ 'disable-dragging': isDragging }"
-				v-dragscroll
-			>
+			<div class="front-top-awards">
 				<a
 					class="front-top-awards__item"
 					href="https://www.igbaffiliate.com/awards/igb-affiliate-awards"

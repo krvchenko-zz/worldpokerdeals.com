@@ -259,14 +259,16 @@
 		</lazy-hydrate>
 		<!-- Go top -->
 		<client-only v-if="!$device.isMobile" name="fade">
-			<page-top />
+			<lazy-hydrate when-visible>
+				<page-top />
+			</lazy-hydrate>
 		</client-only>
 		<!-- Cookie Policy -->
-		<lazy-hydrate when-visible>
-			<client-only>
-				<cookie-policy v-if="(cookie === 'false' || !cookie) && locale !== 'ru'" />
-			</client-only>
-		</lazy-hydrate>
+		<client-only v-if="(cookie === 'false' || !cookie) && locale !== 'ru'">
+			<lazy-hydrate when-visible>
+				<cookie-policy />
+			</lazy-hydrate>
+		</client-only>
 	</div>
 </template>
 
