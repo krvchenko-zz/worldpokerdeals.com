@@ -328,6 +328,9 @@
 		background: #fafafa;
 		transition: all 0.5s ease;
 		overflow: hidden;
+		&:first-child {
+			margin-top: 0;
+		}
 		&:hover {
 			border: 1px solid transparent;
 			background: #ffffff;

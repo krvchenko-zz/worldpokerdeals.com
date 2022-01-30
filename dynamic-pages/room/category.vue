@@ -1,49 +1,128 @@
 <template>
-	<div class="rooms">
-		<!-- Header -->
-		<room-category-header :loading="$fetchState.pending" />
-
-		<div class="rooms__catalog">
-			<div class="rooms__rooms-container">
-				<client-only>
-					<filter-header
-						v-if="!pageable.is_blacklist"
-						class="rooms__filter-header"
-						:geo.sync="geo"
-						:sort.sync="sort"
-						:total.sync="total"
-						:overall.sync="overall"
-						:sort-options="sortOptions"
-						:selected="selected.length"
-						:entity-label="$t('rooms_entity_label')"
-						@update:sort="handleSortChange"
-						@update:geo="handleGeoChange"
-					/>
-
-					<filter-selected-list
-						v-if="selected.length &&!pageable.is_blacklist"
-						class="rooms__filter-selected"
+	<div class="rooms-page">
+		<div class="rooms">
+			<!-- Header -->
+			<category-header
+				class="rooms__header"
+				:loading="$fetchState.pending"
+				:meta="true"
+				:title="pageable.title"
+				:author="pageable.author ? pageable.author.full_name : null"
+				:created="pageable.created_at"
+				:updated="pageable.updated_at"
+				:summary="pageable.summary"
+				:icon="pageable.pageable.icon"
+				background-url="rooms-bg.webp"
+			>
+				<template #breadcrumbs>
+					<breadcrumb-list
+						:white="true"
+						:auto="false"
+						class="rooms-header__breadcrumbs"
 					>
-						<filter-selected
-							v-for="(item, index) in selected"
-							:key="index"
-							:label="item.label"
-							:value="item.value"
-							:item-key="item.key"
+						<breadcrumb-item
+							v-if="pageable.slug !== 'best-poker-rooms-2020'"
+							slug="best-poker-rooms-2020"
+							:title="$t('menu.best_rooms')"
+							:index="1"
+							:parent="{
+								slug: 'rakeback-deals'
+							}"
+							:last="pageable.slug !== 'best-poker-rooms-2020' ? false : true"
+							:white="true"
 						/>
-						<filter-selected
-							:key="null"
-							:label="$t('clear_filters')"
-							:clear="true"
-							:value="null"
+						<breadcrumb-item
+							:slug="pageable.slug"
+							:title="pageable.title"
+							:index="pageable.slug !== 'best-poker-rooms-2020' ? 2 : 1"
+							:parent="{
+								slug: 'rakeback-deals'
+							}"
+							:last="true"
+							:white="true"
 						/>
-					</filter-selected-list>
-				</client-only>
+					</breadcrumb-list>
+				</template>
 
-				<div v-if="$fetchState.pending" class="rooms-list">
+				<template #promotion>
+					<room-top
+						v-if="best && !$fetchState.pending"
+						class="room-header__room-top"
+						:id="best.id"
+						:title="best.title"
+						:slug="best.slug"
+						:url="best.url"
+						:restricted="best.restricted"
+						:country="country"
+						:rating="best.rating"
+						:bonus="best.top_bonus"
+						:review="best.review"
+						:label="$t('room_best')"
+					/>
+					<skeleton-top-room
+						v-else
+						class="room-header__room-top"
+						:label="$t('room_best')"
+					/>
+				</template>
+			</category-header>
+
+			<!-- Navs -->
+			<div v-if="categories && categories.length" class="rooms__nav">
+				<nav-list>
+					<nav-item
+						v-for="(item, index) in categories"
+						:key="index"
+						:name="item.label"
+						:page="item.page"
+						:icon="item.icon_small"
+					/>
+				</nav-list>
+			</div>
+
+			<!-- Container -->
+			<div class="rooms__container">
+				<div class="rooms__filter">
+					<client-only>
+						<filter-header
+							v-if="!pageable.is_blacklist"
+							class="rooms__filter"
+							:geo.sync="geo"
+							:sort.sync="sort"
+							:total.sync="total"
+							:overall.sync="overall"
+							:sort-options="sortOptions"
+							:selected="selected.length"
+							:entity-label="$t('rooms_entity_label')"
+							@update:sort="handleSortChange"
+							@update:geo="handleGeoChange"
+						/>
+
+						<filter-selected-list
+							v-if="selected.length &&!pageable.is_blacklist"
+							class="filters-selected rooms__filter-selected"
+						>
+							<filter-selected
+								v-for="(item, index) in selected"
+								:key="index"
+								:label="item.label"
+								:value="item.value"
+								:item-key="item.key"
+							/>
+							<filter-selected
+								:key="null"
+								:label="$t('clear_filters')"
+								:clear="true"
+								:value="null"
+							/>
+						</filter-selected-list>
+					</client-only>
+				</div>
+
+				<div v-if="$fetchState.pending" class="rooms-list rooms__list">
 					<lazy-skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
 				</div>
-				<div v-else class="rooms-list">
+				<div v-else class="rooms-list rooms__list">
 					<template v-for="(item, index) in items">
 						<lazy-room
 							v-if="!item.banner"
@@ -69,48 +148,47 @@
 						/>
 						<lazy-room-category-banner v-else :key="index" />
 					</template>
-
-					<lazy-hydrate when-visible>
-						<lazy-pagination
-							:query="true"
-							:last="last_page"
-							:current="parseInt(page) || current_page"
-							:prev-url="prev_page_url"
-							:next-url="next_page_url"
-							:total="total"
-							:from="from"
-							:to="to"
-							:load-more-width="$device.isDesktop ? 215 : false"
-							:showPages="false"
-							:load-more-text="$t('show_more')"
-							:total-text="$t('rooms_entity_label')"
-							@next="handlePageNext"
-							@prev="handlePagePrev"
-							@change="handlePageChange"
-							@more="handleShowMore"
-						/>
-					</lazy-hydrate>
 				</div>
-			</div>
 
-			<div class="rooms__toc">
-				<toc-list v-if="pageable.toc">
-					<template #default="{ inline }">
-						<toc-item
-							v-for="(item, index) in pageable.toc"
-							:key="index"
-							:index="index"
-							:inline="inline"
-							:anchor="item.anchor_id"
-							:text="item.text"
-						>
-						</toc-item>
-					</template>
-				</toc-list>
-			</div>
+				<lazy-hydrate when-visible>
+					<lazy-pagination
+						:query="true"
+						:last="last_page"
+						:current="parseInt(page) || current_page"
+						:prev-url="prev_page_url"
+						:next-url="next_page_url"
+						:total="total"
+						:from="from"
+						:to="to"
+						:load-more-width="$device.isDesktop ? 215 : false"
+						:showPages="false"
+						:load-more-text="$t('show_more')"
+						:total-text="$t('rooms_entity_label')"
+						class="rooms__pagination"
+						@next="handlePageNext"
+						@prev="handlePagePrev"
+						@change="handlePageChange"
+						@more="handleShowMore"
+					/>
+				</lazy-hydrate>
 
-			<div class="rooms__info">
-				<page-article :title="false" :text="pageable.text">
+				<div class="rooms__toc">
+					<toc-list v-if="pageable.toc">
+						<template #default="{ inline }">
+							<toc-item
+								v-for="(item, index) in pageable.toc"
+								:key="index"
+								:index="index"
+								:inline="inline"
+								:anchor="item.anchor_id"
+								:text="item.text"
+							>
+							</toc-item>
+						</template>
+					</toc-list>
+				</div>
+
+				<page-article class="rooms__article" :title="false" :text="pageable.text">
 					<template #footer>
 						<faq-list
 							v-if="pageable.faq && pageable.faq.mainEntity.length"
@@ -130,17 +208,16 @@
 				</page-article>
 			</div>
 
+			<!-- Aside -->
 			<aside class="rooms__aside">
-				<!-- <client-only> -->
 				<div
 					v-if="filters && !pageable.is_blacklist"
-					class="rooms__aside__filter-wrapper"
-					:class="{ 'rooms__aside__filter-wrapper--opened': showFilter }"
+					class="filters__wrapper"
+					:class="{ 'filters__wrapper--opened': showFilter }"
 					@click.self="handleOutsideClick($event)"
 				>
 					<lazy-hydrate when-visible>
 						<room-category-filters
-							class="rooms__aside__filter"
 							:kycs="filters.kycs"
 							:platforms="filters.platforms"
 							:tags="filters.tags"
@@ -161,7 +238,6 @@
 						/>
 					</lazy-hydrate>
 				</div>
-				<!-- </client-only> -->
 
 				<template v-if="promotions && !pageable.is_blacklist">
 					<div class="block-title">{{ $t('promotion_recent') }}</div>
@@ -203,7 +279,6 @@
 				<lazy-hydrate when-visible>
 					<lazy-game-search-banner />
 				</lazy-hydrate>
-
 			</aside>
 		</div>
 		<div class="rooms__page-banners">
@@ -236,6 +311,7 @@
 				best: 'rooms/best',
 				filters: 'rooms/filters',
 				promotions: 'promotions/items',
+				categories: 'rooms/categories',
 			}),
 
 			params() {
@@ -438,128 +514,101 @@
 
 <style lang="scss">
 	.rooms {
-		max-width: 100%;
-		&__catalog {
-			display: grid;
-			grid-template-columns: [left-part] 2fr [central-part] minmax(0, 7fr) [right-part] 3fr;
-			column-gap: 28px;
-			grid-template-areas:
-				'rooms-container rooms-container aside'
-				'toc info aside';
-			@include paddings('desktop');
+		&-page {
 			max-width: 1440px;
+			width: 100%;
+			@include paddings('desktop');
 		}
-		&__rooms-container {
-			grid-area: rooms-container;
-			display: flex;
-			flex-direction: column;
+		display: grid;
+		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
+		column-gap: 28px;
+		grid-template-areas:
+			'header header header'
+			'nav nav nav'
+			'container container aside';
+		&__nav {
+			grid-area: nav;
+			margin-top: -26px;
+			margin-bottom: 32px;
 		}
-		&__filter-header {
+		&__container {
+			grid-area: container;
+			display: grid;
+			grid-template-columns: 2fr minmax(0, 7fr);
+			column-gap: 28px;
+			grid-auto-rows: max-content;
+			grid-template-areas:
+				'filter filter'
+				'list list'
+				'pagination pagination'
+				'toc article';
 		}
-		&__filter-selected {
+		&__header {
+			grid-area: header;
 		}
-		&__aside {
-			grid-area: aside;
+		&__filter {
+			grid-area: filter;
+		}
+		&__article {
+			grid-area: article;
+			padding-left: 14px;
+			padding-right: 28px;
+		}
+		&__list {
+			grid-area: list;
+		}
+		&__pagination {
+			grid-area: pagination;
 		}
 		&__toc {
 			grid-area: toc;
 			padding-right: 14px;
 		}
-		&__info {
-			grid-area: info;
-			padding-left: 14px;
-			padding-right: 28px;
-		}
-		&__page-banners {
-			padding-left: 26px;
-		}
-	}
-
-	.rooms-list {
-		margin-top: -20px;
-	}
-
-	.rooms-top {
-		margin-bottom: 24px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		&__geo {
-			margin-left: auto;
-			margin-right: 24px;
-			&-label {
-				margin-right: 16px;
-				display: inline-flex;
-				font-family: 'Proxima Nova';
-				font-size: 14px;
-				line-height: 16px;
-				color: #333333;
-			}
-		}
-
-		&__info {
-			font-family: 'Proxima Nova';
-			font-style: normal;
-			font-weight: normal;
-			font-size: 16px;
-			line-height: 16px;
-			color: #222222;
+		&__aside {
+			grid-area: aside;
 		}
 	}
 
 	@include mq('desktop') {
 		.rooms {
-			&__catalog {
-				gap: 24px;
-				grid-template-columns: [left-part] 2fr [central-part] minmax(704px, 7fr) [right-part] minmax(
-						288px,
-						3fr
-					);
+			grid-template-columns: 2fr minmax(704px, 7fr) minmax(288px, 1fr);
+			column-gap: 24px;
+			&__container {
+				column-gap: 24px;
+				grid-template-columns: 2fr minmax(704px, 7fr);
 			}
 			&__toc {
-				grid-area: toc;
-				padding-right: 0px;
+				padding-right: 0;
 			}
-			&__info {
+			&__article {
 				padding-left: 0;
-				padding-right: 0px;
+				padding-right: 0;
 			}
 		}
 	}
 
 	@include mq('laptop') {
 		.rooms {
-			&__catalog {
+			&-page {
 				@include paddings('tablet');
+			}
+			grid-template-columns: 100%;
+			grid-template-areas:
+				'header'
+				'nav'
+				'container'
+				'aside';
+			&__container {
 				grid-template-columns: 100%;
 				grid-template-areas:
-					'rooms-container'
+					'filter'
+					'list'
+					'pagination'
 					'toc'
-					'info'
-					'aside';
+					'article';
 			}
 			&__aside {
-				&__filter {
-					margin-bottom: 0;
-					margin-left: auto;
-					max-width: 436px;
-					height: 100%;
-					overflow-y: scroll;
-					@include hide-scroll();
-				}
-				&__filter-wrapper {
-					display: none;
-					position: fixed;
-					right: 0;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					z-index: 999;
-					&--opened {
-						display: block;
-					}
-				}
+				margin-top: 40px;
 				&__promotions-list {
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
@@ -567,25 +616,23 @@
 				}
 			}
 			&__page-banners {
-				padding-left: 24px;
+				// width: initial;
+				// margin-right: -24px;
+				// padding-top: 0;
+				// padding-left: 0;
 			}
-		}
-
-		.room-list {
-			margin-left: -20px;
-			margin-right: -20px;
 		}
 	}
 
 	@include mq('tablet') {
 		.rooms {
-			&__catalog {
+			&-page {
 				@include paddings('mobile');
 			}
-			&__page-banners {
-				padding-left: 20px;
-				overflow: hidden;
+			&__list {
+				grid-template-columns: 100%;
 			}
+
 			&__aside {
 				&__promotions-list {
 					display: grid;
@@ -596,10 +643,22 @@
 					column-gap: 16px;
 				}
 			}
-		}
-		.rooms-list {
-			margin-left: -20px;
-			margin-right: -20px;
+
+			.room-item {
+				max-width: none;
+				&__img {
+					width: 100%;
+				}
+				&__prize {
+					max-width: 326px;
+					margin-left: auto;
+					margin-right: auto;
+				}
+			}
+
+			&__page-banners {
+				// margin-right: -20px;
+			}
 		}
 	}
 </style>

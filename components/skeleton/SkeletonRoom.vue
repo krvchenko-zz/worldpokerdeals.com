@@ -95,6 +95,9 @@
 		background: #fafafa;
 		transition: all 0.5s ease;
 		overflow: hidden;
+		&:first-child {
+			margin-top: 0;
+		}
 		&__wrap {
 			width: 100%;
 			display: grid;

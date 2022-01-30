@@ -2,7 +2,80 @@
 	<div v-if="category" class="promotions-page">
 		<div class="promotions">
 			<!-- Header -->
-			<promotion-category-header class="promotions__header" />
+			<!-- <promotion-category-header class="promotions__header" /> -->
+
+			<category-header
+				class="promotions__header"
+				:meta="true"
+				:loading="$fetchState.pending"
+				:title="pageable.title"
+				:author="
+						pageable.author
+					? pageable.author.full_name
+					: null
+				"
+				:created="pageable.created_at"
+				:updated="pageable.updated_at"
+				:summary="pageable.summary"
+				:icon="
+						pageable.pageable.entity === 'promotion'
+					? 'promotion-category' 
+					: 'bonus-category'
+				"
+				background-url="promotions-bg.jpg"
+			>
+				<template #breadcrumbs>
+					<breadcrumb-list
+						class="promotions-header__breadcrumbs"
+						:white="true"
+					/>
+				</template>
+
+				<template v-if="category.entity === 'bonus'" #promotion>
+					<room-top
+						v-if="best && !$fetchState.pending"
+						:id="best.id"
+						:title="best.title"
+						:slug="best.slug"
+						:url="best.url"
+						:restricted="best.restricted"
+						:country="country"
+						:rating="best.rating"
+						:bonus="best.top_bonus"
+						:review="best.review"
+						:label="$t('bonus_best')"
+					/>
+					<skeleton-top-room
+						v-else
+						class="promotions-header__room-top"
+						:label="$t('room_best')"
+					/>
+				</template>
+				<template v-else #promotion>
+					<promotion-item
+						v-if="category.promotion && category.entity === 'promotion'"
+						:image="category.promotion.image"
+						:title="category.promotion.page.title"
+						:summary="category.promotion.summary"
+						:page="category.promotion.page"
+						:author="category.promotion.page.author"
+						:created="category.promotion.created_at"
+						:category="category.promotion.category"
+						:time_left="category.promotion.time_left"
+						:time_before="category.promotion.time_before"
+						:regularity="category.promotion.regularity"
+						:prize="category.promotion.prize"
+						:currency="
+							category.promotion.currency
+								? category.promotion.currency.symbol
+								: ''
+						"
+						:exclusive="category.promotion.exclusive"
+						:active="category.promotion.active"
+						:featured="true"
+					/>
+				</template>
+			</category-header>
 
 			<nav-list class="promotions__nav">
 				<nav-item
