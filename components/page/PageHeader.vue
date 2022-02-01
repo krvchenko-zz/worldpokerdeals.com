@@ -296,11 +296,13 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'PageHeader',
 
 		components: {
+			LazyHydrate,
 			SearchDropdown: () => import('~/components/search/SearchDropdown'),
 			SearchLoader: () => import('~/components/search/SearchLoader'),
 			MenuLangSwitcher: () => import('~/components/lang/MenuLangSwitcher'),
