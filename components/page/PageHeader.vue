@@ -68,32 +68,30 @@
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
 									/>
 								</a>
-								<transition name="fade">
-									<lazy-hydrate>
-										<client-only>
-											<page-menu
-												:width="isDesktop ? 900 : menuWidth"
-												:items="menu.rooms"
-												:columns="isDesktop ? 2 : 1"
-												@menuClicked="handleLinkClicked"
-											>
-												<template #after>
-													<room-top-list
-														:label="$t('best_rooms')"
-														type="menu"
-														:menu="true"
-														:style="{
-															flex: '0 0 300px',
-															position: 'relative',
-															zIndex: '2',
-															boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
-														}"
-													/>
-												</template>
-											</page-menu>
-										</client-only>
-									</lazy-hydrate>
-								</transition>
+								<client-only>
+									<transition name="fade">
+										<lazy-page-menu
+											:width="isDesktop ? 900 : menuWidth"
+											:items="menu.rooms"
+											:columns="isDesktop ? 2 : 1"
+											@menuClicked="handleLinkClicked"
+										>
+											<template #after>
+												<room-top-list
+													:label="$t('best_rooms')"
+													type="menu"
+													:menu="true"
+													:style="{
+														flex: '0 0 300px',
+														position: 'relative',
+														zIndex: '2',
+														boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
+													}"
+												/>
+											</template>
+										</lazy-page-menu>
+									</transition>
+								</client-only>
 							</li>
 							<li
 								class="header-nav__item"
@@ -109,16 +107,14 @@
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
 									/>
 								</a>
-								<transition name="fade">
-									<lazy-hydrate>
-										<client-only>
-											<page-menu
-												:items="menu.posts"
-												@menuClicked="handleLinkClicked"
-											/>
-										</client-only>
-									</lazy-hydrate>
-								</transition>
+								<client-only>
+									<transition name="fade">
+										<lazy-page-menu
+											:items="menu.posts"
+											@menuClicked="handleLinkClicked"
+										/>
+									</transition>
+								</client-only>
 							</li>
 							<li
 								class="header-nav__item"
@@ -134,28 +130,26 @@
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
 									/>
 								</a>
-								<transition name="fade">
-									<lazy-hydrate>
-										<client-only>
-											<page-menu
-												:items="menu.promotions"
-												:width="isDesktop ? 600 : menuWidth"
-												@menuClicked="handleLinkClicked"
-											>
-												<template v-if="isDesktop" #after>
-													<payment-menu
-														:style="{
-															flex: '0 0 300px',
-															position: 'relative',
-															zIndex: '2',
-															boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
-														}"
-													/>
-												</template>
-											</page-menu>
-										</client-only>
-									</lazy-hydrate>
-								</transition>
+								<client-only>
+									<transition name="fade">
+										<lazy-page-menu
+											:items="menu.promotions"
+											:width="isDesktop ? 600 : menuWidth"
+											@menuClicked="handleLinkClicked"
+										>
+											<template v-if="isDesktop" #after>
+												<payment-menu
+													:style="{
+														flex: '0 0 300px',
+														position: 'relative',
+														zIndex: '2',
+														boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
+													}"
+												/>
+											</template>
+										</lazy-page-menu>
+									</transition>
+								</client-only>
 							</li>
 
 							<li
@@ -172,18 +166,16 @@
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
 									/>
 								</a>
-								<transition name="fade">
-									<lazy-hydrate>
-										<client-only>
-											<page-menu
-												:items="menu.poker"
-												:columns="1"
-												:width="isDesktop ? 300 : menuWidth"
-												@menuClicked="handleLinkClicked"
-											/>
-										</client-only>
-									</lazy-hydrate>
-								</transition>
+								<client-only>
+									<transition name="fade">
+										<lazy-page-menu
+											:items="menu.poker"
+											:columns="1"
+											:width="isDesktop ? 300 : menuWidth"
+											@menuClicked="handleLinkClicked"
+										/>
+									</transition>
+								</client-only>
 							</li>
 
 							<li
@@ -200,16 +192,14 @@
 										src="~assets/i/layout/header/ico-arrow-down.svg?data"
 									/>
 								</a>
-								<transition name="fade">
-									<lazy-hydrate>
-										<client-only>
-											<page-menu
-												:items="menu.about"
-												@menuClicked="handleLinkClicked"
-											/>
-										</client-only>
-									</lazy-hydrate>
-								</transition>
+								<client-only>
+									<transition name="fade">
+										<lazy-page-menu
+											:items="menu.about"
+											@menuClicked="handleLinkClicked"
+										/>
+									</transition>
+								</client-only>
 							</li>
 
 							<li class="header-nav__item header-nav__item__lang">
@@ -296,13 +286,11 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
-	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'PageHeader',
 
 		components: {
-			LazyHydrate,
 			SearchDropdown: () => import('~/components/search/SearchDropdown'),
 			SearchLoader: () => import('~/components/search/SearchLoader'),
 			MenuLangSwitcher: () => import('~/components/lang/MenuLangSwitcher'),
