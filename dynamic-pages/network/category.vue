@@ -1,24 +1,21 @@
 <template>
 	<div class="networks-page">
 		<div class="networks">
-			<div class="networks-header" :style="{
-				background: `url(${require('~/assets/i/networks-bg.jpg')}) no-repeat center top`
-			}">
-				<div class="networks-header__wrap">
-					<breadcrumb-list :white="true" />
-					<h1 class="networks__title">{{ pageable.title }}</h1>
-				</div>
-			</div>
+			<hub-header
+				class="networks-header"
+				:title="pageable.title"
+				:summary="pageable.summary"
+				background="networks-bg.jpg"
+			/>
 			<div class="networks__list">
-				<network-item
+				<nav-box-item
 					v-for="(item, index) in networks"
 					:key="index"
 					:title="item.title"
-					:url="item.url"
-					:rooms="item.rooms"
+					:icon="item.url"
+					:rooms="item.rooms_count"
 					:page="item.page"
-				>
-				</network-item>
+				/>
 			</div>
 		</div>
 	</div>
@@ -63,7 +60,7 @@
 						title: item.title,
 						url: item.url,
 						slug: item.slug,
-						rooms: item.rooms_count,
+						rooms_count: item.rooms_count,
 						page: item.page,
 					})),
 				})
@@ -87,25 +84,11 @@
 			width: 100%;
 			@include paddings('desktop');
 		}
-		&-header {
-			margin: 0 -26px 32px -26px;
-			margin-bottom: 32px;
-			padding: 0 26px 32px 26px;
-		}
 		&__list {
 			display: grid;
 			column-gap: 28px;
 			row-gap: 24px;
 			grid-template-columns: repeat(4, 1fr);
-		}
-		&__title {
-			text-align: center;
-			margin: 0;
-			font-family: Proxima Nova;
-			font-weight: bold;
-			font-size: 32px;
-			line-height: 36px;
-			color: #ffffff;
 		}
 	}
 
@@ -120,10 +103,6 @@
 		.networks-page {
 			@include paddings('laptop');
 		}
-		.networks-header {
-			@include paddings('laptop');
-			margin: 0 -24px 24px -24px;
-		}
 	}
 
 	@include mq('tablet') {
@@ -136,19 +115,11 @@
 		.networks-page {
 			@include paddings('tablet');
 		}
-		.networks-header {
-			@include paddings('tablet');
-			margin: 0 -24px 24px -24px;
-		}
 	}
 
 	@include mq('mobile') {
 		.networks-page {
 			@include paddings('mobile');
-		}
-		.networks-header {
-			@include paddings('mobile');
-			margin: 0 -20px 24px -20px;
 		}
 	}
 </style>

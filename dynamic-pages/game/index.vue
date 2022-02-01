@@ -188,7 +188,7 @@
 			<div v-if="games.length" class="game__games-list">
 				<div class="block-title">Другие покерные игры</div>
 				<div class="game__games-list__list">
-					<game-item
+					<nav-box-item
 						v-for="item in games"
 						:key="item.slug"
 						:center="true"
@@ -197,7 +197,7 @@
 						:rooms="item.rooms_count"
 						:page="item.review"
 					>
-					</game-item>
+					</nav-box-item>
 				</div>
 			</div>
 		</lazy-hydrate>

@@ -1,5 +1,5 @@
 <template>
-	<div class="game-item">
+	<div class="nav-box-item">
 		<nuxt-link
 			v-slot="{ href, route, navigate, isActive, isExactActive }"
 			prefetch
@@ -11,26 +11,29 @@
 				},
 			}"
 		>
-			<a :class="['game-item__wrap']" :href="href" @click="navigate">
+			<a :class="['nav-box-item__wrap']" :href="href" @click="navigate">
+				<div v-if="bage" class="nav-box-item__bage-wrap">
+					<span class="nav-box-item__bage">{{ bage }}</span>
+				</div>
 				<div
 					:class="[
-						'game-item__icon-wrap',
-						center && 'game-item__icon-wrap_center',
+						'nav-box-item__icon-wrap',
+						center && 'nav-box-item__icon-wrap_center',
 					]"
 				>
 					<svg-icon
-						class="game-item__icon"
+						class="nav-box-item__icon"
 						:icon="icon"
-						:width="88"
-						:height="88"
+						width="88px"
+						height="88px"
 						:image="true"
 						view-box="0 0 200 200"
 					/>
 				</div>
-				<div :class="['game-item__title', center && 'game-item__title_center']">
+				<div :class="['nav-box-item__title', center && 'nav-box-item__title_center']">
 					{{ title }}
 				</div>
-				<div class="game-item__rooms">{{ $tc('rooms_count', rooms) }}</div>
+				<div class="nav-box-item__rooms">{{ $tc('rooms_count', rooms) }}</div>
 			</a>
 		</nuxt-link>
 	</div>
@@ -38,7 +41,7 @@
 
 <script>
 	export default {
-		name: 'GameItem',
+		name: 'NavBoxItem',
 
 		components: {},
 
@@ -59,6 +62,9 @@
 			rooms: {
 				type: [String, Number],
 			},
+			bage: {
+				type: [String, Boolean],
+			},
 		},
 
 		data: () => ({}),
@@ -74,8 +80,9 @@
 </script>
 
 <style lang="scss">
-	$ico-network-more: url('~assets/i/ico-network-more.svg?data');
-	.game-item {
+	$ico-nav-box-more: url('~assets/i/ico-network-more.svg?data');
+	$label-bg: url('~assets/i/ico-card-label.svg?data');
+	.nav-box-item {
 		margin: 20px 0;
 		background: #fafafa;
 		border: 1px solid #e9e9e9;
@@ -102,6 +109,50 @@
 			&_center {
 				text-align: center;
 				padding: 60px 0 0 0;
+			}
+		}
+		&__bage {
+			margin: 0 -1px;
+			padding: 4px 11px;
+			display: block;
+			background: linear-gradient(0deg, #ffc255, #ffc255), #eac24a;
+			&-wrap {
+				left: 50%;
+				transform: translate3d(-50%, 0, 0);
+				bottom: -8px;
+				white-space: nowrap;
+				padding: 0 20px;
+				position: absolute;
+				min-height: 24px;
+				font-family: Proxima Nova;
+				font-weight: bold;
+				font-size: 12px;
+				line-height: 16px;
+				letter-spacing: 0.5px;
+				text-transform: uppercase;
+				color: #222222;
+				&:before {
+					content: '';
+					top: 0;
+					left: 0;
+					position: absolute;
+					display: block;
+					width: 20px;
+					height: 24px;
+					background: $label-bg no-repeat center;
+					transform: matrix(1, 0, 0, -1, 0, 0);
+				}
+				&:after {
+					content: '';
+					top: 0;
+					right: 0;
+					position: absolute;
+					display: block;
+					width: 20px;
+					height: 24px;
+					background: $label-bg no-repeat center;
+					transform: matrix(-1, 0, 0, -1, 0, 0);
+				}
 			}
 		}
 		&__icon {
@@ -132,14 +183,17 @@
 				width: 28px;
 				height: 12px;
 				display: block;
-				background: $ico-network-more no-repeat center;
+				background: $ico-nav-box-more no-repeat center;
 			}
 		}
 	}
 
 	@include mq('tablet') {
-		.game-item {
+		.nav-box-item {
 			margin-bottom: 20px;
+			&__icon-wrap {
+				margin-top: -20px;
+			}
 			&__rooms {
 				white-space: nowrap;
 				width: min-content;

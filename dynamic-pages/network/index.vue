@@ -199,24 +199,23 @@
 		</lazy-hydrate>
 
 		<lazy-hydrate when-visible>
-			<network-list
+			<div
 				v-if="related"
-				:label="$t('other_networks')"
-				class="network__network-list"
+				class="network-related"
 			>
-				<div class="network__network-list__list">
-					<network-item
+				<div class="block-title">{{ $t('other_networks') }}</div>
+				<div class="network-related__list">
+					<nav-box-item
 						v-for="(item, index) in related"
 						:key="index"
 						:title="item.title"
-						:url="item.url"
+						:icon="item.url"
 						:rooms="item.rooms_count"
-						:vip="item.vip_status"
 						:page="item.page"
 					>
-					</network-item>
+					</nav-box-item>
 				</div>
-			</network-list>
+			</div>
 		</lazy-hydrate>
 	</div>
 </template>
@@ -503,7 +502,7 @@
 			margin-top: 0!important;
 			grid-area: posts;
 		}
-		&__network-list {
+		&-related {
 			grid-area: network-list;
 			&__list {
 				display: grid;
@@ -582,7 +581,7 @@
 				'posts'
 				'network-list';
 
-			&__network-list {
+			&-related {
 				margin-right: -24px;
 				&__list {
 					overflow-x: scroll;
@@ -605,11 +604,11 @@
 			@include paddings('mobile');
 			&__rooms {
 				&__item {
-					margin-left: -21px;
+					margin-left: -20px;
 					margin-right: -20px;
 				}
 			}
-			&__network-list {
+			&-related {
 				margin-right: -20px;
 				&__list {
 					grid-auto-columns: 288px;

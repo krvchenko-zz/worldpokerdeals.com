@@ -1,38 +1,29 @@
 <template>
 	<div class="games-page">
 		<div class="games">
-			<div class="games-header" :style="{
-				background: `url(${require('~/assets/i/games-bg.jpg')}) no-repeat 50%`,
-				backgroundSize: 'cover',
-			}">
-				<breadcrumb-list :white="true" />
-				<h1 class="games__title">{{ pageable.title }}</h1>
-				
-				<common-text-spoiler
-					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
-					class="games__summary"
-					:text="pageable.summary"
-				>
-					<template v-slot:button>
-						<svg-icon icon="spoiler-sep" width="35" height="16" />
-					</template>
-				</common-text-spoiler>
-
-				<game-nav-list>
-					<game-nav-item
-						v-for="(item, index) in types"
-						:key="index"
-						:active="item.value === type"
-						:label="item.label"
-						:value="item.value"
-						@click="handleNavClick"
-					>
-					</game-nav-item>
-				</game-nav-list>
-			</div>
+			<hub-header
+				class="games-header"
+				:title="pageable.title"
+				:summary="pageable.summary"
+				background="games-bg.jpg"
+			>
+				<template #bottom>
+					<game-nav-list>
+						<game-nav-item
+							v-for="(item, index) in types"
+							:key="index"
+							:active="item.value === type"
+							:label="item.label"
+							:value="item.value"
+							@click="handleNavClick"
+						>
+						</game-nav-item>
+					</game-nav-list>
+				</template>
+			</hub-header>
 
 			<div class="games-list">
-				<game-item
+				<nav-box-item
 					v-for="item in games"
 					:key="item.slug"
 					:title="item.name || item.title"
@@ -40,7 +31,7 @@
 					:rooms="item.rooms_count"
 					:page="item.review"
 				>
-				</game-item>
+				</nav-box-item>
 			</div>
 
 			<div class="article-container">
@@ -212,18 +203,11 @@
 </script>
 
 <style lang="scss">
-
 	.games {
 		&-page {
 			max-width: 1440px;
 			width: 100%;
 			@include paddings('desktop');
-		}
-		&-header {
-			margin: 0 -26px 32px -26px;
-			margin-bottom: 32px;
-			padding: 0 26px 32px 26px;
-			background-size: cover;
 		}
 	}
 
@@ -234,34 +218,11 @@
 		column-gap: 20px;
 	}
 
-	.games__title {
-		text-align: center;
-		margin: 0 0 16px 0;
-		font-family: Proxima Nova;
-		font-weight: bold;
-		font-size: 32px;
-		line-height: 36px;
-		color: #ffffff;
-	}
-
-	.games__summary {
-		margin-bottom: 24px;
-		font-family: Proxima Nova;
-		font-size: 18px;
-		line-height: 24px;
-		text-align: center;
-		color: #ffffff;
-		opacity: 0.8;
-	}
-
 	@include mq('laptop') {
 		.games-page {
 			@include paddings('laptop');
 		}
-		.games-header {
-			@include paddings('laptop');
-			margin: 0 -24px 24px -24px;
-		}
+
 		.games {
 			.page-banners {
 				margin-right: -24px;
@@ -292,8 +253,6 @@
 		}
 
 		.games-header {
-			@include paddings('tablet');
-			margin: 0 -24px 24px -24px;
 			.games-nav {
 				display: flex;
 				justify-content: center;
@@ -315,10 +274,6 @@
 	@include mq('mobile') {
 		.games-page {
 			@include paddings('mobile');
-		}
-		.games-header {
-			@include paddings('mobile');
-			margin: 0 -20px 24px -20px;
 		}
 	}
 </style>

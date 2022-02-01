@@ -2,35 +2,23 @@
 	<div class="payments-page">
 		<div class="payments">
 
-			<div class="payments-header" :style="{
-				background: `url(${require('~/assets/i/payments-bg.jpg')}) no-repeat 50%`,
-				backgroundSize: 'cover',
-			}">
-				<div class="payments-header__wrap">
-					<breadcrumb-list :white="true" />
-					<h1 class="payments__title">{{ pageable.title }}</h1>
-					<common-text-spoiler
-						:limit="$device.isMobile || $device.isTablet ? 100 : 600"
-						class="payments__summary"
-						:text="pageable.summary"
-					>
-						<template v-slot:button>
-							<svg-icon icon="spoiler-sep" width="35" height="16" />
-						</template>
-					</common-text-spoiler>
-				</div>
-			</div>
+			<hub-header
+				class="payments-header"
+				:title="pageable.title"
+				:summary="pageable.summary"
+				background="payments-bg.jpg"
+			/>
 
 			<div class="payments-list">
 				<div v-for="(item, index) in payments" :key="index">
-					<payment-item
+					<nav-box-item
 						:title="item.title"
 						:icon="item.icon"
 						:rooms="item.rooms"
-						:vip="item.vip_status"
+						:bage="item.vip_status ? $t('vip_status') : false"
 						:page="item.page"
 					>
-					</payment-item>
+					</nav-box-item>
 				</div>
 			</div>
 
@@ -145,74 +133,35 @@
 			width: 100%;
 			@include paddings('desktop');
 		}
-		&-header {
-			margin: 0 -26px 32px -26px;
-			margin-bottom: 32px;
-			padding: 0 26px 32px 26px;
-			background-size: cover;
-		}
 		&-list {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(262px, 1fr));
 			column-gap: 20px;
 			margin-bottom: 20px;
 		}
-		&__title {
-			text-align: center;
-			margin: 8px 0 16px 0;
-			font-family: Proxima Nova;
-			font-weight: bold;
-			font-size: 32px;
-			line-height: 36px;
-			color: #ffffff;
-		}
-		&__summary {
-			font-family: Proxima Nova;
-			font-size: 18px;
-			line-height: 24px;
-			text-align: center;
-			color: #ffffff;
-			opacity: 0.8;
-		}
 	}
 
 	@include mq('laptop') {
-		.payments {
-			&-list {
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-			}
+		.payments-list {
+			grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 		}
 		.payments-page {
 			@include paddings('laptop');
-		}
-		.payments-header {
-			@include paddings('laptop');
-			margin: 0 -24px 24px -24px;
 		}
 	}
 
 	@include mq('tablet') {
-		.payments {
-			&-list {
-				grid-template-columns: 100%;
-			}
+		.payments-list {
+			grid-template-columns: 100%;
 		}
 		.payments-page {
 			@include paddings('tablet');
-		}
-		.payments-header {
-			@include paddings('tablet');
-			margin: 0 -24px 24px -24px;
 		}
 	}
 
 	@include mq('mobile') {
 		.payments-page {
 			@include paddings('mobile');
-		}
-		.payments-header {
-			@include paddings('mobile');
-			margin: 0 -20px 24px -20px;
 		}
 	}
 </style>

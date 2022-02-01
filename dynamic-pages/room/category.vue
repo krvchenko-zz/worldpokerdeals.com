@@ -631,6 +631,7 @@
 				@include paddings('mobile');
 			}
 			&__list {
+				margin: 0 -20px;
 				grid-template-columns: 100%;
 			}
 
@@ -655,10 +656,6 @@
 					margin-left: auto;
 					margin-right: auto;
 				}
-			}
-
-			&__page-banners {
-				// margin-right: -20px;
 			}
 		}
 	}

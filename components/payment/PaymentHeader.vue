@@ -4,10 +4,9 @@
 			<div class="payment-header__logo">
 				<svg-icon
 					:icon="payment.icon"
-					:width="136"
-					:height="136"
 					:image="true"
-					view-box="0 0 88 88"
+					width="136px"
+					height="136px"
 				/>
 			</div>
 
@@ -266,6 +265,7 @@
 
 				.btn-payment-action {
 					margin: 0;
+					white-space: nowrap;
 					&:first-child {
 						grid-column: span 2;
 					}

@@ -1,35 +1,22 @@
 <template>
 	<div class="platforms-page">
 		<div class="platforms">
-			<div class="platforms-header" :style="{
-				background: `url(${require('~/assets/i/mobile-poker-bg.jpg')}) no-repeat 50%`,
-				backgroundSize: 'cover',
-			}">
-				<div class="platforms-header__wrap">
-					<breadcrumb-list :white="true" />
-					<h1 class="platforms__title">{{ pageable.title }}</h1>
-					<common-text-spoiler
-						:limit="$device.isMobile || $device.isTablet ? 100 : 600"
-						class="platforms__summary"
-						:text="pageable.summary"
-					>
-						<template v-slot:button>
-							<svg-icon icon="spoiler-sep" width="35" height="16" />
-						</template>
-					</common-text-spoiler>
-				</div>
-			</div>
+			<hub-header
+				class="platforms-header"
+				:title="pageable.title"
+				:summary="pageable.summary"
+				background="mobile-poker-bg.jpg"
+			/>
 
 			<div class="platforms-list">
-				<platform-item
+				<nav-box-item
 					v-for="(item, index) in platforms"
 					:key="index"
 					:title="item.title"
 					:icon="`${item.icon}-large`"
 					:rooms="item.rooms_count"
 					:page="item.page"
-				>
-				</platform-item>
+				/>
 			</div>
 
 			<div class="article-container">
@@ -215,11 +202,6 @@
 			width: 100%;
 			@include paddings('desktop');
 		}
-		&-header {
-			margin: 0 -26px 32px -26px;
-			margin-bottom: 32px;
-			padding: 0 26px 32px 26px;
-		}
 	}
 
 	.platforms-list {
@@ -229,32 +211,9 @@
 		margin-bottom: 20px;
 	}
 
-	.platforms__title {
-		text-align: center;
-		margin: 0 0 16px 0;
-		font-family: Proxima Nova;
-		font-weight: bold;
-		font-size: 32px;
-		line-height: 36px;
-		color: #ffffff;
-	}
-
-	.platforms__summary {
-		font-family: Proxima Nova;
-		font-size: 18px;
-		line-height: 24px;
-		text-align: center;
-		color: #ffffff;
-		opacity: 0.8;
-	}
-
 	@include mq('laptop') {
 		.platforms-page {
 			@include paddings('laptop');
-		}
-		.platforms-header {
-			@include paddings('laptop');
-			margin: 0 -24px 24px -24px;
 		}
 		.platforms-list {
 			grid-template-columns: repeat(2, 1fr);
@@ -266,10 +225,6 @@
 		.platforms-page {
 			@include paddings('tablet');
 		}
-		.platforms-header {
-			@include paddings('tablet');
-			margin: 0 -24px 24px -24px;
-		}
 		.platforms-list {
 			grid-template-columns: 1fr;
 			margin-bottom: 8px;
@@ -279,10 +234,6 @@
 	@include mq('mobile') {
 		.platforms-page {
 			@include paddings('mobile');
-		}
-		.platforms-header {
-			@include paddings('mobile');
-			margin: 0 -20px 24px -20px;
 		}
 	}
 </style>

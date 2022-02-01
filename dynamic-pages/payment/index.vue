@@ -184,18 +184,20 @@
 		</lazy-hydrate>
 
 		<lazy-hydrate when-visible>
-			<payment-list v-if="related" :label="$t('other_payments')">
-				<payment-item
-					v-for="(item, index) in related"
-					:key="index"
-					:title="item.title"
-					:icon="item.icon"
-					:rooms="item.rooms_count"
-					:vip="item.vip_status"
-					:page="item.review"
-				>
-				</payment-item>
-			</payment-list>
+			<div class="payments-related" v-if="related">
+				<div class="block-title">{{ $t('other_payments') }}</div>
+				<div class="payments-related__list">
+					<nav-box-item
+						v-for="(item, index) in related"
+						:key="index"
+						:title="item.title"
+						:icon="item.icon"
+						:rooms="item.rooms_count"
+						:bage="item.vip_status ? $t('vip_status') : false"
+						:page="item.review"
+					/>
+				</div>
+			</div>
 		</lazy-hydrate>
 	</div>
 </template>
@@ -480,6 +482,14 @@
 		}
 	}
 
+	.payments-related {
+		&__list {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(262px, 1fr));
+			column-gap: 20px;
+		}
+	}
+
 	@include mq('laptop') {
 		.payment {
 			@include paddings('tablet');
@@ -491,6 +501,18 @@
 				margin-top: 0;
 			}
 		}
+
+		.payments-related {
+			margin-right: -24px;
+			&__list {
+				overflow-x: scroll;
+				@include hide-scroll();
+				grid-template-columns: none;
+				grid-auto-columns: 350px;
+				grid-auto-flow: column;
+				gap: 20px;
+			}
+		}
 	}
 
 	@include mq('tablet') {
@@ -498,6 +520,14 @@
 			@include paddings('mobile');
 			&__posts {
 				margin-right: -20px;
+			}
+		}
+
+		.payments-related {
+			margin-right: -20px;
+			&__list {
+				grid-auto-columns: 288px;
+				gap: 16px;
 			}
 		}
 	}

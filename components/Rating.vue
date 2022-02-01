@@ -106,4 +106,15 @@
 			white-space: nowrap;
 		}
 	}
+
+	@include mq('mobile') {
+		.rating {
+			justify-content: end;
+			flex-flow: wrap;
+			&__stars {
+				margin-right: 0;
+				margin-bottom: 16px;
+			}
+		}
+	}
 </style>

@@ -64,8 +64,8 @@
 				>
 					<svg-icon
 						class="room-item__geo-icon"
-						:width="16"
-						:height="16"
+						width="16px"
+						height="16px"
 						:icon="country.code"
 						:image="true"
 						prefix="flags/"
@@ -751,6 +751,16 @@
 					margin-right: 0;
 					margin-left: auto;
 				}
+			}
+		}
+	}
+
+	@include mq('mobile') {
+		.room-item {
+			&__network {
+				padding: 0;
+				border: none;
+				line-height: 14px;
 			}
 		}
 	}
