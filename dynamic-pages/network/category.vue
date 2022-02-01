@@ -1,21 +1,25 @@
 <template>
-	<div class="networks">
-		<div class="networks-header">
-			<div class="container-fluid">
-				<breadcrumb-list :white="true" />
-				<h1 class="networks__title">{{ pageable.title }}</h1>
+	<div class="networks-page">
+		<div class="networks">
+			<div class="networks-header" :style="{
+				background: `url(${require('~/assets/i/networks-bg.jpg')}) no-repeat center top`
+			}">
+				<div class="networks-header__wrap">
+					<breadcrumb-list :white="true" />
+					<h1 class="networks__title">{{ pageable.title }}</h1>
+				</div>
 			</div>
-		</div>
-		<div class="networks__list">
-			<network-item
-				v-for="(item, index) in networks"
-				:key="index"
-				:title="item.title"
-				:url="item.url"
-				:rooms="item.rooms"
-				:page="item.page"
-			>
-			</network-item>
+			<div class="networks__list">
+				<network-item
+					v-for="(item, index) in networks"
+					:key="index"
+					:title="item.title"
+					:url="item.url"
+					:rooms="item.rooms"
+					:page="item.page"
+				>
+				</network-item>
+			</div>
 		</div>
 	</div>
 </template>
@@ -77,13 +81,18 @@
 </script>
 
 <style lang="scss">
-	$networks-bg: url('~assets/i/networks-bg.jpg');
-
 	.networks {
-		width: 100%;
-		max-width: 1440px;
-		&__list {
+		&-page {
+			max-width: 1440px;
+			width: 100%;
 			@include paddings('desktop');
+		}
+		&-header {
+			margin: 0 -26px 32px -26px;
+			margin-bottom: 32px;
+			padding: 0 26px 32px 26px;
+		}
+		&__list {
 			display: grid;
 			column-gap: 28px;
 			row-gap: 24px;
@@ -100,29 +109,46 @@
 		}
 	}
 
-	.networks-header {
-		margin-bottom: 32px;
-		padding: 0 0 32px 0;
-		background: $networks-bg no-repeat center;
-	}
-
 	@include mq('laptop') {
 		.networks {
 			&__list {
-				@include paddings('tablet');
 				column-gap: 20px;
 				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 			}
+		}
+
+		.networks-page {
+			@include paddings('laptop');
+		}
+		.networks-header {
+			@include paddings('laptop');
+			margin: 0 -24px 24px -24px;
 		}
 	}
 
 	@include mq('tablet') {
 		.networks {
 			&__list {
-				@include paddings('mobile');
 				column-gap: 20px;
 				grid-template-columns: 1fr;
 			}
+		}
+		.networks-page {
+			@include paddings('tablet');
+		}
+		.networks-header {
+			@include paddings('tablet');
+			margin: 0 -24px 24px -24px;
+		}
+	}
+
+	@include mq('mobile') {
+		.networks-page {
+			@include paddings('mobile');
+		}
+		.networks-header {
+			@include paddings('mobile');
+			margin: 0 -20px 24px -20px;
 		}
 	}
 </style>

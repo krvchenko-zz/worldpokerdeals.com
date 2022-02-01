@@ -1,118 +1,118 @@
 <template>
-	<div class="games">
-		<div class="games-header">
-			<breadcrumb-list :white="true" />
-			<h1 class="games__title">{{ pageable.title }}</h1>
-			
-			<common-text-spoiler
-				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
-				class="games__summary"
-				:text="pageable.summary"
-			>
-				<template v-slot:button>
-					<svg-icon icon="spoiler-sep" width="35" height="16" />
-				</template>
-			</common-text-spoiler>
-
-			<game-nav-list>
-				<game-nav-item
-					v-for="(item, index) in types"
-					:key="index"
-					:active="item.value === type"
-					:label="item.label"
-					:value="item.value"
-					@click="handleNavClick"
+	<div class="games-page">
+		<div class="games">
+			<div class="games-header" :style="{
+				background: `url(${require('~/assets/i/games-bg.jpg')}) no-repeat 50%`,
+				backgroundSize: 'cover',
+			}">
+				<breadcrumb-list :white="true" />
+				<h1 class="games__title">{{ pageable.title }}</h1>
+				
+				<common-text-spoiler
+					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+					class="games__summary"
+					:text="pageable.summary"
 				>
-				</game-nav-item>
-			</game-nav-list>
-		</div>
-
-		<div class="games-list">
-			<game-item
-				v-for="item in games"
-				:key="item.slug"
-				:title="item.name || item.title"
-				:icon="item.icon"
-				:rooms="item.rooms_count"
-				:page="item.review"
-			>
-			</game-item>
-		</div>
-
-		<div class="article-container">
-			<div class="article-container__toc">
-				<toc-list v-if="pageable.toc && pageable.toc.length">
-					<template #default="{ inline }">
-						<toc-item
-							v-for="(item, index) in pageable.toc"
-							:key="index"
-							:index="index"
-							:inline="inline"
-							:anchor="item.anchor_id"
-							:text="item.text"
-						>
-						</toc-item>
+					<template v-slot:button>
+						<svg-icon icon="spoiler-sep" width="35" height="16" />
 					</template>
-				</toc-list>
+				</common-text-spoiler>
+
+				<game-nav-list>
+					<game-nav-item
+						v-for="(item, index) in types"
+						:key="index"
+						:active="item.value === type"
+						:label="item.label"
+						:value="item.value"
+						@click="handleNavClick"
+					>
+					</game-nav-item>
+				</game-nav-list>
 			</div>
 
-			<div class="article-container__article">
-				<!-- Article -->
-				<page-article :text="pageable.text">
-					<template #footer>
-						<!-- Author -->
-						<faq-list
-							v-if="pageable.faq && pageable.faq.mainEntity.length"
-							:label="$t('faq')"
-						>
-							<faq-item
-								v-for="(item, index) in pageable.faq.mainEntity"
+			<div class="games-list">
+				<game-item
+					v-for="item in games"
+					:key="item.slug"
+					:title="item.name || item.title"
+					:icon="item.icon"
+					:rooms="item.rooms_count"
+					:page="item.review"
+				>
+				</game-item>
+			</div>
+
+			<div class="article-container">
+				<div class="article-container__toc">
+					<toc-list v-if="pageable.toc && pageable.toc.length">
+						<template #default="{ inline }">
+							<toc-item
+								v-for="(item, index) in pageable.toc"
 								:key="index"
-								:question="item.name"
-								:answer="item.acceptedAnswer.text"
+								:index="index"
+								:inline="inline"
+								:anchor="item.anchor_id"
+								:text="item.text"
 							>
-							</faq-item>
-						</faq-list>
-						<author v-if="pageable.author" :author="pageable.author" />
-						<!-- Comments -->
-<!-- 						<comments
-							commentable_type="App\GameCategory"
-							:commentable_id="category.id"
-						/> -->
-					</template>
-				</page-article>
+							</toc-item>
+						</template>
+					</toc-list>
+				</div>
+
+				<div class="article-container__article">
+					<!-- Article -->
+					<page-article :text="pageable.text">
+						<template #footer>
+							<!-- Author -->
+							<faq-list
+								v-if="pageable.faq && pageable.faq.mainEntity.length"
+								:label="$t('faq')"
+							>
+								<faq-item
+									v-for="(item, index) in pageable.faq.mainEntity"
+									:key="index"
+									:question="item.name"
+									:answer="item.acceptedAnswer.text"
+								>
+								</faq-item>
+							</faq-list>
+							<author v-if="pageable.author" :author="pageable.author" />
+						</template>
+					</page-article>
+				</div>
+
+				<div class="article-container__aside-content">
+					<room-top-list />
+					<post-list v-if="posts">
+						<post-item
+							v-for="(item, index) in posts"
+							:key="index"
+							:image="item.image"
+							:title="item.page.title"
+							:summary="item.page.summary"
+							:slug="item.page.slug"
+							:author="item.page.author"
+							:created="item.page.created_at"
+							:categories="item.categories"
+						></post-item>
+					</post-list>
+					<topic-list v-if="pageable.topics && pageable.topics.length">
+						<topic-item
+							v-for="(item, index) in pageable.topics"
+							:key="index"
+							:title="item.title"
+							:url="item.url"
+							:author="item.author"
+							:created="item.created_at"
+						/>
+					</topic-list>
+					<game-search-banner />
+				</div>
 			</div>
 
-			<div class="article-container__aside-content">
-				<room-top-list />
-				<post-list v-if="posts">
-					<post-item
-						v-for="(item, index) in posts"
-						:key="index"
-						:image="item.image"
-						:title="item.page.title"
-						:summary="item.page.summary"
-						:slug="item.page.slug"
-						:author="item.page.author"
-						:created="item.page.created_at"
-						:categories="item.categories"
-					></post-item>
-				</post-list>
-				<topic-list v-if="pageable.topics && pageable.topics.length">
-					<topic-item
-						v-for="(item, index) in pageable.topics"
-						:key="index"
-						:title="item.title"
-						:url="item.url"
-						:author="item.author"
-						:created="item.created_at"
-					/>
-				</topic-list>
-				<game-search-banner />
-			</div>
+			<page-banners />
 		</div>
-
-		<page-banners />
 	</div>
 </template>
 
@@ -212,24 +212,19 @@
 </script>
 
 <style lang="scss">
-	$games-bg: url('~assets/i/games-bg.jpg');
 
 	.games {
-		width: 100%;
-		max-width: 1440px;
-		@include paddings('desktop');
-	}
-
-	.games-header {
-		margin-bottom: 32px;
-		padding: 0 0 32px 0;
-		// background: radial-gradient(96.88% 66.11% at 57.43% 2.13%, #BA2B2B 0%, #5A0101 100%);
-		background: $games-bg no-repeat center;
-		background-size: cover;
-		margin-left: -26px;
-		margin-right: -26px;
-		width: calc(100% + 2 * 26px);
-		@include paddings('desktop');
+		&-page {
+			max-width: 1440px;
+			width: 100%;
+			@include paddings('desktop');
+		}
+		&-header {
+			margin: 0 -26px 32px -26px;
+			margin-bottom: 32px;
+			padding: 0 26px 32px 26px;
+			background-size: cover;
+		}
 	}
 
 	.games-list {
@@ -260,20 +255,18 @@
 	}
 
 	@include mq('laptop') {
+		.games-page {
+			@include paddings('laptop');
+		}
+		.games-header {
+			@include paddings('laptop');
+			margin: 0 -24px 24px -24px;
+		}
 		.games {
-			@include paddings('tablet');
-
 			.page-banners {
 				margin-right: -24px;
 				width: calc(100% + 24px);
 			}
-		}
-
-		.games-header {
-			@include paddings('tablet');
-			margin-left: -24px;
-			margin-right: -24px;
-			width: calc(100% + 2 * 24px);
 		}
 
 		.games-list {
@@ -283,12 +276,14 @@
 
 	@include mq('tablet') {
 		.games {
-			@include paddings('mobile');
-
 			.page-banners {
 				margin-right: -20px;
 				width: calc(100% + 20px);
 			}
+		}
+
+		.games-page {
+			@include paddings('tablet');
 		}
 
 		.games-list {
@@ -297,12 +292,8 @@
 		}
 
 		.games-header {
-			@include paddings('mobile');
-			margin-left: -20px;
-			margin-right: -20px;
-			margin-bottom: 24px;
-			width: calc(100% + 2 * 20px);
-
+			@include paddings('tablet');
+			margin: 0 -24px 24px -24px;
 			.games-nav {
 				display: flex;
 				justify-content: center;
@@ -318,6 +309,16 @@
 					margin-right: 0;
 				}
 			}
+		}
+	}
+
+	@include mq('mobile') {
+		.games-page {
+			@include paddings('mobile');
+		}
+		.games-header {
+			@include paddings('mobile');
+			margin: 0 -20px 24px -20px;
 		}
 	}
 </style>

@@ -16,7 +16,7 @@
 		</div>
 		<div class="manager__info">
 			<div class="manager__name">
-				{{ name }}
+				<span>{{ name }}</span>
 				<span v-if="status" class="manager__badge_green">online</span>
 			</div>
 			<div class="manager__messengers">

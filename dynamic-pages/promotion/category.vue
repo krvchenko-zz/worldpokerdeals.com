@@ -1,9 +1,7 @@
 <template>
-	<div v-if="category" class="promotions-page">
+	<div class="promotions-page">
 		<div class="promotions">
 			<!-- Header -->
-			<!-- <promotion-category-header class="promotions__header" /> -->
-
 			<category-header
 				class="promotions__header"
 				:meta="true"

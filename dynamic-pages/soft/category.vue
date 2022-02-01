@@ -1,12 +1,46 @@
 <template>
-	<div v-if="pageable" class="soft-category">
+	<div class="soft-category">
 		<!-- Header -->
-		<soft-category-header class="soft-category__header" />
+
+		<category-header
+			class="soft-category__header"
+			:loading="$fetchState.pending"
+			:meta="false"
+			:paddings="false"
+			:summaryFs="17"
+			:summaryLh="22"
+			:promotion="false"
+			:title="pageable.title"
+			:author="pageable.author ? pageable.author.full_name : null"
+			:created="pageable.created_at"
+			:updated="pageable.updated_at"
+			:summary="pageable.summary"
+			:icon="pageable.pageable.icon"
+			background-url="soft-category-bg.jpg"
+		>
+			<template #breadcrumbs>
+				<breadcrumb-list v-if="pageable" :white="true" />
+			</template>
+		</category-header>
+
+		<!-- Navigation -->
+		<nav-list
+			v-if="nav && nav.length"
+			class="soft-category__nav"
+		>
+			<nav-item
+				v-for="(item, index) in nav"
+				:key="index"
+				:name="item.label"
+				:page="item.page"
+				:icon="item.icon"
+			>
+			</nav-item>
+		</nav-list>
 
 		<div class="soft-list" v-if="items && data.length">
 			<client-only>
 				<filter-header
-					:class="['platform__filter-header']"
 					:geo.sync="geo"
 					:sort.sync="sort"
 					:total.sync="total"
@@ -21,7 +55,7 @@
 
 				<filter-selected-list
 					v-if="selected.length"
-					class="platform__filter-selected"
+
 				>
 					<filter-selected
 						v-for="(item, index) in selected"
@@ -192,6 +226,7 @@
 				items: 'soft/items',
 				filters: 'soft/filters',
 				isTouch: 'ui/isTouch',
+				nav: 'soft/categories',
 			}),
 
 			params() {
@@ -382,6 +417,7 @@
 		grid-template-columns: 2fr minmax(0, 7fr) 3fr;
 		grid-template-areas:
 			'header header header'
+			'nav nav nav'
 			'filter-soft filter-soft aside'
 			'soft-list soft-list aside'
 			'toc article aside'
@@ -405,35 +441,10 @@
 		}
 	}
 
-	.soft-category__info {
-		width: 100%;
-	}
-
-	.soft__filter-selected {
-		width: 100%;
-	}
-
-	.soft-category-top {
-		flex-direction: column;
-		grid-area: filter-soft;
-		margin-bottom: 38px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		&__geo {
-			// margin-left: auto;
-			// margin-right: 24px;
-		}
-
-		&__info {
-			font-family: 'Proxima Nova';
-			font-style: normal;
-			font-weight: normal;
-			font-size: 16px;
-			line-height: 16px;
-			color: #222222;
-		}
+	.soft-category__nav {
+		margin-top: -26px;
+    margin-bottom: 32px;
+		grid-area: nav;
 	}
 
 	@include mq('desktop') {
@@ -465,6 +476,7 @@
 			grid-template-columns: 100%;
 			grid-template-areas:
 				'header'
+				'nav'
 				'filter-soft'
 				'soft-list'
 				'toc'

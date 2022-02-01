@@ -7,8 +7,16 @@
 	">
 		<slot name="breadcrumbs" />
 
-		<div class="category-header__wrap">
-			<div class="category-header__content">
+		<div :class="[
+			'category-header__wrap',
+			paddings && 'category-header__wrap_paddings',
+			promotion && 'category-header__wrap_promotion',
+		]">
+			<div :class="[
+				'category-header__content',
+				meta && 'category-header__content_meta',
+				icon && 'category-header__content_icon',
+			]">
 				<svg-icon
 					v-if="icon"
 					class="category-header__icon"
@@ -18,8 +26,9 @@
 					:icon="icon"
 				/>
 
-				<h1 class="category-header__title">{{ title }}</h1>
-
+				<h1 class="category-header__title" :style="{
+					textAlign: align,
+				}">{{ title }}</h1>
 				<page-meta
 					v-if="meta"
 					class="category-header__meta"
@@ -31,6 +40,11 @@
 
 				<common-text-spoiler
 					v-if="summary"
+					:style="{
+						fontSize: `${summaryFs}px`,
+						lineHeight: `${summaryLh}px`,
+						textAlign: align,
+					}"
 					:limit="$device.isMobile || $device.isTablet ? 100 : 600"
 					class="category-header__summary"
 					:text="summary"
@@ -41,7 +55,7 @@
 				</common-text-spoiler>
 			</div>
 
-			<lazy-hydrate when-visible>
+			<lazy-hydrate v-if="promotion" when-visible>
 				<template>
 					<div class="category-header__promotion">
 						<slot name="promotion" />
@@ -73,14 +87,34 @@
 		props: {
 			meta: {
 				type: [Boolean, Number],
-				default: false,
+				default: true,
 			},
-			featured: {
+			promotion: {
+				type: [Boolean, Number],
+				default: true,
+			},
+			paddings: {
+				type: [Boolean, Number],
+				default: true,
+			},
+			gap: {
 				type: [Boolean, Number],
 				default: true,
 			},
 			icon: {
 				type: String,
+			},
+			align: {
+				type: String,
+				default: 'left',
+			},
+			summaryFs: {
+				type: Number,
+				default: 18,
+			},
+			summaryLh: {
+				type: Number,
+				default: 24,
 			},
 			title: {
 				type: String,
@@ -130,24 +164,36 @@
 		margin: 0 -26px;
 		padding-bottom: 56px;
 		background-repeat: no-repeat;
-		background-size: cover;
 		background-position: center top;
+		background-size: cover;
 		&__wrap {
 			display: grid;
-			grid-template-columns: 1fr minmax(auto, 326px);
-			gap: 86px;
-			padding: 0 60px;
 			position: relative;
 			align-items: start;
+			&_promotion {
+				grid-template-columns: 1fr minmax(auto, 326px);
+				gap: 86px;
+			}
+			&_paddings {
+				padding: 0 60px;
+			}
 		}
 		&__content {
-			display: grid;
-			grid-template-columns: min-content 1fr;
-			grid-column-gap: 28px;
-			grid-template-areas:
-				'icon title'
-				'icon meta'
-				'summary summary';
+			&_icon {
+				display: grid;
+				grid-template-columns: min-content 1fr;
+				grid-column-gap: 28px;
+				grid-template-areas:
+					'icon title'
+					'icon meta'
+					'icon summary';
+			}
+			&_meta {
+				grid-template-areas:
+					'icon title'
+					'icon meta'
+					'summary summary';
+			}
 		}
 		&__icon {
 			width: auto;
@@ -178,29 +224,37 @@
 			color: #ffffff;
 			opacity: 0.8;
 		}
-		&__promotion {
-			min-height: 318px;
-		}
 	}
 
 	@include mq('desktop') {
 		.category-header {
 			&__wrap {
-				padding: 0;
-				column-gap: 48px;
 				grid-template-columns: 1fr minmax(auto, 288px);
+				&_promotion {
+					column-gap: 48px;
+					grid-template-columns: 1fr minmax(auto, 288px);
+				}
+				&_paddings {
+					padding: 0;
+				}
 			}
 		}
 	}
 
 	@include mq('laptop') {
 		.category-header {
+			margin: 0 -24px;
 			@include paddings('tablet');
 			&__wrap {
-				padding: 0;
-				gap: 12px;
-				grid-template-columns: 1fr 288px;
+				grid-template-columns: 1fr auto;
 				justify-content: space-between;
+				&_promotion {
+					gap: 12px;
+					grid-template-columns: 1fr 288px;
+				}
+				&_paddings {
+					padding: 0;
+				}
 			}
 			&__promotion {
 				align-self: baseline;
@@ -241,7 +295,6 @@
 			}
 			&__content {
 				grid-template-columns: min-content 1fr;
-				align-items: center;
 				grid-column-gap: 24px;
 				grid-template-areas:
 					'icon title'
