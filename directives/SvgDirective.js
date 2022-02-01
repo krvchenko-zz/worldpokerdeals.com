@@ -70,11 +70,6 @@ export default {
 	name: 'svg',
 
 	inserted: (el, binding) => {
-		let width = el.getAttribute('width'),
-				height = el.getAttribute('height')
-
-		el.setAttribute('width', `${width}px`)
-		el.setAttribute('height', `${height}px`)
 
 		if (binding.value.fill) {
 			recursivelyRemoveAttr(el, 'fill')
