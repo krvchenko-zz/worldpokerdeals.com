@@ -20,8 +20,8 @@
 				<svg-icon
 					v-if="icon"
 					class="category-header__icon"
-					:width="90"
-					:height="68"
+					width="90px"
+					height="68px"
 					:image="true"
 					:icon="icon"
 				/>
