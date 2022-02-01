@@ -276,7 +276,9 @@
 				align-self: baseline;
 			}
 			&__icon {
-				display: none;
+				&-wrap {
+					display: none;
+				}
 			}
 			&__content {
 				display: grid;

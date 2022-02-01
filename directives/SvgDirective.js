@@ -70,21 +70,31 @@ export default {
 	name: 'svg',
 
 	inserted: (el, binding) => {
+		let width = el.getAttribute('width'),
+				height = el.getAttribute('height')
+
+		el.setAttribute('width', `${width}px`)
+		el.setAttribute('height', `${height}px`)
+
 		if (binding.value.fill) {
 			recursivelyRemoveAttr(el, 'fill')
 			el.setAttribute('fill', binding.value.fill)
 		}
+
 		if (binding.value.opacity) {
 			recursivelyRemoveAttr(el, 'opacity')
 			el.setAttribute('opacity', binding.value.opacity)
 		}
+
 		if (binding.value.width || binding.value.height) {
 			el.setAttribute('width', `${binding.value.width}px`)
 			el.setAttribute('height', `${binding.value.height}px`)
 		}
+		
 		if (binding.value.removeClipPath) {
 			recursivelyRemoveAttr(el, 'clip-path')
 		}
+		
 		if (binding.value.viewBox) {
 			el.setAttribute('viewBox', binding.value.viewBox)
 		}
