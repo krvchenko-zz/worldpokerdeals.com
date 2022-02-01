@@ -191,20 +191,27 @@
 
 				<page-article class="rooms__article" :title="false" :text="pageable.text">
 					<template #footer>
-						<faq-list
-							v-if="pageable.faq && pageable.faq.mainEntity.length"
-							:label="$t('faq')"
-						>
-							<faq-item
-								v-for="(item, index) in pageable.faq.mainEntity"
-								:key="index"
-								:question="item.name"
-								:answer="item.acceptedAnswer.text"
-							>
-							</faq-item>
-						</faq-list>
-
-						<author v-if="pageable.author" :author="pageable.author" />
+						<client-only>
+							<lazy-hydrate when-visible>
+								<faq-list
+									v-if="pageable.faq && pageable.faq.mainEntity.length"
+									:label="$t('faq')"
+								>
+									<faq-item
+										v-for="(item, index) in pageable.faq.mainEntity"
+										:key="index"
+										:question="item.name"
+										:answer="item.acceptedAnswer.text"
+									>
+									</faq-item>
+								</faq-list>
+							</lazy-hydrate>
+						</client-only>
+						<client-only v-if="pageable.author">
+							<lazy-hydrate when-visible>
+								<author :author="pageable.author" />
+							</lazy-hydrate>
+						</client-only>
 					</template>
 				</page-article>
 			</div>
@@ -277,9 +284,11 @@
 					</topic-list>
 				</lazy-hydrate>
 
-				<lazy-hydrate when-visible>
-					<lazy-game-search-banner />
-				</lazy-hydrate>
+				<client-only>
+					<lazy-hydrate when-visible>
+						<lazy-game-search-banner />
+					</lazy-hydrate>
+				</client-only>
 			</aside>
 		</div>
 		<div class="rooms__page-banners">
