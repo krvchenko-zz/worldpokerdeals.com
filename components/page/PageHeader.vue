@@ -3,7 +3,7 @@
 		<div class="header__inner">
 			<div class="header__wrap">
 				<div class="header__hamburger-menu" @click="toggleHamburgerMenu">
-					<img :src="hamburgerSrc" />
+					<img :src="hamburgerSrc" width="40px" height="40px" alt="mobile menu icon" />
 				</div>
 
 				<div
@@ -285,7 +285,7 @@
 						class="header-buttons__login"
 						@click="handleAuth"
 					>
-						<img :src="loginSrc" />
+						<img :src="loginSrc" width="20px" height="20px" alt="login mobile menu" />
 					</button>
 				</div>
 			</div>
@@ -296,11 +296,13 @@
 <script>
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
 		name: 'PageHeader',
 
 		components: {
+			LazyHydrate,
 			SearchDropdown: () => import('~/components/search/SearchDropdown'),
 			SearchLoader: () => import('~/components/search/SearchLoader'),
 			MenuLangSwitcher: () => import('~/components/lang/MenuLangSwitcher'),
@@ -334,11 +336,11 @@
 			}),
 
 			loginSrc() {
-				return require('~/assets/icons/ico-login.svg?data')
+				return require('~/assets/icons/ico-login.svg')
 			},
 
 			hamburgerSrc() {
-				return require('~/assets/icons/ico-hamburger-menu.svg?data')
+				return require('~/assets/icons/ico-hamburger-menu.svg')
 			},
 
 			searchPlaceholder() {
