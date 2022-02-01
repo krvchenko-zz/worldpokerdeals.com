@@ -303,7 +303,9 @@
 				display: none;
 			}
 			&__icon {
-				display: inline-block;
+				&-wrap {
+					display: inline-block;
+				}
 			}
 			&__title {
 				margin-bottom: 0;

@@ -2,9 +2,11 @@
 	<button class="filter-button" @click="onClick">
 		<span v-if="selected" class="filter-button__label">{{ selected }}</span>
 		<svg-icon
-			fill="#fff"
 			class="filter-button__icon"
+			width="16px"
+			height="16px"
 			icon="filter-settings"
+			:image="true"
 		></svg-icon>
 		Фильтры
 	</button>

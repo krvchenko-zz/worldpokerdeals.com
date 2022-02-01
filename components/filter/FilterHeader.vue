@@ -19,7 +19,12 @@
 				@change="handleSortChange"
 			>
 				<template slot="prefix">
-					<svg-icon :width="19" :height="16" icon="filter-sort-desc" />
+					<svg-icon
+						width="19px"
+						height="16px"
+						icon="filter-sort-desc"
+						:image="true"
+					/>
 				</template>
 				<el-option
 					v-for="(item, index) in sortOptions"
