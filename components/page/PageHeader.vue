@@ -69,28 +69,30 @@
 									/>
 								</a>
 								<client-only>
-									<transition name="fade">
-										<lazy-page-menu
-											:width="isDesktop ? 900 : menuWidth"
-											:items="menu.rooms"
-											:columns="isDesktop ? 2 : 1"
-											@menuClicked="handleLinkClicked"
-										>
-											<template #after>
-												<room-top-list
-													:label="$t('best_rooms')"
-													type="menu"
-													:menu="true"
-													:style="{
-														flex: '0 0 300px',
-														position: 'relative',
-														zIndex: '2',
-														boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
-													}"
-												/>
-											</template>
-										</lazy-page-menu>
-									</transition>
+									<lazy-hydrate when-visible>
+										<transition name="fade">
+											<lazy-page-menu
+												:width="isDesktop ? 900 : menuWidth"
+												:items="menu.rooms"
+												:columns="isDesktop ? 2 : 1"
+												@menuClicked="handleLinkClicked"
+											>
+												<template #after>
+													<room-top-list
+														:label="$t('best_rooms')"
+														type="menu"
+														:menu="true"
+														:style="{
+															flex: '0 0 300px',
+															position: 'relative',
+															zIndex: '2',
+															boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
+														}"
+													/>
+												</template>
+											</lazy-page-menu>
+										</transition>
+									</lazy-hydrate>
 								</client-only>
 							</li>
 							<li
@@ -108,12 +110,14 @@
 									/>
 								</a>
 								<client-only>
-									<transition name="fade">
-										<lazy-page-menu
-											:items="menu.posts"
-											@menuClicked="handleLinkClicked"
-										/>
-									</transition>
+									<lazy-hydrate when-visible>
+										<transition name="fade">
+											<lazy-page-menu
+												:items="menu.posts"
+												@menuClicked="handleLinkClicked"
+											/>
+										</transition>
+									</lazy-hydrate>
 								</client-only>
 							</li>
 							<li
@@ -131,24 +135,26 @@
 									/>
 								</a>
 								<client-only>
-									<transition name="fade">
-										<lazy-page-menu
-											:items="menu.promotions"
-											:width="isDesktop ? 600 : menuWidth"
-											@menuClicked="handleLinkClicked"
-										>
-											<template v-if="isDesktop" #after>
-												<payment-menu
-													:style="{
-														flex: '0 0 300px',
-														position: 'relative',
-														zIndex: '2',
-														boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
-													}"
-												/>
-											</template>
-										</lazy-page-menu>
-									</transition>
+									<lazy-hydrate when-visible>
+										<transition name="fade">
+											<lazy-page-menu
+												:items="menu.promotions"
+												:width="isDesktop ? 600 : menuWidth"
+												@menuClicked="handleLinkClicked"
+											>
+												<template v-if="isDesktop" #after>
+													<payment-menu
+														:style="{
+															flex: '0 0 300px',
+															position: 'relative',
+															zIndex: '2',
+															boxShadow: '-10px 0px 30px rgba(0, 0, 0, 0.1)',
+														}"
+													/>
+												</template>
+											</lazy-page-menu>
+										</transition>
+									</lazy-hydrate>
 								</client-only>
 							</li>
 
@@ -167,14 +173,16 @@
 									/>
 								</a>
 								<client-only>
-									<transition name="fade">
-										<lazy-page-menu
-											:items="menu.poker"
-											:columns="1"
-											:width="isDesktop ? 300 : menuWidth"
-											@menuClicked="handleLinkClicked"
-										/>
-									</transition>
+									<lazy-hydrate when-visible>
+										<transition name="fade">
+											<lazy-page-menu
+												:items="menu.poker"
+												:columns="1"
+												:width="isDesktop ? 300 : menuWidth"
+												@menuClicked="handleLinkClicked"
+											/>
+										</transition>
+									</lazy-hydrate>
 								</client-only>
 							</li>
 
@@ -193,12 +201,14 @@
 									/>
 								</a>
 								<client-only>
-									<transition name="fade">
-										<lazy-page-menu
-											:items="menu.about"
-											@menuClicked="handleLinkClicked"
-										/>
-									</transition>
+									<lazy-hydrate when-visible>
+										<transition name="fade">
+											<lazy-page-menu
+												:items="menu.about"
+												@menuClicked="handleLinkClicked"
+											/>
+										</transition>
+									</lazy-hydrate>
 								</client-only>
 							</li>
 
