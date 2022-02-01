@@ -17,15 +17,19 @@
 				meta && 'category-header__content_meta',
 				icon && 'category-header__content_icon',
 			]">
-				<svg-icon
-					v-if="icon"
-					class="category-header__icon"
-					width="90px"
-					height="68px"
-					:image="true"
-					:icon="icon"
-				/>
-
+				<div class="category-header__icon-wrap" :style="{
+					width: iconWidth,
+					height: iconHeight,
+				}">
+					<svg-icon
+						v-if="icon"
+						class="category-header__icon"
+						:width="iconWidth"
+						:height="iconHeight"
+						:image="true"
+						:icon="icon"
+					/>
+				</div>
 				<h1 class="category-header__title" :style="{
 					textAlign: align,
 				}">{{ title }}</h1>
@@ -103,6 +107,14 @@
 			},
 			icon: {
 				type: String,
+			},
+			iconWidth: {
+				type: String,
+				default: '68px',
+			},
+			iconHeight: {
+				type: String,
+				default: '68px',
 			},
 			align: {
 				type: String,
@@ -198,8 +210,11 @@
 		&__icon {
 			width: auto;
 			height: auto;
-			grid-area: icon;
+			max-width: 100%;
 			display: inline-flex;
+			&-wrap {
+				grid-area: icon;
+			}
 		}
 		&__title {
 			grid-area: title;
@@ -223,6 +238,7 @@
 			line-height: 24px;
 			color: #ffffff;
 			opacity: 0.8;
+			min-height: 72px;
 		}
 	}
 

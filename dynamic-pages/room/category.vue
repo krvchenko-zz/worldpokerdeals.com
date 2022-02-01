@@ -12,6 +12,7 @@
 				:updated="pageable.updated_at"
 				:summary="pageable.summary"
 				:icon="pageable.pageable.icon"
+				icon-width="90px"
 				background-url="rooms-bg.webp"
 			>
 				<template #breadcrumbs>
