@@ -191,27 +191,23 @@
 
 				<page-article class="rooms__article" :title="false" :text="pageable.text">
 					<template #footer>
-						<client-only>
-							<lazy-hydrate when-visible>
-								<faq-list
-									v-if="pageable.faq && pageable.faq.mainEntity.length"
-									:label="$t('faq')"
+						<lazy-hydrate when-visible>
+							<faq-list
+								v-if="pageable.faq && pageable.faq.mainEntity.length"
+								:label="$t('faq')"
+							>
+								<faq-item
+									v-for="(item, index) in pageable.faq.mainEntity"
+									:key="index"
+									:question="item.name"
+									:answer="item.acceptedAnswer.text"
 								>
-									<faq-item
-										v-for="(item, index) in pageable.faq.mainEntity"
-										:key="index"
-										:question="item.name"
-										:answer="item.acceptedAnswer.text"
-									>
-									</faq-item>
-								</faq-list>
-							</lazy-hydrate>
-						</client-only>
-						<client-only v-if="pageable.author">
-							<lazy-hydrate when-visible>
-								<author :author="pageable.author" />
-							</lazy-hydrate>
-						</client-only>
+								</faq-item>
+							</faq-list>
+						</lazy-hydrate>
+						<lazy-hydrate when-visible>
+							<author v-if="pageable.author" :author="pageable.author" />
+						</lazy-hydrate>
 					</template>
 				</page-article>
 			</div>
