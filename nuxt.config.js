@@ -87,18 +87,6 @@ export default {
 		],
 	],
 
-	buildModules: [
-		'@nuxtjs/pwa',
-	],
-
-	pwa: {
-		icon: false,
-		manifest: {
-			name: 'Worldpokerdeals',
-			lang: 'en',
-		}
-	},
-
 	styleResources: {
 		scss: ['~assets/sass/_mixins.scss'],
 	},
