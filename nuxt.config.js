@@ -87,6 +87,14 @@ export default {
 		],
 	],
 
+	buildModules: [
+		'@nuxtjs/pwa',
+	],
+
+	pwa: {
+		icon: false
+	},
+
 	styleResources: {
 		scss: ['~assets/sass/_mixins.scss'],
 	},
