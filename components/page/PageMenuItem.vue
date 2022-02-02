@@ -25,6 +25,7 @@
 					:icon="icon"
 					:width="20"
 					:height="20"
+					:image="icon === 'menu-vip' ? true : false"
 					:opacity="isExactActive ? 1 : 0.7"
 				/>
 				<span
