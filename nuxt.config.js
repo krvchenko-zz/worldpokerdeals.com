@@ -92,7 +92,11 @@ export default {
 	],
 
 	pwa: {
-		icon: false
+		icon: false,
+		manifest: {
+			name: 'Worldpokerdeals',
+			lang: 'en',
+		}
 	},
 
 	styleResources: {
