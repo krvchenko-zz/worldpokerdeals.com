@@ -1,6 +1,7 @@
 <template>
-	<div ref="root" class="common-text-spoiler">
-		<div v-show="shouldHide">
+	<div class="common-text-spoiler">
+		<div v-if="!client" v-html="text"></div>
+		<div v-else v-show="shouldHide">
 			<p
 				class="common-text-spoiler__visible-text"
 				v-for="(text, index) in visibleNodes"
@@ -43,13 +44,16 @@
 			visibleNodes: [],
 		}),
 
-		computed: {},
+		computed: {
+			client() {
+				return process.client
+			},
+		},
 
 		watch: {
 			text() {
 				this.makeSpoiler()
 			},
-
 			limit() {
 				this.makeSpoiler()
 			},
@@ -129,6 +133,7 @@
 				// text hasn't p tags only textContent
 				else {
 					this.shouldHide = this.text.length > this.limit
+
 					if (this.shouldHide) {
 						this.visibleNodes.push(this.breakOnWord(this.text, this.limit))
 					} else {

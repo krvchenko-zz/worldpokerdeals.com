@@ -32,6 +32,8 @@
 					<svg-icon icon="spoiler-sep" :width="35" :height="16" />
 				</template>
 			</common-text-spoiler>
+
+			<div v-else class="page-internal-header__summary" v-html="summary"></div>
 		</div>
 
 		<lazy-hydrate v-if="promotion" when-visible>
@@ -94,7 +96,7 @@
 
 		data: () => ({}),
 
-		created() {},
+		mounted() {},
 
 		computed: {
 			...mapGetters({
