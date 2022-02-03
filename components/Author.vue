@@ -13,8 +13,8 @@
 			<svg-icon
 				v-else
 				class="author-avatar__img"
-				:width="66"
-				:height="66"
+				width="66px"
+				height="66px"
 				:image="true"
 				icon="user-avatar"
 			/>

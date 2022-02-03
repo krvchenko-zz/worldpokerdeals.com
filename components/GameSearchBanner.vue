@@ -1,14 +1,5 @@
 <template>
 	<div class="game-search-banner">
-		<img
-			width="262px"
-			height="433px"
-			decoding="async"
-			loading="lazy"
-			src="~assets/i/game-search-banner.jpg"
-			alt="Вестник Бамхантера"
-			class="game-search-banner__img"
-		/>
 		<div class="game-search-banner__wrap">
 			<div class="game-search-banner__title">{{ $t('game_search_banner.title') }}</div>
 			<div class="game-search-banner__info" v-html="$t('game_search_banner.text')"></div>
@@ -84,6 +75,7 @@
 
 <style lang="scss">
 	$contact-us-logo: url('~assets/i/contact-us-logo.svg?data');
+	$game-search-bg: url('~assets/i/game-search-banner.webp');
 
 	.game-search-banner {
 		margin: 40px 0 0 0;
@@ -91,6 +83,7 @@
 		position: relative;
 		border-radius: 10px;
 		overflow: hidden;
+		background: linear-gradient(0deg, #222222, #222222), #2E87C8;
 		&__img {
 			display: block;
 			width: 100%;
@@ -107,6 +100,8 @@
 			width: 100%;
 			position: relative;
 			z-index: 2;
+			background: $game-search-bg no-repeat center;
+			background-size: cover;
 		}
 
 		&__title {
@@ -183,6 +178,17 @@
 				text-align: left;
 				padding-bottom: 0;
 				margin-bottom: 14px;
+				background: none;
+				&:before {
+					content: '';
+					left: 0;
+					top: 0;
+					position: absolute;
+					display: block;
+					width: 47px;
+					height: 50px;
+					background: $contact-us-logo no-repeat center;
+				}
 				&:after {
 					display: none;
 				}
@@ -225,6 +231,17 @@
 			}
 			&__messengers {
 				justify-content: center;
+			}
+		}
+	}
+
+	@include mq('tablet') {
+		.game-search-banner {
+			&__title {
+				background: $contact-us-logo no-repeat center top;
+				&:before {
+					display: none;
+				}
 			}
 		}
 	}

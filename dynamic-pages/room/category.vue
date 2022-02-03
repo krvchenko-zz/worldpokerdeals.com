@@ -153,6 +153,7 @@
 
 				<lazy-hydrate when-visible>
 					<lazy-pagination
+						v-if="items.length"
 						:query="true"
 						:last="last_page"
 						:current="parseInt(page) || current_page"
@@ -161,7 +162,7 @@
 						:total="total"
 						:from="from"
 						:to="to"
-						:load-more-width="215"
+						:load-more-width="isMobile ? null : 215"
 						:showPages="false"
 						:load-more-text="$t('show_more')"
 						:total-text="$t('rooms_entity_label')"
@@ -430,7 +431,7 @@
 						items: response.data.promotions,
 					})
 					Object.keys(response.data).forEach(key => {
-						if (key !== 'data' && key !== 'filters' && key !== 'promotions') {
+						if (key !== 'data' && key !== 'filters' && key !== 'promotions' && key !== 'categories') {
 							this[key] = response.data[key]
 						}
 					})
@@ -565,6 +566,7 @@
 			grid-area: list;
 		}
 		&__pagination {
+			margin-bottom: 40px;
 			grid-area: pagination;
 		}
 		&__toc {

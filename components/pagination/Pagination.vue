@@ -272,7 +272,6 @@
 
 <style lang="scss">
 	.pagination {
-		margin-bottom: 40px;
 		display: flex;
 		align-items: center;
 
@@ -415,8 +414,8 @@
 	@include mq('tablet') {
 		.pagination {
 			margin-bottom: 0;
-			padding: 0 15px;
-			flex-direction: row;
+			// padding: 0 15px;
+			flex-direction: column;
 			flex-wrap: wrap;
 			justify-content: center;
 			&__list {

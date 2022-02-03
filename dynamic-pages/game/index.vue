@@ -117,7 +117,7 @@
 					:total="total"
 					:from="from"
 					:to="to"
-					:load-more-width="215"
+					:load-more-width="isMobile ? null : 215"
 					:showPages="false"
 					:load-more-text="$t('show_more')"
 					:total-text="$t('rooms_entity_label')"
@@ -498,6 +498,9 @@
 		}
 		&__news {
 			grid-area: news;
+			.block-title {
+				margin-top: 0;
+			}
 		}
 		&__games-list {
 			grid-area: games-list;
