@@ -1,5 +1,5 @@
 <template>
-	<div class="common-text-spoiler">
+	<div ref="root" class="common-text-spoiler">
 		<div v-show="shouldHide">
 			<p
 				class="common-text-spoiler__visible-text"
@@ -47,6 +47,10 @@
 
 		watch: {
 			text() {
+				this.makeSpoiler()
+			},
+
+			limit() {
 				this.makeSpoiler()
 			},
 		},
@@ -125,7 +129,6 @@
 				// text hasn't p tags only textContent
 				else {
 					this.shouldHide = this.text.length > this.limit
-
 					if (this.shouldHide) {
 						this.visibleNodes.push(this.breakOnWord(this.text, this.limit))
 					} else {

@@ -144,6 +144,7 @@
 		}
 
 		&__promotion {
+			margin-bottom: 32px;
 			grid-area: room-top;
 		}
 
@@ -172,7 +173,7 @@
 		}
 
 		&__summary {
-			min-height: 65px;
+			// min-height: 65px;
 			margin-bottom: 26px;
 			font-family: 'Proxima Nova';
 			font-size: 17px;
