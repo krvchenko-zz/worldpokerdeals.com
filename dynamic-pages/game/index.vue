@@ -1,28 +1,73 @@
 <template>
 	<div class="game">
 		<breadcrumb-list class="game__breadcrumbs" />
-		<game-header class="game__header" />
+		<!-- <game-header class="game__header" /> -->
+
+		<page-internal-header
+			class="game__header"
+			:title="pageable.title"
+			:summary="pageable.summary"
+			:author="pageable.author ? pageable.author.full_name : ''"
+			:created="pageable.created_at"
+			:updated="pageable.updated_at"
+			:icon="game.icon"
+			:promotion="true"
+		>
+			<template #nav
+				v-if="game.tabs && game.tabs.length > 1"
+				class="game-header__nav"
+			>
+				<tab-list>
+					<tab-item
+						v-for="(item, index) in game.tabs"
+						:key="index"
+						:params="{
+							parent: item.parent ? item.parent.slug : item.slug,
+							child: item.parent ? item.slug : null,
+						}"
+						:name="item.name"
+					>
+					</tab-item>
+				</tab-list>
+			</template>
+				<template #promotion>
+					<room-top
+						v-if="best && !$fetchState.pending"
+						class="room-header__room-top"
+						:id="best.id"
+						:title="best.title"
+						:slug="best.slug"
+						:url="best.url"
+						:restricted="best.restricted"
+						:country="country"
+						:rating="best.rating"
+						:bonus="best.top_bonus"
+						:review="best.review"
+						:label="$t('room_best')"
+					/>
+					<skeleton-top-room
+						v-else
+						class="room-header__room-top"
+						:label="$t('room_best')"
+					/>
+				</template>
+		</page-internal-header>
 
 		<div v-if="pageable.show_rooms" class="game-rooms">
 
 			<client-only>
 				<filter-header
-					class="payment__filter-header"
 					:geo.sync="geo"
 					:sort.sync="sort"
 					:total.sync="total"
 					:overall.sync="overall"
 					:sort-options="sortOptions"
 					:selected="selected.length"
-					entity-label="покер-румов"
-					@update:sort="fetchItems"
-					@update:geo="fetchItems"
+					:entity-label="$t('rooms_entity_label')"
+					@update:sort="handleSortChange"
+					@update:geo="handleGeoChange"
 				/>
-
-				<filter-selected-list
-					v-if="selected.length"
-					class="payment__filter-selected"
-				>
+				<filter-selected-list v-if="selected.length">
 					<filter-selected
 						v-for="(item, index) in selected"
 						:key="index"
@@ -32,14 +77,17 @@
 					/>
 					<filter-selected
 						:key="null"
-						label="Очистить фильтры"
+						:label="$t('clear_filters')"
 						:clear="true"
 						:value="null"
 					/>
 				</filter-selected-list>
 			</client-only>
 
-			<div class="game-rooms__list">
+			<div v-if="$fetchState.pending" class="game-rooms__list">
+				<lazy-skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
+			</div>
+			<div v-else class="game-rooms__list">
 				<room
 					v-for="(item, index) in data"
 					v-if="data.length"
@@ -62,25 +110,26 @@
 				/>
 			</div>
 
-			<pagination
-				v-if="data.length"
-				:last="last_page"
-				:current="page"
-				:prev-url="prev_page_url"
-				:next-url="next_page_url"
-				:total="total"
-				:from="from"
-				:to="to"
-				:load-more-width="$device.isDesktop ? 215 : false"
-				:showPages="false"
-				load-more-text="Показать еще румы"
-				total-text="покер-румов"
-				@next="handlePageNext"
-				@prev="handlePagePrev"
-				@change="handlePageChange"
-				@more="handleShowMore"
-			>
-			</pagination>
+			<lazy-hydrate when-visible>
+				<lazy-pagination
+					v-if="data.length"
+					:last="last_page"
+					:current="parseInt(page) || current_page"
+					:prev-url="prev_page_url"
+					:next-url="next_page_url"
+					:total="total"
+					:from="from"
+					:to="to"
+					:load-more-width="215"
+					:showPages="false"
+					:load-more-text="$t('show_more')"
+					:total-text="$t('rooms_entity_label')"
+					@next="handlePageNext"
+					@prev="handlePagePrev"
+					@change="handlePageChange"
+					@more="handleShowMore"
+				/>
+			</lazy-hydrate>
 		</div>
 
 		<div class="game__toc">
@@ -104,22 +153,24 @@
 			<page-article :text="pageable.text">
 				<template #footer>
 					<!-- Faq -->
-					<faq-list
-						v-if="pageable.faq && pageable.faq.mainEntity.length"
-						:label="$t('faq')"
-					>
-						<faq-item
-							v-for="(item, index) in pageable.faq.mainEntity"
-							:key="index"
-							:question="item.name"
-							:answer="item.acceptedAnswer.text"
+					<lazy-hydrate when-visible>
+						<faq-list
+							v-if="pageable.faq && pageable.faq.mainEntity.length"
+							:label="$t('faq')"
 						>
-						</faq-item>
-					</faq-list>
+							<faq-item
+								v-for="(item, index) in pageable.faq.mainEntity"
+								:key="index"
+								:question="item.name"
+								:answer="item.acceptedAnswer.text"
+							>
+							</faq-item>
+						</faq-list>
+					</lazy-hydrate>
 					<!-- Author -->
-					<author v-if="pageable.author" :author="pageable.author" />
-					<!-- Comments -->
-					<!-- <comments commentable_type="App\Tab" :commentable_id="tab.id" /> -->
+					<lazy-hydrate when-visible>
+						<author v-if="pageable.author" :author="pageable.author" />
+					</lazy-hydrate>
 				</template>
 			</page-article>
 		</div>
@@ -130,36 +181,45 @@
 				:class="{ 'game__filter-wrapper--opened': showFilter }"
 				@click.self="handleOutsideClick($event)"
 			>
-				<game-filters
-					class="game__filter"
-					v-if="pageable.show_rooms && filters"
-					:geo.sync="geo"
-					:kycs="filters.kycs"
-					:platforms="filters.platforms"
-					:tags="filters.tags"
-					:payments="filters.payments"
-					:types="filters.types"
-					:licenses="filters.licenses"
-					:showGeo="data.length"
-					@change="handleFilterChange"
-					@change:geo="fetchItems"
-				/>
+				<lazy-hydrate when-visible>
+					<room-filters
+						v-if="pageable.show_rooms && filters"
+						class="game__filter"
+						:geo.sync="geo"
+						:kycs="filters.kycs"
+						:platforms="filters.platforms"
+						:tags="filters.tags"
+						:payments="filters.payments"
+						:types="filters.types"
+						:licenses="filters.licenses"
+						@update:sort="handleSortChange"
+						@update:geo="handleGeoChange"
+						@change="handleFilterChange"
+						@filterOpen="handleFilterOpen"
+					/>
+				</lazy-hydrate>
 			</div>
 
-			<room-top-list />
+			<lazy-hydrate when-visible>
+				<room-top-list />
+			</lazy-hydrate>
 
-			<topic-list v-if="pageable.topics && pageable.topics.length">
-				<topic-item
-					v-for="(item, index) in pageable.topics"
-					:key="index"
-					:title="item.title"
-					:url="item.url"
-					:author="item.author"
-					:created="item.created_at"
-				/>
-			</topic-list>
+			<lazy-hydrate when-visible>
+				<topic-list v-if="pageable.topics && pageable.topics.length">
+					<topic-item
+						v-for="(item, index) in pageable.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
+			</lazy-hydrate>
 
-			<game-search-banner />
+			<lazy-hydrate when-visible>
+				<game-search-banner />
+			</lazy-hydrate>
 		</aside>
 
 		<lazy-hydrate when-visible>
@@ -217,18 +277,7 @@
 			LazyHydrate,
 		},
 
-		head() {
-			return {
-				meta: [
-				],
-
-				link: [
-				],
-			}
-		},
-
 		data: () => ({
-			// loading: true,
 			loading: false,
 			per_page: 5,
 			page: 1,
@@ -255,11 +304,11 @@
 			showFilter: false,
 			sortOptions: [
 				{
-					label: 'Сначала лучшие',
+					label: 'sort.rating',
 					value: 'rating',
 				},
 				{
-					label: 'Сначала новые',
+					label: 'sort.created_at',
 					value: 'created_at',
 				},
 			],
@@ -277,6 +326,8 @@
 				best: 'rooms/best',
 				posts: 'posts/posts',
 				filters: 'rooms/filters',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
 			}),
 
 			mediaUrl() {
@@ -301,32 +352,17 @@
 					licenses: this.licenses,
 				}
 			},
-
-			showFilterButton() {
-				return this.$device.isMobileOrTablet
-			},
 		},
 
 		async fetch() {
 			await this.$axios.get(`games/${this.pageable.slug}`).then(response => {
 				this.$store.commit('games/FETCH_GAME', { game: response.data.game })
 				this.$store.commit('posts/FETCH_POSTS', { posts: response.data.posts })
-				this.$store.commit('games/FETCH_GAMES', {
-					games: response.data.related,
-				})
+				this.$store.commit('games/FETCH_GAMES', { games: response.data.related })
 			})
 
 			await this.$axios
-				.get('rooms/list', {
-					params: {
-						geo: this.country.code,
-						per_page: this.per_page,
-						locale: this.locale,
-						sort: 'rating',
-						order: 'desc',
-						game_id: this.game.id,
-					},
-				})
+				.get('rooms/list', { params: { ...this.params } })
 				.then(response => {
 					this.$store.commit('rooms/FETCH_ROOMS', {
 						rooms: response.data.data,
@@ -384,52 +420,71 @@
 					})
 			},
 
-			handlePageNext() {
-				this.page = this.current_page + 1
-				this.fetchItems()
-			},
-
-			handlePagePrev() {
-				this.page = this.current_page - 1
-				this.fetchItems()
-			},
-
-			handlePageChange(number) {
-				this.page = number
-				this.fetchItems()
-				// history.replaceState({}, null, `${this.$route.path}/page/${number}`)
-			},
-
-			handleShowMore() {
-				this.per_page = parseInt(this.per_page) + 6
-				this.fetchItems()
-			},
-
-			handleSortChange(order) {
-				this.sort = order
-				this.fetchItems()
-			},
-
-			handleFilterChange(selected) {
-				this.selected = selected.flatten
-
-				Object.keys(selected.values).forEach(key => {
-					this[key] = selected.values[key]
-				})
-				this.fetchItems()
-			},
-
 			toggleMobileFilter() {
 				document.body.classList.toggle('modal-open')
 				this.showFilter = !this.showFilter
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector('.network__aside__filter')
-				if (this.showFilter && !filtersElement?.contains(event.target)) {
+				if (this.showFilter) {
 					this.toggleMobileFilter()
 				}
 			},
+
+			handleFilterChange(selected) {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				if (this.selected) {
+					this.selected = selected.flatten
+					Object.keys(selected.values).forEach(key => {
+						this[key] = selected.values[key]
+					})
+				}
+
+				this.$fetch()
+			},
+
+			handleGeoChange() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handleSortChange() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handlePageNext() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.page = parseInt(this.current_page) + 1
+				this.$fetch()
+			},
+
+			handlePagePrev() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.page = parseInt(this.current_page) - 1
+				this.$fetch()
+			},
+
+			handlePageChange(number) {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.page = parseInt(number)
+				this.$fetch()
+			},
+
+			handleShowMore() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.per_page = parseInt(this.per_page) + 6
+				this.$fetch()
+			},
+
+			handleFilterOpen() {},
 		},
 	}
 </script>

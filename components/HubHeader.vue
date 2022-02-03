@@ -7,12 +7,12 @@
 			<breadcrumb-list :white="true" />
 			<h1 class="hub-header__title">{{ title }}</h1>
 			<common-text-spoiler
-				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
+				:limit="isMobile || isTablet ? 100 : 600"
 				class="hub-header__summary"
 				:text="summary"
 			>
 				<template v-slot:button>
-					<svg-icon icon="spoiler-sep" width="35px" height="16px" />
+					<svg-icon icon="spoiler-sep" :width="35" :height="16" />
 				</template>
 			</common-text-spoiler>
 			<slot name="bottom" />
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
+
 	export default {
 		name: 'HubHeader',
 
@@ -52,7 +54,12 @@
 
 		created() {},
 
-		computed: {},
+		computed: {
+			...mapGetters({
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
+			}),
+		},
 
 		watch: {},
 

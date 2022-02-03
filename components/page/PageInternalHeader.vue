@@ -1,79 +1,94 @@
 <template>
-	<div class="game-header">
-		<div class="game-header__logo">
+	<div class="page-internal-header">
+		<div class="page-internal-header__logo">
 			<svg-icon
-				:icon="game.icon"
-				:width="136"
-				:height="136"
+				v-if="icon"
+				:icon="icon"
 				:image="true"
-				view-box="0 0 200 200"
+				width="136px"
+				height="136px"
 			/>
 		</div>
 
-		<div class="game-header__content">
-			<h1 class="game__title">{{ pageable.title }}</h1>
+		<div class="page-internal-header__content">
+			<h1 class="page-internal-header__title">{{ title }}</h1>
 			<page-meta
-				:author="pageable.author ? pageable.author.full_name : ''"
-				:created="pageable.created_at"
-				:updated="pageable.updated_at"
+				:author="author ? author : ''"
+				:created="created"
+				:updated="updated"
 				:dark="true"
 			>
 			</page-meta>
 
+			<slot name="body" />
+
 			<common-text-spoiler
-				:limit="$device.isMobile || $device.isTablet ? 100 : 600"
-				class="game__summary"
-				:text="pageable.summary"
+				v-if="summary"
+				:limit="isMobile || isTablet ? 100 : 600"
+				class="page-internal-header__summary"
+				:text="summary"
 			>
 				<template v-slot:button>
-					<svg-icon icon="spoiler-sep" width="35" height="16" />
+					<svg-icon icon="spoiler-sep" :width="35" :height="16" />
 				</template>
 			</common-text-spoiler>
 		</div>
 
-		<room-top
-			class="game-header__room-top"
-			v-if="best"
-			:id="best.id"
-			:title="best.title"
-			:slug="best.slug"
-			:url="best.url"
-			:restricted="best.restricted"
-			:country="country"
-			:rating="best.rating"
-			:bonus="best.top_bonus"
-			:review="best.review"
-		/>
+		<lazy-hydrate v-if="promotion" when-visible>
+			<template>
+				<div class="page-internal-header__promotion">
+					<slot name="promotion" />
+				</div>
+			</template>
+		</lazy-hydrate>
 
-		<div v-if="game.tabs.length > 1" class="game-header__nav">
-			<tab-list>
-				<tab-item
-					v-for="(item, index) in game.tabs"
-					:key="index"
-					:params="{
-						parent: item.parent ? item.parent.slug : item.slug,
-						child: item.parent ? item.slug : null,
-					}"
-					:name="item.name"
-				>
-				</tab-item>
-			</tab-list>
+		<div class="page-internal-header__nav">
+			<slot name="nav" />
 		</div>
 	</div>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex'
+	import LazyHydrate from 'vue-lazy-hydration'
 
 	export default {
-		name: 'GameHeader',
+		name: 'PageInternalHeader',
 
-		components: {},
+		components: {
+			LazyHydrate,
+		},
 
 		props: {
-			latest: {
-				type: [Object, Boolean],
-				default: false,
+			title: {
+				type: String,
+			},
+			author: {
+				type: String,
+			},
+			created: {
+				type: String,
+			},
+			updated: {
+				type: String,
+			},
+			summary: {
+				type: String,
+			},
+			icon: {
+				type: String,
+			},
+			background: {
+				type: String,
+				default: 'radial-gradient(96.88% 66.11% at 57.43% 2.13%,#ccc 0,#f1f1f1 100%)',
+			},
+			backgroundUrl: {
+				type: String,
+				default: 'summary-bg.jpg',
+			},
+			promotion: {
+				type: Boolean,
+				default: true,
 			},
 		},
 
@@ -83,31 +98,20 @@
 
 		computed: {
 			...mapGetters({
-				game: 'games/game',
-				pageable: 'pages/page',
-				best: 'rooms/best',
-				country: 'location/country',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
 			}),
 		},
 
 		watch: {},
 
-		methods: {
-			dateFormat(timestamp) {
-				let date = new Date(timestamp),
-					d = date.getDate(),
-					m = date.getMonth() + 1,
-					y = date.getFullYear()
-
-				return (d <= 9 ? '0' + d : d) + '.' + (m <= 9 ? '0' + m : m) + '.' + y
-			},
-		},
+		methods: {},
 	}
 </script>
 
 <style lang="scss">
-	$game-bg: url('~assets/i/summary-bg.jpg?data');
-	.game-header {
+	$page-internal-bg: url('~assets/i/summary-bg.jpg?data');
+	.page-internal-header {
 		display: grid;
 		grid-template-columns: 172px 1fr 326px;
 		grid-template-areas:
@@ -131,31 +135,30 @@
 			display: block;
 			width: 100%;
 			height: 100%;
-			background: $game-bg no-repeat center;
+			background: $page-internal-bg no-repeat center;
 			background-size: cover;
 		}
+
 		&__content {
 			grid-area: content;
 		}
-		&__room-top {
+
+		&__promotion {
 			grid-area: room-top;
 		}
+
 		&__nav {
 			grid-area: nav;
 		}
-	}
 
-	.game {
-		&-header {
-			&__wrap {
-				padding: 30px 30px 0 30px;
-				position: relative;
-			}
+		&__wrap {
+			padding: 30px 30px 0 30px;
+			position: relative;
+		}
 
-			&__logo {
-				grid-area: logo;
-				text-align: right;
-			}
+		&__logo {
+			grid-area: logo;
+			text-align: right;
 		}
 
 		&__title {
@@ -178,7 +181,7 @@
 	}
 
 	@include mq('laptop') {
-		.game-header {
+		.page-internal-header {
 			grid-template-columns: 24px 157px 66px 1fr 24px;
 			grid-template-areas:
 				'. logo . content .'
@@ -186,14 +189,14 @@
 			column-gap: 0;
 			padding-left: 0;
 			padding-right: 0;
-			&__room-top {
+			&__promotion {
 				display: none;
 			}
 		}
 	}
 
 	@include mq('tablet') {
-		.game-header {
+		.page-internal-header {
 			margin-left: -20px;
 			margin-right: -20px;
 			grid-template-columns: 20px 1fr 20px;
@@ -210,6 +213,9 @@
 			}
 			&__nav {
 				width: 100%;
+			}
+			&__title {
+				text-align: center;
 			}
 		}
 	}

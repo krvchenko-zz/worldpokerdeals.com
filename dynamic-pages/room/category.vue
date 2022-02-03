@@ -161,7 +161,7 @@
 						:total="total"
 						:from="from"
 						:to="to"
-						:load-more-width="$device.isDesktop ? 215 : false"
+						:load-more-width="215"
 						:showPages="false"
 						:load-more-text="$t('show_more')"
 						:total-text="$t('rooms_entity_label')"
@@ -318,6 +318,8 @@
 				filters: 'rooms/filters',
 				promotions: 'promotions/items',
 				categories: 'rooms/categories',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
 			}),
 
 			params() {
@@ -453,8 +455,7 @@
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector('.rooms__aside__filter')
-				if (this.showFilter && !filtersElement?.contains(event.target)) {
+				if (this.showFilter) {
 					this.toggleMobileFilter()
 				}
 			},
