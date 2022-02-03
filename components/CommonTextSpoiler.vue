@@ -4,7 +4,7 @@
 			<div v-if="!client" v-html="text" :style="{
 				height: '65px',
 			}"></div>
-			<p
+			<p v-else
 				class="common-text-spoiler__visible-text"
 				v-for="(text, index) in visibleNodes"
 				:key="text"
