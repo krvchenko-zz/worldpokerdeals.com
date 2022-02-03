@@ -1,7 +1,9 @@
 <template>
 	<div class="common-text-spoiler">
-		<div v-if="!client" v-html="text"></div>
-		<div v-else v-show="shouldHide">
+		<div v-show="shouldHide">
+			<div v-if="!client" v-html="text" :style="{
+				height: '65px',
+			}"></div>
 			<p
 				class="common-text-spoiler__visible-text"
 				v-for="(text, index) in visibleNodes"
