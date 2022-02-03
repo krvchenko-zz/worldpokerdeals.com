@@ -81,7 +81,7 @@
 				</filter-selected-list>
 			</client-only>
 
-			<div v-if="$fetchState.pending" class="game-rooms__list">
+			<div v-if="$fetchState.pending || !client" class="game-rooms__list">
 				<lazy-skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
 			</div>
 			<div v-else class="game-rooms__list">
@@ -330,6 +330,10 @@
 
 			mediaUrl() {
 				return process.env.mediaUrl
+			},
+
+			client() {
+				return process.client
 			},
 
 			params() {

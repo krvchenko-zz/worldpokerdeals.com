@@ -175,7 +175,6 @@
 		}
 
 		&__summary {
-			// min-height: 65px;
 			margin-bottom: 26px;
 			font-family: 'Proxima Nova';
 			font-size: 17px;
