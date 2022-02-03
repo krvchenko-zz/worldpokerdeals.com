@@ -1,23 +1,27 @@
 <template>
 	<div class="common-text-spoiler">
-		<div v-show="shouldHide" :style="{
+		<div :style="{
 			height: !client ? '65px' : 'auto',
+			overflow: 'hidden',
 		}">
 			<div v-if="!client" v-html="text"></div>
-			<p v-else
-				class="common-text-spoiler__visible-text"
-				v-for="(text, index) in visibleNodes"
-				:key="text"
-			>
-				{{ text }}
-				<span
-					v-if="index === visibleNodes.length - 1"
-					@click="showAllText"
-					class="common-text-spoiler__button"
+			<template v-else>
+				<p
+					v-show="shouldHide"
+					class="common-text-spoiler__visible-text"
+					v-for="(text, index) in visibleNodes"
+					:key="text"
 				>
-					<slot name="button" />
-				</span>
-			</p>
+					{{ text }}
+					<span
+						v-if="index === visibleNodes.length - 1"
+						@click="showAllText"
+						class="common-text-spoiler__button"
+					>
+						<slot name="button" />
+					</span>
+				</p>
+			</template>
 		</div>
 		<div v-show="!shouldHide" ref="container"></div>
 	</div>
