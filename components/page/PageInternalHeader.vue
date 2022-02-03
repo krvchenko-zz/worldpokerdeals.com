@@ -159,6 +159,7 @@
 		&__logo {
 			grid-area: logo;
 			text-align: right;
+			min-height: 135px;
 		}
 
 		&__title {
@@ -171,7 +172,8 @@
 		}
 
 		&__summary {
-			padding-bottom: 26px;
+			min-height: 65px;
+			margin-bottom: 26px;
 			font-family: 'Proxima Nova';
 			font-size: 17px;
 			line-height: 22px;
@@ -209,7 +211,7 @@
 				margin-bottom: 20px;
 			}
 			&__summary {
-				padding-bottom: 20px;
+				margin-bottom: 20px;
 			}
 			&__nav {
 				width: 100%;
