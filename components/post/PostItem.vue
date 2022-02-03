@@ -15,6 +15,9 @@
 			<a :href="href" @click="navigate">
 				<img
 					decoding="async"
+					loading="lazy"
+					width="327px"
+					height="185px"
 					:class="[
 						'post-item__img',
 						medium && 'post-item__img_size_m',
@@ -22,7 +25,6 @@
 					]"
 					:src="src"
 					:alt="image.alt || title"
-					loading="lazy"
 				/>
 			</a>
 		</nuxt-link>

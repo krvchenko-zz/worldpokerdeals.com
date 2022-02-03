@@ -110,7 +110,7 @@
 </script>
 
 <style lang="scss">
-	$page-internal-bg: url('~assets/i/summary-bg.jpg?data');
+	$page-internal-bg: url('~assets/i/internal-page-header-bg.webp');
 	.page-internal-header {
 		display: grid;
 		grid-template-columns: 172px 1fr 326px;
