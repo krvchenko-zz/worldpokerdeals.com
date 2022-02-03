@@ -13,7 +13,7 @@
 		<div class="page-internal-header__content">
 			<h1 class="page-internal-header__title">{{ title }}</h1>
 			<page-meta
-				:author="author ? author : ''"
+				:author="author"
 				:created="created"
 				:updated="updated"
 				:dark="true"
