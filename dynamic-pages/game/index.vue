@@ -1,7 +1,6 @@
 <template>
 	<div class="game">
 		<breadcrumb-list class="game__breadcrumbs" />
-		<!-- <game-header class="game__header" /> -->
 
 		<page-internal-header
 			class="game__header"
@@ -10,7 +9,7 @@
 			:author="pageable.author ? pageable.author.full_name : ''"
 			:created="pageable.created_at"
 			:updated="pageable.updated_at"
-			:icon="game.icon"
+			:icon="pageable.pageable.icon"
 			:promotion="true"
 		>
 			<template #nav
@@ -33,7 +32,6 @@
 				<template #promotion>
 					<room-top
 						v-if="best && !$fetchState.pending"
-						class="room-header__room-top"
 						:id="best.id"
 						:title="best.title"
 						:slug="best.slug"
@@ -47,7 +45,6 @@
 					/>
 					<skeleton-top-room
 						v-else
-						class="room-header__room-top"
 						:label="$t('room_best')"
 					/>
 				</template>
@@ -226,7 +223,7 @@
 			<post-list
 				v-if="posts.length"
 				class="game__news"
-				:label="`Новости ${game.title}`"
+				:label="`Новости ${pageable.pageable.title}`"
 				asRow
 			>
 				<post-item
@@ -284,6 +281,7 @@
 			sort: 'rating',
 			order: 'desc',
 			geo: null,
+			cached: true,
 			game_id: null,
 			kyc: [],
 			platforms: [],
@@ -342,6 +340,7 @@
 					order: this.order,
 					query: this.query,
 					locale: this.locale,
+					cached: this.cached,
 					game_id: this.game.id,
 					geo: this.geo,
 					kyc: this.kyc,
@@ -395,31 +394,6 @@
 		},
 
 		methods: {
-			async fetchItems() {
-				this.$nuxt.$loading.start()
-
-				await this.$axios
-					.get(`rooms/list`, { params: this.params })
-					.then(response => {
-						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data,
-						})
-						this.$store.commit('rooms/FETCH_BEST', {
-							best: response.data.data[0],
-						})
-						this.$store.commit('rooms/FETCH_FILTERS', {
-							filters: response.data.filters,
-						})
-						Object.keys(response.data).forEach(key => {
-							if (key !== 'filters') {
-								this[key] = response.data[key]
-							}
-						})
-						this.loading = false
-						this.$nuxt.$loading.finish()
-					})
-			},
-
 			toggleMobileFilter() {
 				document.body.classList.toggle('modal-open')
 				this.showFilter = !this.showFilter
