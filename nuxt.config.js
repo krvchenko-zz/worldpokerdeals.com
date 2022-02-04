@@ -33,20 +33,12 @@ export default {
 		name: '',
 		mode: '',
 		beforeEnter (el) {
-			let container = document.createElement('div'),
-					preloader = document.createElement('div')
-
-			container.setAttribute('class', 'loadercontainer')
-			preloader.setAttribute('id', 'preloader')
-
-			container.append(preloader)
-
-			el.append(container)
+			document.getElementById('preloader-container').style.display = 'block'
 		},
 
 		afterLeave(el) {
 			setTimeout(() => {
-				document.getElementsByClassName('loadercontainer')[0].style.display = 'none'
+				document.getElementById('preloader-container').style.display = 'none'
 			}, 500)
 		}
 	},

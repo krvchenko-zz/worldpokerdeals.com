@@ -163,7 +163,7 @@ body {
 	}
 }
 
-.loadercontainer {
+#preloader-container {
 	perspective: 600px;
 	-webkit-perspective: 600px;
 	text-align: center;
@@ -171,7 +171,7 @@ body {
 	padding-top: 200px;
 	height: 100%;
 	width: 100%;
-	z-index: 999999;
+	z-index: 999998;
 	top: 0;
 	left: 0;
 	background: linear-gradient(180deg, #2b2e3b 47.41%, #20222c 100%);

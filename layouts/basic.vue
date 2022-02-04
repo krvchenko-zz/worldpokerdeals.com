@@ -1,5 +1,10 @@
 <template>
 	<div class="page">
+		<div id="preloader-container" :style="{
+			display: 'none',
+		}">
+			<div id="preloader"></div>
+		</div>
 		<!-- Disclaimer -->
 		<client-only>
 			<page-disclaimer v-if="!disclaimer && locale === 'ru'" />
