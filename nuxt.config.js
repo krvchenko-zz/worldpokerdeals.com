@@ -28,20 +28,36 @@ export default {
 	loading: { color: '#2E87C8', throttle: 0, height: '3px' },
 
 	pageTransition: {
-		name: 'page',
-		mode: 'out-in',
-		// name: '',
-		// mode: '',
+		// name: 'page',
+		// mode: 'out-in',
+		name: '',
+		mode: '',
 		beforeEnter (el) {
+			let container = document.createElement('div'),
+					preloader = document.createElement('div')
+
+			container.setAttribute('class', 'loadercontainer')
+			preloader.setAttribute('id', 'preloader')
+
+			container.append(preloader)
+
+			el.append(container)
+		},
+
+		afterLeave(el) {
+			setTimeout(() => {
+				document.getElementsByClassName('loadercontainer')[0].style.display = 'none'
+			}, 500)
 		}
 	},
 
 	layoutTransition: {
-		name: 'layout',
-		mode: 'out-in',
-		// name: '',
-		// mode: '',
+		// name: 'layout',
+		// mode: 'out-in',
+		name: '',
+		mode: '',
 		beforeEnter (el) {
+
 		}
 	},
 

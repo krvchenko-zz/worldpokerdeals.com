@@ -25,17 +25,19 @@
 <script>
 
 	export default {
-    data: () => ({
-      loading: false
-    }),
-    methods: {
-      start() {
-        this.loading = true
-      },
-      finish() {
-        this.loading = false
-      }
-    }
+		data: () => ({
+			loading: false
+		}),
+		methods: {
+			start() {
+				this.loading = true
+			},
+			finish() {
+				setTimeout(() => {
+					this.loading = false
+				}, 500)
+			}
+		}
 	}
 </script>
 
