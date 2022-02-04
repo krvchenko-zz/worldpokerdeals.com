@@ -43,9 +43,9 @@
 		background: #1e88e5;
 		border-radius: 4px;
 		color: #fff;
-		font-weight: 600;
 		font-size: 16px;
 		line-height: 16px;
+		font-family: 'Proxima Nova Sb';
 		&__icon {
 			margin-right: 12px;
 		}

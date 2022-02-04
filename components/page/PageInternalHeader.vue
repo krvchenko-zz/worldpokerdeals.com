@@ -3,6 +3,7 @@
 		<div class="page-internal-header__logo">
 			<svg-icon
 				v-if="icon"
+				class="page-internal-header__icon"
 				:icon="icon"
 				:image="true"
 				width="136px"
@@ -172,6 +173,10 @@
 			font-size: 32px;
 			line-height: 36px;
 			color: #222222;
+		}
+
+		&__icon {
+			border-radius: 50%;
 		}
 
 		&__summary {

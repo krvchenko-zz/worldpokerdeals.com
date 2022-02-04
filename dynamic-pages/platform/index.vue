@@ -34,7 +34,6 @@
 		</page-internal-header>
 
 		<div class="platform-rooms">
-
 			<client-only>
 				<filter-header
 					:geo.sync="geo"
@@ -289,7 +288,7 @@
 				best: 'rooms/best',
 				filters: 'rooms/filters',
 				posts: 'platforms/posts',
-				isTouch: 'ui/isTouch',
+				isTablet: 'ui/isTablet',
 				isMobile: 'ui/isMobile',
 			}),
 
@@ -479,26 +478,6 @@
 		}
 	}
 
-	.platform-filters {
-		margin-bottom: 24px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		&__geo {
-			margin-left: auto;
-		}
-
-		&__info {
-			font-family: 'Proxima Nova';
-			font-style: normal;
-			font-weight: normal;
-			font-size: 16px;
-			line-height: 16px;
-			color: #222222;
-		}
-	}
-
 	.platform-rooms {
 		grid-area: platform-rooms;
 		margin-bottom: 40px;
@@ -567,7 +546,7 @@
 
 		.platform-rooms__list {
 			margin-right: -20px;
-			margin-left: -21px;
+			margin-left: -20px;
 		}
 	}
 </style>

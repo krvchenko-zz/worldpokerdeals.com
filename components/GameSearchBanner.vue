@@ -78,7 +78,7 @@
 	$game-search-bg: url('~assets/i/game-search-banner.webp');
 
 	.game-search-banner {
-		margin: 40px 0 0 0;
+		// margin: 40px 0 0 0;
 		width: 100%;
 		position: relative;
 		border-radius: 10px;

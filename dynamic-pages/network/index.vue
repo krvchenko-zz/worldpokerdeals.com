@@ -2,21 +2,48 @@
 	<div class="network">
 		<breadcrumb-list class="network__breadcrumbs" />
 
-		<network-header class="network__header" />
+		<page-internal-header
+			class="network__header"
+			:title="pageable.title"
+			:summary="pageable.summary"
+			:author="pageable.author ? pageable.author.full_name : ''"
+			:created="pageable.created_at"
+			:updated="pageable.updated_at"
+			:icon="network.url"
+			:promotion="true"
+		>
+			<template #promotion>
+				<room-top
+					v-if="best && !$fetchState.pending"
+					:id="best.id"
+					:title="best.title"
+					:slug="best.slug"
+					:url="best.url"
+					:restricted="best.restricted"
+					:country="country"
+					:rating="best.rating"
+					:bonus="best.top_bonus"
+					:review="best.review"
+					:label="$t('room_best')"
+				/>
+				<skeleton-top-room
+					v-else
+					:label="$t('room_best')"
+				/>
+			</template>
+		</page-internal-header>
 
 		<h2
 			v-if="data.length"
 			:id="urlLit($t('network_rooms', {title: network.title}))"
-			class="network__rooms-title network-rooms__title"
+			class="network-rooms__title"
 		>
 			{{ $t('network_rooms', {title: network.title}) }}
 		</h2>
 
 		<div v-if="data.length" class="network__rooms network-rooms">
-
 			<client-only>
 				<filter-header
-					class="network__filter-header"
 					:geo.sync="geo"
 					:sort.sync="sort"
 					:total.sync="total"
@@ -24,14 +51,10 @@
 					:sort-options="sortOptions"
 					:selected="selected.length"
 					:entity-label="$t('rooms_entity_label')"
-					@update:sort="fetchItems"
-					@update:geo="fetchItems"
+					@update:sort="handleSortChange"
+					@update:geo="handleGeoChange"
 				/>
-
-				<filter-selected-list
-					v-if="selected.length"
-					class="network__filter-selected"
-				>
+				<filter-selected-list v-if="selected.length">
 					<filter-selected
 						v-for="(item, index) in selected"
 						:key="index"
@@ -48,7 +71,10 @@
 				</filter-selected-list>
 			</client-only>
 
-			<div class="network__rooms__item">
+			<div v-if="$fetchState.pending" class="network-rooms__list">
+				<lazy-skeleton-room v-for="(item, index) in parseInt(per_page)" :key="index" />
+			</div>
+			<div v-else class="network-rooms__list">
 				<room
 					v-for="(item, index) in data"
 					v-if="data.length"
@@ -63,6 +89,7 @@
 					:background="item.background"
 					:image="item.image"
 					:restricted="item.restricted"
+					:closed="item.closed"
 					:available="item.available"
 					:network="item.network"
 					:tags="item.tags"
@@ -70,25 +97,26 @@
 				/>
 			</div>
 
-			<pagination
-				v-if="rooms.length"
-				:last="last_page"
-				:current="parseInt(page)"
-				:prev-url="prev_page_url"
-				:next-url="next_page_url"
-				:total="total"
-				:from="from"
-				:to="to"
-				:load-more-width="$device.isDesktop ? 215 : false"
-				:showPages="false"
-				:load-more-text="$t('load_more')"
-				:total-text="$t('rooms_entity_label')"
-				@next="handlePageNext"
-				@prev="handlePagePrev"
-				@change="handlePageChange"
-				@more="handleShowMore"
-			>
-			</pagination>
+			<lazy-hydrate when-visible>
+				<lazy-pagination
+					v-if="data.length"
+					:last="last_page"
+					:current="parseInt(page) || current_page"
+					:prev-url="prev_page_url"
+					:next-url="next_page_url"
+					:total="total"
+					:from="from"
+					:to="to"
+					:load-more-width="isMobile ? null : 215"
+					:showPages="false"
+					:load-more-text="$t('show_more')"
+					:total-text="$t('rooms_entity_label')"
+					@next="handlePageNext"
+					@prev="handlePagePrev"
+					@change="handlePageChange"
+					@more="handleShowMore"
+				/>
+			</lazy-hydrate>
 		</div>
 
 		<div class="network__toc">
@@ -131,8 +159,6 @@
 				</faq-list>
 				<!-- Author -->
 				<author v-if="pageable.user" :author="pageable.user" />
-				<!-- Comments -->
-				<!-- <comments commentable_type="App\Network" :commentable_id="network.id" /> -->
 			</template>
 		</page-article>
 
@@ -140,40 +166,46 @@
 			<client-only>
 				<div
 					v-if="filters"
-					class="filters__wrapper"
-					:class="{ 'filters__wrapper--opened': showFilter }"
+					class="network__filter-wrapper"
+					:class="{ 'network__filter-wrapper--opened': showFilter }"
 					@click.self="handleOutsideClick($event)"
 				>
-					<lazy-hydrate>
-						<network-filters
+					<lazy-hydrate when-visible>
+						<room-filters
+							v-if="filters"
+							class="network__filter"
+							:geo.sync="geo"
 							:kycs="filters.kycs"
 							:platforms="filters.platforms"
 							:tags="filters.tags"
 							:payments="filters.payments"
 							:types="filters.types"
-							:networks="filters.networks"
 							:licenses="filters.licenses"
-							:geo.sync="geo"
-							@update:sort="fetchItems"
-							@update:geo="fetchItems"
+							@update:sort="handleSortChange"
+							@update:geo="handleGeoChange"
 							@change="handleFilterChange"
+							@filterOpen="handleFilterOpen"
 						/>
 					</lazy-hydrate>
 				</div>
 			</client-only>
 
-			<topic-list v-if="pageable.topics.length" class="network__topics">
-				<topic-item
-					v-for="(item, index) in pageable.topics"
-					:key="index"
-					:title="item.title"
-					:url="item.url"
-					:author="item.author"
-					:created="item.created_at"
-				/>
-			</topic-list>
+			<lazy-hydrate when-visible>
+				<topic-list v-if="pageable.topics && pageable.topics.length">
+					<topic-item
+						v-for="(item, index) in pageable.topics"
+						:key="index"
+						:title="item.title"
+						:url="item.url"
+						:author="item.author"
+						:created="item.created_at"
+					/>
+				</topic-list>
+			</lazy-hydrate>
 
-			<game-search-banner />
+			<lazy-hydrate when-visible>
+				<game-search-banner />
+			</lazy-hydrate>
 		</aside>
 
 		<lazy-hydrate when-visible>
@@ -246,6 +278,7 @@
 			sort: 'rating',
 			order: 'desc',
 			geo: null,
+			cached: true,
 			network_id: null,
 			kyc: [],
 			platforms: [],
@@ -290,10 +323,12 @@
 				pageable: 'pages/page',
 				network: 'networks/network',
 				rooms: 'rooms/rooms',
+				best: 'rooms/best',
 				filters: 'rooms/filters',
 				related: 'networks/related',
 				posts: 'networks/posts',
 				isTouch: 'ui/isTouch',
+				isMobile: 'ui/isMobile',
 			}),
 
 			mediaUrl() {
@@ -310,6 +345,7 @@
 					locale: this.locale,
 					network_id: this.network.id,
 					geo: this.geo,
+					cached: this.cached,
 					kyc: this.kyc,
 					platforms: this.platforms,
 					tags: this.tags,
@@ -341,21 +377,25 @@
 				})
 				.catch(e => {})
 
-				await this.$axios
-					.get(`rooms/list`, { params: { ...this.params, cached: true } })
-					.then(response => {
-						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data 
-						})
-						this.$store.commit('rooms/FETCH_FILTERS', {
-							filters: response.data.filters
-						})
-						Object.keys(response.data).forEach(key => {
-							if (key !== 'filters') {
-								this[key] = response.data[key]
-							}
-						})
+			await this.$axios
+				.get('rooms/list', { params: { ...this.params } })
+				.then(response => {
+					this.$store.commit('rooms/FETCH_ROOMS', {
+						rooms: response.data.data 
 					})
+					this.$store.commit('rooms/FETCH_BEST', {
+						best: response.data.data[0],
+					})
+					this.$store.commit('rooms/FETCH_FILTERS', {
+						filters: response.data.filters
+					})
+					Object.keys(response.data).forEach(key => {
+						if (key !== 'filters') {
+							this[key] = response.data[key]
+						}
+					})
+				})
+				.catch(e => {})
 		},
 
 		watch: {},
@@ -365,73 +405,71 @@
 		},
 
 		methods: {
-			async fetchItems() {
-				this.$nuxt.$loading.start()
-
-				await this.$axios
-					.get(`rooms/list`, { params: this.params })
-					.then(response => {
-						this.$store.commit('rooms/FETCH_ROOMS', {
-							rooms: response.data.data 
-						})
-						this.$store.commit('rooms/FETCH_FILTERS', {
-							filters: response.data.filters
-						})
-						Object.keys(response.data).forEach(key => {
-							if (key !== 'filters') {
-								this[key] = response.data[key]
-							}
-						})
-						this.loading = false
-						this.$nuxt.$loading.finish()
-					})
-			},
-
-			handlePageNext() {
-				this.page = this.current_page + 1
-				this.fetchItems()
-			},
-
-			handlePagePrev() {
-				this.page = this.current_page - 1
-				this.fetchItems()
-			},
-
-			handlePageChange(number) {
-				this.page = number
-				this.fetchItems()
-			},
-
-			handleShowMore() {
-				this.per_page = parseInt(this.per_page) + 6
-				this.fetchItems()
-			},
-
 			toggleMobileFilter() {
 				document.body.classList.toggle('modal-open')
 				this.showFilter = !this.showFilter
 			},
 
 			handleOutsideClick(event) {
-				const filtersElement = document.querySelector('.filters')
-				if (this.showFilter && !filtersElement?.contains(event.target)) {
+				if (this.showFilter) {
 					this.toggleMobileFilter()
 				}
 			},
 
-			handleSortChange(order) {
-				this.sort = order
-				this.fetchItems()
-			},
-
 			handleFilterChange(selected) {
-				this.selected = selected.flatten
+				this.cached = null
+				this.$nuxt.$loading.start()
+				if (this.selected) {
+					this.selected = selected.flatten
+					Object.keys(selected.values).forEach(key => {
+						this[key] = selected.values[key]
+					})
+				}
 
-				Object.keys(selected.values).forEach(key => {
-					this[key] = selected.values[key]
-				})
-				this.fetchItems()
+				this.$fetch()
 			},
+
+			handleGeoChange() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handleSortChange() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handlePageNext() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.page = parseInt(this.current_page) + 1
+				this.$fetch()
+			},
+
+			handlePagePrev() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.page = parseInt(this.current_page) - 1
+				this.$fetch()
+			},
+
+			handlePageChange(number) {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.page = parseInt(number)
+				this.$fetch()
+			},
+
+			handleShowMore() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.per_page = parseInt(this.per_page) + 6
+				this.$fetch()
+			},
+
+			handleFilterOpen() {},
 
 			urlLit(w, v) {
 				let tr = 'a b v g d e ["zh","j"] z i y k l m n o p r s t u f h c ch sh ["shh","shch"] ~ y ~ e yu ya ~ ["jo","e"]'.split(
@@ -479,6 +517,10 @@
 		}
 		&__header {
 			grid-area: header;
+			background: radial-gradient(96.88% 66.11% at 57.43% 2.13%,#ccc 0,#f1f1f1 100%);
+			&:before {
+				display: none;
+			}
 		}
 		&__rooms-title {
 			grid-area: rooms-title;
@@ -510,34 +552,9 @@
 				column-gap: 28px;
 				row-gap: 24px;
 			}
-
 			.block-title {
 				margin-top: 0;
 			}
-		}
-
-		.pagination {
-			margin-bottom: 0;
-		}
-	}
-
-	.network-filters {
-		margin-bottom: 24px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		&__geo {
-			margin-left: auto;
-		}
-
-		&__info {
-			font-family: 'Proxima Nova';
-			font-style: normal;
-			font-weight: normal;
-			font-size: 16px;
-			line-height: 16px;
-			color: #222222;
 		}
 	}
 
@@ -549,6 +566,7 @@
 			line-height: 28px;
 			letter-spacing: -0.2px;
 			color: #222222;
+			grid-area: rooms-title;
 		}
 	}
 
@@ -592,6 +610,27 @@
 					gap: 20px;
 				}
 			}
+			&__filter {
+				margin-bottom: 0;
+				margin-left: auto;
+				max-width: 436px;
+				height: 100%;
+				overflow-y: scroll;
+				@include hide-scroll();
+			}
+
+			&__filter-wrapper {
+				display: none;
+				position: fixed;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 999;
+				&--opened {
+					display: block;
+				}
+			}
 		}
 
 		.network-rooms {
@@ -602,8 +641,8 @@
 	@include mq('tablet') {
 		.network {
 			@include paddings('mobile');
-			&__rooms {
-				&__item {
+			&-rooms {
+				&__list {
 					margin-left: -20px;
 					margin-right: -20px;
 				}
