@@ -96,10 +96,11 @@
 		}
 	}
 	.toc__label {
+		margin-bottom: 16px;
 		color: #243238;
 		font-style: normal;
 		font-weight: bold;
-		line-height: 36px;
+		line-height: 20px;
 		font-size: 16px;
 		font-family: 'Proxima Nova';
 	}
@@ -120,6 +121,8 @@
 			border-radius: 10px;
 			padding: 16px 20px;
 			&__label {
+				margin-bottom: 0;
+				line-height: 36px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
