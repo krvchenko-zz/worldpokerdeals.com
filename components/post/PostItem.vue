@@ -343,6 +343,7 @@
 	@include mq('tablet') {
 		.post-item {
 			&--card {
+				max-width: none;
 				display: grid;
 				grid-template-columns: [image] 1fr [content] 2fr;
 				grid-column-gap: 16px;
@@ -362,7 +363,7 @@
 				margin-bottom: 8px;
 			}
 			&--card &__img {
-				width: 136px;
+				width: 100%;
 				min-width: 136px;
 				height: auto;
 				clip-path: none;

@@ -29,6 +29,7 @@
 					:created="pageable.created_at"
 					:updated="pageable.updated_at"
 					:meta="true"
+					:loading="$fetchState.pending"
 				>
 					<template #header>
 						<toc-list v-if="pageable.toc" class="post__header-toc">
@@ -59,13 +60,12 @@
 				<!-- Author -->
 				<author v-if="pageable.author" :author="pageable.author" />
 				<!-- Comments -->
-				<!-- <comments commentable_type="App\Post" :commentable_id="post.id" /> -->
 			</div>
 
 			<aside class="article-container__aside-content">
 				<room-top-list />
 
-				<post-list :label="$t('blog_important')" featured :asRow="$device.isTablet">
+				<post-list :label="$t('blog_important')" featured>
 					<post-item
 						v-for="item in important"
 						:key="item.id"
@@ -80,7 +80,7 @@
 					/>
 				</post-list>
 
-				<post-list v-if="recent" :asRow="$device.isTablet" class="posts_recent">
+				<post-list v-if="recent" :asRow="isTablet" class="posts_recent">
 					<post-item
 						v-for="(item, index) in recent"
 						:key="index"
@@ -92,7 +92,7 @@
 						:created="item.page.created_at"
 						:categories="item.categories"
 						:medium="true"
-						:asCard="$device.isMobile"
+						:asCard="isMobile"
 					></post-item>
 				</post-list>
 			</aside>
@@ -103,7 +103,7 @@
 				v-if="related"
 				class="posts_related"
 				:label="$t('posts_related')"
-				:asRow="$device.isDesktopOrTablet"
+				:asRow="isDesktop || isTablet"
 			>
 				<post-item
 					v-for="(item, index) in related"
@@ -116,7 +116,7 @@
 					:created="item.page.created_at"
 					:categories="item.categories"
 					:medium="true"
-					:asCard="$device.isMobile"
+					:asCard="isMobile"
 				/>
 			</post-list>
 		</lazy-hydrate>
@@ -155,6 +155,9 @@
 				important: 'posts/important',
 				related: 'posts/related',
 				recent: 'posts/recent',
+				isTablet: 'ui/isTablet',
+				isMobile: 'ui/isMobile',
+				isDesktop: 'ui/isDesktop',
 			}),
 
 			ogImage() {

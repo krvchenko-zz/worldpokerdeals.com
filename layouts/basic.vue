@@ -311,6 +311,7 @@
 				cookie: 'auth/cookie',
 				isMobile: 'ui/isMobile',
 				isTablet: 'ui/isTablet',
+				isDesktop: 'ui/isDesktop',
 			}),
 		},
 
@@ -415,7 +416,6 @@
 			})
 
 			eventBus.$on('blacklistModal:show', event => {
-				console.log(event);
 				this.blacklistModal = event
 			})
 
@@ -437,6 +437,9 @@
 				})
 				this.$store.commit('ui/SET_IS_TABLET', {
 					value: window.innerWidth >= 768 && window.innerWidth < 1280,
+				})
+				this.$store.commit('ui/SET_IS_DESKTOP', {
+					value: window.innerWidth >= 1280,
 				})
 			},
 		},

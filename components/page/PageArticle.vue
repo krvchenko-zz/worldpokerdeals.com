@@ -12,8 +12,22 @@
 
 		<div v-if="summary" class="article__summary" v-html="summary"></div>
 
+		<el-skeleton v-if="image && loading" animated>
+			<template slot="template">
+				<el-skeleton-item
+					:style="{
+						maxWidth: '100%',
+						width: '742px',
+				    height: '320px',
+				    borderRadius: '4px',
+				    marginBottom: '40px',
+					}"
+					variant="image"
+				/>
+			</template>
+		</el-skeleton>
 		<img
-			v-if="image"
+			v-if="image && !loading"
 			class="article__img"
 			decoding="async"
 			loading="lazy"
@@ -51,6 +65,11 @@
 		},
 
 		props: {
+			loading: {
+				type: Boolean,
+				default: true,
+			},
+
 			text: {
 				type: String,
 				required: true,
