@@ -1,13 +1,14 @@
 <template>
 	<div class="post-category-header">
 		<breadcrumb-list class="post-category-header__breadcrumb" :white="true" />
-		<svg-icon
-			class="post-category-header__icon"
-			icon="heart-spade"
-			width="68px"
-			height="68px"
-			:image="true"
-		/>
+		<div class="post-category-header__icon">
+			<svg-icon
+				icon="heart-spade"
+				width="68px"
+				height="68px"
+				:image="true"
+			/>
+		</div>
 		<div>
 			<h1 class="post-category__title">{{ $t('poker_news') }}{{ $route.params.page ? $t('page_number', {page: $route.params.page}) : '' }}</h1>
 			<div class="post-category__summary" v-html="$t('blog_header')"></div>
@@ -62,6 +63,10 @@
 			column-gap: 24px;
 			&__breadcrumb {
 				grid-column: span 3;
+			}
+			&__icon {
+				width: 68px;
+				height: 68px;
 			}
 		}
 		&__title {
