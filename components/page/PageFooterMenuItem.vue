@@ -13,7 +13,7 @@
 		<li class="footer-category-item">
 			<a :class="['footer-category-item__link']" :href="href" @click="navigate">
 				<svg-icon
-					v-if="icon && $device.isMobile"
+					v-if="icon && isMobile"
 					:class="['footer-category-item__icon']"
 					:icon="icon"
 					fill="#999999"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 	export default {
 		name: 'PageFooterMenuItem',
 
@@ -45,7 +46,13 @@
 
 		data: () => ({}),
 
-		computed: {},
+		computed: {
+			...mapGetters({
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
+				isDesktop: 'ui/isDesktop',
+			})
+		},
 
 		watch: {},
 
