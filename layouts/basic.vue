@@ -263,7 +263,7 @@
 			</transition>
 		</lazy-hydrate>
 		<!-- Go top -->
-		<client-only v-if="!$device.isMobile" name="fade">
+		<client-only v-if="isMobile" name="fade">
 			<lazy-hydrate when-visible>
 				<page-top />
 			</lazy-hydrate>
