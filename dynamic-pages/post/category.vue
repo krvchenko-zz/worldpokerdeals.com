@@ -1,98 +1,39 @@
 <template>
-	<div class="post-category">
-		<post-category-header class="post-category__header" />
+	<div class="post-category-page">
+		<div class="post-category">
+			<post-category-header class="post-category__header" />
 
-		<filter-tab-list class="post-category__filter">
-			<filter-tab-item
-				:label="$t('all_posts')"
-				:value="null"
-				:active="category_id === null"
-				@click="handleFilter(null)"
-			/>
-			<filter-tab-item
-				v-for="item in categories"
-				:key="item.id"
-				:label="item.title"
-				:value="item.id"
-				:active="item.id === category_id"
-				@click="handleFilter(item.id, item.slug)"
-			/>
-		</filter-tab-list>
-
-		<div class="post-category__news">
-			<post-item
-				v-for="item in posts"
-				:key="item.id"
-				:medium="true"
-				:style="{ marginBottom: '28px' }"
-				:image="item.image"
-				:title="item.page.title"
-				:summary="item.page.summary"
-				:slug="item.page.slug"
-				:author="item.page.author"
-				:created="item.page.created_at"
-				:categories="item.categories"
-			/>
-		</div>
-
-		<pagination
-			v-if="posts"
-			:last="last_page"
-			:current="current_page || page"
-			:prev-url="prev_page_url"
-			:next-url="next_page_url"
-			:total="total"
-			:from="from"
-			:to="to"
-			:url="true"
-			:show-load-more="false"
-			:load-more-text="$t('show_more')"
-			@next="handlePageNext"
-			@prev="handlePagePrev"
-			@change="handlePageChange"
-			@more="handleShowMore"
-			class="post-category__pagination"
-		>
-		</pagination>
-
-		<aside v-if="important" class="post-category__aside aside">
-			<div class="blog-subscribe">
-				<div class="blog-subscribe__title">{{ $t('blog_banner.title') }}</div>
-				<div class="blog-subscribe__text">{{ $t('blog_banner.text') }}</div>
-				<div class="blog-subscribe__contacts">
-					<button-contact
-						icon type="telegram"
-						target="_blank"
-						rel="nofollow noopener"
-						href="worldpokerdealsRU" />
-					<button-contact
-						icon
-						type="instagram"
-						target="_blank"
-						rel="nofollow noopener"
-						href="https://instagram.com/worldpokerdeals"
-					/>
-					<button-contact
-						icon
-						type="fb"
-						target="_blank"
-						rel="nofollow noopener"
-						href="https://www.facebook.com/worldpokerdealsRu"
-					/>
-					<button-contact
-						icon
-						type="vk"
-						target="_blank"
-						rel="nofollow noopener"
-						href="https://vk.com/worldpokerdeals"
-					/>
-				</div>
-			</div>
-			<post-list :label="$t('blog_important')" featured>
-				<post-item
-					v-for="item in important"
+			<filter-tab-list class="post-category__filter">
+				<filter-tab-item
+					:label="$t('all_posts')"
+					:value="null"
+					:active="category_id === null"
+					@click="handleFilter(null)"
+				/>
+				<filter-tab-item
+					v-for="item in categories"
 					:key="item.id"
-					:medium="false"
+					:label="item.title"
+					:value="item.id"
+					:active="item.id === category_id"
+					@click="handleFilter(item.id, item.slug)"
+				/>
+			</filter-tab-list>
+
+			<div v-if="$fetchState.pending" class="post-category__news">
+				<skeleton-post
+					:key="index"
+					v-for="(item, index) in parseInt(per_page)"
+					:style="{ marginBottom: '28px' }"
+					:medium="true"
+				/>
+			</div>
+			<div v-else class="post-category__news">
+				<post-item
+					v-for="item in posts"
+					:key="item.id"
+					:medium="true"
+					:style="{ marginBottom: '28px' }"
 					:image="item.image"
 					:title="item.page.title"
 					:summary="item.page.summary"
@@ -101,10 +42,79 @@
 					:created="item.page.created_at"
 					:categories="item.categories"
 				/>
-			</post-list>
+			</div>
 
-			<front-telegram />
-		</aside>
+			<pagination
+				v-if="posts"
+				:last="last_page"
+				:current="current_page || page"
+				:prev-url="prev_page_url"
+				:next-url="next_page_url"
+				:total="total"
+				:from="from"
+				:to="to"
+				:url="true"
+				:show-load-more="false"
+				:load-more-text="$t('show_more')"
+				@next="handlePageNext"
+				@prev="handlePagePrev"
+				@change="handlePageChange"
+				@more="handleShowMore"
+				class="post-category__pagination"
+			>
+			</pagination>
+
+			<aside v-if="important" class="post-category__aside aside">
+				<div class="blog-subscribe">
+					<div class="blog-subscribe__title">{{ $t('blog_banner.title') }}</div>
+					<div class="blog-subscribe__text">{{ $t('blog_banner.text') }}</div>
+					<div class="blog-subscribe__contacts">
+						<button-contact
+							icon type="telegram"
+							target="_blank"
+							rel="nofollow noopener"
+							href="worldpokerdealsRU" />
+						<button-contact
+							icon
+							type="instagram"
+							target="_blank"
+							rel="nofollow noopener"
+							href="https://instagram.com/worldpokerdeals"
+						/>
+						<button-contact
+							icon
+							type="fb"
+							target="_blank"
+							rel="nofollow noopener"
+							href="https://www.facebook.com/worldpokerdealsRu"
+						/>
+						<button-contact
+							icon
+							type="vk"
+							target="_blank"
+							rel="nofollow noopener"
+							href="https://vk.com/worldpokerdeals"
+						/>
+					</div>
+				</div>
+				<post-list :label="$t('blog_important')" featured>
+					<post-item
+						v-for="item in important"
+						:key="item.id"
+						:medium="false"
+						:image="item.image"
+						:title="item.page.title"
+						:summary="item.page.summary"
+						:slug="item.page.slug"
+						:author="item.page.author"
+						:created="item.page.created_at"
+						:categories="item.categories"
+					/>
+				</post-list>
+
+				<front-telegram />
+			</aside>
+		</div>
 	</div>
 </template>
 
@@ -136,6 +146,7 @@
 			sort: 'desc',
 			order: 'created_at',
 			category_id: null,
+			cached: true,
 			// data: [],
 			from: 0,
 			to: 0,
@@ -159,6 +170,23 @@
 				posts: 'posts/posts',
 				important: 'posts/important',
 			}),
+
+			params() {
+				return {
+					geo: this.country.code,
+					locale: this.locale,
+					cached: this.cached,
+					sort: this.sort,
+					order: this.order,
+					page: this.$route.params &&  this.$route.params.page ? this.$route.params.page : this.page,
+					per_page: this.per_page,
+					post_category_id: this.category_id,
+				}
+			},
+
+			title() {
+				return `${this.$t('poker_news')} ${this.$route.params.page ? this.$t('page_number', { page: this.$route.params.page }) : ''}`
+			},
 		},
 
 		async fetch() {
@@ -182,19 +210,11 @@
 				: null
 
 			await this.$axios
-				.get('/posts/list', {
-					params: {
-						geo: this.country.code,
-						locale: this.locale,
-						sort: this.sort,
-						order: this.order,
-						page: this.$route.params &&  this.$route.params.page ? this.$route.params.page : this.page,
-						per_page: this.per_page,
-						post_category_id: this.category_id,
-					},
-				})
+				.get('/posts/list', { params: { ...this.params } })
 				.then(response => {
-					this.$store.commit('posts/FETCH_POSTS', { posts: response.data.data })
+					this.$store.commit('posts/FETCH_POSTS', {
+						posts: response.data.data
+					})
 					Object.keys(response.data).forEach(key => {
 						this[key] = response.data[key]
 					})
@@ -203,46 +223,12 @@
 		},
 
 		watch: {
-			'$route.query': 'fetchItems',
+			'$route.query': '$fetch',
 		},
 
 		methods: {
-			async fetchItems(query) {
-				this.category_id =
-					query && query.category
-						? this.categories.filter(item => {
-								return item.slug === query.category
-							})[0].id
-						: this.category_id
-
-				$nuxt.$loading.start()
-				await this.$axios
-					.get('/posts/list', {
-						params: {
-							geo: this.country.code,
-							locale: this.locale,
-							sort: this.sort,
-							order: this.order,
-							page: this.page,
-							per_page: this.per_page,
-							post_category_id: this.category_id,
-						},
-					})
-					.then(response => {
-						this.$store.commit('posts/FETCH_POSTS', {
-							posts: response.data.data,
-						})
-						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
-						})
-						this.loading = false
-						this.$nuxt.$loading.finish()
-					})
-					.catch(e => {})
-			},
-
 			handleFilter(id, slug) {
-
+				this.cached = null
 				if (slug) {
 					return this.$router.push({
 						path: '/blog',
@@ -259,28 +245,33 @@
 			},
 
 			handlePageNext() {
+				this.cached = null
 				this.page = this.current_page + 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePagePrev() {
+				this.cached = null
 				this.page = this.current_page - 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePageChange(number) {
+				this.cached = null
 				this.page = number
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handleShowMore() {
+				this.cached = null
 				this.per_page = parseInt(this.per_page) + 6
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handleSortChange(order) {
+				this.cached = null
 				this.sort = order
-				this.fetchItems()
+				this.$fetch()
 			},
 		},
 	}

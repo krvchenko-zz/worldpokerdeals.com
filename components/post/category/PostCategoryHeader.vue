@@ -4,8 +4,9 @@
 		<svg-icon
 			class="post-category-header__icon"
 			icon="heart-spade"
-			:width="68"
-			:height="68"
+			width="68px"
+			height="68px"
+			:image="true"
 		/>
 		<div>
 			<h1 class="post-category__title">{{ $t('poker_news') }}{{ $route.params.page ? $t('page_number', {page: $route.params.page}) : '' }}</h1>
@@ -45,7 +46,7 @@
 </script>
 
 <style lang="scss">
-	$bg: url('~assets/i/post-category-bg.jpg');
+	$post-category-bg: url('~assets/i/post-category-bg.jpg');
 
 	.post-category {
 		&-header {
@@ -54,7 +55,7 @@
 			@include paddings('desktop');
 			position: relative;
 			margin-bottom: 32px;
-			background: $bg no-repeat center;
+			background: $post-category-bg no-repeat center;
 			background-size: cover;
 			display: grid;
 			grid-template-columns: max-content 1fr;

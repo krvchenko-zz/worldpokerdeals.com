@@ -327,7 +327,7 @@
 				filters: 'rooms/filters',
 				related: 'networks/related',
 				posts: 'networks/posts',
-				isTouch: 'ui/isTouch',
+				isTablet: 'ui/isTablet',
 				isMobile: 'ui/isMobile',
 			}),
 
