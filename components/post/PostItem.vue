@@ -174,7 +174,9 @@
 			},
 		},
 
-		created() {},
+		mounted() {
+			this.$forceUpdate();
+		},
 
 		methods: {
 			dateFormat(timestamp) {

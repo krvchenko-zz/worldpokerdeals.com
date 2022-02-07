@@ -328,6 +328,7 @@
 			auth: false,
 			register: false,
 			reset: false,
+			ready: false,
 			room: {
 				title: '',
 				slug: '',
@@ -419,8 +420,13 @@
 				this.blacklistModal = event
 			})
 
-			this.setScreenSize()
-				window.addEventListener('resize', () => {
+			document.onreadystatechange = () => {
+				if (document.readyState === 'complete') {
+					this.setScreenSize()
+				}
+			}
+
+			window.addEventListener('resize', () => {
 				this.setScreenSize()
 			})
 		},

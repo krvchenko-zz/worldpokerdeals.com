@@ -35,7 +35,6 @@ export default {
 		beforeEnter (el) {
 			document.getElementById('preloader-container').style.display = 'block'
 		},
-
 		afterLeave(el) {
 			setTimeout(() => {
 				document.getElementById('preloader-container').style.display = 'none'
@@ -50,6 +49,11 @@ export default {
 		mode: '',
 		beforeEnter (el) {
 
+		},
+		afterLeave(el) {
+			setTimeout(() => {
+				document.getElementById('preloader-container').style.display = 'none'
+			}, 500)
 		}
 	},
 
@@ -80,7 +84,7 @@ export default {
 	modules: [
 		'@nuxtjs/router',
 		'@nuxtjs/svg',
-		'@nuxtjs/device',
+		// '@nuxtjs/device',
 		'@nuxtjs/axios',
 		'@nuxtjs/style-resources',
 		// '@nuxt/image',

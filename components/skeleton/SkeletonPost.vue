@@ -153,6 +153,7 @@
 		}
 		&__img {
 			border-radius: 4px;
+			max-width: 100%;
 			width: 327px;
 			height: 181px; 
 			&_m {
