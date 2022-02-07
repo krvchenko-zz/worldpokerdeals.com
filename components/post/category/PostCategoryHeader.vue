@@ -47,7 +47,7 @@
 </script>
 
 <style lang="scss">
-	$post-category-bg: url('~assets/i/post-category-bg.jpg');
+	$post-category-bg: url('~assets/i/post-category-bg.webp');
 
 	.post-category {
 		&-header {

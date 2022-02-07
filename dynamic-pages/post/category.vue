@@ -45,9 +45,9 @@
 			</div>
 
 			<pagination
-				v-if="posts"
+				v-if="posts && posts.length"
 				:last="last_page"
-				:current="current_page || page"
+				:current="current_page"
 				:prev-url="prev_page_url"
 				:next-url="next_page_url"
 				:total="total"
@@ -61,8 +61,7 @@
 				@change="handlePageChange"
 				@more="handleShowMore"
 				class="post-category__pagination"
-			>
-			</pagination>
+			/>
 
 			<aside v-if="important" class="post-category__aside aside">
 				<div class="blog-subscribe">
@@ -183,10 +182,6 @@
 					post_category_id: this.category_id,
 				}
 			},
-
-			title() {
-				return `${this.$t('poker_news')} ${this.$route.params.page ? this.$t('page_number', { page: this.$route.params.page }) : ''}`
-			},
 		},
 
 		async fetch() {
@@ -228,7 +223,6 @@
 
 		methods: {
 			handleFilter(id, slug) {
-				this.cached = null
 				if (slug) {
 					return this.$router.push({
 						path: '/blog',
@@ -245,31 +239,26 @@
 			},
 
 			handlePageNext() {
-				this.cached = null
 				this.page = this.current_page + 1
 				this.$fetch()
 			},
 
 			handlePagePrev() {
-				this.cached = null
 				this.page = this.current_page - 1
 				this.$fetch()
 			},
 
 			handlePageChange(number) {
-				this.cached = null
 				this.page = number
 				this.$fetch()
 			},
 
 			handleShowMore() {
-				this.cached = null
 				this.per_page = parseInt(this.per_page) + 6
 				this.$fetch()
 			},
 
 			handleSortChange(order) {
-				this.cached = null
 				this.sort = order
 				this.$fetch()
 			},
