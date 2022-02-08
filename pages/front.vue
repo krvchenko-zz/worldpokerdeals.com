@@ -1,15 +1,8 @@
 <template>
 	<section :class="['content']">
-		<!-- <div class="front content-layout"> -->
-		<lazy-hydrate when-visible>
-			<front-top />
-		</lazy-hydrate>
-		<lazy-hydrate when-visible>
-			<front-posts />
-		</lazy-hydrate>
-		<lazy-hydrate when-visible>
-			<front-posts-featured />
-		</lazy-hydrate>
+		<front-top />
+		<front-posts />
+		<front-posts-featured />
 		<lazy-hydrate when-visible>
 			<front-rooms />
 		</lazy-hydrate>
@@ -53,6 +46,10 @@
 		computed: {
 			...mapGetters({
 				topList: 'rooms/topList',
+				isTablet: 'ui/isTablet',
+				isMobile: 'ui/isMobile',
+				isDesktop: 'ui/isDesktop',
+				isReady: 'ui/isReady',
 			}),
 		},
 

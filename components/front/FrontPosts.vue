@@ -88,6 +88,9 @@
 				page: 'pages/page',
 				posts: 'front/posts',
 				categories: 'front/post_categories',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
+				isDesktop: 'ui/isDesktop',
 			}),
 		},
 

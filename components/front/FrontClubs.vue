@@ -96,6 +96,9 @@
 				geo: 'location/code',
 				clubs: 'front/clubs',
 				categories: 'front/club_categories',
+				isMobile: 'ui/isMobile',
+				isTablet: 'ui/isTablet',
+				isDesktop: 'ui/isDesktop',
 			}),
 		},
 

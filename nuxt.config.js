@@ -84,7 +84,7 @@ export default {
 	modules: [
 		'@nuxtjs/router',
 		'@nuxtjs/svg',
-		// '@nuxtjs/device',
+		'@nuxtjs/device',
 		'@nuxtjs/axios',
 		'@nuxtjs/style-resources',
 		// '@nuxt/image',

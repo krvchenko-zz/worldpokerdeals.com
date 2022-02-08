@@ -1,10 +1,12 @@
 <template>
 	<div class="page">
-		<div id="preloader-container" :style="{
-			display: 'none',
-		}">
-			<div id="preloader"></div>
-		</div>
+		<client-only>
+			<div id="preloader-container" :style="{
+				display: 'none',
+			}">
+				<div id="preloader"></div>
+			</div>
+		</client-only>
 		<!-- Disclaimer -->
 		<client-only>
 			<page-disclaimer v-if="!disclaimer && locale === 'ru'" />
@@ -20,259 +22,243 @@
 			<page-footer />
 		</lazy-hydrate>
 		<!-- Black list modal -->
-		<lazy-hydrate when-visible>
-			<transition name="fade">
-				<lazy-modal
-					v-if="blacklistModal"
-					:show.sync="blacklistModal"
-					header-bg="#FF4151"
-					close-color="white"
-					:width="680"
-				>
-					<template #header>
-						<div class="modal-header__wrap">
-							<svg-icon
-								class="modal-header__icon"
-								:width="86"
-								:height="75"
-								style="flex: 0 0 86px"
-								icon="blacklist-modal"
-							/>
-							<div class="modal-header__info">
-								<span
-									class="modal-header__title"
-									:style="{
-										color: '#FFFFFF',
-										fontSize: '24px',
-										lineHeight: '28px',
-										marginBottom: '4px',
-									}"
-									>{{ $t('blacklist_modal.title', {room: room.title}) }}</span
-								>
-								<div
-									class="modal-header__description"
-									:style="{
-										color: '#FFFFFF',
-										fontSize: '16px',
-										lineHeight: '20px',
-										fontFamily: 'Proxima Nova Sb',
-									}"
-									v-html="$t('blacklist_modal.text')"
-								>
-								</div>
-							</div>
-						</div>
-					</template>
-					<template #body>
-						<lazy-blacklist-form />
-					</template>
-				</lazy-modal>
-			</transition>
-		</lazy-hydrate>
-		<!-- Connection modal -->
-		<lazy-hydrate when-visible>
-			<transition name="fade">
-				<lazy-modal
-					v-if="connectionModal"
-					:show.sync="connectionModal"
-					:width="970"
-				>
-					<template #header>
-						<div class="modal-header__wrap">
-							<svg-icon
-								class="modal-header__icon"
-								:width="76"
-								:height="76"
-								:icon="room.slug"
-								:image="true"
-								view-box="0 0 200 200"
-							/>
-							<div class="modal-header__info">
-								<span class="modal-header__title" v-html="$t('connection_modal.title', {room: room.title})"></span>
-								<div class="modal-header__description" v-html="$t('connection_modal.text')"></div>
-							</div>
-						</div>
-					</template>
-					<template #body>
-						<div class="modal-body__connection">
-							<div class="modal-body__credentials">
-								<lazy-connection-form @submit="handleConnectionForm" />
-							</div>
-							<div class="modal-body__auth">
-								<transition name="flip">
-									<lazy-auth-form v-if="!user && auth" class="connection-auth" />
-									<lazy-register-form
-										v-if="!user && register"
-										connection
-										class="connection-auth"
-									/>
-									<lazy-user-profile v-if="user" />
-								</transition>
-							</div>
-						</div>
-					</template>
-				</lazy-modal>
-			</transition>
-		</lazy-hydrate>
-		<!-- Complete modal -->
-		<lazy-hydrate when-visible>
-			<transition name="fade">
-				<lazy-modal
-					v-if="completeModal"
-					:show.sync="completeModal"
-					:width="686"
-					header-bg="linear-gradient(0deg, #70AC30, #70AC30), linear-gradient(180deg, #20222C 0%, #2B2E3B 67.71%)"
-				>
-					<template #header>
-						<div
-							:style="{
-								marginBottom: '25px',
-								textAlign: 'center',
-							}"
-						>
-							<svg-icon icon="connection-complete" />
-						</div>
-						<div
-							:style="{
-								fontFamily: 'Proxima Nova',
-								fontWeight: 'bold',
-								fontSize: '32px',
-								lineHeight: '38px',
-								textAlign: 'center',
-								color: '#FFFFFF',
-							}"
-						>
-							{{ $t('connection_modal.confirm_title') }}
-						</div>
-					</template>
-					<template #body>
-						<div
-							:style="{
-								marginBottom: '30px',
-								fontFamily: 'Proxima Nova',
-								fontSize: '20px',
-								lineHeight: '26px',
-								textAlign: 'center',
-								color: '#000000',
-							}"
-						>
-							{{ $t('connection_modal.confirm_info') }}
-						</div>
-
-						<div
-							:style="{
-								textAlign: 'center',
-							}"
-						>
-							<button
-								class="btn"
+		<transition name="fade">
+			<lazy-modal
+				v-if="blacklistModal"
+				:show.sync="blacklistModal"
+				header-bg="#FF4151"
+				close-color="white"
+				:width="680"
+			>
+				<template #header>
+					<div class="modal-header__wrap">
+						<svg-icon
+							class="modal-header__icon"
+							:width="86"
+							:height="75"
+							style="flex: 0 0 86px"
+							icon="blacklist-modal"
+						/>
+						<div class="modal-header__info">
+							<span
+								class="modal-header__title"
 								:style="{
-									padding: '10px 30px',
-									fontFamily: 'Proxima Nova Sb',
-									fontStyle: 'normal',
+									color: '#FFFFFF',
+									fontSize: '24px',
+									lineHeight: '28px',
+									marginBottom: '4px',
+								}"
+								>{{ $t('blacklist_modal.title', {room: room.title}) }}</span
+							>
+							<div
+								class="modal-header__description"
+								:style="{
+									color: '#FFFFFF',
 									fontSize: '16px',
 									lineHeight: '20px',
-									color: '#70AC30',
-									background: 'transparent',
-									border: '1px solid #70AC30',
+									fontFamily: 'Proxima Nova Sb',
 								}"
-								@click="completeModalShow = false"
+								v-html="$t('blacklist_modal.text')"
 							>
-								{{ $t('close') }}
-							</button>
+							</div>
 						</div>
-					</template>
-				</lazy-modal>
-			</transition>
-		</lazy-hydrate>
-		<!-- How we rate modal -->
-		<lazy-hydrate when-visible>
-			<transition name="fade">
-				<lazy-modal
-					v-if="ratesModal"
-					:show.sync="ratesModal"
-					:width="970"
-					header-bg="#FFFFFF"
-				>
-					<template #header>
-						<div
+					</div>
+				</template>
+				<template #body>
+					<lazy-blacklist-form />
+				</template>
+			</lazy-modal>
+		</transition>
+		<!-- Connection modal -->
+		<transition name="fade">
+			<lazy-modal
+				v-if="connectionModal"
+				:show.sync="connectionModal"
+				:width="970"
+			>
+				<template #header>
+					<div class="modal-header__wrap">
+						<svg-icon
+							class="modal-header__icon"
+							:width="76"
+							:height="76"
+							:icon="room.slug"
+							:image="true"
+							view-box="0 0 200 200"
+						/>
+						<div class="modal-header__info">
+							<span class="modal-header__title" v-html="$t('connection_modal.title', {room: room.title})"></span>
+							<div class="modal-header__description" v-html="$t('connection_modal.text')"></div>
+						</div>
+					</div>
+				</template>
+				<template #body>
+					<div class="modal-body__connection">
+						<div class="modal-body__credentials">
+							<lazy-connection-form @submit="handleConnectionForm" />
+						</div>
+						<div class="modal-body__auth">
+							<transition name="flip">
+								<lazy-auth-form v-if="!user && auth" class="connection-auth" />
+								<lazy-register-form
+									v-if="!user && register"
+									connection
+									class="connection-auth"
+								/>
+								<lazy-user-profile v-if="user" />
+							</transition>
+						</div>
+					</div>
+				</template>
+			</lazy-modal>
+		</transition>
+		<!-- Complete modal -->
+		<transition name="fade">
+			<lazy-modal
+				v-if="completeModal"
+				:show.sync="completeModal"
+				:width="686"
+				header-bg="linear-gradient(0deg, #70AC30, #70AC30), linear-gradient(180deg, #20222C 0%, #2B2E3B 67.71%)"
+			>
+				<template #header>
+					<div
+						:style="{
+							marginBottom: '25px',
+							textAlign: 'center',
+						}"
+					>
+						<svg-icon icon="connection-complete" />
+					</div>
+					<div
+						:style="{
+							fontFamily: 'Proxima Nova',
+							fontWeight: 'bold',
+							fontSize: '32px',
+							lineHeight: '38px',
+							textAlign: 'center',
+							color: '#FFFFFF',
+						}"
+					>
+						{{ $t('connection_modal.confirm_title') }}
+					</div>
+				</template>
+				<template #body>
+					<div
+						:style="{
+							marginBottom: '30px',
+							fontFamily: 'Proxima Nova',
+							fontSize: '20px',
+							lineHeight: '26px',
+							textAlign: 'center',
+							color: '#000000',
+						}"
+					>
+						{{ $t('connection_modal.confirm_info') }}
+					</div>
+
+					<div
+						:style="{
+							textAlign: 'center',
+						}"
+					>
+						<button
+							class="btn"
 							:style="{
-								fontFamily: 'Proxima Nova',
-								fontWeight: 'bold',
+								padding: '10px 30px',
+								fontFamily: 'Proxima Nova Sb',
 								fontStyle: 'normal',
-								fontSize: '32px',
-								lineHeight: '38px',
-								textAlign: 'center',
-								color: '#222222',
+								fontSize: '16px',
+								lineHeight: '20px',
+								color: '#70AC30',
+								background: 'transparent',
+								border: '1px solid #70AC30',
 							}"
+							@click="completeModalShow = false"
 						>
-							{{ $t('how_we_rate.title') }}
-						</div>
-					</template>
-					<template #body>
-						<lazy-modal-rates />
-					</template>
-				</lazy-modal>
-			</transition>
-		</lazy-hydrate>
+							{{ $t('close') }}
+						</button>
+					</div>
+				</template>
+			</lazy-modal>
+		</transition>
+		<!-- How we rate modal -->
+		<transition name="fade">
+			<lazy-modal
+				v-if="ratesModal"
+				:show.sync="ratesModal"
+				:width="970"
+				header-bg="#FFFFFF"
+			>
+				<template #header>
+					<div
+						:style="{
+							fontFamily: 'Proxima Nova',
+							fontWeight: 'bold',
+							fontStyle: 'normal',
+							fontSize: '32px',
+							lineHeight: '38px',
+							textAlign: 'center',
+							color: '#222222',
+						}"
+					>
+						{{ $t('how_we_rate.title') }}
+					</div>
+				</template>
+				<template #body>
+					<lazy-modal-rates />
+				</template>
+			</lazy-modal>
+		</transition>
 		<!-- Auth modal -->
-		<lazy-hydrate when-visible>
-			<transition name="fade">
-				<lazy-modal
-					v-if="authModal"
-					:show.sync="authModal"
-					:width="444"
-					header-bg="#2E87C8"
-					close-color="white"
-				>
-					<template #header>
-						<span
-							class="modal-header__title"
-							:style="{
-								color: '#FFFFFF',
-								fontSize: '22px',
-								lineHeight: '28px',
-							}"
-							v-html="
-								auth ? $t('form.sign_in_text') : $t('form.password_reset_text')
-							"
-						>
-						</span>
-					</template>
-					<template #body>
-						<lazy-auth-form v-if="auth" modal />
-						<lazy-reset-form v-if="reset" modal />
-					</template>
-				</lazy-modal>
-			</transition>
-		</lazy-hydrate>
+		<transition name="fade">
+			<lazy-modal
+				v-if="authModal"
+				:show.sync="authModal"
+				:width="444"
+				header-bg="#2E87C8"
+				close-color="white"
+			>
+				<template #header>
+					<span
+						class="modal-header__title"
+						:style="{
+							color: '#FFFFFF',
+							fontSize: '22px',
+							lineHeight: '28px',
+						}"
+						v-html="
+							auth ? $t('form.sign_in_text') : $t('form.password_reset_text')
+						"
+					>
+					</span>
+				</template>
+				<template #body>
+					<lazy-auth-form v-if="auth" modal />
+					<lazy-reset-form v-if="reset" modal />
+				</template>
+			</lazy-modal>
+		</transition>
 		<!-- Age confirm modal -->
-		<lazy-hydrate when-visible>
-			<transition name="fade">
-				<lazy-modal
-					v-if="age === 'false' || !age"
-					:show="age === 'false' || !age"
-					:show-close="false"
-					:width="530"
-					header-bg="#FFFFFF"
-				>
-					<template #body>
-						<age-form />
-					</template>
-				</lazy-modal>
-			</transition>
-		</lazy-hydrate>
+		<transition name="fade">
+			<lazy-modal
+				v-if="age === 'false' || !age"
+				:show="age === 'false' || !age"
+				:show-close="false"
+				:width="530"
+				header-bg="#FFFFFF"
+			>
+				<template #body>
+					<age-form />
+				</template>
+			</lazy-modal>
+		</transition>
 		<!-- Go top -->
 		<client-only v-if="!isMobile" name="fade">
-			<lazy-hydrate when-visible>
-				<page-top />
-			</lazy-hydrate>
+			<page-top />
 		</client-only>
 		<!-- Cookie Policy -->
 		<client-only v-if="(cookie === 'false' || !cookie) && locale !== 'ru'">
-			<lazy-hydrate when-visible>
-				<cookie-policy />
-			</lazy-hydrate>
+			<cookie-policy />
 		</client-only>
 	</div>
 </template>
@@ -418,8 +404,6 @@
 			eventBus.$on('blacklistModal:show', event => {
 				this.blacklistModal = event
 			})
-
-			// this.setScreenSize()
 
 			document.onreadystatechange = () => {
 				if (document.readyState === 'complete') {

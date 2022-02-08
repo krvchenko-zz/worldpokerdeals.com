@@ -1,41 +1,34 @@
 <template>
-	<client-only>
-		<lazy-hydrate when-visible>
-			<component
-				v-if="!image"
-				:is="component"
-				v-svg="{
-					width: width,
-					height: height,
-					fill: fill,
-					opacity: opacity,
-					removeClipPath: removeClipPath,
-					viewBox: viewBox,
-				}"
-				class="svg-icon"
-			/>
-			<img 
-				v-else
-				ref="img"
-				:src="src"
-				:width="width"
-				:height="height"
-				:alt="icon"
-				decoding="async"
-				loading="lazy"
-				class="svg-icon"
-			>
-		</lazy-hydrate>
-	</client-only>
+	<component
+		v-if="!image"
+		:is="component"
+		v-svg="{
+			width: width,
+			height: height,
+			fill: fill,
+			opacity: opacity,
+			removeClipPath: removeClipPath,
+			viewBox: viewBox,
+		}"
+		class="svg-icon"
+	/>
+	<img 
+		v-else
+		ref="img"
+		:src="src"
+		:width="width"
+		:height="height"
+		:alt="icon"
+		decoding="async"
+		loading="lazy"
+		class="svg-icon"
+	>
 </template>
 <script>
-	import LazyHydrate from 'vue-lazy-hydration'
 	export default {
 		name: 'SvgIcon',
 
-		components: {
-			LazyHydrate,
-		},
+		components: {},
 
 		props: {
 			icon: {

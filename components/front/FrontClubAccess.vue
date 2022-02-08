@@ -57,6 +57,7 @@
 		// }
 
 		&__wrap {
+			width: 100%;
 			padding: 52px 28px 28px 28px;
 			display: block;
 			position: absolute;
