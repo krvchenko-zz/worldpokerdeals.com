@@ -80,21 +80,23 @@
 					/>
 				</post-list>
 
-				<post-list v-if="recent" :asRow="isTablet" class="posts_recent">
-					<post-item
-						v-for="(item, index) in recent"
-						:key="index"
-						:image="item.image"
-						:title="item.page.title"
-						:summary="item.page.summary"
-						:slug="item.page.slug"
-						:author="item.page.author"
-						:created="item.page.created_at"
-						:categories="item.categories"
-						:medium="true"
-						:asCard="isMobile"
-					></post-item>
-				</post-list>
+				<lazy-hydrate when-visible>
+					<post-list v-if="recent" :asRow="isTablet" class="posts_recent">
+						<post-item
+							v-for="(item, index) in recent"
+							:key="index"
+							:image="item.image"
+							:title="item.page.title"
+							:summary="item.page.summary"
+							:slug="item.page.slug"
+							:author="item.page.author"
+							:created="item.page.created_at"
+							:categories="item.categories"
+							:medium="true"
+							:asCard="isMobile"
+						></post-item>
+					</post-list>
+				</lazy-hydrate>
 			</aside>
 		</div>
 
