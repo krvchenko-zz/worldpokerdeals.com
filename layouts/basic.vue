@@ -419,7 +419,7 @@
 				this.blacklistModal = event
 			})
 
-			this.setScreenSize()
+			// this.setScreenSize()
 
 			document.onreadystatechange = () => {
 				if (document.readyState === 'complete') {

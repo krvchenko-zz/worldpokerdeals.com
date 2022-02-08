@@ -99,6 +99,7 @@
 		</div>
 
 		<post-list
+			v-if="related"
 			class="posts_related"
 			:label="$t('posts_related')"
 			:asRow="isDesktop || isTablet"
