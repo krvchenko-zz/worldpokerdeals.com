@@ -107,7 +107,7 @@
 					:total="total"
 					:from="from"
 					:to="to"
-					:load-more-width="isMobile ? null : 215"
+					:load-more-width="$device.isMobile ? null : 215"
 					:showPages="false"
 					:load-more-text="$t('show_more')"
 					:total-text="$t('rooms_entity_label')"
