@@ -328,7 +328,6 @@
 			auth: false,
 			register: false,
 			reset: false,
-			ready: false,
 			room: {
 				title: '',
 				slug: '',
@@ -419,6 +418,8 @@
 			eventBus.$on('blacklistModal:show', event => {
 				this.blacklistModal = event
 			})
+
+			this.setScreenSize()
 
 			document.onreadystatechange = () => {
 				if (document.readyState === 'complete') {

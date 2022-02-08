@@ -98,28 +98,25 @@
 			</aside>
 		</div>
 
-		<lazy-hydrate when-visible>
-			<post-list
-				v-if="related"
-				class="posts_related"
-				:label="$t('posts_related')"
-				:asRow="isDesktop || isTablet"
-			>
-				<post-item
-					v-for="(item, index) in related"
-					:key="index"
-					:image="item.image"
-					:title="item.page.title"
-					:summary="item.page.summary"
-					:slug="item.page.slug"
-					:author="item.page.author"
-					:created="item.page.created_at"
-					:categories="item.categories"
-					:medium="true"
-					:asCard="isMobile"
-				/>
-			</post-list>
-		</lazy-hydrate>
+		<post-list
+			class="posts_related"
+			:label="$t('posts_related')"
+			:asRow="isDesktop || isTablet"
+		>
+			<post-item
+				v-for="(item, index) in related"
+				:key="index"
+				:image="item.image"
+				:title="item.page.title"
+				:summary="item.page.summary"
+				:slug="item.page.slug"
+				:author="item.page.author"
+				:created="item.page.created_at"
+				:categories="item.categories"
+				:medium="true"
+				:asCard="isMobile"
+			/>
+		</post-list>
 	</div>
 </template>
 
@@ -158,6 +155,7 @@
 				isTablet: 'ui/isTablet',
 				isMobile: 'ui/isMobile',
 				isDesktop: 'ui/isDesktop',
+				isReady: 'ui/isReady',
 			}),
 
 			ogImage() {

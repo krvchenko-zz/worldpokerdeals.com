@@ -41,11 +41,11 @@
 						/>
 					</div>
 					<div class="best-room__action">
-						<a
+						<span
 							:class="['btn', 'btn-block', 'btn-border', 'best-room__review']"
 							:href="href"
 							@click="navigate"
-							>{{ $t('review') }}</a
+							>{{ $t('review') }}</span
 						>
 					</div>
 				</a>

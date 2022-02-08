@@ -7,6 +7,7 @@ export const state = () => ({
 
 // getters
 export const getters = {
+	isReady: state => state.isMobile || state.isTablet || state.isDesktop,
 	isTouch: state => state.isMobile || state.isTablet,
 	isMobile: state => state.isMobile,
 	isTablet: state => state.isTablet,

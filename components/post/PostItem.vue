@@ -174,10 +174,6 @@
 			},
 		},
 
-		mounted() {
-			this.$forceUpdate();
-		},
-
 		methods: {
 			dateFormat(timestamp) {
 				let date = new Date(timestamp)

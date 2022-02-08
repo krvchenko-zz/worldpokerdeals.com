@@ -50,8 +50,6 @@
 
 		watch: {},
 
-		created() {},
-
 		methods: {},
 	}
 </script>
