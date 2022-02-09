@@ -96,6 +96,7 @@
 		props: {},
 
 		data: () => ({
+			carouselLoaded: false,
 			category_id: null,
 		}),
 
