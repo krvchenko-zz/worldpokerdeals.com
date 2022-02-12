@@ -83,7 +83,7 @@
 				</lazy-hydrate>
 
 				<lazy-hydrate when-visible>
-					<post-list v-if="recent" :asRow="$device.isTablet" class="posts_recent">
+					<post-list v-if="recent" :asRow="$device.isTablet || isTablet || isMobile" class="posts_recent">
 						<post-item
 							v-for="(item, index) in recent"
 							:key="index"

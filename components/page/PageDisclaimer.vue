@@ -1,30 +1,24 @@
 <template>
 	<div class="page-disclaimer">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-10">
-					<nuxt-link
-						v-slot="{ href, navigate }"
-						prefetch
-						:to="{ name: 'terms' }"
-					>
-						<p>
-							Внимание! Пожалуйста, ознакомьтесь с настоящим
-							<a :href="href" @click="navigate">пользовательским соглашением</a>
-							до начала использования сайта ru.worldpokerdeals.com и его
-							программных средств. Данный сайт не является площадкой для
-							проведения азартных игр. Вся информация, размещенная на сайте,
-							носит ознакомительный характер.
-						</p>
-					</nuxt-link>
-				</div>
-				<div class="col-2">
-					<span
-						:class="['page-disclaimer__close', 'page-disclaimer__close_gray']"
-						@click="handleClose"
-					></span>
-				</div>
-			</div>
+		<div class="page-disclaimer__wrap">
+			<nuxt-link
+				v-slot="{ href, navigate }"
+				prefetch
+				:to="{ name: 'terms' }"
+			>
+				<p>
+					Внимание! Пожалуйста, ознакомьтесь с настоящим
+					<a :href="href" @click="navigate">пользовательским соглашением</a>
+					до начала использования сайта ru.worldpokerdeals.com и его
+					программных средств. Данный сайт не является площадкой для
+					проведения азартных игр. Вся информация, размещенная на сайте,
+					носит ознакомительный характер.
+				</p>
+			</nuxt-link>
+			<span
+				:class="['page-disclaimer__close', 'page-disclaimer__close_gray']"
+				@click="handleClose"
+			></span>
 		</div>
 	</div>
 </template>
@@ -63,25 +57,31 @@
 
 <style lang="scss">
 	.page-disclaimer {
-		padding: 22px 0;
 		background: #fafafa;
 		font-family: Proxima Nova;
 		font-size: 14px;
 		line-height: 17px;
 		color: #555555;
+		&__wrap {
+			padding: 22px 40px 22px 26px;
+			position: relative;
+			max-width: 1440px;
+			margin: 0 auto;
+		}
 		p {
 			margin: 0;
 		}
 
 		&__close {
 			cursor: pointer;
-			position: relative;
+			position: absolute;
 			display: block;
 			float: right;
 			width: 20px;
 			height: 20px;
 			padding: 18px;
-			top: -8px;
+			top: 14px;
+			right: 0;
 
 			&:before,
 			&:after {
