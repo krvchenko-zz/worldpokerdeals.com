@@ -65,40 +65,36 @@
 			<aside class="article-container__aside-content">
 				<room-top-list />
 
-				<lazy-hydrate when-visible>
-					<post-list :label="$t('blog_important')" featured>
-						<post-item
-							v-for="item in important"
-							:key="item.id"
-							:medium="false"
-							:image="item.image"
-							:title="item.page.title"
-							:summary="item.page.summary"
-							:slug="item.page.slug"
-							:author="item.page.author"
-							:created="item.page.created_at"
-							:categories="item.categories"
-						/>
-					</post-list>
-				</lazy-hydrate>
+				<post-list :label="$t('blog_important')" featured>
+					<post-item
+						v-for="item in important"
+						:key="item.id"
+						:medium="false"
+						:image="item.image"
+						:title="item.page.title"
+						:summary="item.page.summary"
+						:slug="item.page.slug"
+						:author="item.page.author"
+						:created="item.page.created_at"
+						:categories="item.categories"
+					/>
+				</post-list>
 
-				<lazy-hydrate when-visible>
-					<post-list v-if="recent" :asRow="$device.isTablet || isTablet || isMobile" class="posts_recent">
-						<post-item
-							v-for="(item, index) in recent"
-							:key="index"
-							:image="item.image"
-							:title="item.page.title"
-							:summary="item.page.summary"
-							:slug="item.page.slug"
-							:author="item.page.author"
-							:created="item.page.created_at"
-							:categories="item.categories"
-							:medium="true"
-							:asCard="$device.isMobile"
-						></post-item>
-					</post-list>
-				</lazy-hydrate>
+				<post-list v-if="recent" :asRow="$device.isTablet || isTablet" class="posts_recent">
+					<post-item
+						v-for="(item, index) in recent"
+						:key="index"
+						:image="item.image"
+						:title="item.page.title"
+						:summary="item.page.summary"
+						:slug="item.page.slug"
+						:author="item.page.author"
+						:created="item.page.created_at"
+						:categories="item.categories"
+						:medium="true"
+						:asCard="$device.isMobile || isMobile"
+					></post-item>
+				</post-list>
 			</aside>
 		</div>
 

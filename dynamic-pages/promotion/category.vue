@@ -124,7 +124,13 @@
 
 				<!-- List -->
 				<template v-if="category.entity === 'promotion'">
-					<promotion-list v-if="!loading && data.length" class="promotions__list">
+					<promotion-list v-if="$fetchState.pending" class="promotions__list">
+						<skeleton-promotion
+							v-for="(item, index) in parseInt(per_page)"
+							:key="index"
+						/>
+					</promotion-list>
+					<promotion-list v-else class="promotions__list">
 						<promotion-item
 							v-for="(item, index) in data"
 							:key="index"
@@ -142,8 +148,9 @@
 							:currency="item.currency ? item.currency.symbol : ''"
 							:exclusive="item.exclusive"
 							:active="item.active"
-						></promotion-item>
+						/>
 					</promotion-list>
+
 				</template>
 
 				<template v-else>
@@ -151,6 +158,7 @@
 						v-if="!loading && data.length"
 						class="promotions__bonus-list"
 					>
+						<skeleton-bonus />
 						<bonus-item
 							v-for="(item, index) in data"
 							:key="index"
@@ -394,7 +402,10 @@
 				})
 				.then(response => {
 					this.$store.commit('promotions/FETCH_CATEGORY', {
-						category: response.data,
+						category: response.data.category,
+					})
+					this.$store.commit('promotions/FETCH_CATEGORIES', {
+						categories: response.data.categories,
 					})
 				})
 
@@ -416,12 +427,6 @@
 						}
 					})
 				})
-
-			await this.$axios.get(`promotion/category/list`).then(response => {
-				this.$store.commit('promotions/FETCH_CATEGORIES', {
-					categories: response.data,
-				})
-			})
 		},
 
 		watch: {},
@@ -495,7 +500,6 @@
 			handlePageChange(number) {
 				this.page = number
 				this.fetchItems()
-				// history.replaceState({}, null, `${this.$route.path}/page/${number}`)
 			},
 
 			handleShowMore() {

@@ -357,6 +357,10 @@
 				column-gap: 20px;
 				row-gap: 0;
 			}
+
+			&__pagination {
+				margin-bottom: 40px;
+			}
 		}
 
 		.blog-subscribe {
