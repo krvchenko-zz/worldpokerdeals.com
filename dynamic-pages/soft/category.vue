@@ -19,7 +19,7 @@
 			</nav-item>
 		</nav-list>
 
-		<div class="soft-list" v-if="items && data.length">
+		<div class="soft-list">
 			<client-only>
 				<filter-header
 					:geo.sync="geo"
@@ -30,8 +30,8 @@
 					:sort-options="sortOptions"
 					:selected="selected.length"
 					:entity-label="$t('soft_entity_label')"
-					@update:sort="fetchItems"
-					@update:geo="fetchItems"
+					@update:sort="handleSortChange"
+					@update:geo="handleGeoChange"
 				/>
 
 				<filter-selected-list
@@ -54,7 +54,13 @@
 				</filter-selected-list>
 			</client-only>
 
-			<div class="soft-list__list">
+			<div v-if="$fetchState.pending" class="soft-list__list">
+				<skeleton-soft
+					v-for="(item, index) in parseInt(per_page)"
+					:key="index"
+				/>
+			</div>
+			<div v-else class="soft-list__list">
 				<soft-item
 					v-for="(item, index) in data"
 					:key="index"
@@ -278,11 +284,13 @@
 				.get(`soft/list`, { params: this.params })
 				.then(response => {
 					this.$store.commit('soft/FETCH_ITEMS', { items: response.data.data })
-					Object.keys(response.data).forEach(key => {
-						this[key] = response.data[key]
-					})
 					this.$store.commit('soft/FETCH_FILTERS', {
 						filters: response.data.filters,
+					})
+					Object.keys(response.data).forEach(key => {
+						if (key !== 'filters') {
+							this[key] = response.data[key]
+						}
 					})
 				})
 		},
@@ -300,55 +308,50 @@
 		},
 
 		methods: {
-			async fetchItems() {
-				this.$nuxt.$loading.start()
-
-				await this.$axios
-					.get(`soft/list`, { params: this.params })
-					.then(response => {
-						this.$store.commit('soft/FETCH_ITEMS', {
-							items: response.data.data,
-						})
-						Object.keys(response.data).forEach(key => {
-							this[key] = response.data[key]
-						})
-						this.$nuxt.$loading.finish()
-					})
-			},
-
 			handlePageNext() {
+				this.$nuxt.$loading.start()
 				this.page = this.current_page + 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePagePrev() {
+				this.$nuxt.$loading.start()
 				this.page = this.current_page - 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePageChange(number) {
+				this.$nuxt.$loading.start()
 				this.page = number
-				this.fetchItems()
-				// history.replaceState({}, null, `${this.$route.path}/page/${number}`)
+				this.$fetch()
 			},
 
 			handleShowMore() {
+				this.$nuxt.$loading.start()
 				this.per_page = parseInt(this.per_page) + 6
-				this.fetchItems()
+				this.$fetch()
 			},
 
-			handleSortChange(sort) {
-				this.sort = sort
-				this.fetchItems()
+			handleGeoChange() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handleSortChange() {
+				this.cached = null
+				this.$nuxt.$loading.start()
+				this.$fetch()
 			},
 
 			handleFilterChange(selected) {
+				this.$nuxt.$loading.start()
 				this.selected = selected.flatten
 
 				Object.keys(selected.values).forEach(key => {
 					this[key] = selected.values[key]
 				})
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			toggleMobileFilter() {
@@ -416,6 +419,7 @@
 		}
 		&__pagination {
 			margin-top: 28px;
+			margin-bottom: 40px;
 		}
 		&__list {
 			margin-top: 36px;

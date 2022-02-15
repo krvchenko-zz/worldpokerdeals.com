@@ -18,12 +18,6 @@
 		components: {
 			Promotion,
 			PromotionCategory,
-			// Promotion: () => import(
-			// 	'~/dynamic-pages/promotion/index'
-			// ),
-			// PromotionCategory: () => import(
-			// 	'~/dynamic-pages/promotion/category'
-			// ),
 
 			Network: () => import(
 				'~/dynamic-pages/network/index'

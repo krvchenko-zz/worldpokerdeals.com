@@ -60,6 +60,7 @@
 			background: $category-bg no-repeat center;
 			background-size: cover;
 			grid-area: header;
+			min-height: 180px;
 			&__wrap {
 				display: flex;
 				padding: 0;

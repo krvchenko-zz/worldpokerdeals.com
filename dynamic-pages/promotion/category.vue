@@ -100,8 +100,8 @@
 								$t('promotions_entity_label') :
 								$t('bonuses_entity_label')
 							"
-							@update:sort="fetchItems"
-							@update:geo="fetchItems"
+							@update:sort="handleSortChange"
+							@update:geo="handleGeoChange"
 						/>
 
 						<filter-selected-list v-if="selected.length">
@@ -451,14 +451,6 @@
 		},
 
 		methods: {
-			handleFilterChange(selected) {
-				this.selected = selected.flatten
-				Object.keys(selected.values).forEach(key => {
-					this[key] = selected.values[key]
-				})
-				this.$fetch()
-			},
-
 			toggleMobileFilter() {
 				document.body.classList.toggle('modal-open')
 				this.showFilter = !this.showFilter
@@ -471,52 +463,46 @@
 				}
 			},
 
-			async fetchItems() {
+			handleFilterChange(selected) {
 				this.$nuxt.$loading.start()
-
-				await this.$axios
-					.get(`promotion/list`, { params: this.params })
-					.then(response => {
-						this.$store.commit('promotions/FETCH_ITEMS', {
-							items: response.data.data,
-						})
-						this.$store.commit('rooms/FETCH_BEST', {
-							best: response.data.data[0].room,
-						})
-						this.$store.commit('promotions/FETCH_FILTERS', {
-							filters: response.data.filters,
-						})
-						Object.keys(response.data).forEach(key => {
-							if (key !== 'filters') {
-								this[key] = response.data[key]
-							}
-						})
-						this.$nuxt.$loading.finish()
-					})
+				this.selected = selected.flatten
+				Object.keys(selected.values).forEach(key => {
+					this[key] = selected.values[key]
+				})
+				this.$fetch()
 			},
 
 			handlePageNext() {
+				this.$nuxt.$loading.start()
 				this.page = this.current_page + 1
 				this.$fetch()
 			},
 
 			handlePagePrev() {
+				this.$nuxt.$loading.start()
 				this.page = this.current_page - 1
 				this.$fetch()
 			},
 
 			handlePageChange(number) {
+				this.$nuxt.$loading.start()
 				this.page = number
 				this.$fetch()
 			},
 
 			handleShowMore() {
+				this.$nuxt.$loading.start()
 				this.per_page = parseInt(this.per_page) + 6
 				this.$fetch()
 			},
 
-			handleSortChange(order) {
-				this.sort = order
+			handleGeoChange() {
+				this.$nuxt.$loading.start()
+				this.$fetch()
+			},
+
+			handleSortChange() {
+				this.$nuxt.$loading.start()
 				this.$fetch()
 			},
 		},
