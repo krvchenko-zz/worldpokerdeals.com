@@ -12,7 +12,7 @@
 
 		<div class="soft-header__header">
 			<div v-if="soft.category" class="soft-header__category">
-				{{ soft.category.title }}
+				{{ soft.category.page.name }}
 			</div>
 			<h1 class="soft__title">{{ pageable.title }}</h1>
 			<page-meta
