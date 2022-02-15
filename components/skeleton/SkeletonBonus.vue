@@ -15,7 +15,7 @@
 					<el-skeleton-item
 						class="skeleton-bonus__category"
 						variant="p"
-						style="width: 80%; height: 20px;"
+						style="width: 130px; height: 20px;"
 					/>
 
 					<el-skeleton-item
@@ -48,21 +48,19 @@
 
 				<div class="skeleton-bonus__buttons">
 					<el-skeleton-item
+						class="skeleton-bonus__code"
 						variant="p"
-						style="width: 130px;height: 46px;margin-right: 20px;"
 					/>
 
 					<el-skeleton-item
+						class="skeleton-bonus__get"
 						variant="p"
-						style="width: 120px;height: 46px;"
 					/>
 
-					<div class="skeleton-bonus__review">
-						<el-skeleton-item
-							variant="p"
-							style="width: 44px;height: 46px;"
-						/>
-					</div>
+					<el-skeleton-item
+						class="skeleton-bonus__review"
+						variant="p"
+					/>
 				</div>
 			</div>
 
@@ -246,11 +244,6 @@
 			border-radius: 100px;
 		}
 
-		&__review {
-			width: 44px;
-			margin-left: 20px;
-		}
-
 		&__terms {
 			margin-right: 40px;
 			padding-left: 26px;
@@ -259,14 +252,6 @@
 			cursor: pointer;
 			display: inline-block;
 			vertical-align: middle;
-			span {
-				border-bottom: 1px dashed #aaaaaa;
-			}
-			&:hover {
-				span {
-					border: none;
-				}
-			}
 			&-icon {
 				border-radius: 50%;
 				left: 0;
@@ -276,15 +261,29 @@
 				height: 16px;
 				display: block;
 			}
-
-			&--expanded &-icon {
-				transform: rotate(180deg);
-			}
 		}
 
 		&__avaliable {
 			display: inline-block;
 			vertical-align: middle;
+		}
+
+		&__code {
+			margin-right: 20px;
+			min-width: 130px;
+			width: 130px;
+			height: 46px;
+		}
+
+		&__get {
+			width: 120px;
+			height: 46px;
+		}
+
+		&__review {
+			width: 44px;
+			height: 46px;
+			margin-left: 20px;
 		}
 	}
 
@@ -359,6 +358,12 @@
 					height: 42px;
 				}
 			}
+
+			&__code {
+		    width: 100%;
+				margin-right: 0;
+				margin-bottom: 20px;
+			}
 		}
 	}
 
@@ -396,6 +401,20 @@
 					width: 40px;
 				}
 			}
+
+			&__code {
+				margin-bottom: 0;
+				height: 42px;
+			}
+
+			&__get {
+				width: auto;
+				height: 42px;
+			}
+
+			&__review {
+				height: 42px;
+			}
 		}
 	}
 
@@ -423,6 +442,9 @@
 			&__available {
 				display: flex;
 			}
+			// &__get {
+			// 	width: auto;
+			// }
 		}
 	}
 </style>

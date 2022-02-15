@@ -155,10 +155,18 @@
 
 				<template v-else>
 					<bonus-list
-						v-if="!loading && data.length"
+						v-if="$fetchState.pending"
 						class="promotions__bonus-list"
 					>
-						<!-- <skeleton-bonus /> -->
+						<skeleton-bonus
+							v-for="(item, index) in parseInt(per_page)"
+							:key="index"
+						/>
+					</bonus-list>
+					<bonus-list
+						v-else
+						class="promotions__bonus-list"
+					>
 						<bonus-item
 							v-for="(item, index) in data"
 							:key="index"
@@ -448,7 +456,7 @@
 				Object.keys(selected.values).forEach(key => {
 					this[key] = selected.values[key]
 				})
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			toggleMobileFilter() {
@@ -489,27 +497,27 @@
 
 			handlePageNext() {
 				this.page = this.current_page + 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePagePrev() {
 				this.page = this.current_page - 1
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handlePageChange(number) {
 				this.page = number
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handleShowMore() {
 				this.per_page = parseInt(this.per_page) + 6
-				this.fetchItems()
+				this.$fetch()
 			},
 
 			handleSortChange(order) {
 				this.sort = order
-				this.fetchItems()
+				this.$fetch()
 			},
 		},
 	}
@@ -564,6 +572,7 @@
 			column-gap: 28px;
 		}
 		&__pagination {
+			margin-bottom: 40px;
 			grid-area: pagination;
 		}
 		&__toc {
