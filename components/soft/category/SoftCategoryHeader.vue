@@ -49,7 +49,7 @@
 </script>
 
 <style lang="scss">
-	$category-bg: url('~assets/i/soft-category-bg.jpg');
+	$category-bg: url('~assets/i/soft-category-bg.webp');
 	.soft-category {
 		&-header {
 			width: calc(100% + 2 * 26px);
