@@ -2,26 +2,7 @@
 	<div class="soft-category">
 		<!-- Header -->
 
-		<category-header
-			class="soft-category__header"
-			:loading="$fetchState.pending"
-			:meta="false"
-			:paddings="false"
-			:summaryFs="17"
-			:summaryLh="22"
-			:promotion="false"
-			:title="pageable.title"
-			:author="pageable.author ? pageable.author.full_name : null"
-			:created="pageable.created_at"
-			:updated="pageable.updated_at"
-			:summary="pageable.summary"
-			:icon="pageable.pageable.icon"
-			background-url="soft-category-bg.jpg"
-		>
-			<template #breadcrumbs>
-				<breadcrumb-list v-if="pageable" :white="true" />
-			</template>
-		</category-header>
+		<soft-category-header />
 
 		<!-- Navigation -->
 		<nav-list
