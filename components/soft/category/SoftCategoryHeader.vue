@@ -119,7 +119,7 @@
 			@include paddings('mobile');
 		}
 		.soft-category__summary {
-			padding-bottom: 24px;
+			// padding-bottom: 24px;
 		}
 	}
 </style>

@@ -21,6 +21,8 @@
 					loading="lazy"
 					:src="img"
 					:alt="image.alt || `${title} logo`"
+					width="150px"
+					height="130px"
 				/>
 			</div>
 
