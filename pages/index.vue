@@ -11,14 +11,19 @@
 	import { mapGetters } from 'vuex'
 	import eventBus from '~/utils/event-bus'
 
+	import Promotion from '~/dynamic-pages/promotion/index'
+	import PromotionCategory from '~/dynamic-pages/promotion/category'
+
 	export default {
 		components: {
-			Promotion: () => import(
-				'~/dynamic-pages/promotion/index'
-			),
-			PromotionCategory: () => import(
-				'~/dynamic-pages/promotion/category'
-			),
+			Promotion,
+			PromotionCategory,
+			// Promotion: () => import(
+			// 	'~/dynamic-pages/promotion/index'
+			// ),
+			// PromotionCategory: () => import(
+			// 	'~/dynamic-pages/promotion/category'
+			// ),
 
 			Network: () => import(
 				'~/dynamic-pages/network/index'

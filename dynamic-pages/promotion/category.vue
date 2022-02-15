@@ -158,7 +158,7 @@
 						v-if="!loading && data.length"
 						class="promotions__bonus-list"
 					>
-						<skeleton-bonus />
+						<!-- <skeleton-bonus /> -->
 						<bonus-item
 							v-for="(item, index) in data"
 							:key="index"
