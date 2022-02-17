@@ -3,9 +3,9 @@
 		<front-top />
 		<front-posts />
 		<front-posts-featured />
-		<!-- <lazy-hydrate when-visible> -->
-		<front-rooms />
-		<!-- </lazy-hydrate> -->
+		<lazy-hydrate when-visible>
+			<front-rooms />
+		</lazy-hydrate>
 		<!-- <front-promotions /> -->
 		<lazy-hydrate when-visible>
 			<front-clubs />

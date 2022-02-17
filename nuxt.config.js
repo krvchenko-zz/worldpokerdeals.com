@@ -47,17 +47,7 @@ export default {
 		// mode: 'out-in',
 		name: '',
 		mode: '',
-		beforeEnter (el) {
-
-		},
-		afterLeave(el) {
-			setTimeout(() => {
-				document.getElementById('preloader-container').style.display = 'none'
-			}, 500)
-		}
 	},
-
-	// loading: '~/components/LoadingBar.vue',
 
 	router: {
 		middleware: ['locale', 'location', 'check-auth'],
@@ -77,8 +67,6 @@ export default {
 		'~/plugins/asyncComputed',
 		{ src: '~/plugins/glightbox', mode: 'client' },
 		{ src: '~/plugins/vue-carousel', mode: 'client' },
-		// { src: '~/plugins/vue-dragscroll', mode: 'client' },
-		// { src: '~/plugins/smoothscroll', mode: 'client' },
 	],
 
 	modules: [
@@ -87,7 +75,6 @@ export default {
 		'@nuxtjs/device',
 		'@nuxtjs/axios',
 		'@nuxtjs/style-resources',
-		// '@nuxt/image',
 		[
 			'@nuxtjs/recaptcha', {
 				hideBadge: true,

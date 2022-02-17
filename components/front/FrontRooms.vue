@@ -42,44 +42,46 @@
 			</filter-tab-list>
 
 			<div class="front-rooms__list">
-				<carousel
-					class="front-slider front-slider_rooms"
-					:style="{ margin: '0 -14px' }"
-					:navigation-enabled="false"
-					:per-page-custom="[
-						[0, 2],
-						[768, 3],
-						[1280, 5],
-					]"
-					:pagination-enabled="true"
-					:pagination-padding="0"
-					:pagination-size="6"
-					pagination-active-color="#CCCCCC"
-					navigation-next-label=""
-					navigation-prev-label=""
-					:navigation-click-target-size="0"
-				>
-					<slide v-for="(item, index) in items" :key="index">
-						<room-front-item
-							:id="item.id"
-							:title="item.title"
-							:slug="item.slug"
-							:url="item.url"
-							:closed="item.closed"
-							:available="item.available"
-							:isClub="item.is_club"
-							:isBlacklist="item.is_blacklist"
-							:summary="item.description_short"
-							:rating="item.rating"
-							:rakeback="item.rakeback"
-							:bonus="item.bonus"
-							:background="item.background"
-							:image="item.image"
-							:network="item.network"
-							:review="item.review"
-						/>
-					</slide>
-				</carousel>
+				<client-only>
+					<carousel
+						class="front-slider front-slider_rooms"
+						:style="{ margin: '0 -14px' }"
+						:navigation-enabled="false"
+						:per-page-custom="[
+							[0, 2],
+							[768, 3],
+							[1280, 5],
+						]"
+						:pagination-enabled="true"
+						:pagination-padding="0"
+						:pagination-size="6"
+						pagination-active-color="#CCCCCC"
+						navigation-next-label=""
+						navigation-prev-label=""
+						:navigation-click-target-size="0"
+					>
+						<slide v-for="(item, index) in items" :key="index">
+							<room-front-item
+								:id="item.id"
+								:title="item.title"
+								:slug="item.slug"
+								:url="item.url"
+								:closed="item.closed"
+								:available="item.available"
+								:isClub="item.is_club"
+								:isBlacklist="item.is_blacklist"
+								:summary="item.description_short"
+								:rating="item.rating"
+								:rakeback="item.rakeback"
+								:bonus="item.bonus"
+								:background="item.background"
+								:image="item.image"
+								:network="item.network"
+								:review="item.review"
+							/>
+						</slide>
+					</carousel>
+				</client-only>
 			</div>
 		</div>
 	</div>
